@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zipline2.UWP", "Zipline2\Zi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zipline2", "Zipline2\Zipline2\Zipline2.csproj", "{05272F1D-6B26-4599-A391-584ECCA03290}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared Library", "Shared Library", "{40283DBF-17CB-4839-BABD-4817BB660432}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platforms", "Platforms", "{FA756E24-9DC9-43D2-8433-C391756897CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
@@ -254,6 +258,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0A059356-89F1-4263-A682-BACED3208854} = {FA756E24-9DC9-43D2-8433-C391756897CA}
+		{AB1B1235-AC7F-4A83-BA33-1B17D33A5786} = {FA756E24-9DC9-43D2-8433-C391756897CA}
+		{F7895BE0-F53B-403D-8512-853F1C6A4A81} = {FA756E24-9DC9-43D2-8433-C391756897CA}
+		{05272F1D-6B26-4599-A391-584ECCA03290} = {40283DBF-17CB-4839-BABD-4817BB660432}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E74BB9C3-CF64-4B94-B135-7F80FF553EE4}
