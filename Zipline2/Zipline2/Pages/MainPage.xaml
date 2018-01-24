@@ -2,17 +2,33 @@
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:Zipline2.Pages;assembly=Zipline2"
-             x:Class="Zipline2.Pages.MainPage">
+             x:Class="Zipline2.Pages.MainPage"
+                Title="Login Page"
+                BackgroundColor="Gray">
 
     <ContentPage.Resources>
         
     </ContentPage.Resources>
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <On Platform="iOS" Value="0, 20, 0, 0" />
+        </OnPlatform>
+    </ContentPage.Padding>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Enter your PIN"
-                   FontSize="Medium"/>
-            <Entry Placeholder="Your PIN"/>
-            <Button Text="Log In"/>
+        <StackLayout Padding="10, 10, 10, 10">
+            <Image Source="zipline_logo.jpg" Aspect="AspectFill"  />
+            <!--<Label Text="Enter your PIN"
+                       TextColor="Black">-->
+                <!--<Label.FontFamily>
+                    <OnPlatform x:TypeArguments="x:String">
+                        <On Platform="Android" Value="Lobster-Regular.ttf#Lobster-Regular" />
+                    </OnPlatform>
+                </Label.FontFamily>-->
+            <!--</Label>-->            
+            <Entry Placeholder="Enter your PIN here..." Keyboard="Numeric" />
+            <Button Text="Log In"
+                    WidthRequest="100"/>
+
         </StackLayout>
     </ContentPage.Content>
 
