@@ -120,15 +120,15 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FreshMvvm">
-      <Version>2.2.3</Version>
+      <Version>2.2.4</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="2.5.0.122203" />
   </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\Zipline2\Zipline2.csproj">
-      <Project>{7E093990-A558-4F2D-ADA9-BB1C0FBD9636}</Project>
+      <Project>{05272f1d-6b26-4599-a391-584ecca03290}</Project>
       <Name>Zipline2</Name>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

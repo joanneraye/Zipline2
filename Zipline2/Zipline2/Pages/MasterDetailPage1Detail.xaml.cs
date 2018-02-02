@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Zipline2
+namespace Zipline2.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class BasePage : ContentPage
+    public partial class MasterDetailPage1Detail : ContentPage
     {
-        public BasePage()
+        public MasterDetailPage1Detail()
         {
             InitializeComponent();
         }

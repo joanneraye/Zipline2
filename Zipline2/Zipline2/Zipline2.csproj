@@ -3,11 +3,27 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Zipline2</AssemblyName>
+    <ApplicationIcon />
+    <OutputType>Library</OutputType>
+    <StartupObject />
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\MasterDetailPage1.xaml.cs" />
+    <Compile Remove="Pages\MasterDetailPage1Detail.xaml.cs" />
+    <Compile Remove="Pages\MasterDetailPage1Master.xaml.cs" />
+    <Compile Remove="Pages\MasterDetailPage1MenuItem.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Pages\MasterDetailPage1.xaml" />
+    <EmbeddedResource Remove="Pages\MasterDetailPage1Detail.xaml" />
+    <EmbeddedResource Remove="Pages\MasterDetailPage1Master.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CrossPlatformLibrary" Version="2.0.1" />
-    <PackageReference Include="FreshMvvm" Version="2.2.3" />
+    <PackageReference Include="FreshMvvm" Version="2.2.4" />
     <PackageReference Include="Xamarin.Forms" Version="2.5.0.122203" />
   </ItemGroup>
 
@@ -18,11 +34,8 @@
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Pages\MainPage.xaml.cs">
       <DependentUpon>*.xaml</DependentUpon>
     </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Pages\BasePage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
+    <Compile Update="Pages\LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

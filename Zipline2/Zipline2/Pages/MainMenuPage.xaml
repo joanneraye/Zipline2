@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Zipline2;assembly=Zipline2"
+             x:Class="Zipline2.MainMenuPage"
+             Title="Pizzas">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="THIS WILL BE A MAIN MENU PAGE or one section of MENU...."
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
+ </local:BasePage>
