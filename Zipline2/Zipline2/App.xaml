@@ -4,16 +4,15 @@
              x:Class="Zipline2.App">
 	<Application.Resources>
         <ResourceDictionary>
-            <Style TargetType="Label">
+            <!--<Style TargetType="Label">
                 <Setter Property="FontFamily">
                     <Setter.Value>
                         <OnPlatform x:TypeArguments="x:String">
                             <OnPlatform.Android></OnPlatform.Android>
                         </OnPlatform>
-                        
                     </Setter.Value>
                 </Setter>
-            </Style>
+            </Style>-->
         </ResourceDictionary>
 		<!-- Application resource dictionary -->
 
