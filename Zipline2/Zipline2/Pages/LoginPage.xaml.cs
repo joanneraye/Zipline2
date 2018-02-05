@@ -15,7 +15,27 @@ namespace Zipline2
 		public LoginPage ()
 		{
             InitializeComponent();
-            //BindingContext = new LoginPageModel();
+        }
+        
+        async void OnLoginButtonClicked (object sender, EventArgs e)
+        {
+            var isValid = true;
+
+            //Verify login
+
+            if (isValid)
+            {
+               
+                App.IsUserLoggedIn = true;
+
+                //Put login name at top of each screen.
+                await Navigation.PushAsync(new TableListPage());
+              
+            }
+            else
+            {
+
+            }
         }
     }
 }

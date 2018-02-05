@@ -15,12 +15,13 @@ namespace Zipline2
 		public TableListPage ()
 		{
             InitializeComponent();
-           // BindingContext = new TableListPageModel();
-            //ShowLoginPage();            
+            TableList.ItemsSource = App.InsideTableList;
         }
-        //public async void ShowLoginPage()
-        //{
-        //    await Navigation.PushAsync(new LoginPageModel());
-        //}
-	}
+
+        public void OnTableSelected(object sender, EventArgs e)
+        {
+            //navigate to menu?
+            //put table name on top of menu screen?
+        }
+    }
 }

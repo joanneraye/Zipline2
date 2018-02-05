@@ -1,5 +1,4 @@
-﻿using FreshMvvm;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -8,7 +7,7 @@ using Xamarin.Forms;
 
 namespace Zipline2
 {
-    class BasePageModel : FreshBasePageModel
+    class BasePageModel 
     {
     }
 }

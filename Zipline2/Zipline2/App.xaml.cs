@@ -9,63 +9,78 @@ namespace Zipline2
     public partial class App : Application
     {
         public static bool IsUserLoggedIn { get; set; }
+        public static List<Table> OutsideTableList { get; set; }
+        public static List<Table> InsideTableList { get; set; }
+
         public App()
         {
-            MainPage = new NavigationPage(new LoginPage())
+            if (!IsUserLoggedIn)
             {
-                BarTextColor = Color.White,
-                BarBackgroundColor = Color.Transparent
-            };
-
-            //InitializeComponent();
-
-            //MainPage = new MainPage();
-
-            //if (!IsUserLoggedIn)
-            //{
-            //    MainPage = new NavigationPage(new LoginPageModel());
-            //}
-            //else
-            //{
-            //    MainPage = new NavigationPage(new TableListPageModel());
-            //}
-        }
-
-        private void ShowLoginPage()
-        {            
-            //Can't figure how to get from showing login page to then show main page 
-            //unless I code it in LoginPageModel?  How do I get back here and then show MainPage?
-            //var loginPage = FreshPageModelResolver.ResolvePageModel<LoginPageModel>(null);
-            //MainPage = new FreshNavigationContainer(loginPage);
-        }
-
-        private void ShowMainPage()
-        {
-            //MainPage = new NavigationPage(new TableListPageModel());
-            //var tabContainer = new FreshTabbedNavigationContainer();
-            //tabContainer.AddTab<MainPageModel>("Table List Page", "icon.pgn");
-            //tabContainer.AddTab<MainMenuPageModel>("Main Menu Page", "icon.pgn");
-
-            //MainPage = tabContainer;
-            //var mainPage = FreshPageModelResolver.ResolvePageModel<MainPageModel>(null);
-            //var navContainer = new FreshNavigationContainer(mainPage);
-            //MainPage = navContainer;
+                MainPage = new NavigationPage(new LoginPage())
+                {
+                    BarBackgroundColor = Color.White
+                };
+            }
+            else
+            {
+                MainPage = new NavigationPage(new TableListPage());
+            }
         }
 
         protected override void OnStart()
         {
-            //ShowLoginPage();
+            OutsideTableList = new List<Table>
+                {
+                    new Table {TableName = "Alpha"},
+                    new Table {TableName = "Beta"},
+                    new Table {TableName = "Charlie"},
+                    new Table {TableName = "Snoopy"},
+                    new Table {TableName = "Delta"},
+                    new Table {TableName = "Elvis"},
+                    new Table {TableName = "Van A"},
+                    new Table {TableName = "Van B"},
+                    new Table {TableName = "X-Ray"},
+                    new Table {TableName = "Yoda"},
+                    new Table {TableName = "Zulu"},
+                    new Table {TableName = "Rocky 1"},
+                    new Table {TableName = "Rocky 2"},
+                    new Table {TableName = "Rocky 3"},
+                    new Table {TableName = "Rocky 4"},
+                    new Table {TableName = "Rocky 5"}
+                };
+
+            InsideTableList = new List<Table>
+                {
+                    new Table {TableName = "Table 1"},
+                    new Table {TableName = "Table 2"},
+                    new Table {TableName = "Table 3"},
+                    new Table {TableName = "Table 4a"},
+                    new Table {TableName = "Table 4b"},
+                    new Table {TableName = "Table 5"},
+                    new Table {TableName = "Table 7a"},
+                    new Table {TableName = "Table 7b"},
+                    new Table {TableName = "Table 8a"},
+                    new Table {TableName = "Table 8b"},
+                    new Table {TableName = "Table 10"},
+                    new Table {TableName = "Table 11"},
+                    new Table {TableName = "Table 12"},
+                    new Table {TableName = "Cash"},
+                    new Table {TableName = "Paris"},
+                    new Table {TableName = "Waldo"}
+                };
+
         }
 
         protected override void OnSleep()
         {
-            //ShowMainPage();
+            //save data and app state
         }
 
         protected override void OnResume()
         {
             
-            //????? 
+            //when wakes up from idle state...refresh screen if data has changed from when it 
+            //went to sleep
         }
     }
 }

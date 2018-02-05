@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Zipline2
 {
-    class Table
+    public class Table
     {
         public string TableName { get; set; }
     }

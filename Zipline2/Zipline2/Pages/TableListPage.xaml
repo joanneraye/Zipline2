@@ -5,14 +5,50 @@
              x:Class="Zipline2.TableListPage"
              Title="Tables">
     <ContentPage.Content>
-        <Label Text="THIS WILL CONTATIN A LIST OF TABLES...." />
-        <!--<ListView ItemsSource="{Binding InsideTableList}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextCell Text="{Binding TableName}"></TextCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>-->
+        <!--<StackLayout Orientation="Horizontal"
+                     BackgroundColor="Black">
+            <Label Text="Login Name" TextColor="White"/>
+            <Label Text="Tables Seated: x/x"  TextColor="White" />
+            <Button Text="OUT"  TextColor="White" />
+            <Label Text="Refresh..."  TextColor="White" />
+        </StackLayout>-->
+        <StackLayout BackgroundColor="Black">
+            <Button Text="TAKE OUT" 
+                   HorizontalOptions="Center"
+                   Margin="3, 5, 5, 5"
+                   TextColor="White"
+                   BackgroundColor="Color.Black"
+                   BorderColor="White"
+                   BorderWidth="2"
+                   BorderRadius="10"
+                   HeightRequest="40">               
+            </Button>
+            <ListView  x:Name="TableList"
+                       RowHeight="50">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <BoxView Color="Orange"
+                                     WidthRequest="40"
+                                     HeightRequest="40" 
+                                     Margin="5, 5, 5, 5"/>
+                                <Button Text="{Binding TableName}" 
+                                    TextColor="White"
+                                    BorderRadius="3"
+                                    BackgroundColor="Black"
+                                    HorizontalOptions="Start"
+                                    BorderColor="White"
+                                    Margin="5,5,5,5"
+                                    BorderWidth="2" 
+                                    HeightRequest="40"
+                                    Clicked="OnTableSelected"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
     </ContentPage.Content>
 </local:BasePage>
     

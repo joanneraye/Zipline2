@@ -13,14 +13,14 @@ namespace Zipline2
         {
         }
 
-        public ICommand _loginCommand;
-        public ICommand LoginUserCommand =>
-            _loginCommand ?? (_loginCommand =
-            new Command(async () => await Login()));
+        //public ICommand _loginCommand;
+        //public ICommand LoginUserCommand =>
+        //    _loginCommand ?? (_loginCommand =
+        //    new Command(async () => await Login()));
         
-        private async Task Login()
-        {
-            await CoreMethods.PushPageModel<TableListPageModel>();
-        }
+        //private async Task Login()
+        //{
+        //    await CoreMethods.PushPageModel<TableListPageModel>();
+        //}
     }
 }
