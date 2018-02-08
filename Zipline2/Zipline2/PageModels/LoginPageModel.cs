@@ -13,6 +13,8 @@ namespace Zipline2
         {
         }
 
+     
+
         //public ICommand _loginCommand;
         //public ICommand LoginUserCommand =>
         //    _loginCommand ?? (_loginCommand =

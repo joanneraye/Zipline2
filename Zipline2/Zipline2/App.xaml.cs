@@ -12,8 +12,11 @@ namespace Zipline2
         public static List<Table> OutsideTableList { get; set; }
         public static List<Table> InsideTableList { get; set; }
 
+        public static bool IsInside { get; set; }
+      
         public App()
         {
+            IsInside = true;
             if (!IsUserLoggedIn)
             {
                 MainPage = new NavigationPage(new LoginPage())
@@ -68,7 +71,6 @@ namespace Zipline2
                     new Table {TableName = "Paris"},
                     new Table {TableName = "Waldo"}
                 };
-
         }
 
         protected override void OnSleep()

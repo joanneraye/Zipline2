@@ -1,16 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms;
+using System.ComponentModel;
 
 namespace Zipline2
 {
-    class TableListPageModel : BasePageModel
+    class TableListPageModel : INotifyPropertyChanged
     {
         //public List<Table> OutsideTableList { get; set; }
         //public List<Table> InsideTableList { get; set; }
+        public static string[] TableNumbers
+        {
+            get
+            {
+                return new string [] { "1", "2", "3" };
+            }
+        }   
+        
+        public string Table1
+        {
+            get
+            {
+                return "1";
+            }
+            set
+            {
+                OnPropertyChanged("Table1");
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public TableListPageModel()
-        {            
+        {
+            
+        
+        }
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         //public override void Init(object initData)

@@ -9,5 +9,7 @@ namespace Zipline2
 {
     class BasePageModel 
     {
+       
+
     }
 }

@@ -25,12 +25,13 @@ namespace Zipline2
 
             if (isValid)
             {
-               
                 App.IsUserLoggedIn = true;
+                LoginButton.IsEnabled = false;
 
                 //Put login name at top of each screen.
+
                 await Navigation.PushAsync(new TableListPage());
-              
+                LoginButton.IsEnabled = true;
             }
             else
             {
