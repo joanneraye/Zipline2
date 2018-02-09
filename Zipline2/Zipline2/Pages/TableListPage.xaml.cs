@@ -35,7 +35,7 @@ namespace Zipline2
         {
             if (App.IsInside)
             {
-                //switch to outside
+                //switch to outside                
                 Row0Column0.Text = "Alpha";
                 Row1Column0.Text = "Beta";
                 Row2Column0.Text = "Charlie";
@@ -52,6 +52,7 @@ namespace Zipline2
                 Row5Column1.Text = "Rocky 3";
                 Row6Column1.Text = "Rocky 4";
                 Row7Column1.Text = "Rocky 5";
+                ButtonInsideOutside.Text = "Inside";
                 App.IsInside = false;
             }
             else
@@ -73,6 +74,7 @@ namespace Zipline2
                 Row5Column1.Text = "Cash";
                 Row6Column1.Text = "Paris";
                 Row7Column1.Text = "Waldo";
+                ButtonInsideOutside.Text = "Outside";
                 App.IsInside = true;
             }
         }
