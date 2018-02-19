@@ -10,11 +10,11 @@ using Xamarin.Forms.Xaml;
 namespace Zipline2
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class MainMenuPage : BasePage
+	public partial class MenuButtonView : ContentView
 	{
-		public MainMenuPage ()
+		public MenuButtonView ()
 		{
-            InitializeComponent();
-        }
+			InitializeComponent ();
+		}
 	}
 }

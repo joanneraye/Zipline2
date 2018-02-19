@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Zipline2.Models;
 
 namespace Zipline2
 {
@@ -17,18 +18,34 @@ namespace Zipline2
         //public static List<TableListRow> Rows { get; set; }
         //public static string[] TableNumbers;
         //public static string Table1 = "1";
+        int NumTablesSeated { get; set; }
 
 
         public TableListPage()
         {
            InitializeComponent();
+           
         }
 
 
-        public void OnTableButtonClicked(object sender, EventArgs e)
+        public async void OnTableButtonClicked(object sender, EventArgs e)
         {
-            //navigate to menu?
-            //put table name on top of menu screen?
+            //Change table selected from open to occupied.
+            //Table name should show at top of subsequent ordering screens.
+            //Display Pizza menu first.
+            Button tableButton = sender as Button;
+            Application.Current.Properties["TableName"] = tableButton.Text;
+            Order newOrder = new Order();
+            //TODO: Store this order somewhere where items can be added.
+            await Navigation.PushAsync(new Pizzas(tableButton.Text));
+        }
+
+        public void OnPrintCheckButtonClicked(object sender, EventArgs e)
+        {
+        }
+
+        public void OnMoveTableButtonClicked(object sender, EventArgs e)
+        {
         }
 
         public void InsideOutsideButtonClicked(object sender, EventArgs e)

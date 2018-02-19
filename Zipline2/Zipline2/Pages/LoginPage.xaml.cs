@@ -15,16 +15,19 @@ namespace Zipline2
 		public LoginPage ()
 		{
             InitializeComponent();
+            //BindingContext = new LoginPageModel();
         }
-        
-        async void OnLoginButtonClicked (object sender, EventArgs e)
+
+        async void OnLoginButtonClicked(object sender, EventArgs e)
         {
             var isValid = true;
+            string userName = "Joanne";
 
             //Verify login
 
             if (isValid)
             {
+                Application.Current.Properties["UserName"] = userName;
                 App.IsUserLoggedIn = true;
                 LoginButton.IsEnabled = false;
 

@@ -7,6 +7,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Zipline2;
+using ButtonCircle.FormsPlugin.Droid;
 
 namespace Zipline2.Droid
 {
@@ -18,9 +19,20 @@ namespace Zipline2.Droid
             //TabLayoutResource = Resource.Layout.Tabbar;
             //ToolbarResource = Resource.Layout.Toolbar;
 
+            //Commented out because can't find Xamarin Insights Nuget package.
+            //Insights.HasPendingCrashReport += (sender, isStartupCrash) =>
+            //{
+            //    if (isStartupCrash)
+            //    {
+            //        Insights.PurgePendingCrashReports().Wait();
+            //    }
+            //};
+            //Insights.Initialize("Your API Key");
+
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            ButtonCircleRenderer.Init();
             LoadApplication(new App());
         }
     }

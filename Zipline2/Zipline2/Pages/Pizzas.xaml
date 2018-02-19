@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Zipline2.Pizzas"
+             xmlns:views="clr-namespace:Zipline2"
+             xmlns:local="clr-namespace:Zipline2;assembly=Zipline2"
+             xmlns:enums="clr-namespace:Zipline2.BusinessLogic">
+    
+<!--xmlns:local="clr-namespace:ButtonCircle.FormsPlugin.Abstractions;assembly=ButtonCircle.FormsPlugin.Abstractions">-->
+   
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="Black"
+                     Padding="20"
+                     VerticalOptions="StartAndExpand">
+            <Label x:Name="TableNumber" 
+                   TextColor="White"
+                   FontSize="Small"
+                   HorizontalOptions="Start"/>
+            <Label Text="PIZZA"
+                   TextColor="White" 
+                   FontSize="Medium"
+                   HorizontalOptions="Center" />
+            <Grid RowSpacing="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row ="0"
+                       Grid.Column="0"
+                       Text="Cheese Pizza"
+                       FontSize="18"
+                       TextColor="White"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Start" />
+                <Button Grid.Row ="0"
+                        Grid.Column="1"
+                        Clicked="OnPlusCheesePizza"
+                        Style="{StaticResource PlusButton}" />
+                <Picker Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.RowSpan="2"
+                        Margin="15,0,0,0"
+                        x:Name="CheesePizzaPicker"
+                        TextColor="White"
+                        VerticalOptions="Start"
+                        IsVisible="True"/>
+                <Label Grid.Row ="2"
+                       Grid.Column="0"
+                       Text="MAJOR Pizza"
+                       FontSize="18"
+                       TextColor="White"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Start" />
+                <Button Grid.Row ="2"
+                        Grid.Column="1"
+                        Clicked="OnPlusButtonClicked"
+                        Style="{StaticResource PlusButton}" />
+                <Picker Grid.Row="3"
+                        Grid.Column="0"
+                        Grid.RowSpan="2"
+                        Margin="15,0,0,0"
+                        x:Name="MajorPizzaPicker"
+                        TextColor="White"
+                        VerticalOptions="Start"
+                        IsVisible="True"/>
+                <Label Grid.Row ="4"
+                       Grid.Column="0"
+                       Text="Millet and Flax Pizza"
+                       FontSize="18"
+                       TextColor="White"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Start" />
+                <Button Grid.Row ="4"
+                        Grid.Column="1"
+                        Clicked="OnPlusButtonClicked"
+                        Style="{StaticResource PlusButton}" />
+                <Label Grid.Row ="5"
+                       Grid.Column="0"
+                       Text="SATCH-PAN"
+                       FontSize="18"
+                       TextColor="White"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Start" />
+                <Button Grid.Row ="5"
+                        Grid.Column="1"
+                        Clicked="OnPlusButtonClicked"
+                        Style="{StaticResource PlusButton}" />
+            </Grid>
+            <views:MenuButtonView VerticalOptions="End" />
+        </StackLayout>
+    </ContentPage.Content>
+</local:BasePage>

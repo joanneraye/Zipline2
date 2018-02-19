@@ -16,7 +16,9 @@ namespace Zipline2
       
         public App()
         {
+            InitializeComponent();
             IsInside = true;
+           
             if (!IsUserLoggedIn)
             {
                 MainPage = new NavigationPage(new LoginPage())

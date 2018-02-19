@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace Zipline2
 {
-    class TableListPageModel : INotifyPropertyChanged
+    class TableListPageModel : BasePageModel
     {
         //public List<Table> OutsideTableList { get; set; }
         //public List<Table> InsideTableList { get; set; }
@@ -18,18 +18,6 @@ namespace Zipline2
             }
         }   
         
-        public string Table1
-        {
-            get
-            {
-                return "1";
-            }
-            set
-            {
-                OnPropertyChanged("Table1");
-            }
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         public TableListPageModel()

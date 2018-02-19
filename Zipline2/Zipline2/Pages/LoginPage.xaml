@@ -25,10 +25,10 @@
                    Margin="13" />
             <Button Text="Log In"
                     x:Name="LoginButton"
+                    Clicked="OnLoginButtonClicked"
                     FontSize="Medium"
                     HeightRequest="65"
                     Margin="10"
-                    Clicked="OnLoginButtonClicked"
                     FontAttributes="Bold" />
         </StackLayout>
     </ContentPage.Content>
