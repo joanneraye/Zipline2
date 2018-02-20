@@ -34,10 +34,20 @@ namespace Zipline2.Pages
             //Table name should show at top of subsequent ordering screens.
             //Display Pizza menu first.
             Button tableButton = sender as Button;
-            Application.Current.Properties["TableName"] = tableButton.Text;
-            Order newOrder = new Order();
-            //TODO: Store this order somewhere where items can be added.
-            await Navigation.PushAsync(new PizzaPage(tableButton.Text));
+            if (Application.Current.Properties.ContainsKey("CurrentTable"))
+            {
+                Application.Current.Properties["CurrentTable"] = tableButton.Text;
+            }
+            else
+            {
+                Application.Current.Properties.Add("CurrentTable", tableButton.Text);
+            }
+            
+            App.OrderInProgress = new Order();
+
+            await Application.Current.SavePropertiesAsync();
+
+            await Navigation.PushAsync(new PizzaPage());
         }
 
         public void OnPrintCheckButtonClicked(object sender, EventArgs e)

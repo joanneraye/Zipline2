@@ -27,7 +27,17 @@ namespace Zipline2.Pages
 
             if (isValid)
             {
-                Application.Current.Properties["UserName"] = userName;
+                if (Application.Current.Properties.ContainsKey("CurrentUser"))
+                {
+                    Application.Current.Properties["CurrentUser"] = userName;
+                }
+                else
+                {
+                    Application.Current.Properties.Add("CurrentUser", userName);
+                }
+               
+                await Application.Current.SavePropertiesAsync();
+
                 App.IsUserLoggedIn = true;
                 LoginButton.IsEnabled = false;
 

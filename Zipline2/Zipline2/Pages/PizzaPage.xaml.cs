@@ -14,7 +14,7 @@ namespace Zipline2.Pages
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class PizzaPage : BasePage
 	{
-		public PizzaPage (string currentTableNumber)
+		public PizzaPage ()
 		{
             InitializeComponent ();
             var cheeseTypes = new List<string>
@@ -39,24 +39,17 @@ namespace Zipline2.Pages
             CheesePizzaPicker.SelectedIndex = 0;
             CheesePizzaPicker.Focus();
             MajorPizzaPicker.ItemsSource = majorTypes;
-            MajorPizzaPicker.SelectedIndex = 0;
-            TableNumber.Text = "Table: " + currentTableNumber;
+            MajorPizzaPicker.SelectedIndex = 0;            
 		}
 
         void OnPlusCheesePizza(object sender, EventArgs e)
         {
-            
-            //See if an order exists.  If it doesn't, create a new order?
-            //Can this be done when order added by the Order Class?
-            //Do this when select table, then retrieve ??
-            Order newOrder = new Order();
-
             var cheesePizzaSize = (CheesePizzaSize)Enum.Parse(typeof(CheesePizzaSize), 
                                     CheesePizzaPicker.SelectedItem.ToString());
 
-            Pizza newPizzaItem = new Pizza(cheesePizzaSize);   
+            App.PizzaInProgress = new Pizza(cheesePizzaSize, 1);   
             
-            newOrder.AddItemToOrder(newPizzaItem);
+            App.OrderInProgress.AddItemToOrder(App.PizzaInProgress);
 
             //TODO:
             //Display price of this item and total of check at top of screen.

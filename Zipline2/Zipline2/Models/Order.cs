@@ -41,9 +41,19 @@ namespace Zipline2.Models
         public Order()
         {
             OrderItems = new List<OrderItem>();
+            SubTotal = 0.0M;
+            Total = 0.0M;
+            Tax = 0.0M;
             IsTakeout = false;
-            UserName = Application.Current.Properties["UserName"].ToString();
-            TableName = Application.Current.Properties["TableName"].ToString();
+            if (Application.Current.Properties.ContainsKey("UserName"))
+            {
+                UserName = Application.Current.Properties["UserName"].ToString();
+            }
+
+            if (Application.Current.Properties.ContainsKey("TableName"))
+            {
+                TableName = Application.Current.Properties["TableName"].ToString();
+            }
         }
 
         public void AddItemToOrder(OrderItem item)

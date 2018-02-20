@@ -5,22 +5,17 @@
              xmlns:views="clr-namespace:Zipline2.Views"
              xmlns:local="clr-namespace:Zipline2.Pages;assembly=Zipline2.Pages"
              xmlns:enums="clr-namespace:Zipline2.BusinessLogic.Enums">
-    
-<!--xmlns:local="clr-namespace:ButtonCircle.FormsPlugin.Abstractions;assembly=ButtonCircle.FormsPlugin.Abstractions">-->
-   
     <ContentPage.Content>
         <StackLayout BackgroundColor="Black"
-                     Padding="20"
+                     Padding="10"
                      VerticalOptions="StartAndExpand">
-            <Label x:Name="TableNumber" 
-                   TextColor="White"
-                   FontSize="Small"
-                   HorizontalOptions="Start"/>
+            <views:MenuHeaderView />
+          
             <Label Text="PIZZA"
                    TextColor="White" 
-                   FontSize="Medium"
+                   FontSize="20"
                    HorizontalOptions="Center" />
-            <Grid RowSpacing="10">
+            <Grid RowSpacing="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="50"/>

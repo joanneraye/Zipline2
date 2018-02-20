@@ -12,7 +12,7 @@ namespace Zipline2.Models
     public class Pizza : OrderItem
     {
         //Don't forget to add item count to this order item when pizza added.
-        public Pizza(CheesePizzaSize sizeOfCheesePizza)
+        public Pizza(CheesePizzaSize sizeOfCheesePizza, int numberOfPizzas)
         {
             switch (sizeOfCheesePizza)
             {
@@ -38,8 +38,9 @@ namespace Zipline2.Models
                 default:
                     break;
             }
-            //Next assumes only 1 pizza added.....
-            Total = Prices.PizzaSlicePrice;
+            PricePerItem = Prices.PizzaSlicePrice;
+            ItemCount = numberOfPizzas;
+            Total = PricePerItem * numberOfPizzas;
         }
 
         public Pizza(MajorType typeOfMajorPizza)

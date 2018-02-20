@@ -13,6 +13,8 @@ namespace Zipline2
         public static bool IsUserLoggedIn { get; set; }
         public static List<Table> OutsideTableList { get; set; }
         public static List<Table> InsideTableList { get; set; }
+        public static Pizza PizzaInProgress { get; set; }
+        public static Order OrderInProgress { get; set; }
 
         public static bool IsInside { get; set; }
       
@@ -36,6 +38,7 @@ namespace Zipline2
 
         protected override void OnStart()
         {
+            Application.Current.Properties.Clear();
             OutsideTableList = new List<Table>
                 {
                     new Table {TableName = "Alpha"},
