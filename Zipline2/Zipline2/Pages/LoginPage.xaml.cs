@@ -33,7 +33,7 @@ namespace Zipline2.Pages
 
                 //Put login name at top of each screen.
 
-                await Navigation.PushAsync(new TableListPage());
+                await Navigation.PushAsync(new TablesPage());
                 LoginButton.IsEnabled = true;
             }
             else

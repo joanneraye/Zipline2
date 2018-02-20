@@ -2,7 +2,7 @@
 <local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Zipline2.Pages;assembly=Zipline2.Pages"
-             x:Class="Zipline2.Pages.TableListPage"
+             x:Class="Zipline2.Pages.TablesPage"
              Title="Tables">
     <ContentPage.Resources>
         <ResourceDictionary>

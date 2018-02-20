@@ -30,7 +30,7 @@ namespace Zipline2
             }
             else
             {
-                MainPage = new NavigationPage(new TableListPage());
+                MainPage = new NavigationPage(new TablesPage());
             }
         }
 

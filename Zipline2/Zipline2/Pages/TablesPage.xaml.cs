@@ -11,7 +11,7 @@ using Zipline2.Models;
 namespace Zipline2.Pages
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class TableListPage : BasePage
+	public partial class TablesPage : BasePage
 	{
 
         //public static List<Tuple<string, string>> TableRowPairs { get; set; }
@@ -21,7 +21,7 @@ namespace Zipline2.Pages
         int NumTablesSeated { get; set; }
 
 
-        public TableListPage()
+        public TablesPage()
         {
            InitializeComponent();
            
@@ -37,7 +37,7 @@ namespace Zipline2.Pages
             Application.Current.Properties["TableName"] = tableButton.Text;
             Order newOrder = new Order();
             //TODO: Store this order somewhere where items can be added.
-            await Navigation.PushAsync(new Pizzas(tableButton.Text));
+            await Navigation.PushAsync(new PizzaPage(tableButton.Text));
         }
 
         public void OnPrintCheckButtonClicked(object sender, EventArgs e)

@@ -12,9 +12,9 @@ using Zipline2.BusinessLogic.Enums;
 namespace Zipline2.Pages
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class Pizzas : BasePage
+	public partial class PizzaPage : BasePage
 	{
-		public Pizzas (string currentTableNumber)
+		public PizzaPage (string currentTableNumber)
 		{
             InitializeComponent ();
             var cheeseTypes = new List<string>
