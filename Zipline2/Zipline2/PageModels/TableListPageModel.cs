@@ -4,7 +4,7 @@ using System.Text;
 using Xamarin.Forms;
 using System.ComponentModel;
 
-namespace Zipline2
+namespace Zipline2.PageModels
 {
     class TableListPageModel : BasePageModel
     {

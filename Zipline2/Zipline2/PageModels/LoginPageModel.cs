@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace Zipline2
+namespace Zipline2.PageModels
 {
     class LoginPageModel : BasePageModel
     {

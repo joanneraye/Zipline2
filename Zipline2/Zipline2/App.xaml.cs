@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Xamarin.Forms;
 using Zipline2.Models;
+using Zipline2.Pages;
 
 namespace Zipline2
 {

@@ -9,7 +9,7 @@ using ButtonCircle;
 using Zipline2.Models;
 using Zipline2.BusinessLogic.Enums;
 
-namespace Zipline2
+namespace Zipline2.Pages
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class Pizzas : BasePage

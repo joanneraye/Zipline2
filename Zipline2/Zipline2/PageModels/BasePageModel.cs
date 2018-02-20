@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using Xamarin.Forms;
 
-namespace Zipline2
+namespace Zipline2.PageModels
 {
     public class BasePageModel : INotifyPropertyChanged
     {

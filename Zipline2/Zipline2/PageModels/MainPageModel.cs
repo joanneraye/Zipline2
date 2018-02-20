@@ -5,7 +5,7 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using Zipline2.Models;
 
-namespace Zipline2
+namespace Zipline2.PageModels
 {
     class MainPageModel : BasePageModel
     {

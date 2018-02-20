@@ -8,7 +8,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Zipline2.Models;
 
-namespace Zipline2
+namespace Zipline2.Pages
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class TableListPage : BasePage

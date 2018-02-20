@@ -7,8 +7,6 @@ using Zipline2.BusinessLogic;
 
 namespace Zipline2.Models
 {
-   
-
     [Table("order")]
     public class Order
     {
