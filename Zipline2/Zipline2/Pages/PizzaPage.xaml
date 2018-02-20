@@ -10,7 +10,7 @@
                      Padding="10"
                      VerticalOptions="StartAndExpand">
             <views:MenuHeaderView />          
-            <Label Text="PIZZA"
+            <Label Text="Pizza"
                    TextColor="White" 
                    FontSize="20"
                    HorizontalOptions="Center" />

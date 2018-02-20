@@ -13,14 +13,19 @@ namespace Zipline2.PageModels
         {
             get
             {
+                if (App.PizzaInProgress != null)
+                {
+                    itemTotal = App.PizzaInProgress.Total;
+                }
+
                 return itemTotal;
             }
             set
             {
-                //if (App.PizzaInProgress != null)
-                //{
-                //    itemTotal = App.PizzaInProgress.Total;
-                //}
+                if (App.PizzaInProgress != null)
+                {
+                    itemTotal = App.PizzaInProgress.Total;
+                }
 
                 SetProperty(ref itemTotal, value);
             }
@@ -30,10 +35,19 @@ namespace Zipline2.PageModels
         {
             get
             {
+                if (App.OrderInProgress != null)
+                {
+                    orderTotal = App.OrderInProgress.Total;
+                }
                 return orderTotal;
             }
             set
             {
+                if (App.OrderInProgress != null)
+                {
+                    orderTotal = App.OrderInProgress.Total;
+                }
+
                 SetProperty(ref orderTotal, value);
             }
         }

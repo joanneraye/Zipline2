@@ -42,7 +42,7 @@ namespace Zipline2.Pages
             MajorPizzaPicker.SelectedIndex = 0;            
 		}
 
-        void OnPlusCheesePizza(object sender, EventArgs e)
+        async Task OnPlusCheesePizza(object sender, EventArgs e)
         {
             var cheesePizzaSize = (CheesePizzaSize)Enum.Parse(typeof(CheesePizzaSize), 
                                     CheesePizzaPicker.SelectedItem.ToString());
@@ -50,6 +50,8 @@ namespace Zipline2.Pages
             App.PizzaInProgress = new Pizza(cheesePizzaSize, 1);   
             
             App.OrderInProgress.AddItemToOrder(App.PizzaInProgress);
+
+            await Navigation.PushAsync(new ToppingsPage());
 
             //TODO:
             //Display price of this item and total of check at top of screen.

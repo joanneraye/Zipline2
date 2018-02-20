@@ -25,7 +25,7 @@
                      Padding="10"
                      Orientation="Vertical">
             <StackLayout Orientation="Horizontal">
-                <Label Text="(employee name)" 
+                <Label Text="{Binding UserName}"
                    TextColor="White" 
                    FontSize="Micro"
                    Margin="5, 3, 3, 3"/>

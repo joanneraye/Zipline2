@@ -6,26 +6,31 @@ using System.ComponentModel;
 
 namespace Zipline2.PageModels
 {
-    class TableListPageModel : BasePageModel
+    class TablesPageModel : BasePageModel
     {
         //public List<Table> OutsideTableList { get; set; }
         //public List<Table> InsideTableList { get; set; }
-        public static string[] TableNumbers
+        private string userName;
+        public string UserName
         {
             get
             {
-                return new string [] { "1", "2", "3" };
+                return userName;
             }
-        }   
-        
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public TableListPageModel()
-        {
-            
-        
+            set
+            {               
+                SetProperty(ref userName, value);
+            }
         }
-        
+
+        public TablesPageModel()
+        {
+            if (Application.Current.Properties.ContainsKey("CurrentUser"))
+            {
+                userName = Application.Current.Properties["CurrentUser"].ToString();
+            }
+        }
+
         //public override void Init(object initData)
         //{
         //    base.Init(initData);

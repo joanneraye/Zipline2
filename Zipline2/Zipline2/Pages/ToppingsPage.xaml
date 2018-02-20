@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Zipline2.Pages;assembly=Zipline2.Pages"
+             xmlns:views="clr-namespace:Zipline2.Views"
+             x:Class="Zipline2.Pages.ToppingsPage">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="Black"
+                     Padding="10"
+                     VerticalOptions="StartAndExpand">
+            <views:MenuHeaderView />
+            <Label Text="Toppings"
+                   TextColor="White" 
+                   FontSize="20"
+                   HorizontalOptions="Center" />
+        </StackLayout>
+    </ContentPage.Content>
+</local:BasePage>
