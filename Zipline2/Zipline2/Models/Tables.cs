@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Zipline2
+namespace Zipline2.Models
 {
     public class Tables
     {

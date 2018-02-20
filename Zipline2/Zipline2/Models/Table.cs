@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Zipline2
+namespace Zipline2.Models
 {
     [Table("table")]
     public class Table

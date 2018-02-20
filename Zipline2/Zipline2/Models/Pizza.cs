@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using SQLite;
 using Zipline2.BusinessLogic;
+using Zipline2.BusinessLogic.Enums;
 using Zipline2.Interfaces;
 
 namespace Zipline2.Models

@@ -7,7 +7,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using ButtonCircle;
 using Zipline2.Models;
-using Zipline2.BusinessLogic;
+using Zipline2.BusinessLogic.Enums;
 
 namespace Zipline2
 {

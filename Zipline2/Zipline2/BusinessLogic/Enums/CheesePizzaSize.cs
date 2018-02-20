@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Zipline2.BusinessLogic
+namespace Zipline2.BusinessLogic.Enums
 {
     public enum CheesePizzaSize
     {
