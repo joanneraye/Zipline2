@@ -9,8 +9,7 @@
         <StackLayout BackgroundColor="Black"
                      Padding="10"
                      VerticalOptions="StartAndExpand">
-            <views:MenuHeaderView />
-          
+            <views:MenuHeaderView />          
             <Label Text="PIZZA"
                    TextColor="White" 
                    FontSize="20"

@@ -25,12 +25,7 @@ namespace Zipline2.PageModels
             
         
         }
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
+        
         //public override void Init(object initData)
         //{
         //    base.Init(initData);

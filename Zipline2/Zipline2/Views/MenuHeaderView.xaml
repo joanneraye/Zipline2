@@ -16,11 +16,11 @@
                       Clicked="TButtonClicked" />
                 <Label Text="Item Total: "
                        TextColor="White" />
-                <Label x:Name="ItemTotal"
+                <Label Text="{Binding ItemTotal}"
                        TextColor="White" />
                 <Label Text="Order Total: "
                        TextColor="White" />
-                <Label x:Name="OrderTotal"
+                <Label Text="{Binding OrderTotal}"
                        TextColor="White" />
             </StackLayout>
             <StackLayout Orientation="Horizontal"

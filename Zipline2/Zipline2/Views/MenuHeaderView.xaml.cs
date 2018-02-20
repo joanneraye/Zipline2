@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Zipline2.PageModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,23 +12,24 @@ namespace Zipline2.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class MenuHeaderView : ContentView
 	{
-		public MenuHeaderView()
+        public MenuHeaderModel MenuHeaderModel { get; set; }
+        public MenuHeaderView()
 		{
             InitializeComponent();
 
+            MenuHeaderModel = new MenuHeaderModel();
+            BindingContext = MenuHeaderModel;
+            
+            //if (App.PizzaInProgress != null)
+            //{
+            //    ItemTotal.Text = App.PizzaInProgress.Total.ToString();
+            //}
 
-            //BindingContext = new TopOfMenuModel();
-            ItemTotal.Text = "0.0";
-            OrderTotal.Text = "0.0";
-            if (App.PizzaInProgress != null)
-            {
-                ItemTotal.Text = App.PizzaInProgress.Total.ToString();
-            }
+            //if (App.OrderInProgress != null)
+            //{
+            //    OrderTotal.Text = App.OrderInProgress.Total.ToString();
+            //}
 
-            if (App.OrderInProgress != null)
-            {
-                OrderTotal.Text = App.OrderInProgress.Total.ToString();
-            }
             if (Application.Current.Properties.ContainsKey("CurrentUser"))
             {
                 UserName.Text = Application.Current.Properties["CurrentUser"].ToString();
