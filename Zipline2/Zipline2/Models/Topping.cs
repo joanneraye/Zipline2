@@ -12,5 +12,9 @@ namespace Zipline2.Models
         public int OrderItemId { get; set; }
 
         public string ToppingName { get; set; }
+
+        public bool IsSelected { get; set; }
+
+        public bool IsFree { get; set; }
     }
 }

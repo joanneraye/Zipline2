@@ -6,50 +6,57 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Zipline2.BusinessLogic;
+using Zipline2.Models;
+using Zipline2.PageModels;
 
 namespace Zipline2.Pages
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class LoginPage : BasePage
-	{
-		public LoginPage ()
-		{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class LoginPage : BasePage
+    {
+        LoginPageModel LoginPageModel;
+        public LoginPage()
+        {
             InitializeComponent();
-            //BindingContext = new LoginPageModel();
+            PinEnteredByUser.Focus();
+            LoginPageModel = new LoginPageModel();
+            BindingContext = LoginPageModel;
+        }
+
+        async void OnAddNewUserButtonClicked(object sender, EventArgs e)
+        {
+            if (Users.AuthenticateUser(PinEnteredByUser.Text) &&
+                Users.LoggedInUser.HasManagerPrivilege)
+            {
+                PinEnteredByUser.Text = String.Empty;
+                await Navigation.PushAsync(new AddUserPage());
+            }
+            else
+            {
+                await DisplayAlert("Oops", "Only a Manager PIN can access the Add User button.", "OK");
+            }
         }
 
         async void OnLoginButtonClicked(object sender, EventArgs e)
         {
-            var isValid = true;
-            string userName = "Joanne";
-
-            //Verify login
-
-            if (isValid)
+            LoginButton.IsEnabled = false;
+            if (Users.AuthenticateUser(PinEnteredByUser.Text))
             {
-                if (Application.Current.Properties.ContainsKey("CurrentUser"))
-                {
-                    Application.Current.Properties["CurrentUser"] = userName;
-                }
-                else
-                {
-                    Application.Current.Properties.Add("CurrentUser", userName);
-                }
-               
-                await Application.Current.SavePropertiesAsync();
-
                 App.IsUserLoggedIn = true;
-                LoginButton.IsEnabled = false;
-
-                //Put login name at top of each screen.
-
                 await Navigation.PushAsync(new TablesPage());
-                LoginButton.IsEnabled = true;
+
             }
             else
             {
-
+                await DisplayAlert("Oops", "Sorry that PIN is not in our system as belonging to anyone.", "OK");
             }
+            LoginButton.IsEnabled = true;
+        }
+
+        async void OnChangePinButtonClicked(object sender, EventArgs e)
+        {
+            await DisplayAlert("Sorry", "This functionality has not been completed yet.", "OK");
         }
     }
 }

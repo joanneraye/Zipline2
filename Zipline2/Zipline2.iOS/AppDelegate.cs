@@ -23,6 +23,11 @@ namespace Zipline2.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+
+            //string dbPath = FileAccessHelper.GetLocalFilePath("orders.db3");
+
+            //LoadApplication(new App(dbPath));
+
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

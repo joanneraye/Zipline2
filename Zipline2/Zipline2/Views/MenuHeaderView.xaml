@@ -5,7 +5,7 @@
   <ContentView.Content>
         <StackLayout>
           <StackLayout Orientation="Horizontal"
-                Spacing="15" Padding="0">
+                Padding="0, 0, 0, 10">
                 <Button BackgroundColor="Black"
                       TextColor="White"
                       Text="T"
@@ -13,15 +13,19 @@
                       HeightRequest="38"
                       BorderColor="White"
                       BorderWidth="2"
+                      Margin="0,0,10,0"
                       Clicked="TButtonClicked" />
-                <Label Text="Item Total: "
-                       TextColor="White" />
-                <Label Text="{Binding ItemTotal}"
-                       TextColor="White" />
-                <Label Text="Order Total: "
-                       TextColor="White" />
-                <Label Text="{Binding OrderTotal}"
-                       TextColor="White" />
+                <Label TextColor="White" 
+                        FontSize="Micro"
+                       Text="Item Total: " />
+                <Label TextColor="LightBlue"
+                       Text="{Binding ItemTotal, StringFormat='{0:C}'}" />
+                <Label TextColor="White" 
+                       FontSize="Micro"
+                       Text="Order Total: " />
+                <Label Text="{Binding OrderTotal, StringFormat='{0:C}'}"
+                       TextColor="LightBlue" />
+                <Button Text="Next" />
             </StackLayout>
             <StackLayout Orientation="Horizontal"
                          HorizontalOptions="Center">                

@@ -4,70 +4,45 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Zipline2.BusinessLogic;
+using Zipline2.Models;
 
 namespace Zipline2.PageModels
 {
     class LoginPageModel : BasePageModel
     {
-        //Using the MVVM pattern is confusing and not enough examples out there
-        //for me to figure out how to do stuff.
 
-        //private bool isBusy = false;
-        //public Command LoginCommand { get; }
+        private string pinEnteredByUser;
 
-        //public INavigation Navigation { get; set; }
+        public User LoggedInUser { get; set; }
 
-        //public bool IsBusy
-        //{
-        //    get { return isBusy; }
-        //    set
-        //    {
-        //        isBusy = value;
-        //        OnPropertyChanged();
-        //        LoginCommand.ChangeCanExecute();
-        //    }
-        //}
-        //public LoginPageModel(INavigation navigation)
-        //{
-        //    this.Navigation = navigation;
-        //    LoginCommand = new Command(async () => await Login());
-        //}
+        public bool IsPinValidUser { get; set; }
 
-        //public async Task Login()
-        //{
-        //    isBusy = true;
+        public bool IsPinValidManager { get; set; }
 
-        //    var isValid = true;
+        public string PinEnteredByUser
+        {
+            get
+            {
+                return pinEnteredByUser;
+            }
+            set
+            {
+                if (value != null &&
+                    value.Length == 4 &&
+                    Users.AuthenticateUser(value))
+                {
+                    IsPinValidUser = true;
+                }
+                else
+                {
+                    pinEnteredByUser = String.Empty;
+                }
+            }
+        }
+        public LoginPageModel()
+        {
 
-        //    //Verify login
-
-        //    if (isValid)
-        //    {
-        //        App.IsUserLoggedIn = true;
-
-
-        //        //Put login name at top of each screen.
-
-        //        await Navigation.PushAsync(new TableListPage());
-
-        //        isBusy = false;
-        //    }
-        //    else
-        //    {
-
-        //    }
-        //}
-
-
-
-        //public ICommand _loginCommand;
-        //public ICommand LoginUserCommand =>
-        //    _loginCommand ?? (_loginCommand =
-        //    new Command(async () => await Login()));
-
-        //private async Task Login()
-        //{
-        //    await CoreMethods.PushPageModel<TableListPageModel>();
-        //}
+        }
     }
 }

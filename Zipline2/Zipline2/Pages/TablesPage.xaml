@@ -6,17 +6,7 @@
              Title="Tables">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Style x:Key="TableButtons" TargetType="Button">
-                <Setter Property="Margin" Value="5, 5, 5, 5" />
-                <Setter Property="TextColor" Value="Black" />
-                <Setter Property="BorderColor" Value="White" />
-                <Setter Property="BorderRadius" Value="2" />
-                <Setter Property="BorderWidth" Value="2" />
-                <Setter Property="WidthRequest" Value="100" />
-                <Setter Property="HeightRequest" Value="40" />
-                <Setter Property="BackgroundColor" Value="Orange" />
-                <Setter Property="HorizontalOptions" Value="Center" />
-            </Style>
+            
         </ResourceDictionary>
     </ContentPage.Resources>   
     <ContentPage.Content>
@@ -25,256 +15,95 @@
                      Padding="10"
                      Orientation="Vertical">
             <StackLayout Orientation="Horizontal">
+                <Label Text="LOGGED IN AS: "
+                       TextColor="White"
+                       FontSize="Micro" />
                 <Label Text="{Binding UserName}"
-                   TextColor="White" 
+                   TextColor="LightBlue" 
                    FontSize="Micro"
-                   Margin="5, 3, 3, 3"/>
-                <Label Text="(tables seated)" 
-                       TextColor="White" 
-                       FontSize="Micro"
-                       Margin="3, 3, 0, 3"/>
-              
-                <Label Text="(refresh icon)" 
-                       TextColor="White" 
-                       FontSize="Micro"
-                       Margin="3, 3, 3, 3"/>
+                   Margin="5, 0, 15, 0"/>
+                <Button Text="{Binding InsideOutsideButtonText}" 
+                        x:Name="InsideOutsideButton"
+                        TextColor="Black"
+                        BackgroundColor="LightYellow"
+                        BorderColor="White"
+                        BorderRadius="2"
+                        BorderWidth="2"
+                        HorizontalOptions="EndAndExpand"
+                        Clicked="InsideOutsideButtonClicked"/>
             </StackLayout>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="55" />
-                    <RowDefinition Height="55" />
-                    <RowDefinition Height="55" />
-                    <RowDefinition Height="55" />
-                    <RowDefinition Height="55" />
-                    <RowDefinition Height="55" />
-                    <RowDefinition Height="55" />
-                    <RowDefinition Height="55" />
-                    <RowDefinition Height="55" />
-                    <RowDefinition Height="55" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Button Text="TAKE OUT"
-                       Grid.Row="0"
-                       Grid.Column="0"
-                       HorizontalOptions="Center"
-                       Margin="5, 5, 5, 5"
-                       TextColor="White"
-                       BackgroundColor="Black"
-                       BorderColor="White"
-                       BorderRadius="3"
-                       BorderWidth="2"
-                       HeightRequest="40">
-                </Button>
-                <Button Text="OUTSIDE" 
-                           Grid.Row="0"
-                           Grid.Column="1"
-                           x:Name="ButtonInsideOutside"
-                           HorizontalOptions="Center"
-                           Margin="5, 5, 5, 5"
-                           TextColor="White"
-                           BackgroundColor="Black"
-                           BorderColor="White"
-                           BorderRadius="3"
-                           BorderWidth="2"
-                           HeightRequest="40"
-                           Clicked="InsideOutsideButtonClicked">
-                </Button>
-                <Button Grid.Row="1"
-                        Grid.Column="0"
-                        Text="1"
-                        x:Name="Row0Column0" 
-                        Clicked="OnTableButtonClicked"
-                        Style="{StaticResource TableButtons}" />
-                <Button Grid.Row="2"
-                        Grid.Column="0"
-                        x:Name="Row1Column0" 
-                        Clicked="OnTableButtonClicked"
-                        Text="2" 
-                        Style="{StaticResource TableButtons}" />
-                <Button Grid.Row="3"
-                        Grid.Column="0"
-                        x:Name="Row2Column0" 
-                        Clicked="OnTableButtonClicked"
-                        Text="3" 
-                        Style="{StaticResource TableButtons}" />              
-                <Button Grid.Row="4"
-                        Grid.Column="0"
-                        x:Name="Row3Column0" 
-                        Clicked="OnTableButtonClicked"
-                        Text="4a" 
-                        Style="{StaticResource TableButtons}" />
-                <Button Grid.Row="5"
-                        Grid.Column="0"
-                        x:Name="Row4Column0" 
-                        Clicked="OnTableButtonClicked"
-                        Text="4b" 
-                        Style="{StaticResource TableButtons}" />
-                <Button Grid.Row="6"
-                        Grid.Column="0"
-                        x:Name="Row5Column0" 
-                        Clicked="OnTableButtonClicked"
-                        Text="5" 
-                        Style="{StaticResource TableButtons}" />
-                <Button Grid.Row="7"
-                        Grid.Column="0"
-                        x:Name="Row6Column0" 
-                        Clicked="OnTableButtonClicked"
-                        Text="7a" 
-                        Style="{StaticResource TableButtons}" />
-                <Button Grid.Row="8"
-                        Grid.Column="0"
-                        x:Name="Row7Column0" 
-                        Clicked="OnTableButtonClicked"
-                        Text="7b" 
-                        Style="{StaticResource TableButtons}" />
-               
-                <Button Grid.Row="1"
-                        Grid.Column="1"
-                        x:Name="Row0Column1"
-                        Clicked="OnTableButtonClicked"
-                        Text="8a" 
-                        Style="{StaticResource TableButtons}" />
-                <Button Grid.Row="2"
-                        Grid.Column="1"
-                        x:Name="Row1Column1" 
-                        Clicked="OnTableButtonClicked"
-                        Text="8b" 
-                        Style="{StaticResource TableButtons}" />
-                <Button Grid.Row="3"
-                        Grid.Column="1"
-                        x:Name="Row2Column1" 
-                        Clicked="OnTableButtonClicked"
-                        Text="10" 
-                        Style="{StaticResource TableButtons}" />
-                <Button Grid.Row="4"
-                        Grid.Column="1"
-                        x:Name="Row3Column1" 
-                        Clicked="OnTableButtonClicked"
-                        Text="11" 
-                        Style="{StaticResource TableButtons}" />
-                <Button Grid.Row="5"
-                        Grid.Column="1"
-                        x:Name="Row4Column1"
-                        Clicked="OnTableButtonClicked"
-                        Text="12" 
-                        Style="{StaticResource TableButtons}" />
-                <Button Grid.Row="6"
-                        Grid.Column="1"
-                        x:Name="Row5Column1"
-                        Clicked="OnTableButtonClicked"
-                        Text="Cash" 
-                        Style="{StaticResource TableButtons}" />
-                <Button Grid.Row="7"
-                        Grid.Column="1"
-                        x:Name="Row6Column1" 
-                        Clicked="OnTableButtonClicked"
-                        Text="Paris" 
-                        Style="{StaticResource TableButtons}" />
-                <Button Grid.Row="8"
-                        Grid.Column="1"
-                        x:Name="Row7Column1" 
-                        Clicked="OnTableButtonClicked"
-                        Text="Waldo" 
-                        Style="{StaticResource TableButtons}" />
-                <Button Text="Move Table"
-                       Grid.Row="9"
-                       Grid.Column="0"
-                       HorizontalOptions="Center"
-                       Margin="5, 5, 5, 5"
-                       TextColor="White"
-                       BackgroundColor="Black"
-                       BorderColor="White"
-                       BorderRadius="3"
-                       BorderWidth="2"
-                       HeightRequest="40"
-                       Clicked="OnMoveTableButtonClicked">
-                </Button>
-                <Button Text="Print Check" 
-                           Grid.Row="9"
-                           Grid.Column="1"
-                           HorizontalOptions="Center"
-                           Margin="5, 5, 5, 5"
-                           TextColor="White"
-                           BackgroundColor="Black"
-                           BorderColor="White"
-                           BorderRadius="3"
-                           BorderWidth="2"
-                           HeightRequest="40"
-                           Clicked="OnPrintCheckButtonClicked">
-                </Button>
-            </Grid>
+            <ListView ItemsSource="{Binding DisplayTables}"
+                      x:Name="TableList"
+                      ItemTapped="OnTableSelected"
+                      SeparatorVisibility="Default"
+                      Margin="25, 0, 25, 0"
+                      RowHeight="80"
+                      SeparatorColor="BlanchedAlmond">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ImageCell ImageSource="{Binding ImageName}"
+                                   Text="{Binding TableName}"
+                                   TextColor="Azure"
+                                   DetailColor="Azure"
+                                   Height="50">
+                        </ImageCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView> 
         </StackLayout>
     </ContentPage.Content>
 </local:BasePage>
 
 
+<!--<ViewCell>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55" />
+            <RowDefinition Height="55" />
+            <RowDefinition Height="55" />
+            <RowDefinition Height="55" />
+            <RowDefinition Height="55" />
+            <RowDefinition Height="55" />
+            <RowDefinition Height="55" />
+            <RowDefinition Height="55" />
+            <RowDefinition Height="55" />
+            <RowDefinition Height="55" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Label Grid.Column="1" Text="{Binding ToppingName}"
 
+                            </Grid>
+</ViewCell>-->
 
-
-
-
-
-<!--<flv:FlowListView FlowColumnCount="2" 
-                              HasUnevenRows="false"
-                              x:Name="TableListView" 
-                              FlowItemsSource="InsideTableList"
-                              RowHeight="60">
-                <flv:FlowListView.FlowColumnTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="50" />
-                                <RowDefinition Height="50" />
-                                <RowDefinition Height="50" />
-                                <RowDefinition Height="50" />
-                                <RowDefinition Height="50" />
-                                <RowDefinition Height="50" />
-                                <RowDefinition Height="50" />
-                                <RowDefinition Height="50" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100" />
-                                <ColumnDefinition Width="100" />
-                            </Grid.ColumnDefinitions>
-                            <Label Text="{Binding TableName}" 
-                                   HorizontalOptions="Start" 
-                                   HorizontalTextAlignment="Center"
-                                   TextColor="White"
-                                   BackgroundColor="Black"/>
-                        </Grid>
-                        -->
-<!--<ImageCell ImageSource="orange_square.png"                                   
-                                   Text="{Binding TableName}"
-                                   TextColor="White">
-                        </ImageCell>-->
-<!--
-                    </DataTemplate>
-            </flv:FlowListView.FlowColumnTemplate>
-            </flv:FlowListView>-->
-<!--<ListView x:Name="TableListView"
-                      RowHeight="60">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ImageCell ImageSource="orange_square.png"                                   
-                                   Text="{Binding TableName}"
-                                   TextColor="White">
-                        </ImageCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>-->
-<!--<ListView>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout Orientation="Horizontal">
+<!--<Grid>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="55" />
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="100" />
+        <ColumnDefinition Width="100" />
+    </Grid.ColumnDefinitions>
+    <Label Grid.Column="0" 
+                                       Text="{Binding TableName}"
+                                       TextColor="BlanchedAlmond"
+                                       HorizontalTextAlignment="Start"/>
+    <Label Grid.Column="1" 
+                                       TextColor="BlanchedAlmond"
+                                       Text="{Binding TableName}" 
+                                       HorizontalTextAlignment="Start" />
+</Grid>-->
+<!--<StackLayout Orientation="Horizontal">
                                 <Image Source="orange_square.png" 
                                         HorizontalOptions="Start"
                                         Margin="10, 5, 5, 5"
                                         HeightRequest="30" />
-                                <Button Text="Column1" 
+                                <Label Text="{Binding TableName}" />-->
+
+
+<!--<Button Text="Column1" 
                                         TextColor="White"
                                         BorderRadius="3"
                                         BackgroundColor="Black"
@@ -283,24 +112,5 @@
                                         Margin="5,5,5,5"
                                         BorderWidth="2" 
                                         HeightRequest="50"
-                                        Clicked="OnTableSelected"/>
-                                <Image Source="orange_square.png" 
-                                        HorizontalOptions="Start"
-                                        Margin="25, 5, 5, 5"
-                                        HeightRequest="30"/>
-                                <Button Text="Column2"
-                                        TextColor="White"
-                                        BorderRadius="3"
-                                        BackgroundColor="Black"
-                                        HorizontalOptions="Start"
-                                        BorderColor="White"
-                                        Margin="5,5,5,5"
-                                        BorderWidth="2" 
-                                        HeightRequest="50"
-                                        Clicked="OnTableSelected"/>
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>-->
-            
+                                        Clicked="OnTableSelected"/>-->
+<!--</StackLayout>-->

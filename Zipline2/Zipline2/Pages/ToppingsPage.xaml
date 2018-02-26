@@ -6,13 +6,28 @@
              x:Class="Zipline2.Pages.ToppingsPage">
     <ContentPage.Content>
         <StackLayout BackgroundColor="Black"
-                     Padding="10"
-                     VerticalOptions="StartAndExpand">
+                     Padding="10, 0, 10, 0"
+                     VerticalOptions="FillAndExpand">
             <views:MenuHeaderView />
             <Label Text="Toppings"
                    TextColor="White" 
                    FontSize="20"
                    HorizontalOptions="Center" />
+            <ListView ItemsSource="{Binding ToppingsList}"
+                      x:Name="ToppingsList"
+                      SeparatorVisibility="Default"
+                      SeparatorColor="BlanchedAlmond">
+                <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextCell Text="{Binding ToppingName}" 
+                                      TextColor="White" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </local:BasePage>
+
+
+
+

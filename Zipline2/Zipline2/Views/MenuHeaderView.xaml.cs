@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Zipline2.PageModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Zipline2.Models;
+using Zipline2.Pages;
 
 namespace Zipline2.Views
 {
@@ -17,32 +19,21 @@ namespace Zipline2.Views
 		{
             InitializeComponent();
 
-            MenuHeaderModel = new MenuHeaderModel();
+            MenuHeaderModel = MenuHeaderModel.GetInstance();
             BindingContext = MenuHeaderModel;
-            
-            //if (App.PizzaInProgress != null)
-            //{
-            //    ItemTotal.Text = App.PizzaInProgress.Total.ToString();
-            //}
 
-            //if (App.OrderInProgress != null)
-            //{
-            //    OrderTotal.Text = App.OrderInProgress.Total.ToString();
-            //}
 
-            if (Application.Current.Properties.ContainsKey("CurrentUser"))
-            {
-                UserName.Text = Application.Current.Properties["CurrentUser"].ToString();
-            }
+            UserName.Text = Users.LoggedInUser.UserName;
 
             if (Application.Current.Properties.ContainsKey("CurrentTable"))
             {
                 TableName.Text = "- Table: " + Application.Current.Properties["CurrentTable"];
             }
         }
-        public void TButtonClicked(object sender, EventArgs e)
+       
+        async public void TButtonClicked(object sender, EventArgs e)
         {
-
+            await Navigation.PushAsync(new TablesPage());
         }
     }
 }

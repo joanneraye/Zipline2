@@ -6,7 +6,7 @@ using Zipline2.Interfaces;
 
 namespace Zipline2.Models
 {
-    public abstract class OrderItem
+    public class OrderItem
     {
         [PrimaryKey, AutoIncrement, Column("orderitemid")]
         public int OrderItemId { get; set; }

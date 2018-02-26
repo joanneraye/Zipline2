@@ -7,7 +7,6 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Zipline2;
-using ButtonCircle.FormsPlugin.Droid;
 
 namespace Zipline2.Droid
 {
@@ -32,7 +31,10 @@ namespace Zipline2.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
-            ButtonCircleRenderer.Init();
+
+            //string dbPath = FileAccessHelper.GetLocalFilePath("orders.db3");
+
+            //LoadApplication(new App(dbPath));
             LoadApplication(new App());
         }
     }

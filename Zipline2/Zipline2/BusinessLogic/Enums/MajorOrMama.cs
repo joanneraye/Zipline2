@@ -4,11 +4,10 @@ using System.Text;
 
 namespace Zipline2.BusinessLogic.Enums
 {
-    public enum CheesePizzaSize
+    public enum MajorOrMama
     {
-        Slice,
-        Medium,
-        Large,
-        Indy
+        Neither,
+        Major,
+        Mama
     }
 }

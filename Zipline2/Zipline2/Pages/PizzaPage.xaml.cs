@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using ButtonCircle;
 using Zipline2.Models;
 using Zipline2.BusinessLogic.Enums;
+using Zipline2.BusinessLogic;
 
 namespace Zipline2.Pages
 {
@@ -19,20 +19,20 @@ namespace Zipline2.Pages
             InitializeComponent ();
             var cheeseTypes = new List<string>
             {
-                CheesePizzaSize.Slice.ToString(),
-                CheesePizzaSize.Indy.ToString(),
-                CheesePizzaSize.Medium.ToString(),
-                CheesePizzaSize.Large.ToString()
+                PizzaSize.Slice.ToString(),
+                PizzaSize.Indy.ToString(),
+                PizzaSize.Medium.ToString(),
+                PizzaSize.Large.ToString()
             };
 
             var majorTypes = new List<string>
             {
-                "Slice",
-                "INDY",
-                "Medium",
-                "Large",
-                "MFP",
-                "SATCH-PAN"
+                MajorPizzaType.Slice.ToString(),
+                MajorPizzaType.Indy.ToString(),
+                MajorPizzaType.Medium.ToString(),
+                MajorPizzaType.Large.ToString(),
+                MajorPizzaType.Mfp.ToString(),
+                MajorPizzaType.SatchPan.ToString()
             };
 
             CheesePizzaPicker.ItemsSource = cheeseTypes;
@@ -42,25 +42,109 @@ namespace Zipline2.Pages
             MajorPizzaPicker.SelectedIndex = 0;            
 		}
 
+        async Task DisplayToppingsPage()
+        {
+            await Navigation.PushAsync(new ToppingsPage());
+        }
+
         async Task OnPlusCheesePizza(object sender, EventArgs e)
         {
-            var cheesePizzaSize = (CheesePizzaSize)Enum.Parse(typeof(CheesePizzaSize), 
+            //Get size chosen from picker.
+            var pizzaSize = (PizzaSize)Enum.Parse(typeof(PizzaSize), 
                                     CheesePizzaPicker.SelectedItem.ToString());
 
-            App.PizzaInProgress = new Pizza(cheesePizzaSize, 1);   
+            //Send info to OrderManager
+            var guiData = new CustomerSelections
+            {
+                MenuItemGeneralCategory = MenuCategory.Pizza,
+                PizzaSize = pizzaSize,
+                NumberOfItems = 1
+            };
+
+            OrderManager.HandleOrderItem(guiData);
             
-            App.OrderInProgress.AddItemToOrder(App.PizzaInProgress);
-
-            await Navigation.PushAsync(new ToppingsPage());
-
-            //TODO:
-            //Display price of this item and total of check at top of screen.
-            //Save order locally and/or remotely??
+            await DisplayToppingsPage();
         }
 
-        void OnPlusButtonClicked(object sender, EventArgs e)
+      
+        async void OnPlusMajorPizza(object sender, EventArgs e)
         {
+            //Get size chosen from picker.
+            var majorPizzaType = (MajorPizzaType)Enum.Parse(typeof(MajorPizzaType),
+                                    MajorPizzaPicker.SelectedItem.ToString());
+
+            var guiData = new CustomerSelections
+            {
+                MenuItemGeneralCategory = MenuCategory.Pizza,
+                MajorOrMama = MajorOrMama.Major,
+                NumberOfItems = 1
+            };
+
+            switch (majorPizzaType)
+            {
+                case MajorPizzaType.Indy:
+                    guiData.PizzaSize = PizzaSize.Indy;
+                    guiData.PizzaType = PizzaType.RegularThin;
+                    break;
+                case MajorPizzaType.Large:
+                    guiData.PizzaSize = PizzaSize.Large;
+                    guiData.PizzaType = PizzaType.RegularThin;
+                    break;
+                case MajorPizzaType.Medium:
+                    guiData.PizzaSize = PizzaSize.Large;
+                    guiData.PizzaType = PizzaType.RegularThin;
+                    break;
+                case MajorPizzaType.Mfp:
+                    guiData.PizzaSize = PizzaSize.Large;
+                    guiData.PizzaType = PizzaType.Mfp;
+                    break;
+                case MajorPizzaType.SatchPan:
+                    guiData.PizzaSize = PizzaSize.Large;
+                    guiData.PizzaType = PizzaType.SatchPan;
+                    break;
+                case MajorPizzaType.Slice:
+                    guiData.PizzaSize = PizzaSize.Slice;
+                    guiData.PizzaType = PizzaType.RegularThin;
+                    break;
+            }
+
+            OrderManager.HandleOrderItem(guiData);
+           
+            //Allow user to modify Major pizza
+            await DisplayToppingsPage();
+
         }
 
+        async Task OnMfpPizza(object sender, EventArgs e)
+        {
+            //Send info to OrderManager
+            var guiData = new CustomerSelections
+            {
+                MenuItemGeneralCategory = MenuCategory.Pizza,
+                PizzaSize = PizzaSize.OneSize,
+                PizzaType = PizzaType.Mfp,
+                NumberOfItems = 1
+            };
+
+            OrderManager.HandleOrderItem(guiData);
+
+            await DisplayToppingsPage();
+        }
+
+        async Task OnSatchPanPizza(object sender, EventArgs e)
+        {
+            //Send info to OrderManager
+            var guiData = new CustomerSelections
+            {
+                MenuItemGeneralCategory = MenuCategory.Pizza,
+                PizzaSize = PizzaSize.OneSize,
+                PizzaType = PizzaType.SatchPan,
+                NumberOfItems = 1
+            };
+
+            OrderManager.HandleOrderItem(guiData);
+
+            await DisplayToppingsPage();
+        }
     }
 }

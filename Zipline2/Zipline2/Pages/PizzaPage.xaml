@@ -7,7 +7,7 @@
              xmlns:enums="clr-namespace:Zipline2.BusinessLogic.Enums">
     <ContentPage.Content>
         <StackLayout BackgroundColor="Black"
-                     Padding="10"
+                     Padding="10, 0, 10, 0"
                      VerticalOptions="StartAndExpand">
             <views:MenuHeaderView />          
             <Label Text="Pizza"
@@ -56,7 +56,7 @@
                        HorizontalOptions="Start" />
                 <Button Grid.Row ="2"
                         Grid.Column="1"
-                        Clicked="OnPlusButtonClicked"
+                        Clicked="OnPlusMajorPizza"
                         Style="{StaticResource PlusButton}" />
                 <Picker Grid.Row="3"
                         Grid.Column="0"
@@ -75,7 +75,7 @@
                        HorizontalOptions="Start" />
                 <Button Grid.Row ="4"
                         Grid.Column="1"
-                        Clicked="OnPlusButtonClicked"
+                        Clicked="OnMfpPizza"
                         Style="{StaticResource PlusButton}" />
                 <Label Grid.Row ="5"
                        Grid.Column="0"
@@ -86,7 +86,7 @@
                        HorizontalOptions="Start" />
                 <Button Grid.Row ="5"
                         Grid.Column="1"
-                        Clicked="OnPlusButtonClicked"
+                        Clicked="OnSatchPanPizza"
                         Style="{StaticResource PlusButton}" />
             </Grid>
             <views:MenuButtonView VerticalOptions="End" />

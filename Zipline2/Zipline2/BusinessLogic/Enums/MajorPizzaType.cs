@@ -4,14 +4,13 @@ using System.Text;
 
 namespace Zipline2.BusinessLogic.Enums
 {
-    public enum MajorType
+    public enum MajorPizzaType
     {
-        None,
         Slice,
         Indy,
         Medium,
         Large,
-        MFP,
+        Mfp,
         SatchPan
     }
 }

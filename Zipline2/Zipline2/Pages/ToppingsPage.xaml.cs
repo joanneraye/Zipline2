@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Zipline2.PageModels;
 
 namespace Zipline2.Pages
 {
@@ -14,6 +15,7 @@ namespace Zipline2.Pages
 	{
 		public ToppingsPage ()
 		{
+            BindingContext = new ToppingsPageModel();
 			InitializeComponent ();
 		}
 	}

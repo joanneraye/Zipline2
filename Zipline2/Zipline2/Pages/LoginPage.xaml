@@ -17,19 +17,36 @@
                      Spacing="10">            
             <Image Source="zipline_logo.jpg" 
                    Aspect="AspectFill"  />           
-            <Entry Placeholder="Enter your PIN here..." 
+            <Entry Placeholder="Enter 4 digit numeric PIN here..." 
                    TextColor="Black"
+                   x:Name="PinEnteredByUser"
                    BackgroundColor="LightGray"
-                   FontSize="Medium"
+                   FontSize="Small"
                    Keyboard="Numeric"
                    Margin="13" />
             <Button Text="Log In"
                     x:Name="LoginButton"
                     Clicked="OnLoginButtonClicked"
                     FontSize="Medium"
-                    HeightRequest="65"
-                    Margin="10"
+                    HeightRequest="55"
+                    Margin="10, 0, 10, 0"
                     FontAttributes="Bold" />
+            <Button Text="Change My PIN"
+                    x:Name="ChangePinButton"
+                    Margin="10, 0, 10, 0"
+                    Clicked="OnChangePinButtonClicked" />
+            <Label Text="For Manager Only:" 
+                   TextColor="Green"
+                   HorizontalTextAlignment="Center"
+                   Margin="10, 10, 10, 0"/>
+            <Label Text="Enter YOUR PIN above and click button below to add new employee." 
+                   HorizontalTextAlignment="Center"
+                   TextColor="Green"
+                   Margin="10, 0, 10, 0"/>
+            <Button Text="Add User"
+                    Clicked="OnAddNewUserButtonClicked" 
+                    Margin="10, 0, 10, 0"
+                    BackgroundColor="LightGray"/>
         </StackLayout>
     </ContentPage.Content>
 

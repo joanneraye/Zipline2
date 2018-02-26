@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using Zipline2.BusinessLogic.DictionaryKeys;
 using System.Text;
 
 namespace Zipline2.BusinessLogic
 {
     public static class DisplayNames
     {
-        public static readonly string PizzaSliceDisplay = "Pizza Slice";
-        public static readonly string PizzaMediumDisplay = "Medium Pizza";
-        public static readonly string PizzaLargeDisplay = "Large Pizza";
-        public static readonly string PizzaCalzoneDisplay = "Calzone";
-        public static readonly string PizzaSatchPanDisplay = "Satch-Pan";
-        public static readonly string PizzaMfpDisplay = "Millet Flax Pizza";
-        public static readonly string PizzaIndyDisplay = "Indy Pizza";
+        public static Dictionary<string, string> DisplayNameDictionary = new Dictionary<string, string>
+        {
+            { Key.PIZZA_SLICE, "Pizza Slice" },
+            { Key.PIZZA_MEDIUM, "Medium Pizza" },
+            { Key.PIZZA_LARGE, "Large Pizza" },
+            { Key.CALZONE, "Calzone" },
+            { Key.PIZZA_SATCHPAN, "Satch-Pan" },
+            { Key.PIZZA_MFP, "Millet Flax Pizza" },
+            { Key.PIZZA_INDY, "Indy Pizza" }
+        };
     }
 }
