@@ -12,7 +12,7 @@
     <ContentPage.Content>
       
         <StackLayout BackgroundColor="Black" 
-                     Padding="10"
+                     Padding="10, 10"
                      Orientation="Vertical">
             <StackLayout Orientation="Horizontal">
                 <Label Text="LOGGED IN AS: "
@@ -20,8 +20,15 @@
                        FontSize="Micro" />
                 <Label Text="{Binding UserName}"
                    TextColor="LightBlue" 
-                   FontSize="Micro"
-                   Margin="5, 0, 15, 0"/>
+                   FontSize="Small"
+                   Margin="0, 0, 15, 0"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Tables"
+                   TextColor="White" 
+                   FontSize="20"
+                   HorizontalOptions="Center" />
+                
                 <Button Text="{Binding InsideOutsideButtonText}" 
                         x:Name="InsideOutsideButton"
                         TextColor="Black"
@@ -36,8 +43,7 @@
                       x:Name="TableList"
                       ItemTapped="OnTableSelected"
                       SeparatorVisibility="Default"
-                      Margin="25, 0, 25, 0"
-                      RowHeight="80"
+                      RowHeight="55"
                       SeparatorColor="BlanchedAlmond">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -45,7 +51,7 @@
                                    Text="{Binding TableName}"
                                    TextColor="Azure"
                                    DetailColor="Azure"
-                                   Height="50">
+                                   Height="30">
                         </ImageCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>

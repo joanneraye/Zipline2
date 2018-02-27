@@ -4,8 +4,24 @@ using System.Text;
 
 namespace Zipline2.Models
 {
-    public static class Users
+    public class Users
     {
+        //This is a singleton class:
+        private static readonly Lazy<Users> lazy =
+            new Lazy<Users>(() => new Users());
+        public static Users Instance
+        {
+            get
+            {
+                return lazy.Value;
+            }
+        }
+
+        private Users()
+        {
+
+        }
+
         public static List<User> AllUsers { get; set; }
         
         public static User LoggedInUser { get; set; }

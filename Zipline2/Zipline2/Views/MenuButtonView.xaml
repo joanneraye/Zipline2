@@ -19,8 +19,10 @@
     </ContentView.Resources>
     <ContentView.Content>
         <StackLayout Orientation="Vertical" 
-                     VerticalOptions="EndAndExpand"
-                     Spacing="10">
+                     VerticalOptions="End"
+                     Spacing="10"
+                     BackgroundColor="Black"
+                     Padding="0, 0, 0, 0">
             <StackLayout Orientation="Horizontal"
                          HorizontalOptions="CenterAndExpand"
                          Spacing="10">

@@ -32,26 +32,16 @@ namespace Zipline2.Pages
         public async void OnTableSelected(object sender, EventArgs e)
         {
             //Change table selected from open to occupied.
-            //Table name should show at top of subsequent ordering screens.
-            //Display Pizza menu first.
+
             ListView tableList = sender as ListView;
             Table selectedTable = (Table)tableList.SelectedItem;
             if (selectedTable.IsTakeOut)
             {
                 //what to do here?
             }
-            if (Application.Current.Properties.ContainsKey("CurrentTable"))
-            {
-                Application.Current.Properties["CurrentTable"] = selectedTable.TableName;
-            }
-            else
-            {
-                Application.Current.Properties.Add("CurrentTable", selectedTable.TableName);
-            }
 
-            await Application.Current.SavePropertiesAsync();
-
-            OrderManager.OrderInProgress = new Order();
+            //Change what the app's current table is.
+            OrderManager.GetInstance().CurrentTableIndex = selectedTable.IndexInAllTables;
 
             await Navigation.PushAsync(new PizzaPage());
         }

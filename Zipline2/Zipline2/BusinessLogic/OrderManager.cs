@@ -12,45 +12,60 @@ namespace Zipline2.BusinessLogic
     //displayed in the app for the user.
     public sealed class OrderManager
     {
-        //private static OrderItem orderItemInProgress;
-        //public static OrderItem OrderItemInProgress
+        public OrderItem OrderItemInProgress { get; set; }
+        public Order OrderInProgress { get; set; }
+        
+        public int CurrentTableIndex { get; set; }
+       
+        private static OrderManager Instance;
+
+        //This is a singleton class:
+        public static OrderManager GetInstance()
+        {
+            if (Instance == null)
+            {
+                Instance = new OrderManager();
+            }
+
+            return Instance;
+        }
+        
+        //private static readonly Lazy<OrderManager> lazy =
+        //    new Lazy<OrderManager>(() => new OrderManager());
+        //public static OrderManager Instance
         //{
         //    get
         //    {
-        //        return orderItemInProgress;
-        //    }
-        //    set
-        //    {
-        //        orderItemInProgress = value;
+        //        return lazy.Value;
         //    }
         //}
 
-        public static OrderItem OrderItemInProgress { get; set; }
-        public static Order OrderInProgress { get; set; }
-
-        //This is a singleton class:
-        private static readonly Lazy<OrderManager> lazy =
-            new Lazy<OrderManager>(() => new OrderManager());
-        public static OrderManager Instance
-        {
-            get
-            {
-                return lazy.Value;
-            }
-        }
-
         private OrderManager()
         {
-
+            OrderInProgress = new Order();
+            OrderItemInProgress = new OrderItem();
         }
 
-        public static void HandleOrderItem(CustomerSelections guiData)
+        public Table GetCurrentTable()
+        {
+            return Tables.AllTables[CurrentTableIndex];
+        }
+
+        public void UpdateCurrentTable(Table updatedTable)
+        {
+            
+           Tables.AllTables[CurrentTableIndex] = updatedTable;
+             
+        }
+
+        public void HandleOrderItem(CustomerSelections guiData)
         {
             OrderItemInProgress = OrderItemFactory.GetOrderItem(guiData);
             OrderInProgress.AddItemToOrder(OrderItemInProgress);
             var menuHeader = MenuHeaderModel.GetInstance();
             menuHeader.ItemTotal = OrderItemInProgress.Total;
             menuHeader.OrderTotal = OrderInProgress.Total;
+            //Somehow need to update the MenuHeaderView
         }
     }
 }

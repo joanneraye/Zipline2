@@ -17,6 +17,10 @@ namespace Zipline2.Models
         [PrimaryKey, Column("tablename")]
         public string TableName { get; set; }
 
+        public int IndexInAllTables { get; set; }
+
+        public bool IsInside { get; set; }
+
         [Column("isoccupied")]
         public bool IsOccupied
         {
@@ -26,13 +30,13 @@ namespace Zipline2.Models
             }
             set
             {
+                isOccupied = value;
                 if (value)
                 {
                     ImageName = OccupiedTableIconName;
                 }
                 else
-                {
-                    isOccupied = value;
+                { 
                     ImageName = OpenTableIconName;
                 }
             }
@@ -57,7 +61,18 @@ namespace Zipline2.Models
             }
         }
 
-        public string ImageName { get; private set; }
+        private string imageName;
+        public string ImageName
+        {
+            get
+            {
+                return imageName;
+            }
+            set
+            {
+                imageName = value;
+            }
+        }
 
         public LayoutOptions TableHorizOptions { get; set; }
 

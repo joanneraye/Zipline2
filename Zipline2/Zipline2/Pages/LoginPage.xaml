@@ -28,24 +28,19 @@
                     x:Name="LoginButton"
                     Clicked="OnLoginButtonClicked"
                     FontSize="Medium"
+                    VerticalOptions="Center"
                     HeightRequest="55"
-                    Margin="10, 0, 10, 0"
+                    Margin="13, 0, 13, 0"
                     FontAttributes="Bold" />
             <Button Text="Change My PIN"
-                    x:Name="ChangePinButton"
-                    Margin="10, 0, 10, 0"
+                    x:Name="ChangePinButton" 
+                    Margin="13, 2, 13, 2"
+                    FontSize="Small"
                     Clicked="OnChangePinButtonClicked" />
-            <Label Text="For Manager Only:" 
-                   TextColor="Green"
-                   HorizontalTextAlignment="Center"
-                   Margin="10, 10, 10, 0"/>
-            <Label Text="Enter YOUR PIN above and click button below to add new employee." 
-                   HorizontalTextAlignment="Center"
-                   TextColor="Green"
-                   Margin="10, 0, 10, 0"/>
-            <Button Text="Add User"
+            <Button Text="Add User (Manager Only)"
                     Clicked="OnAddNewUserButtonClicked" 
-                    Margin="10, 0, 10, 0"
+                    Margin="15, 0, 15, 0"
+                    FontSize="Small"
                     BackgroundColor="LightGray"/>
         </StackLayout>
     </ContentPage.Content>

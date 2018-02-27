@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Zipline2.BusinessLogic;
+using Zipline2.Models;
 
 namespace Zipline2.PageModels
 {
@@ -13,40 +14,47 @@ namespace Zipline2.PageModels
         //so that I can update these totals bound to the screen??
         private decimal itemTotal;
         private decimal orderTotal;
-
-        private MenuHeaderModel()
+        private string userName;
+        public string UserName
         {
-
-        }
-
-        private static MenuHeaderModel Instance;
-
-        public static MenuHeaderModel GetInstance()
-        {
-            if (Instance == null)
+            get
             {
-                Instance = new MenuHeaderModel();
+                return userName;
             }
-           
-            return Instance;
+            set
+            {
+                SetProperty(ref userName, value);
+            }
+        }
+        private string tableName;
+        public string TableName
+        {
+            get
+            {
+                return tableName;
+            }
+            set
+            {
+                SetProperty(ref tableName, value);
+            }
         }
 
         public decimal ItemTotal
         {
             get
             {
-                if (OrderManager.OrderItemInProgress != null)
+                if (OrderManager.GetInstance().OrderItemInProgress != null)
                 {
-                    itemTotal = OrderManager.OrderItemInProgress.Total;
+                    itemTotal = OrderManager.GetInstance().OrderItemInProgress.Total;
                 }
 
                 return itemTotal;
             }
             set
             {
-                if (OrderManager.OrderItemInProgress != null)
+                if (OrderManager.GetInstance().OrderItemInProgress != null)
                 {
-                    itemTotal = OrderManager.OrderItemInProgress.Total;
+                    itemTotal = OrderManager.GetInstance().OrderItemInProgress.Total;
                 }
 
                 SetProperty(ref itemTotal, value);
@@ -57,21 +65,41 @@ namespace Zipline2.PageModels
         {
             get
             {
-                if (OrderManager.OrderInProgress != null)
+                if (OrderManager.GetInstance().OrderInProgress != null)
                 {
-                    orderTotal = OrderManager.OrderInProgress.Total;
+                    orderTotal = OrderManager.GetInstance().OrderInProgress.Total;
                 }
                 return orderTotal;
             }
             set
             {
-                if (OrderManager.OrderInProgress != null)
+                if (OrderManager.GetInstance().OrderInProgress != null)
                 {
-                    orderTotal = OrderManager.OrderInProgress.Total;
+                    orderTotal = OrderManager.GetInstance().OrderInProgress.Total;
                 }
 
                 SetProperty(ref orderTotal, value);
             }
+        }
+
+        private MenuHeaderModel()
+        {
+            UserName = Users.LoggedInUser.UserName;
+            itemTotal = 0M;
+            orderTotal = 0M;
+            tableName = OrderManager.GetInstance().GetCurrentTable().TableName;
+        }
+
+        private static MenuHeaderModel Instance;
+
+        public static MenuHeaderModel GetInstance()
+        {
+            if (Instance == null)
+            {
+                Instance = new MenuHeaderModel();                
+            }
+           
+            return Instance;
         }
     }
 }

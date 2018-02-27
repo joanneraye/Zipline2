@@ -3,38 +3,69 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Zipline2.Views.MenuHeaderView">
   <ContentView.Content>
-        <StackLayout>
+        <StackLayout Orientation="Vertical"
+                     Padding="0"
+                     Spacing="0">
           <StackLayout Orientation="Horizontal"
-                Padding="0, 0, 0, 10">
-                <Button BackgroundColor="Black"
-                      TextColor="White"
+                       Padding="10, 0, 10, 0"
+                       Spacing="5">
+                <Button x:Name="TButton"
                       Text="T"
-                      WidthRequest="38"
-                      HeightRequest="38"
-                      BorderColor="White"
-                      BorderWidth="2"
-                      Margin="0,0,10,0"
+                      HorizontalOptions="Start"
                       Clicked="TButtonClicked" />
-                <Label TextColor="White" 
+                
+                <Label TextColor="White"
+                       FontSize="Micro"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center"
+                    Text="{Binding UserName, StringFormat='User: {0}  '}"/>
+                <Label TextColor="White"
+                       FontSize="Micro"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center"
+                    Text="{Binding TableName, StringFormat='Table: {0}'}"/>
+
+                <!--<Label Text="LOGGED IN AS: "
+                       TextColor="White"
+                       HorizontalOptions="Start"
+                       VerticalOptions="Center"
+                       FontSize="Micro" />
+                <Label Text="{Binding UserName}"
+                       x:Name="UserNameLabel"
+                       VerticalOptions="Center"
+                       TextColor="LightBlue" 
+                       FontSize="Small"/>
+                <Label Text="Table "
+                       FontAttributes="Bold"
                         FontSize="Micro"
-                       Text="Item Total: " />
+                       TextColor="White"/>
+                <Label Text="{Binding TableName}"
+                       FontAttributes="Bold"
+                       FontSize="Micro"
+                       x:Name="TableNameLabel"
+                       TextColor="White" />-->
+                <Button Text="Next" HorizontalOptions="EndAndExpand" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="CenterAndExpand"
+                         Padding="10, 0, 10, 0">
+                <Label TextColor="White" 
+                       FontSize="Micro"
+                       Text="Item Total:" 
+                       Margin="0"/>
                 <Label TextColor="LightBlue"
+                       Margin="0, 0, 10, 0"
+                       x:Name="ItemTotalLabel"
+                       FontSize="Micro"
                        Text="{Binding ItemTotal, StringFormat='{0:C}'}" />
                 <Label TextColor="White" 
                        FontSize="Micro"
-                       Text="Order Total: " />
+                       Margin="0"
+                       Text="Order Total:" />
                 <Label Text="{Binding OrderTotal, StringFormat='{0:C}'}"
+                       FontSize="Micro"
+                       x:Name="OrderTotalLabel"
                        TextColor="LightBlue" />
-                <Button Text="Next" />
-            </StackLayout>
-            <StackLayout Orientation="Horizontal"
-                         HorizontalOptions="Center">                
-                <Label x:Name="UserName"
-                   TextColor="White"
-                   FontSize="Small"/>
-                <Label x:Name="TableName" 
-                   TextColor="White"
-                   FontSize="Small"/>
             </StackLayout>        
         </StackLayout>
     </ContentView.Content>

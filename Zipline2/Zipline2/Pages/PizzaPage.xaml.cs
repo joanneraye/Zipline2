@@ -44,6 +44,10 @@ namespace Zipline2.Pages
 
         async Task DisplayToppingsPage()
         {
+            //Update the current table to indicate it is occupied.
+            Table currentTable = OrderManager.GetInstance().GetCurrentTable();
+            currentTable.IsOccupied = true;
+            OrderManager.GetInstance().UpdateCurrentTable(currentTable);
             await Navigation.PushAsync(new ToppingsPage());
         }
 
@@ -61,7 +65,7 @@ namespace Zipline2.Pages
                 NumberOfItems = 1
             };
 
-            OrderManager.HandleOrderItem(guiData);
+            OrderManager.GetInstance().HandleOrderItem(guiData);
             
             await DisplayToppingsPage();
         }
@@ -108,7 +112,7 @@ namespace Zipline2.Pages
                     break;
             }
 
-            OrderManager.HandleOrderItem(guiData);
+            OrderManager.GetInstance().HandleOrderItem(guiData);
            
             //Allow user to modify Major pizza
             await DisplayToppingsPage();
@@ -126,7 +130,7 @@ namespace Zipline2.Pages
                 NumberOfItems = 1
             };
 
-            OrderManager.HandleOrderItem(guiData);
+            OrderManager.GetInstance().HandleOrderItem(guiData);
 
             await DisplayToppingsPage();
         }
@@ -142,7 +146,7 @@ namespace Zipline2.Pages
                 NumberOfItems = 1
             };
 
-            OrderManager.HandleOrderItem(guiData);
+            OrderManager.GetInstance().HandleOrderItem(guiData);
 
             await DisplayToppingsPage();
         }

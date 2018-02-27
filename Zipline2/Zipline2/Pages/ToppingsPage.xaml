@@ -9,10 +9,14 @@
                      Padding="10, 0, 10, 0"
                      VerticalOptions="FillAndExpand">
             <views:MenuHeaderView />
-            <Label Text="Toppings"
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                <Label Text="Toppings For"
                    TextColor="White" 
+                   FontSize="20" />
+                <Label Text="{Binding PizzaName}"
                    FontSize="20"
-                   HorizontalOptions="Center" />
+                   TextColor="White" />
+            </StackLayout>
             <ListView ItemsSource="{Binding ToppingsList}"
                       x:Name="ToppingsList"
                       SeparatorVisibility="Default"

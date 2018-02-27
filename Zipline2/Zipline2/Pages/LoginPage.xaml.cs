@@ -34,7 +34,7 @@ namespace Zipline2.Pages
             }
             else
             {
-                await DisplayAlert("Oops", "Only a Manager PIN can access the Add User button.", "OK");
+                await DisplayAlert("Oops", "Only a Manager PIN can access the Add User button.  Please enter manager PIN.", "OK");
             }
         }
 

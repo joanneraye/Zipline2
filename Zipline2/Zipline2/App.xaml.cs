@@ -50,9 +50,6 @@ namespace Zipline2
             //Read User file into program......
 
             Application.Current.Properties.Clear();
-
-
-            
         }
 
         protected override void OnSleep()

@@ -32,31 +32,18 @@ namespace Zipline2.Models
 
         public decimal Tax { get; private set; }
 
-        public string UserName { get; private set; }
-
-        public string TableName { get; private set; }
-
         public bool IsTakeout { get; set; }
 
         public Order()
         {
             OrderItems = new List<OrderItem>();
             IsTakeout = false;
-            if (Application.Current.Properties.ContainsKey("UserName"))
-            {
-                UserName = Application.Current.Properties["UserName"].ToString();
-            }
-
-            if (Application.Current.Properties.ContainsKey("TableName"))
-            {
-                TableName = Application.Current.Properties["TableName"].ToString();
-            }
         }
 
         public void AddItemToOrder(OrderItem item)
         {
             SubTotal += item.Total;
-            Tax = item.Total * HelperMethods.GetTaxAmount(SubTotal);  //TODO:  Round this???
+            Tax = SubTotal * HelperMethods.GetTaxAmount(SubTotal);  //TODO:  Round this???
             Total = SubTotal + Tax;
             OrderItems.Add(item);
         }

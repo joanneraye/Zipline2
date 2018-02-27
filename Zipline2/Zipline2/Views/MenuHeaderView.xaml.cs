@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Zipline2.Models;
 using Zipline2.Pages;
+using Zipline2.BusinessLogic;
 
 namespace Zipline2.Views
 {
@@ -15,22 +16,21 @@ namespace Zipline2.Views
 	public partial class MenuHeaderView : ContentView
 	{
         public MenuHeaderModel MenuHeaderModel { get; set; }
+
         public MenuHeaderView()
 		{
-            InitializeComponent();
-
             MenuHeaderModel = MenuHeaderModel.GetInstance();
             BindingContext = MenuHeaderModel;
-
-
-            UserName.Text = Users.LoggedInUser.UserName;
-
-            if (Application.Current.Properties.ContainsKey("CurrentTable"))
-            {
-                TableName.Text = "- Table: " + Application.Current.Properties["CurrentTable"];
-            }
+            InitializeComponent();
+            //Following used when MenuHeaderModel not working....
+            //UserNameLabel.Text = Users.LoggedInUser.UserName;
+            //TableNameLabel.Text = OrderManager.GetInstance().CurrentTable.TableName;
+            //decimal itemTotal = OrderManager.GetInstance().OrderItemInProgress.Total;
+            //decimal orderTotal = OrderManager.GetInstance().OrderItemInProgress.Total;
+            //ItemTotalLabel.Text = string.Format("{0:C}", itemTotal);
+            //OrderTotalLabel.Text = string.Format("{0:C}", orderTotal);
         }
-       
+
         async public void TButtonClicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new TablesPage());

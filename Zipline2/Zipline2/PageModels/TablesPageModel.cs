@@ -60,21 +60,13 @@ namespace Zipline2.PageModels
                 new Table(true) { TableName = "Takeout", IsTakeOut = true }
             };
 
-            if (insideTables)
+            foreach (var table in Tables.AllTables)
             {
-                foreach (var table in Tables.InsideTables)
+                if (insideTables == table.IsInside)
                 {
                     displayTables.Add(table);
                 }
             }
-            else
-            {
-                foreach (var table in Tables.OutsideTables)
-                {
-                    displayTables.Add(table);
-                }
-            }
-            
         }
         
     }
