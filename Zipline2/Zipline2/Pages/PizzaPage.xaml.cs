@@ -17,6 +17,8 @@ namespace Zipline2.Pages
 		public PizzaPage ()
 		{
             InitializeComponent ();
+            //Could move these to PageModel but since couldn't get command binding 
+            //to work, leaving here.
             var cheeseTypes = new List<string>
             {
                 PizzaSize.Slice.ToString(),
@@ -48,6 +50,7 @@ namespace Zipline2.Pages
             Table currentTable = OrderManager.GetInstance().GetCurrentTable();
             currentTable.IsOccupied = true;
             OrderManager.GetInstance().UpdateCurrentTable(currentTable);
+
             await Navigation.PushAsync(new ToppingsPage());
         }
 

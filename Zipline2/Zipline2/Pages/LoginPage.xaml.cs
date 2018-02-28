@@ -26,8 +26,8 @@ namespace Zipline2.Pages
 
         async void OnAddNewUserButtonClicked(object sender, EventArgs e)
         {
-            if (Users.AuthenticateUser(PinEnteredByUser.Text) &&
-                Users.LoggedInUser.HasManagerPrivilege)
+            if (Users.GetInstance().AuthenticateUser(PinEnteredByUser.Text) &&
+                Users.GetInstance().LoggedInUser.HasManagerPrivilege)
             {
                 PinEnteredByUser.Text = String.Empty;
                 await Navigation.PushAsync(new AddUserPage());
@@ -41,7 +41,7 @@ namespace Zipline2.Pages
         async void OnLoginButtonClicked(object sender, EventArgs e)
         {
             LoginButton.IsEnabled = false;
-            if (Users.AuthenticateUser(PinEnteredByUser.Text))
+            if (Users.GetInstance().AuthenticateUser(PinEnteredByUser.Text))
             {
                 App.IsUserLoggedIn = true;
                 await Navigation.PushAsync(new TablesPage());

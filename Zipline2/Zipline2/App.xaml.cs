@@ -34,22 +34,13 @@ namespace Zipline2
         {
             //Prices.WritePricesToJsonFile();
             //Prices.ReadPricesFromJsonFile();
-
-            Users.AllUsers = new List<User>();
             //Somewhere load users file....
-            User joanne = new User
-            {
-                UserPin = "8011",
-                UserName = "Joanne",
-                HasManagerPrivilege = true
-            };
-            Users.AllUsers.Add(joanne);
+
+            //for now....
+            User joanne = new User("Joanne", true, "8011");
+            Users.GetInstance().AddNewUser(joanne);
 
             Tables.LoadInitialTableData();
-
-            //Read User file into program......
-
-            Application.Current.Properties.Clear();
         }
 
         protected override void OnSleep()

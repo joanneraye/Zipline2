@@ -17,9 +17,7 @@ namespace Zipline2.PageModels
         public User LoggedInUser { get; set; }
 
         public bool IsPinValidUser { get; set; }
-
-        public bool IsPinValidManager { get; set; }
-
+        
         public string PinEnteredByUser
         {
             get
@@ -30,7 +28,7 @@ namespace Zipline2.PageModels
             {
                 if (value != null &&
                     value.Length == 4 &&
-                    Users.AuthenticateUser(value))
+                    Users.GetInstance().AuthenticateUser(value))
                 {
                     IsPinValidUser = true;
                 }

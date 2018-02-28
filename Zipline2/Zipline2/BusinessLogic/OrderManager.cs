@@ -29,16 +29,6 @@ namespace Zipline2.BusinessLogic
 
             return Instance;
         }
-        
-        //private static readonly Lazy<OrderManager> lazy =
-        //    new Lazy<OrderManager>(() => new OrderManager());
-        //public static OrderManager Instance
-        //{
-        //    get
-        //    {
-        //        return lazy.Value;
-        //    }
-        //}
 
         private OrderManager()
         {

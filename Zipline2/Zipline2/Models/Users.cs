@@ -6,50 +6,61 @@ namespace Zipline2.Models
 {
     public class Users
     {
+        #region Singleton Class Logic
         //This is a singleton class:
-        private static readonly Lazy<Users> lazy =
-            new Lazy<Users>(() => new Users());
-        public static Users Instance
-        {
-            get
-            {
-                return lazy.Value;
-            }
-        }
+        private static Users Instance;
 
         private Users()
         {
-
+            AllUsers = new List<User>();
         }
 
-        public static List<User> AllUsers { get; set; }
-        
-        public static User LoggedInUser { get; set; }
+        public static Users GetInstance()
+        {
+            if (Instance == null)
+            {
+                Instance = new Users();
+            }
 
-        public static bool AuthenticateUser(string value)
+            return Instance;
+        }
+
+        #endregion 
+        
+        private List<User> AllUsers { get; set; }
+
+        public User LoggedInUser { get; set; }
+
+        
+        public void AddNewUser(User newUser)
+        {
+            AllUsers.Add(newUser);
+        }
+
+        public bool AuthenticateUser(string value)
         {
             if (string.IsNullOrEmpty(value))
             {
                 return false;
             }
-            foreach (var user in Users.AllUsers)
+            foreach (var user in AllUsers)
             {
                 if (user.UserPin == value.Trim())
                 {
-                    Users.LoggedInUser = user;
+                    LoggedInUser = user;
                     return true;
                 }
             }
             return false;
         }
 
-        public static bool PinAlreadyUsed(string newUserPin)
+        public bool PinAlreadyUsed(string newUserPin)
         {
             if (string.IsNullOrEmpty(newUserPin))
             {
                 return false;
             }
-            foreach (var user in Users.AllUsers)
+            foreach (var user in AllUsers)
             {
                 if (user.UserPin == newUserPin)
                 {

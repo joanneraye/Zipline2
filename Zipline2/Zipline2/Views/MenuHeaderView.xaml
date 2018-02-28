@@ -13,15 +13,17 @@
                       Text="T"
                       HorizontalOptions="Start"
                       Clicked="TButtonClicked" />
-                
-                <Label TextColor="White"
+                <Label TextColor="LightBlue"
                        FontSize="Micro"
                        HorizontalOptions="Center"
+                       VerticalOptions="Center"
                        HorizontalTextAlignment="Center"
+                       Margin="0, 0, 15, 0"
                     Text="{Binding UserName, StringFormat='User: {0}  '}"/>
-                <Label TextColor="White"
+                <Label TextColor="LightBlue"
                        FontSize="Micro"
                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
                        HorizontalTextAlignment="Center"
                     Text="{Binding TableName, StringFormat='Table: {0}'}"/>
 

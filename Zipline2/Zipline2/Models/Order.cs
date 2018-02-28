@@ -43,7 +43,7 @@ namespace Zipline2.Models
         public void AddItemToOrder(OrderItem item)
         {
             SubTotal += item.Total;
-            Tax = SubTotal * HelperMethods.GetTaxAmount(SubTotal);  //TODO:  Round this???
+            Tax = SubTotal * HelperMethods.GetTaxAmount(SubTotal);  
             Total = SubTotal + Tax;
             OrderItems.Add(item);
         }

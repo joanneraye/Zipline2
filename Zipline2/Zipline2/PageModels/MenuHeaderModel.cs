@@ -84,7 +84,7 @@ namespace Zipline2.PageModels
 
         private MenuHeaderModel()
         {
-            UserName = Users.LoggedInUser.UserName;
+            UserName = Users.GetInstance().LoggedInUser.UserName;
             itemTotal = 0M;
             orderTotal = 0M;
             tableName = OrderManager.GetInstance().GetCurrentTable().TableName;

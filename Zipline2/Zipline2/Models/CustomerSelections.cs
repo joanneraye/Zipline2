@@ -19,8 +19,6 @@ namespace Zipline2.Models
 
         public MajorOrMama MajorOrMama { get; set; }
 
-
-
         public int NumberOfItems { get; set; }
 
 

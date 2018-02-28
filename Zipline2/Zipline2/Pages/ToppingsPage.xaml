@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Zipline2.Pages;assembly=Zipline2.Pages"
              xmlns:views="clr-namespace:Zipline2.Views"
+             xmlns:custom="clr-namespace:Zipline2.CustomRenderers"
              x:Class="Zipline2.Pages.ToppingsPage">
     <ContentPage.Content>
         <StackLayout BackgroundColor="Black"
@@ -17,6 +18,7 @@
                    FontSize="20"
                    TextColor="White" />
             </StackLayout>
+            <!--<custom:Checkbox IsChecked="false" />-->
             <ListView ItemsSource="{Binding ToppingsList}"
                       x:Name="ToppingsList"
                       SeparatorVisibility="Default"

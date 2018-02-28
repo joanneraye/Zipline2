@@ -28,7 +28,6 @@ namespace Zipline2.Pages
             InsideOutsideButton.Text = InsideString;
         }
 
-
         public async void OnTableSelected(object sender, EventArgs e)
         {
             //Change table selected from open to occupied.
@@ -42,10 +41,11 @@ namespace Zipline2.Pages
 
             //Change what the app's current table is.
             OrderManager.GetInstance().CurrentTableIndex = selectedTable.IndexInAllTables;
+            MenuHeaderModel.GetInstance().TableName = selectedTable.TableName;
 
             await Navigation.PushAsync(new PizzaPage());
         }
-
+        
         public void OnPrintCheckButtonClicked(object sender, EventArgs e)
         {
         }

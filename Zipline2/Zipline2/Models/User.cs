@@ -18,5 +18,12 @@ namespace Zipline2.Models
         public bool HasManagerPrivilege { get; set; }
 
         public string UserPin { get; set; }
+
+        public User(string userName, bool hasManagerPrivilege, string userPin)
+        {
+            UserName = userName;
+            HasManagerPrivilege = hasManagerPrivilege;
+            UserPin = userPin;
+        }
     }
 }

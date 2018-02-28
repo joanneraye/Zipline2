@@ -48,7 +48,7 @@ namespace Zipline2.PageModels
 
         public TablesPageModel()
         {
-            userName = Users.LoggedInUser.UserName;
+            userName = Users.GetInstance().LoggedInUser.UserName;
             IsInside = true;
             LoadTablesForDisplay(true);
         }
