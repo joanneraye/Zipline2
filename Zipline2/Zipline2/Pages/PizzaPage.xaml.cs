@@ -8,24 +8,25 @@ using Xamarin.Forms.Xaml;
 using Zipline2.Models;
 using Zipline2.BusinessLogic.Enums;
 using Zipline2.BusinessLogic;
+using Zipline2.PageModels;
+//using Zipline2.CustomControls;
 
 namespace Zipline2.Pages
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class PizzaPage : BasePage
 	{
+
+        PizzaPageModel PizzaPageModel;
 		public PizzaPage ()
-		{
+		{ 
             InitializeComponent ();
-            //Could move these to PageModel but since couldn't get command binding 
-            //to work, leaving here.
-            var cheeseTypes = new List<string>
-            {
-                PizzaSize.Slice.ToString(),
-                PizzaSize.Indy.ToString(),
-                PizzaSize.Medium.ToString(),
-                PizzaSize.Large.ToString()
-            };
+            PizzaPageModel = new PizzaPageModel();
+            BindingContext = PizzaPageModel;
+            CheesePizzaPicker.SelectedIndex = 0;
+
+            //CheesePizzaPicker.ItemsSource = PizzaPageModel.PizzaPickerList;
+            //CheesePizzaRadioButtons.CheckedChanged += CheesePizzaRadioButtons_CheckedChanged;
 
             var majorTypes = new List<string>
             {
@@ -36,13 +37,17 @@ namespace Zipline2.Pages
                 MajorPizzaType.Mfp.ToString(),
                 MajorPizzaType.SatchPan.ToString()
             };
-
-            CheesePizzaPicker.ItemsSource = cheeseTypes;
-            CheesePizzaPicker.SelectedIndex = 0;
-            CheesePizzaPicker.Focus();
+            
             MajorPizzaPicker.ItemsSource = majorTypes;
             MajorPizzaPicker.SelectedIndex = 0;            
 		}
+
+        //void CheesePizzaRadioButtons_CheckedChanged(object sender, int e)
+        //{
+        //    var radio = sender as CustomRadioButton;
+
+        //    if (radio == null || radio.Id == -1) return;
+        //}
 
         async Task DisplayToppingsPage()
         {
@@ -57,8 +62,7 @@ namespace Zipline2.Pages
         async Task OnPlusCheesePizza(object sender, EventArgs e)
         {
             //Get size chosen from picker.
-            var pizzaSize = (PizzaSize)Enum.Parse(typeof(PizzaSize), 
-                                    CheesePizzaPicker.SelectedItem.ToString());
+            var pizzaSize = (PizzaSize)Enum.Parse(typeof(PizzaSize), CheesePizzaPicker.SelectedItem.ToString());
 
             //Send info to OrderManager
             var guiData = new CustomerSelections
@@ -69,7 +73,7 @@ namespace Zipline2.Pages
             };
 
             OrderManager.GetInstance().HandleOrderItem(guiData);
-            
+
             await DisplayToppingsPage();
         }
 

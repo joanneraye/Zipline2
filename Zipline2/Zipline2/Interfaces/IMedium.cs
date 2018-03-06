@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Zipline2.Interfaces
 {
-    public interface IOrderItem
+    public interface IMedium
     {
-        void CreateNewOrderItem(IOrderItem orderItem);
+        decimal GetMediumPrice();
     }
 }

@@ -51,11 +51,15 @@ namespace Zipline2.BusinessLogic
         public void HandleOrderItem(CustomerSelections guiData)
         {
             OrderItemInProgress = OrderItemFactory.GetOrderItem(guiData);
+            //Need the following?
+            OrderItemInProgress.Total = OrderItemInProgress.PricePerItem * OrderItemInProgress.ItemCount;
             OrderInProgress.AddItemToOrder(OrderItemInProgress);
+
+            //Somehow need to update the MenuHeaderView?
             var menuHeader = MenuHeaderModel.GetInstance();
             menuHeader.ItemTotal = OrderItemInProgress.Total;
             menuHeader.OrderTotal = OrderInProgress.Total;
-            //Somehow need to update the MenuHeaderView
+            
         }
     }
 }

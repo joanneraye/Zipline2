@@ -17,6 +17,7 @@ namespace Zipline2.Models
         [Column("hasmanagerprivilege")]
         public bool HasManagerPrivilege { get; set; }
 
+        [Column("userpin")]
         public string UserPin { get; set; }
 
         public User(string userName, bool hasManagerPrivilege, string userPin)

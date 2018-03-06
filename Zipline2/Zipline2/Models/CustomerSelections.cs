@@ -10,7 +10,6 @@ namespace Zipline2.Models
     //the GUI layer and the business layer.
     public class CustomerSelections
     {
-
         public MenuCategory MenuItemGeneralCategory { get; set; }
 
         public PizzaSize PizzaSize { get; set; }

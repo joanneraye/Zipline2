@@ -30,27 +30,27 @@ namespace Zipline2.Pages
         }
 
 
-        public async void OnTableButtonClicked(object sender, EventArgs e)
-        {
-            //Change table selected from open to occupied.
-            //Table name should show at top of subsequent ordering screens.
-            //Display Pizza menu first.
-            //Button tableButton = sender as Button;
-            //if (Application.Current.Properties.ContainsKey("CurrentTable"))
-            //{
-            //    Application.Current.Properties["CurrentTable"] = tableButton.Text;
-            //}
-            //else
-            //{
-            //    Application.Current.Properties.Add("CurrentTable", tableButton.Text);
-            //}
+        //public async void OnTableButtonClicked(object sender, EventArgs e)
+        //{
+        //    //Change table selected from open to occupied.
+        //    //Table name should show at top of subsequent ordering screens.
+        //    //Display Pizza menu first.
+        //    //Button tableButton = sender as Button;
+        //    //if (Application.Current.Properties.ContainsKey("CurrentTable"))
+        //    //{
+        //    //    Application.Current.Properties["CurrentTable"] = tableButton.Text;
+        //    //}
+        //    //else
+        //    //{
+        //    //    Application.Current.Properties.Add("CurrentTable", tableButton.Text);
+        //    //}
 
-            //OrderManager.OrderInProgress = new Order();
+        //    //OrderManager.OrderInProgress = new Order();
 
-            //await Application.Current.SavePropertiesAsync();
+        //    //await Application.Current.SavePropertiesAsync();
 
-            //await Navigation.PushAsync(new PizzaPage());
-        }
+        //    //await Navigation.PushAsync(new PizzaPage());
+        //}
 
         public void OnPrintCheckButtonClicked(object sender, EventArgs e)
         {

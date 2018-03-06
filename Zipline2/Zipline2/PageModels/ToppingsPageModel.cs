@@ -1,26 +1,99 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms;
 using Zipline2.BusinessLogic;
 using Zipline2.Models;
+using System.Linq;
 
 namespace Zipline2.PageModels
 {
-    class ToppingsPageModel : BasePageModel
+    public class ToppingsPageModel : BasePageModel
     {
-        public List<Topping> ToppingsList { get; set; }
-
-        public string PizzaName
+        #region ToppingSelection Class
+        public class ToppingSelection : BasePageModel
         {
-            get
+            public ToppingSelection()
             {
-                return OrderManager.GetInstance().OrderItemInProgress.ItemName;
+                ToppingPickerList = new string[]
+                {
+                    "Whole",
+                    "Half A",
+                    "Half B"
+                };
+            }
+            public Zipline2.Models.Topping ListTopping { get; set; }
+
+            public int ToppingIndex;
+
+            private bool isSelected = false;
+
+            public bool IsSelected
+            {
+                get
+                {
+                    return isSelected;
+                }
+                set
+                {
+                    SetProperty(ref isSelected, value);
+                }
+            }
+            private string[] toppingPickerList;
+            public string[] ToppingPickerList
+            {
+                get
+                {
+                    return toppingPickerList;
+                }
+                set
+                {
+                    SetProperty(ref toppingPickerList, value);
+                }
+            }
+            private int toppingPickerSelectedIndex = 0;
+            public int ToppingPickerSelectedIndex
+            {
+                get
+                {
+                    return toppingPickerSelectedIndex;
+                }
+                set
+                {
+                    SetProperty(ref toppingPickerSelectedIndex, value);
+                }
+            }
+            //private bool toppingListSwitch;
+            //public bool ToppingListSwitch
+            //{
+            //    get
+            //    {
+            //        return toppingListSwitch;
+            //    }
+            //    set
+            //    {
+            //        SetProperty(ref toppingListSwitch, value);
+            //    }
+            //}
+            private Color selectionColor;
+            public Color SelectionColor
+            {
+                get
+                {
+                    return selectionColor;
+                }
+                set
+                {
+                    SetProperty(ref selectionColor, value);
+                }
             }
         }
+        #endregion ToppingsSelection class
 
+        #region Constructor
         public ToppingsPageModel()
         {
-            ToppingsList = new List<Topping>()
+            var toppingsList = new List<Topping>()
             {
                 new Topping {ToppingName = "Anchovies"},
                 new Topping {ToppingName = "Artichokes"},
@@ -69,6 +142,49 @@ namespace Zipline2.PageModels
                 new Topping {ToppingName = "NO BUTTER"},
                 new Topping {ToppingName = "NO SAUCE"}
             };
+
+            ToppingSelectionsList = new List<ToppingSelection>();
+            for (int i = 0; i < toppingsList.Count; i++)
+            {
+                var toppingSelection = new ToppingSelection();
+                toppingSelection.ListTopping = toppingsList[i];
+                toppingSelection.ToppingIndex = i;
+                toppingSelection.SelectionColor = Color.Black;
+                ToppingSelectionsList.Add(toppingSelection);
+            }
+           
         }
+        #endregion
+        
+        private List<ToppingSelection> toppingSelectionsList;
+        public List<ToppingSelection> ToppingSelectionsList
+        {
+            get
+            {
+                return toppingSelectionsList;
+            }
+            set
+            {
+                SetProperty(ref toppingSelectionsList, value);
+            }
+        }
+
+        public List<ToppingSelection> SelectedItems = new List<ToppingSelection>();
+
+               public string PizzaName
+        {
+            get
+            {
+                return OrderManager.GetInstance().OrderItemInProgress.ItemName;
+            }
+        }
+       
+        public List<Topping> GetSelections()
+        {
+            return SelectedItems.Where(
+                item => item.IsSelected).Select(
+                selectedItem => selectedItem.ListTopping).ToList();
+        }
+
     }
 }

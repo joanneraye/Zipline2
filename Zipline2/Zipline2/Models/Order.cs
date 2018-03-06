@@ -10,29 +10,25 @@ namespace Zipline2.Models
     [Table("order")]
     public class Order
     {
-        public enum OrderType           //IS THIS NEEDED???
-        {
-            Pizza,
-            Calzone,
-            Drink,
-            LunchSpecial,
-            Salad,
-            Merchandise
-        }
         [PrimaryKey, AutoIncrement, Column("id")]
         public int OrderNumberId { get; set; }
 
-        //When I new OrderItem is added, subtotal, tax, and total are 
-        //automatically updated.
-        public List<OrderItem> OrderItems { get; private set; }
-       
+        private List<OrderItem> OrderItems;
+
+        [Column("subtotal")]
         public decimal SubTotal { get; private set; }
+
         [Column("total")]
         public decimal Total { get; private set; }
 
+        [Column("tax")]
         public decimal Tax { get; private set; }
 
+        [Column("istakeout")]
         public bool IsTakeout { get; set; }
+
+        [Column("tableid")]
+        public int TableId { get; set; }
 
         public Order()
         {
@@ -40,6 +36,8 @@ namespace Zipline2.Models
             IsTakeout = false;
         }
 
+        //When a new OrderItem is added, subtotal, tax, and total are 
+        //automatically updated.
         public void AddItemToOrder(OrderItem item)
         {
             SubTotal += item.Total;

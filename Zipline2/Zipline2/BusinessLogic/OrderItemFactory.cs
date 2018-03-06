@@ -8,18 +8,7 @@ namespace Zipline2.BusinessLogic
 {
     public sealed class OrderItemFactory
     {
-        //This is a singleton class:
-        private static readonly Lazy<OrderItemFactory> lazy =
-            new Lazy<OrderItemFactory>(() => new OrderItemFactory());
-        public static OrderItemFactory Instance
-        {
-            get
-            {
-                return lazy.Value;
-            }
-        }
-
-        private OrderItemFactory()
+        public OrderItemFactory()
         {
 
         }

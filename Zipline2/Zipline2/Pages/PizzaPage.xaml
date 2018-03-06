@@ -4,6 +4,7 @@
              x:Class="Zipline2.Pages.PizzaPage"
              xmlns:views="clr-namespace:Zipline2.Views"
              xmlns:local="clr-namespace:Zipline2.Pages;assembly=Zipline2.Pages"
+             xmlns:custom="clr-namespace:Zipline2.CustomControls"
              xmlns:enums="clr-namespace:Zipline2.BusinessLogic.Enums">
     <ContentPage.Content>
         <StackLayout BackgroundColor="Black" VerticalOptions="FillAndExpand">
@@ -44,11 +45,16 @@
                     <Picker Grid.Row="1"
                             Grid.Column="0"
                             Grid.RowSpan="2"
+                            ItemsSource="{Binding PizzaPickerList}"
                             Margin="15,0,0,0"
                             x:Name="CheesePizzaPicker"
                             TextColor="White"
-                            VerticalOptions="Start"
-                            IsVisible="True"/>
+                            VerticalOptions="Start" />
+                    <!--<custom:BindableRadioGroup x:Name="CheesePizzaRadioButtons"
+                            Orientation="Horizontal"
+                            SelectedIndex="{Binding SelectedIndex}"
+                            VerticalOptions="Start" />-->
+                    
                     <Label Grid.Row ="2"
                            Grid.Column="0"
                            Text="MAJOR Pizza"

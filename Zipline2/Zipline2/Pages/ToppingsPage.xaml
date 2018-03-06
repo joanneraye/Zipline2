@@ -5,6 +5,39 @@
              xmlns:views="clr-namespace:Zipline2.Views"
              xmlns:custom="clr-namespace:Zipline2.CustomRenderers"
              x:Class="Zipline2.Pages.ToppingsPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="ToppingsTemplate">
+                <ViewCell>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                                       Text="{Binding ListTopping.ToppingName}"
+                                       BackgroundColor="{Binding SelectionColor}"
+                                       TextColor="White"
+                                       FontSize="Small"
+                                       VerticalOptions="Center"/>
+                        <Picker Grid.Column="1"
+                                        x:Name="ToppingPicker"
+                                        ItemsSource="{Binding ToppingPickerList}"
+                                        SelectedIndex="{Binding ToppingPickerSelectedIndex}"
+                                        VerticalOptions="Center"
+                                        TextColor="White" />
+                        <!--<Switch Grid.Column="2"
+                                x:Name="ToppingListSwitch"
+                                IsToggled="{Binding IsSelected}" />-->
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout BackgroundColor="Black"
                      Padding="10, 0, 10, 0"
@@ -19,16 +52,51 @@
                    TextColor="White" />
             </StackLayout>
             <!--<custom:Checkbox IsChecked="false" />-->
-            <ListView ItemsSource="{Binding ToppingsList}"
-                      x:Name="ToppingsList"
+            <!--<custom:CustomListView x:Name="ToppingsListView" />-->
+            <ListView ItemTemplate="{StaticResource ToppingsTemplate}"
+                      ItemsSource="{Binding ToppingSelectionsList}"
+                      ItemSelected="ListToppingSelected"
+                      x:Name="ToppingsListView"
                       SeparatorVisibility="Default"
                       SeparatorColor="BlanchedAlmond">
-                <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <TextCell Text="{Binding ToppingName}" 
-                                      TextColor="White" />
-                    </DataTemplate>
-                </ListView.ItemTemplate>
+               
+                        <!--<DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0"
+                                       Text="{Binding ToppingName}"
+                                       TextColor="White"
+                                       FontSize="Medium"
+                                       Margin="0, 0, 30, 0"
+                                       VerticalOptions="Center"/>
+                                <Picker Grid.Column="1"
+                                        x:Name="ToppingPicker"
+                                        ItemsSource="{Binding PickerList}"
+                                        SelectedIndex="{Binding PickerSelectedIndex}"
+                                        VerticalOptions="Center"
+                                        TextColor="White" />
+                            </Grid>
+                            --><!--<StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding ToppingName}"
+                                       TextColor="White"
+                                       FontSize="Medium"
+                                       Margin="0, 0, 30, 0"
+                                       VerticalOptions="Center"/>
+                                <Picker x:Name="ToppingPicker"
+                                    ItemsSource="{Binding PickerList}"
+                                    SelectedIndex="{Binding PickerSelectedIndex}"
+                                    VerticalOptions="Center"
+                                    TextColor="White" />
+                            </StackLayout>--><!--
+                        </ViewCell>
+                    </DataTemplate>-->
             </ListView>
         </StackLayout>
     </ContentPage.Content>

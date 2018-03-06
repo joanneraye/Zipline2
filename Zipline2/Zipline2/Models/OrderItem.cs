@@ -26,5 +26,7 @@ namespace Zipline2.Models
 
         [Column("itemtotal")]
         public decimal Total { get; set; }
+
+        public List<Topping> Toppings { get; set; }
     }
 }

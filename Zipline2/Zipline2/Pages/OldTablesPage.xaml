@@ -77,13 +77,13 @@
                            HeightRequest="40"
                            Clicked="InsideOutsideButtonClicked">
                 </Button>
-                <Button Grid.Row="1"
+                <!--<Button Grid.Row="1"
                         Grid.Column="0"
                         Text="1"
                         x:Name="Row0Column0" 
                         Clicked="OnTableButtonClicked"
-                        Style="{StaticResource TableButtons}" />
-                <Button Grid.Row="2"
+                        Style="{StaticResource TableButtons}" />-->
+                <!--<Button Grid.Row="2"
                         Grid.Column="0"
                         x:Name="Row1Column0" 
                         Clicked="OnTableButtonClicked"
@@ -185,8 +185,8 @@
                        BorderRadius="3"
                        BorderWidth="2"
                        HeightRequest="40"
-                       Clicked="OnMoveTableButtonClicked">
-                </Button>
+                       Clicked="OnMoveTableButtonClicked">-->
+                <!--</Button>-->
                 <Button Text="Print Check" 
                            Grid.Row="9"
                            Grid.Column="1"

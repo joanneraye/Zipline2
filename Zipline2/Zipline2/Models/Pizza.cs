@@ -11,8 +11,10 @@ using Zipline2.Pages;
 namespace Zipline2.Models
 {
     [Table("pizza")]
-    public class Pizza : OrderItem
+    public class Pizza : OrderItem, IMedium, ISpecialtyBase
     {
+        public decimal ToppingsPrice { get; set; } = 0M;
+        public List<Topping> PizzaToppings { get; set; }
         public Pizza(CustomerSelections guiData)
         {
             switch (guiData.MajorOrMama)
@@ -42,7 +44,30 @@ namespace Zipline2.Models
             ItemCount = guiData.NumberOfItems;
             Total = PricePerItem * ItemCount;
         }
-        
+
+        public void AddPizzaToppings(List<Topping> toppings)
+        {
+            //For each topping added:
+            //  Add topping to list of toppings.
+           
+            //When done, get toppings count from list and recalculate ToppingsPrice.
+            //Recalculate Item Total and Update order total.
+
+
+            //foreach (var topping in toppings)
+            //{
+            //    switch (ItemName)
+            //    {
+            //        case Key.PIZZA_SLICE:
+            //            PricePerItem += Prices.ToppingsPriceDictionary[Key.SLICE_TOPPINGS][toppingPriceIndex];
+            //            break;
+
+            //    }
+            //    ToppingsPrice += Prices.
+            //    PizzaToppings.Add(topping);
+
+        }
+              
         //Don't forget to add item count to this order item when pizza added.
         public void StartPizza(PizzaSize sizeOfCheesePizza)
         {
@@ -132,6 +157,16 @@ namespace Zipline2.Models
         private void StartMfp()
         {
 
+        }
+
+        public decimal GetMediumPrice()
+        {
+            throw new NotImplementedException();
+        }
+
+        public decimal GetSpecialtyPrice(OrderItem item)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -15,6 +15,8 @@ namespace Zipline2.Models
 
         public bool IsSelected { get; set; }
 
+        public int OrderSelected { get; set; }
+
         public bool IsFree { get; set; }
     }
 }

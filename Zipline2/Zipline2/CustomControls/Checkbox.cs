@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
 
-namespace Zipline2.CustomRenderers
+namespace Zipline2.CustomControls
+
 {
 
     //This was copied from: www.grapecity.com/en/blogs/using-a-custom-native-control-with-xamarin-forms-via-a-custom-renderer/

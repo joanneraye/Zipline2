@@ -14,11 +14,16 @@ namespace Zipline2.Models
         public const string TakeoutIconName = "pink_square.png";
         private bool isOccupied;
         private bool isTakeOut;
-        [PrimaryKey, Column("tablename")]
+        [PrimaryKey, Column("tableid")]
+        public int TableId { get; set; }
+
+        [Column("tablename")]
         public string TableName { get; set; }
 
+        [Column("indexinalltables")]
         public int IndexInAllTables { get; set; }
 
+        [Column("isinside")]
         public bool IsInside { get; set; }
 
         [Column("isoccupied")]
