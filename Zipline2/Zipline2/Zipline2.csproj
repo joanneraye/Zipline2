@@ -57,6 +57,9 @@
     <Compile Update="Views\MenuButtonFooterView.xaml.cs">
       <DependentUpon>MenuButtonFooterView.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\MenuHeaderView - OLD.xaml.cs">
+      <DependentUpon>MenuHeaderView - OLD.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\MenuHeaderView.xaml.cs">
       <DependentUpon>MenuHeaderView.xaml</DependentUpon>
     </Compile>

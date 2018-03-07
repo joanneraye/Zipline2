@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
 using Zipline2.BusinessLogic;
+using Zipline2.BusinessLogic.Enums;
 using Zipline2.Models;
 using System.Linq;
+using System.ComponentModel;
+using Zipline2.BusinessLogic.DictionaryKeys;
 
 namespace Zipline2.PageModels
 {
@@ -13,6 +16,11 @@ namespace Zipline2.PageModels
         #region ToppingSelection Class
         public class ToppingSelection : BasePageModel
         {
+            
+            public System.Windows.Input.ICommand AButtonCommand { get; set; }
+            public System.Windows.Input.ICommand BButtonCommand { get; set; }
+
+            public System.Windows.Input.ICommand WholeButtonCommand { get; set; }
             public ToppingSelection()
             {
                 ToppingPickerList = new string[]
@@ -21,22 +29,80 @@ namespace Zipline2.PageModels
                     "Half A",
                     "Half B"
                 };
+                AButtonCommand = new Xamarin.Forms.Command(OnButtonAClick);
+                BButtonCommand = new Xamarin.Forms.Command(OnButtonBClick);
+                WholeButtonCommand = new Xamarin.Forms.Command(OnButtonWholeClick);
+                areWholeHalfColumnsVisible = true;
+            }
+            void OnButtonAClick()
+            {
+                ListTopping.ToppingWholeHalf = ToppingWholeHalf.HalfA;
+                ListTopping.IsSelected = true;
+                ListItemIsSelected = true;
+                AColor = Color.CornflowerBlue;
+                BColor = Color.Black;
+                WholeColor = Color.Black; 
+            }
+
+            void OnButtonBClick()
+            {
+                ListTopping.ToppingWholeHalf = ToppingWholeHalf.HalfB;
+                ListItemIsSelected = true;
+                ListTopping.IsSelected = true;
+                BColor = Color.CornflowerBlue;
+                AColor = Color.Black;
+                WholeColor = Color.Black;
+            }
+
+            void OnButtonWholeClick()
+            {
+                ListTopping.ToppingWholeHalf = ToppingWholeHalf.Whole;
+                ListTopping.IsSelected = true;
+                ListItemIsSelected = true;
+                WholeColor = Color.CornflowerBlue;
+                AColor = Color.Black;
+                BColor = Color.Black;
             }
             public Zipline2.Models.Topping ListTopping { get; set; }
 
-            public int ToppingIndex;
-
-            private bool isSelected = false;
-
-            public bool IsSelected
+            private bool areWholeHalfColumnsVisible;
+            public bool AreWholeHalfColumnsVisible
             {
                 get
                 {
-                    return isSelected;
+                    return areWholeHalfColumnsVisible;
                 }
                 set
                 {
-                    SetProperty(ref isSelected, value);
+                    SetProperty(ref areWholeHalfColumnsVisible, value);
+                }
+            }
+
+            public int ToppingIndex;
+
+            private bool listItemIsSelected = false;
+
+            public bool ListItemIsSelected
+            {
+                get
+                {
+                    return listItemIsSelected;
+                }
+                set
+                {
+                    SetProperty(ref listItemIsSelected, value);
+                    if (listItemIsSelected)
+                    {
+                        SelectionColor = Color.CornflowerBlue;
+                        WholeColor = Color.CornflowerBlue;
+                    }
+                    else
+                    {
+                        SelectionColor = Color.Black;
+                        AColor = Color.Black;
+                        BColor = Color.Black;
+                        WholeColor = Color.Black;
+                    }
                 }
             }
             private string[] toppingPickerList;
@@ -63,18 +129,7 @@ namespace Zipline2.PageModels
                     SetProperty(ref toppingPickerSelectedIndex, value);
                 }
             }
-            //private bool toppingListSwitch;
-            //public bool ToppingListSwitch
-            //{
-            //    get
-            //    {
-            //        return toppingListSwitch;
-            //    }
-            //    set
-            //    {
-            //        SetProperty(ref toppingListSwitch, value);
-            //    }
-            //}
+        
             private Color selectionColor;
             public Color SelectionColor
             {
@@ -85,6 +140,43 @@ namespace Zipline2.PageModels
                 set
                 {
                     SetProperty(ref selectionColor, value);
+                }
+            }
+            private Color acolor;
+            public Color AColor
+            {
+                get
+                {
+                    return acolor;
+                }
+                set
+                {
+                    SetProperty(ref acolor, value);
+                }
+            }
+            private Color bcolor;
+            public Color BColor
+            {
+                get
+                {
+                    return bcolor;
+                }
+                set
+                {
+                    SetProperty(ref bcolor, value);
+                }
+            }
+
+            private Color wholecolor;
+            public Color WholeColor
+            {
+                get
+                {
+                    return wholecolor;
+                }
+                set
+                {
+                    SetProperty(ref wholecolor, value);
                 }
             }
         }
@@ -150,7 +242,19 @@ namespace Zipline2.PageModels
                 toppingSelection.ListTopping = toppingsList[i];
                 toppingSelection.ToppingIndex = i;
                 toppingSelection.SelectionColor = Color.Black;
+                toppingSelection.AColor = Color.Black;
+                toppingSelection.BColor = Color.Black;
+                toppingSelection.WholeColor = Color.Black;
+                toppingSelection.AreWholeHalfColumnsVisible = true;
                 ToppingSelectionsList.Add(toppingSelection);
+
+                //If the pizza type is a slice, don't display whole/halfa/halfb options.
+                string pizzaName = OrderManager.GetInstance().OrderItemInProgress.ItemName;
+                toppingSelection.AreWholeHalfColumnsVisible = true;
+                if (pizzaName.Equals(DisplayNames.DisplayNameDictionary[Key.PIZZA_SLICE]))
+                {
+                    toppingSelection.AreWholeHalfColumnsVisible = false;
+                }
             }
            
         }
@@ -169,9 +273,22 @@ namespace Zipline2.PageModels
             }
         }
 
+        private ToppingSelection selectedItem;
+        public ToppingSelection SelectedItem
+        {
+            get
+            {
+                return selectedItem;
+            }
+            set
+            {
+                SetProperty(ref selectedItem, value);
+            }
+        }
+
         public List<ToppingSelection> SelectedItems = new List<ToppingSelection>();
 
-               public string PizzaName
+        public string PizzaName
         {
             get
             {
@@ -182,7 +299,7 @@ namespace Zipline2.PageModels
         public List<Topping> GetSelections()
         {
             return SelectedItems.Where(
-                item => item.IsSelected).Select(
+                item => item.ListItemIsSelected).Select(
                 selectedItem => selectedItem.ListTopping).ToList();
         }
 

@@ -16,14 +16,117 @@ namespace Zipline2.Pages
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class PizzaPage : BasePage
 	{
-
-        PizzaPageModel PizzaPageModel;
-		public PizzaPage ()
-		{ 
+        private bool sliceIsSelected;
+        private bool largeIsSelected;
+        private bool mediumIsSelected;
+        private bool indyIsSelected;
+        private Button sliceButton;
+        private Button mediumButton;
+        private Button largeButton;
+        private Button indyButton;
+        
+        public bool SliceIsSelected
+        {
+            get
+            {
+                return sliceIsSelected;
+            }
+            set
+            {
+                sliceIsSelected = value;
+                if (sliceIsSelected)
+                {
+                    sliceButton.BackgroundColor = Color.Orange;
+                    LargeIsSelected = false;
+                    MediumIsSelected = false;
+                    IndyIsSelected = false;
+                }
+                else
+                {
+                    sliceButton.BackgroundColor = Color.Black;
+                }
+            }
+        }
+        public bool MediumIsSelected
+        {
+            get
+            {
+                return mediumIsSelected;
+            }
+            set
+            {
+                mediumIsSelected = value;
+                if (mediumIsSelected)
+                {
+                    mediumButton.BackgroundColor = Color.Orange;
+                    LargeIsSelected = false;
+                    SliceIsSelected = false;
+                    IndyIsSelected = false;
+                }
+                else
+                {
+                    mediumButton.BackgroundColor = Color.Black;
+                }
+            }
+        }
+        public bool LargeIsSelected
+        {
+            get
+            {
+                return largeIsSelected;
+            }
+            set
+            {
+                largeIsSelected = value;
+                if (largeIsSelected)
+                {
+                    largeButton.BackgroundColor = Color.Orange;
+                    SliceIsSelected = false;
+                    MediumIsSelected = false;
+                    IndyIsSelected = false;
+                }
+                else
+                {
+                    largeButton.BackgroundColor = Color.Black;
+                }
+            }
+        }
+        public bool IndyIsSelected
+        {
+            get
+            {
+                return indyIsSelected;
+            }
+            set
+            {
+                indyIsSelected = value;
+                if (indyIsSelected)
+                {
+                    indyButton.BackgroundColor = Color.Orange;
+                    LargeIsSelected = false;
+                    MediumIsSelected = false;
+                    SliceIsSelected = false;
+                }
+                else
+                {
+                    indyButton.BackgroundColor = Color.Black;
+                }
+            }
+        }
+     
+        //PizzaPageModel PizzaPageModel;
+        public PizzaPage ()
+		{
+            //PizzaPageModel = new PizzaPageModel();
             InitializeComponent ();
-            PizzaPageModel = new PizzaPageModel();
-            BindingContext = PizzaPageModel;
-            CheesePizzaPicker.SelectedIndex = 0;
+            sliceButton = PizzaGrid.FindByName<Button>("Slice");
+            mediumButton = PizzaGrid.FindByName<Button>("Medium");
+            largeButton = PizzaGrid.FindByName<Button>("Large");
+            indyButton = PizzaGrid.FindByName<Button>("Indy");
+            SliceIsSelected = true;
+
+            //BindingContext = PizzaPageModel;
+            //CheesePizzaPicker.SelectedIndex = 0;
 
             //CheesePizzaPicker.ItemsSource = PizzaPageModel.PizzaPickerList;
             //CheesePizzaRadioButtons.CheckedChanged += CheesePizzaRadioButtons_CheckedChanged;
@@ -38,8 +141,8 @@ namespace Zipline2.Pages
                 MajorPizzaType.SatchPan.ToString()
             };
             
-            MajorPizzaPicker.ItemsSource = majorTypes;
-            MajorPizzaPicker.SelectedIndex = 0;            
+            //MajorPizzaPicker.ItemsSource = majorTypes;
+            //MajorPizzaPicker.SelectedIndex = 0;            
 		}
 
         //void CheesePizzaRadioButtons_CheckedChanged(object sender, int e)
@@ -59,10 +162,51 @@ namespace Zipline2.Pages
             await Navigation.PushAsync(new ToppingsPage());
         }
 
+        void OnPizzaSliceSelected()
+        {
+            SliceIsSelected = true;
+        }
+
+        void OnPizzaMediumSelected()
+        {
+            MediumIsSelected = true;
+        }
+
+        void OnPizzaLargeSelected()
+        {
+            LargeIsSelected = true;
+        }
+
+        void OnPizzaIndySelected()
+        {
+            IndyIsSelected = true;
+        }
+
+        public PizzaSize GetPizzaSizeSelected()
+        {
+            PizzaSize sizeSelected = PizzaSize.OneSize;
+            if (SliceIsSelected)
+            {
+                sizeSelected = PizzaSize.Slice;
+            }
+            else if (MediumIsSelected)
+            {
+                sizeSelected = PizzaSize.Medium;
+            }
+            else if (LargeIsSelected)
+            {
+                sizeSelected = PizzaSize.Large;
+            }
+            else if (IndyIsSelected)
+            {
+                sizeSelected = PizzaSize.Indy;
+            }
+            return sizeSelected;
+        }
+
         async Task OnPlusCheesePizza(object sender, EventArgs e)
         {
-            //Get size chosen from picker.
-            var pizzaSize = (PizzaSize)Enum.Parse(typeof(PizzaSize), CheesePizzaPicker.SelectedItem.ToString());
+            var pizzaSize = GetPizzaSizeSelected();
 
             //Send info to OrderManager
             var guiData = new CustomerSelections
@@ -77,51 +221,51 @@ namespace Zipline2.Pages
             await DisplayToppingsPage();
         }
 
-      
+            
         async void OnPlusMajorPizza(object sender, EventArgs e)
         {
             //Get size chosen from picker.
-            var majorPizzaType = (MajorPizzaType)Enum.Parse(typeof(MajorPizzaType),
-                                    MajorPizzaPicker.SelectedItem.ToString());
+            //var majorPizzaType = (MajorPizzaType)Enum.Parse(typeof(MajorPizzaType),
+            //                        MajorPizzaPicker.SelectedItem.ToString());
 
-            var guiData = new CustomerSelections
-            {
-                MenuItemGeneralCategory = MenuCategory.Pizza,
-                MajorOrMama = MajorOrMama.Major,
-                NumberOfItems = 1
-            };
+            //var guiData = new CustomerSelections
+            //{
+            //    MenuItemGeneralCategory = MenuCategory.Pizza,
+            //    MajorOrMama = MajorOrMama.Major,
+            //    NumberOfItems = 1
+            //};
 
-            switch (majorPizzaType)
-            {
-                case MajorPizzaType.Indy:
-                    guiData.PizzaSize = PizzaSize.Indy;
-                    guiData.PizzaType = PizzaType.RegularThin;
-                    break;
-                case MajorPizzaType.Large:
-                    guiData.PizzaSize = PizzaSize.Large;
-                    guiData.PizzaType = PizzaType.RegularThin;
-                    break;
-                case MajorPizzaType.Medium:
-                    guiData.PizzaSize = PizzaSize.Large;
-                    guiData.PizzaType = PizzaType.RegularThin;
-                    break;
-                case MajorPizzaType.Mfp:
-                    guiData.PizzaSize = PizzaSize.Large;
-                    guiData.PizzaType = PizzaType.Mfp;
-                    break;
-                case MajorPizzaType.SatchPan:
-                    guiData.PizzaSize = PizzaSize.Large;
-                    guiData.PizzaType = PizzaType.SatchPan;
-                    break;
-                case MajorPizzaType.Slice:
-                    guiData.PizzaSize = PizzaSize.Slice;
-                    guiData.PizzaType = PizzaType.RegularThin;
-                    break;
-            }
+            //switch (majorPizzaType)
+            //{
+            //    case MajorPizzaType.Indy:
+            //        guiData.PizzaSize = PizzaSize.Indy;
+            //        guiData.PizzaType = PizzaType.RegularThin;
+            //        break;
+            //    case MajorPizzaType.Large:
+            //        guiData.PizzaSize = PizzaSize.Large;
+            //        guiData.PizzaType = PizzaType.RegularThin;
+            //        break;
+            //    case MajorPizzaType.Medium:
+            //        guiData.PizzaSize = PizzaSize.Large;
+            //        guiData.PizzaType = PizzaType.RegularThin;
+            //        break;
+            //    case MajorPizzaType.Mfp:
+            //        guiData.PizzaSize = PizzaSize.Large;
+            //        guiData.PizzaType = PizzaType.Mfp;
+            //        break;
+            //    case MajorPizzaType.SatchPan:
+            //        guiData.PizzaSize = PizzaSize.Large;
+            //        guiData.PizzaType = PizzaType.SatchPan;
+            //        break;
+            //    case MajorPizzaType.Slice:
+            //        guiData.PizzaSize = PizzaSize.Slice;
+            //        guiData.PizzaType = PizzaType.RegularThin;
+            //        break;
+            //}
 
-            OrderManager.GetInstance().HandleOrderItem(guiData);
+            //OrderManager.GetInstance().HandleOrderItem(guiData);
            
-            //Allow user to modify Major pizza
+            ////Allow user to modify Major pizza
             await DisplayToppingsPage();
 
         }

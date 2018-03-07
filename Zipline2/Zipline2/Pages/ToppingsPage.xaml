@@ -7,35 +7,7 @@
              x:Class="Zipline2.Pages.ToppingsPage">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <DataTemplate x:Key="ToppingsTemplate">
-                <ViewCell>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0"
-                                       Text="{Binding ListTopping.ToppingName}"
-                                       BackgroundColor="{Binding SelectionColor}"
-                                       TextColor="White"
-                                       FontSize="Small"
-                                       VerticalOptions="Center"/>
-                        <Picker Grid.Column="1"
-                                        x:Name="ToppingPicker"
-                                        ItemsSource="{Binding ToppingPickerList}"
-                                        SelectedIndex="{Binding ToppingPickerSelectedIndex}"
-                                        VerticalOptions="Center"
-                                        TextColor="White" />
-                        <!--<Switch Grid.Column="2"
-                                x:Name="ToppingListSwitch"
-                                IsToggled="{Binding IsSelected}" />-->
-                    </Grid>
-                </ViewCell>
-            </DataTemplate>
+            
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -43,7 +15,8 @@
                      Padding="10, 0, 10, 0"
                      VerticalOptions="FillAndExpand">
             <views:MenuHeaderView />
-            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+            <StackLayout Orientation="Horizontal" 
+                         HorizontalOptions="CenterAndExpand">
                 <Label Text="Toppings For"
                    TextColor="White" 
                    FontSize="20" />
@@ -51,52 +24,64 @@
                    FontSize="20"
                    TextColor="White" />
             </StackLayout>
+            <BoxView HeightRequest="1" 
+                     WidthRequest="50"
+                     Color="White"/>
             <!--<custom:Checkbox IsChecked="false" />-->
             <!--<custom:CustomListView x:Name="ToppingsListView" />-->
-            <ListView ItemTemplate="{StaticResource ToppingsTemplate}"
-                      ItemsSource="{Binding ToppingSelectionsList}"
+            <ListView ItemsSource="{Binding ToppingSelectionsList}"
                       ItemSelected="ListToppingSelected"
                       x:Name="ToppingsListView"
                       SeparatorVisibility="Default"
                       SeparatorColor="BlanchedAlmond">
-               
-                        <!--<DataTemplate>
-                        <ViewCell>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0"
-                                       Text="{Binding ToppingName}"
+                <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid x:Name="ToppingsGrid">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0"
+                                       Text="{Binding ListTopping.ToppingName}"
+                                       BackgroundColor="{Binding SelectionColor, Mode=TwoWay}"
                                        TextColor="White"
-                                       FontSize="Medium"
-                                       Margin="0, 0, 30, 0"
+                                       FontSize="Small"
                                        VerticalOptions="Center"/>
-                                <Picker Grid.Column="1"
-                                        x:Name="ToppingPicker"
-                                        ItemsSource="{Binding PickerList}"
-                                        SelectedIndex="{Binding PickerSelectedIndex}"
-                                        VerticalOptions="Center"
-                                        TextColor="White" />
-                            </Grid>
-                            --><!--<StackLayout Orientation="Horizontal">
-                                <Label Text="{Binding ToppingName}"
-                                       TextColor="White"
-                                       FontSize="Medium"
-                                       Margin="0, 0, 30, 0"
-                                       VerticalOptions="Center"/>
-                                <Picker x:Name="ToppingPicker"
-                                    ItemsSource="{Binding PickerList}"
-                                    SelectedIndex="{Binding PickerSelectedIndex}"
-                                    VerticalOptions="Center"
-                                    TextColor="White" />
-                            </StackLayout>--><!--
+                            <Button Grid.Column="1"
+                                    IsVisible="{Binding AreWholeHalfColumnsVisible}"
+                                Text="W"
+                                TextColor="White"
+                                BackgroundColor="{Binding WholeColor}"
+                                FontSize="Small"
+                                Command="{Binding WholeButtonCommand}"
+                                VerticalOptions="Center"/>
+                            <Button Grid.Column="2"
+                               Text="A"
+                                     IsVisible="{Binding AreWholeHalfColumnsVisible}"
+                               TextColor="White"
+                               BackgroundColor="{Binding AColor}"
+                               FontSize="Small"
+                               Command="{Binding AButtonCommand}"
+                               VerticalOptions="Center"/>
+                            <Button Grid.Column="3"
+                               Text="B"
+                                     IsVisible="{Binding AreWholeHalfColumnsVisible}"
+                               TextColor="White"
+                               BackgroundColor="{Binding BColor}"
+                               FontSize="Small"
+                               Command="{Binding BButtonCommand}"
+                               VerticalOptions="Center"/>
+                          
+                        </Grid>
                         </ViewCell>
-                    </DataTemplate>-->
+                </DataTemplate>
+                </ListView.ItemTemplate>
             </ListView>
         </StackLayout>
     </ContentPage.Content>

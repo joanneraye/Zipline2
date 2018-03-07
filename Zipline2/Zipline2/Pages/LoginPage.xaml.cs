@@ -35,6 +35,7 @@ namespace Zipline2.Pages
             else
             {
                 await DisplayAlert("Oops", "Only a Manager PIN can access the Add User button.  Please enter manager PIN.", "OK");
+                PinEnteredByUser.Text = "";
             }
         }
 
@@ -51,6 +52,7 @@ namespace Zipline2.Pages
             {
                 await DisplayAlert("Oops", "Sorry that PIN is not in our system as belonging to anyone.", "OK");
             }
+            PinEnteredByUser.Text = "";
             LoginButton.IsEnabled = true;
         }
 

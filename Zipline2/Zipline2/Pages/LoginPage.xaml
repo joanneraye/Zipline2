@@ -12,36 +12,35 @@
         </OnPlatform>
     </ContentPage.Padding>
     <ContentPage.Content>
-        <StackLayout Padding="10, 10, 10, 10" 
-                     BackgroundColor="Black" 
-                     Spacing="10">            
+        <StackLayout BackgroundColor="Black" Padding="10, 10">            
             <Image Source="zipline_logo.jpg" 
-                   Aspect="AspectFill"  />           
-            <Entry Placeholder="Enter 4 digit numeric PIN here..." 
-                   TextColor="Black"
-                   x:Name="PinEnteredByUser"
-                   BackgroundColor="LightGray"
+                   Aspect="AspectFill"  />
+            <Label Text="Enter PIN:"
+                   HorizontalOptions="Center"
                    FontSize="Small"
-                   Keyboard="Numeric"
-                   Margin="13" />
+                   TextColor="White" />
+            <Entry TextColor="Black"
+                   x:Name="PinEnteredByUser"
+                   Placeholder="0000"
+                   PlaceholderColor="White"
+                   BackgroundColor="White"
+                   HorizontalOptions="Center"
+                   FontSize="Small"
+                   Keyboard="Numeric" />
             <Button Text="Log In"
                     x:Name="LoginButton"
                     Clicked="OnLoginButtonClicked"
                     FontSize="Medium"
                     VerticalOptions="Center"
                     HeightRequest="55"
-                    Margin="13, 0, 13, 0"
                     FontAttributes="Bold" />
             <Button Text="Change My PIN"
-                    x:Name="ChangePinButton" 
-                    Margin="13, 2, 13, 2"
+                    x:Name="ChangePinButton"
                     FontSize="Small"
                     Clicked="OnChangePinButtonClicked" />
             <Button Text="Add User (Manager Only)"
                     Clicked="OnAddNewUserButtonClicked" 
-                    Margin="15, 0, 15, 0"
-                    FontSize="Small"
-                    BackgroundColor="LightGray"/>
+                    FontSize="Small" />
         </StackLayout>
     </ContentPage.Content>
 

@@ -9,6 +9,7 @@ using Xamarin.Forms.Xaml;
 using Zipline2.PageModels;
 using Zipline2.Models;
 using Zipline2.BusinessLogic;
+using Zipline2.BusinessLogic.DictionaryKeys;
 
 namespace Zipline2.Pages
 {
@@ -24,7 +25,7 @@ namespace Zipline2.Pages
             InitializeComponent ();
             BindingContext = ToppingsPageModel;
         }
-
+        
         private void ListToppingSelected(object sender, EventArgs e)
         {
             var list = sender as ListView;
@@ -43,26 +44,7 @@ namespace Zipline2.Pages
             }
             
             toppingSelection.ListTopping.IsSelected = !toppingSelection.ListTopping.IsSelected;
-            if (toppingSelection.ListTopping.IsSelected)
-            {
-                toppingSelection.SelectionColor = Color.Orange;
-            }
-            else
-            {
-                toppingSelection.SelectionColor = Color.Black;
-            }
-           
-            //ToppingsListView[..index...] - how to highlight this row???
-            //Highlight row, Select whole, and turn switch to on, increment
-            //or decrement number selected.
-
-
-            //What is the row index?  Can I get the row and select the 
-            //0 index on the picker item?
-
-            //var list = sender as ListView;
-            //Topping topping = (Topping)list.SelectedItem;
-            //topping.IsSelected = true;
+            toppingSelection.ListItemIsSelected = !toppingSelection.ListItemIsSelected;
         }
     }
 }
