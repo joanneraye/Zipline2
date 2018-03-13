@@ -16,15 +16,36 @@ namespace Zipline2.Pages
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class PizzaPage : BasePage
 	{
+        #region Private Variables
         private bool sliceIsSelected;
         private bool largeIsSelected;
         private bool mediumIsSelected;
         private bool indyIsSelected;
+
+        private bool majorSliceIsSelected;
+        private bool majorIndyIsSelected;
+        private bool majorMediumIsSelected;
+        private bool majorLargeIsSelected;
+        private bool majorMfpIsSelected;
+        private bool majorSatchPanIsSelected;
+
         private Button sliceButton;
         private Button mediumButton;
         private Button largeButton;
         private Button indyButton;
-        
+
+        private Button majorSliceButton;
+        private Button majorIndyButton;
+        private Button majorMediumButton;
+        private Button majorLargeButton;
+        private Button majorMfpButton;
+        private Button majorSatchPanButton;
+
+        private PizzaType pizzaType;
+        #endregion
+
+        #region Properties
+        #region Cheese Options
         public bool SliceIsSelected
         {
             get
@@ -113,45 +134,181 @@ namespace Zipline2.Pages
                 }
             }
         }
-     
-        //PizzaPageModel PizzaPageModel;
-        public PizzaPage ()
-		{
+        #endregion
+        #region Major buttons
+        public bool MajorSliceIsSelected
+        {
+            get
+            {
+                return majorSliceIsSelected;
+            }
+            set
+            {
+                majorSliceIsSelected = value;
+                if (majorSliceIsSelected)
+                {
+                    majorSliceButton.BackgroundColor = Color.Orange;
+                    MajorLargeIsSelected = false;
+                    MajorMediumIsSelected = false;
+                    MajorIndyIsSelected = false;
+                    MajorSatchPanIsSelected = false;
+                    MajorMfpIsSelected = false;
+                }
+                else
+                {
+                    majorSliceButton.BackgroundColor = Color.Black;
+                }
+            }
+        }
+
+        public bool MajorIndyIsSelected
+        {
+            get
+            {
+                return majorIndyIsSelected;
+            }
+            set
+            {
+                majorIndyIsSelected = value;
+                if (majorIndyIsSelected)
+                {
+                    majorIndyButton.BackgroundColor = Color.Orange;
+                    MajorLargeIsSelected = false;
+                    MajorMediumIsSelected = false;
+                    MajorSliceIsSelected = false;
+                    MajorSatchPanIsSelected = false;
+                    MajorMfpIsSelected = false;
+                }
+                else
+                {
+                    majorIndyButton.BackgroundColor = Color.Black;
+                }
+            }
+        }
+        public bool MajorMediumIsSelected
+        {
+            get
+            {
+                return majorMediumIsSelected;
+            }
+            set
+            {
+                majorMediumIsSelected = value;
+                if (majorMediumIsSelected)
+                {
+                    majorMediumButton.BackgroundColor = Color.Orange;
+                    MajorLargeIsSelected = false;
+                    MajorSliceIsSelected = false;
+                    MajorIndyIsSelected = false;
+                    MajorSatchPanIsSelected = false;
+                    MajorMfpIsSelected = false;
+                }
+                else
+                {
+                    majorMediumButton.BackgroundColor = Color.Black;
+                }
+            }
+        }
+        public bool MajorLargeIsSelected
+        {
+            get
+            {
+                return majorLargeIsSelected;
+            }
+            set
+            {
+                majorLargeIsSelected = value;
+                if (majorLargeIsSelected)
+                {
+                    majorLargeButton.BackgroundColor = Color.Orange;
+                    MajorSliceIsSelected = false;
+                    MajorMediumIsSelected = false;
+                    MajorIndyIsSelected = false;
+                    MajorSatchPanIsSelected = false;
+                    MajorMfpIsSelected = false;
+                }
+                else
+                {
+                    majorLargeButton.BackgroundColor = Color.Black;
+                }
+            }
+        }
+
+        public bool MajorMfpIsSelected
+        {
+            get
+            {
+                return majorMfpIsSelected;
+            }
+            set
+            {
+                majorMfpIsSelected = value;
+                if (majorMfpIsSelected)
+                {
+                    majorMfpButton.BackgroundColor = Color.Orange;
+                    MajorSliceIsSelected = false;
+                    MajorMediumIsSelected = false;
+                    MajorIndyIsSelected = false;
+                    MajorSatchPanIsSelected = false;
+                    MajorLargeIsSelected = false;
+                }
+                else
+                {
+                    majorMfpButton.BackgroundColor = Color.Black;
+                }
+            }
+        }
+
+        public bool MajorSatchPanIsSelected
+        {
+            get
+            {
+                return majorSatchPanIsSelected;
+            }
+            set
+            {
+                majorSatchPanIsSelected = value;
+                if (majorSatchPanIsSelected)
+                {
+                    majorSatchPanButton.BackgroundColor = Color.Orange;
+                    MajorSliceIsSelected = false;
+                    MajorMediumIsSelected = false;
+                    MajorLargeIsSelected = false;
+                    MajorIndyIsSelected = false;
+                    MajorMfpIsSelected = false;
+                }
+                else
+                {
+                    majorSatchPanButton.BackgroundColor = Color.Black;
+                }
+            }
+        }
+
+        #endregion
+        #endregion
+
+        #region Constructor
+        public PizzaPage()
+        {
             //PizzaPageModel = new PizzaPageModel();
-            InitializeComponent ();
+            InitializeComponent();
             sliceButton = PizzaGrid.FindByName<Button>("Slice");
             mediumButton = PizzaGrid.FindByName<Button>("Medium");
             largeButton = PizzaGrid.FindByName<Button>("Large");
             indyButton = PizzaGrid.FindByName<Button>("Indy");
             SliceIsSelected = true;
 
-            //BindingContext = PizzaPageModel;
-            //CheesePizzaPicker.SelectedIndex = 0;
+            majorSliceButton = PizzaGrid.FindByName<Button>("MajorSlice");
+            majorIndyButton = PizzaGrid.FindByName<Button>("MajorIndy");
+            majorMediumButton = PizzaGrid.FindByName<Button>("MajorMedium");
+            majorLargeButton = PizzaGrid.FindByName<Button>("MajorLarge");
+            majorMfpButton = PizzaGrid.FindByName<Button>("MajorMfp");
+            majorSatchPanButton = PizzaGrid.FindByName<Button>("MajorSatchPan");
+            MajorSliceIsSelected = true;
+        }
+        #endregion
 
-            //CheesePizzaPicker.ItemsSource = PizzaPageModel.PizzaPickerList;
-            //CheesePizzaRadioButtons.CheckedChanged += CheesePizzaRadioButtons_CheckedChanged;
-
-            var majorTypes = new List<string>
-            {
-                MajorPizzaType.Slice.ToString(),
-                MajorPizzaType.Indy.ToString(),
-                MajorPizzaType.Medium.ToString(),
-                MajorPizzaType.Large.ToString(),
-                MajorPizzaType.Mfp.ToString(),
-                MajorPizzaType.SatchPan.ToString()
-            };
-            
-            //MajorPizzaPicker.ItemsSource = majorTypes;
-            //MajorPizzaPicker.SelectedIndex = 0;            
-		}
-
-        //void CheesePizzaRadioButtons_CheckedChanged(object sender, int e)
-        //{
-        //    var radio = sender as CustomRadioButton;
-
-        //    if (radio == null || radio.Id == -1) return;
-        //}
-
+        #region Methods
         async Task DisplayToppingsPage()
         {
             //Update the current table to indicate it is occupied.
@@ -159,7 +316,7 @@ namespace Zipline2.Pages
             currentTable.IsOccupied = true;
             OrderManager.GetInstance().UpdateCurrentTable(currentTable);
 
-            await Navigation.PushAsync(new ToppingsPage());
+            await Navigation.PushAsync(new ToppingsPage(pizzaType));
         }
 
         void OnPizzaSliceSelected()
@@ -180,6 +337,36 @@ namespace Zipline2.Pages
         void OnPizzaIndySelected()
         {
             IndyIsSelected = true;
+        }
+
+        void OnMajorSliceSelected()
+        {
+            MajorSliceIsSelected = true;
+        }
+
+        void OnMajorMediumSelected()
+        {
+            MajorMediumIsSelected = true;
+        }
+
+        void OnMajorLargeSelected()
+        {
+            MajorLargeIsSelected = true;
+        }
+
+        void OnMajorIndySelected()
+        {
+            MajorIndyIsSelected = true;
+        }
+
+        void OnMajorMfpSelected()
+        {
+            MajorMfpIsSelected = true;
+        }
+
+        void OnMajorSatchPanSelected()
+        {
+            MajorSatchPanIsSelected = true;
         }
 
         public PizzaSize GetPizzaSizeSelected()
@@ -204,19 +391,50 @@ namespace Zipline2.Pages
             return sizeSelected;
         }
 
+        public PizzaType GetMajorSizeSelected()
+        {
+            PizzaType sizeSelected = PizzaType.ThinSlice;
+            if (MajorSliceIsSelected)
+            {
+                sizeSelected = PizzaType.ThinSlice;
+            }
+            else if (MajorMediumIsSelected)
+            {
+                sizeSelected = PizzaType.Medium;
+            }
+            else if (MajorLargeIsSelected)
+            {
+                sizeSelected = PizzaType.Large;
+            }
+            else if (MajorIndyIsSelected)
+            {
+                sizeSelected = PizzaType.Indy;
+            }
+            else if (MajorMfpIsSelected)
+            {
+                sizeSelected = PizzaType.Mfp;
+            }
+            else if (MajorSatchPanIsSelected)
+            {
+                sizeSelected = PizzaType.SatchPan;
+            }
+            return sizeSelected;
+        }
+
         async Task OnPlusCheesePizza(object sender, EventArgs e)
         {
             var pizzaSize = GetPizzaSizeSelected();
-
+            pizzaType = Pizza.GetPizzaType(pizzaSize, PizzaCrust.RegularThin);
             //Send info to OrderManager
-            var guiData = new CustomerSelections
+            var guiData = new CustomerSelections(pizzaType)
             {
                 MenuItemGeneralCategory = MenuCategory.Pizza,
                 PizzaSize = pizzaSize,
+                PizzaCrustType = PizzaCrust.RegularThin,
                 NumberOfItems = 1
             };
 
-            OrderManager.GetInstance().HandleOrderItem(guiData);
+            OrderManager.GetInstance().AddItemInProgress(guiData);
 
             await DisplayToppingsPage();
         }
@@ -224,82 +442,80 @@ namespace Zipline2.Pages
             
         async void OnPlusMajorPizza(object sender, EventArgs e)
         {
-            //Get size chosen from picker.
-            //var majorPizzaType = (MajorPizzaType)Enum.Parse(typeof(MajorPizzaType),
-            //                        MajorPizzaPicker.SelectedItem.ToString());
+            pizzaType = GetMajorSizeSelected();
+            var guiData = new CustomerSelections(pizzaType)
+            {
+                MenuItemGeneralCategory = MenuCategory.Pizza,
+                MajorOrMama = MajorOrMama.Major,
+                NumberOfItems = 1
+            };
 
-            //var guiData = new CustomerSelections
-            //{
-            //    MenuItemGeneralCategory = MenuCategory.Pizza,
-            //    MajorOrMama = MajorOrMama.Major,
-            //    NumberOfItems = 1
-            //};
+            switch (pizzaType)
+            {
+                case PizzaType.Indy:
+                    guiData.PizzaSize = PizzaSize.Indy;
+                    guiData.PizzaCrustType = PizzaCrust.RegularThin;
+                    break;
+                case PizzaType.Large:
+                    guiData.PizzaSize = PizzaSize.Large;
+                    guiData.PizzaCrustType = PizzaCrust.RegularThin;
+                    break;
+                case PizzaType.Medium:
+                    guiData.PizzaSize = PizzaSize.Medium;
+                    guiData.PizzaCrustType = PizzaCrust.RegularThin;
+                    break;
+                case PizzaType.Mfp:
+                    guiData.PizzaSize = PizzaSize.OneSize;
+                    guiData.PizzaCrustType = PizzaCrust.Mfp;
+                    break;
+                case PizzaType.SatchPan:
+                    guiData.PizzaSize = PizzaSize.OneSize;
+                    guiData.PizzaCrustType = PizzaCrust.SatchPan;
+                    break;
+                case PizzaType.ThinSlice:
+                    guiData.PizzaSize = PizzaSize.Slice;
+                    guiData.PizzaCrustType = PizzaCrust.RegularThin;
+                    break;
+            }
 
-            //switch (majorPizzaType)
-            //{
-            //    case MajorPizzaType.Indy:
-            //        guiData.PizzaSize = PizzaSize.Indy;
-            //        guiData.PizzaType = PizzaType.RegularThin;
-            //        break;
-            //    case MajorPizzaType.Large:
-            //        guiData.PizzaSize = PizzaSize.Large;
-            //        guiData.PizzaType = PizzaType.RegularThin;
-            //        break;
-            //    case MajorPizzaType.Medium:
-            //        guiData.PizzaSize = PizzaSize.Large;
-            //        guiData.PizzaType = PizzaType.RegularThin;
-            //        break;
-            //    case MajorPizzaType.Mfp:
-            //        guiData.PizzaSize = PizzaSize.Large;
-            //        guiData.PizzaType = PizzaType.Mfp;
-            //        break;
-            //    case MajorPizzaType.SatchPan:
-            //        guiData.PizzaSize = PizzaSize.Large;
-            //        guiData.PizzaType = PizzaType.SatchPan;
-            //        break;
-            //    case MajorPizzaType.Slice:
-            //        guiData.PizzaSize = PizzaSize.Slice;
-            //        guiData.PizzaType = PizzaType.RegularThin;
-            //        break;
-            //}
+ 
+            OrderManager.GetInstance().AddItemInProgress(guiData);
 
-            //OrderManager.GetInstance().HandleOrderItem(guiData);
-           
-            ////Allow user to modify Major pizza
             await DisplayToppingsPage();
 
         }
 
         async Task OnMfpPizza(object sender, EventArgs e)
         {
+            pizzaType = PizzaType.Mfp;
             //Send info to OrderManager
-            var guiData = new CustomerSelections
+            var guiData = new CustomerSelections(pizzaType)
             {
                 MenuItemGeneralCategory = MenuCategory.Pizza,
                 PizzaSize = PizzaSize.OneSize,
-                PizzaType = PizzaType.Mfp,
                 NumberOfItems = 1
             };
 
-            OrderManager.GetInstance().HandleOrderItem(guiData);
+            OrderManager.GetInstance().AddItemInProgress(guiData);
 
             await DisplayToppingsPage();
         }
 
         async Task OnSatchPanPizza(object sender, EventArgs e)
         {
+            pizzaType = PizzaType.SatchPan;
             //Send info to OrderManager
-            var guiData = new CustomerSelections
+            var guiData = new CustomerSelections(pizzaType)
             {
                 MenuItemGeneralCategory = MenuCategory.Pizza,
                 PizzaSize = PizzaSize.OneSize,
-                PizzaType = PizzaType.SatchPan,
                 NumberOfItems = 1
             };
 
-            OrderManager.GetInstance().HandleOrderItem(guiData);
+            OrderManager.GetInstance().AddItemInProgress(guiData);
 
             await DisplayToppingsPage();
         }
+        #endregion
     }
 }

@@ -9,14 +9,6 @@ namespace Zipline2.PageModels
 {
     public class BasePageModel : INotifyPropertyChanged
     {
-
-        //public MenuHeaderModel MenuHeaderModel
-        //{
-        //    get
-        //    {
-        //        return MenuHeaderModel.GetInstance();
-        //    }
-        //}
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void OnPropertyChanged([CallerMemberName] string name = "")

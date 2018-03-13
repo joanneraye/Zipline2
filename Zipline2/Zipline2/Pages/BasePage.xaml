@@ -4,10 +4,3 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              NavigationPage.HasNavigationBar = "False">             
 </ContentPage>
-
-
-<!--<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             x:Class="Zipline2.BasePage"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             BackgroundColor="DarkGray">
-</ContentPage>-->

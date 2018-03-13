@@ -12,8 +12,8 @@
                 <Button x:Name="TButton"
                       Text="TABLES"
                       HorizontalOptions="Start"
-                        VerticalOptions="End"
-                      Clicked="TButtonClicked" />
+                      VerticalOptions="End"
+                      Clicked="TablesButtonClicked" />
                 <Label TextColor="LightBlue"
                        FontSize="Small"
                        HorizontalOptions="CenterAndExpand"
@@ -23,11 +23,12 @@
                 <Label TextColor="LightBlue"
                        FontSize="Small"
                        HorizontalOptions="CenterAndExpand"
-                        VerticalOptions="Center"
+                       VerticalOptions="Center"
                        HorizontalTextAlignment="Center"
-                    Text="{Binding TableName, StringFormat='{0}'}"/>
+                       Text="{Binding TableName, StringFormat='{0}'}"/>
                 <Button Text="Next" 
-                        HorizontalOptions="EndAndExpand"
+                        HorizontalOptions="End"
+                        Clicked="NextButtonClicked"
                         VerticalOptions="End"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal"

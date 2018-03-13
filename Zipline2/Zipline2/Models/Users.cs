@@ -25,13 +25,16 @@ namespace Zipline2.Models
             return Instance;
         }
 
-        #endregion 
-        
+        #endregion
+
+
+        #region Properties
         private List<User> AllUsers { get; set; }
 
         public User LoggedInUser { get; set; }
+        #endregion
 
-        
+        #region Methods
         public void AddNewUser(User newUser)
         {
             AllUsers.Add(newUser);
@@ -69,5 +72,6 @@ namespace Zipline2.Models
             }
             return false;
         }
+        #endregion
     }
 }

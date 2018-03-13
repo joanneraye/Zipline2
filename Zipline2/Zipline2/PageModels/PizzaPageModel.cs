@@ -8,6 +8,7 @@ namespace Zipline2.PageModels
 {
     public class PizzaPageModel : BasePageModel
     {
+        
         //Couldn't get buttons to work in grid so did in code behind.
         //public System.Windows.Input.ICommand PizzaSliceButtonCommand { get; set; }
         //public System.Windows.Input.ICommand PizzaMediumButtonCommand { get; set; }

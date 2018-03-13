@@ -4,13 +4,11 @@ using System.Text;
 
 namespace Zipline2.BusinessLogic.Enums
 {
-    public enum MajorPizzaType
+    public enum PizzaCrust
     {
-        Slice,
-        Indy,
-        Medium,
-        Large,
+        RegularThin,
+        SatchPan,
         Mfp,
-        SatchPan
+        Calzone
     }
 }

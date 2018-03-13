@@ -9,21 +9,43 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="CustomControlHelpers\EventArgs{T}.cs" />
+    <Compile Remove="CustomControlHelpers\EventExtensions.cs" />
     <Compile Remove="CustomControls\BindableRadioGroup.cs" />
     <Compile Remove="CustomControls\Checkbox.cs" />
     <Compile Remove="CustomControls\CustomListView.cs" />
     <Compile Remove="CustomControls\CustomPicker.cs" />
     <Compile Remove="CustomControls\CustomRadioButton.cs" />
+    <Compile Remove="Extensions\BindableObjectExtensions.cs" />
+    <Compile Remove="Models\PizzaCalzone.cs" />
+    <Compile Remove="Models\PizzaCalzoneSteakAndCheese.cs" />
+    <Compile Remove="Models\PizzaIndy.cs" />
+    <Compile Remove="Models\PizzaMajor.cs" />
+    <Compile Remove="Models\PizzaMfp.cs" />
+    <Compile Remove="Models\PIzzaSatchPan.cs" />
+    <Compile Remove="Models\PizzaSatchPanSlice.cs" />
+    <Compile Remove="Models\PizzaThin.cs" />
+    <Compile Remove="Models\PizzaThinLarge.cs" />
+    <Compile Remove="Models\PizzaThinMedium.cs" />
+    <Compile Remove="Models\PizzaThinSlice.cs" />
+    <Compile Remove="PageModels\MainPageModel.cs" />
+    <Compile Remove="PageModels\ToppingSelection.cs" />
+    <Compile Remove="Pages\MainPage.xaml.cs" />
     <Compile Remove="Pages\MasterDetailPage1.xaml.cs" />
     <Compile Remove="Pages\MasterDetailPage1Detail.xaml.cs" />
     <Compile Remove="Pages\MasterDetailPage1Master.xaml.cs" />
     <Compile Remove="Pages\MasterDetailPage1MenuItem.cs" />
+    <Compile Remove="Pages\OldTablesPage.xaml.cs" />
+    <Compile Remove="Views\MenuHeaderView - OLD.xaml.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="Pages\MainPage.xaml" />
     <EmbeddedResource Remove="Pages\MasterDetailPage1.xaml" />
     <EmbeddedResource Remove="Pages\MasterDetailPage1Detail.xaml" />
     <EmbeddedResource Remove="Pages\MasterDetailPage1Master.xaml" />
+    <EmbeddedResource Remove="Pages\OldTablesPage.xaml" />
+    <EmbeddedResource Remove="Views\MenuHeaderView - OLD.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,9 +64,6 @@
     <Compile Update="Pages\AddUserPage.xaml.cs">
       <DependentUpon>AddUserPage.xaml</DependentUpon>
     </Compile>
-    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Pages\MainPage.xaml.cs">
-      <DependentUpon>*.xaml</DependentUpon>
-    </Compile>
     <Compile Update="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
@@ -57,9 +76,6 @@
     <Compile Update="Views\MenuButtonFooterView.xaml.cs">
       <DependentUpon>MenuButtonFooterView.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\MenuHeaderView - OLD.xaml.cs">
-      <DependentUpon>MenuHeaderView - OLD.xaml</DependentUpon>
-    </Compile>
     <Compile Update="Views\MenuHeaderView.xaml.cs">
       <DependentUpon>MenuHeaderView.xaml</DependentUpon>
     </Compile>
@@ -67,9 +83,6 @@
 
   <ItemGroup>
     <EmbeddedResource Update="Pages\AddUserPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Pages\OldTablesPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\PizzaPage.xaml">

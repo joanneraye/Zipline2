@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using System.Text;
 using Zipline2.BusinessLogic;
+using Zipline2.BusinessLogic.Enums;
 using Zipline2.Models;
 
 namespace Zipline2.PageModels
 {
     public class MenuHeaderModel : BasePageModel
     {
-        //Need to figure out a way to update these whenever
-        //OrderManager properties update.  How do I have the program
-        //notify this class when there is an update in OrderManager 
-        //so that I can update these totals bound to the screen??
+        #region Private Variables
         private decimal itemTotal;
         private decimal orderTotal;
         private string userName;
+        #endregion
+
+        #region Properties
         public string UserName
         {
             get
@@ -43,21 +44,16 @@ namespace Zipline2.PageModels
         {
             get
             {
-                if (OrderManager.GetInstance().OrderItemInProgress != null)
-                {
-                    itemTotal = OrderManager.GetInstance().OrderItemInProgress.Total;
-                }
-
                 return itemTotal;
             }
             set
             {
+                SetProperty(ref itemTotal, value);
                 if (OrderManager.GetInstance().OrderItemInProgress != null)
                 {
-                    itemTotal = OrderManager.GetInstance().OrderItemInProgress.Total;
+                    var subTotal = OrderManager.GetInstance().OrderItemInProgress.Total + itemTotal;
+                    OrderTotal = subTotal + HelperMethods.GetTaxAmount(subTotal);
                 }
-
-                SetProperty(ref itemTotal, value);
             }
         }
 
@@ -65,23 +61,17 @@ namespace Zipline2.PageModels
         {
             get
             {
-                if (OrderManager.GetInstance().OrderInProgress != null)
-                {
-                    orderTotal = OrderManager.GetInstance().OrderInProgress.Total;
-                }
                 return orderTotal;
             }
             set
             {
-                if (OrderManager.GetInstance().OrderInProgress != null)
-                {
-                    orderTotal = OrderManager.GetInstance().OrderInProgress.Total;
-                }
-
                 SetProperty(ref orderTotal, value);
             }
         }
 
+        #endregion
+
+        #region Singleton Class setup including constructor
         private MenuHeaderModel()
         {
             UserName = Users.GetInstance().LoggedInUser.UserName;
@@ -96,10 +86,25 @@ namespace Zipline2.PageModels
         {
             if (Instance == null)
             {
-                Instance = new MenuHeaderModel();                
+                Instance = new MenuHeaderModel();
             }
-           
+
             return Instance;
         }
+        #endregion
+
+        #region Methods
+        public void PopulateItemTotal()
+        {
+            var currentOrderItem = OrderManager.GetInstance().OrderItemInProgress;
+            if (currentOrderItem is Pizza)
+            {
+                Pizza thisPizza = (Pizza)currentOrderItem;
+                itemTotal = (thisPizza.BasePrice +
+                    thisPizza.PizzaToppings.ToppingsTotal) *
+                    thisPizza.ItemCount;
+            }
+        }
+        #endregion
     }
 }

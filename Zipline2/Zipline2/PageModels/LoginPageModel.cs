@@ -14,6 +14,7 @@ namespace Zipline2.PageModels
 
         private string pinEnteredByUser;
 
+        #region Properties
         public User LoggedInUser { get; set; }
 
         public bool IsPinValidUser { get; set; }
@@ -38,6 +39,8 @@ namespace Zipline2.PageModels
                 }
             }
         }
+        #endregion
+
         public LoginPageModel()
         {
 

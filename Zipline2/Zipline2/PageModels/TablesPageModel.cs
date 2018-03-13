@@ -9,8 +9,12 @@ namespace Zipline2.PageModels
 {
     class TablesPageModel : BasePageModel
     {
+        #region Private Variables
         private List<Table> displayTables;
         private string userName;
+        #endregion
+
+        #region Properties
         public bool IsInside { get; set; }
         public string UserName
         {
@@ -23,7 +27,6 @@ namespace Zipline2.PageModels
                 SetProperty(ref userName, value);
             }
         }
-
         
         public string InsideOutsideButtonText { get; set; }    
 
@@ -45,14 +48,18 @@ namespace Zipline2.PageModels
                     LoadTablesForDisplay(false);
             }
         }
+        #endregion
 
+        #region Constructor
         public TablesPageModel()
         {
             userName = Users.GetInstance().LoggedInUser.UserName;
             IsInside = true;
             LoadTablesForDisplay(true);
         }
+        #endregion
 
+        #region Methods
         public void LoadTablesForDisplay(bool insideTables)
         {
             displayTables = new List<Table>
@@ -68,6 +75,6 @@ namespace Zipline2.PageModels
                 }
             }
         }
-        
+        #endregion
     }
 }

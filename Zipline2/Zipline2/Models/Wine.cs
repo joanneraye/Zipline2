@@ -6,6 +6,10 @@ namespace Zipline2.Models
 {
     public class Wine : Drink
     {
+        public Wine(CustomerSelections guiData) : base(guiData)
+        {
+        }
+
         public enum DrinkSize
         {
             Glass,

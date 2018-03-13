@@ -11,162 +11,99 @@ using Zipline2.Pages;
 namespace Zipline2.Models
 {
     [Table("pizza")]
-    public class Pizza : OrderItem, IMedium, ISpecialtyBase
+    public class Pizza : OrderItem, IHasToppings
     {
-        public decimal ToppingsPrice { get; set; } = 0M;
-        public List<Topping> PizzaToppings { get; set; }
+        #region Properties
+        public Toppings PizzaToppings { get; set; }
+        public MajorOrMama MajorMamaInfo { get; set; }
+        public PizzaType PizzaType { get; set; }
+
+        public PizzaCrust Crust { get; set; }
+
+        public PizzaSize Size { get; set; }
+        #endregion
+
+        #region Constructor
         public Pizza(CustomerSelections guiData)
         {
-            switch (guiData.MajorOrMama)
+            MajorMamaInfo = guiData.MajorOrMama;
+            PizzaToppings = new Toppings(guiData.PizzaType);
+            Crust = guiData.PizzaCrustType;
+            Size = guiData.PizzaSize;
+            PizzaType = guiData.PizzaType;
+            BasePrice = Prices.GetPizzaBasePrice(guiData.PizzaType);
+            //TODO:  Is this needed?  Will I ever add a pizza with toppings already there?
+            if (guiData.Toppings.CurrentToppings.Count > 0)
             {
-                case MajorOrMama.Neither:
-                    switch (guiData.PizzaType)
-                    {
-                        case PizzaType.RegularThin:
-                            StartPizza(guiData.PizzaSize);
-                            break;
-                        case PizzaType.SatchPan:
-                            StartSatchPan();
-                            break;
-                        case PizzaType.Mfp:
-                            StartMfp();
-                            break;
-                    }
-                    break;
-                case MajorOrMama.Major:
-                    CreateMajorOrMama(MajorOrMama.Major, guiData.PizzaSize, guiData.PizzaType);
-                    break;
-                case MajorOrMama.Mama:
-                    CreateMajorOrMama(MajorOrMama.Mama, guiData.PizzaSize, guiData.PizzaType);
-                    break;
-            }
-            
-            ItemCount = guiData.NumberOfItems;
-            Total = PricePerItem * ItemCount;
-        }
-
-        public void AddPizzaToppings(List<Topping> toppings)
-        {
-            //For each topping added:
-            //  Add topping to list of toppings.
-           
-            //When done, get toppings count from list and recalculate ToppingsPrice.
-            //Recalculate Item Total and Update order total.
-
-
-            //foreach (var topping in toppings)
-            //{
-            //    switch (ItemName)
-            //    {
-            //        case Key.PIZZA_SLICE:
-            //            PricePerItem += Prices.ToppingsPriceDictionary[Key.SLICE_TOPPINGS][toppingPriceIndex];
-            //            break;
-
-            //    }
-            //    ToppingsPrice += Prices.
-            //    PizzaToppings.Add(topping);
-
-        }
-              
-        //Don't forget to add item count to this order item when pizza added.
-        public void StartPizza(PizzaSize sizeOfCheesePizza)
-        {
-            switch (sizeOfCheesePizza)
-            {
-                case PizzaSize.Slice:
-                    ItemName = DisplayNames.DisplayNameDictionary[Key.PIZZA_SLICE];
-                    PricePerItem = Prices.BasePriceDictionary[Key.PIZZA_SLICE];
-                    break;
-
-                case PizzaSize.Indy:
-                    ItemName = DisplayNames.DisplayNameDictionary[Key.PIZZA_INDY];
-                    PricePerItem = Prices.BasePriceDictionary[Key.PIZZA_INDY];
-                    break;
-
-                case PizzaSize.Medium:
-                    ItemName = DisplayNames.DisplayNameDictionary[Key.PIZZA_MEDIUM];
-                    PricePerItem = Prices.BasePriceDictionary[Key.PIZZA_MEDIUM];
-                    break;
-
-                case PizzaSize.Large:
-                    ItemName = DisplayNames.DisplayNameDictionary[Key.PIZZA_LARGE];
-                    PricePerItem = Prices.BasePriceDictionary[Key.PIZZA_LARGE];
-                    break;
-                default:
-                    break;
+                AddToppings(guiData);
             }
         }
+        #endregion
 
-        public void StartSatchPan()
+        #region Methods
+        public override void PopulateDisplayName(CustomerSelections guiData)
         {
+            ItemName = DisplayNames.GetPizzaDisplayName(guiData.PizzaType);
         }
-        public void CreateMajorOrMama(MajorOrMama majorOrMama, PizzaSize sizeOfMajorPizza, PizzaType typeOfMajorPizza)
+
+        public override void PopulatePricePerItem(CustomerSelections guiData)
         {
-            int toppingPriceIndex;
-            if (majorOrMama == MajorOrMama.Major)
+            PricePerItem = BasePrice + 
+                PizzaToppings.ToppingsTotal;
+        }
+
+        public static decimal CalculatePizzaItemCostNoTax(PizzaType pizzaType, int numberOfItems, Toppings toppings = null)
+        {
+            var basePrice = Prices.GetPizzaBasePrice(pizzaType);
+            decimal subtotal = 0M;
+            if (toppings != null && toppings.ToppingsTotal != 0)
             {
-                toppingPriceIndex = 5;
+                subtotal = (basePrice + toppings.ToppingsTotal) * numberOfItems;
             }
             else
             {
-                toppingPriceIndex = 3;
+                subtotal = basePrice * numberOfItems;
             }
-            //NOTE:  Major is 6 toppings. 
-            switch (sizeOfMajorPizza)
+           
+            return subtotal;
+        }
+
+        public static PizzaType GetPizzaType(PizzaSize size, PizzaCrust crust)
+        {
+            switch (size)
             {
-                //TODO:  Add MAJOR TO THESE names
-                case PizzaSize.Slice:
-                    ItemName = DisplayNames.DisplayNameDictionary[Key.PIZZA_SLICE] + "\n  MAJOR";
-                    PricePerItem = Prices.BasePriceDictionary[Key.PIZZA_SLICE] +
-                        + Prices.ToppingsPriceDictionary[Key.SLICE_TOPPINGS][toppingPriceIndex];
-                    break;
                 case PizzaSize.Indy:
-                    ItemName = DisplayNames.DisplayNameDictionary[Key.PIZZA_INDY];
-                    PricePerItem = Prices.BasePriceDictionary[Key.PIZZA_INDY] +
-                       + Prices.ToppingsPriceDictionary[Key.INDY_TOPPINGS][toppingPriceIndex];
-                    break;
-                case PizzaSize.Medium:
-                    ItemName = DisplayNames.DisplayNameDictionary[Key.PIZZA_MEDIUM];
-                    PricePerItem = Prices.BasePriceDictionary[Key.PIZZA_MEDIUM] +
-                       + Prices.ToppingsPriceDictionary[Key.MEDIUM_TOPPINGS][toppingPriceIndex];
-                    break;
-                case PizzaSize.Large:
-                    ItemName = DisplayNames.DisplayNameDictionary[Key.PIZZA_LARGE];
-                    PricePerItem = Prices.BasePriceDictionary[Key.PIZZA_LARGE] +
-                       + Prices.ToppingsPriceDictionary[Key.LARGE_TOPPINGS][toppingPriceIndex];
-                    break;
-                case PizzaSize.OneSize:
-                    switch (typeOfMajorPizza)
+                    return PizzaType.Indy;
+                case PizzaSize.Slice:
+                    if (crust == PizzaCrust.RegularThin)
                     {
-                        case PizzaType.Mfp:
-                            ItemName = DisplayNames.DisplayNameDictionary[Key.PIZZA_MFP];
-                            PricePerItem = Prices.BasePriceDictionary[Key.PIZZA_MFP] +
-                               + Prices.ToppingsPriceDictionary[Key.MFP_TOPPINGS][toppingPriceIndex];
-                            break;
-                        case PizzaType.SatchPan:
-                            ItemName = DisplayNames.DisplayNameDictionary[Key.PIZZA_SATCHPAN];
-                            PricePerItem = Prices.BasePriceDictionary[Key.PIZZA_SATCHPAN] +
-                               + Prices.ToppingsPriceDictionary[Key.SATCHPAN_TOPPINGS][toppingPriceIndex];
-                            break;
+                        return PizzaType.ThinSlice;
                     }
-                    break;
+                    else
+                    {
+                        return PizzaType.PanSlice;
+                    }
+                case PizzaSize.Medium:
+                    return PizzaType.Medium;
+                case PizzaSize.Large:
+                    return PizzaType.Large;
             }
+            switch (crust)
+            {
+                case PizzaCrust.Calzone:
+                    return PizzaType.Calzone;
+                case PizzaCrust.Mfp:
+                    return PizzaType.Mfp;
+                case PizzaCrust.SatchPan:
+                    return PizzaType.SatchPan;
+            }
+            return PizzaType.None;
         }
 
-     
-        private void StartMfp()
+        public void AddToppings(CustomerSelections guiData)
         {
-
+            PizzaToppings = guiData.Toppings; 
         }
-
-        public decimal GetMediumPrice()
-        {
-            throw new NotImplementedException();
-        }
-
-        public decimal GetSpecialtyPrice(OrderItem item)
-        {
-            throw new NotImplementedException();
-        }
+        #endregion
     }
 }

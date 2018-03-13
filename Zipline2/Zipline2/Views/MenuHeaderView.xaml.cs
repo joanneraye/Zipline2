@@ -22,18 +22,16 @@ namespace Zipline2.Views
             MenuHeaderModel = MenuHeaderModel.GetInstance();
             BindingContext = MenuHeaderModel;
             InitializeComponent();
-            //Following used when MenuHeaderModel not working....
-            //UserNameLabel.Text = Users.LoggedInUser.UserName;
-            //TableNameLabel.Text = OrderManager.GetInstance().CurrentTable.TableName;
-            //decimal itemTotal = OrderManager.GetInstance().OrderItemInProgress.Total;
-            //decimal orderTotal = OrderManager.GetInstance().OrderItemInProgress.Total;
-            //ItemTotalLabel.Text = string.Format("{0:C}", itemTotal);
-            //OrderTotalLabel.Text = string.Format("{0:C}", orderTotal);
         }
 
-        async public void TButtonClicked(object sender, EventArgs e)
+        async public void TablesButtonClicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new TablesPage());
+        }
+
+        public void NextButtonClicked(object sender, EventArgs e)
+        {
+            //Add toppings to the OrderItemInProgress.
         }
     }
 }

@@ -29,14 +29,18 @@
                      Color="White"/>
             <!--<custom:Checkbox IsChecked="false" />-->
             <!--<custom:CustomListView x:Name="ToppingsListView" />-->
-            <ListView ItemsSource="{Binding ToppingSelectionsList}"
-                      ItemSelected="ListToppingSelected"
+
+            <!--SelectedItem="{Binding Source={x:Reference SelectedToppingItem}}"-->
+            <ListView ItemsSource="{Binding ToppingSelectionsList, Mode=TwoWay}"
+                      ItemTapped="ListItemTapped"
+                      SelectedItem="{Binding SelectedToppingItem, Mode=TwoWay}"
+                      CachingStrategy="RecycleElementAndDataTemplate"
                       x:Name="ToppingsListView"
                       SeparatorVisibility="Default"
                       SeparatorColor="BlanchedAlmond">
                 <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
+                    <ViewCell x:Name="ListViewCell">
                         <Grid x:Name="ToppingsGrid">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -48,37 +52,38 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0"
-                                       Text="{Binding ListTopping.ToppingName}"
+                                       Text="{Binding ListTopping.ToppingDisplayName}"
                                        BackgroundColor="{Binding SelectionColor, Mode=TwoWay}"
                                        TextColor="White"
                                        FontSize="Small"
                                        VerticalOptions="Center"/>
-                            <Button Grid.Column="1"
-                                    IsVisible="{Binding AreWholeHalfColumnsVisible}"
-                                Text="W"
-                                TextColor="White"
-                                BackgroundColor="{Binding WholeColor}"
-                                FontSize="Small"
-                                Command="{Binding WholeButtonCommand}"
-                                VerticalOptions="Center"/>
-                            <Button Grid.Column="2"
-                               Text="A"
-                                     IsVisible="{Binding AreWholeHalfColumnsVisible}"
-                               TextColor="White"
-                               BackgroundColor="{Binding AColor}"
-                               FontSize="Small"
-                               Command="{Binding AButtonCommand}"
-                               VerticalOptions="Center"/>
-                            <Button Grid.Column="3"
-                               Text="B"
-                                     IsVisible="{Binding AreWholeHalfColumnsVisible}"
-                               TextColor="White"
-                               BackgroundColor="{Binding BColor}"
-                               FontSize="Small"
-                               Command="{Binding BButtonCommand}"
-                               VerticalOptions="Center"/>
-                          
-                        </Grid>
+                                <Button Grid.Column="1"
+                                        x:Name="ButtonW"
+                                        IsVisible="{Binding AreWholeHalfColumnsVisible}"
+                                        Text="W"
+                                        TextColor="White"
+                                        BackgroundColor="{Binding WColor, Mode=TwoWay}"
+                                        FontSize="Small"
+                                        Command="{Binding WButtonCommand}"
+                                        VerticalOptions="Center"/>
+                                <Button Grid.Column="2"
+                                       Text="A"
+                                       IsVisible="{Binding AreWholeHalfColumnsVisible}"
+                                       TextColor="White"
+                                       BackgroundColor="{Binding AColor, Mode=TwoWay}"
+                                       FontSize="Small"
+                                       Command="{Binding AButtonCommand}"
+                                       VerticalOptions="Center"/>
+                                <Button Grid.Column="3"
+                                        Text="B"
+                                        IsVisible="{Binding AreWholeHalfColumnsVisible}"
+                                        TextColor="White"
+                                        BackgroundColor="{Binding BColor, Mode=TwoWay}"
+                                        Command="{Binding BButtonCommand}"
+                                        FontSize="Small"
+                                        VerticalOptions="Center"/>   
+
+                            </Grid>
                         </ViewCell>
                 </DataTemplate>
                 </ListView.ItemTemplate>

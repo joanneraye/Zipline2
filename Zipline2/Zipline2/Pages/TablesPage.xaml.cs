@@ -15,11 +15,14 @@ namespace Zipline2.Pages
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class TablesPage : BasePage
 	{
-        public const string InsideString = "Inside";
-        public const string OutsideString = "Outside";
-        int NumTablesSeated { get; set; }
-        TablesPageModel TablesPageModel;
+        #region Private Variables
+        private const string InsideString = "Inside";
+        private const string OutsideString = "Outside";
+        private int NumTablesSeated { get; set; }
+        private TablesPageModel TablesPageModel;
+        #endregion
 
+        #region Constructor
         public TablesPage()
         {
             TablesPageModel = new TablesPageModel();
@@ -27,7 +30,9 @@ namespace Zipline2.Pages
             InitializeComponent();
             InsideOutsideButton.Text = InsideString;
         }
+        #endregion
 
+        #region Methods
         public async void OnTableSelected(object sender, EventArgs e)
         {
             //Change table selected from open to occupied.
@@ -72,5 +77,6 @@ namespace Zipline2.Pages
 
             TableList.ItemsSource = TablesPageModel.DisplayTables;
         }
+        #endregion
     }
 }

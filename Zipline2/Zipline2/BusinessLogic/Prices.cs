@@ -6,6 +6,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Zipline2.BusinessLogic.DictionaryKeys;
+using Zipline2.BusinessLogic.Enums;
 
 namespace Zipline2.BusinessLogic
    
@@ -40,17 +41,29 @@ namespace Zipline2.BusinessLogic
 
         public static Dictionary<string, decimal> PricesFromJsonFile;
 
-        public static Dictionary<string, decimal> BasePriceDictionary = new Dictionary<string, decimal>
+        public static Dictionary<PizzaType, decimal> BasePriceDictionary = new Dictionary<PizzaType, decimal>
         {
-            { Key.PIZZA_SLICE, 3.00M },
-            { Key.PIZZA_MEDIUM, 13.00M },
-            { Key.PIZZA_LARGE, 17.00M },
-            { Key.CALZONE,  9.00M},
-            { Key.CALZONE_STEAKANDCHEESE, 13.00M },
-            { Key.PIZZA_SATCHPAN, 21.00M },
-            { Key.PIZZA_MFP, 16.00M },
-            { Key.PIZZA_INDY, 6.00M }
+            { PizzaType.ThinSlice, 3.00M },
+            { PizzaType.Medium, 13.00M },
+            { PizzaType.Large, 17.00M },
+            { PizzaType.Calzone,  9.00M},
+            { PizzaType.CalzoneSteakAndCheese, 13.00M },
+            { PizzaType.SatchPan, 21.00M },
+            { PizzaType.Mfp, 16.00M },
+            { PizzaType.Indy, 6.00M }
         };
+
+        public static decimal GetPizzaBasePrice(PizzaType typeOfPizza)
+        {
+            if (BasePriceDictionary.ContainsKey(typeOfPizza))
+            {
+                return BasePriceDictionary[typeOfPizza];
+            }
+            else
+            {
+                return 0M;
+            }
+        }
 
         public static readonly decimal[] PizzaSliceToppingsPrices = new decimal[]
         {
@@ -86,15 +99,15 @@ namespace Zipline2.BusinessLogic
            1.00M, 2.00M, 3.00M, 4.00M, 5.00M, 6.00M, 1.00M
         };
 
-        public static Dictionary<string, decimal[]> ToppingsPriceDictionary = new Dictionary<string, decimal[]>
+        public static Dictionary<PizzaType, decimal[]> ToppingsPriceDictionary = new Dictionary<PizzaType, decimal[]>
         {
-            { Key.SLICE_TOPPINGS, PizzaSliceToppingsPrices },
-            { Key.MEDIUM_TOPPINGS, PizzaMediumToppingsPrices },
-            { Key.LARGE_TOPPINGS, PizzaLargeToppingsPrices },
-            { Key.CALZONE_TOPPINGS, CalzoneToppingsPrices },
-            { Key.SATCHPAN_TOPPINGS, PizzaSatchPanToppingsPrices },
-            { Key.INDY_TOPPINGS, PizzaIndyToppingsPrices },
-            { Key.MFP_TOPPINGS, PizzaMfpToppingsPrices }
+            { PizzaType.ThinSlice, PizzaSliceToppingsPrices },
+            { PizzaType.Medium, PizzaMediumToppingsPrices },
+            { PizzaType.Large, PizzaLargeToppingsPrices },
+            { PizzaType.Calzone, CalzoneToppingsPrices },
+            { PizzaType.SatchPan, PizzaSatchPanToppingsPrices },
+            { PizzaType.Indy, PizzaIndyToppingsPrices },
+            { PizzaType.Mfp, PizzaMfpToppingsPrices }
         };        
     }
 }

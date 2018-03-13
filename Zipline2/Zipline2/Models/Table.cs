@@ -9,11 +9,18 @@ namespace Zipline2.Models
     [Table("table")]
     public class Table
     {
+        #region Constants and Private Variables
+        //TODO:  These constants and associated logic should not be here
+        //in the Model since they refer to GUI elements.
         public const string OpenTableIconName = "orange_square.png";
         public const string OccupiedTableIconName = "blue_square.png";
         public const string TakeoutIconName = "pink_square.png";
         private bool isOccupied;
         private bool isTakeOut;
+        private string imageName;
+        #endregion
+
+        #region Properties
         [PrimaryKey, Column("tableid")]
         public int TableId { get; set; }
 
@@ -66,7 +73,6 @@ namespace Zipline2.Models
             }
         }
 
-        private string imageName;
         public string ImageName
         {
             get
@@ -78,21 +84,20 @@ namespace Zipline2.Models
                 imageName = value;
             }
         }
+        #endregion
 
-        public LayoutOptions TableHorizOptions { get; set; }
-
+        #region constructor
         public Table(bool isTakeOut = false)
         {
             if (isTakeOut)
             {
                 ImageName = TakeoutIconName;
-                TableHorizOptions = LayoutOptions.Center;
             }
             else
             {
                 ImageName = OpenTableIconName;
-                TableHorizOptions = LayoutOptions.Start;
             }
         }
+        #endregion
     }
 }

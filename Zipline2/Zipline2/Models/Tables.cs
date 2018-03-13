@@ -6,9 +6,7 @@ namespace Zipline2.Models
 {
     public class Tables
     {
-        public static List<Table> AllTables { get; set; }
-       
-        public static int NumSeated { get; set; }
+        #region Singleton Class Setup (Lazy reference needed?)
         //This is a singleton class:
         private static readonly Lazy<Tables> lazy =
             new Lazy<Tables>(() => new Tables());
@@ -24,6 +22,15 @@ namespace Zipline2.Models
         {
 
         }
+        #endregion (
+
+        #region Properties
+        public static List<Table> AllTables { get; set; }
+       
+        public static int NumSeated { get; set; }
+        #endregion
+
+        #region Methods
         public static void LoadInitialTableData()
         {
             AllTables = new List<Table>
@@ -67,6 +74,6 @@ namespace Zipline2.Models
                 AllTables[i].IndexInAllTables = i;
             }
         }
-        
+        #endregion
     }
 }

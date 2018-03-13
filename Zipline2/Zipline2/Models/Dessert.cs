@@ -4,17 +4,9 @@ using System.Text;
 
 namespace Zipline2.Models
 {
-    public class Salad : OrderItem
+    public class Dessert : OrderItem
     {
-        public enum SaladSize
-        {
-            LunchSpecial,
-            Small,
-            Large
-        }
-        public SaladSize SizeOfSalad { get; set; }
-
-        public Salad()
+        public Dessert(CustomerSelections guiData)
         {
 
         }

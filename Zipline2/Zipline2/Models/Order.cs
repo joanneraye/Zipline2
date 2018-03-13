@@ -7,6 +7,11 @@ using Zipline2.BusinessLogic;
 
 namespace Zipline2.Models
 {
+    /// <summary>
+    /// An Order class represents a customer ticket.  It includes OrderItem class objects
+    /// and order information such as order subtotal, tax and total as well as a reference to 
+    /// the table for the order.
+    /// </summary>
     [Table("order")]
     public class Order
     {
