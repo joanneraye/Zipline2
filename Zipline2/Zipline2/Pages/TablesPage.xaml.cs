@@ -46,7 +46,6 @@ namespace Zipline2.Pages
 
             //Change what the app's current table is.
             OrderManager.GetInstance().CurrentTableIndex = selectedTable.IndexInAllTables;
-            MenuHeaderModel.GetInstance().TableName = selectedTable.TableName;
 
             await Navigation.PushAsync(new PizzaPage());
         }

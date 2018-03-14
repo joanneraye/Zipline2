@@ -14,7 +14,7 @@
         <StackLayout BackgroundColor="Black"
                      Padding="10, 0, 10, 0"
                      VerticalOptions="FillAndExpand">
-            <views:MenuHeaderView />
+            <views:MenuHeaderView x:Name="ToppingsPageHeader" />
             <StackLayout Orientation="Horizontal" 
                          HorizontalOptions="CenterAndExpand">
                 <Label Text="Toppings For"

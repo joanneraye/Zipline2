@@ -17,7 +17,19 @@ namespace Zipline2.Models
         #region Properties
         public List<Topping> CurrentToppings { get; set; }
         public PizzaType PizzaTypeForPricing { get; set; }
-        public decimal ToppingsTotal { get; set; } = 0M;
+        private decimal toppingsTotal;
+        public decimal ToppingsTotal
+        {
+            get
+            {
+                return toppingsTotal;
+            }
+            private set
+            {
+                toppingsTotal = value;
+                //OrderManager.GetInstance().ToppingsInProgress = this;
+            }
+        }
         #endregion
 
         #region constructor
@@ -84,7 +96,7 @@ namespace Zipline2.Models
             ToppingsTotal = GetCurrentToppingsCost();
         }
 
-        public decimal GetCurrentToppingsCost()
+        private decimal GetCurrentToppingsCost()
         {
             var regularToppings = new List<Topping>();
             decimal toppingCost = 0M;
@@ -132,7 +144,10 @@ namespace Zipline2.Models
             }
             else
             {
-                toppingCost = thisPizzaToppingPrices[toppingIndex];
+                if (toppingIndex >= 0)
+                {
+                    toppingCost = thisPizzaToppingPrices[toppingIndex];
+                }
             }
 
             if ((toppingCountForPrice % 1) > 0)      //Includes 1/2 a topping

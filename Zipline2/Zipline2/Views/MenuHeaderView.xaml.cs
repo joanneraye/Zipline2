@@ -19,9 +19,9 @@ namespace Zipline2.Views
 
         public MenuHeaderView()
 		{
-            MenuHeaderModel = MenuHeaderModel.GetInstance();
-            BindingContext = MenuHeaderModel;
             InitializeComponent();
+            //Note:  BindingContext is assigned to the instance of MenuHeaderModel
+            //used by the PageModel that includes it.
         }
 
         async public void TablesButtonClicked(object sender, EventArgs e)

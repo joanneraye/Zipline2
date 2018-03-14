@@ -15,6 +15,8 @@ namespace Zipline2.BusinessLogic
         public OrderItem OrderItemInProgress { get; set; }
         public Order OrderInProgress { get; set; }
 
+        //public Toppings ToppingsInProgress { get; set; }
+
         public int CurrentTableIndex { get; set; }
 
         private static OrderManager Instance;
@@ -69,13 +71,6 @@ namespace Zipline2.BusinessLogic
             //Need the following?
             OrderItemInProgress.Total = OrderItemInProgress.PricePerItem * OrderItemInProgress.ItemCount;
             OrderInProgress.AddItemToOrder(OrderItemInProgress);
-
-            ////Somehow need to update the MenuHeaderView?
-            //var menuHeader = MenuHeaderModel.GetInstance();
-            ////Shouldn't this happen automatically?
-            //menuHeader.ItemTotal = OrderItemInProgress.Total;
-            ////menuHeader.TempOrderTotal = ??
-            
         }
     }
 }

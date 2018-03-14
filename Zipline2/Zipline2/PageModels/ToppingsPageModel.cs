@@ -148,11 +148,38 @@ namespace Zipline2.PageModels
         private ObservableCollection<ToppingSelection> toppingSelectionsList;
         private ToppingSelection selectedToppingItem;
         private Pizza thisPizza;
+        private Toppings toppings;
         private string pizzaName;
+        private MenuHeaderModel menuHeaderModel;
         #endregion
 
         #region Properties
-        public Toppings Toppings { get; set; }
+       
+        public MenuHeaderModel MenuHeaderModel
+        {
+            get
+            {
+                return menuHeaderModel;
+            }
+            set
+            {
+                SetProperty(ref menuHeaderModel, value);
+            }
+        }
+
+        public Toppings Toppings
+        {
+            get
+            {
+                return toppings;
+            }
+            set
+            {
+                SetProperty(ref toppings, value);
+                //OrderManager.GetInstance().ToppingsInProgress = toppings;
+                MenuHeaderModel.ItemTotal = thisPizza.BasePrice + toppings.ToppingsTotal;
+            }
+        }
         public List<ToppingSelection> SelectedItems = new List<ToppingSelection>();
         public ObservableCollection<ToppingSelection> ToppingSelectionsList
         {
@@ -194,6 +221,8 @@ namespace Zipline2.PageModels
         #region Constructor
         public ToppingsPageModel(PizzaType pizzaType)
         {
+            MenuHeaderModel = new MenuHeaderModel();
+            
             var toppingsList = new List<Topping>()
             {
                 new Topping(ToppingName.Anchovies),
@@ -269,18 +298,21 @@ namespace Zipline2.PageModels
                     toppingSelection.AreWholeHalfColumnsVisible = false;
                 }
             }
-            Toppings = new Toppings(pizzaType);
+            toppings = new Toppings(pizzaType);
             if (thisItem is Pizza)
             {
                 thisPizza = (Pizza)thisItem;
                 if (thisPizza.MajorMamaInfo == MajorOrMama.Major)
                 {
                     SelectMajorToppings();
-                    Toppings.AddMajorToppings();
-                    MenuHeaderModel.GetInstance().ItemTotal = 
-                        Pizza.CalculatePizzaItemCostNoTax(pizzaType, 1, Toppings);
+                    toppings.AddMajorToppings();
+                  
+                    //MenuHeaderModel.ItemTotal = Pizza.CalculatePizzaItemCostNoTax(pizzaType, 1, Toppings);
                 }
             }
+            //NOTE:  Modifying Toppings directly instead of 
+            //explicitly setting it here does not trigger bindings.
+            Toppings = toppings;
         }
         #endregion
 
@@ -309,10 +341,27 @@ namespace Zipline2.PageModels
         {
             var thisItemSelected = ToppingSelectionsList[indexOfSelection];
             thisItemSelected.ListTopping.ToppingWholeHalf = wholeOrHalf;
-            Toppings.UpdateToppingsTotal();
-            
-            //TODO:  Possibly this should be stored outside of ToppingsPage....
-            MenuHeaderModel.GetInstance().ItemTotal = Pizza.CalculatePizzaItemCostNoTax(thisPizza.PizzaType, 1, Toppings);
+            bool toppingAlreadyAdded = false;
+            foreach (var topping in toppings.CurrentToppings)
+            {
+                if (topping.ToppingName == thisItemSelected.ListTopping.ToppingName)
+                {
+                    toppingAlreadyAdded = true;
+                }
+            }
+
+            if (toppingAlreadyAdded)
+            {
+                toppings.UpdateToppingsTotal();
+            }
+            else
+            {
+                thisItemSelected.ListTopping.SequenceSelected = toppings.CurrentToppings.Count + 1;
+                toppings.AddTopping(thisItemSelected.ListTopping);
+            }
+            //OrderManager.ToppingsInProgress = Toppings;
+            // MenuHeaderModel.ItemTotal = Pizza.CalculatePizzaItemCostNoTax(thisPizza.PizzaType, 1, Toppings);
+
             switch (wholeOrHalf)
             {
                 case ToppingWholeHalf.Whole:
@@ -340,6 +389,9 @@ namespace Zipline2.PageModels
                 thisItemSelected.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
                 thisItemSelected.ListItemIsSelected = true;
             }
+            //NOTE:  Modifying Toppings directly instead of 
+            //explicitly setting it here does not trigger bindings.
+            Toppings = toppings;
         }
         public List<Topping> GetToppingsSelected()
         {

@@ -20,26 +20,29 @@ namespace Zipline2.Pages
 	public partial class ToppingsPage : BasePage
 	{
         #region Private Variables
-        private Toppings toppings;
         private ToppingsPageModel ToppingsPageModel;
+        private Toppings toppings;
         private Pizza thisPizza;
         #endregion
-
+      
         #region Constructor
         public ToppingsPage (PizzaType toppingType)
 		{
             ToppingsPageModel = new ToppingsPageModel(toppingType);
             InitializeComponent ();
             BindingContext = ToppingsPageModel;
+            ToppingsPageHeader.BindingContext = ToppingsPageModel.MenuHeaderModel;
+            toppings = new Toppings(toppingType);
             var currentOrderItem = OrderManager.GetInstance().OrderItemInProgress;
             thisPizza = (Pizza)currentOrderItem;
-            toppings = new Toppings(toppingType);
             if (thisPizza.MajorMamaInfo == MajorOrMama.Major)
             {
+                //TODO:  Combine the two following?
                 ToppingsPageModel.SelectMajorToppings();
                 toppings.AddMajorToppings();
             }
-            MenuHeaderModel.GetInstance().ItemTotal = Pizza.CalculatePizzaItemCostNoTax(toppingType, 1, toppings);
+            //OrderManager.GetInstance().ToppingsInProgress = toppings;
+            //ToppingsPageModel.MenuHeaderModel.ItemTotal = Pizza.CalculatePizzaItemCostNoTax(toppingType, 1, toppings);
         }
         #endregion
 
@@ -52,6 +55,7 @@ namespace Zipline2.Pages
 
             //Can't change ListView directly - must change underlying data.  Get this data by the index.
             ToppingSelection thisSelection = ToppingsPageModel.ToppingSelectionsList[indexOfItemSelected];
+           
 
             if (thisSelection.ListItemIsSelected)   //If selected, toggle to unselect...
             {
@@ -67,9 +71,8 @@ namespace Zipline2.Pages
 
             thisSelection.ListItemIsSelected = !thisSelection.ListItemIsSelected;
 
-            //TODO:  Possibly this should be stored outside of ToppingsPage....
-            MenuHeaderModel.GetInstance().ItemTotal = Pizza.CalculatePizzaItemCostNoTax(thisPizza.PizzaType, 1, toppings);
-
+            //OrderManager.GetInstance().ToppingsInProgress = toppings;
+            //ToppingsPageModel.MenuHeaderModel.ItemTotal = Pizza.CalculatePizzaItemCostNoTax(thisPizza.PizzaType, 1, toppings);
             if (thisSelection.ListItemIsSelected)
             {
                 thisSelection.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
@@ -83,8 +86,8 @@ namespace Zipline2.Pages
                 thisSelection.WColor = Xamarin.Forms.Color.Black;
 
             }
-
-            //Update ToppingsPageModel with latest Toppings.
+            //NOTE:  Modifying ToppingsPageModel.Toppings directly instead of 
+            //explicitly setting it here does not trigger bindings.
             ToppingsPageModel.Toppings = toppings;
         }
         #endregion

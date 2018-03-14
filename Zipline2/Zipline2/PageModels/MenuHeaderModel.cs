@@ -13,6 +13,7 @@ namespace Zipline2.PageModels
         private decimal itemTotal;
         private decimal orderTotal;
         private string userName;
+        private OrderManager OrderManager;
         #endregion
 
         #region Properties
@@ -40,6 +41,9 @@ namespace Zipline2.PageModels
             }
         }
 
+        //Ideally we would expose this as a bindableproperty to the pages it is 
+        //imbedded in.  That way we can do a binding on this property in 
+        //the ToppingsPage.xaml, for example and Bind it with a ToppingsPage total.
         public decimal ItemTotal
         {
             get
@@ -49,9 +53,9 @@ namespace Zipline2.PageModels
             set
             {
                 SetProperty(ref itemTotal, value);
-                if (OrderManager.GetInstance().OrderItemInProgress != null)
+                if (OrderManager.OrderItemInProgress != null)
                 {
-                    var subTotal = OrderManager.GetInstance().OrderItemInProgress.Total + itemTotal;
+                    var subTotal = OrderManager.OrderItemInProgress.Total + itemTotal;
                     OrderTotal = subTotal + HelperMethods.GetTaxAmount(subTotal);
                 }
             }
@@ -71,39 +75,28 @@ namespace Zipline2.PageModels
 
         #endregion
 
-        #region Singleton Class setup including constructor
-        private MenuHeaderModel()
+        public MenuHeaderModel()
         {
+            OrderManager = OrderManager.GetInstance();
             UserName = Users.GetInstance().LoggedInUser.UserName;
-            itemTotal = 0M;
-            orderTotal = 0M;
             tableName = OrderManager.GetInstance().GetCurrentTable().TableName;
         }
-
-        private static MenuHeaderModel Instance;
-
-        public static MenuHeaderModel GetInstance()
-        {
-            if (Instance == null)
-            {
-                Instance = new MenuHeaderModel();
-            }
-
-            return Instance;
-        }
-        #endregion
-
+        
         #region Methods
         public void PopulateItemTotal()
         {
-            var currentOrderItem = OrderManager.GetInstance().OrderItemInProgress;
-            if (currentOrderItem is Pizza)
-            {
-                Pizza thisPizza = (Pizza)currentOrderItem;
-                itemTotal = (thisPizza.BasePrice +
-                    thisPizza.PizzaToppings.ToppingsTotal) *
-                    thisPizza.ItemCount;
-            }
+            //This doesn't work for 
+            //showing the total on the toppings page as items are added or 
+            //subtracted because we are not adding toppings to OrderManager's
+            //OrderItemInProgress until the item is added to the order.
+            //var currentOrderItem = OrderManager.GetInstance().OrderItemInProgress;
+            //if (currentOrderItem is Pizza)
+            //{
+            //    Pizza thisPizza = (Pizza)currentOrderItem;
+            //    itemTotal = (thisPizza.BasePrice +
+            //        thisPizza.PizzaToppings.ToppingsTotal) *
+            //        thisPizza.ItemCount;
+            //}
         }
         #endregion
     }
