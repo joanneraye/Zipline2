@@ -66,7 +66,10 @@ namespace Zipline2.Pages
 
 
             thisSelection.ListItemIsSelected = !thisSelection.ListItemIsSelected;
+
+            //TODO:  Possibly this should be stored outside of ToppingsPage....
             MenuHeaderModel.GetInstance().ItemTotal = Pizza.CalculatePizzaItemCostNoTax(thisPizza.PizzaType, 1, toppings);
+
             if (thisSelection.ListItemIsSelected)
             {
                 thisSelection.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
@@ -80,85 +83,10 @@ namespace Zipline2.Pages
                 thisSelection.WColor = Xamarin.Forms.Color.Black;
 
             }
+
+            //Update ToppingsPageModel with latest Toppings.
+            ToppingsPageModel.Toppings = toppings;
         }
-
-        //private void ListToppingSelected(object sender, SelectedItemChangedEventArgs e)
-        //{
-        //    var senderlistview = sender;
-        //    var selectedItem = e.SelectedItem as ToppingSelection;
-        //    int indexOfItemSelected = selectedItem.SelectionIndex;
-
-        //    //Can't change ListView directly - must change underlying data.  Get this data by the index.
-        //    ToppingSelection thisSelection = ToppingsPageModel.ToppingSelectionsList[indexOfItemSelected];
-
-        //    if (thisSelection.ListItemIsSelected)   //If selected, toggle to unselect...
-        //    {
-        //        thisSelection.ListTopping.SequenceSelected = 0;
-        //        toppings.RemoveTopping(thisSelection.ListTopping.ToppingName);
-        //    }
-        //    else
-        //    {
-        //        thisSelection.ListTopping.SequenceSelected = toppings.CurrentToppings.Count + 1;
-        //        toppings.AddTopping(thisSelection.ListTopping);
-        //    }
-          
-
-        //    thisSelection.ListItemIsSelected = !thisSelection.ListItemIsSelected;
-        //    MenuHeaderModel.GetInstance().ItemTotal = Pizza.CalculatePizzaItemCostNoTax(thisPizza.PizzaType, 1, toppings);
-        //    if (thisSelection.ListItemIsSelected)
-        //    {
-        //        thisSelection.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
-        //        thisSelection.WColor = Xamarin.Forms.Color.CornflowerBlue;
-        //    }
-        //    else
-        //    {
-        //        thisSelection.SelectionColor = Xamarin.Forms.Color.Black;
-        //        thisSelection.AColor = Xamarin.Forms.Color.Black;
-        //        thisSelection.BColor = Xamarin.Forms.Color.Black;
-        //        thisSelection.WColor = Xamarin.Forms.Color.Black;
-        //    }
-        //}
-
-        //void OnButtonAClick(object sender, EventArgs e)
-        //{
-        //    var selectedItem = ToppingsPageModel.SelectedToppingItem;
-        //    int indexOfItemSelected = selectedItem.SelectionIndex;
-
-        //    //Can't change ListView directly - must change underlying data.  Get this data by the index.
-        //    ToppingSelection thisSelection = ToppingsPageModel.ToppingSelectionsList[indexOfItemSelected];
-        //    thisSelection.ListTopping.ToppingWholeHalf = ToppingWholeHalf.HalfA;
-        //    thisSelection.ListItemIsSelected = true;
-        //    thisSelection.AColor = Xamarin.Forms.Color.CornflowerBlue;
-        //    thisSelection.BColor = Xamarin.Forms.Color.Black;
-        //    thisSelection.WColor = Xamarin.Forms.Color.Black;
-        //}
-
-        //void OnButtonBClick(object sender, EventArgs e)
-        //{
-        //    var selectedItem = ToppingsPageModel.SelectedToppingItem;
-        //    int indexOfItemSelected = selectedItem.SelectionIndex;
-
-        //    //Can't change ListView directly - must change underlying data.  Get this data by the index.
-        //    ToppingSelection thisSelection = ToppingsPageModel.ToppingSelectionsList[indexOfItemSelected];
-        //    thisSelection.ListTopping.ToppingWholeHalf = ToppingWholeHalf.HalfB;
-        //    thisSelection.ListItemIsSelected = true;
-        //    thisSelection.BColor = Xamarin.Forms.Color.CornflowerBlue;
-        //    thisSelection.AColor = Xamarin.Forms.Color.Black;
-        //    thisSelection.WColor = Xamarin.Forms.Color.Black;
-        //}
-
-        //void OnButtonWClick(object sender, EventArgs e)
-        //{
-        //    var selectedItem = ToppingsPageModel.SelectedToppingItem;
-        //    int indexOfItemSelected = selectedItem.SelectionIndex;
-
-        //    //Can't change ListView directly - must change underlying data.  Get this data by the index.
-        //    ToppingSelection thisSelection = ToppingsPageModel.ToppingSelectionsList[indexOfItemSelected];
-        //    thisSelection.ListTopping.ToppingWholeHalf = ToppingWholeHalf.Whole;
-        //    thisSelection.ListItemIsSelected = true;
-        //    thisSelection.WColor = Xamarin.Forms.Color.CornflowerBlue;
-        //    thisSelection.AColor = Xamarin.Forms.Color.Black;
-        //}
         #endregion
     }
 }

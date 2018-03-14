@@ -147,12 +147,12 @@ namespace Zipline2.PageModels
         #region Private Variables
         private ObservableCollection<ToppingSelection> toppingSelectionsList;
         private ToppingSelection selectedToppingItem;
-        private Toppings toppings;
+        private Pizza thisPizza;
         private string pizzaName;
         #endregion
 
         #region Properties
-
+        public Toppings Toppings { get; set; }
         public List<ToppingSelection> SelectedItems = new List<ToppingSelection>();
         public ObservableCollection<ToppingSelection> ToppingSelectionsList
         {
@@ -269,58 +269,22 @@ namespace Zipline2.PageModels
                     toppingSelection.AreWholeHalfColumnsVisible = false;
                 }
             }
-            toppings = new Toppings(pizzaType);
+            Toppings = new Toppings(pizzaType);
             if (thisItem is Pizza)
             {
-                var thisPizza = (Pizza)thisItem;
+                thisPizza = (Pizza)thisItem;
                 if (thisPizza.MajorMamaInfo == MajorOrMama.Major)
                 {
                     SelectMajorToppings();
-                    toppings.AddMajorToppings();
+                    Toppings.AddMajorToppings();
                     MenuHeaderModel.GetInstance().ItemTotal = 
-                        Pizza.CalculatePizzaItemCostNoTax(pizzaType, 1, toppings);
+                        Pizza.CalculatePizzaItemCostNoTax(pizzaType, 1, Toppings);
                 }
             }
-            var lookatthis = ToppingSelectionsList;
         }
         #endregion
 
         #region Methods
-
-        //private void ListToppingSelected()
-        //{
-        //    int indexOfItemSelected = SelectedToppingItem.SelectionIndex;
-
-        //    //Can't change ListView directly - must change underlying data.  Get this data by the index.
-        //    ToppingSelection thisSelection = ToppingSelectionsList[indexOfItemSelected];
-
-        //    if (thisSelection.ListItemIsSelected)   //If selected, toggle to unselect...
-        //    {
-        //        thisSelection.ListTopping.SequenceSelected = 0;
-        //        toppings.RemoveTopping(thisSelection.ListTopping.ToppingName);
-        //    }
-        //    else
-        //    {
-        //        thisSelection.ListTopping.SequenceSelected = toppings.CurrentToppings.Count + 1;
-        //        toppings.AddTopping(thisSelection.ListTopping);
-        //    }
-
-        //    thisSelection.ListItemIsSelected = !thisSelection.ListItemIsSelected;
-        //    MenuHeaderModel.GetInstance().ItemTotal = Pizza.CalculatePizzaItemCostNoTax(thisPizza.PizzaType, 1, toppings);
-        //    if (thisSelection.ListItemIsSelected)
-        //    {
-        //        thisSelection.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
-        //        thisSelection.WColor = Xamarin.Forms.Color.CornflowerBlue;
-        //    }
-        //    else
-        //    {
-        //        thisSelection.SelectionColor = Xamarin.Forms.Color.Black;
-        //        thisSelection.AColor = Xamarin.Forms.Color.Black;
-        //        thisSelection.BColor = Xamarin.Forms.Color.Black;
-        //        thisSelection.WColor = Xamarin.Forms.Color.Black;
-        //    }
-        //}
-
         public void SelectMajorToppings()
         {
             foreach (var toppingselection in ToppingSelectionsList)
@@ -345,6 +309,10 @@ namespace Zipline2.PageModels
         {
             var thisItemSelected = ToppingSelectionsList[indexOfSelection];
             thisItemSelected.ListTopping.ToppingWholeHalf = wholeOrHalf;
+            Toppings.UpdateToppingsTotal();
+            
+            //TODO:  Possibly this should be stored outside of ToppingsPage....
+            MenuHeaderModel.GetInstance().ItemTotal = Pizza.CalculatePizzaItemCostNoTax(thisPizza.PizzaType, 1, Toppings);
             switch (wholeOrHalf)
             {
                 case ToppingWholeHalf.Whole:
@@ -353,11 +321,15 @@ namespace Zipline2.PageModels
                     thisItemSelected.BColor = Color.Black;
                     break;
                 case ToppingWholeHalf.HalfA:
+                    //Need to do the following for the toppings variable on the ToppingsPage
+                    //toppings.UpdateToppingsTotal();
                     thisItemSelected.AColor = Color.CornflowerBlue;
                     thisItemSelected.BColor = Color.Black;
                     thisItemSelected.WColor = Color.Black;
                     break;
                 case ToppingWholeHalf.HalfB:
+                    //Need to do the following for the toppings variable on the ToppingsPage
+                    //toppings.UpdateToppingsTotal();
                     thisItemSelected.BColor = Color.CornflowerBlue;
                     thisItemSelected.AColor = Color.Black;
                     thisItemSelected.WColor = Color.Black;

@@ -35,6 +35,11 @@ namespace Zipline2.Models
         #endregion
 
         #region Methods
+
+        public void UpdateToppingsTotal()
+        {
+            ToppingsTotal = GetCurrentToppingsCost();
+        }
         public void AddToppings(List<Topping> toppingsToAdd)
         {
             CurrentToppings.AddRange(toppingsToAdd);
@@ -44,6 +49,19 @@ namespace Zipline2.Models
         public void AddTopping(Topping toppingToAdd)
         {
             CurrentToppings.Add(toppingToAdd);
+            ToppingsTotal = GetCurrentToppingsCost();
+        }
+
+        public void ChangeToppingToHalf(ToppingName toppingName, ToppingWholeHalf toppingHalf)
+        {
+            foreach (var topping in CurrentToppings)
+            {
+                if (topping.ToppingName == toppingName)
+                {
+                    topping.ToppingWholeHalf = toppingHalf;
+                    break;
+                }
+            }
             ToppingsTotal = GetCurrentToppingsCost();
         }
         public void RemoveTopping(ToppingName toppingName)
@@ -69,9 +87,8 @@ namespace Zipline2.Models
         public decimal GetCurrentToppingsCost()
         {
             var regularToppings = new List<Topping>();
-            var tempDictionary = Prices.ToppingsPriceDictionary;
             decimal toppingCost = 0M;
-            int extraToppingCount = 0;
+            int theyGetAnExtraToppingCount = 0;
             var specialToppings = new List<Topping>();
             foreach (var topping in CurrentToppings)
             {
@@ -81,7 +98,7 @@ namespace Zipline2.Models
                 }
                 else if (topping.SpecialPricingType == SpecialPricingType.GetExtraTopping)
                 {
-                    extraToppingCount++;
+                    theyGetAnExtraToppingCount++;
                 }
                 else
                 {
@@ -89,30 +106,49 @@ namespace Zipline2.Models
                 }
             }
 
-            int toppingCountforPrice = regularToppings.Count;
+            decimal toppingCountForPrice = GetToppingCountForPricing(regularToppings);
 
-            if (extraToppingCount > 0 && toppingCountforPrice > 0)
+            if (theyGetAnExtraToppingCount > 0 && toppingCountForPrice > 0)
             {
-                toppingCountforPrice -= extraToppingCount;
+                toppingCountForPrice -= theyGetAnExtraToppingCount;
             }
-
-            if (toppingCountforPrice == 0)
+           
+            if (toppingCountForPrice <= 0)
             {
                 return toppingCost;
             }
-            var toppingIndex = toppingCountforPrice - 1;
-            var thisPizzaToppingPrices = tempDictionary[PizzaTypeForPricing];
-            var lastToppingPriceIndex = thisPizzaToppingPrices.Length - 1;
+
+            int wholeToppingCount = Convert.ToInt32(Math.Floor(toppingCountForPrice));
+            int toppingIndex = (wholeToppingCount - 1);
+            var thisPizzaToppingPrices = Prices.ToppingsPriceDictionary[PizzaTypeForPricing];
+            var lastToppingPriceIndex = thisPizzaToppingPrices.Length - 2;
+            var additionalToppingCostIndex = thisPizzaToppingPrices.Length - 1;
             var numberOfExtraToppings = toppingIndex - lastToppingPriceIndex;
+            var pricePerAdditionalTopping = thisPizzaToppingPrices[additionalToppingCostIndex];
             if (numberOfExtraToppings > 0)
-            {
-                var pricePerAdditionalTopping = thisPizzaToppingPrices[lastToppingPriceIndex];
+            { 
                 var additionalToppingCost = numberOfExtraToppings * pricePerAdditionalTopping;
                 toppingCost = thisPizzaToppingPrices[lastToppingPriceIndex] + additionalToppingCost;
             }
             else
             {
                 toppingCost = thisPizzaToppingPrices[toppingIndex];
+            }
+
+            if ((toppingCountForPrice % 1) > 0)      //Includes 1/2 a topping
+            {
+                int roundUpToppingCount = Convert.ToInt32(Math.Ceiling(toppingCountForPrice));
+                int nextHigherToppingIndex = roundUpToppingCount - 1;
+                var toppingCostWithHalfTopping = toppingCost + (pricePerAdditionalTopping / 2);
+                if (nextHigherToppingIndex <= lastToppingPriceIndex &&
+                    toppingCostWithHalfTopping > thisPizzaToppingPrices[nextHigherToppingIndex])
+                {
+                    toppingCost = thisPizzaToppingPrices[nextHigherToppingIndex];
+                }
+                else
+                {
+                    toppingCost = toppingCostWithHalfTopping;
+                }
             }
 
             if (specialToppings.Count > 0)
@@ -131,6 +167,23 @@ namespace Zipline2.Models
                 }
             }
             return toppingCost;
+        }
+
+        private decimal GetToppingCountForPricing(List<Topping> toppings)
+        {
+            decimal toppingCount = 0M;
+            foreach (var topping in toppings)
+            {
+                if (topping.ToppingWholeHalf == ToppingWholeHalf.Whole)
+                {
+                    toppingCount += 1M;
+                }
+                else
+                {
+                    toppingCount += .5M;
+                }
+            }
+            return toppingCount;
         }
 
         public void AddMajorToppings()
