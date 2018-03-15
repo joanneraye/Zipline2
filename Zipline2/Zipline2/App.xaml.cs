@@ -39,8 +39,10 @@ namespace Zipline2
             //for now....
             User joanne = new User("Joanne", true, "8011");
             User satch = new User("Satch", true, "1168");
+            User jim = new User("Jim", true, "4321");
             Users.GetInstance().AddNewUser(joanne);
             Users.GetInstance().AddNewUser(satch);
+            Users.GetInstance().AddNewUser(jim);
 
             Tables.LoadInitialTableData();
         }
