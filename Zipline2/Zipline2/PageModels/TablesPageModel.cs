@@ -16,6 +16,8 @@ namespace Zipline2.PageModels
 
         #region Properties
         public bool IsInside { get; set; }
+
+        
         public string UserName
         {
             get

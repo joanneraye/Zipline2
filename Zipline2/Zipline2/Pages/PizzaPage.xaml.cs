@@ -40,7 +40,7 @@ namespace Zipline2.Pages
         private Button majorLargeButton;
         private Button majorMfpButton;
         private Button majorSatchPanButton;
-
+        private PizzaPageModel pizzaPageModel;
         private PizzaType pizzaType;
         #endregion
 
@@ -290,8 +290,10 @@ namespace Zipline2.Pages
         #region Constructor
         public PizzaPage()
         {
-            //PizzaPageModel = new PizzaPageModel();
+            pizzaPageModel = new PizzaPageModel();
             InitializeComponent();
+            MenuHeaderView.BindingContext = pizzaPageModel.MenuHeaderModel;
+
             sliceButton = PizzaGrid.FindByName<Button>("Slice");
             mediumButton = PizzaGrid.FindByName<Button>("Medium");
             largeButton = PizzaGrid.FindByName<Button>("Large");

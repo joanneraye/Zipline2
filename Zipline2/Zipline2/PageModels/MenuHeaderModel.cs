@@ -13,7 +13,6 @@ namespace Zipline2.PageModels
         private decimal itemTotal;
         private decimal orderTotal;
         private string userName;
-        private OrderManager OrderManager;
         #endregion
 
         #region Properties
@@ -53,9 +52,9 @@ namespace Zipline2.PageModels
             set
             {
                 SetProperty(ref itemTotal, value);
-                if (OrderManager.OrderItemInProgress != null)
+                if (OrderManager.GetInstance().OrderItemInProgress != null)
                 {
-                    var subTotal = OrderManager.OrderItemInProgress.Total + itemTotal;
+                    var subTotal = OrderManager.GetInstance().OrderItemInProgress.Total + itemTotal;
                     OrderTotal = subTotal + HelperMethods.GetTaxAmount(subTotal);
                 }
             }
@@ -77,9 +76,10 @@ namespace Zipline2.PageModels
 
         public MenuHeaderModel()
         {
-            OrderManager = OrderManager.GetInstance();
+            itemTotal = 0M;
+            OrderTotal = OrderManager.GetInstance().OrderInProgress.Total;
             UserName = Users.GetInstance().LoggedInUser.UserName;
-            tableName = OrderManager.GetInstance().GetCurrentTable().TableName;
+            TableName = OrderManager.GetInstance().GetCurrentTable().TableName;
         }
         
         #region Methods

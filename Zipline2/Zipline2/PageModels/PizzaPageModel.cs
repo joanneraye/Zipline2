@@ -8,6 +8,18 @@ namespace Zipline2.PageModels
 {
     public class PizzaPageModel : BasePageModel
     {
+        private MenuHeaderModel menuHeaderModel;
+        public MenuHeaderModel MenuHeaderModel
+        {
+            get
+            {
+                return menuHeaderModel;
+            }
+            set
+            {
+                SetProperty(ref menuHeaderModel, value);
+            }
+        }
         
         //Couldn't get buttons to work in grid so did in code behind.
         //public System.Windows.Input.ICommand PizzaSliceButtonCommand { get; set; }
@@ -90,6 +102,7 @@ namespace Zipline2.PageModels
 
         public PizzaPageModel()
         {
+            MenuHeaderModel = new MenuHeaderModel();
             //pizzaPickerList = new List<string>();
             //PizzaSliceButtonCommand = new Xamarin.Forms.Command(OnButtonPizzaSliceClick);
             //PizzaMediumButtonCommand = new Xamarin.Forms.Command(OnButtonPizzaMediumClick);
