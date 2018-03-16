@@ -29,13 +29,13 @@
                    FontSize="20"
                    HorizontalOptions="Center" />
                 
-                <Button Text="{Binding InsideOutsideButtonText}" 
+                <Button Text="Takeout" 
                         x:Name="InsideOutsideButton"
                         TextColor="Black"
-                        BackgroundColor="LightYellow"
+                        BackgroundColor="Pink"
                         BorderColor="White"
-                        BorderRadius="2"
-                        BorderWidth="2"
+                        BorderRadius="1"
+                        BorderWidth="1"
                         HorizontalOptions="EndAndExpand"
                         Clicked="InsideOutsideButtonClicked"/>
             </StackLayout>
@@ -47,18 +47,54 @@
                       SeparatorColor="BlanchedAlmond">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ImageCell ImageSource="{Binding ImageName}"
-                                   Text="{Binding TableName}"
-                                   TextColor="Azure"
-                                   DetailColor="Azure"
-                                   Height="30">
-                        </ImageCell>
+                        <ViewCell x:Name="ListViewCellTables">
+                            <Grid x:Name="TablesGrid">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" 
+                                       BackgroundColor="{Binding InsideTableColor}" 
+                                        Margin="5, 8, 5, 8"/>
+                                <Button Grid.Column="1" 
+                                        Text="{Binding InsideTableName}" 
+                                        TextColor="White" 
+                                        BackgroundColor="Black" 
+                                        BorderColor="White"
+                                        BorderRadius="1"
+                                        BorderWidth="1"
+                                        Command="{Binding InsideTableCommand}"/>
+                                <Label Grid.Column="2" 
+                                       BackgroundColor="{Binding OutsideTableColor}" 
+                                       Margin="5, 8, 5, 8"/>
+                                <Button Grid.Column="3" Text="{Binding OutsideTableName}" 
+                                        TextColor="White"
+                                        BackgroundColor="Black" 
+                                        BorderColor="White"
+                                        BorderRadius="1"
+                                        BorderWidth="1"
+                                        Command="{Binding OutsideTableCommand}"/>
+
+                            </Grid>
+                        </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView> 
         </StackLayout>
     </ContentPage.Content>
 </local:BasePage>
+
+<!--<ImageCell ImageSource="{Binding ImageName}"
+                                   Text="{Binding TableName}"
+                                   TextColor="Azure"
+                                   DetailColor="Azure"
+                                   Height="30">
+                                </ImageCell>-->
 
 
 <!--<ViewCell>

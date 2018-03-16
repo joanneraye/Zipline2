@@ -10,11 +10,7 @@ namespace Zipline2.Models
     public class Table
     {
         #region Constants and Private Variables
-        //TODO:  These constants and associated logic should not be here
-        //in the Model since they refer to GUI elements.
-        public const string OpenTableIconName = "orange_square.png";
-        public const string OccupiedTableIconName = "blue_square.png";
-        public const string TakeoutIconName = "pink_square.png";
+       
         private bool isOccupied;
         private bool isTakeOut;
         private string imageName;
@@ -34,69 +30,17 @@ namespace Zipline2.Models
         public bool IsInside { get; set; }
 
         [Column("isoccupied")]
-        public bool IsOccupied
-        {
-            get
-            {
-                return isOccupied;
-            }
-            set
-            {
-                isOccupied = value;
-                if (value)
-                {
-                    ImageName = OccupiedTableIconName;
-                }
-                else
-                { 
-                    ImageName = OpenTableIconName;
-                }
-            }
-        }
+        public bool IsOccupied { get; set; }
 
         [Column("hasunsentorder")]
         public bool HasUnsentOrder { get; set; }
-
-        public bool IsTakeOut
-        {
-            get
-            {
-                return isTakeOut;
-            }
-            set
-            {
-                if (value)
-                {
-                    isTakeOut = value;
-                    ImageName = TakeoutIconName;
-                }
-            }
-        }
-
-        public string ImageName
-        {
-            get
-            {
-                return imageName;
-            }
-            set
-            {
-                imageName = value;
-            }
-        }
+       
         #endregion
 
         #region constructor
-        public Table(bool isTakeOut = false)
+        public Table()
         {
-            if (isTakeOut)
-            {
-                ImageName = TakeoutIconName;
-            }
-            else
-            {
-                ImageName = OpenTableIconName;
-            }
+           
         }
         #endregion
     }

@@ -25,10 +25,10 @@ namespace Zipline2.Pages
         #region Constructor
         public TablesPage()
         {
-            TablesPageModel = new TablesPageModel();
+            TablesPageModel = new TablesPageModel(Navigation);
             BindingContext = TablesPageModel;
             InitializeComponent();
-            InsideOutsideButton.Text = InsideString;
+            //InsideOutsideButton.Text = InsideString;
         }
         #endregion
 
@@ -38,14 +38,16 @@ namespace Zipline2.Pages
             //Change table selected from open to occupied.
 
             ListView tableList = sender as ListView;
-            Table selectedTable = (Table)tableList.SelectedItem;
-            if (selectedTable.IsTakeOut)
-            {
-                //what to do here?
-            }
+            TablesPageModel.TableSelection selectedDisplayRow = (TablesPageModel.TableSelection)tableList.SelectedItem;
+            var name = selectedDisplayRow.OutsideTableName;
+            //Table selectedTable = (Table)tableList.SelectedItem;
+            //if (selectedTable.IsTakeOut)
+            //{
+            //    //what to do here?
+            //}
 
             //Change what the app's current table is.
-            OrderManager.GetInstance().CurrentTableIndex = selectedTable.IndexInAllTables;
+            //OrderManager.GetInstance().CurrentTableIndex = selectedTable.IndexInAllTables;
 
             await Navigation.PushAsync(new PizzaPage());
         }
@@ -60,21 +62,21 @@ namespace Zipline2.Pages
 
         public void InsideOutsideButtonClicked(object sender, EventArgs e)
         {
-            if (TablesPageModel.IsInside)
-            {
-                //If currently inside, change to outside
-                TablesPageModel.IsInside = false;
-                InsideOutsideButton.Text = OutsideString;
-                TablesPageModel.LoadTablesForDisplay(false);
-            }
-            else
-            {
-                TablesPageModel.IsInside = true;
-                InsideOutsideButton.Text = InsideString;
-                TablesPageModel.LoadTablesForDisplay(true);
-            }
+            //if (TablesPageModel.IsInside)
+            //{
+            //    //If currently inside, change to outside
+            //    TablesPageModel.IsInside = false;
+            //    InsideOutsideButton.Text = OutsideString;
+            //    TablesPageModel.LoadTablesForDisplay(false);
+            //}
+            //else
+            //{
+            //    TablesPageModel.IsInside = true;
+            //    InsideOutsideButton.Text = InsideString;
+            //    TablesPageModel.LoadTablesForDisplay(true);
+            //}
 
-            TableList.ItemsSource = TablesPageModel.DisplayTables;
+            //TableList.ItemsSource = TablesPageModel.DisplayTables;
         }
         #endregion
     }

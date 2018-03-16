@@ -4,13 +4,84 @@ using System.Text;
 using Xamarin.Forms;
 using System.ComponentModel;
 using Zipline2.Models;
+using Zipline2.BusinessLogic;
+using Zipline2.Pages;
 
 namespace Zipline2.PageModels
 {
     class TablesPageModel : BasePageModel
     {
+        //******************************NOTE IMBEDDED CLASS************************
+        public class TableSelection : BasePageModel
+        {
+            private TablesPageModel parentTablesPageModel;
+            private Color outsideTableColor;
+            private Color insideTableColor;
+            public string InsideTableName { get; set; }
+            public Table InsideTable { get; set; }
+            public string OutsideTableName { get; set; }
+            public Table OutsideTable { get; set; }
+            public int SelectionIndex;
+            public Color OutsideTableColor
+            {
+                get
+                {
+                    return outsideTableColor;
+                }
+                set
+                {
+                    SetProperty(ref outsideTableColor, value);
+                }
+            }
+            public Color InsideTableColor
+            {
+                get
+                {
+                    return insideTableColor;
+                }
+                set
+                {
+                    SetProperty(ref insideTableColor, value);
+                }
+            }
+
+            #region Command Variables
+            public System.Windows.Input.ICommand InsideTableCommand { get; set; }
+            public System.Windows.Input.ICommand OutsideTableCommand { get; set; }
+            #endregion
+
+            public TableSelection(TablesPageModel referenceToParentClass)
+            {
+                parentTablesPageModel = referenceToParentClass;
+                InsideTableCommand = new Xamarin.Forms.Command(OnInsideButtonClicked);
+                OutsideTableCommand = new Xamarin.Forms.Command(OnOutsideButtonClicked);
+            }
+            #region Methods
+            private void OnInsideButtonClicked()
+            {
+                TableSelection thisRow = parentTablesPageModel.DisplayTables[SelectionIndex];
+                Table tableSelected = thisRow.InsideTable;
+                tableSelected.IsOccupied = true;
+                InsideTableColor = Color.Orange;
+                //Change what the app's current table is.
+                OrderManager.GetInstance().CurrentTableIndex = tableSelected.IndexInAllTables;
+                parentTablesPageModel.DisplayPizzaPage();
+            }
+            private void OnOutsideButtonClicked()
+            {
+                TableSelection thisRow = parentTablesPageModel.DisplayTables[SelectionIndex];
+                Table tableSelected = thisRow.OutsideTable;
+                tableSelected.IsOccupied = true;
+                OutsideTableColor = Color.Orange;
+                //Change what the app's current table is.
+                OrderManager.GetInstance().CurrentTableIndex = tableSelected.IndexInAllTables;
+                parentTablesPageModel.DisplayPizzaPage();
+            }
+            #endregion
+        }
+        //******************************NOTE IMBEDDED CLASS above ************************
         #region Private Variables
-        private List<Table> displayTables;
+        private List<TableSelection> displayTables;
         private string userName;
         #endregion
 
@@ -30,10 +101,11 @@ namespace Zipline2.PageModels
             }
         }
         
-        public string InsideOutsideButtonText { get; set; }    
+        public string InsideOutsideButtonText { get; set; }
+        public INavigation Navigation { get; set; }
 
 
-        public List<Table> DisplayTables
+        public List<TableSelection> DisplayTables
         {
             get
             {
@@ -42,41 +114,110 @@ namespace Zipline2.PageModels
 
             set
             {
-                if (IsInside)
-                {
-                    LoadTablesForDisplay(true);
-                }
-                else
-                    LoadTablesForDisplay(false);
+                SetProperty(ref displayTables, value);
             }
         }
+        //public List<Table> DisplayTables
+        //{
+        //    get
+        //    {
+        //        return displayTables;
+        //    }
+
+        //    set
+        //    {
+        //        if (IsInside)
+        //        {
+        //            LoadTablesForDisplay(true);
+        //        }
+        //        else
+        //            LoadTablesForDisplay(false);
+        //    }
+        //}
         #endregion
+       
 
         #region Constructor
-        public TablesPageModel()
+        public TablesPageModel(INavigation navigation)
         {
+            Navigation = navigation;
             userName = Users.GetInstance().LoggedInUser.UserName;
             IsInside = true;
-            LoadTablesForDisplay(true);
+            LoadTablesForDisplay();
         }
         #endregion
 
         #region Methods
-        public void LoadTablesForDisplay(bool insideTables)
+        public void LoadTablesForDisplay()
         {
-            displayTables = new List<Table>
+            int insideTableCounter = Tables.AllTables.Count / 2;
+            int halfOfTablesIndex = insideTableCounter - 1;
+            DisplayTables = new List<TableSelection>();
+            for (int i = 0; i < halfOfTablesIndex; i++)
             {
-                new Table(true) { TableName = "Takeout", IsTakeOut = true }
-            };
+                var displayTable = new TableSelection(this);
 
-            foreach (var table in Tables.AllTables)
-            {
-                if (insideTables == table.IsInside)
+                displayTable.OutsideTableName = Tables.AllTables[i].TableName;
+                displayTable.OutsideTable = Tables.AllTables[i];
+                if (displayTable.OutsideTable.IsOccupied)
                 {
-                    displayTables.Add(table);
+                    displayTable.OutsideTableColor = Color.Orange;
                 }
+                else
+                {
+                    displayTable.OutsideTableColor = Color.Blue;
+                }
+               
+
+                displayTable.InsideTableName = Tables.AllTables[insideTableCounter].TableName;
+                displayTable.InsideTable = Tables.AllTables[insideTableCounter];
+                if (displayTable.InsideTable.IsOccupied)
+                {
+                    displayTable.InsideTableColor = Color.Orange;
+                }
+                else
+                {
+                    displayTable.InsideTableColor = Color.Blue;
+                }
+
+                displayTable.SelectionIndex = i;
+                DisplayTables.Add(displayTable);
+                insideTableCounter++;
             }
+            //var displayTable = new TableSelection(this);
+            //displayTable.OutsideTableName = Tables.AllTables[0].TableName;
+            //displayTable.OutsideTable = Tables.AllTables[0];
+            //displayTable.InsideTableName = Tables.AllTables[16].TableName;
+            //displayTable.InsideTable = Tables.AllTables[16];
+            //displayTable.SelectionIndex = 0;
+            //DisplayTables.Add(displayTable);
+
+            //var displayTable1 = new TableSelection(this);
+            //displayTable1.OutsideTableName = Tables.AllTables[1].TableName;
+            //displayTable1.OutsideTable = Tables.AllTables[1];
+            //displayTable1.InsideTableName = Tables.AllTables[17].TableName;
+            //displayTable1.InsideTable = Tables.AllTables[17];
+            //displayTable.SelectionIndex = 1;
+            //DisplayTables.Add(displayTable1);
+
+            //displayTables = new List<Table>
+            //{
+            //    new Table(true) { TableName = "Takeout", IsTakeOut = true }
+            //};
+
+            //foreach (var table in Tables.AllTables)
+            //{
+            //    if (insideTables == table.IsInside)
+            //    {
+            //        displayTables.Add(table);
+            //    }
+            //}
         }
+        private async void DisplayPizzaPage()
+        {
+            await Navigation.PushAsync(new PizzaPage());
+        }
+
         #endregion
     }
 }
