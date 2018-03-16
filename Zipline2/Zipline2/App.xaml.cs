@@ -11,13 +11,13 @@ namespace Zipline2
 {
     public partial class App : Application
     {
-        public static bool IsUserLoggedIn { get; set; }
+        
         
         public App()
         {
             InitializeComponent();
            
-            if (!IsUserLoggedIn)
+            if (!Users.GetInstance().IsUserLoggedIn)
             {
                 MainPage = new NavigationPage(new LoginPage())
                 {

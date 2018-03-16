@@ -30,6 +30,7 @@ namespace Zipline2.Models
 
         #region Properties
         private List<User> AllUsers { get; set; }
+        public bool IsUserLoggedIn { get; set; }
 
         public User LoggedInUser { get; set; }
         #endregion
@@ -38,6 +39,13 @@ namespace Zipline2.Models
         public void AddNewUser(User newUser)
         {
             AllUsers.Add(newUser);
+        }
+
+        public void ChangeLoggedInUser(User changedUser)
+        {
+            AllUsers.Remove(LoggedInUser);
+            AllUsers.Add(changedUser);
+            LoggedInUser = changedUser;
         }
 
         public bool AuthenticateUser(string value)
@@ -55,6 +63,21 @@ namespace Zipline2.Models
                 }
             }
             return false;
+        }
+
+        public string GetUserName(string userPin)
+        {
+            string username = string.Empty;
+            
+            foreach (var user in AllUsers)
+            {
+                if (user.UserPin == userPin)
+                {
+                    username = user.UserName;
+                }
+                break;
+            }
+            return username;
         }
 
         public bool PinAlreadyUsed(string newUserPin)

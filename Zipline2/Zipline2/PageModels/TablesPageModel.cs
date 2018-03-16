@@ -117,23 +117,7 @@ namespace Zipline2.PageModels
                 SetProperty(ref displayTables, value);
             }
         }
-        //public List<Table> DisplayTables
-        //{
-        //    get
-        //    {
-        //        return displayTables;
-        //    }
-
-        //    set
-        //    {
-        //        if (IsInside)
-        //        {
-        //            LoadTablesForDisplay(true);
-        //        }
-        //        else
-        //            LoadTablesForDisplay(false);
-        //    }
-        //}
+       
         #endregion
        
 
@@ -184,34 +168,6 @@ namespace Zipline2.PageModels
                 DisplayTables.Add(displayTable);
                 insideTableCounter++;
             }
-            //var displayTable = new TableSelection(this);
-            //displayTable.OutsideTableName = Tables.AllTables[0].TableName;
-            //displayTable.OutsideTable = Tables.AllTables[0];
-            //displayTable.InsideTableName = Tables.AllTables[16].TableName;
-            //displayTable.InsideTable = Tables.AllTables[16];
-            //displayTable.SelectionIndex = 0;
-            //DisplayTables.Add(displayTable);
-
-            //var displayTable1 = new TableSelection(this);
-            //displayTable1.OutsideTableName = Tables.AllTables[1].TableName;
-            //displayTable1.OutsideTable = Tables.AllTables[1];
-            //displayTable1.InsideTableName = Tables.AllTables[17].TableName;
-            //displayTable1.InsideTable = Tables.AllTables[17];
-            //displayTable.SelectionIndex = 1;
-            //DisplayTables.Add(displayTable1);
-
-            //displayTables = new List<Table>
-            //{
-            //    new Table(true) { TableName = "Takeout", IsTakeOut = true }
-            //};
-
-            //foreach (var table in Tables.AllTables)
-            //{
-            //    if (insideTables == table.IsInside)
-            //    {
-            //        displayTables.Add(table);
-            //    }
-            //}
         }
         private async void DisplayPizzaPage()
         {

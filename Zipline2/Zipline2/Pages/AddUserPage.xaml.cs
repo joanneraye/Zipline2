@@ -22,14 +22,30 @@ namespace Zipline2.Pages
             "8888", "9999", "0123", "1234", "2345", "3456", "4567", "5678", 
             "6789"
         };
-        public AddUserPage ()
+        public AddUserPage (bool changeExistingPin = false)
 		{
 			InitializeComponent ();
             NewUserName.Focus();
             AddUserPageModel = new AddUserPageModel();
             BindingContext = AddUserPageModel;
+            if (changeExistingPin)
+            {
+                ChangeExistingUserPin();
+            }
 
 		}
+
+        private async Task ChangeExistingUserPin()
+        {
+            User newUser = new User(AddUserPageModel.NewUserName,
+                    false, AddUserPageModel.NewUserPin);
+
+            Users.GetInstance().ChangeLoggedInUser(newUser);
+
+            //TODO:  Whenever a user is changed, write to file.
+
+            await Navigation.PopAsync();
+        }
 
         async Task OnAddUserButtonClicked(object sender, EventArgs e)
         {

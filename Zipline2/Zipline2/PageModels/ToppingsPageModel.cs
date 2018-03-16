@@ -23,6 +23,7 @@ namespace Zipline2.PageModels
             private Color acolor;
             private Color bcolor;
             private Color wcolor;
+            private Color wButtonTextColor;
             #endregion
 
             #region Command Variables
@@ -106,6 +107,18 @@ namespace Zipline2.PageModels
                 set
                 {
                     SetProperty(ref wcolor, value);
+                }
+            }
+
+            public Color WButtonTextColor
+            {
+                get
+                {
+                    return wButtonTextColor;
+                }
+                set
+                {
+                    SetProperty(ref wButtonTextColor, value);
                 }
             }
             #endregion
@@ -245,7 +258,7 @@ namespace Zipline2.PageModels
                 new Topping(ToppingName.GreenOlives),
                 new Topping(ToppingName.GreenPeppers),
                 new Topping(ToppingName.HalfMajor)
-                            { SpecialPricingType = SpecialPricingType.Half},
+                            { ToppingWholeHalf = ToppingWholeHalf.HalfA},
                 new Topping(ToppingName.Jalapenos),
                 new Topping(ToppingName.Meatballs),
                 new Topping(ToppingName.Mushrooms),
@@ -286,7 +299,12 @@ namespace Zipline2.PageModels
                 toppingSelection.AColor = Xamarin.Forms.Color.Black;
                 toppingSelection.BColor = Xamarin.Forms.Color.Black;
                 toppingSelection.WColor = Xamarin.Forms.Color.Black;
+                toppingSelection.WButtonTextColor = Color.White;
                 toppingSelection.AreWholeHalfColumnsVisible = true;
+                if (toppingsList[i].ToppingName == ToppingName.HalfMajor)
+                {
+                    toppingSelection.WButtonTextColor = Color.Black;
+                }
                 ToppingSelectionsList.Add(toppingSelection);
 
                 //If the pizza type is a slice, don't display whole/halfa/halfb options.
@@ -317,7 +335,7 @@ namespace Zipline2.PageModels
         #endregion
 
         #region Methods
-        public void SelectMajorToppings()
+        public void SelectMajorToppings(ToppingWholeHalf toppingWholeHalf = ToppingWholeHalf.Whole)
         {
             foreach (var toppingselection in ToppingSelectionsList)
             {
@@ -331,8 +349,20 @@ namespace Zipline2.PageModels
                     toppingselection.ListItemIsSelected = true;
                    
                     toppingselection.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
-                    toppingselection.WColor = Xamarin.Forms.Color.CornflowerBlue;
-                   
+                    if (toppingWholeHalf == ToppingWholeHalf.Whole)
+                    {
+                        toppingselection.WColor = Xamarin.Forms.Color.CornflowerBlue;
+                    }
+                    else if (toppingWholeHalf == ToppingWholeHalf.HalfA)
+                    {
+                        toppingselection.AColor = Xamarin.Forms.Color.CornflowerBlue;
+                    }
+                    else if (toppingWholeHalf == ToppingWholeHalf.HalfB)
+                    {
+                        toppingselection.BColor = Xamarin.Forms.Color.CornflowerBlue;
+                    }
+
+
                 }
             }
         }
@@ -340,28 +370,89 @@ namespace Zipline2.PageModels
         public void SelectButtonWAB(ToppingWholeHalf wholeOrHalf, int indexOfSelection)
         {
             var thisItemSelected = ToppingSelectionsList[indexOfSelection];
-            thisItemSelected.ListTopping.ToppingWholeHalf = wholeOrHalf;
-            bool toppingAlreadyAdded = false;
-            foreach (var topping in toppings.CurrentToppings)
-            {
-                if (topping.ToppingName == thisItemSelected.ListTopping.ToppingName)
-                {
-                    toppingAlreadyAdded = true;
-                }
-            }
+            thisItemSelected.ListTopping.ToppingWholeHalf = wholeOrHalf; 
 
-            if (toppingAlreadyAdded)
+            if (thisItemSelected.ListTopping.ToppingName == ToppingName.HalfMajor)
             {
-                toppings.UpdateToppingsTotal();
+                ProcessHalfMajorSelectionOfSide(thisItemSelected);
             }
             else
             {
-                thisItemSelected.ListTopping.SequenceSelected = toppings.CurrentToppings.Count + 1;
-                toppings.AddTopping(thisItemSelected.ListTopping);
+                if (!thisItemSelected.ListItemIsSelected)
+                {
+                    thisItemSelected.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
+                    thisItemSelected.ListItemIsSelected = true;
+                }
+                bool toppingAlreadyAdded = false;
+                foreach (var topping in toppings.CurrentToppings)
+                {
+                    if (topping.ToppingName == thisItemSelected.ListTopping.ToppingName)
+                    {
+                        toppingAlreadyAdded = true;
+                        break;
+                    }
+                }
+                if (toppingAlreadyAdded)
+                {
+                    toppings.UpdateToppingsTotal();
+                }
+                else
+                {
+                    thisItemSelected.ListTopping.SequenceSelected = toppings.CurrentToppings.Count + 1;
+                    toppings.AddTopping(thisItemSelected.ListTopping);
+                }
+                ChangeButtonSelection(thisItemSelected, wholeOrHalf);
             }
-            //OrderManager.ToppingsInProgress = Toppings;
-            // MenuHeaderModel.ItemTotal = Pizza.CalculatePizzaItemCostNoTax(thisPizza.PizzaType, 1, Toppings);
+            
+            //NOTE:  Modifying Toppings directly instead of 
+            //explicitly setting it here does not trigger bindings.
+            Toppings = toppings;
+        }
 
+        private void ProcessHalfMajorSelectionOfSide(ToppingSelection thisItemSelected)
+        {
+            if (!thisItemSelected.ListItemIsSelected)
+            {
+                thisItemSelected.ListItemIsSelected = true;
+                thisItemSelected.SelectionColor = Color.CornflowerBlue;
+                ChangeButtonSelection(thisItemSelected, thisItemSelected.ListTopping.ToppingWholeHalf);
+            }
+           
+            toppings.AddMajorToppings();
+            switch (thisItemSelected.ListTopping.ToppingWholeHalf)
+            {
+                case ToppingWholeHalf.Whole:
+                    thisItemSelected.WColor = Color.Black;
+                    thisItemSelected.AColor = Color.Black;
+                    thisItemSelected.BColor = Color.Black;
+                    break;
+                case ToppingWholeHalf.HalfA:
+                    toppings.ChangeMajorToppingsHalf(ToppingWholeHalf.HalfA);
+
+                    break;
+                case ToppingWholeHalf.HalfB:
+                    toppings.ChangeMajorToppingsHalf(ToppingWholeHalf.HalfB);
+                    break;
+            }
+            ChangeButtonSelection(thisItemSelected, thisItemSelected.ListTopping.ToppingWholeHalf);
+            //find all major toppings in ToppingSelectionsList and call ChangeButtonSelection on them.
+            foreach (var toppingSelection in ToppingSelectionsList)
+            {
+                if (toppingSelection.ListTopping.ToppingName == ToppingName.Mushrooms ||
+                    toppingSelection.ListTopping.ToppingName == ToppingName.GreenPeppers ||
+                    toppingSelection.ListTopping.ToppingName == ToppingName.Onion ||
+                    toppingSelection.ListTopping.ToppingName == ToppingName.Pepperoni ||
+                    toppingSelection.ListTopping.ToppingName == ToppingName.Sausage ||
+                    toppingSelection.ListTopping.ToppingName == ToppingName.BlackOlives)
+                {
+                    toppingSelection.SelectionColor = Color.CornflowerBlue;
+                    ChangeButtonSelection(toppingSelection, thisItemSelected.ListTopping.ToppingWholeHalf);
+                }
+            }
+        }
+
+        public void ChangeButtonSelection(ToppingSelection thisItemSelected, ToppingWholeHalf wholeOrHalf)
+        {
             switch (wholeOrHalf)
             {
                 case ToppingWholeHalf.Whole:
@@ -370,28 +461,16 @@ namespace Zipline2.PageModels
                     thisItemSelected.BColor = Color.Black;
                     break;
                 case ToppingWholeHalf.HalfA:
-                    //Need to do the following for the toppings variable on the ToppingsPage
-                    //toppings.UpdateToppingsTotal();
                     thisItemSelected.AColor = Color.CornflowerBlue;
                     thisItemSelected.BColor = Color.Black;
                     thisItemSelected.WColor = Color.Black;
                     break;
                 case ToppingWholeHalf.HalfB:
-                    //Need to do the following for the toppings variable on the ToppingsPage
-                    //toppings.UpdateToppingsTotal();
                     thisItemSelected.BColor = Color.CornflowerBlue;
                     thisItemSelected.AColor = Color.Black;
                     thisItemSelected.WColor = Color.Black;
                     break;
             }
-            if (!thisItemSelected.ListItemIsSelected)
-            {
-                thisItemSelected.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
-                thisItemSelected.ListItemIsSelected = true;
-            }
-            //NOTE:  Modifying Toppings directly instead of 
-            //explicitly setting it here does not trigger bindings.
-            Toppings = toppings;
         }
         public List<Topping> GetToppingsSelected()
         {

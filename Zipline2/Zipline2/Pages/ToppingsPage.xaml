@@ -61,7 +61,7 @@
                                         x:Name="ButtonW"
                                         IsVisible="{Binding AreWholeHalfColumnsVisible}"
                                         Text="W"
-                                        TextColor="White"
+                                        TextColor="{Binding WButtonTextColor}"
                                         BackgroundColor="{Binding WColor, Mode=TwoWay}"
                                         FontSize="Small"
                                         Command="{Binding WButtonCommand}"

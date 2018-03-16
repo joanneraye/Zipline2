@@ -35,7 +35,6 @@
                     HeightRequest="55"
                     FontAttributes="Bold" />
             <Button Text="Change My PIN"
-                    x:Name="ChangePinButton"
                     FontSize="Small"
                     Clicked="OnChangePinButtonClicked" />
             <Button Text="Add User (Manager Only)"

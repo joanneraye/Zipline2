@@ -15,19 +15,23 @@ namespace Zipline2.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : BasePage
     {
+        private const string YES = "Yup";
+        private const string NO = "No Way Jose";
         LoginPageModel LoginPageModel;
+        Users Users = Users.GetInstance();
         public LoginPage()
         {
             InitializeComponent();
             PinEnteredByUser.Focus();
             LoginPageModel = new LoginPageModel();
             BindingContext = LoginPageModel;
+
         }
 
         async void OnAddNewUserButtonClicked(object sender, EventArgs e)
         {
-            if (Users.GetInstance().AuthenticateUser(PinEnteredByUser.Text) &&
-                Users.GetInstance().LoggedInUser.HasManagerPrivilege)
+            if (Users.AuthenticateUser(PinEnteredByUser.Text) &&
+                Users.LoggedInUser.HasManagerPrivilege)
             {
                 PinEnteredByUser.Text = String.Empty;
                 await Navigation.PushAsync(new AddUserPage());
@@ -42,11 +46,10 @@ namespace Zipline2.Pages
         async void OnLoginButtonClicked(object sender, EventArgs e)
         {
             LoginButton.IsEnabled = false;
-            if (Users.GetInstance().AuthenticateUser(PinEnteredByUser.Text))
+            if (IsValidUser(PinEnteredByUser.Text)) 
             {
-                App.IsUserLoggedIn = true;
+                Users.IsUserLoggedIn = true;
                 await Navigation.PushAsync(new TablesPage());
-
             }
             else
             {
@@ -56,9 +59,38 @@ namespace Zipline2.Pages
             LoginButton.IsEnabled = true;
         }
 
+        private bool IsValidUser(string pin)
+        {
+            if (Users.AuthenticateUser(pin))
+            {
+               return true;
+            }
+            return false;
+        }
+
         async void OnChangePinButtonClicked(object sender, EventArgs e)
         {
-            await DisplayAlert("Sorry", "This functionality has not been completed yet.", "OK");
+            if (IsValidUser(PinEnteredByUser.Text))
+            {
+                Users.IsUserLoggedIn = true;
+                var isYes = await DisplayAlert("Hi!", "Are you " +
+                    Users.GetUserName(Users.LoggedInUser.UserPin) + "?", YES, NO);
+                if (isYes)
+                {
+                    PinEnteredByUser.Text = "";
+                    await Navigation.PushAsync(new AddUserPage());
+                }
+                else
+                {
+                    PinEnteredByUser.Text = "";
+                    await DisplayAlert("Could you have used the wrong PIN?", "Try signing in again.", "OK");
+                }
+            }
+            else
+            {
+                await DisplayAlert("Oops", "Sorry that PIN is not in our system as belonging to anyone.", "OK");
+                PinEnteredByUser.Text = "";
+            }
         }
     }
 }

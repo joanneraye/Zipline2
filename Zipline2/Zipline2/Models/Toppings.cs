@@ -54,14 +54,37 @@ namespace Zipline2.Models
         }
         public void AddToppings(List<Topping> toppingsToAdd)
         {
-            CurrentToppings.AddRange(toppingsToAdd);
+            foreach (var topping in toppingsToAdd)
+            {
+                if (CurrentToppingsHas(topping.ToppingName))
+                {
+                    RemoveTopping(topping.ToppingName, false);
+                }
+                AddTopping(topping, false);
+            }
+         
             ToppingsTotal = GetCurrentToppingsCost();
         }
-       
-        public void AddTopping(Topping toppingToAdd)
+
+        public bool CurrentToppingsHas(ToppingName toppingName)
+        {
+            foreach (var topping in CurrentToppings) 
+            {
+                if (toppingName == topping.ToppingName)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void AddTopping(Topping toppingToAdd, bool calculateTotal = true)
         {
             CurrentToppings.Add(toppingToAdd);
-            ToppingsTotal = GetCurrentToppingsCost();
+            if (calculateTotal)
+            {
+                ToppingsTotal = GetCurrentToppingsCost();
+            }
         }
 
         public void ChangeToppingToHalf(ToppingName toppingName, ToppingWholeHalf toppingHalf)
@@ -76,7 +99,7 @@ namespace Zipline2.Models
             }
             ToppingsTotal = GetCurrentToppingsCost();
         }
-        public void RemoveTopping(ToppingName toppingName)
+        public void RemoveTopping(ToppingName toppingName, bool calculateTotal = true)
         {
             int indexToRemove = 99;
             foreach (var topping in CurrentToppings)
@@ -92,8 +115,10 @@ namespace Zipline2.Models
             {
                 CurrentToppings.RemoveAt(indexToRemove);
             } 
-           
-            ToppingsTotal = GetCurrentToppingsCost();
+            if (calculateTotal)
+            {
+                ToppingsTotal = GetCurrentToppingsCost();
+            }
         }
 
         private decimal GetCurrentToppingsCost()
@@ -200,7 +225,7 @@ namespace Zipline2.Models
             }
             return toppingCount;
         }
-
+      
         public void AddMajorToppings()
         {
             var majorToppings = new List<Topping>();
@@ -211,6 +236,35 @@ namespace Zipline2.Models
             majorToppings.Add(new Topping(ToppingName.Onion)); ;
             majorToppings.Add(new Topping(ToppingName.BlackOlives));
             AddToppings(majorToppings);
+        }
+
+        public void AddMajorToppingsToHalf(ToppingWholeHalf whichHalf)
+        {
+            var majorToppings = new List<Topping>();
+            majorToppings.Add(new Topping(ToppingName.Pepperoni, whichHalf));
+            majorToppings.Add(new Topping(ToppingName.Mushrooms, whichHalf));
+            majorToppings.Add(new Topping(ToppingName.Sausage, whichHalf));
+            majorToppings.Add(new Topping(ToppingName.GreenPeppers, whichHalf));
+            majorToppings.Add(new Topping(ToppingName.Onion, whichHalf)); ;
+            majorToppings.Add(new Topping(ToppingName.BlackOlives, whichHalf));
+            AddToppings(majorToppings);
+        }
+
+        public void ChangeMajorToppingsHalf(ToppingWholeHalf whichHalf)
+        {
+            foreach (var topping in CurrentToppings)
+            {
+                if (topping.ToppingName == ToppingName.Pepperoni ||
+                    topping.ToppingName == ToppingName.Mushrooms ||
+                    topping.ToppingName == ToppingName.Sausage ||
+                    topping.ToppingName == ToppingName.GreenPeppers ||
+                    topping.ToppingName == ToppingName.Onion ||
+                    topping.ToppingName == ToppingName.BlackOlives)
+                {
+                    topping.ToppingWholeHalf = whichHalf;
+                }
+            }
+            ToppingsTotal = GetCurrentToppingsCost();
         }
         #endregion
     }

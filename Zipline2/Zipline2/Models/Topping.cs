@@ -28,9 +28,10 @@ namespace Zipline2.Models
         #endregion
 
         #region Constructor
-        public Topping(ToppingName toppingName)
+        public Topping(ToppingName toppingName, ToppingWholeHalf toppingWholeHalf = ToppingWholeHalf.Whole)
         {
             ToppingName = toppingName;
+            ToppingWholeHalf = toppingWholeHalf;
             ToppingDisplayName = DisplayNames.GetToppingDisplayName(toppingName);
         }
         #endregion

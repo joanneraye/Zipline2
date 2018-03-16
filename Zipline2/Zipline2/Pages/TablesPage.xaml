@@ -30,18 +30,17 @@
                    HorizontalOptions="Center" />
                 
                 <Button Text="Takeout" 
-                        x:Name="InsideOutsideButton"
+                        x:Name="TakeoutButton"
                         TextColor="Black"
                         BackgroundColor="Pink"
                         BorderColor="White"
                         BorderRadius="1"
                         BorderWidth="1"
                         HorizontalOptions="EndAndExpand"
-                        Clicked="InsideOutsideButtonClicked"/>
+                        Clicked="TakeoutButtonClicked"/>
             </StackLayout>
             <ListView ItemsSource="{Binding DisplayTables}"
                       x:Name="TableList"
-                      ItemTapped="OnTableSelected"
                       SeparatorVisibility="Default"
                       RowHeight="55"
                       SeparatorColor="BlanchedAlmond">
