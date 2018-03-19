@@ -411,6 +411,14 @@ namespace Zipline2.PageModels
 
         private void ProcessHalfMajorSelectionOfSide(ToppingSelection thisItemSelected)
         {
+            if (thisItemSelected.ListTopping.ToppingWholeHalf == ToppingWholeHalf.Whole)
+            {
+                thisItemSelected.WColor = Color.Black;
+                thisItemSelected.AColor = Color.Black;
+                thisItemSelected.BColor = Color.Black;
+                thisItemSelected.WButtonTextColor = Color.Black;
+                return;
+            }
             if (!thisItemSelected.ListItemIsSelected)
             {
                 thisItemSelected.ListItemIsSelected = true;
@@ -421,11 +429,6 @@ namespace Zipline2.PageModels
             toppings.AddMajorToppings();
             switch (thisItemSelected.ListTopping.ToppingWholeHalf)
             {
-                case ToppingWholeHalf.Whole:
-                    thisItemSelected.WColor = Color.Black;
-                    thisItemSelected.AColor = Color.Black;
-                    thisItemSelected.BColor = Color.Black;
-                    break;
                 case ToppingWholeHalf.HalfA:
                     toppings.ChangeMajorToppingsHalf(ToppingWholeHalf.HalfA);
 
