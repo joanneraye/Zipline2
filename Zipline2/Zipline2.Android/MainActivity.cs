@@ -7,6 +7,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Zipline2;
+using CarouselView.FormsPlugin.Android;
 
 namespace Zipline2.Droid
 {
@@ -31,6 +32,7 @@ namespace Zipline2.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            CarouselViewRenderer.Init();
 
             //string dbPath = FileAccessHelper.GetLocalFilePath("orders.db3");
 

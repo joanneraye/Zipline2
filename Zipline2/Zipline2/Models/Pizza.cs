@@ -17,10 +17,9 @@ namespace Zipline2.Models
         public Toppings PizzaToppings { get; set; }
         public MajorOrMama MajorMamaInfo { get; set; }
         public PizzaType PizzaType { get; set; }
-
         public PizzaCrust Crust { get; set; }
-
         public PizzaSize Size { get; set; }
+        public PizzaBase Base { get; set; }
         #endregion
 
         #region Constructor

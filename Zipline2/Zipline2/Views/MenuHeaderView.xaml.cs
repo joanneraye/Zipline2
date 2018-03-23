@@ -15,13 +15,10 @@ namespace Zipline2.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class MenuHeaderView : ContentView
 	{
-        public MenuHeaderModel MenuHeaderModel { get; set; }
-
         public MenuHeaderView()
 		{
             InitializeComponent();
-            //Note:  BindingContext is assigned to the instance of MenuHeaderModel
-            //used by the PageModel that includes it.
+            BindingContext = MenuHeaderModel.GetInstance();
         }
 
         async public void TablesButtonClicked(object sender, EventArgs e)

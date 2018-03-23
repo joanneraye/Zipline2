@@ -15,6 +15,8 @@ namespace Zipline2.Models
     public class Toppings
     {
         #region Properties
+
+     
         public List<Topping> CurrentToppings { get; set; }
         public PizzaType PizzaTypeForPricing { get; set; }
         private decimal toppingsTotal;
@@ -42,7 +44,8 @@ namespace Zipline2.Models
         public Toppings(PizzaType pizzaTypeForPricing) 
         {
             CurrentToppings = new List<Topping>();
-            PizzaTypeForPricing = pizzaTypeForPricing;            
+            PizzaTypeForPricing = pizzaTypeForPricing;
+           
         }
         #endregion
 

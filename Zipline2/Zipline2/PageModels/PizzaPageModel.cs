@@ -102,7 +102,7 @@ namespace Zipline2.PageModels
 
         public PizzaPageModel()
         {
-            MenuHeaderModel = new MenuHeaderModel();
+            //MenuHeaderModel = MenuHeaderModel.GetInstance();
             //pizzaPickerList = new List<string>();
             //PizzaSliceButtonCommand = new Xamarin.Forms.Command(OnButtonPizzaSliceClick);
             //PizzaMediumButtonCommand = new Xamarin.Forms.Command(OnButtonPizzaMediumClick);

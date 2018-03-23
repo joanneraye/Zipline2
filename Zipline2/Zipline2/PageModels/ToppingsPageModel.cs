@@ -7,6 +7,8 @@ using Zipline2.BusinessLogic.Enums;
 using Zipline2.Models;
 using System.Linq;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
+using Zipline2.Views;
 
 namespace Zipline2.PageModels
 {
@@ -73,18 +75,30 @@ namespace Zipline2.PageModels
                     SetProperty(ref selectionColor, value);
                 }
             }
-
-            public Color AColor
+            private bool buttonASelected;
+            public bool ButtonASelected
             {
                 get
                 {
-                    return acolor;
+                    return buttonASelected;
                 }
                 set
                 {
-                    SetProperty(ref acolor, value);
+                    SetProperty(ref buttonASelected, value);
                 }
             }
+
+            //public Color AColor
+            //{
+            //    get
+            //    {
+            //        return acolor;
+            //    }
+            //    set
+            //    {
+            //        SetProperty(ref acolor, value);
+            //    }
+            //}
 
             public Color BColor
             {
@@ -154,32 +168,16 @@ namespace Zipline2.PageModels
             #endregion
         }
         //******************************NOTE IMBEDDED CLASS************************
-
-       
-
+      
         #region Private Variables
         private ObservableCollection<ToppingSelection> toppingSelectionsList;
         private ToppingSelection selectedToppingItem;
         private Pizza thisPizza;
         private Toppings toppings;
-        private string pizzaName;
-        private MenuHeaderModel menuHeaderModel;
         #endregion
 
         #region Properties
-       
-        public MenuHeaderModel MenuHeaderModel
-        {
-            get
-            {
-                return menuHeaderModel;
-            }
-            set
-            {
-                SetProperty(ref menuHeaderModel, value);
-            }
-        }
-
+        
         public Toppings Toppings
         {
             get
@@ -189,8 +187,7 @@ namespace Zipline2.PageModels
             set
             {
                 SetProperty(ref toppings, value);
-                //OrderManager.GetInstance().ToppingsInProgress = toppings;
-                MenuHeaderModel.ItemTotal = thisPizza.BasePrice + toppings.ToppingsTotal;
+                MenuHeaderModel.GetInstance().ItemTotal = thisPizza.BasePrice + toppings.ToppingsTotal;
             }
         }
         public List<ToppingSelection> SelectedItems = new List<ToppingSelection>();
@@ -218,24 +215,41 @@ namespace Zipline2.PageModels
             }
         }
 
-        public string PizzaName
-        {
-            get
-            {
-                return pizzaName;
-            }
-            set
-            {
-                SetProperty(ref pizzaName, value);
-            }
-        }
+        public string[] BaseSelections { get; set; }
+        public string[] CookSelections { get; set; }
+        public string[] OtherSelections { get; set; }
+
         #endregion
 
         #region Constructor
         public ToppingsPageModel(PizzaType pizzaType)
-        {
-            MenuHeaderModel = new MenuHeaderModel();
-            
+        {      
+            OrderItem thisItem = OrderManager.GetInstance().OrderItemInProgress;
+            string pizzaName = thisItem.ItemName;
+
+            BaseSelections = new string[]
+            {
+                "Regular Base", "Pesto Base", "White Base"
+            };
+            CookSelections = new string[]
+            {
+                "Regular Cook", "Crispy Cook", "Kid Cook", "Light Cook"
+            };
+            OtherSelections = new string[]
+            {
+                "Butter OK",
+                "CUT INTO 12",
+                "JOINER",
+                "KID COOK",
+                "NO CUT",
+                "OUT FIRST",
+                "SALAD WITH ORDER",
+                "slice cut in half same plate",
+                "slice cut in half separate plate",
+                "TAKEOUT-BRING2TABLE",
+                "TAKEOUT-KEEPINKITCH"
+            };
+
             var toppingsList = new List<Topping>()
             {
                 new Topping(ToppingName.Anchovies),
@@ -287,16 +301,14 @@ namespace Zipline2.PageModels
                 new Topping(ToppingName.NoSauce) {SpecialPricingType = SpecialPricingType.Free},
             };
 
-            OrderItem thisItem = OrderManager.GetInstance().OrderItemInProgress;
-            pizzaName = thisItem.ItemName;
-            ToppingSelectionsList = new ObservableCollection<ToppingSelection>();
+                       ToppingSelectionsList = new ObservableCollection<ToppingSelection>();
             for (int i = 0; i < toppingsList.Count; i++)
             {
                 var toppingSelection = new ToppingSelection(this);
                 toppingSelection.ListTopping = toppingsList[i];
                 toppingSelection.SelectionIndex = i;
                 toppingSelection.SelectionColor = Xamarin.Forms.Color.Black;
-                toppingSelection.AColor = Xamarin.Forms.Color.Black;
+                //toppingSelection.AColor = Xamarin.Forms.Color.Black;
                 toppingSelection.BColor = Xamarin.Forms.Color.Black;
                 toppingSelection.WColor = Xamarin.Forms.Color.Black;
                 toppingSelection.WButtonTextColor = Color.White;
@@ -355,7 +367,8 @@ namespace Zipline2.PageModels
                     }
                     else if (toppingWholeHalf == ToppingWholeHalf.HalfA)
                     {
-                        toppingselection.AColor = Xamarin.Forms.Color.CornflowerBlue;
+                        toppingselection.ButtonASelected = true;
+                        //toppingselection.AColor = Xamarin.Forms.Color.CornflowerBlue;
                     }
                     else if (toppingWholeHalf == ToppingWholeHalf.HalfB)
                     {
@@ -414,7 +427,8 @@ namespace Zipline2.PageModels
             if (thisItemSelected.ListTopping.ToppingWholeHalf == ToppingWholeHalf.Whole)
             {
                 thisItemSelected.WColor = Color.Black;
-                thisItemSelected.AColor = Color.Black;
+                //thisItemSelected.AColor = Color.Black;
+                thisItemSelected.ButtonASelected = false;
                 thisItemSelected.BColor = Color.Black;
                 thisItemSelected.WButtonTextColor = Color.Black;
                 return;
@@ -460,21 +474,26 @@ namespace Zipline2.PageModels
             {
                 case ToppingWholeHalf.Whole:
                     thisItemSelected.WColor = Color.CornflowerBlue;
-                    thisItemSelected.AColor = Color.Black;
+                    thisItemSelected.ButtonASelected = false;
+                    //thisItemSelected.AColor = Color.Black;
                     thisItemSelected.BColor = Color.Black;
                     break;
                 case ToppingWholeHalf.HalfA:
-                    thisItemSelected.AColor = Color.CornflowerBlue;
+                    thisItemSelected.ButtonASelected = true;
+                    //thisItemSelected.AColor = Color.CornflowerBlue;
                     thisItemSelected.BColor = Color.Black;
                     thisItemSelected.WColor = Color.Black;
                     break;
                 case ToppingWholeHalf.HalfB:
                     thisItemSelected.BColor = Color.CornflowerBlue;
-                    thisItemSelected.AColor = Color.Black;
+                    thisItemSelected.ButtonASelected = false;
+                    //thisItemSelected.AColor = Color.Black;
                     thisItemSelected.WColor = Color.Black;
                     break;
             }
         }
+
+        
         public List<Topping> GetToppingsSelected()
         {
             return SelectedItems.Where(

@@ -72,16 +72,26 @@ namespace Zipline2.PageModels
             }
         }
 
+
         #endregion
 
-        public MenuHeaderModel()
+        private static MenuHeaderModel Instance;
+        private MenuHeaderModel()
         {
             itemTotal = 0M;
             OrderTotal = OrderManager.GetInstance().OrderInProgress.Total;
             UserName = Users.GetInstance().LoggedInUser.UserName;
             TableName = OrderManager.GetInstance().GetCurrentTable().TableName;
         }
-        
+
+        public static MenuHeaderModel GetInstance()
+        {
+            if (Instance == null)
+            {
+                Instance = new MenuHeaderModel();
+            }
+            return Instance;
+        }
         #region Methods
         public void PopulateItemTotal()
         {

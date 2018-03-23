@@ -13,6 +13,8 @@ using Zipline2.BusinessLogic.DictionaryKeys;
 using Zipline2.BusinessLogic.Enums;
 using System.Drawing;
 using static Zipline2.PageModels.ToppingsPageModel;
+using CarouselView.FormsPlugin.Abstractions;
+using Zipline2.Views;
 
 namespace Zipline2.Pages
 {
@@ -23,26 +25,27 @@ namespace Zipline2.Pages
         private ToppingsPageModel ToppingsPageModel;
         private Toppings toppings;
         private Pizza thisPizza;
+        private int CarouselSelectedPosition { get; set; }
         #endregion
-      
+
         #region Constructor
         public ToppingsPage (PizzaType toppingType)
 		{
             ToppingsPageModel = new ToppingsPageModel(toppingType);
             InitializeComponent ();
             BindingContext = ToppingsPageModel;
-            ToppingsPageHeader.BindingContext = ToppingsPageModel.MenuHeaderModel;
             toppings = new Toppings(toppingType);
+            //BasePicker.SelectedIndex = 0;
+            //CookPicker.SelectedIndex = 0;
             var currentOrderItem = OrderManager.GetInstance().OrderItemInProgress;
             thisPizza = (Pizza)currentOrderItem;
+
             if (thisPizza.MajorMamaInfo == MajorOrMama.Major)
             {
                 //TODO:  Combine the two following?
                 ToppingsPageModel.SelectMajorToppings();
                 toppings.AddMajorToppings();
             }
-            //OrderManager.GetInstance().ToppingsInProgress = toppings;
-            //ToppingsPageModel.MenuHeaderModel.ItemTotal = Pizza.CalculatePizzaItemCostNoTax(toppingType, 1, toppings);
         }
         #endregion
 
@@ -81,7 +84,8 @@ namespace Zipline2.Pages
                 else
                 {
                     thisSelection.SelectionColor = Xamarin.Forms.Color.Black;
-                    thisSelection.AColor = Xamarin.Forms.Color.Black;
+                    thisSelection.ButtonASelected = false;
+                   // thisSelection.AColor = Xamarin.Forms.Color.Black;
                     thisSelection.BColor = Xamarin.Forms.Color.Black;
                     thisSelection.WColor = Xamarin.Forms.Color.Black;
                 }
@@ -115,13 +119,15 @@ namespace Zipline2.Pages
                         toppingSelection.ListTopping.ToppingName == ToppingName.BlackOlives)
                     {
                         toppingSelection.WColor = Xamarin.Forms.Color.Black;
-                        toppingSelection.AColor = Xamarin.Forms.Color.Black;
+                        toppingSelection.ButtonASelected = false;
+                        //toppingSelection.AColor = Xamarin.Forms.Color.Black;
                         toppingSelection.BColor = Xamarin.Forms.Color.Black;
                         toppingSelection.SelectionColor = Xamarin.Forms.Color.Black;
                     }
                 }
                 halfMajorSelection.SelectionColor = Xamarin.Forms.Color.Black;
-                halfMajorSelection.AColor = Xamarin.Forms.Color.Black;
+                halfMajorSelection.ButtonASelected = false;
+                //halfMajorSelection.AColor = Xamarin.Forms.Color.Black;
                 halfMajorSelection.BColor = Xamarin.Forms.Color.Black;
                 halfMajorSelection.WColor = Xamarin.Forms.Color.Black;
 
@@ -132,9 +138,40 @@ namespace Zipline2.Pages
                 toppings.AddMajorToppingsToHalf(ToppingWholeHalf.HalfA);
                 
                 halfMajorSelection.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
-                halfMajorSelection.AColor = Xamarin.Forms.Color.CornflowerBlue;
+                halfMajorSelection.ButtonASelected = true;
+                //halfMajorSelection.AColor = Xamarin.Forms.Color.CornflowerBlue;
             }
             halfMajorSelection.ListItemIsSelected = !halfMajorSelection.ListItemIsSelected;
+        }
+
+        private void BasePickerTapped(object sender, EventArgs e)
+        {
+            BasePicker.Focus();
+        }
+
+        private void OnBasePickerSelectionChanged(object sender, EventArgs e)
+        {
+           BasePickerLabel.Text = BasePicker.Items[BasePicker.SelectedIndex];
+        }
+
+        private void CookPickerTapped(object sender, EventArgs e)
+        {
+            CookPicker.Focus();
+        }
+
+        private void OnCookPickerSelectionChanged(object sender, EventArgs e)
+        {
+            CookPickerLabel.Text = CookPicker.Items[CookPicker.SelectedIndex];
+        }
+
+        private void OtherPickerTapped(object sender, EventArgs e)
+        {
+            OtherPicker.Focus();
+        }
+
+        private void OnOtherPickerSelectionChanged(object sender, EventArgs e)
+        {
+            OtherPickerLabel.Text = OtherPicker.Items[OtherPicker.SelectedIndex];
         }
         #endregion
     }

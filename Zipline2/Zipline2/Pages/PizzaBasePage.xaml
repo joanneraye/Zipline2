@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:BasePage  xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Zipline2.Pages.PizzaBasePage"
+             xmlns:local="clr-namespace:Zipline2.Pages;assembly=Zipline2.Pages"
+             xmlns:views="clr-namespace:Zipline2.Views">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="Black"
+                     Padding="10, 0, 10, 0">
+            <views:MenuHeaderView x:Name="PizzaBasePageHeader" />
+            <views:MyCarouselViewControl x:Name="PizzaBaseCarouselView"/>
+            <BoxView HeightRequest="1" 
+                     WidthRequest="50"
+                     Color="White"/>
+            <ListView ItemsSource="{Binding BaseSelections}"
+                      ItemTapped="BaseItemTapped"
+                      SeparatorVisibility="Default"
+                      VerticalOptions="Center"
+                      SeparatorColor="Orange">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell x:Name="ListViewCell">
+                            <Label Grid.Column="0"
+                                    Text="{Binding .}"
+                                    BackgroundColor="{Binding BaseSelectionColor}"
+                                    TextColor="White"
+                                    FontSize="Medium"
+                                    HorizontalOptions="Center"/>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            
+            <ListView ItemsSource="{Binding CookSelections}"
+                      ItemTapped="CookItemTapped"
+                      SeparatorVisibility="Default"
+                      VerticalOptions="Center"
+                      SeparatorColor="Orange">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell x:Name="ListViewCell">
+                            <Label Grid.Column="0"
+                                    Text="{Binding .}"
+                                    BackgroundColor="{Binding CookSelectionColor}"
+                                    TextColor="White"
+                                    FontSize="Medium"
+                                    HorizontalOptions="Center"/>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</local:BasePage>
