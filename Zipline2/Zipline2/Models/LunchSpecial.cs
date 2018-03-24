@@ -6,7 +6,7 @@ using Zipline2.Interfaces;
 
 namespace Zipline2.Models
 {
-    public class LunchSpecial : OrderItem, IHasToppings
+    public class LunchSpecial : OrderItem
     {
         public decimal PricePerPizzaTopping { get; set; }
         public decimal PriceAddToSalad { get; set; }
@@ -18,12 +18,7 @@ namespace Zipline2.Models
         {
             return "Lunch Special (slice and salad)";
         }
-
-        public void AddToppings(CustomerSelections guiData)
-        {
-            throw new NotImplementedException();
-        }
-
+       
         public override void PopulateDisplayName(CustomerSelections guiData)
         {
             throw new NotImplementedException();

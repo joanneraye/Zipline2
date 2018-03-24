@@ -13,6 +13,7 @@ namespace Zipline2.PageModels
         private decimal itemTotal;
         private decimal orderTotal;
         private string userName;
+        private string pizzaName;
         #endregion
 
         #region Properties
@@ -54,7 +55,7 @@ namespace Zipline2.PageModels
                 SetProperty(ref itemTotal, value);
                 if (OrderManager.GetInstance().OrderItemInProgress != null)
                 {
-                    var subTotal = OrderManager.GetInstance().OrderItemInProgress.Total + itemTotal;
+                    var subTotal = OrderManager.GetInstance().OrderInProgress.Total + itemTotal;
                     OrderTotal = subTotal + HelperMethods.GetTaxAmount(subTotal);
                 }
             }
@@ -72,7 +73,18 @@ namespace Zipline2.PageModels
             }
         }
 
-
+       
+        public string PizzaName
+        {
+            get
+            {
+                return pizzaName;
+            }
+            set
+            {
+                SetProperty(ref pizzaName, value);
+            }
+        }
         #endregion
 
         private static MenuHeaderModel Instance;
@@ -93,20 +105,9 @@ namespace Zipline2.PageModels
             return Instance;
         }
         #region Methods
-        public void PopulateItemTotal()
+        public void UpdateItemTotal(decimal basePrice, decimal toppingsTotal)
         {
-            //This doesn't work for 
-            //showing the total on the toppings page as items are added or 
-            //subtracted because we are not adding toppings to OrderManager's
-            //OrderItemInProgress until the item is added to the order.
-            //var currentOrderItem = OrderManager.GetInstance().OrderItemInProgress;
-            //if (currentOrderItem is Pizza)
-            //{
-            //    Pizza thisPizza = (Pizza)currentOrderItem;
-            //    itemTotal = (thisPizza.BasePrice +
-            //        thisPizza.PizzaToppings.ToppingsTotal) *
-            //        thisPizza.ItemCount;
-            //}
+            ItemTotal = basePrice + toppingsTotal;
         }
         #endregion
     }

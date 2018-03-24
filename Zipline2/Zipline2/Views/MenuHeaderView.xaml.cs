@@ -26,9 +26,10 @@ namespace Zipline2.Views
             await Navigation.PushAsync(new TablesPage());
         }
 
-        public void NextButtonClicked(object sender, EventArgs e)
+        async public void NextButtonClicked(object sender, EventArgs e)
         {
-            //Add toppings to the OrderItemInProgress.
+            OrderManager.GetInstance().AddItemInProgressToOrder();
+            await Navigation.PushAsync(new PizzaPage());
         }
     }
 }

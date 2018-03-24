@@ -38,31 +38,8 @@ namespace Zipline2.BusinessLogic
         private static OrderItem CreatePizza(CustomerSelections guiData)
         {
             return new Pizza(guiData);
-            //Just create pizza? No need for subclasses ??
-            //switch (guiData.PizzaType)
-            //    {
-            //        case (PizzaType.SatchPan):
-            //            return new PizzaSatchPan(guiData);
-            //        case (PizzaType.Mfp):
-            //            return new PizzaMfp(guiData);
-            //        case (PizzaType.Indy):
-            //            return new PizzaIndy(guiData);
-            //        case (PizzaType.ThinSlice):
-            //            return new PizzaThinSlice(guiData);
-            //        case (PizzaType.PanSlice):
-            //            return new PizzaSatchPanSlice(guiData);
-            //        case (PizzaType.Medium):
-            //            return new PizzaThinMedium(guiData);
-            //        case (PizzaType.Large):
-            //            return new PizzaThinLarge(guiData);
-            //        default:
-            //            return null;
-            //    }
+            
         }
-        //private static OrderItem CreateCalzone(CustomerSelections guiData)
-        //{
-        //    return new PizzaCalzone(guiData);
-        //}
         private static OrderItem CreateDrink(CustomerSelections guiData)
         {
             return new Drink(guiData);

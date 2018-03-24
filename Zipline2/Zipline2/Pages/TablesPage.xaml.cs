@@ -43,6 +43,11 @@ namespace Zipline2.Pages
         public void TakeoutButtonClicked(object sender, EventArgs e)
         {
         }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
+        }
         #endregion
     }
 }

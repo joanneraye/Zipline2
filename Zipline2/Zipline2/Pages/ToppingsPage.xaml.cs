@@ -23,28 +23,27 @@ namespace Zipline2.Pages
 	{
         #region Private Variables
         private ToppingsPageModel ToppingsPageModel;
-        private Toppings toppings;
-        private Pizza thisPizza;
+        private Toppings Toppings;
+        private Pizza CurrentPizza;
         private int CarouselSelectedPosition { get; set; }
+        private ToppingsOtherPage ToppingsOtherPage { get; set; }
         #endregion
 
         #region Constructor
-        public ToppingsPage (PizzaType toppingType)
+        public ToppingsPage (Pizza currentPizza)
 		{
-            ToppingsPageModel = new ToppingsPageModel(toppingType);
+            ToppingsPageModel = new ToppingsPageModel(currentPizza);
             InitializeComponent ();
             BindingContext = ToppingsPageModel;
-            toppings = new Toppings(toppingType);
-            //BasePicker.SelectedIndex = 0;
-            //CookPicker.SelectedIndex = 0;
-            var currentOrderItem = OrderManager.GetInstance().OrderItemInProgress;
-            thisPizza = (Pizza)currentOrderItem;
-
-            if (thisPizza.MajorMamaInfo == MajorOrMama.Major)
+            CurrentPizza = currentPizza;
+           
+            MenuHeaderModel.GetInstance().PizzaName = currentPizza.ItemName;
+            Toppings = new Toppings(currentPizza);
+            if (currentPizza.MajorMamaInfo == MajorOrMama.Major)
             {
                 //TODO:  Combine the two following?
                 ToppingsPageModel.SelectMajorToppings();
-                toppings.AddMajorToppings();
+                Toppings.AddMajorToppings();
             }
         }
         #endregion
@@ -67,33 +66,32 @@ namespace Zipline2.Pages
                 if (thisSelection.ListItemIsSelected)   //If selected, toggle to unselect...
                 {
                     thisSelection.ListTopping.SequenceSelected = 0;
-                    toppings.RemoveTopping(thisSelection.ListTopping.ToppingName);
+                    Toppings.RemoveTopping(thisSelection.ListTopping.ToppingName);
                 }
                 else
                 {
-                    thisSelection.ListTopping.SequenceSelected = toppings.CurrentToppings.Count + 1;
-                    toppings.AddTopping(thisSelection.ListTopping);
+                    thisSelection.ListTopping.SequenceSelected = Toppings.CurrentToppings.Count + 1;
+                    Toppings.AddTopping(thisSelection.ListTopping);
                 }
                 thisSelection.ListItemIsSelected = !thisSelection.ListItemIsSelected;
                 //Appearance...
                 if (thisSelection.ListItemIsSelected)
                 {
                     thisSelection.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
-                    thisSelection.WColor = Xamarin.Forms.Color.CornflowerBlue;
+                    thisSelection.ButtonWSelected = true;
                 }
                 else
                 {
                     thisSelection.SelectionColor = Xamarin.Forms.Color.Black;
                     thisSelection.ButtonASelected = false;
-                   // thisSelection.AColor = Xamarin.Forms.Color.Black;
-                    thisSelection.BColor = Xamarin.Forms.Color.Black;
-                    thisSelection.WColor = Xamarin.Forms.Color.Black;
+                    thisSelection.ButtonBSelected = false;
+                    thisSelection.ButtonWSelected = false;
                 }
             }
            
             //NOTE:  Modifying ToppingsPageModel.Toppings directly instead of 
             //explicitly setting it here does not trigger bindings.
-            ToppingsPageModel.Toppings = toppings;
+            ToppingsPageModel.Toppings = Toppings;
         }
 
         //For selection or deselection of the Half Major topping.
@@ -101,13 +99,13 @@ namespace Zipline2.Pages
         {
             if (halfMajorSelection.ListItemIsSelected)   //If selected, toggle to unselect...
             {
-                toppings.RemoveTopping(ToppingName.Mushrooms, false);
-                toppings.RemoveTopping(ToppingName.BlackOlives, false);
-                toppings.RemoveTopping(ToppingName.GreenPeppers, false);
-                toppings.RemoveTopping(ToppingName.Onion, false);
-                toppings.RemoveTopping(ToppingName.Pepperoni, false);
-                toppings.RemoveTopping(ToppingName.Sausage, false);
-                toppings.UpdateToppingsTotal();
+                Toppings.RemoveTopping(ToppingName.Mushrooms, false);
+                Toppings.RemoveTopping(ToppingName.BlackOlives, false);
+                Toppings.RemoveTopping(ToppingName.GreenPeppers, false);
+                Toppings.RemoveTopping(ToppingName.Onion, false);
+                Toppings.RemoveTopping(ToppingName.Pepperoni, false);
+                Toppings.RemoveTopping(ToppingName.Sausage, false);
+                Toppings.UpdateToppingsTotal();
 
                 foreach (var toppingSelection in ToppingsPageModel.ToppingSelectionsList)
                 {
@@ -118,24 +116,21 @@ namespace Zipline2.Pages
                         toppingSelection.ListTopping.ToppingName == ToppingName.Sausage ||
                         toppingSelection.ListTopping.ToppingName == ToppingName.BlackOlives)
                     {
-                        toppingSelection.WColor = Xamarin.Forms.Color.Black;
+                        toppingSelection.ButtonWSelected = false;
                         toppingSelection.ButtonASelected = false;
-                        //toppingSelection.AColor = Xamarin.Forms.Color.Black;
-                        toppingSelection.BColor = Xamarin.Forms.Color.Black;
+                        toppingSelection.ButtonBSelected = false;
                         toppingSelection.SelectionColor = Xamarin.Forms.Color.Black;
                     }
                 }
                 halfMajorSelection.SelectionColor = Xamarin.Forms.Color.Black;
+                halfMajorSelection.ButtonWSelected = false;
                 halfMajorSelection.ButtonASelected = false;
-                //halfMajorSelection.AColor = Xamarin.Forms.Color.Black;
-                halfMajorSelection.BColor = Xamarin.Forms.Color.Black;
-                halfMajorSelection.WColor = Xamarin.Forms.Color.Black;
-
+                halfMajorSelection.ButtonBSelected = false;
             }
             else
             {
                 ToppingsPageModel.SelectMajorToppings(halfMajorSelection.ListTopping.ToppingWholeHalf);
-                toppings.AddMajorToppingsToHalf(ToppingWholeHalf.HalfA);
+                Toppings.AddMajorToppingsToHalf(ToppingWholeHalf.HalfA);
                 
                 halfMajorSelection.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
                 halfMajorSelection.ButtonASelected = true;
@@ -151,8 +146,30 @@ namespace Zipline2.Pages
 
         private void OnBasePickerSelectionChanged(object sender, EventArgs e)
         {
-           BasePickerLabel.Text = BasePicker.Items[BasePicker.SelectedIndex];
+            BasePickerLabel.Text = BasePicker.Items[BasePicker.SelectedIndex];
+            BasePickerLabel.BackgroundColor = Xamarin.Forms.Color.CornflowerBlue;
+            string pizzaBaseSelection = BasePickerLabel.Text;
+           
+            if (pizzaBaseSelection.Contains("Pesto"))
+            {
+                CurrentPizza.ChangePizzaBase(PizzaBase.Pesto);
+            }
+            else if (pizzaBaseSelection.Contains("White"))
+            {
+                CurrentPizza.ChangePizzaBase(PizzaBase.White);
+            }
+            else
+            {
+                CurrentPizza.ChangePizzaBase(PizzaBase.Regular);
+            }
+            Toppings thisPizzaToppings = ToppingsPageModel.Toppings;
+            thisPizzaToppings.UpdateToppingsTotal();
+
+            //Must explicitly set so that MenuHeaderModel is updated.
+            ToppingsPageModel.Toppings = thisPizzaToppings;
+            //MenuHeaderModel.GetInstance().UpdateItemTotal(thisPizza.BasePrice, ToppingsPageModel.Toppings.ToppingsTotal);
         }
+
 
         private void CookPickerTapped(object sender, EventArgs e)
         {
@@ -162,16 +179,63 @@ namespace Zipline2.Pages
         private void OnCookPickerSelectionChanged(object sender, EventArgs e)
         {
             CookPickerLabel.Text = CookPicker.Items[CookPicker.SelectedIndex];
+            CookPickerLabel.BackgroundColor = Xamarin.Forms.Color.CornflowerBlue;
+            if (CookPickerLabel.Text.Contains("Crispy"))
+            {
+                Toppings.AddTopping(
+                  new Topping(ToppingName.CrispyCook)
+                  { SpecialPricingType = SpecialPricingType.Free }, false);
+            }
+            else if (CookPickerLabel.Text.Contains("Kid"))
+            {
+                Toppings.AddTopping(
+                  new Topping(ToppingName.KidCook)
+                  { SpecialPricingType = SpecialPricingType.Free }, false);
+            }
+            else if (CookPickerLabel.Text.Contains("Light"))
+            {
+                Toppings.AddTopping(
+                  new Topping(ToppingName.LightCook)
+                  { SpecialPricingType = SpecialPricingType.Free }, false);
+            }
+            ToppingsPageModel.Toppings = Toppings;
         }
 
-        private void OtherPickerTapped(object sender, EventArgs e)
+        private async void OtherToppingsTapped(object sender, EventArgs e)
         {
-            OtherPicker.Focus();
+            //Need to pass to ToppingsOtherPage what should already be 
+            //selected somehow??  Pass List<Topping> of items already selected?
+            //TODO:  Create a list of Topping objects from ToppingPageModel toppings
+            //      pertaining to the other toppings.... 
+            List<Topping> toppingsAlreadySelected = new List<Topping>();
+            foreach (var topping in ToppingsPageModel.Toppings.CurrentToppings)
+            {
+                if (topping.ToppingName == ToppingName.ButterOk ||
+                    topping.ToppingName == ToppingName.CutInto12 ||
+                    topping.ToppingName == ToppingName.Joiner ||
+                    topping.ToppingName == ToppingName.NoCut ||
+                    topping.ToppingName == ToppingName.OutFirst ||
+                    topping.ToppingName == ToppingName.KidCook ||
+                    topping.ToppingName == ToppingName.SaladWithOrder ||
+                    topping.ToppingName == ToppingName.SliceCutInHalfSamePlate ||
+                    topping.ToppingName == ToppingName.SliceCutInHalfSepPlate ||
+                    topping.ToppingName == ToppingName.TakeoutBring2Table ||
+                    topping.ToppingName == ToppingName.TakeoutKeepInKitch)
+                {
+                    toppingsAlreadySelected.Add(topping);
+                }
+            }
+           
+            ToppingsOtherPage = new ToppingsOtherPage(toppingsAlreadySelected);
+            ToppingsOtherPage.Disappearing += (newSender, newE) => { this.OnAppearing(newSender, newE); };
+          
+            await Navigation.PushModalAsync(ToppingsOtherPage);
         }
 
-        private void OnOtherPickerSelectionChanged(object sender, EventArgs e)
+        private void OnAppearing(object sender, EventArgs e)
         {
-            OtherPickerLabel.Text = OtherPicker.Items[OtherPicker.SelectedIndex];
+            Toppings.AddToppings(ToppingsOtherPage.SelectedOtherToppings);
+            ToppingsPageModel.Toppings = Toppings;
         }
         #endregion
     }

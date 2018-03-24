@@ -17,6 +17,9 @@ namespace Zipline2.BusinessLogic.Enums
         Mfp,
         SatchPan,
         Calzone,
-        CalzoneSteakAndCheese
+        CalzoneSteakAndCheese,
+        PestoWhitePan,
+        PestoWhiteMedium,
+        PestoWhiteLarge
     }
 }

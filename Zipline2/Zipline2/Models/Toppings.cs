@@ -16,10 +16,13 @@ namespace Zipline2.Models
     {
         #region Properties
 
-     
-        public List<Topping> CurrentToppings { get; set; }
+        public Pizza PizzaWithTheseToppings { get; set; }
+
+        public List<Topping> CurrentToppings { get; private set; }
+      
         public PizzaType PizzaTypeForPricing { get; set; }
         private decimal toppingsTotal;
+      
         public decimal ToppingsTotal
         {
             get
@@ -29,23 +32,22 @@ namespace Zipline2.Models
             private set
             {
                 toppingsTotal = value;
-                //OrderManager.GetInstance().ToppingsInProgress = this;
+                PizzaWithTheseToppings.PopulatePricePerItem(null);
             }
         }
         #endregion
 
         #region constructor
+      
         /// <summary>
-        /// Since the price of toppings is dependent on the 
-        /// type of pizza to which the toppings are being
-        /// aded, this type is required in the constructor.
+        /// Toppings should always be associated with a particular pizza already chosen.
         /// </summary>
-        /// <param name="pizzaTypeForPricing"></param>
-        public Toppings(PizzaType pizzaTypeForPricing) 
+        /// <param name="pizzaWithTheseToppings"></param>
+        public Toppings(Pizza pizzaWithTheseToppings)
         {
             CurrentToppings = new List<Topping>();
-            PizzaTypeForPricing = pizzaTypeForPricing;
-           
+            PizzaTypeForPricing = pizzaWithTheseToppings.PizzaType;
+            PizzaWithTheseToppings = pizzaWithTheseToppings;
         }
         #endregion
 
@@ -54,6 +56,7 @@ namespace Zipline2.Models
         public void UpdateToppingsTotal()
         {
             ToppingsTotal = GetCurrentToppingsCost();
+            PizzaWithTheseToppings.PopulatePricePerItem(null);
         }
         public void AddToppings(List<Topping> toppingsToAdd)
         {

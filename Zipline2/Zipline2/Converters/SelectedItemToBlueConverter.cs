@@ -10,7 +10,7 @@ namespace Zipline2.Converters
     /// This converter returns the color of the button background
     /// depending on whether the button is selected or not.
     /// </summary>
-    public class BlueButtonSelectedConverter : IValueConverter
+    public class SelectedItemToBlueConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

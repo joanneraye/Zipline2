@@ -43,6 +43,7 @@ namespace Zipline2.BusinessLogic.Enums
         SundriedTomatoes,
         Teese,
         TempehBBQ,
+        TempehOriginal,
         Tomatoes,
         Zucchini,
         Cheese,
@@ -51,10 +52,19 @@ namespace Zipline2.BusinessLogic.Enums
         LightMozarella,
         LightRicotta,
         NoButter,
-        NoSauce
-
-
-
-
+        NoSauce,
+        LightCook,
+        CrispyCook,
+        KidCook, 
+        ButterOk,
+        CutInto12,
+        Joiner,
+        NoCut,
+        OutFirst,
+        SaladWithOrder,
+        SliceCutInHalfSamePlate,
+        SliceCutInHalfSepPlate,
+        TakeoutBring2Table,
+        TakeoutKeepInKitch
     }
 }

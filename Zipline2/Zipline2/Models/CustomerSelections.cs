@@ -30,10 +30,8 @@ namespace Zipline2.Models
 
         public int NumberOfItems { get; set; }
 
-        public Toppings Toppings { get; set; }
         public CustomerSelections(PizzaType pizzatype)
         {
-            Toppings = new Toppings(pizzatype);
             pizzaType = pizzatype;
         }
     }

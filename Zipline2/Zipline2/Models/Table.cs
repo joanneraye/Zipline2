@@ -13,9 +13,7 @@ namespace Zipline2.Models
        
         private bool isOccupied;
         private bool isTakeOut;
-        private string 
-            
-            imageName;
+       
         #endregion
 
         #region Properties

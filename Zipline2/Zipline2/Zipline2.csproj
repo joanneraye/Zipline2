@@ -29,7 +29,9 @@
     <Compile Remove="Models\PizzaThinLarge.cs" />
     <Compile Remove="Models\PizzaThinMedium.cs" />
     <Compile Remove="Models\PizzaThinSlice.cs" />
+    <Compile Remove="PageModels\CarouselViewModel.cs" />
     <Compile Remove="PageModels\MainPageModel.cs" />
+    <Compile Remove="PageModels\PizzaBasePageModel.cs" />
     <Compile Remove="PageModels\ToppingSelection.cs" />
     <Compile Remove="Pages\MainPage.xaml.cs" />
     <Compile Remove="Pages\MasterDetailPage1.xaml.cs" />
@@ -37,7 +39,9 @@
     <Compile Remove="Pages\MasterDetailPage1Master.xaml.cs" />
     <Compile Remove="Pages\MasterDetailPage1MenuItem.cs" />
     <Compile Remove="Pages\OldTablesPage.xaml.cs" />
+    <Compile Remove="Pages\PizzaBasePage.xaml.cs" />
     <Compile Remove="Views\MenuHeaderView - OLD.xaml.cs" />
+    <Compile Remove="Views\MyCarouselViewControl.xaml.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,7 +50,9 @@
     <EmbeddedResource Remove="Pages\MasterDetailPage1Detail.xaml" />
     <EmbeddedResource Remove="Pages\MasterDetailPage1Master.xaml" />
     <EmbeddedResource Remove="Pages\OldTablesPage.xaml" />
+    <EmbeddedResource Remove="Pages\PizzaBasePage.xaml" />
     <EmbeddedResource Remove="Views\MenuHeaderView - OLD.xaml" />
+    <EmbeddedResource Remove="Views\MyCarouselViewControl.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -87,10 +93,10 @@
     <EmbeddedResource Update="Pages\AddUserPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\PizzaBasePage.xaml">
+    <EmbeddedResource Update="Pages\PizzaPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\PizzaPage.xaml">
+    <EmbeddedResource Update="Pages\ToppingsOtherPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\ToppingsPage.xaml">
@@ -102,14 +108,12 @@
     <EmbeddedResource Update="Views\MenuHeaderView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\MyCarouselViewControl.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="CustomControlHelpers\" />
     <Folder Include="CustomControls\" />
     <Folder Include="Extensions\" />
+    <Folder Include="Interfaces\" />
   </ItemGroup>
 </Project>

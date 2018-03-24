@@ -14,9 +14,6 @@ namespace Zipline2.BusinessLogic
     {
         public OrderItem OrderItemInProgress { get; set; }
         public Order OrderInProgress { get; set; }
-
-        //public Toppings ToppingsInProgress { get; set; }
-
         public int CurrentTableIndex { get; set; }
 
         private static OrderManager Instance;
@@ -49,11 +46,6 @@ namespace Zipline2.BusinessLogic
 
         }
 
-        public void AddToppingsToItemInProgress(List<Topping> toppingsToAdd)
-        {
-          
-        }
-
         public void AddItemInProgress(CustomerSelections guiData)
         {
             OrderItemInProgress = OrderItemFactory.GetOrderItem(guiData);
@@ -63,14 +55,30 @@ namespace Zipline2.BusinessLogic
             }
             OrderItemInProgress.PopulateDisplayName(guiData);
             OrderItemInProgress.PopulatePricePerItem(guiData);
+            OrderItemInProgress.UpdateItemTotal();
         }
-   
-        public void HandleOrderItem(CustomerSelections guiData)
+
+        public Pizza GetCurrentPizza()
         {
-            OrderItemInProgress = OrderItemFactory.GetOrderItem(guiData);
-            //Need the following?
-            OrderItemInProgress.Total = OrderItemInProgress.PricePerItem * OrderItemInProgress.ItemCount;
-            OrderInProgress.AddItemToOrder(OrderItemInProgress);
+            if (OrderItemInProgress != null && OrderItemInProgress is Pizza)
+            {
+                return OrderItemInProgress as Pizza;
+            }
+            return new Pizza();
         }
+
+        public void AddItemInProgressToOrder()
+        {
+            OrderInProgress.AddItemToOrder(OrderItemInProgress);
+            OrderItemInProgress = null;
+        }
+
+        //public void HandleOrderItem(CustomerSelections guiData)
+        //{
+        //    OrderItemInProgress = OrderItemFactory.GetOrderItem(guiData);
+        //    //Need the following?
+        //    OrderItemInProgress.Total = OrderItemInProgress.PricePerItem * OrderItemInProgress.ItemCount;
+        //    OrderInProgress.AddItemToOrder(OrderItemInProgress);
+        //}
     }
 }

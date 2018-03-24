@@ -50,7 +50,10 @@ namespace Zipline2.BusinessLogic
             { PizzaType.CalzoneSteakAndCheese, 13.00M },
             { PizzaType.SatchPan, 21.00M },
             { PizzaType.Mfp, 16.00M },
-            { PizzaType.Indy, 6.00M }
+            { PizzaType.Indy, 6.00M },
+            { PizzaType.PestoWhitePan, 24.00M },
+            { PizzaType.PestoWhiteMedium, 16.00M },
+            { PizzaType.PestoWhiteLarge, 20.00M }
         };
 
         public static decimal GetPizzaBasePrice(PizzaType typeOfPizza)
@@ -99,6 +102,16 @@ namespace Zipline2.BusinessLogic
            1.00M, 2.00M, 3.00M, 4.00M, 5.00M, 6.00M, 1.00M
         };
 
+        public static readonly decimal[] PizzaPestoWhiteMediumToppingsPrices = new decimal[]
+        {
+           2.00M, 4.00M, 6.00M, 7.00M, 9.00M, 11.00M, 2.00M
+        };
+
+        public static readonly decimal[] PizzaPestoWhiteLargeToppingsPrices = new decimal[]
+        {
+           3.00M, 6.00M, 9.00M, 11.00M, 14.00M, 17.00M, 3.00M
+        };
+
         public static Dictionary<PizzaType, decimal[]> ToppingsPriceDictionary = new Dictionary<PizzaType, decimal[]>
         {
             { PizzaType.ThinSlice, PizzaSliceToppingsPrices },
@@ -106,8 +119,12 @@ namespace Zipline2.BusinessLogic
             { PizzaType.Large, PizzaLargeToppingsPrices },
             { PizzaType.Calzone, CalzoneToppingsPrices },
             { PizzaType.SatchPan, PizzaSatchPanToppingsPrices },
+            { PizzaType.PestoWhitePan, PizzaSatchPanToppingsPrices },
             { PizzaType.Indy, PizzaIndyToppingsPrices },
-            { PizzaType.Mfp, PizzaMfpToppingsPrices }
-        };        
+            { PizzaType.Mfp, PizzaMfpToppingsPrices },
+            { PizzaType.PestoWhiteMedium, PizzaPestoWhiteMediumToppingsPrices },
+            { PizzaType.PestoWhiteLarge, PizzaPestoWhiteLargeToppingsPrices}
+        };
+        
     }
 }

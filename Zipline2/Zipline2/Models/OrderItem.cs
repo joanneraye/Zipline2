@@ -63,7 +63,7 @@ namespace Zipline2.Models
         /// derived classes unless the derrived class overrides this
         /// implementation.
         /// </summary>
-        public virtual void CalculateItemTotal()
+        public virtual void UpdateItemTotal()
         {
             Total = PricePerItem * ItemCount;
         }

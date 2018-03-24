@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Zipline2.Pages;assembly=Zipline2.Pages"
+             xmlns:views="clr-namespace:Zipline2.Views"
+             xmlns:converters="clr-namespace:Zipline2.Converters"
+             x:Class="Zipline2.Pages.ToppingsOtherPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:SelectedItemToBlueConverter x:Key="selectedItemToBlueConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="Black"
+                     Padding="10, 0, 10, 0"
+                     VerticalOptions="FillAndExpand">
+                <views:MenuHeaderView />
+            <ListView ItemsSource="{Binding OtherToppingsSelectionsList}"
+                      ItemTapped="ToppingsOtherItemTapped"
+                     
+                      CachingStrategy="RecycleElementAndDataTemplate"
+                      x:Name="ToppingsOtherListView"
+                      SeparatorVisibility="Default"
+                      SeparatorColor="Orange">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Label Text="{Binding OtherToppingsListTopping.ToppingDisplayName}"
+                                   TextColor="White"
+                                   VerticalTextAlignment="Center"
+                                   BackgroundColor="{Binding IsOtherToppingItemSelected, 
+                                        Mode=TwoWay, 
+                                        Converter={StaticResource selectedItemToBlueConverter}}"/>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <StackLayout Orientation="Horizontal">
+                <Button Text="DONE"
+                        BackgroundColor="Black"
+                        BorderColor="White"
+                        Clicked="OnDoneClicked"
+                        BorderRadius="1"
+                        BorderWidth="1"
+                        TextColor="White"/>
+                <Button Text="Cancel"
+                        BackgroundColor="Black"
+                        BorderColor="White"
+                        BorderRadius="1"
+                        BorderWidth="1"
+                        Clicked="OnCancelClicked"
+                        TextColor="White"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</local:BasePage>
+
+
+
+
+<!--SelectedItem="{Binding SelectedOtherToppingItem, Mode=TwoWay}"-->

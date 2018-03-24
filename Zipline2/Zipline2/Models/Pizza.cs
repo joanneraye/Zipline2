@@ -11,7 +11,7 @@ using Zipline2.Pages;
 namespace Zipline2.Models
 {
     [Table("pizza")]
-    public class Pizza : OrderItem, IHasToppings
+    public class Pizza : OrderItem
     {
         #region Properties
         public Toppings PizzaToppings { get; set; }
@@ -23,23 +23,28 @@ namespace Zipline2.Models
         #endregion
 
         #region Constructor
-        public Pizza(CustomerSelections guiData)
+        public Pizza()
+        {
+            PizzaToppings = new Toppings(this);
+        }
+        public Pizza(CustomerSelections guiData) : this()
         {
             MajorMamaInfo = guiData.MajorOrMama;
-            PizzaToppings = new Toppings(guiData.PizzaType);
             Crust = guiData.PizzaCrustType;
             Size = guiData.PizzaSize;
             PizzaType = guiData.PizzaType;
-            BasePrice = Prices.GetPizzaBasePrice(guiData.PizzaType);
-            //TODO:  Is this needed?  Will I ever add a pizza with toppings already there?
-            if (guiData.Toppings.CurrentToppings.Count > 0)
-            {
-                AddToppings(guiData);
-            }
+            PopulateBasePrice();
         }
+
+
         #endregion
 
         #region Methods
+
+        private void PopulateBasePrice()
+        {
+            BasePrice = Prices.GetPizzaBasePrice(PizzaType);
+        }
         public override void PopulateDisplayName(CustomerSelections guiData)
         {
             ItemName = DisplayNames.GetPizzaDisplayName(guiData.PizzaType);
@@ -51,6 +56,43 @@ namespace Zipline2.Models
                 PizzaToppings.ToppingsTotal;
         }
 
+        public void ChangePizzaBase(PizzaBase baseChangeTo)
+        {
+            Base = baseChangeTo;
+            if (Base == PizzaBase.Regular)
+            {
+                if (PizzaType == PizzaType.PestoWhitePan)
+                {
+                    PizzaType = PizzaType.SatchPan;
+                }
+                else if (PizzaType == PizzaType.PestoWhiteMedium)
+                {
+                    PizzaType = PizzaType.Medium;
+                }
+                else if (PizzaType == PizzaType.PestoWhiteLarge)
+                {
+                    PizzaType = PizzaType.Large;
+                }
+            } 
+            else
+            {
+                if (PizzaType == PizzaType.SatchPan)
+                {
+                    PizzaType = PizzaType.PestoWhitePan;
+                }
+                else if (PizzaType == PizzaType.Medium)
+                {
+                    PizzaType = PizzaType.PestoWhiteMedium;
+                }
+                else if (PizzaType == PizzaType.Large)
+                {
+                    PizzaType = PizzaType.PestoWhiteLarge;
+                }
+            }
+            PopulateBasePrice();
+            PizzaToppings.UpdateToppingsTotal();
+
+        }
         public static decimal CalculatePizzaItemCostNoTax(PizzaType pizzaType, int numberOfItems, Toppings toppings = null)
         {
             var basePrice = Prices.GetPizzaBasePrice(pizzaType);
@@ -98,10 +140,11 @@ namespace Zipline2.Models
             }
             return PizzaType.None;
         }
-
-        public void AddToppings(CustomerSelections guiData)
+        
+        public void AddToppings(Toppings toppings)
         {
-            PizzaToppings = guiData.Toppings; 
+            PizzaToppings = toppings;
+            PopulatePricePerItem(null);
         }
         #endregion
     }

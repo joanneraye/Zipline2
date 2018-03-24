@@ -292,7 +292,6 @@ namespace Zipline2.Pages
         {
             pizzaPageModel = new PizzaPageModel();
             InitializeComponent();
-            //MenuHeaderView.BindingContext = pizzaPageModel.MenuHeaderModel;
 
             sliceButton = PizzaGrid.FindByName<Button>("Slice");
             mediumButton = PizzaGrid.FindByName<Button>("Medium");
@@ -307,17 +306,22 @@ namespace Zipline2.Pages
             majorMfpButton = PizzaGrid.FindByName<Button>("MajorMfp");
             majorSatchPanButton = PizzaGrid.FindByName<Button>("MajorSatchPan");
             MajorSliceIsSelected = true;
+            var menuHeaderModel = MenuHeaderModel.GetInstance();
+            menuHeaderModel.PizzaName = string.Empty;
+            menuHeaderModel.ItemTotal = 0M;
+            menuHeaderModel.OrderTotal = OrderManager.GetInstance().OrderInProgress.Total;
         }
         #endregion
 
         #region Methods
         async Task DisplayToppingsPage()
         {
+            var orderManager = OrderManager.GetInstance();
             //Update the current table to indicate it is occupied.
             Table currentTable = OrderManager.GetInstance().GetCurrentTable();
             currentTable.IsOccupied = true;
-            OrderManager.GetInstance().UpdateCurrentTable(currentTable);
-            ToppingsPage ToppingsPage = new ToppingsPage(pizzaType);
+            orderManager.UpdateCurrentTable(currentTable);
+            ToppingsPage ToppingsPage = new ToppingsPage(orderManager.GetCurrentPizza());
             await Navigation.PushAsync(ToppingsPage);
         }
 

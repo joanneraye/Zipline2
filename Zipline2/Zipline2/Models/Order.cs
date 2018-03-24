@@ -18,7 +18,7 @@ namespace Zipline2.Models
         [PrimaryKey, AutoIncrement, Column("id")]
         public int OrderNumberId { get; set; }
 
-        private List<OrderItem> OrderItems;
+        public List<OrderItem> OrderItems { get; private set; }
 
         [Column("subtotal")]
         public decimal SubTotal { get; private set; }
@@ -45,10 +45,12 @@ namespace Zipline2.Models
         //automatically updated.
         public void AddItemToOrder(OrderItem item)
         {
-            SubTotal += item.Total;
-            Tax = SubTotal * HelperMethods.GetTaxAmount(SubTotal);  
-            Total = SubTotal + Tax;
-            OrderItems.Add(item);
+            if (item != null)
+            {
+                SubTotal += item.Total;
+                Total = SubTotal + HelperMethods.GetTaxAmount(SubTotal);
+                OrderItems.Add(item);
+            }
         }
 
     }

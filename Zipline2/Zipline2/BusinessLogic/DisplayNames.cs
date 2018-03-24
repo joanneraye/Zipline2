@@ -33,8 +33,8 @@ namespace Zipline2.BusinessLogic
             { ToppingName.DAIYA, "DAIYA" },
             { ToppingName.ExtraCheese, "Extra Cheese" },
             { ToppingName.ExtraMozarellaCalzone, "Extra Mozarella (Calzone)" },
-            { ToppingName.ExtraPSauceOP, "Extra Pasta Sauce On Pizza" },
-            { ToppingName.ExtraPSauceOS, "Extra Pasta Sauce On Side" },
+            { ToppingName.ExtraPSauceOP, "Extra Pizza Sauce On Pizza" },
+            { ToppingName.ExtraPSauceOS, "Extra Pizza Sauce On Side" },
             { ToppingName.ExtraRicottaCalzone, "Extra Ricotta (Calzone)" },
             { ToppingName.Feta, "Feta" },
             { ToppingName.Garlic, "Garlic" },
@@ -66,7 +66,20 @@ namespace Zipline2.BusinessLogic
             { ToppingName.LightMozarella, "Light Mozarella" },
             { ToppingName.LightRicotta, "Light Ricotta" },
             { ToppingName.NoButter, "No Butter" },
-            { ToppingName.NoSauce, "No Sauce" }
+            { ToppingName.NoSauce, "No Sauce" },
+            { ToppingName.LightCook, "Light Cook" },
+            { ToppingName.CrispyCook, "Crispy Cook" },
+            { ToppingName.KidCook, "Kid Cook" },
+            { ToppingName.ButterOk, "Butter OK" },
+            { ToppingName.CutInto12, "Cut Into 12" },
+            { ToppingName.Joiner, "JOINER" },
+            { ToppingName.NoCut, "No Cut" },
+            { ToppingName.OutFirst, "Out First" },
+            { ToppingName.SaladWithOrder, "Salad With Order" },
+            { ToppingName.SliceCutInHalfSamePlate, "Slice cut in half Same Plate" },
+            { ToppingName.SliceCutInHalfSepPlate, "Slice cut in half Separate Plate" },
+            { ToppingName.TakeoutBring2Table, "Takeout Bring To Table" },
+            { ToppingName.TakeoutKeepInKitch, "Takeout Keep In Kitchen" },
         };
 
         public static string GetPizzaDisplayName(PizzaType displayDictionaryKey)

@@ -25,6 +25,7 @@ namespace Zipline2.Models
         public SpecialPricingType SpecialPricingType { get; set; }
 
         public decimal SpecialPriceChange { get; set; }
+
         #endregion
 
         #region Constructor
