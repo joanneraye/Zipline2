@@ -7,6 +7,9 @@ using Zipline2.Pages;
 
 namespace Zipline2.BusinessLogic
 {
+    /// <summary>
+    /// Instantiates objects derrived from OrderItems.
+    /// </summary>
     public sealed class OrderItemFactory
     {
         public OrderItemFactory()
@@ -16,7 +19,6 @@ namespace Zipline2.BusinessLogic
 
         public static OrderItem GetOrderItem(CustomerSelections guiData)
         {
-           
             switch (guiData.MenuItemGeneralCategory)
             {
                 case Enums.MenuCategory.Pizza:

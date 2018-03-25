@@ -4,9 +4,6 @@ using System.Text;
 using SQLite;
 using Zipline2.BusinessLogic;
 using Zipline2.BusinessLogic.Enums;
-using Zipline2.BusinessLogic.DictionaryKeys;
-using Zipline2.Interfaces;
-using Zipline2.Pages;
 
 namespace Zipline2.Models
 {
@@ -14,7 +11,7 @@ namespace Zipline2.Models
     public class Pizza : OrderItem
     {
         #region Properties
-        public Toppings PizzaToppings { get; set; }
+        public Toppings Toppings { get; set; }
         public MajorOrMama MajorMamaInfo { get; set; }
         public PizzaType PizzaType { get; set; }
         public PizzaCrust Crust { get; set; }
@@ -23,37 +20,31 @@ namespace Zipline2.Models
         #endregion
 
         #region Constructor
-        public Pizza()
-        {
-            PizzaToppings = new Toppings(this);
-        }
-        public Pizza(CustomerSelections guiData) : this()
+        public Pizza(CustomerSelections guiData)
         {
             MajorMamaInfo = guiData.MajorOrMama;
             Crust = guiData.PizzaCrustType;
             Size = guiData.PizzaSize;
             PizzaType = guiData.PizzaType;
+            Toppings = new Toppings(PizzaType);
             PopulateBasePrice();
         }
-
-
         #endregion
 
         #region Methods
-
         private void PopulateBasePrice()
         {
             BasePrice = Prices.GetPizzaBasePrice(PizzaType);
         }
-        public override void PopulateDisplayName(CustomerSelections guiData)
+        public override void PopulateDisplayName()
         {
-            ItemName = DisplayNames.GetPizzaDisplayName(guiData.PizzaType);
+            ItemName = DisplayNames.GetPizzaDisplayName(PizzaType);
         }
 
-        public override void PopulatePricePerItem(CustomerSelections guiData)
+        public override void PopulatePricePerItem()
         {
             PricePerItem = BasePrice + 
-                PizzaToppings.ToppingsTotal;
+                Toppings.ToppingsTotal;
         }
 
         public void ChangePizzaBase(PizzaBase baseChangeTo)
@@ -89,28 +80,35 @@ namespace Zipline2.Models
                     PizzaType = PizzaType.PestoWhiteLarge;
                 }
             }
+
+            //Base price and toppings price will change due to the base change.
             PopulateBasePrice();
-            PizzaToppings.UpdateToppingsTotal();
-
+            Toppings.UpdateToppingsTotal();
         }
-        public static decimal CalculatePizzaItemCostNoTax(PizzaType pizzaType, int numberOfItems, Toppings toppings = null)
+       
+        //The PizzaType is used for pricing and so is combination of crust, size, base, etc.
+        public static PizzaType GetPizzaType(PizzaSize size, PizzaCrust crust, PizzaBase pizzaBase = PizzaBase.Regular)
         {
-            var basePrice = Prices.GetPizzaBasePrice(pizzaType);
-            decimal subtotal = 0M;
-            if (toppings != null && toppings.ToppingsTotal != 0)
+            switch (pizzaBase)
             {
-                subtotal = (basePrice + toppings.ToppingsTotal) * numberOfItems;
+                case PizzaBase.Regular:
+                    break;
+                case PizzaBase.Pesto:
+                case PizzaBase.White:
+                    if (crust == PizzaCrust.SatchPan)
+                    {
+                        return PizzaType.PestoWhitePan;
+                    }
+                    else if (size == PizzaSize.Medium)
+                    {
+                        return PizzaType.PestoWhiteMedium;
+                    }
+                    else if (size == PizzaSize.Large)
+                    {
+                        return PizzaType.PestoWhiteLarge;
+                    }
+                    break;
             }
-            else
-            {
-                subtotal = basePrice * numberOfItems;
-            }
-           
-            return subtotal;
-        }
-
-        public static PizzaType GetPizzaType(PizzaSize size, PizzaCrust crust)
-        {
             switch (size)
             {
                 case PizzaSize.Indy:
@@ -141,11 +139,27 @@ namespace Zipline2.Models
             return PizzaType.None;
         }
         
-        public void AddToppings(Toppings toppings)
-        {
-            PizzaToppings = toppings;
-            PopulatePricePerItem(null);
-        }
+        //public void AddToppings(Toppings toppings)
+        //{
+        //    Toppings = toppings;
+        //    PopulatePricePerItem();
+        //}
         #endregion
+        //Not sure if this will be needed??
+        //public static decimal CalculatePizzaItemCostNoTax(PizzaType pizzaType, int numberOfItems, Toppings toppings = null)
+        //{
+        //    var basePrice = Prices.GetPizzaBasePrice(pizzaType);
+        //    decimal subtotal = 0M;
+        //    if (toppings != null && toppings.ToppingsTotal != 0)
+        //    {
+        //        subtotal = (basePrice + toppings.ToppingsTotal) * numberOfItems;
+        //    }
+        //    else
+        //    {
+        //        subtotal = basePrice * numberOfItems;
+        //    }
+
+        //    return subtotal;
+        //}
     }
 }

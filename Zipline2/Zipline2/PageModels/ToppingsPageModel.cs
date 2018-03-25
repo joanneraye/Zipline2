@@ -23,11 +23,11 @@ namespace Zipline2.PageModels
             private bool listItemIsSelected = false;
             private Color selectionColor;
             private Color wButtonTextColor;
-            
+
             #endregion
 
             #region Command Variables
-            
+
             public System.Windows.Input.ICommand AButtonCommand { get; set; }
             public System.Windows.Input.ICommand BButtonCommand { get; set; }
             public System.Windows.Input.ICommand WButtonCommand { get; set; }
@@ -112,9 +112,6 @@ namespace Zipline2.PageModels
                 }
             }
 
-
-            
-
             public Color WButtonTextColor
             {
                 get
@@ -155,35 +152,45 @@ namespace Zipline2.PageModels
             {
                 parentToppingsPageModel.SelectButtonWAB(ToppingWholeHalf.Whole, SelectionIndex);
             }
-  
+
             #endregion
         }
         //******************************NOTE IMBEDDED CLASS************************
-      
+
         #region Private Variables
         private ObservableCollection<ToppingSelection> toppingSelectionsList;
         private ToppingSelection selectedToppingItem;
-        
-        private Toppings toppings;
+        private Pizza thisPizza;
         #endregion
 
         #region Properties
-        public Pizza ThisPizza { get; private set; }
-     
-        public Toppings Toppings
+        public Pizza ThisPizza
         {
             get
             {
-                return toppings;
+                return thisPizza;
             }
-            set
+            private set
             {
-                SetProperty(ref toppings, value);
-                ThisPizza.AddToppings(toppings);
-                MenuHeaderModel.GetInstance().UpdateItemTotal(ThisPizza.BasePrice, toppings.ToppingsTotal);
-              
+                SetProperty(ref thisPizza, value);
             }
         }
+
+        
+        //public Toppings Toppings
+        //{
+        //    get
+        //    {
+        //        return toppings;
+        //    }
+        //    set
+        //    {
+        //        SetProperty(ref toppings, value);
+        //        ThisPizza.AddToppings(toppings);
+        //        MenuHeaderModel.GetInstance().UpdateItemTotal(ThisPizza.BasePrice, toppings.ToppingsTotal);
+
+        //    }
+        //}
         public List<ToppingSelection> SelectedItems = new List<ToppingSelection>();
         public ObservableCollection<ToppingSelection> ToppingSelectionsList
         {
@@ -229,58 +236,7 @@ namespace Zipline2.PageModels
                 "Crispy Cook", "Kid Cook", "Light Cook", "Regular Cook"
             };
 
-            var toppingsList = new List<Topping>()
-            {
-                new Topping(ToppingName.Anchovies),
-                new Topping(ToppingName.Artichokes),
-                new Topping(ToppingName.Bacon),
-                new Topping(ToppingName.BananaPeppers),
-                new Topping(ToppingName.Basil),
-                new Topping(ToppingName.Beef),
-                new Topping(ToppingName.BlackOlives),
-                new Topping(ToppingName.Broccoli),
-                new Topping(ToppingName.Carrots),
-                new Topping(ToppingName.Cheese),
-                new Topping(ToppingName.DAIYA),
-                new Topping(ToppingName.Deep) {SpecialPricingType = SpecialPricingType.Unknown},
-                new Topping(ToppingName.ExtraCheese),
-                new Topping(ToppingName.ExtraMozarellaCalzone),
-                new Topping(ToppingName.ExtraPSauceOS),
-                new Topping(ToppingName.ExtraPSauceOP),
-                new Topping(ToppingName.ExtraRicottaCalzone),
-                new Topping(ToppingName.Feta),
-                new Topping(ToppingName.Garlic) ,
-                new Topping(ToppingName.GreenOlives),
-                new Topping(ToppingName.GreenPeppers),
-                new Topping(ToppingName.HalfMajor)
-                            { ToppingWholeHalf = ToppingWholeHalf.HalfA},
-                new Topping(ToppingName.Jalapenos),
-                new Topping(ToppingName.Meatballs),
-                new Topping(ToppingName.Mushrooms),
-                new Topping(ToppingName.NoCheese) {SpecialPricingType = SpecialPricingType.GetExtraTopping},
-                new Topping(ToppingName.Onion),
-                new Topping(ToppingName.PestoTopping) ,
-                new Topping(ToppingName.Pepperoni),
-                new Topping(ToppingName.Pineapple),
-                new Topping(ToppingName.RedOnions),
-                new Topping(ToppingName.Ricotta),
-                new Topping(ToppingName.RoastedRedPepper),
-                new Topping(ToppingName.Sausage),
-                new Topping(ToppingName.Spinach),
-                new Topping(ToppingName.Steak),
-                new Topping(ToppingName.SundriedTomatoes),
-                new Topping(ToppingName.Teese) {SpecialPricingType = SpecialPricingType.AddorSubtractAmount},
-                new Topping(ToppingName.TempehBBQ),
-                new Topping(ToppingName.TempehOriginal),
-                new Topping(ToppingName.Tomatoes),
-                new Topping(ToppingName.Zucchini),
-                new Topping(ToppingName.LightSauce) {SpecialPricingType = SpecialPricingType.Free},
-                new Topping(ToppingName.LightMozarella) {SpecialPricingType = SpecialPricingType.Free},
-                new Topping(ToppingName.LightRicotta) {SpecialPricingType = SpecialPricingType.Free},
-                new Topping(ToppingName.NoButter) {SpecialPricingType = SpecialPricingType.Free},
-                new Topping(ToppingName.NoSauce) {SpecialPricingType = SpecialPricingType.Free}              
-            };
-
+            var toppingsList = Toppings.AllToppings;
             ToppingSelectionsList = new ObservableCollection<ToppingSelection>();
             for (int i = 0; i < toppingsList.Count; i++)
             {
@@ -308,16 +264,12 @@ namespace Zipline2.PageModels
            
             if (ThisPizza != null)
             {
-                toppings = new Toppings(ThisPizza);
                 if (ThisPizza.MajorMamaInfo == MajorOrMama.Major)
                 {
                     SelectMajorToppings();
-                    toppings.AddMajorToppings();
+                    ThisPizza.Toppings.AddMajorToppings();
                 }
             }
-            //NOTE:  Modifying Toppings directly instead of 
-            //explicitly setting it here does not trigger bindings.
-            Toppings = toppings;
         }
         #endregion
 
@@ -369,8 +321,11 @@ namespace Zipline2.PageModels
                     thisItemSelected.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
                     thisItemSelected.ListItemIsSelected = true;
                 }
+
+                //The topping may already have been added, but is being changed to half.
+                //If the topping has not already been added, will need to add it (for half).
                 bool toppingAlreadyAdded = false;
-                foreach (var topping in toppings.CurrentToppings)
+                foreach (var topping in thisPizza.Toppings.CurrentToppings)
                 {
                     if (topping.ToppingName == thisItemSelected.ListTopping.ToppingName)
                     {
@@ -380,19 +335,20 @@ namespace Zipline2.PageModels
                 }
                 if (toppingAlreadyAdded)
                 {
-                    toppings.UpdateToppingsTotal();
+                    //TODO:  This may not be needed if done automatically????
+                    thisPizza.Toppings.UpdateToppingsTotal();
                 }
                 else
                 {
-                    thisItemSelected.ListTopping.SequenceSelected = toppings.CurrentToppings.Count + 1;
-                    toppings.AddTopping(thisItemSelected.ListTopping);
+                    thisItemSelected.ListTopping.SequenceSelected = thisPizza.Toppings.CurrentToppings.Count + 1;
+                    thisPizza.Toppings.AddTopping(thisItemSelected.ListTopping);
                 }
                 ChangeButtonSelection(thisItemSelected, wholeOrHalf);
             }
             
             //NOTE:  Modifying Toppings through private variable instead of 
             //explicitly setting the property (as done below) does not trigger bindings.
-            Toppings = toppings;
+            //Toppings = toppings;
         }
 
         private void ProcessHalfMajorSelectionOfSide(ToppingSelection thisItemSelected)
@@ -411,16 +367,16 @@ namespace Zipline2.PageModels
                 thisItemSelected.SelectionColor = Color.CornflowerBlue;
                 ChangeButtonSelection(thisItemSelected, thisItemSelected.ListTopping.ToppingWholeHalf);
             }
-           
-            toppings.AddMajorToppings();
+
+            thisPizza.Toppings.AddMajorToppings();
             switch (thisItemSelected.ListTopping.ToppingWholeHalf)
             {
                 case ToppingWholeHalf.HalfA:
-                    toppings.ChangeMajorToppingsHalf(ToppingWholeHalf.HalfA);
+                    thisPizza.Toppings.ChangeMajorToppingsHalf(ToppingWholeHalf.HalfA);
 
                     break;
                 case ToppingWholeHalf.HalfB:
-                    toppings.ChangeMajorToppingsHalf(ToppingWholeHalf.HalfB);
+                    thisPizza.Toppings.ChangeMajorToppingsHalf(ToppingWholeHalf.HalfB);
                     break;
             }
             ChangeButtonSelection(thisItemSelected, thisItemSelected.ListTopping.ToppingWholeHalf);

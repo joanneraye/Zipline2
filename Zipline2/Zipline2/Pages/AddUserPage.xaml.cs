@@ -40,7 +40,7 @@ namespace Zipline2.Pages
             User newUser = new User(AddUserPageModel.NewUserName,
                     false, AddUserPageModel.NewUserPin);
 
-            Users.GetInstance().ChangeLoggedInUser(newUser);
+            Users.Instance.ChangeLoggedInUser(newUser);
 
             //TODO:  Whenever a user is changed, write to file.
 
@@ -53,7 +53,7 @@ namespace Zipline2.Pages
             {
                 await DisplayAlert("Oops", "PIN cannot be all the same number or consecutive numbers", "OK");
             }
-            else if (Users.GetInstance().PinAlreadyUsed(AddUserPageModel.NewUserPin))
+            else if (Users.Instance.PinAlreadyUsed(AddUserPageModel.NewUserPin))
             {
                 await DisplayAlert("Oops", "Sorry, this PIN is already being used.  Since it will identify you, it must not be the same as any other Satchel's employee.", "OK");
             }
@@ -66,7 +66,7 @@ namespace Zipline2.Pages
                 User newUser = new User(AddUserPageModel.NewUserName,
                     false, AddUserPageModel.NewUserPin);
 
-                Users.GetInstance().AddNewUser(newUser);
+                Users.Instance.AddNewUser(newUser);
 
                 //TODO:  Whenever a new user is added, write to file.
                 

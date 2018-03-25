@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Zipline2.BusinessLogic.DictionaryKeys;
-using System.Text;
 using Zipline2.BusinessLogic.Enums;
 
 namespace Zipline2.BusinessLogic
@@ -11,12 +9,17 @@ namespace Zipline2.BusinessLogic
         private static Dictionary<PizzaType, string> DisplayPizzaNameDictionary = new Dictionary<PizzaType, string>
         {
             { PizzaType.ThinSlice, "Pizza Slice" },
+            { PizzaType.PanSlice, "Satch-Pan Slice" },
             { PizzaType.Medium, "Medium Pizza" },
             { PizzaType.Large, "Large Pizza" },
             { PizzaType.Calzone, "Calzone" },
+            { PizzaType.CalzoneSteakAndCheese, "Calzone - Steak and Cheese" },
             { PizzaType.SatchPan, "Satch-Pan" },
             { PizzaType.Mfp, "Millet Flax Pizza" },
-            { PizzaType.Indy, "Indy Pizza" }
+            { PizzaType.Indy, "Indy Pizza" },
+            { PizzaType.PestoWhitePan, "Special Base Pan" },
+            { PizzaType.PestoWhiteMedium, "Special Base Medium" },
+            { PizzaType.PestoWhiteLarge, "Special Base Large" },
         };
 
         private static Dictionary<ToppingName, string> DisplayToppingNameDictionary = new Dictionary<ToppingName, string>
@@ -61,7 +64,7 @@ namespace Zipline2.BusinessLogic
             { ToppingName.Tomatoes, "Tomatoes" },
             { ToppingName.Zucchini, "Zucchini" },
             { ToppingName.Cheese, "Cheese" },
-            { ToppingName.Deep, "Deep" },
+            { ToppingName.Deep, "PAN" },
             { ToppingName.LightSauce, "Light Sauce" },
             { ToppingName.LightMozarella, "Light Mozarella" },
             { ToppingName.LightRicotta, "Light Ricotta" },

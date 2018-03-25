@@ -22,12 +22,10 @@ namespace Zipline2.Models
 
         [Column("subtotal")]
         public decimal SubTotal { get; private set; }
-
-        [Column("total")]
-        public decimal Total { get; private set; }
-
         [Column("tax")]
         public decimal Tax { get; private set; }
+        [Column("total")]
+        public decimal Total { get; private set; }
 
         [Column("istakeout")]
         public bool IsTakeout { get; set; }

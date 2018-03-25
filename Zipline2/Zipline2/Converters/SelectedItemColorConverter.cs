@@ -10,7 +10,7 @@ namespace Zipline2.Converters
     /// This converter returns the color of the button background
     /// depending on whether the button is selected or not.
     /// </summary>
-    public class SelectedItemToBlueConverter : IValueConverter
+    public class SelectedItemColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -21,7 +21,7 @@ namespace Zipline2.Converters
             }
             else
             {
-                return null;
+                return Xamarin.Forms.Color.Black;
             }
             if (isSelected)
             {

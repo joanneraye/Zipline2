@@ -1,24 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Zipline2.BusinessLogic.Enums;
 
 namespace Zipline2.Models
 {
     public class Dessert : OrderItem
     {
+        DessertType DessertType; 
         public Dessert(CustomerSelections guiData)
         {
-
+            
         }
 
-        public override void PopulateDisplayName(CustomerSelections guiData)
+        public override void PopulateDisplayName()
         {
-            throw new NotImplementedException();
+           //ItemName = DisplayNames.Get????PopulateDisplayName...
         }
 
-        public override void PopulatePricePerItem(CustomerSelections guiData)
+        public override void PopulatePricePerItem()
         {
-            throw new NotImplementedException();
+            //BasePrice = Prices.GetDessertPrice(DessertType);
         }
     }
 }

@@ -1,11 +1,7 @@
 ﻿using Newtonsoft.Json;
-using PCLStorage;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
-using System.Threading.Tasks;
-using Zipline2.BusinessLogic.DictionaryKeys;
 using Zipline2.BusinessLogic.Enums;
 
 namespace Zipline2.BusinessLogic
@@ -13,33 +9,32 @@ namespace Zipline2.BusinessLogic
 {
     public static class Prices
     {
+        //TODO:  Put prices in a file that if it exists is read in and replaces
+        //       current data.  Can make another program for this file to be edited
+        //       by the restaurant to change pricing.
 
         //public async Task CreateFileAsync()
         //{
         //    IFolder rootFolder = FileSystem.Current.LocalStorage;
-
         //    IFolder folder = await rootFolder.CreateFolderAsync("SatchelsFiles", CreationCollisionOption.OpenIfExists);
-
         //    IFile file = await folder.CreateFileAsync("SatchelsPrices", CreationCollisionOption.ReplaceExisting);
-
         //    await file.
-            
-
         //}
-       public static void WritePricesToJsonFile()
-        {
-            string jsonPrices = JsonConvert.SerializeObject(BasePriceDictionary);
-            File.WriteAllText(@"c:\satchelsprices.json", jsonPrices);            
-        }
 
-        public static void ReadPricesFromJsonFile()
-        {
-            PricesFromJsonFile =
-                JsonConvert.DeserializeObject<Dictionary<string, decimal>>
-                (File.ReadAllText(@"c:\satchelsprices.json"));
-        }
+       //public static void WritePricesToJsonFile()
+       // {
+       //     string jsonPrices = JsonConvert.SerializeObject(BasePriceDictionary);
+       //     File.WriteAllText(@"c:\satchelsprices.json", jsonPrices);            
+       // }
 
-        public static Dictionary<string, decimal> PricesFromJsonFile;
+        //public static void ReadPricesFromJsonFile()
+        //{
+        //    PricesFromJsonFile =
+        //        JsonConvert.DeserializeObject<Dictionary<string, decimal>>
+        //        (File.ReadAllText(@"c:\satchelsprices.json"));
+        //}
+
+        //public static Dictionary<string, decimal> PricesFromJsonFile;
 
         public static Dictionary<PizzaType, decimal> BasePriceDictionary = new Dictionary<PizzaType, decimal>
         {

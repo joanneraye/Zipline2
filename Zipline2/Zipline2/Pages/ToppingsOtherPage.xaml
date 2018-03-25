@@ -7,7 +7,7 @@
              x:Class="Zipline2.Pages.ToppingsOtherPage">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <converters:SelectedItemToBlueConverter x:Key="selectedItemToBlueConverter"/>
+            <converters:SelectedItemColorConverter x:Key="selectedItemToBlueConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>

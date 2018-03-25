@@ -17,7 +17,7 @@ namespace Zipline2
         {
             InitializeComponent();
            
-            if (!Users.GetInstance().IsUserLoggedIn)
+            if (!Users.Instance.IsUserLoggedIn)
             {
                 MainPage = new NavigationPage(new LoginPage())
                 {
@@ -40,11 +40,12 @@ namespace Zipline2
             User joanne = new User("Joanne", true, "8011");
             User satch = new User("Satch", true, "1168");
             User jim = new User("Jim", true, "4321");
-            Users.GetInstance().AddNewUser(joanne);
-            Users.GetInstance().AddNewUser(satch);
-            Users.GetInstance().AddNewUser(jim);
+            Users.Instance.AddNewUser(joanne);
+            Users.Instance.AddNewUser(satch);
+            Users.Instance.AddNewUser(jim);
 
             Tables.LoadInitialTableData();
+            Toppings.LoadInitialToppings();
         }
 
         protected override void OnSleep()

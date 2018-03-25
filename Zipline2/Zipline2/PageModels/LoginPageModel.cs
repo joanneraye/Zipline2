@@ -29,7 +29,7 @@ namespace Zipline2.PageModels
             {
                 if (value != null &&
                     value.Length == 4 &&
-                    Users.GetInstance().AuthenticateUser(value))
+                    Users.Instance.AuthenticateUser(value))
                 {
                     IsPinValidUser = true;
                 }

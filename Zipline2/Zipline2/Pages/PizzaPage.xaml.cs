@@ -306,22 +306,22 @@ namespace Zipline2.Pages
             majorMfpButton = PizzaGrid.FindByName<Button>("MajorMfp");
             majorSatchPanButton = PizzaGrid.FindByName<Button>("MajorSatchPan");
             MajorSliceIsSelected = true;
-            var menuHeaderModel = MenuHeaderModel.GetInstance();
-            menuHeaderModel.PizzaName = string.Empty;
-            menuHeaderModel.ItemTotal = 0M;
-            menuHeaderModel.OrderTotal = OrderManager.GetInstance().OrderInProgress.Total;
+            //var menuHeaderModel = MenuHeaderModel.Instance;
+            //menuHeaderModel.PizzaName = string.Empty;
+            //menuHeaderModel.ItemTotal = 0M;
+            //menuHeaderModel.OrderTotal = OrderManager.Instance.OrderInProgress.Total;
         }
         #endregion
 
         #region Methods
         async Task DisplayToppingsPage()
         {
-            var orderManager = OrderManager.GetInstance();
-            //Update the current table to indicate it is occupied.
-            Table currentTable = OrderManager.GetInstance().GetCurrentTable();
-            currentTable.IsOccupied = true;
-            orderManager.UpdateCurrentTable(currentTable);
-            ToppingsPage ToppingsPage = new ToppingsPage(orderManager.GetCurrentPizza());
+            var orderManager = OrderManager.Instance;
+            OrderManager.Instance.MarkCurrentTableOccupied(true);
+            var currentPizza = orderManager.GetCurrentPizza();
+            MenuHeaderModel.Instance.ItemTotal = currentPizza.PricePerItem;
+            ToppingsPage ToppingsPage = new ToppingsPage(currentPizza);
+         
             await Navigation.PushAsync(ToppingsPage);
         }
 
@@ -375,7 +375,7 @@ namespace Zipline2.Pages
             MajorSatchPanIsSelected = true;
         }
 
-        public PizzaSize GetPizzaSizeSelected()
+        private PizzaSize GetPizzaSizeSelected()
         {
             PizzaSize sizeSelected = PizzaSize.OneSize;
             if (SliceIsSelected)
@@ -397,7 +397,7 @@ namespace Zipline2.Pages
             return sizeSelected;
         }
 
-        public PizzaType GetMajorSizeSelected()
+        private PizzaType GetMajorSizeSelected()
         {
             PizzaType sizeSelected = PizzaType.ThinSlice;
             if (MajorSliceIsSelected)
@@ -440,7 +440,7 @@ namespace Zipline2.Pages
                 NumberOfItems = 1
             };
 
-            OrderManager.GetInstance().AddItemInProgress(guiData);
+            OrderManager.Instance.AddItemInProgress(guiData);
 
             await DisplayToppingsPage();
         }
@@ -483,9 +483,8 @@ namespace Zipline2.Pages
                     guiData.PizzaCrustType = PizzaCrust.RegularThin;
                     break;
             }
-
  
-            OrderManager.GetInstance().AddItemInProgress(guiData);
+            OrderManager.Instance.AddItemInProgress(guiData);
 
             await DisplayToppingsPage();
 
@@ -502,7 +501,7 @@ namespace Zipline2.Pages
                 NumberOfItems = 1
             };
 
-            OrderManager.GetInstance().AddItemInProgress(guiData);
+            OrderManager.Instance.AddItemInProgress(guiData);
 
             await DisplayToppingsPage();
         }
@@ -518,7 +517,7 @@ namespace Zipline2.Pages
                 NumberOfItems = 1
             };
 
-            OrderManager.GetInstance().AddItemInProgress(guiData);
+            OrderManager.Instance.AddItemInProgress(guiData);
 
             await DisplayToppingsPage();
         }

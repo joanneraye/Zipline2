@@ -18,7 +18,7 @@ namespace Zipline2.Views
         public MenuHeaderView()
 		{
             InitializeComponent();
-            BindingContext = MenuHeaderModel.GetInstance();
+            BindingContext = MenuHeaderModel.Instance;
         }
 
         async public void TablesButtonClicked(object sender, EventArgs e)
@@ -28,7 +28,7 @@ namespace Zipline2.Views
 
         async public void NextButtonClicked(object sender, EventArgs e)
         {
-            OrderManager.GetInstance().AddItemInProgressToOrder();
+            OrderManager.Instance.AddItemInProgressToOrder();
             await Navigation.PushAsync(new PizzaPage());
         }
     }

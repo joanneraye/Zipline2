@@ -4,34 +4,35 @@ using System.Text;
 
 namespace Zipline2.Models
 {
-    public class Users
+    public sealed class Users
     {
-        #region Singleton Class Logic
-        //This is a singleton class:
-        private static Users Instance;
-
+        #region Singleton Class
+        private static Users instance = null;
+        private static readonly object padlock = new object();
         private Users()
         {
             AllUsers = new List<User>();
         }
-
-        public static Users GetInstance()
+        public static Users Instance
         {
-            if (Instance == null)
+            get
             {
-                Instance = new Users();
+                lock (padlock)
+                {
+                    if (instance == null)
+                    {
+                        instance = new Users();
+                    }
+                    return instance;
+                }
             }
-
-            return Instance;
         }
-
         #endregion
 
 
         #region Properties
         private List<User> AllUsers { get; set; }
         public bool IsUserLoggedIn { get; set; }
-
         public User LoggedInUser { get; set; }
         #endregion
 
@@ -41,6 +42,10 @@ namespace Zipline2.Models
             AllUsers.Add(newUser);
         }
 
+        /// <summary>
+        /// Used for user to change PIN and/or name.
+        /// </summary>
+        /// <param name="changedUser"></param>
         public void ChangeLoggedInUser(User changedUser)
         {
             AllUsers.Remove(LoggedInUser);

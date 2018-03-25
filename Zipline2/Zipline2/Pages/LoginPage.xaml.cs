@@ -18,7 +18,7 @@ namespace Zipline2.Pages
         private const string YES = "Yup";
         private const string NO = "No Way Jose";
         LoginPageModel LoginPageModel;
-        Users Users = Users.GetInstance();
+        Users Users = Users.Instance;
         public LoginPage()
         {
             InitializeComponent();

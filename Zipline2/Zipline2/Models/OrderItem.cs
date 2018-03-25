@@ -1,11 +1,4 @@
 ﻿using SQLite;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Zipline2.BusinessLogic;
-using Zipline2.BusinessLogic.Enums;
-using Zipline2.Interfaces;
-using Zipline2.PageModels;
 
 namespace Zipline2.Models
 {
@@ -43,7 +36,7 @@ namespace Zipline2.Models
         
         /// <summary>
         /// The base price is the total of an item without toppings
-        /// or extras.  The PricePerItem is usually calculated starting 
+        /// or extras.  The PricePerItem may be calculated starting 
         /// with the BasePrice and making modifications to it.
         /// </summary>
         public decimal BasePrice { get; set; }
@@ -51,6 +44,9 @@ namespace Zipline2.Models
         #endregion
 
         #region Constructor
+        /// <summary>
+        /// Assume only one item unless changed.
+        /// </summary>
         public OrderItem()
         {
             ItemCount = 1;
@@ -69,13 +65,14 @@ namespace Zipline2.Models
         }
 
         /// <summary>
-        /// A derived class must populate it's display name.
+        /// A derived class must populate its display name.
         /// </summary>
-        /// <param name="guiData"></param>
-        public abstract void PopulateDisplayName(CustomerSelections guiData);
+        public abstract void PopulateDisplayName();
 
-
-        public abstract void PopulatePricePerItem(CustomerSelections guiData);
+        /// <summary>
+        /// A derived class must populate its price.
+        /// </summary>
+        public abstract void PopulatePricePerItem();
         #endregion
     }
 }

@@ -4,23 +4,27 @@ using System.Text;
 
 namespace Zipline2.Models
 {
-    public class Tables
+    public sealed class Tables
     {
-        #region Singleton Class Setup (Lazy reference needed?)
-        //This is a singleton class:
-        private static readonly Lazy<Tables> lazy =
-            new Lazy<Tables>(() => new Tables());
+        #region Singleton Class 
+        private static Tables instance = null;
+        private static readonly object padlock = new object();
+        private Tables()
+        {
+        }
         public static Tables Instance
         {
             get
             {
-                return lazy.Value;
+                lock (padlock)
+                {
+                    if (instance == null)
+                    {
+                        instance = new Tables();
+                    }
+                    return instance;
+                }
             }
-        }
-
-        private Tables()
-        {
-
         }
         #endregion (
 

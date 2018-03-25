@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Zipline2.Interfaces;
-
-
-namespace Zipline2.Models
+﻿namespace Zipline2.Models
 {
     public class LunchSpecial : OrderItem
     {
@@ -19,14 +13,14 @@ namespace Zipline2.Models
             return "Lunch Special (slice and salad)";
         }
        
-        public override void PopulateDisplayName(CustomerSelections guiData)
+        public override void PopulateDisplayName()
         {
-            throw new NotImplementedException();
+            //ItemName = DisplayNames.
         }
 
-        public override void PopulatePricePerItem(CustomerSelections guiData)
+        public override void PopulatePricePerItem()
         {
-            throw new NotImplementedException();
+            //BasePrice = Prices.
         }
     }
 }

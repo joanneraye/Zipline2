@@ -41,9 +41,6 @@ namespace Zipline2.PageModels
             }
         }
 
-        //Ideally we would expose this as a bindableproperty to the pages it is 
-        //imbedded in.  That way we can do a binding on this property in 
-        //the ToppingsPage.xaml, for example and Bind it with a ToppingsPage total.
         public decimal ItemTotal
         {
             get
@@ -53,9 +50,13 @@ namespace Zipline2.PageModels
             set
             {
                 SetProperty(ref itemTotal, value);
-                if (OrderManager.GetInstance().OrderItemInProgress != null)
+
+                //The order item has not been added to the order yet.  We will 
+                //add whatever this item total is to the current order total
+                //for our current order total.
+                if (OrderManager.Instance.OrderItemInProgress != null)
                 {
-                    var subTotal = OrderManager.GetInstance().OrderInProgress.Total + itemTotal;
+                    var subTotal = OrderManager.Instance.OrderInProgress.Total + itemTotal;
                     OrderTotal = subTotal + HelperMethods.GetTaxAmount(subTotal);
                 }
             }
@@ -86,23 +87,28 @@ namespace Zipline2.PageModels
             }
         }
         #endregion
-
-        private static MenuHeaderModel Instance;
+        private static MenuHeaderModel instance = null;
+        private static readonly object padlock = new object();
         private MenuHeaderModel()
         {
             itemTotal = 0M;
-            OrderTotal = OrderManager.GetInstance().OrderInProgress.Total;
-            UserName = Users.GetInstance().LoggedInUser.UserName;
-            TableName = OrderManager.GetInstance().GetCurrentTable().TableName;
+            OrderTotal = OrderManager.Instance.OrderInProgress.Total;
+            UserName = Users.Instance.LoggedInUser.UserName;
+            TableName = OrderManager.Instance.GetCurrentTable().TableName;
         }
-
-        public static MenuHeaderModel GetInstance()
+        public static MenuHeaderModel Instance
         {
-            if (Instance == null)
+            get
             {
-                Instance = new MenuHeaderModel();
+                lock (padlock)
+                {
+                    if (instance == null)
+                    {
+                        instance = new MenuHeaderModel();
+                    }
+                    return instance;
+                }
             }
-            return Instance;
         }
         #region Methods
         public void UpdateItemTotal(decimal basePrice, decimal toppingsTotal)

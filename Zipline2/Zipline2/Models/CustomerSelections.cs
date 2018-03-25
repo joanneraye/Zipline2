@@ -11,20 +11,15 @@ namespace Zipline2.Models
     //an object of this class in order to communicate with the business logic.
     public class CustomerSelections
     {
+        //TODO:  Make a more generic CustomerSelections class and then
+        //      this will be a derived class for Pizza Gui Data.
         public MenuCategory MenuItemGeneralCategory { get; set; }
 
         public PizzaSize PizzaSize { get; set; }
 
         public PizzaCrust PizzaCrustType { get; set; }
 
-        private PizzaType pizzaType;
-        public PizzaType PizzaType
-        {
-            get
-            {
-                return pizzaType;
-            }
-        }
+        public PizzaType PizzaType { get; private set; }
 
         public MajorOrMama MajorOrMama { get; set; }
 
@@ -32,7 +27,7 @@ namespace Zipline2.Models
 
         public CustomerSelections(PizzaType pizzatype)
         {
-            pizzaType = pizzatype;
+            PizzaType = pizzatype;
         }
     }
 }

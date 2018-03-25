@@ -11,12 +11,12 @@ namespace Zipline2.Models
 
         }
 
-        public override void PopulateDisplayName(CustomerSelections guiData)
+        public override void PopulateDisplayName()
         {
             throw new NotImplementedException();
         }
 
-        public override void PopulatePricePerItem(CustomerSelections guiData)
+        public override void PopulatePricePerItem()
         {
             throw new NotImplementedException();
         }

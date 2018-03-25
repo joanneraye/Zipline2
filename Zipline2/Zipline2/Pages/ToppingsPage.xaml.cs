@@ -1,20 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Zipline2.PageModels;
 using Zipline2.Models;
-using Zipline2.BusinessLogic;
-using Zipline2.BusinessLogic.DictionaryKeys;
 using Zipline2.BusinessLogic.Enums;
-using System.Drawing;
 using static Zipline2.PageModels.ToppingsPageModel;
-using CarouselView.FormsPlugin.Abstractions;
-using Zipline2.Views;
 
 namespace Zipline2.Pages
 {
@@ -23,8 +14,6 @@ namespace Zipline2.Pages
 	{
         #region Private Variables
         private ToppingsPageModel ToppingsPageModel;
-        private Toppings Toppings;
-        private Pizza CurrentPizza;
         private int CarouselSelectedPosition { get; set; }
         private ToppingsOtherPage ToppingsOtherPage { get; set; }
         #endregion
@@ -35,15 +24,16 @@ namespace Zipline2.Pages
             ToppingsPageModel = new ToppingsPageModel(currentPizza);
             InitializeComponent ();
             BindingContext = ToppingsPageModel;
-            CurrentPizza = currentPizza;
-           
-            MenuHeaderModel.GetInstance().PizzaName = currentPizza.ItemName;
-            Toppings = new Toppings(currentPizza);
+            //The ToppingsPage contains the MenuHeaderView with totals.
+            MenuHeaderModel.Instance.ItemTotal = currentPizza.PricePerItem;
+
+            MenuHeaderModel.Instance.PizzaName = currentPizza.ItemName;
+          
             if (currentPizza.MajorMamaInfo == MajorOrMama.Major)
             {
                 //TODO:  Combine the two following?
                 ToppingsPageModel.SelectMajorToppings();
-                Toppings.AddMajorToppings();
+                ToppingsPageModel.ThisPizza.Toppings.AddMajorToppings();
             }
         }
         #endregion
@@ -66,12 +56,12 @@ namespace Zipline2.Pages
                 if (thisSelection.ListItemIsSelected)   //If selected, toggle to unselect...
                 {
                     thisSelection.ListTopping.SequenceSelected = 0;
-                    Toppings.RemoveTopping(thisSelection.ListTopping.ToppingName);
+                    ToppingsPageModel.ThisPizza.Toppings.RemoveTopping(thisSelection.ListTopping.ToppingName);
                 }
                 else
                 {
-                    thisSelection.ListTopping.SequenceSelected = Toppings.CurrentToppings.Count + 1;
-                    Toppings.AddTopping(thisSelection.ListTopping);
+                    thisSelection.ListTopping.SequenceSelected = ToppingsPageModel.ThisPizza.Toppings.CurrentToppings.Count + 1;
+                    ToppingsPageModel.ThisPizza.Toppings.AddTopping(thisSelection.ListTopping);
                 }
                 thisSelection.ListItemIsSelected = !thisSelection.ListItemIsSelected;
                 //Appearance...
@@ -91,22 +81,25 @@ namespace Zipline2.Pages
            
             //NOTE:  Modifying ToppingsPageModel.Toppings directly instead of 
             //explicitly setting it here does not trigger bindings.
-            ToppingsPageModel.Toppings = Toppings;
+            //ThisPizza.Toppings = Toppings;
         }
 
         //For selection or deselection of the Half Major topping.
         private void ProcessHalfMajorToppingSelection(ToppingSelection halfMajorSelection)
         {
-            if (halfMajorSelection.ListItemIsSelected)   //If selected, toggle to unselect...
+            if (
+                halfMajorSelection.ListItemIsSelected)   //If selected, toggle to unselect...
             {
-                Toppings.RemoveTopping(ToppingName.Mushrooms, false);
-                Toppings.RemoveTopping(ToppingName.BlackOlives, false);
-                Toppings.RemoveTopping(ToppingName.GreenPeppers, false);
-                Toppings.RemoveTopping(ToppingName.Onion, false);
-                Toppings.RemoveTopping(ToppingName.Pepperoni, false);
-                Toppings.RemoveTopping(ToppingName.Sausage, false);
-                Toppings.UpdateToppingsTotal();
-
+                ToppingsPageModel.ThisPizza.Toppings.RemoveToppings(new List<ToppingName>
+                {
+                    ToppingName.Mushrooms,
+                    ToppingName.BlackOlives,
+                    ToppingName.GreenPeppers,
+                    ToppingName.Onion,
+                    ToppingName.Pepperoni,
+                    ToppingName.Sausage
+                });
+              
                 foreach (var toppingSelection in ToppingsPageModel.ToppingSelectionsList)
                 {
                     if (toppingSelection.ListTopping.ToppingName == ToppingName.Mushrooms ||
@@ -130,7 +123,7 @@ namespace Zipline2.Pages
             else
             {
                 ToppingsPageModel.SelectMajorToppings(halfMajorSelection.ListTopping.ToppingWholeHalf);
-                Toppings.AddMajorToppingsToHalf(ToppingWholeHalf.HalfA);
+                ToppingsPageModel.ThisPizza.Toppings.AddMajorToppingsToHalf(ToppingWholeHalf.HalfA);
                 
                 halfMajorSelection.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
                 halfMajorSelection.ButtonASelected = true;
@@ -152,22 +145,22 @@ namespace Zipline2.Pages
            
             if (pizzaBaseSelection.Contains("Pesto"))
             {
-                CurrentPizza.ChangePizzaBase(PizzaBase.Pesto);
+                ToppingsPageModel.ThisPizza.ChangePizzaBase(PizzaBase.Pesto);
             }
             else if (pizzaBaseSelection.Contains("White"))
             {
-                CurrentPizza.ChangePizzaBase(PizzaBase.White);
+                ToppingsPageModel.ThisPizza.ChangePizzaBase(PizzaBase.White);
             }
             else
             {
-                CurrentPizza.ChangePizzaBase(PizzaBase.Regular);
+                ToppingsPageModel.ThisPizza.ChangePizzaBase(PizzaBase.Regular);
             }
-            Toppings thisPizzaToppings = ToppingsPageModel.Toppings;
-            thisPizzaToppings.UpdateToppingsTotal();
+            //NOT SURE WHAT OF THIS IS STILL NEEDED AFTER REwork
+            //Toppings thisPizzaToppings = ToppingsPageModel.Toppings;
 
-            //Must explicitly set so that MenuHeaderModel is updated.
-            ToppingsPageModel.Toppings = thisPizzaToppings;
-            //MenuHeaderModel.GetInstance().UpdateItemTotal(thisPizza.BasePrice, ToppingsPageModel.Toppings.ToppingsTotal);
+            ////Must explicitly set so that MenuHeaderModel is updated.
+            //ToppingsPageModel.Toppings = thisPizzaToppings;
+            ////MenuHeaderModel.GetInstance().UpdateItemTotal(thisPizza.BasePrice, ToppingsPageModel.Toppings.ToppingsTotal);
         }
 
 
@@ -182,33 +175,28 @@ namespace Zipline2.Pages
             CookPickerLabel.BackgroundColor = Xamarin.Forms.Color.CornflowerBlue;
             if (CookPickerLabel.Text.Contains("Crispy"))
             {
-                Toppings.AddTopping(
+                ToppingsPageModel.ThisPizza.Toppings.AddTopping(
                   new Topping(ToppingName.CrispyCook)
                   { SpecialPricingType = SpecialPricingType.Free }, false);
             }
             else if (CookPickerLabel.Text.Contains("Kid"))
             {
-                Toppings.AddTopping(
+                ToppingsPageModel.ThisPizza.Toppings.AddTopping(
                   new Topping(ToppingName.KidCook)
                   { SpecialPricingType = SpecialPricingType.Free }, false);
             }
             else if (CookPickerLabel.Text.Contains("Light"))
             {
-                Toppings.AddTopping(
+                ToppingsPageModel.ThisPizza.Toppings.AddTopping(
                   new Topping(ToppingName.LightCook)
                   { SpecialPricingType = SpecialPricingType.Free }, false);
             }
-            ToppingsPageModel.Toppings = Toppings;
         }
 
         private async void OtherToppingsTapped(object sender, EventArgs e)
         {
-            //Need to pass to ToppingsOtherPage what should already be 
-            //selected somehow??  Pass List<Topping> of items already selected?
-            //TODO:  Create a list of Topping objects from ToppingPageModel toppings
-            //      pertaining to the other toppings.... 
             List<Topping> toppingsAlreadySelected = new List<Topping>();
-            foreach (var topping in ToppingsPageModel.Toppings.CurrentToppings)
+            foreach (var topping in ToppingsPageModel.ThisPizza.Toppings.CurrentToppings)
             {
                 if (topping.ToppingName == ToppingName.ButterOk ||
                     topping.ToppingName == ToppingName.CutInto12 ||
@@ -234,8 +222,13 @@ namespace Zipline2.Pages
 
         private void OnAppearing(object sender, EventArgs e)
         {
-            Toppings.AddToppings(ToppingsOtherPage.SelectedOtherToppings);
-            ToppingsPageModel.Toppings = Toppings;
+            if (ToppingsOtherPage != null && ToppingsOtherPage.SelectedOtherToppings.Count > 0)
+            {
+                ToppingsPageModel.ThisPizza.Toppings.AddToppings(ToppingsOtherPage.SelectedOtherToppings);
+            }
+    
+            //not sure if needed...
+            //ToppingsPageModel.Toppings = Toppings;
         }
         #endregion
     }

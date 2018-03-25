@@ -32,7 +32,6 @@ namespace Zipline2.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
-            CarouselViewRenderer.Init();
 
             //string dbPath = FileAccessHelper.GetLocalFilePath("orders.db3");
 

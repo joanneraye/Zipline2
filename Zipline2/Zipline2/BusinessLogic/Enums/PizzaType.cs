@@ -4,8 +4,7 @@ using System.Text;
 
 namespace Zipline2.BusinessLogic.Enums
 {
-    //Toppings is used when ordering a Major and for determining the 
-    //price of toppings.
+    //PizzaType is primarily used to determine pricing of an item.
     public enum PizzaType
     {
         None,

@@ -7,22 +7,29 @@ using Zipline2.BusinessLogic.Enums;
 namespace Zipline2.Models
 {
     /// <summary>
-    /// The Toppings class may be used alone while creating a pizza
-    /// with toppings before the pizza has been added to the 
-    /// order.  It can also be used as a part of the OrderItem
-    /// once the pizza has been added to the order by the OrderManager.
+    /// A Toppings class object should always be contained in a Pizza
+    /// class because it is always associated with a particular pizza.
     /// </summary>
     public class Toppings
     {
         #region Properties
-
-        public Pizza PizzaWithTheseToppings { get; set; }
-
+        
         public List<Topping> CurrentToppings { get; private set; }
-      
+
+        private static List<Topping> allToppings;
+        public static List<Topping> AllToppings
+        {
+            get
+            {
+                if (allToppings == null || allToppings.Count == 0)
+                {
+                    LoadInitialToppings();
+                }
+                return allToppings;
+            }
+        }
         public PizzaType PizzaTypeForPricing { get; set; }
         private decimal toppingsTotal;
-      
         public decimal ToppingsTotal
         {
             get
@@ -32,7 +39,6 @@ namespace Zipline2.Models
             private set
             {
                 toppingsTotal = value;
-                PizzaWithTheseToppings.PopulatePricePerItem(null);
             }
         }
         #endregion
@@ -43,35 +49,80 @@ namespace Zipline2.Models
         /// Toppings should always be associated with a particular pizza already chosen.
         /// </summary>
         /// <param name="pizzaWithTheseToppings"></param>
-        public Toppings(Pizza pizzaWithTheseToppings)
+        public Toppings(PizzaType pizzaTypeForPricing)
         {
             CurrentToppings = new List<Topping>();
-            PizzaTypeForPricing = pizzaWithTheseToppings.PizzaType;
-            PizzaWithTheseToppings = pizzaWithTheseToppings;
+            PizzaTypeForPricing = pizzaTypeForPricing;
         }
         #endregion
 
         #region Methods
-
+        public static void LoadInitialToppings()
+        {
+            allToppings = new List<Topping>()
+            {
+                new Topping(ToppingName.Anchovies),
+                new Topping(ToppingName.Artichokes),
+                new Topping(ToppingName.Bacon),
+                new Topping(ToppingName.BananaPeppers),
+                new Topping(ToppingName.Basil),
+                new Topping(ToppingName.Beef),
+                new Topping(ToppingName.BlackOlives),
+                new Topping(ToppingName.Broccoli),
+                new Topping(ToppingName.Carrots),
+                new Topping(ToppingName.Cheese),
+                new Topping(ToppingName.DAIYA),
+                new Topping(ToppingName.Deep) {SpecialPricingType = SpecialPricingType.Unknown},
+                new Topping(ToppingName.ExtraCheese),
+                new Topping(ToppingName.ExtraMozarellaCalzone),
+                new Topping(ToppingName.ExtraPSauceOS),
+                new Topping(ToppingName.ExtraPSauceOP),
+                new Topping(ToppingName.ExtraRicottaCalzone),
+                new Topping(ToppingName.Feta),
+                new Topping(ToppingName.Garlic) ,
+                new Topping(ToppingName.GreenOlives),
+                new Topping(ToppingName.GreenPeppers),
+                new Topping(ToppingName.HalfMajor)
+                            { ToppingWholeHalf = ToppingWholeHalf.HalfA},
+                new Topping(ToppingName.Jalapenos),
+                new Topping(ToppingName.Meatballs),
+                new Topping(ToppingName.Mushrooms),
+                new Topping(ToppingName.NoCheese) {SpecialPricingType = SpecialPricingType.GetExtraTopping},
+                new Topping(ToppingName.Onion),
+                new Topping(ToppingName.PestoTopping) ,
+                new Topping(ToppingName.Pepperoni),
+                new Topping(ToppingName.Pineapple),
+                new Topping(ToppingName.RedOnions),
+                new Topping(ToppingName.Ricotta),
+                new Topping(ToppingName.RoastedRedPepper),
+                new Topping(ToppingName.Sausage),
+                new Topping(ToppingName.Spinach),
+                new Topping(ToppingName.Steak),
+                new Topping(ToppingName.SundriedTomatoes),
+                new Topping(ToppingName.Teese) {SpecialPricingType = SpecialPricingType.AddorSubtractAmount},
+                new Topping(ToppingName.TempehBBQ),
+                new Topping(ToppingName.TempehOriginal),
+                new Topping(ToppingName.Tomatoes),
+                new Topping(ToppingName.Zucchini),
+                new Topping(ToppingName.LightSauce) {SpecialPricingType = SpecialPricingType.Free},
+                new Topping(ToppingName.LightMozarella) {SpecialPricingType = SpecialPricingType.Free},
+                new Topping(ToppingName.LightRicotta) {SpecialPricingType = SpecialPricingType.Free},
+                new Topping(ToppingName.NoButter) {SpecialPricingType = SpecialPricingType.Free},
+                new Topping(ToppingName.NoSauce) {SpecialPricingType = SpecialPricingType.Free}
+            };
+        }
+        /// <summary>
+        /// Method should be called when the topping prices need to be updated
+        /// but a topping has not been added.  (When a topping is added or removed, this will
+        /// be done automatically in this class.)  Example would be when the base type changes, 
+        /// topping prices can be different.  Or when the topping has been added
+        /// but is changed to half of the pizza.
+        /// </summary>
         public void UpdateToppingsTotal()
         {
             ToppingsTotal = GetCurrentToppingsCost();
-            PizzaWithTheseToppings.PopulatePricePerItem(null);
         }
-        public void AddToppings(List<Topping> toppingsToAdd)
-        {
-            foreach (var topping in toppingsToAdd)
-            {
-                if (CurrentToppingsHas(topping.ToppingName))
-                {
-                    RemoveTopping(topping.ToppingName, false);
-                }
-                AddTopping(topping, false);
-            }
-         
-            ToppingsTotal = GetCurrentToppingsCost();
-        }
-
+            
         public bool CurrentToppingsHas(ToppingName toppingName)
         {
             foreach (var topping in CurrentToppings) 
@@ -89,9 +140,24 @@ namespace Zipline2.Models
             CurrentToppings.Add(toppingToAdd);
             if (calculateTotal)
             {
-                ToppingsTotal = GetCurrentToppingsCost();
+                UpdateToppingsTotal();
             }
         }
+
+        public void AddToppings(List<Topping> toppingsToAdd)
+        {
+            foreach (var topping in toppingsToAdd)
+            {
+                if (CurrentToppingsHas(topping.ToppingName))
+                {
+                    RemoveTopping(topping.ToppingName, false);
+                }
+                AddTopping(topping, false);
+            }
+
+            UpdateToppingsTotal();
+        }
+
 
         public void ChangeToppingToHalf(ToppingName toppingName, ToppingWholeHalf toppingHalf)
         {
@@ -103,7 +169,7 @@ namespace Zipline2.Models
                     break;
                 }
             }
-            ToppingsTotal = GetCurrentToppingsCost();
+            UpdateToppingsTotal();
         }
         public void RemoveTopping(ToppingName toppingName, bool calculateTotal = true)
         {
@@ -125,6 +191,15 @@ namespace Zipline2.Models
             {
                 ToppingsTotal = GetCurrentToppingsCost();
             }
+        }
+
+        public void RemoveToppings(List<ToppingName> toppingNames)
+        {
+            foreach (var toppingName in toppingNames)
+            {
+                RemoveTopping(toppingName, false);
+            }
+            UpdateToppingsTotal();
         }
 
         private decimal GetCurrentToppingsCost()

@@ -64,7 +64,7 @@ namespace Zipline2.PageModels
                 tableSelected.IsOccupied = true;
                 InsideTableColor = Color.Orange;
                 //Change what the app's current table is.
-                OrderManager.GetInstance().CurrentTableIndex = tableSelected.IndexInAllTables;
+                OrderManager.Instance.CurrentTableIndex = tableSelected.IndexInAllTables;
                 parentTablesPageModel.DisplayPizzaPage();
             }
             private void OnOutsideButtonClicked()
@@ -74,7 +74,7 @@ namespace Zipline2.PageModels
                 tableSelected.IsOccupied = true;
                 OutsideTableColor = Color.Orange;
                 //Change what the app's current table is.
-                OrderManager.GetInstance().CurrentTableIndex = tableSelected.IndexInAllTables;
+                OrderManager.Instance.CurrentTableIndex = tableSelected.IndexInAllTables;
                 parentTablesPageModel.DisplayPizzaPage();
             }
             #endregion
@@ -125,7 +125,7 @@ namespace Zipline2.PageModels
         public TablesPageModel(INavigation navigation)
         {
             Navigation = navigation;
-            userName = Users.GetInstance().LoggedInUser.UserName;
+            userName = Users.Instance.LoggedInUser.UserName;
             IsInside = true;
             LoadTablesForDisplay();
         }
