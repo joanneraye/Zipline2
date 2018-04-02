@@ -1,4 +1,5 @@
 ﻿using SQLite;
+using System;
 
 namespace Zipline2.Models
 {
@@ -27,9 +28,20 @@ namespace Zipline2.Models
         /// </summary>
         [Column("itemcount")]
         public int ItemCount { get; set; }
-
+        private decimal pricePerItem;
         [Column("itemprice")]
-        public decimal PricePerItem { get; set; }
+        public decimal PricePerItem
+        {
+            get
+            {
+                return pricePerItem;
+            }
+            set
+            {
+                pricePerItem = value;
+                OnPricePerItemUpdated()
+            }
+        }
 
         [Column("itemtotal")]
         public decimal Total { get; set; }
@@ -41,6 +53,8 @@ namespace Zipline2.Models
         /// </summary>
         public decimal BasePrice { get; set; }
 
+
+        public event EventHandler PricePerItemUpdated;
         #endregion
 
         #region Constructor
@@ -73,6 +87,11 @@ namespace Zipline2.Models
         /// A derived class must populate its price.
         /// </summary>
         public abstract void PopulatePricePerItem();
-        #endregion
+
+        protected virtual void OnPricePerItemUpdated(EventArgs e)
+        {
+            PricePerItemUpdated?.Invoke(this, e);
+        }
+            #endregion
     }
 }
