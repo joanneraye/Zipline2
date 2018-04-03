@@ -20,10 +20,8 @@ namespace Zipline2.PageModels
             #region Private Variables
             private ToppingsPageModel parentToppingsPageModel;
             private bool areWholeHalfColumnsVisible;
-            private bool listItemIsSelected = false;
+            private bool listItemIsSelected;
             private Color selectionColor;
-            private Color wButtonTextColor;
-
             #endregion
 
             #region Command Variables
@@ -62,6 +60,9 @@ namespace Zipline2.PageModels
                 }
             }
 
+            //NOTE:  Could not get this to populate based on ListItemIsSelected above
+            //and using converter like I did with ButtonASelected, etc.  Maybe it is because
+            //tapping the item is not connected to a Command in the ViewModel?
             public Color SelectionColor
             {
                 get
@@ -71,6 +72,18 @@ namespace Zipline2.PageModels
                 set
                 {
                     SetProperty(ref selectionColor, value);
+                }
+            }
+            private bool buttonWVisible;
+            public bool ButtonWVisible
+            {
+                get
+                {
+                    return buttonWVisible;
+                }
+                set
+                {
+                    SetProperty(ref buttonWVisible, value);
                 }
             }
             private bool buttonASelected;
@@ -111,18 +124,7 @@ namespace Zipline2.PageModels
                     SetProperty(ref buttonWSelected, value);
                 }
             }
-
-            public Color WButtonTextColor
-            {
-                get
-                {
-                    return wButtonTextColor;
-                }
-                set
-                {
-                    SetProperty(ref wButtonTextColor, value);
-                }
-            }
+          
             #endregion
 
             #region Constructor
@@ -243,12 +245,13 @@ namespace Zipline2.PageModels
                 var toppingSelection = new ToppingSelection(this);
                 toppingSelection.ListTopping = toppingsList[i];
                 toppingSelection.SelectionIndex = i;
+                toppingSelection.ListItemIsSelected = false;
                 toppingSelection.SelectionColor = Xamarin.Forms.Color.Black;
-                toppingSelection.WButtonTextColor = Color.White;
+                toppingSelection.ButtonWVisible = true;
                 toppingSelection.AreWholeHalfColumnsVisible = true;
                 if (toppingsList[i].ToppingName == ToppingName.HalfMajor)
                 {
-                    toppingSelection.WButtonTextColor = Color.Black;
+                    toppingSelection.ButtonWVisible = false;
                 }
                 ToppingSelectionsList.Add(toppingSelection);
 
@@ -287,7 +290,6 @@ namespace Zipline2.PageModels
                     toppingselection.ListTopping.ToppingName == ToppingName.BlackOlives)
                 {
                     toppingselection.ListItemIsSelected = true;
-                   
                     toppingselection.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
                     if (toppingWholeHalf == ToppingWholeHalf.Whole)
                     {
@@ -348,6 +350,7 @@ namespace Zipline2.PageModels
             
             //NOTE:  Modifying Toppings through private variable instead of 
             //explicitly setting the property (as done below) does not trigger bindings.
+            //This is old but leaving in until working again in case related to current problems...
             //Toppings = toppings;
         }
 
@@ -358,7 +361,7 @@ namespace Zipline2.PageModels
                 thisItemSelected.ButtonWSelected = false;
                 thisItemSelected.ButtonASelected = false;
                 thisItemSelected.ButtonBSelected = false;
-                thisItemSelected.WButtonTextColor = Color.Black;
+                thisItemSelected.ButtonWVisible = false;
                 return;
             }
             if (!thisItemSelected.ListItemIsSelected)
@@ -390,6 +393,7 @@ namespace Zipline2.PageModels
                     toppingSelection.ListTopping.ToppingName == ToppingName.Sausage ||
                     toppingSelection.ListTopping.ToppingName == ToppingName.BlackOlives)
                 {
+                    toppingSelection.ListItemIsSelected = true;
                     toppingSelection.SelectionColor = Color.CornflowerBlue;
                     ChangeButtonSelection(toppingSelection, thisItemSelected.ListTopping.ToppingWholeHalf);
                 }

@@ -112,10 +112,10 @@ namespace Zipline2.Pages
                         toppingSelection.ButtonWSelected = false;
                         toppingSelection.ButtonASelected = false;
                         toppingSelection.ButtonBSelected = false;
-                        toppingSelection.SelectionColor = Xamarin.Forms.Color.Black;
+                        toppingSelection.ListItemIsSelected = false;
                     }
                 }
-                halfMajorSelection.SelectionColor = Xamarin.Forms.Color.Black;
+                halfMajorSelection.ListItemIsSelected = false;
                 halfMajorSelection.ButtonWSelected = false;
                 halfMajorSelection.ButtonASelected = false;
                 halfMajorSelection.ButtonBSelected = false;
@@ -124,10 +124,9 @@ namespace Zipline2.Pages
             {
                 ToppingsPageModel.SelectMajorToppings(halfMajorSelection.ListTopping.ToppingWholeHalf);
                 ToppingsPageModel.ThisPizza.Toppings.AddMajorToppingsToHalf(ToppingWholeHalf.HalfA);
-                
-                halfMajorSelection.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
+
+                halfMajorSelection.ListItemIsSelected = true;
                 halfMajorSelection.ButtonASelected = true;
-                //halfMajorSelection.AColor = Xamarin.Forms.Color.CornflowerBlue;
             }
             halfMajorSelection.ListItemIsSelected = !halfMajorSelection.ListItemIsSelected;
         }

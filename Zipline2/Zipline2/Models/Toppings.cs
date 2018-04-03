@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms;
 using Zipline2.BusinessLogic;
 using Zipline2.BusinessLogic.Enums;
 
@@ -39,6 +40,7 @@ namespace Zipline2.Models
             private set
             {
                 toppingsTotal = value;
+                MessagingCenter.Send<Toppings>(this, "ToppingsTotalUpdated");
             }
         }
         #endregion

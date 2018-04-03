@@ -7,7 +7,8 @@
              x:Class="Zipline2.Pages.ToppingsPage">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <converters:SelectedItemColorConverter x:Key="blueButtonConverter"/>
+            <converters:SelectedItemColorConverter x:Key="selectedItemBackgroundConverter"/>
+            <converters:VisibleItemTextColorConverter x:Key="hideTextColorConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -110,10 +111,11 @@
                                         x:Name="ButtonW"
                                         IsVisible="{Binding AreWholeHalfColumnsVisible}"
                                         Text="W"
-                                        TextColor="{Binding WButtonTextColor}"
+                                        TextColor="{Binding ButtonWVisible,
+                                            Converter={StaticResource hideTextColorConverter}}"
                                         BackgroundColor="{Binding ButtonWSelected,
                                             Mode=TwoWay, 
-                                            Converter={StaticResource blueButtonConverter}}"
+                                            Converter={StaticResource selectedItemBackgroundConverter}}"
                                         FontSize="Small"
                                         Command="{Binding WButtonCommand}"
                                         VerticalOptions="Center"/>
@@ -123,7 +125,7 @@
                                        TextColor="White"
                                        BackgroundColor="{Binding ButtonASelected,
                                             Mode=TwoWay, 
-                                            Converter={StaticResource blueButtonConverter}}"
+                                            Converter={StaticResource selectedItemBackgroundConverter}}"
                                        FontSize="Small"
                                        Command="{Binding AButtonCommand}"
                                        VerticalOptions="Center"/>
@@ -133,7 +135,7 @@
                                         TextColor="White"
                                         BackgroundColor="{Binding ButtonBSelected,
                                             Mode=TwoWay, 
-                                            Converter={StaticResource blueButtonConverter}}"
+                                            Converter={StaticResource selectedItemBackgroundConverter}}"
                                         Command="{Binding BButtonCommand}"
                                         FontSize="Small"
                                         VerticalOptions="Center"/>   

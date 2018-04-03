@@ -1,5 +1,6 @@
 ﻿using SQLite;
 using System;
+using Xamarin.Forms;
 
 namespace Zipline2.Models
 {
@@ -38,8 +39,11 @@ namespace Zipline2.Models
             }
             set
             {
-                pricePerItem = value;
-                OnPricePerItemUpdated()
+                if (value != pricePerItem)
+                {
+                    pricePerItem = value;
+                    OnPricePerItemUpdated();
+                }
             }
         }
 
@@ -53,8 +57,6 @@ namespace Zipline2.Models
         /// </summary>
         public decimal BasePrice { get; set; }
 
-
-        public event EventHandler PricePerItemUpdated;
         #endregion
 
         #region Constructor
@@ -64,6 +66,8 @@ namespace Zipline2.Models
         public OrderItem()
         {
             ItemCount = 1;
+            MessagingCenter.Subscribe<Toppings>(this, "ToppingsTotalUpdated",
+                (sender) => { this.PopulatePricePerItem(); });
         }
         #endregion
 
@@ -88,9 +92,11 @@ namespace Zipline2.Models
         /// </summary>
         public abstract void PopulatePricePerItem();
 
-        protected virtual void OnPricePerItemUpdated(EventArgs e)
+        protected virtual void OnPricePerItemUpdated()
         {
-            PricePerItemUpdated?.Invoke(this, e);
+            //Publish message -
+            // MenuHeaderModel should subscribe and update ItemTotal.
+            MessagingCenter.Send<OrderItem, decimal>(this, "ItemPriceUpdated", PricePerItem);
         }
             #endregion
     }

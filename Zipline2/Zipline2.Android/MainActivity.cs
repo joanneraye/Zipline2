@@ -7,7 +7,6 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Zipline2;
-using CarouselView.FormsPlugin.Android;
 
 namespace Zipline2.Droid
 {
