@@ -4,41 +4,74 @@ using System.Text;
 
 namespace Zipline2.Models
 {
-    public sealed class Tables
+    public static class Tables
     {
-        #region Singleton Class 
-        private static Tables instance = null;
-        private static readonly object padlock = new object();
-        private Tables()
-        {
-        }
-        public static Tables Instance
+        //#region Singleton Class 
+        //private static Tables instance = null;
+        //private static readonly object padlock = new object();
+        //private Tables()
+        //{
+        //    AllTables = new List<Table>();
+        //}
+        //public static Tables Instance
+        //{
+        //    get
+        //    {
+        //        lock (padlock)
+        //        {
+        //            if (instance == null)
+        //            {
+        //                instance = new Tables();
+        //            }
+        //            return instance;
+        //        }
+        //    }
+        //}
+        //#endregion (
+
+        #region Properties
+        private static List<Table> allTables;
+        public static List<Table> AllTables
         {
             get
             {
-                lock (padlock)
+                if (allTables == null)
                 {
-                    if (instance == null)
-                    {
-                        instance = new Tables();
-                    }
-                    return instance;
+                    allTables = new List<Table>();
                 }
+                return allTables;
             }
-        }
-        #endregion (
-
-        #region Properties
-        public static List<Table> AllTables { get; set; }
+            set
+            {
+                allTables = value;
+            }
        
-        public static int NumSeated { get; set; }
+        }
+
+        public static int NumSeated { get; set; } = 0;
         #endregion
 
         #region Methods
         public static void LoadInitialTableData()
         {
             AllTables = new List<Table>
-                {
+                { 
+                    new Table {TableName = "1", IsInside = true},
+                    new Table {TableName = "2", IsInside = true},
+                    new Table {TableName = "3", IsInside = true},
+                    new Table {TableName = "4a", IsInside = true},
+                    new Table {TableName = "4b", IsInside = true},
+                    new Table {TableName = "5", IsInside = true},
+                    new Table {TableName = "7a", IsInside = true},
+                    new Table {TableName = "7b", IsInside = true},
+                    new Table {TableName = "8a", IsInside = true},
+                    new Table {TableName = "8b", IsInside = true},
+                    new Table {TableName = "10", IsInside = true},
+                    new Table {TableName = "11", IsInside = true},
+                    new Table {TableName = "12", IsInside = true},
+                    new Table {TableName = "Cash", IsInside = true},
+                    new Table {TableName = "Paris", IsInside = true},
+                    new Table {TableName = "Waldo", IsInside = true},
                     new Table { TableName = "Alpha" },
                     new Table { TableName = "Beta" },
                     new Table { TableName = "Charlie" },
@@ -55,22 +88,6 @@ namespace Zipline2.Models
                     new Table { TableName = "Rocky 3" },
                     new Table { TableName = "Rocky 4" },
                     new Table { TableName = "Rocky 5" },
-                    new Table {TableName = "1", IsInside = true},
-                    new Table {TableName = "2", IsInside = true},
-                    new Table {TableName = "3", IsInside = true},
-                    new Table {TableName = "4a", IsInside = true},
-                    new Table {TableName = "4b", IsInside = true},
-                    new Table {TableName = "5", IsInside = true},
-                    new Table {TableName = "7a", IsInside = true},
-                    new Table {TableName = "7b", IsInside = true},
-                    new Table {TableName = "8a", IsInside = true},
-                    new Table {TableName = "8b", IsInside = true},
-                    new Table {TableName = "10", IsInside = true},
-                    new Table {TableName = "11", IsInside = true},
-                    new Table {TableName = "12", IsInside = true},
-                    new Table {TableName = "Cash", IsInside = true},
-                    new Table {TableName = "Paris", IsInside = true},
-                    new Table {TableName = "Waldo", IsInside = true}
                 };
 
             for (int i = 0; i < AllTables.Count; i++)

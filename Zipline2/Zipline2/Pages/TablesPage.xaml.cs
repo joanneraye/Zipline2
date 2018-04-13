@@ -13,7 +13,7 @@ using Zipline2.PageModels;
 namespace Zipline2.Pages
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class TablesPage : BasePage
+	public partial class TablesPage : ContentPage
 	{
         #region Private Variables
         private int NumTablesSeated { get; set; }
@@ -24,8 +24,8 @@ namespace Zipline2.Pages
         public TablesPage()
         {
             TablesPageModel = new TablesPageModel(Navigation);
-            BindingContext = TablesPageModel;
             InitializeComponent();
+            BindingContext = TablesPageModel;
         }
         #endregion
 

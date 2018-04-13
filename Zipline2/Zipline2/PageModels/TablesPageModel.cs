@@ -46,37 +46,37 @@ namespace Zipline2.PageModels
             }
 
             #region Command Variables
-            public System.Windows.Input.ICommand InsideTableCommand { get; set; }
-            public System.Windows.Input.ICommand OutsideTableCommand { get; set; }
+            //public System.Windows.Input.ICommand InsideTableCommand { get; set; }
+            //public System.Windows.Input.ICommand OutsideTableCommand { get; set; }
             #endregion
 
             public TableSelection(TablesPageModel referenceToParentClass)
             {
                 parentTablesPageModel = referenceToParentClass;
-                InsideTableCommand = new Xamarin.Forms.Command(OnInsideButtonClicked);
-                OutsideTableCommand = new Xamarin.Forms.Command(OnOutsideButtonClicked);
+                //InsideTableCommand = new Xamarin.Forms.Command(OnInsideButtonClicked);
+                //OutsideTableCommand = new Xamarin.Forms.Command(OnOutsideButtonClicked);
             }
             #region Methods
-            private void OnInsideButtonClicked()
-            {
-                TableSelection thisRow = parentTablesPageModel.DisplayTables[SelectionIndex];
-                Table tableSelected = thisRow.InsideTable;
-                tableSelected.IsOccupied = true;
-                InsideTableColor = Color.Orange;
-                //Change what the app's current table is.
-                OrderManager.Instance.CurrentTableIndex = tableSelected.IndexInAllTables;
-                parentTablesPageModel.DisplayPizzaPage();
-            }
-            private void OnOutsideButtonClicked()
-            {
-                TableSelection thisRow = parentTablesPageModel.DisplayTables[SelectionIndex];
-                Table tableSelected = thisRow.OutsideTable;
-                tableSelected.IsOccupied = true;
-                OutsideTableColor = Color.Orange;
-                //Change what the app's current table is.
-                OrderManager.Instance.CurrentTableIndex = tableSelected.IndexInAllTables;
-                parentTablesPageModel.DisplayPizzaPage();
-            }
+            //private void OnInsideButtonClicked()
+            //{
+            //    TableSelection thisRow = parentTablesPageModel.DisplayTables[SelectionIndex];
+            //    Table tableSelected = thisRow.InsideTable;
+            //    tableSelected.IsOccupied = true;
+            //    InsideTableColor = Color.Orange;
+            //    //Change what the app's current table is.
+            //    OrderManager.Instance.CurrentTableIndex = tableSelected.IndexInAllTables;
+            //    parentTablesPageModel.DisplayPizzaPage();
+            //}
+            //private void OnOutsideButtonClicked()
+            //{
+            //    TableSelection thisRow = parentTablesPageModel.DisplayTables[SelectionIndex];
+            //    Table tableSelected = thisRow.OutsideTable;
+            //    tableSelected.IsOccupied = true;
+            //    OutsideTableColor = Color.Orange;
+            //    //Change what the app's current table is.
+            //    OrderManager.Instance.CurrentTableIndex = tableSelected.IndexInAllTables;
+            //    parentTablesPageModel.DisplayPizzaPage();
+            //}
             #endregion
         }
         //******************************NOTE IMBEDDED CLASS above ************************
@@ -86,7 +86,7 @@ namespace Zipline2.PageModels
         #endregion
 
         #region Properties
-        public bool IsInside { get; set; }
+        //public bool IsInside { get; set; }
 
         
         public string UserName
@@ -101,7 +101,7 @@ namespace Zipline2.PageModels
             }
         }
         
-        public string InsideOutsideButtonText { get; set; }
+        //public string InsideOutsideButtonText { get; set; }
         public INavigation Navigation { get; set; }
 
 
@@ -125,48 +125,81 @@ namespace Zipline2.PageModels
         public TablesPageModel(INavigation navigation)
         {
             Navigation = navigation;
-            userName = Users.Instance.LoggedInUser.UserName;
-            IsInside = true;
+            //userName = Users.Instance.LoggedInUser.UserName;
             LoadTablesForDisplay();
         }
         #endregion
 
         #region Methods
+
+        private void PopulateRowWithInsideTable(ref TableSelection thisRow, int indexInAllTables)
+        {
+            thisRow.InsideTableName = Tables.AllTables[indexInAllTables].TableName;
+            thisRow.InsideTable = Tables.AllTables[indexInAllTables];
+            if (thisRow.InsideTable.IsOccupied)
+            {
+                thisRow.InsideTableColor = Color.Orange;
+            }
+            else
+            {
+                thisRow.InsideTableColor = Color.Blue;
+            }
+        }
+
+        private void PopulateRowWithOutsideTable(ref TableSelection thisRow, int indexInAllTables)
+        {
+            thisRow.OutsideTableName = Tables.AllTables[indexInAllTables].TableName;
+            thisRow.OutsideTable = Tables.AllTables[indexInAllTables];
+            if (thisRow.OutsideTable.IsOccupied)
+            {
+                thisRow.OutsideTableColor = Color.Orange;
+            }
+            else
+            {
+                thisRow.OutsideTableColor = Color.Blue;
+            }
+        }
         public void LoadTablesForDisplay()
         {
-            int insideTableCounter = Tables.AllTables.Count / 2;
-            int halfOfTablesIndex = insideTableCounter - 1;
             DisplayTables = new List<TableSelection>();
-            for (int i = 0; i < halfOfTablesIndex; i++)
+            decimal halfOfTableCount = Tables.AllTables.Count / 2;
+            int outsideTableIndex = Convert.ToInt32(Math.Ceiling(halfOfTableCount));
+            int insideTableIndex = 0;
+
+            while (Tables.AllTables[insideTableIndex].IsInside &&
+                     outsideTableIndex < Tables.AllTables.Count)            //Create all full rows
             {
-                var displayTable = new TableSelection(this);
-
-                displayTable.OutsideTableName = Tables.AllTables[i].TableName;
-                displayTable.OutsideTable = Tables.AllTables[i];
-                if (displayTable.OutsideTable.IsOccupied)
-                {
-                    displayTable.OutsideTableColor = Color.Orange;
-                }
-                else
-                {
-                    displayTable.OutsideTableColor = Color.Blue;
-                }
-               
-
-                displayTable.InsideTableName = Tables.AllTables[insideTableCounter].TableName;
-                displayTable.InsideTable = Tables.AllTables[insideTableCounter];
-                if (displayTable.InsideTable.IsOccupied)
-                {
-                    displayTable.InsideTableColor = Color.Orange;
-                }
-                else
-                {
-                    displayTable.InsideTableColor = Color.Blue;
-                }
-
-                displayTable.SelectionIndex = i;
-                DisplayTables.Add(displayTable);
-                insideTableCounter++;
+                var displayTableRow = new TableSelection(this);
+                PopulateRowWithInsideTable(ref displayTableRow, insideTableIndex);
+                PopulateRowWithOutsideTable(ref displayTableRow, outsideTableIndex);
+                displayTableRow.SelectionIndex = insideTableIndex;
+                DisplayTables.Add(displayTableRow);
+                outsideTableIndex++;
+                insideTableIndex++;
+            }
+            while (Tables.AllTables[insideTableIndex].IsInside)
+            {
+                var displayTableRow = new TableSelection(this);
+                PopulateRowWithInsideTable(ref displayTableRow, insideTableIndex);
+                displayTableRow.OutsideTable = new Table();
+                displayTableRow.OutsideTableName = string.Empty;
+                displayTableRow.OutsideTableColor = Color.Black;
+                displayTableRow.SelectionIndex = insideTableIndex;
+                DisplayTables.Add(displayTableRow);
+                insideTableIndex++;
+            }
+            int currentRowIndex = insideTableIndex;
+            while (outsideTableIndex < Tables.AllTables.Count)
+            {
+                var displayTableRow = new TableSelection(this);
+                PopulateRowWithOutsideTable(ref displayTableRow, outsideTableIndex);
+                displayTableRow.InsideTable = new Table();
+                displayTableRow.InsideTableName = string.Empty;
+                displayTableRow.InsideTableColor = Color.Black;
+                displayTableRow.SelectionIndex = currentRowIndex;
+                DisplayTables.Add(displayTableRow);
+                outsideTableIndex++;
+                currentRowIndex++;
             }
         }
         private async void DisplayPizzaPage()

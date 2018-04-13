@@ -49,12 +49,10 @@ namespace Zipline2.Pages
             if (IsValidUser(PinEnteredByUser.Text)) 
             {
                 Users.IsUserLoggedIn = true;
-                await Navigation.PushAsync(new TablesPage());
+                await Navigation.PopModalAsync();
             }
-            else
-            {
-                await DisplayAlert("Oops", "Sorry that PIN is not in our system as belonging to anyone.", "OK");
-            }
+            
+            await DisplayAlert("Oops", "Sorry that PIN is not in our system as belonging to anyone.", "OK");
             PinEnteredByUser.Text = "";
             LoginButton.IsEnabled = true;
         }

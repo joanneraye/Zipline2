@@ -11,31 +11,9 @@ namespace Zipline2
 {
     public partial class App : Application
     {
-        
-        
         public App()
         {
             InitializeComponent();
-           
-            if (!Users.Instance.IsUserLoggedIn)
-            {
-                MainPage = new NavigationPage(new LoginPage())
-                {
-                    BarBackgroundColor = Color.White
-                };
-            }
-            else
-            {
-                MainPage = new NavigationPage(new TablesPage());
-            }
-        }
-
-        protected override void OnStart()
-        {
-            //Prices.WritePricesToJsonFile();
-            //Prices.ReadPricesFromJsonFile();
-            //Somewhere load users file....
-
             //for now....
             User joanne = new User("Joanne", true, "8011");
             User satch = new User("Satch", true, "1168");
@@ -43,9 +21,18 @@ namespace Zipline2
             Users.Instance.AddNewUser(joanne);
             Users.Instance.AddNewUser(satch);
             Users.Instance.AddNewUser(jim);
-
             Tables.LoadInitialTableData();
             Toppings.LoadInitialToppings();
+
+            MainPage = new MainMasterDetailPage();
+           
+        }
+
+        protected override void OnStart()
+        {
+            //Prices.WritePricesToJsonFile();
+            //Prices.ReadPricesFromJsonFile();
+            //Somewhere load users file....
         }
 
         protected override void OnSleep()
