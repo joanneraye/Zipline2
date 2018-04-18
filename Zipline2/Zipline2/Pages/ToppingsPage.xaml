@@ -18,7 +18,7 @@
             <views:MenuHeaderView x:Name="ToppingsHeader" />
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="25"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>

@@ -4,208 +4,214 @@
              x:Class="Zipline2.Pages.PizzaPage"
              xmlns:views="clr-namespace:Zipline2.Views"
              xmlns:local="clr-namespace:Zipline2.Pages;assembly=Zipline2.Pages"
-             xmlns:custom="clr-namespace:Zipline2.CustomControls"
-             xmlns:enums="clr-namespace:Zipline2.BusinessLogic.Enums">
+             xmlns:converters="clr-namespace:Zipline2.Converters"
+             xmlns:enums="clr-namespace:Zipline2.BusinessLogic.Enums"
+             xmlns:iconize="clr-namespace:FormsPlugin.Iconize;assembly=FormsPlugin.Iconize">
     <ContentPage.Resources>
         <ResourceDictionary>
+            <converters:SelectedItemColorConverter x:Key="selectBackgroundConverter"/>
+            <Style x:Key="PizzaSelectionButtons" TargetType="Button">
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="BorderColor" Value="White" />
+                <Setter Property="BorderRadius" Value="1" />
+                <Setter Property="BorderWidth" Value="1" />
+                <Setter Property="BackgroundColor" Value="Black" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Start" />
+                <Setter Property="FontSize" Value="Micro" />
+            </Style>
+            <Style x:Key="PlusIcon" TargetType="iconize:IconImage">
+                <Setter Property="Icon" Value="fa-plus" />
+                <Setter Property="IconSize" Value="30" />
+                <Setter Property="IconColor" Value="LightBlue" />
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <ContentPage.Content>
-        <StackLayout BackgroundColor="Black" 
-                     Padding="10,10"
-                     VerticalOptions="FillAndExpand">
-            <StackLayout BackgroundColor="Transparent"
-                         VerticalOptions="Start"
-                         Margin="0"
-                         Padding="0, 10, 0, 10">
-                <views:MenuHeaderView x:Name="MenuHeaderView"/>          
-                <Label Text="Pizza"
-                       TextColor="White" 
-                       FontSize="20"
-                       HorizontalOptions="Center" />
-                <BoxView HeightRequest="1" 
-                     WidthRequest="50"
-                     Color="White"/>
-                <Grid RowSpacing="5"
-                      HorizontalOptions="EndAndExpand"
-                      x:Name="PizzaGrid">
+   <ContentPage.Content>
+        <StackLayout BackgroundColor="Black"
+                     VerticalOptions="Start">
+                <Grid x:Name="PizzaGrid"
+                      ColumnSpacing="8"
+                      RowSpacing="3"
+                      Padding="10,10"
+                      HorizontalOptions="StartAndExpand">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition Height="50"/>
-                    </Grid.RowDefinitions>
+                    <RowDefinition Height="33"/>
+                    <RowDefinition Height="33"/>
+                    <RowDefinition Height="33"/>
+                    <RowDefinition Height="33"/>
+                    <RowDefinition Height="33"/>
+                    <RowDefinition Height="33"/>
+                    <RowDefinition Height="33"/>
+                </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <BoxView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" BackgroundColor="Orange" HeightRequest="1" VerticalOptions="End" HorizontalOptions="FillAndExpand"/>
-                    <BoxView Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="6" BackgroundColor="Orange" HeightRequest="1" VerticalOptions="End" HorizontalOptions="FillAndExpand"/>
-                    <BoxView Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="6" BackgroundColor="Orange" HeightRequest="1" VerticalOptions="End" HorizontalOptions="FillAndExpand"/>
-                    <BoxView Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="6" BackgroundColor="Orange" HeightRequest="1" VerticalOptions="End" HorizontalOptions="FillAndExpand"/>
-                   
+                </Grid.ColumnDefinitions>
                     <Label Grid.Row ="0"
                            Grid.Column="0"
-                           Grid.ColumnSpan="3"
-                           Text="Cheese Pizza"
-                           FontSize="18"
+                           Grid.ColumnSpan="2"
+                           FontSize="Small"
+                           Text="Cheese"
                            TextColor="White"
                            BackgroundColor="Black"
                            VerticalOptions="Center"
                            HorizontalOptions="Start" />
-                    <Button Grid.Row ="0"
-                            Grid.Column="5"
-                            BackgroundColor="Black"
-                            Clicked="OnPlusCheesePizza"
-                            Style="{StaticResource PlusButton}" />                   
-                    <Button Grid.Row="1"
+                <iconize:IconImage Grid.Row ="0"
+                           Grid.Column="3"
+                           Style="{StaticResource PlusIcon}">
+                        <iconize:IconImage.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding AddCheeseCommand}" />
+                        </iconize:IconImage.GestureRecognizers>
+                </iconize:IconImage>
+                <Button Grid.Row="1"
                             Grid.Column="0"
-                            x:Name="Slice"
-                            BorderColor="White"
-                            BorderWidth="1"
-                            BackgroundColor="Black"
                             Text="SL"
-                            TextColor="White"
-                            FontSize="11"
-                            Clicked="OnPizzaSliceSelected"/>
+                            Style="{StaticResource PizzaSelectionButtons}" 
+                            Command="{Binding PizzaSelectionCommand}"
+                            CommandParameter="{x:Static enums:PizzaType.ThinSlice}"
+                            BackgroundColor="{Binding CheeseSliceSelected,
+                                Mode=TwoWay, 
+                                Converter={StaticResource selectBackgroundConverter}}"/>
                     <Button Grid.Row="1"
-                            Grid.Column="1"
-                            x:Name="Medium"
-                            BorderColor="White"
-                            BorderWidth="1"
-                            BackgroundColor="Black"
+                            Grid.Column="1"                            
                             Text="MED"
-                            FontSize="11"
-                            TextColor="White"
-                            Clicked="OnPizzaMediumSelected"/>
+                            Style="{StaticResource PizzaSelectionButtons}" 
+                            Command="{Binding PizzaSelectionCommand}"
+                            CommandParameter="{x:Static enums:PizzaType.Medium}"
+                            BackgroundColor="{Binding MediumSelected,
+                                Mode=TwoWay, 
+                                Converter={StaticResource selectBackgroundConverter}}"/>
                     <Button Grid.Row="1"
                             Grid.Column="2"
                             Text="LG"
-                            x:Name="Large"
-                            BorderColor="White"
-                            BorderWidth="1"
-                            BackgroundColor="Black"
-                            FontSize="11"
-                            TextColor="White"
-                            Clicked="OnPizzaLargeSelected"/>
+                            Style="{StaticResource PizzaSelectionButtons}"
+                            Command="{Binding PizzaSelectionCommand}"
+                            CommandParameter="{x:Static enums:PizzaType.Large}"
+                            BackgroundColor="{Binding LargeSelected,
+                                Mode=TwoWay, 
+                                Converter={StaticResource selectBackgroundConverter}}"/>
                     <Button Grid.Row="1"
                             Grid.Column="3"
-                            FontSize="11"
-                            BorderColor="White"
-                            x:Name="Indy"
-                            BorderWidth="1"
-                            BackgroundColor="Black"
-                            Text="INDY"
-                            TextColor="White"
-                            Clicked="OnPizzaIndySelected"/>
+                            Text="INDY" 
+                            Style="{StaticResource PizzaSelectionButtons}" 
+                            Command="{Binding PizzaSelectionCommand}"
+                            CommandParameter="{x:Static enums:PizzaType.Indy}"
+                            BackgroundColor="{Binding IndySelected,
+                                Mode=TwoWay, 
+                                Converter={StaticResource selectBackgroundConverter}}"/>
                     <Label Grid.Row ="2"
                            Grid.Column="0"
-                           Grid.ColumnSpan="3"
-                           Text="MAJOR Pizza"
-                           FontSize="18"
+                           Grid.ColumnSpan="2"
+                           Text="Major"
+                           FontSize="Small"
                            TextColor="White"
                            VerticalOptions="Center"
                            HorizontalOptions="Start" />
-                    <Button Grid.Row ="2"
-                            Grid.Column="5"
-                            Clicked="OnPlusMajorPizza"
-                            Style="{StaticResource PlusButton}"
-                            HorizontalOptions="End"/>
-                    <Button Grid.Row="3"
+                    <iconize:IconImage Grid.Row ="2"
+                            Grid.Column="3"
+                            Style="{StaticResource PlusIcon}">
+                    <iconize:IconImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding AddMajorCommand}" />
+                    </iconize:IconImage.GestureRecognizers>
+                </iconize:IconImage>
+                <Button Grid.Row="3"
                             Grid.Column="0"
-                            x:Name="MajorSlice"
-                            BorderColor="White"
-                            BorderWidth="1"
-                            BackgroundColor="Black"
                             Text="SL"
-                            TextColor="White"
-                            FontSize="11"
-                            Clicked="OnMajorSliceSelected"/>
+                            Style="{StaticResource PizzaSelectionButtons}"
+                            Command="{Binding MajorPizzaSelectionCommand}"
+                            CommandParameter="{x:Static enums:PizzaType.ThinSlice}"
+                            BackgroundColor="{Binding MajorSliceSelected,
+                                Mode=TwoWay, 
+                                Converter={StaticResource selectBackgroundConverter}}"/>                   
                     <Button Grid.Row="3"
                             Grid.Column="1"
-                            FontSize="11"
-                            BorderColor="White"
-                            x:Name="MajorIndy"
-                            BorderWidth="1"
-                            BackgroundColor="Black"
-                            Text="INDY"
-                            TextColor="White"
-                            Clicked="OnMajorIndySelected"/>
+                            Text="MED"
+                            Style="{StaticResource PizzaSelectionButtons}" 
+                            Command="{Binding MajorPizzaSelectionCommand}"
+                            CommandParameter="{x:Static enums:PizzaType.Medium}"
+                            BackgroundColor="{Binding MajorMediumSelected,
+                                Mode=TwoWay, 
+                                Converter={StaticResource selectBackgroundConverter}}"/>
                     <Button Grid.Row="3"
                             Grid.Column="2"
-                            x:Name="MajorMedium"
-                            BorderColor="White"
-                            BorderWidth="1"
-                            BackgroundColor="Black"
-                            Text="MED"
-                            FontSize="11"
-                            TextColor="White"
-                            Clicked="OnMajorMediumSelected"/>
-                    <Button Grid.Row="3"
-                            Grid.Column="3"
                             Text="LG"
-                            x:Name="MajorLarge"
-                            BorderColor="White"
-                            BorderWidth="1"
+                            Style="{StaticResource PizzaSelectionButtons}" 
+                            Command="{Binding MajorPizzaSelectionCommand}"
+                            CommandParameter="{x:Static enums:PizzaType.Large}"
+                            BackgroundColor="{Binding MajorLargeSelected,
+                                Mode=TwoWay, 
+                                Converter={StaticResource selectBackgroundConverter}}"/>
+                    <Button Grid.Row="4"
+                            Grid.Column="0"
+                            Text="INDY"
+                            Style="{StaticResource PizzaSelectionButtons}"
+                            Command="{Binding MajorPizzaSelectionCommand}"
+                            CommandParameter="{x:Static enums:PizzaType.Indy}"
+                            BackgroundColor="{Binding MajorIndySelected,
+                                Mode=TwoWay, 
+                                Converter={StaticResource selectBackgroundConverter}}"/>
+                <Button Grid.Row="4"
+                        Grid.Column="1"
+                        Text="MFP"
+                        Style="{StaticResource PizzaSelectionButtons}" 
+                        Command="{Binding MajorPizzaSelectionCommand}"
+                        CommandParameter="{x:Static enums:PizzaType.Mfp}"
+                        BackgroundColor="{Binding MajorMfpSelected,
+                            Mode=TwoWay, 
+                            Converter={StaticResource selectBackgroundConverter}}"/>
+                <Button Grid.Row="4"
+                        Grid.Column="2"
+                        Text="PAN"
+                        Style="{StaticResource PizzaSelectionButtons}"
+                        Command="{Binding MajorPizzaSelectionCommand}"
+                        CommandParameter="{x:Static enums:PizzaType.SatchPan}"
+                        BackgroundColor="{Binding MajorSatchPanSelected,
+                            Mode=TwoWay, 
+                            Converter={StaticResource selectBackgroundConverter}}"/>
+                <Label Grid.Row ="5"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="4"
+                               Text="Millet and Flax"
+                               TextColor="White"
+                               FontSize="Small"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Start" />
+                <iconize:IconImage Grid.Row ="5"
+                            Grid.Column="3"
+                            Style="{StaticResource PlusIcon}">
+                    <iconize:IconImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding AddMfpCommand}" />
+                    </iconize:IconImage.GestureRecognizers>
+                </iconize:IconImage>
+                <!--<iconize:IconButton Grid.Row ="5"
+                            Grid.Column="3" 
+                            Text="fa-plus-circle"
+                            FontSize="30"
+                            VerticalOptions="Start"
                             BackgroundColor="Black"
-                            FontSize="11"
-                            TextColor="White"
-                            Clicked="OnMajorLargeSelected"/>
-                    <Button Grid.Row="3"
-                            Grid.Column="4"
-                            Text="MFP"
-                            x:Name="MajorMfp"
-                            BorderColor="White"
-                            BorderWidth="1"
-                            BackgroundColor="Black"
-                            FontSize="11"
-                            TextColor="White"
-                            Clicked="OnMajorMfpSelected"/>
-                    <Button Grid.Row="3"
-                            Grid.Column="5"
-                            Text="PAN"
-                            x:Name="MajorSatchPan"
-                            BorderColor="White"
-                            BorderWidth="1"
-                            BackgroundColor="Black"
-                            FontSize="11"
-                            TextColor="White"
-                            Clicked="OnMajorSatchPanSelected"/>
+                            TextColor="LightBlue"/>-->
+                <Label Grid.Row ="6"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="3"
+                           FontSize="Small"
+                           Text="Satch-Pan"
+                           TextColor="White"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Start" />
+                <iconize:IconImage Grid.Row ="6"
+                            Grid.Column="3"
+                            Style="{StaticResource PlusIcon}">
+                    <iconize:IconImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding AddSatchPanCommand}" />
+                    </iconize:IconImage.GestureRecognizers>
+                </iconize:IconImage>
 
-                    <Label Grid.Row ="4"
-                           Grid.Column="0"
-                             Grid.ColumnSpan="4"
-                           Text="Millet and Flax Pizza"
-                           FontSize="18"
-                           TextColor="White"
-                           VerticalOptions="Center"
-                           HorizontalOptions="Start" />
-                    <Button Grid.Row ="4"
-                            Grid.Column="5"
-                            Clicked="OnMfpPizza"
-                            Style="{StaticResource PlusButton}" />
-                    <Label Grid.Row ="5"
-                           Grid.Column="0"
-                             Grid.ColumnSpan="2"
-                           Text="SATCH-PAN"
-                           FontSize="18"
-                           TextColor="White"
-                           VerticalOptions="Center"
-                           HorizontalOptions="Start" />
-                    <Button Grid.Row ="5"
-                            Grid.Column="5"
-                            Clicked="OnSatchPanPizza"
-                            Style="{StaticResource PlusButton}" />
-                </Grid>
-                <views:MenuButtonFooterView VerticalOptions="End"/>
-            </StackLayout>
+            </Grid>
+                <views:MenuButtonFooterView VerticalOptions="EndAndExpand"/>
         </StackLayout>
     </ContentPage.Content>
 </local:BasePage>

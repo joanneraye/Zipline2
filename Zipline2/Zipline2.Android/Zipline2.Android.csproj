@@ -174,12 +174,6 @@
     <Folder Include="Resources\drawable-xxxxhdpi\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Zipline2\Zipline2.csproj">
-      <Project>{05272f1d-6b26-4599-a391-584ecca03290}</Project>
-      <Name>Zipline2</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\hamburger.png" />
   </ItemGroup>
   <ItemGroup>
@@ -187,6 +181,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\colors.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Zipline2\Zipline2.csproj">
+      <Project>{05272f1d-6b26-4599-a391-584ecca03290}</Project>
+      <Name>Zipline2</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

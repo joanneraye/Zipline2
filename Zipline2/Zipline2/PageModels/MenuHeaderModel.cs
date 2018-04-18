@@ -95,7 +95,7 @@ namespace Zipline2.PageModels
             itemTotal = 0M;
             OrderTotal = OrderManager.Instance.OrderInProgress.Total;
             UserName = Users.Instance.LoggedInUser.UserName;
-            TableName = OrderManager.Instance.GetCurrentTable().TableName;
+            
             MessagingCenter.Subscribe<OrderItem, decimal>(this, "ItemPriceUpdated",
                 (sender, arg) => { UpdateItemTotal(arg); });
         }

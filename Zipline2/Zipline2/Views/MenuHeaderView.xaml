@@ -6,37 +6,21 @@
         <StackLayout Orientation="Vertical"
                      Padding="0"
                      Spacing="0">
-          <StackLayout Orientation="Horizontal"
+          <!--<StackLayout Orientation="Horizontal"
                        Padding="10, 0, 10, 0"
                        HorizontalOptions="FillAndExpand">
-                <Button x:Name="TButton"
-                      Text="TABLES"
-                      HorizontalOptions="Start"
-                      VerticalOptions="End"
-                      Clicked="TablesButtonClicked" />
-                <Label TextColor="LightBlue"
-                       FontSize="Small"
-                       HorizontalOptions="CenterAndExpand"
-                       VerticalOptions="Center"
-                       HorizontalTextAlignment="Center"
-                       Text="{Binding UserName, StringFormat='{0}  '}"/>
+                
                 <Label TextColor="LightBlue"
                        FontSize="Small"
                        HorizontalOptions="CenterAndExpand"
                        VerticalOptions="Center"
                        HorizontalTextAlignment="Center"
                        Text="{Binding TableName, StringFormat='{0}'}"/>
-                <Button Text="Next" 
-                        HorizontalOptions="End"
-                        Clicked="NextButtonClicked"
-                        VerticalOptions="End"/>
-            </StackLayout>
+               
+            </StackLayout>-->
             <StackLayout Orientation="Horizontal"
-                         Padding="10, 0, 10, 0"
-                       HorizontalOptions="CenterAndExpand">
-                <Label TextColor="White" 
-                       Text="{Binding PizzaName}"
-                       HorizontalOptions="Start" />
+                         Padding="0, 0, 10, 0"
+                       HorizontalOptions="EndAndExpand">
                 <Label TextColor="LightBlue"
                        x:Name="ItemTotalLabel"
                        FontSize="Small"

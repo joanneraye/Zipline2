@@ -14,28 +14,29 @@
         <StackLayout BackgroundColor="Black" 
                      Padding="10, 10"
                      Orientation="Vertical">
-            <StackLayout Orientation="Horizontal">
-                   <Button Text="Takeout" 
+            <Button Text="Takeout" 
                         x:Name="TakeoutButton"
                         TextColor="Black"
                         BackgroundColor="Pink"
+                        FontSize="Small"
                         BorderColor="White"
                         BorderRadius="1"
                         BorderWidth="1"
-                        HorizontalOptions="CenterAndExpand"
+                        HeightRequest="35"
+                    Margin="0,0,0,10"
+                        HorizontalOptions="Center"
                         Clicked="TakeoutButtonClicked"/>
-            </StackLayout>
             <ListView ItemsSource="{Binding DisplayTables}"
                       x:Name="TableList"
-                      SeparatorVisibility="Default"
-                      RowHeight="55"
-                      SeparatorColor="BlanchedAlmond">
+                      RowHeight="40"
+                      SeparatorVisibility="Default">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell x:Name="ListViewCellTables">
-                            <Grid x:Name="TablesGrid">
+                            <Grid x:Name="TablesGrid"
+                                  Padding="0,0,10,0">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="35"/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -45,21 +46,25 @@
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0" 
                                        BackgroundColor="{Binding InsideTableColor}" 
-                                        Margin="5, 8, 5, 8"/>
-                                <Button Grid.Column="1" 
+                                       Margin="5, 10, 5, 10"/>
+                           
+                                    <Button Grid.Column="1"
                                         Text="{Binding InsideTableName}" 
                                         TextColor="White" 
-                                        BackgroundColor="Black" 
+                                        BackgroundColor="Black"
                                         BorderColor="White"
+                                        FontSize="Micro" 
+                                        FontAttributes="Bold"
                                         BorderRadius="1"
-                                        BorderWidth="1"
-                                        Command="{Binding InsideTableCommand}"/>
+                                        BorderWidth="1"/>
                                 <Label Grid.Column="2" 
                                        BackgroundColor="{Binding OutsideTableColor}" 
-                                       Margin="5, 8, 5, 8"/>
+                                       Margin="5, 10, 5, 10"/>
                                 <Button Grid.Column="3" Text="{Binding OutsideTableName}" 
                                         TextColor="White"
+                                        FontSize="Micro"
                                         BackgroundColor="Black" 
+                                         FontAttributes="Bold"
                                         BorderColor="White"
                                         BorderRadius="1"
                                         BorderWidth="1"

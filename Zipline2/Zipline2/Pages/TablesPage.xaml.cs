@@ -23,14 +23,14 @@ namespace Zipline2.Pages
         #region Constructor
         public TablesPage()
         {
-            TablesPageModel = new TablesPageModel(Navigation);
+            TablesPageModel = new TablesPageModel();
             InitializeComponent();
             BindingContext = TablesPageModel;
+            //this.ToolbarItems.Add(new ToolbarItem { Text = "Tables", Priority = 0 });
         }
         #endregion
 
         #region Methods
-       
         
         public void OnPrintCheckButtonClicked(object sender, EventArgs e)
         {
@@ -47,6 +47,25 @@ namespace Zipline2.Pages
         protected override bool OnBackButtonPressed()
         {
             return true;
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            TablesPageModel.NavigateToPizzaPage += HandleNavigateToPizzaPage;
+        }
+        void HandleNavigateToPizzaPage(object sender, EventArgs e)
+        {
+            var currentMainPage = (Application.Current.MainPage as MasterDetailPage);
+            currentMainPage.Detail = new NavigationPage(new PizzaPage());
+            Application.Current.MainPage = currentMainPage;
+            //await Navigation.PushAsync(new PizzaPage());
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            TablesPageModel.NavigateToPizzaPage -= HandleNavigateToPizzaPage;
         }
         #endregion
     }

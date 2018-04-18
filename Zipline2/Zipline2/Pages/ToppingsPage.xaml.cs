@@ -6,6 +6,7 @@ using Zipline2.PageModels;
 using Zipline2.Models;
 using Zipline2.BusinessLogic.Enums;
 using static Zipline2.PageModels.ToppingsPageModel;
+using Zipline2.BusinessLogic;
 
 namespace Zipline2.Pages
 {
@@ -24,10 +25,10 @@ namespace Zipline2.Pages
             ToppingsPageModel = new ToppingsPageModel(currentPizza);
             InitializeComponent ();
             BindingContext = ToppingsPageModel;
-            //The ToppingsPage contains the MenuHeaderView with totals.
-            MenuHeaderModel.Instance.ItemTotal = currentPizza.PricePerItem;
 
-            MenuHeaderModel.Instance.PizzaName = currentPizza.ItemName;
+            string pizzaTitle = "Toppings for " + currentPizza.ItemName;
+            this.ToolbarItems.Add(new ToolbarItem { Text = pizzaTitle, Priority = 0 });
+            this.ToolbarItems.Add(new ToolbarItem { Text = string.Format("0:C", currentPizza.PricePerItem), Priority = 1 });
           
             if (currentPizza.MajorMamaInfo == MajorOrMama.Major)
             {

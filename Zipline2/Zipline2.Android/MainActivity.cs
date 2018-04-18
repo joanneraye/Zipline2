@@ -17,6 +17,7 @@ namespace Zipline2.Droid
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
+            
 
             //Commented out because can't find Xamarin Insights Nuget package.
             //Insights.HasPendingCrashReport += (sender, isStartupCrash) =>
@@ -32,7 +33,8 @@ namespace Zipline2.Droid
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
             Plugin.Iconize.Iconize.With(new Plugin.Iconize.Fonts.FontAwesomeModule());
-            FormsPlugin.Iconize.Droid.IconControls.Init(Resource.Id.toolbar);
+           
+            //Plugin.Iconize.Droid.IconControls.Init(Resource.Id.toolbar);
 
             //string dbPath = FileAccessHelper.GetLocalFilePath("orders.db3");
 

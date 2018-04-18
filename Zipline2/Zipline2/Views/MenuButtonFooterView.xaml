@@ -18,34 +18,43 @@
         </ResourceDictionary>
     </ContentView.Resources>
     <ContentView.Content>
-        <StackLayout Orientation="Vertical" 
-                     VerticalOptions="End"
-                     Spacing="10"
-                     BackgroundColor="Black"
-                     Padding="0, 0, 0, 0">
-            <StackLayout Orientation="Horizontal"
-                         HorizontalOptions="CenterAndExpand"
-                         Spacing="10">
-                <Button Text="Drinks"  
-                      Style="{StaticResource MenuButtons}" />
-                <Button Text="Pizza" 
-                      Style="{StaticResource MenuButtons}" />
-                <Button Text="Special" 
-                      Style="{StaticResource MenuButtons}" />
-                <Button Text="Sides" 
-                      Style="{StaticResource MenuButtons}" />
-            </StackLayout>
-            <StackLayout Orientation="Horizontal"
-                         HorizontalOptions="CenterAndExpand">
-                <Button Text="Salads" 
-                      Style="{StaticResource MenuButtons}" />
-                <Button Text="Calz" 
-                      Style="{StaticResource MenuButtons}" />
-                <Button Text="Desserts" 
-                      Style="{StaticResource MenuButtons}" />
-                <Button Text="Merch" 
-                      Style="{StaticResource MenuButtons}" />
-            </StackLayout>
-        </StackLayout>
+        <Grid VerticalOptions="EndAndExpand"
+              RowSpacing="8"
+              ColumnSpacing="8"
+              Padding="10,0,10,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="32"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Text="Drinks"  
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Style="{StaticResource MenuButtons}" />
+            <Button Text="Pizza" 
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Style="{StaticResource MenuButtons}" />
+            <Button Text="Special" 
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Style="{StaticResource MenuButtons}" />
+            <Button Text="Salads" 
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Style="{StaticResource MenuButtons}" />
+            <Button Text="Calzone" 
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Style="{StaticResource MenuButtons}" />
+            <Button Text="Desserts" 
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Style="{StaticResource MenuButtons}" />
+        </Grid>
     </ContentView.Content>
 </ContentView>

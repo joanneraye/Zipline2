@@ -6,6 +6,8 @@ using System.ComponentModel;
 using Zipline2.Models;
 using Zipline2.BusinessLogic;
 using Zipline2.Pages;
+using System.Windows.Input;
+using System.Collections.ObjectModel;
 
 namespace Zipline2.PageModels
 {
@@ -46,49 +48,47 @@ namespace Zipline2.PageModels
             }
 
             #region Command Variables
-            //public System.Windows.Input.ICommand InsideTableCommand { get; set; }
-            //public System.Windows.Input.ICommand OutsideTableCommand { get; set; }
+            public System.Windows.Input.ICommand InsideTableCommand { get; set; }
+            public System.Windows.Input.ICommand OutsideTableCommand { get; set; }
             #endregion
 
             public TableSelection(TablesPageModel referenceToParentClass)
             {
                 parentTablesPageModel = referenceToParentClass;
-                //InsideTableCommand = new Xamarin.Forms.Command(OnInsideButtonClicked);
-                //OutsideTableCommand = new Xamarin.Forms.Command(OnOutsideButtonClicked);
+                InsideTableCommand = new Xamarin.Forms.Command(OnInsideButtonClicked);
+                OutsideTableCommand = new Xamarin.Forms.Command(OnOutsideButtonClicked);
             }
-            #region Methods
-            //private void OnInsideButtonClicked()
-            //{
-            //    TableSelection thisRow = parentTablesPageModel.DisplayTables[SelectionIndex];
-            //    Table tableSelected = thisRow.InsideTable;
-            //    tableSelected.IsOccupied = true;
-            //    InsideTableColor = Color.Orange;
-            //    //Change what the app's current table is.
-            //    OrderManager.Instance.CurrentTableIndex = tableSelected.IndexInAllTables;
-            //    parentTablesPageModel.DisplayPizzaPage();
-            //}
-            //private void OnOutsideButtonClicked()
-            //{
-            //    TableSelection thisRow = parentTablesPageModel.DisplayTables[SelectionIndex];
-            //    Table tableSelected = thisRow.OutsideTable;
-            //    tableSelected.IsOccupied = true;
-            //    OutsideTableColor = Color.Orange;
-            //    //Change what the app's current table is.
-            //    OrderManager.Instance.CurrentTableIndex = tableSelected.IndexInAllTables;
-            //    parentTablesPageModel.DisplayPizzaPage();
-            //}
-            #endregion
+
+            private void OnInsideButtonClicked()
+            {
+                TableSelection thisRow = parentTablesPageModel.DisplayTables[SelectionIndex];
+                Table tableSelected = thisRow.InsideTable;
+                tableSelected.IsOccupied = true;
+                InsideTableColor = Color.Orange;
+                //Change what the app's current table is.
+                OrderManager.Instance.UpdateCurrentTable(tableSelected);
+             
+                parentTablesPageModel.DisplayPizzaPage();
+            }
+            private void OnOutsideButtonClicked()
+            {
+                TableSelection thisRow = parentTablesPageModel.DisplayTables[SelectionIndex];
+                Table tableSelected = thisRow.OutsideTable;
+                tableSelected.IsOccupied = true;
+                OutsideTableColor = Color.Orange;
+                //Change what the app's current table is.
+                OrderManager.Instance.UpdateCurrentTable(tableSelected);
+                parentTablesPageModel.DisplayPizzaPage();
+            }
         }
         //******************************NOTE IMBEDDED CLASS above ************************
         #region Private Variables
-        private List<TableSelection> displayTables;
+        private ObservableCollection<TableSelection> displayTables;
         private string userName;
         #endregion
 
-        #region Properties
-        //public bool IsInside { get; set; }
-
-        
+        #region Properties     
+        public event EventHandler NavigateToPizzaPage;
         public string UserName
         {
             get
@@ -100,12 +100,7 @@ namespace Zipline2.PageModels
                 SetProperty(ref userName, value);
             }
         }
-        
-        //public string InsideOutsideButtonText { get; set; }
-        public INavigation Navigation { get; set; }
-
-
-        public List<TableSelection> DisplayTables
+        public ObservableCollection<TableSelection> DisplayTables
         {
             get
             {
@@ -122,10 +117,8 @@ namespace Zipline2.PageModels
        
 
         #region Constructor
-        public TablesPageModel(INavigation navigation)
+        public TablesPageModel()
         {
-            Navigation = navigation;
-            //userName = Users.Instance.LoggedInUser.UserName;
             LoadTablesForDisplay();
         }
         #endregion
@@ -161,7 +154,7 @@ namespace Zipline2.PageModels
         }
         public void LoadTablesForDisplay()
         {
-            DisplayTables = new List<TableSelection>();
+            DisplayTables = new ObservableCollection<TableSelection>();
             decimal halfOfTableCount = Tables.AllTables.Count / 2;
             int outsideTableIndex = Convert.ToInt32(Math.Ceiling(halfOfTableCount));
             int insideTableIndex = 0;
@@ -202,10 +195,12 @@ namespace Zipline2.PageModels
                 currentRowIndex++;
             }
         }
-        private async void DisplayPizzaPage()
+        void DisplayPizzaPage()
         {
-            await Navigation.PushAsync(new PizzaPage());
+            OnNavigateToPizzaPage();
         }
+       
+        void OnNavigateToPizzaPage() => NavigateToPizzaPage?.Invoke(this, EventArgs.Empty);
 
         #endregion
     }

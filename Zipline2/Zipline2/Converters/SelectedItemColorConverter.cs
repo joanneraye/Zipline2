@@ -25,7 +25,7 @@ namespace Zipline2.Converters
             }
             if (isSelected)
             {
-                return Xamarin.Forms.Color.CornflowerBlue;
+                return Xamarin.Forms.Color.Orange;
             }
             else
             {

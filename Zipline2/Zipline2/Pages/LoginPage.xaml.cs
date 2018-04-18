@@ -51,7 +51,8 @@ namespace Zipline2.Pages
                 Users.IsUserLoggedIn = true;
                 await Navigation.PopModalAsync();
             }
-            
+            //TODO: See this example....
+            //Device.BeginInvokeOnMainThread(async () => await DisplayAlert("Save Failed", message, "OK"));
             await DisplayAlert("Oops", "Sorry that PIN is not in our system as belonging to anyone.", "OK");
             PinEnteredByUser.Text = "";
             LoginButton.IsEnabled = true;

@@ -43,7 +43,9 @@ namespace Zipline2.BusinessLogic
         /// Stores the index of the Table in the list of all tables
         /// for this order.
         /// </summary>
+        
         public int CurrentTableIndex { get; set; }
+        public string CurrentTableName { get; set; }
         #endregion
         #region Methods
         /// <summary>
@@ -61,9 +63,9 @@ namespace Zipline2.BusinessLogic
         /// <param name="updatedTable"></param>
         public void UpdateCurrentTable(Table updatedTable)
         {
-
+            CurrentTableIndex = updatedTable.IndexInAllTables;
             Tables.AllTables[CurrentTableIndex] = updatedTable;
-
+            CurrentTableName = updatedTable.TableName;
         }
 
         public void MarkCurrentTableOccupied(bool isTableOccupied)

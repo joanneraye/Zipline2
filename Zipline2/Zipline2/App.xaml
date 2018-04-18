@@ -6,16 +6,17 @@
 	<Application.Resources>
         <ResourceDictionary>
             <Style x:Key="PlusButton" TargetType="Button">
-                <Setter Property="TextColor" Value="White" />
+                <Setter Property="TextColor" Value="Black" />
                 <Setter Property="BorderColor" Value="White" />
-                <Setter Property="BorderRadius" Value="25" />
+                <Setter Property="BorderRadius" Value="15" />
                 <Setter Property="BorderWidth" Value="2" />
-                <Setter Property="WidthRequest" Value="50" />
-                <Setter Property="HeightRequest" Value="50" />
-                <Setter Property="BackgroundColor" Value="Black" />
+                <Setter Property="WidthRequest" Value="30" />
+                <Setter Property="HeightRequest" Value="30" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="BackgroundColor" Value="LightBlue" />
                 <Setter Property="HorizontalOptions" Value="Center" />
                 <Setter Property="VerticalOptions" Value="End" />
-                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontSize" Value="14" />
                 <Setter Property="Text" Value="+" />
             </Style>
         </ResourceDictionary >
