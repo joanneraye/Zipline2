@@ -26,7 +26,6 @@ namespace Zipline2.Pages
             TablesPageModel = new TablesPageModel();
             InitializeComponent();
             BindingContext = TablesPageModel;
-            //this.ToolbarItems.Add(new ToolbarItem { Text = "Tables", Priority = 0 });
         }
         #endregion
 

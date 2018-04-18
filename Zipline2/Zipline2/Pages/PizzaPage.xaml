@@ -30,20 +30,19 @@
     </ContentPage.Resources>
    <ContentPage.Content>
         <StackLayout BackgroundColor="Black"
-                     VerticalOptions="Start">
+                     VerticalOptions="FillAndExpand">
                 <Grid x:Name="PizzaGrid"
                       ColumnSpacing="8"
-                      RowSpacing="3"
                       Padding="10,10"
                       HorizontalOptions="StartAndExpand">
                     <Grid.RowDefinitions>
-                    <RowDefinition Height="33"/>
-                    <RowDefinition Height="33"/>
-                    <RowDefinition Height="33"/>
-                    <RowDefinition Height="33"/>
-                    <RowDefinition Height="33"/>
-                    <RowDefinition Height="33"/>
-                    <RowDefinition Height="33"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />

@@ -55,8 +55,7 @@ namespace Zipline2.PageModels
         {
             var currentMainPage = (Application.Current.MainPage as MasterDetailPage);
             var detailPage = currentMainPage.Detail as NavigationPage;
-            if (menuNumber.Equals("1") && detailPage.RootPage is TablesPage) return; 
-         
+            if (menuNumber.Equals("1") && detailPage.RootPage is TablesPage) return;
             switch (menuNumber)
             {
                 case "1":
