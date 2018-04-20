@@ -10,7 +10,7 @@ namespace Zipline2.PageModels
     public class ToppingsOtherPageModel : BasePageModel
     {
         //******************************NOTE IMBEDDED CLASS************************
-        public class OtherToppingSelection : BasePageModel
+        public class OtherToppingDisplayItem : BasePageModel
         {
             private bool isOtherToppingItemSelected;
             public Topping OtherToppingsListTopping { get; set; }
@@ -28,8 +28,8 @@ namespace Zipline2.PageModels
         }
         //******************************NOTE IMBEDDED CLASS ABOVE******************
         public List<Topping> ToppingsOtherList { get; set; }
-        private OtherToppingSelection selectedOtherToppingItem;
-        public OtherToppingSelection SelectedOtherToppingItem
+        private OtherToppingDisplayItem selectedOtherToppingItem;
+        public OtherToppingDisplayItem SelectedOtherToppingItem
         {
             get
             {
@@ -42,16 +42,16 @@ namespace Zipline2.PageModels
         }
 
 
-        private ObservableCollection<OtherToppingSelection> otherToppingsSelectionsList;
-        public ObservableCollection<OtherToppingSelection> OtherToppingsSelectionsList
+        private ObservableCollection<OtherToppingDisplayItem> otherToppingsDisplayItems;
+        public ObservableCollection<OtherToppingDisplayItem> OtherToppingsDisplayItems
         {
             get
             {
-                return otherToppingsSelectionsList;
+                return otherToppingsDisplayItems;
             }
             set
             {
-                SetProperty(ref otherToppingsSelectionsList, value);
+                SetProperty(ref otherToppingsDisplayItems, value);
             }
         }
 
@@ -73,12 +73,12 @@ namespace Zipline2.PageModels
                 new Topping(ToppingName.TakeoutKeepInKitch) {SpecialPricingType = SpecialPricingType.Free},
             };
 
-            OtherToppingsSelectionsList = new ObservableCollection<OtherToppingSelection>();
+            OtherToppingsDisplayItems = new ObservableCollection<OtherToppingDisplayItem>();
             //TODO:: Preselect items below that are in the SelectedOtherToppings (List<Topping>) 
             //      passed in from ToppingsPage:  toppingsAlreadySelected
             foreach (var topping in ToppingsOtherList)
             {
-                OtherToppingSelection newSelection = new OtherToppingSelection();
+                OtherToppingDisplayItem newSelection = new OtherToppingDisplayItem();
                 newSelection.OtherToppingsListTopping = topping;
                 foreach (var preselectedTopping in toppingsAlreadySelected)
                 {
@@ -88,7 +88,7 @@ namespace Zipline2.PageModels
                         break;
                     }
                 }
-                OtherToppingsSelectionsList.Add(newSelection);
+                OtherToppingsDisplayItems.Add(newSelection);
             }
            
             //TODO:  Create an other toppings selection list containing the above items and

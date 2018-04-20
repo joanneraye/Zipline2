@@ -11,9 +11,9 @@ using Zipline2.PageModels;
 namespace Zipline2.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class MenuButtonFooterView : ContentView
+	public partial class MenuScrollFooterView : ContentView
 	{
-		public MenuButtonFooterView()
+		public MenuScrollFooterView()
 		{
 			InitializeComponent ();
             BindingContext = new MenuButtonFooterModel();

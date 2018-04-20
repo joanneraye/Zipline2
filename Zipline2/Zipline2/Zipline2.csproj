@@ -80,6 +80,9 @@
     <Compile Update="Pages\TablesPage.xaml.cs">
       <DependentUpon>TablesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\MenuScrollFooterView.xaml.cs">
+      <DependentUpon>MenuScrollFooterView.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\MenuButtonFooterView.xaml.cs">
       <DependentUpon>MenuButtonFooterView.xaml</DependentUpon>
     </Compile>
@@ -89,6 +92,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Pages\DrinksPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Pages\NavigationItem.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

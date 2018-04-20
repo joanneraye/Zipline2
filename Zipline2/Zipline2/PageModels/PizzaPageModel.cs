@@ -23,6 +23,7 @@ namespace Zipline2.PageModels
         private bool majorIndySelected;
         private bool majorSatchPanSelected;
         private bool majorMfpSelected;
+
         public bool CheeseSliceSelected
         {
             get
@@ -254,12 +255,12 @@ namespace Zipline2.PageModels
             var pizzaSize = GetPizzaSizeSelected();
             var pizzaType = Pizza.GetPizzaType(pizzaSize, PizzaCrust.RegularThin);
             //Send info to OrderManager
-            var guiData = new CustomerSelections(pizzaType)
+            var guiData = new PizzaSelection(pizzaType)
             {
                 MenuItemGeneralCategory = MenuCategory.Pizza,
                 PizzaSize = pizzaSize,
                 PizzaCrustType = PizzaCrust.RegularThin,
-                NumberOfItems = 1
+                ItemCount = 1
             };
 
             OrderManager.Instance.AddItemInProgress(guiData);
@@ -298,11 +299,11 @@ namespace Zipline2.PageModels
         private void OnAddMajor()
         {
             var pizzaType = GetMajorSizeSelected();
-            var guiData = new CustomerSelections(pizzaType)
+            var guiData = new PizzaSelection(pizzaType)
             {
                 MenuItemGeneralCategory = MenuCategory.Pizza,
                 MajorOrMama = MajorOrMama.Major,
-                NumberOfItems = 1
+                ItemCount = 1
             };
 
             switch (pizzaType)
@@ -342,11 +343,11 @@ namespace Zipline2.PageModels
         {
             var pizzaType = PizzaType.Mfp;
             //Send info to OrderManager
-            var guiData = new CustomerSelections(pizzaType)
+            var guiData = new PizzaSelection(pizzaType)
             {
                 MenuItemGeneralCategory = MenuCategory.Pizza,
                 PizzaSize = PizzaSize.OneSize,
-                NumberOfItems = 1
+                ItemCount = 1
             };
 
             OrderManager.Instance.AddItemInProgress(guiData);
@@ -358,11 +359,11 @@ namespace Zipline2.PageModels
         {
             var pizzaType = PizzaType.SatchPan;
             //Send info to OrderManager
-            var guiData = new CustomerSelections(pizzaType)
+            var guiData = new PizzaSelection(pizzaType)
             {
                 MenuItemGeneralCategory = MenuCategory.Pizza,
                 PizzaSize = PizzaSize.OneSize,
-                NumberOfItems = 1
+                ItemCount = 1
             };
 
             OrderManager.Instance.AddItemInProgress(guiData);

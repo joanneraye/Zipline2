@@ -17,7 +17,7 @@ namespace Zipline2.BusinessLogic
 
         }
 
-        public static OrderItem GetOrderItem(CustomerSelections guiData)
+        public static OrderItem GetOrderItem(CustomerSelection guiData)
         {
             switch (guiData.MenuItemGeneralCategory)
             {
@@ -37,24 +37,24 @@ namespace Zipline2.BusinessLogic
             }
         }
 
-        private static OrderItem CreatePizza(CustomerSelections guiData)
+        private static OrderItem CreatePizza(CustomerSelection guiData)
         {
             return new Pizza(guiData);
             
         }
-        private static OrderItem CreateDrink(CustomerSelections guiData)
+        private static OrderItem CreateDrink(CustomerSelection guiData)
         {
             return new Drink(guiData);
         }
-        private static OrderItem CreateDessert(CustomerSelections guiData)
+        private static OrderItem CreateDessert(CustomerSelection guiData)
         {
             return new Dessert(guiData);
         }
-        private static OrderItem CreateLunchSpecial(CustomerSelections guiData)
+        private static OrderItem CreateLunchSpecial(CustomerSelection guiData)
         {
             return new LunchSpecial(guiData);
         }
-        private static OrderItem CreateMerchandise(CustomerSelections guiData)
+        private static OrderItem CreateMerchandise(CustomerSelection guiData)
         {
             return new Merchandise(guiData);
         }

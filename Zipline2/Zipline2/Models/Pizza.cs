@@ -20,12 +20,13 @@ namespace Zipline2.Models
         #endregion
 
         #region Constructor
-        public Pizza(CustomerSelections guiData)
+        public Pizza(CustomerSelection guiData)
         {
-            MajorMamaInfo = guiData.MajorOrMama;
-            Crust = guiData.PizzaCrustType;
-            Size = guiData.PizzaSize;
-            PizzaType = guiData.PizzaType;
+            PizzaSelection pizzaGuiData = guiData as PizzaSelection;
+            MajorMamaInfo = pizzaGuiData.MajorOrMama;
+            Crust = pizzaGuiData.PizzaCrustType;
+            Size = pizzaGuiData.PizzaSize;
+            PizzaType = pizzaGuiData.PizzaType;
             Toppings = new Toppings(PizzaType);
             PopulateBasePrice();
         }

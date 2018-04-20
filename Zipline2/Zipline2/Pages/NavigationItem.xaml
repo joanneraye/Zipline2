@@ -8,8 +8,8 @@
         <ColumnDefinition Width="50" />
         <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
-    <iconize:IconImage Grid.Column="0" Icon="{Binding Icon, Source={x:Reference this}}" IconColor="White" IconSize="22" />
-    <Label Text="{Binding Text, Source={x:Reference this}}" TextColor="White" Grid.Column="1" />
+    <iconize:IconImage Grid.Column="0" Icon="{Binding Icon, Source={x:Reference this}}" IconColor="White" IconSize="25" />
+    <Label Text="{Binding Text, Source={x:Reference this}}" TextColor="White" Grid.Column="1"  FontSize="Medium" />
     <Grid.GestureRecognizers>
         <TapGestureRecognizer Command="{Binding Command, Source={x:Reference this}}" CommandParameter="{Binding CommandParameter, Source={x:Reference this}}" />
     </Grid.GestureRecognizers>

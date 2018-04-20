@@ -8,7 +8,7 @@ namespace Zipline2.Models
     public class Dessert : OrderItem
     {
         DessertType DessertType; 
-        public Dessert(CustomerSelections guiData)
+        public Dessert(CustomerSelection guiData)
         {
             
         }

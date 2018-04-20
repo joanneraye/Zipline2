@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Zipline2.Views.MenuScrollFooterView"
+             xmlns:views="clr-namespace:Zipline2.Views" >
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Style x:Key="footerScrollMenu" TargetType="Button">
+                <!--<Setter Property="Margin" Value="2, 2, 2, 2" />-->
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="BorderColor" Value="White" />
+                <Setter Property="BorderRadius" Value="3" />
+                <Setter Property="BorderWidth" Value="3" />
+                <Setter Property="BackgroundColor" Value="Black" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="FontSize" Value="Small" />
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <StackLayout Orientation="Vertical">
+            <Button Text="Add to Order"
+                    HorizontalOptions="FillAndExpand"
+                    HeightRequest="40"
+                    Style="{StaticResource footerScrollMenu}"
+                    BackgroundColor="LightBlue"
+                    TextColor="Black"/>
+            <ScrollView Orientation="Horizontal">
+            <StackLayout Orientation="Horizontal"
+                            BackgroundColor="Black">
+                <Button Text="Drinks"
+                            Command="{Binding DrinksCommand}"
+                            Style="{StaticResource footerScrollMenu}"/>
+                <Button Text="Pizza"
+                            Command="{Binding PizzaCommand}"
+                            Style="{StaticResource footerScrollMenu}"/>
+                <Button Text="Special"
+                            Style="{StaticResource footerScrollMenu}"/>
+                <Button Text="Salads"
+                            Style="{StaticResource footerScrollMenu}"/>
+                <Button Text="Calzone"
+                            Style="{StaticResource footerScrollMenu}"/>
+                <Button Text="Dessert"
+                            Style="{StaticResource footerScrollMenu}"/>
+            </StackLayout>
+        </ScrollView>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

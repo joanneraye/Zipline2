@@ -43,11 +43,11 @@ namespace Zipline2.Pages
 
         private void ListItemTapped(object sender, ItemTappedEventArgs e)
         {
-            ToppingSelection selectedItem = e.Item as ToppingSelection;
+            ToppingDisplayItem selectedItem = e.Item as ToppingDisplayItem;
             int indexOfItemSelected = selectedItem.SelectionIndex;
 
             //Can't change ListView directly - must change underlying data.  Get this data by the index.
-            ToppingSelection thisSelection = ToppingsPageModel.ToppingSelectionsList[indexOfItemSelected];
+            ToppingDisplayItem thisSelection = ToppingsPageModel.ToppingSelectionsList[indexOfItemSelected];
             if (thisSelection.ListTopping.ToppingName == ToppingName.HalfMajor)
             {
                 ProcessHalfMajorToppingSelection(thisSelection);
@@ -86,7 +86,7 @@ namespace Zipline2.Pages
         }
 
         //For selection or deselection of the Half Major topping.
-        private void ProcessHalfMajorToppingSelection(ToppingSelection halfMajorSelection)
+        private void ProcessHalfMajorToppingSelection(ToppingDisplayItem halfMajorSelection)
         {
             if (
                 halfMajorSelection.ListItemIsSelected)   //If selected, toggle to unselect...

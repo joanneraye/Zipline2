@@ -9,12 +9,8 @@ namespace Zipline2.Models
     //information selected by the Gui.  It provides a separation between 
     //the GUI layer and the business layer.  (The GUI only has to populate
     //an object of this class in order to communicate with the business logic.
-    public class CustomerSelections
+    public class PizzaSelection : CustomerSelection
     {
-        //TODO:  Make a more generic CustomerSelections class and then
-        //      this will be a derived class for Pizza Gui Data.
-        public MenuCategory MenuItemGeneralCategory { get; set; }
-
         public PizzaSize PizzaSize { get; set; }
 
         public PizzaCrust PizzaCrustType { get; set; }
@@ -23,11 +19,15 @@ namespace Zipline2.Models
 
         public MajorOrMama MajorOrMama { get; set; }
 
-        public int NumberOfItems { get; set; }
 
-        public CustomerSelections(PizzaType pizzatype)
+        public PizzaSelection(PizzaType pizzatype)
         {
             PizzaType = pizzatype;
         }
+        
+        //public override void PopulateItemCount()
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

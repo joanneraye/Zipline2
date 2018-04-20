@@ -7,7 +7,7 @@ namespace Zipline2.Models
     public class BeerOnTap : Drink
     {
         //
-        public BeerOnTap(CustomerSelections guiData) : base(guiData)
+        public BeerOnTap(CustomerSelection guiData) : base(guiData)
         {
         }
 

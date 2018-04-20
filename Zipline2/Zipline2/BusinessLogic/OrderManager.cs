@@ -80,7 +80,7 @@ namespace Zipline2.BusinessLogic
         /// OrderInProgress.
         /// </summary>
         /// <param name="guiData"></param>
-        public void AddItemInProgress(CustomerSelections guiData)
+        public void AddItemInProgress(CustomerSelection guiData)
         {
             OrderItemInProgress = OrderItemFactory.GetOrderItem(guiData);
             if (OrderItemInProgress == null)

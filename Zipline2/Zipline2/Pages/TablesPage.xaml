@@ -19,8 +19,9 @@
                         x:Name="TakeoutButton"
                         TextColor="Black"
                         BackgroundColor="Pink"
-                        FontSize="Small"
+                        FontSize="10"
                         BorderColor="White"
+                    HeightRequest="40"
                         BorderRadius="1"
                         BorderWidth="1"
                     Margin="0,0,0,10"
@@ -28,15 +29,21 @@
                         Clicked="TakeoutButtonClicked"/>
             <ListView ItemsSource="{Binding DisplayTables}"
                       x:Name="TableList"
+                      RowHeight="45"
                       SeparatorVisibility="Default">
-                <!--RowHeight="40"-->
+                <!--In order to make space between ListView rows,
+                     should take whatever the Grid's RowDefinition Height ends up
+                     being and add 5 and then set ListView RowHeight to it.  I
+                     have not yet figured out how to do that since I cannot
+                     get at the Grid (doesn't recognize TablesGrid, I assume
+                     because it is in the DataTemplate).  -->
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell x:Name="ListViewCellTables">
                             <Grid x:Name="TablesGrid"
                                   Padding="0,0,10,0">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="40"/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>

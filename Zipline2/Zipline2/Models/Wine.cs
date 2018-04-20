@@ -6,7 +6,7 @@ namespace Zipline2.Models
 {
     public class Wine : Drink
     {
-        public Wine(CustomerSelections guiData) : base(guiData)
+        public Wine(CustomerSelection guiData) : base(guiData)
         {
         }
 

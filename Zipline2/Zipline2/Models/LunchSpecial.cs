@@ -4,7 +4,7 @@
     {
         public decimal PricePerPizzaTopping { get; set; }
         public decimal PriceAddToSalad { get; set; }
-        public LunchSpecial(CustomerSelections guiData)
+        public LunchSpecial(CustomerSelection guiData)
         { 
         }
 

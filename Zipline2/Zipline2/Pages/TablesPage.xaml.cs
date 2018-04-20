@@ -26,6 +26,20 @@ namespace Zipline2.Pages
             TablesPageModel = new TablesPageModel();
             InitializeComponent();
             BindingContext = TablesPageModel;
+
+            //var itemTemplate = TableList.ItemTemplate;
+            //var tablesGrid = itemTemplate???;
+            //var tablesGrid = TableList.ItemTemplate..FindByName<Grid>("TablesGrid");
+            //var rowdefs = tablesGrid.RowDefinitions;
+            
+            //double heightOfRows = 0.0;
+            //foreach (var row in rowdefs)
+            //{
+            //    var gridLengthStruct = row.Height;
+            //    heightOfRows = gridLengthStruct.Value;
+            //    break;
+            //}
+            //TableList.HeightRequest = heightOfRows + 5.0;
         }
         #endregion
 
@@ -51,20 +65,27 @@ namespace Zipline2.Pages
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            TablesPageModel.NavigateToPizzaPage += HandleNavigateToPizzaPage;
+            TablesPageModel.NavigateToDrinksPage += HandleNavigateToDrinksPage;
         }
-        void HandleNavigateToPizzaPage(object sender, EventArgs e)
+        void HandleNavigateToDrinksPage(object sender, EventArgs e)
         {
             var currentMainPage = (Application.Current.MainPage as MasterDetailPage);
-            currentMainPage.Detail = new NavigationPage(new PizzaPage());
+            currentMainPage.Detail = new NavigationPage(new DrinksPage());
             Application.Current.MainPage = currentMainPage;
             //await Navigation.PushAsync(new PizzaPage());
         }
+        //void HandleNavigateToPizzaPage(object sender, EventArgs e)
+        //{
+        //    var currentMainPage = (Application.Current.MainPage as MasterDetailPage);
+        //    currentMainPage.Detail = new NavigationPage(new PizzaPage());
+        //    Application.Current.MainPage = currentMainPage;
+        //    //await Navigation.PushAsync(new PizzaPage());
+        //}
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            TablesPageModel.NavigateToPizzaPage -= HandleNavigateToPizzaPage;
+            TablesPageModel.NavigateToDrinksPage -= HandleNavigateToDrinksPage;
         }
         #endregion
     }

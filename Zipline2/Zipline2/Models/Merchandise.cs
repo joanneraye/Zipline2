@@ -6,7 +6,7 @@ namespace Zipline2.Models
 {
     public class Merchandise : OrderItem
     {
-        public Merchandise(CustomerSelections guiData)
+        public Merchandise(CustomerSelection guiData)
         {
 
         }

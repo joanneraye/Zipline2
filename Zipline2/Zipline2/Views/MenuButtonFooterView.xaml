@@ -13,7 +13,7 @@
                 <Setter Property="BorderWidth" Value="3" />
                 <Setter Property="BackgroundColor" Value="Black" />
                 <Setter Property="HorizontalOptions" Value="Center" />
-                <Setter Property="FontSize" Value="Micro" />
+                <Setter Property="FontSize" Value="8" />
             </Style>
         </ResourceDictionary>
     </ContentView.Resources>
@@ -32,10 +32,12 @@
             <Button Text="Drinks"  
                     Grid.Row="0"
                     Grid.Column="0"
+                    Command="{Binding DrinksCommand}"
                     Style="{StaticResource MenuButtons}" />
             <Button Text="Pizza" 
                     Grid.Row="0"
                     Grid.Column="1"
+                    Command="{Binding PizzaCommand}"
                     Style="{StaticResource MenuButtons}" />
             <Button Text="Special" 
                     Grid.Row="0"

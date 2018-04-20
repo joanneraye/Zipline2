@@ -61,11 +61,19 @@ namespace Zipline2.PageModels
                 case "1":
                     currentMainPage.Detail = new NavigationPage(new TablesPage());
                     break;
-                //case "2":
-                //    currentMainPage.Detail = new NavigationPage(new PizzaPage());
-                //    break;
+                case "2":
+                    currentMainPage.Detail = new NavigationPage(new DrinksPage());
+                    break;
+                case "5":
+                    currentMainPage.Detail = new NavigationPage(new PizzaPage());
+                    break;
+                    //case "2":
+                    //    currentMainPage.Detail = new NavigationPage(new PizzaPage());
+                    //    break;
             };
+            currentMainPage.IsPresented = false;
             App.Current.MainPage = currentMainPage;
+            
         }
     }
 }

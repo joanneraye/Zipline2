@@ -23,10 +23,11 @@ namespace Zipline2.Pages
         public PizzaPage()
         {
             pizzaPageModel = new PizzaPageModel();
+      
             InitializeComponent();
             string pizzaTitle = OrderManager.Instance.CurrentTableName + " Pizza";
             this.ToolbarItems.Add(new ToolbarItem { Text = pizzaTitle, Priority = 0 });
-            this.ToolbarItems.Add(new ToolbarItem { Text = "Total $5.00", Priority = 1 });
+            //this.ToolbarItems.Add(new ToolbarItem { Text = "Total $5.00", Priority = 1 });
             BindingContext = pizzaPageModel;
         }
         #endregion

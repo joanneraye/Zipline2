@@ -68,7 +68,7 @@ namespace Zipline2.PageModels
                 //Change what the app's current table is.
                 OrderManager.Instance.UpdateCurrentTable(tableSelected);
              
-                parentTablesPageModel.DisplayPizzaPage();
+                parentTablesPageModel.DisplayDrinksPage();
             }
             private void OnOutsideButtonClicked()
             {
@@ -78,7 +78,7 @@ namespace Zipline2.PageModels
                 OutsideTableColor = Color.Orange;
                 //Change what the app's current table is.
                 OrderManager.Instance.UpdateCurrentTable(tableSelected);
-                parentTablesPageModel.DisplayPizzaPage();
+                parentTablesPageModel.DisplayDrinksPage();
             }
         }
         //******************************NOTE IMBEDDED CLASS above ************************
@@ -89,6 +89,7 @@ namespace Zipline2.PageModels
 
         #region Properties     
         public event EventHandler NavigateToPizzaPage;
+        public event EventHandler NavigateToDrinksPage;
         public string UserName
         {
             get
@@ -195,12 +196,12 @@ namespace Zipline2.PageModels
                 currentRowIndex++;
             }
         }
-        void DisplayPizzaPage()
+        void DisplayDrinksPage()
         {
-            OnNavigateToPizzaPage();
+            OnNavigateToDrinksPage();
         }
        
-        void OnNavigateToPizzaPage() => NavigateToPizzaPage?.Invoke(this, EventArgs.Empty);
+        void OnNavigateToDrinksPage() => NavigateToDrinksPage?.Invoke(this, EventArgs.Empty);
 
         #endregion
     }

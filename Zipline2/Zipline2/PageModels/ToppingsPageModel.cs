@@ -15,7 +15,7 @@ namespace Zipline2.PageModels
     public class ToppingsPageModel : BasePageModel
     {
         //******************************NOTE IMBEDDED CLASS************************
-        public class ToppingSelection : BasePageModel
+        public class ToppingDisplayItem : BasePageModel
         {
             #region Private Variables
             private ToppingsPageModel parentToppingsPageModel;
@@ -128,7 +128,7 @@ namespace Zipline2.PageModels
             #endregion
 
             #region Constructor
-            public ToppingSelection(ToppingsPageModel referenceToParentClass)
+            public ToppingDisplayItem(ToppingsPageModel referenceToParentClass)
             {
                 parentToppingsPageModel = referenceToParentClass;
                 areWholeHalfColumnsVisible = true;
@@ -160,8 +160,8 @@ namespace Zipline2.PageModels
         //******************************NOTE IMBEDDED CLASS************************
 
         #region Private Variables
-        private ObservableCollection<ToppingSelection> toppingSelectionsList;
-        private ToppingSelection selectedToppingItem;
+        private ObservableCollection<ToppingDisplayItem> toppingSelectionsList;
+        private ToppingDisplayItem selectedToppingItem;
         private Pizza thisPizza;
         #endregion
 
@@ -193,8 +193,8 @@ namespace Zipline2.PageModels
 
         //    }
         //}
-        public List<ToppingSelection> SelectedItems = new List<ToppingSelection>();
-        public ObservableCollection<ToppingSelection> ToppingSelectionsList
+        public List<ToppingDisplayItem> SelectedItems = new List<ToppingDisplayItem>();
+        public ObservableCollection<ToppingDisplayItem> ToppingSelectionsList
         {
             get
             {
@@ -206,7 +206,7 @@ namespace Zipline2.PageModels
             }
         }
       
-        public ToppingSelection SelectedToppingItem
+        public ToppingDisplayItem SelectedToppingItem
         {
             get
             {
@@ -239,10 +239,10 @@ namespace Zipline2.PageModels
             };
 
             var toppingsList = Toppings.AllToppings;
-            ToppingSelectionsList = new ObservableCollection<ToppingSelection>();
+            ToppingSelectionsList = new ObservableCollection<ToppingDisplayItem>();
             for (int i = 0; i < toppingsList.Count; i++)
             {
-                var toppingSelection = new ToppingSelection(this);
+                var toppingSelection = new ToppingDisplayItem(this);
                 toppingSelection.ListTopping = toppingsList[i];
                 toppingSelection.SelectionIndex = i;
                 toppingSelection.ListItemIsSelected = false;
@@ -307,6 +307,15 @@ namespace Zipline2.PageModels
             }
         }
 
+        /// <summary>
+        /// Marks the item in the list as being selected if it hasn't
+        /// been selected previously (which will
+        /// higlight the item), changes the item to indicate change to
+        /// whole, half a, or half b, handles the special case of the topping
+        /// called "Half Major", and marks the sequence the item was selected.
+        /// </summary>
+        /// <param name="wholeOrHalf"></param>
+        /// <param name="indexOfSelection"></param>
         public void SelectButtonWAB(ToppingWholeHalf wholeOrHalf, int indexOfSelection)
         {
             var thisItemSelected = ToppingSelectionsList[indexOfSelection];
@@ -347,14 +356,9 @@ namespace Zipline2.PageModels
                 }
                 ChangeButtonSelection(thisItemSelected, wholeOrHalf);
             }
-            
-            //NOTE:  Modifying Toppings through private variable instead of 
-            //explicitly setting the property (as done below) does not trigger bindings.
-            //This is old but leaving in until working again in case related to current problems...
-            //Toppings = toppings;
         }
 
-        private void ProcessHalfMajorSelectionOfSide(ToppingSelection thisItemSelected)
+        private void ProcessHalfMajorSelectionOfSide(ToppingDisplayItem thisItemSelected)
         {
             if (thisItemSelected.ListTopping.ToppingWholeHalf == ToppingWholeHalf.Whole)
             {
@@ -400,7 +404,13 @@ namespace Zipline2.PageModels
             }
         }
 
-        public void ChangeButtonSelection(ToppingSelection thisItemSelected, ToppingWholeHalf wholeOrHalf)
+        /// <summary>
+        /// Makes sure only W or A or B (one and only one) may be 
+        /// selected at a time.
+        /// </summary>
+        /// <param name="thisItemSelected"></param>
+        /// <param name="wholeOrHalf"></param>
+        public void ChangeButtonSelection(ToppingDisplayItem thisItemSelected, ToppingWholeHalf wholeOrHalf)
         {
             switch (wholeOrHalf)
             {

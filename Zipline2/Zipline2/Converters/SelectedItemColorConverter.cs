@@ -12,6 +12,7 @@ namespace Zipline2.Converters
     /// </summary>
     public class SelectedItemColorConverter : IValueConverter
     {
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             bool isSelected;
@@ -53,5 +54,76 @@ namespace Zipline2.Converters
                 return true;
             }
         }
+
+        //Would love to use this version with parameter to indicate colors, 
+        //but cannot figure out how to implement/use it.
+        //public class ConversionColorIndicator
+        //{
+        //    public Color NotSelectedColor { get; set; }
+        //    public Color SelectedColor { get; set; }
+
+        //    public ConversionColorIndicator(Color selectedColor, Color notSelectedColor)
+        //    {
+        //        NotSelectedColor = notSelectedColor;
+        //        SelectedColor = selectedColor;
+        //    }
+        //}
+
+        //public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        //{
+        //    if (parameter == null || !(parameter is ConversionColorIndicator))
+        //    {
+        //        return Xamarin.Forms.Color.Black;
+        //    }
+        //    var colorIndicator = (ConversionColorIndicator)parameter;
+
+        //    bool isSelected;
+        //    if (value is bool)
+        //    {
+        //        isSelected = (bool)value;
+        //    }
+        //    else
+        //    {
+        //        return colorIndicator.NotSelectedColor;
+        //    }
+        //    if (isSelected)
+        //    {
+        //        return colorIndicator.SelectedColor;
+        //    }
+        //    else
+        //    {
+        //        return colorIndicator.NotSelectedColor;
+        //    }
+        //}
+
+        //public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        //{
+        //    if (parameter == null || !(parameter is ConversionColorIndicator))
+        //    {
+        //        return false;
+        //    }
+
+        //    var colorIndicator = (ConversionColorIndicator)parameter;
+
+        //    Xamarin.Forms.Color currentColor = Color.Black;
+        //    if (value is Xamarin.Forms.Color)
+        //    {
+        //        currentColor = (Xamarin.Forms.Color)value;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //    if (currentColor == colorIndicator.NotSelectedColor)
+        //    {
+        //        return false;
+        //    }
+        //    else
+        //    {
+        //        return true;
+        //    }
+        //}
+
+
     }
 }
