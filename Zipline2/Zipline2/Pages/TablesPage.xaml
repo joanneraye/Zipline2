@@ -63,7 +63,8 @@
                                         FontSize="Micro" 
                                         FontAttributes="Bold"
                                         BorderRadius="1"
-                                        BorderWidth="1"/>
+                                        BorderWidth="1"
+                                        Command="{Binding InsideTableCommand}"/>
                                 <Label Grid.Column="2" 
                                        BackgroundColor="{Binding OutsideTableColor}" 
                                        Margin="5, 10, 5, 10"/>

@@ -4,6 +4,7 @@
              x:Class="Zipline2.Pages.PizzaPage"
              xmlns:views="clr-namespace:Zipline2.Views"
              xmlns:local="clr-namespace:Zipline2.Pages;assembly=Zipline2.Pages"
+             xmlns:flex="clr-namespace:Flex.Controls;assembly=Flex"
              xmlns:converters="clr-namespace:Zipline2.Converters"
              xmlns:enums="clr-namespace:Zipline2.BusinessLogic.Enums"
              xmlns:iconize="clr-namespace:FormsPlugin.Iconize;assembly=FormsPlugin.Iconize">
@@ -11,16 +12,21 @@
         <ResourceDictionary>
             <converters:SelectedItemColorConverter x:Key="selectBackgroundConverter"/>
             <Style x:Key="PizzaSelectionButtons" TargetType="Button">
-                <Setter Property="Margin" Value="0" />
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="BorderColor" Value="White" />
                 <Setter Property="BorderRadius" Value="1" />
                 <Setter Property="BorderWidth" Value="1" />
-                <Setter Property="BackgroundColor" Value="Black" />
-                <Setter Property="HorizontalOptions" Value="Center" />
-                <Setter Property="VerticalOptions" Value="Start" />
-                <Setter Property="FontSize" Value="8" />
             </Style>
+            <Style x:Key="PizzaSelectionLabels" TargetType="Label">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+            </Style>
+            <!--<Style x:Key="PizzaFlexButton" TargetType="flex:FlexButton">
+                <Setter Property="ForegroundColor" Value="White" />
+                <Setter Property="BackgroundColor" Value="Black" />
+            </Style>-->
             <Style x:Key="PlusIcon" TargetType="iconize:IconImage">
                 <Setter Property="Icon" Value="fa-plus" />
                 <Setter Property="IconSize" Value="30" />
@@ -50,6 +56,7 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
+                    <!--*************************************CHEESE-->
                     <Label Grid.Row ="0"
                            Grid.Column="0"
                            Grid.ColumnSpan="2"
@@ -59,50 +66,92 @@
                            BackgroundColor="Black"
                            VerticalOptions="Center"
                            HorizontalOptions="Start" />
-                <iconize:IconImage Grid.Row ="0"
+                    <iconize:IconImage Grid.Row ="0"
                            Grid.Column="3"
                            Style="{StaticResource PlusIcon}">
-                        <iconize:IconImage.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding AddCheeseCommand}" />
-                        </iconize:IconImage.GestureRecognizers>
-                </iconize:IconImage>
-                <Button Grid.Row="1"
-                            Grid.Column="0"
-                            Text="SL"
-                            Style="{StaticResource PizzaSelectionButtons}" 
-                            Command="{Binding PizzaSelectionCommand}"
-                            CommandParameter="{x:Static enums:PizzaType.ThinSlice}"
-                            BackgroundColor="{Binding CheeseSliceSelected,
+                    <iconize:IconImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding AddCheeseCommand}" />
+                    </iconize:IconImage.GestureRecognizers>
+                    </iconize:IconImage>
+                <!--*************************************CHEESE SLICE-->
+                <Button Grid.Column="1"
+                         Grid.Row="0"
+                         Style="{StaticResource PizzaSelectionButtons}" 
+                         Command="{Binding PizzaSelectionCommand}"
+                                              CommandParameter="{x:Static enums:PizzaType.ThinSlice}"
+                         BackgroundColor="{Binding CheeseSliceSelected,
                                 Mode=TwoWay, 
-                                Converter={StaticResource selectBackgroundConverter}}"/>
-                    <Button Grid.Row="1"
-                            Grid.Column="1"                            
-                            Text="MED"
-                            Style="{StaticResource PizzaSelectionButtons}" 
-                            Command="{Binding PizzaSelectionCommand}"
-                            CommandParameter="{x:Static enums:PizzaType.Medium}"
-                            BackgroundColor="{Binding MediumSelected,
+                                Converter={StaticResource selectBackgroundConverter}}" />
+                <Label 
+                    Grid.Column="1"
+                    Grid.Row="0" 
+                    Style="{StaticResource PizzaSelectionLabels}" 
+                    Text="SL">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding PizzaSelectionCommand}"
+                                              CommandParameter="{x:Static enums:PizzaType.ThinSlice}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <!--*************************************CHEESE MEDIUM-->
+                <Button Grid.Column="2"
+                         Grid.Row="0"
+                         Style="{StaticResource PizzaSelectionButtons}" 
+                         Command="{Binding PizzaSelectionCommand}"
+                         CommandParameter="{x:Static enums:PizzaType.Medium}"
+                         BackgroundColor="{Binding MediumSelected,
                                 Mode=TwoWay, 
-                                Converter={StaticResource selectBackgroundConverter}}"/>
-                    <Button Grid.Row="1"
-                            Grid.Column="2"
-                            Text="LG"
-                            Style="{StaticResource PizzaSelectionButtons}"
-                            Command="{Binding PizzaSelectionCommand}"
-                            CommandParameter="{x:Static enums:PizzaType.Large}"
-                            BackgroundColor="{Binding LargeSelected,
+                                Converter={StaticResource selectBackgroundConverter}}" />
+                <Label 
+                    Grid.Column="2"
+                    Grid.Row="0" 
+                    Style="{StaticResource PizzaSelectionLabels}" 
+                    Text="MED">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding PizzaSelectionCommand}"
+                                              CommandParameter="{x:Static enums:PizzaType.Medium}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <!--*************************************CHEESE LARGE-->
+                <Button Grid.Column="1"
+                         Grid.Row="1"
+                         Style="{StaticResource PizzaSelectionButtons}" 
+                         Command="{Binding PizzaSelectionCommand}"
+                         CommandParameter="{x:Static enums:PizzaType.Large}"
+                         BackgroundColor="{Binding LargeSelected,
                                 Mode=TwoWay, 
-                                Converter={StaticResource selectBackgroundConverter}}"/>
-                    <Button Grid.Row="1"
-                            Grid.Column="3"
-                            Text="INDY" 
-                            Style="{StaticResource PizzaSelectionButtons}" 
-                            Command="{Binding PizzaSelectionCommand}"
-                            CommandParameter="{x:Static enums:PizzaType.Indy}"
-                            BackgroundColor="{Binding IndySelected,
+                                Converter={StaticResource selectBackgroundConverter}}" />
+                <Label 
+                    Grid.Column="1"
+                    Grid.Row="1" 
+                    Style="{StaticResource PizzaSelectionLabels}" 
+                    Text="LG">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding PizzaSelectionCommand}"
+                                              CommandParameter="{x:Static enums:PizzaType.Large}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <!--*************************************CHEESE INDY-->
+                <Button Grid.Column="2"
+                         Grid.Row="1"
+                         Style="{StaticResource PizzaSelectionButtons}" 
+                         Command="{Binding PizzaSelectionCommand}"
+                         CommandParameter="{x:Static enums:PizzaType.Indy}"
+                         BackgroundColor="{Binding IndySelected,
                                 Mode=TwoWay, 
-                                Converter={StaticResource selectBackgroundConverter}}"/>
-                    <Label Grid.Row ="2"
+                                Converter={StaticResource selectBackgroundConverter}}" />
+                <Label 
+                    Grid.Column="2"
+                    Grid.Row="1" 
+                    Style="{StaticResource PizzaSelectionLabels}" 
+                    Text="INDY">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding PizzaSelectionCommand}"
+                                              CommandParameter="{x:Static enums:PizzaType.Indy}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <!--*************************************MAJOR-->
+                <Label Grid.Row ="2"
                            Grid.Column="0"
                            Grid.ColumnSpan="2"
                            Text="Major"
@@ -110,67 +159,129 @@
                            TextColor="White"
                            VerticalOptions="Center"
                            HorizontalOptions="Start" />
-                    <iconize:IconImage Grid.Row ="2"
-                            Grid.Column="3"
-                            Style="{StaticResource PlusIcon}">
+                <iconize:IconImage Grid.Row ="2"
+                        Grid.Column="3"
+                        Style="{StaticResource PlusIcon}">
                     <iconize:IconImage.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding AddMajorCommand}" />
                     </iconize:IconImage.GestureRecognizers>
                 </iconize:IconImage>
-                <Button Grid.Row="3"
-                            Grid.Column="0"
-                            Text="SL"
-                            Style="{StaticResource PizzaSelectionButtons}"
-                            Command="{Binding MajorPizzaSelectionCommand}"
-                            CommandParameter="{x:Static enums:PizzaType.ThinSlice}"
-                            BackgroundColor="{Binding MajorSliceSelected,
+                <!--*************************************MAJOR SLICE-->
+                <Button Grid.Column="0"
+                         Grid.Row="3"
+                         Style="{StaticResource PizzaSelectionButtons}" 
+                         Command="{Binding MajorPizzaSelectionCommand}"
+                         CommandParameter="{x:Static enums:PizzaType.ThinSlice}"
+                         BackgroundColor="{Binding MajorSliceSelected,
                                 Mode=TwoWay, 
-                                Converter={StaticResource selectBackgroundConverter}}"/>                   
-                    <Button Grid.Row="3"
-                            Grid.Column="1"
-                            Text="MED"
-                            Style="{StaticResource PizzaSelectionButtons}" 
-                            Command="{Binding MajorPizzaSelectionCommand}"
-                            CommandParameter="{x:Static enums:PizzaType.Medium}"
-                            BackgroundColor="{Binding MajorMediumSelected,
+                                Converter={StaticResource selectBackgroundConverter}}" />
+                <Label 
+                    Grid.Column="0"
+                    Grid.Row="3" 
+                    Style="{StaticResource PizzaSelectionLabels}" 
+                    Text="SL">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding MajorPizzaSelectionCommand}"
+                                              CommandParameter="{x:Static enums:PizzaType.ThinSlice}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <!--*************************************MAJOR MEDIUM-->
+                <Button Grid.Column="1"
+                         Grid.Row="3"
+                         Style="{StaticResource PizzaSelectionButtons}" 
+                         Command="{Binding MajorPizzaSelectionCommand}"
+                         CommandParameter="{x:Static enums:PizzaType.Medium}"
+                         BackgroundColor="{Binding MajorMediumSelected,
                                 Mode=TwoWay, 
-                                Converter={StaticResource selectBackgroundConverter}}"/>
-                    <Button Grid.Row="3"
-                            Grid.Column="2"
-                            Text="LG"
-                            Style="{StaticResource PizzaSelectionButtons}" 
-                            Command="{Binding MajorPizzaSelectionCommand}"
-                            CommandParameter="{x:Static enums:PizzaType.Large}"
-                            BackgroundColor="{Binding MajorLargeSelected,
+                                Converter={StaticResource selectBackgroundConverter}}" />
+                <Label 
+                    Grid.Column="1"
+                    Grid.Row="3" 
+                    Style="{StaticResource PizzaSelectionLabels}" 
+                    Text="MED">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding MajorPizzaSelectionCommand}"
+                                              CommandParameter="{x:Static enums:PizzaType.Medium}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <!--*************************************MAJOR LARGE-->
+                <Button Grid.Column="2"
+                         Grid.Row="3"
+                         Style="{StaticResource PizzaSelectionButtons}" 
+                         Command="{Binding MajorPizzaSelectionCommand}"
+                         CommandParameter="{x:Static enums:PizzaType.Large}"
+                         BackgroundColor="{Binding MajorLargeSelected,
                                 Mode=TwoWay, 
-                                Converter={StaticResource selectBackgroundConverter}}"/>
-                    <Button Grid.Row="4"
-                            Grid.Column="0"
-                            Text="INDY"
-                            Style="{StaticResource PizzaSelectionButtons}"
-                            Command="{Binding MajorPizzaSelectionCommand}"
-                            CommandParameter="{x:Static enums:PizzaType.Indy}"
-                            BackgroundColor="{Binding MajorIndySelected,
+                                Converter={StaticResource selectBackgroundConverter}}" />
+                <Label 
+                    Grid.Column="2"
+                    Grid.Row="3" 
+                    Style="{StaticResource PizzaSelectionLabels}" 
+                    Text="LG">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding MajorPizzaSelectionCommand}"
+                                              CommandParameter="{x:Static enums:PizzaType.Large}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <!--*************************************MAJOR INDY-->
+                <Button Grid.Column="0"
+                         Grid.Row="4"
+                         Style="{StaticResource PizzaSelectionButtons}" 
+                         Command="{Binding MajorPizzaSelectionCommand}"
+                         CommandParameter="{x:Static enums:PizzaType.Indy}"
+                         BackgroundColor="{Binding MajorIndySelected,
                                 Mode=TwoWay, 
-                                Converter={StaticResource selectBackgroundConverter}}"/>
-                <Button Grid.Row="4"
-                        Grid.Column="1"
-                        Text="MFP"
-                        Style="{StaticResource PizzaSelectionButtons}" 
-                        Command="{Binding MajorPizzaSelectionCommand}"
-                        CommandParameter="{x:Static enums:PizzaType.Mfp}"
-                        BackgroundColor="{Binding MajorMfpSelected,
-                            Mode=TwoWay, 
-                            Converter={StaticResource selectBackgroundConverter}}"/>
-                <Button Grid.Row="4"
-                        Grid.Column="2"
-                        Text="PAN"
-                        Style="{StaticResource PizzaSelectionButtons}"
-                        Command="{Binding MajorPizzaSelectionCommand}"
-                        CommandParameter="{x:Static enums:PizzaType.SatchPan}"
-                        BackgroundColor="{Binding MajorSatchPanSelected,
-                            Mode=TwoWay, 
-                            Converter={StaticResource selectBackgroundConverter}}"/>
+                                Converter={StaticResource selectBackgroundConverter}}" />
+                <Label 
+                    Grid.Column="0"
+                    Grid.Row="4" 
+                    Style="{StaticResource PizzaSelectionLabels}" 
+                    Text="INDY">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding MajorPizzaSelectionCommand}"
+                                              CommandParameter="{x:Static enums:PizzaType.Indy}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <!--*************************************MAJOR MFP-->
+                <Button Grid.Column="1"
+                         Grid.Row="4"
+                         Style="{StaticResource PizzaSelectionButtons}" 
+                         Command="{Binding MajorPizzaSelectionCommand}"
+                         CommandParameter="{x:Static enums:PizzaType.Mfp}"
+                         BackgroundColor="{Binding MajorMfpSelected,
+                                Mode=TwoWay, 
+                                Converter={StaticResource selectBackgroundConverter}}" />
+                <Label 
+                    Grid.Column="1"
+                    Grid.Row="4" 
+                    Style="{StaticResource PizzaSelectionLabels}" 
+                    Text="MFP">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding MajorPizzaSelectionCommand}"
+                                              CommandParameter="{x:Static enums:PizzaType.Mfp}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <!--*************************************MAJOR PAN-->
+                <Button Grid.Column="2"
+                         Grid.Row="4"
+                         Style="{StaticResource PizzaSelectionButtons}" 
+                         Command="{Binding MajorPizzaSelectionCommand}"
+                         CommandParameter="{x:Static enums:PizzaType.SatchPan}"
+                         BackgroundColor="{Binding MajorSatchPanSelected,
+                                Mode=TwoWay, 
+                                Converter={StaticResource selectBackgroundConverter}}" />
+                <Label 
+                    Grid.Column="2"
+                    Grid.Row="4" 
+                    Style="{StaticResource PizzaSelectionLabels}" 
+                    Text="PAN">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding MajorPizzaSelectionCommand}"
+                                              CommandParameter="{x:Static enums:PizzaType.SatchPan}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <!--*************************************MFP-->
                 <Label Grid.Row ="5"
                                Grid.Column="0"
                                Grid.ColumnSpan="4"
@@ -193,6 +304,7 @@
                             VerticalOptions="Start"
                             BackgroundColor="Black"
                             TextColor="LightBlue"/>-->
+                <!--*************************************SATCH PAN-->
                 <Label Grid.Row ="6"
                            Grid.Column="0"
                            Grid.ColumnSpan="3"
@@ -214,3 +326,16 @@
         </StackLayout>
     </ContentPage.Content>
 </local:BasePage>
+
+
+
+
+<!--<flex:FlexButton x:Name="CheeseSliceButton" Grid.Row="1"
+                            Grid.Column="0"
+                            Text="SL"
+                            Style="{StaticResource PizzaFlexButton}"
+                            ClickedCommand="{Binding PizzaSelectionCommand}"
+                            ClickedCommandParameter="{x:Static enums:PizzaType.ThinSlice}"
+                            BackgroundColor="{Binding SliceSelected,
+                                Mode=TwoWay, 
+                                Converter={StaticResource selectBackgroundConverter}}"/>-->

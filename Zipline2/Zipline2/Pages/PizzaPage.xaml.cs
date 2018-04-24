@@ -33,6 +33,7 @@ namespace Zipline2.Pages
         #endregion
 
         #region Methods
+       
         protected override void OnAppearing()
         {
             base.OnAppearing();

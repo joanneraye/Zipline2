@@ -195,7 +195,6 @@ namespace Zipline2.PageModels
             }
         }
 
-
         private void OnMajorSelected(PizzaType pizzaType)
         {
             switch (pizzaType)

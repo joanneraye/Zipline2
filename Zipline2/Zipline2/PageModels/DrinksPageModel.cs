@@ -31,6 +31,7 @@ namespace Zipline2.PageModels
             public ICommand MinusButtonCommand { get; set; }
             public ICommand PlusButtonCommand { get; set; }
 
+
             public DrinkDisplayItem(DrinksPageModel drinksPageModelReference)
             {
                 parentDrinksPageModel = drinksPageModelReference;

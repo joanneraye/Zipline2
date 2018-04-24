@@ -57,6 +57,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Forms.Controls.FlexButton">
+      <Version>0.6.1</Version>
+    </PackageReference>
     <PackageReference Include="FreshMvvm">
       <Version>2.2.4</Version>
     </PackageReference>
