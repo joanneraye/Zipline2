@@ -8,6 +8,7 @@ namespace Zipline2.Models
 {
     public class Drink : OrderItem
     {
+        public DrinkCategory DrinkCategory { get; set; }
         public DrinkType DrinkType { get; set; }
         public Drink()
         {

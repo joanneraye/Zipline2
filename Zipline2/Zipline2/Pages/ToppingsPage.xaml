@@ -13,7 +13,7 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout BackgroundColor="Black"
-                     Padding="10, 0, 10, 0"
+                     Padding="10, 0, 10, 10"
                      VerticalOptions="FillAndExpand">
             <views:MenuHeaderView x:Name="ToppingsHeader" />
             <Grid>

@@ -19,7 +19,8 @@
         </ResourceDictionary>
     </ContentView.Resources>
     <ContentView.Content>
-        <StackLayout Orientation="Vertical">
+        <StackLayout Orientation="Vertical"
+                     Margin="0,5,0,0">
             <ScrollView Orientation="Horizontal">
             <StackLayout Orientation="Horizontal"
                             BackgroundColor="Black">

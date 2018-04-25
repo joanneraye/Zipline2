@@ -8,7 +8,7 @@ namespace Zipline2.Models
 {
     public class SoftDrink : Drink
     {
-        public SoftDrinkType SoftDrinkType;
+        public DrinkType SoftDrinkType;
 
         public SoftDrink()
         {

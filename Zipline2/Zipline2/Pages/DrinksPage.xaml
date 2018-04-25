@@ -26,7 +26,7 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout Spacing="0"
-                     Padding="10,0,10,10">
+                     Padding="10,0,10,5">
             <ScrollView Orientation="Horizontal">
                 <StackLayout Orientation="Horizontal"
                              BackgroundColor="Black"
@@ -36,49 +36,49 @@
                                 Mode=TwoWay, 
                                 Converter={StaticResource drinksTextColorConverter}}"
                             Command="{Binding DrinksSelectedCommand}"
-                            CommandParameter="{x:Static enums:DrinkType.SoftDrinks}"
+                            CommandParameter="{x:Static enums:DrinkCategory.SoftDrinks}"
                             Style="{StaticResource DrinkSelectionButtons}"/>
                     <Button Text="Draft Beer"
                             TextColor="{Binding DraftBeerSelected,
                                 Mode=TwoWay, 
                                 Converter={StaticResource drinksTextColorConverter}}"
                             Command="{Binding DrinksSelectedCommand}"
-                            CommandParameter="{x:Static enums:DrinkType.DraftBeer}"
+                            CommandParameter="{x:Static enums:DrinkCategory.DraftBeer}"
                             Style="{StaticResource DrinkSelectionButtons}"/>
                     <Button Text="Bottled Beer"
                             TextColor="{Binding BottledBeerSelected,
                                 Mode=TwoWay, 
                                 Converter={StaticResource drinksTextColorConverter}}"
                             Command="{Binding DrinksSelectedCommand}"
-                            CommandParameter="{x:Static enums:DrinkType.BottledBeer}"
+                            CommandParameter="{x:Static enums:DrinkCategory.BottledBeer}"
                             Style="{StaticResource DrinkSelectionButtons}"/>
                     <Button Text="White Wine"
                             TextColor="{Binding WhiteWineSelected,
                                 Mode=TwoWay, 
                                 Converter={StaticResource drinksTextColorConverter}}"
                             Command="{Binding DrinksSelectedCommand}"
-                            CommandParameter="{x:Static enums:DrinkType.WhiteWine}"
+                            CommandParameter="{x:Static enums:DrinkCategory.WhiteWine}"
                             Style="{StaticResource DrinkSelectionButtons}"/>
                     <Button Text="Red Wine"
                             TextColor="{Binding RedWineSelected,
                                 Mode=TwoWay, 
                                 Converter={StaticResource drinksTextColorConverter}}"
                             Command="{Binding DrinksSelectedCommand}"
-                            CommandParameter="{x:Static enums:DrinkType.RedWine}"
+                            CommandParameter="{x:Static enums:DrinkCategory.RedWine}"
                             Style="{StaticResource DrinkSelectionButtons}"/>
                     <Button Text="Hot Drinks"
                             TextColor="{Binding HotDrinksSelected,
                                 Mode=TwoWay, 
                                 Converter={StaticResource drinksTextColorConverter}}"
                             Command="{Binding DrinksSelectedCommand}"
-                            CommandParameter="{x:Static enums:DrinkType.HotDrinks}"
+                            CommandParameter="{x:Static enums:DrinkCategory.HotDrinks}"
                             Style="{StaticResource DrinkSelectionButtons}"/>
                     <Button Text="House Wine"
                             TextColor="{Binding HouseWineSelected,
                                 Mode=TwoWay, 
                                 Converter={StaticResource drinksTextColorConverter}}"
                             Command="{Binding DrinksSelectedCommand}"
-                            CommandParameter="{x:Static enums:DrinkType.HouseWine}"
+                            CommandParameter="{x:Static enums:DrinkCategory.HouseWine}"
                             Style="{StaticResource DrinkSelectionButtons}"/>
                    
                 </StackLayout>
@@ -86,7 +86,6 @@
 
             <ListView ItemsSource="{Binding DrinkDisplayItems, Mode=TwoWay}"
                       CachingStrategy="RecycleElementAndDataTemplate"
-                      Margin="10, 10"
                       BackgroundColor="Black"
                       SeparatorVisibility="None">
                 <ListView.ItemTemplate>
@@ -97,10 +96,10 @@
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="4*"/>
-                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="8*"/>
+                                    <ColumnDefinition Width="3*"/>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="3*"/>
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0"
                                        Text="{Binding Drink.ItemName}"
@@ -113,11 +112,13 @@
                                                     TextColor="White"
                                                     Text="fa-minus-circle"
                                                     FontSize="20"
+                                                    Margin="0"
                                                     Command="{Binding MinusButtonCommand}"
                                                     HorizontalOptions="Center"
                                                     VerticalOptions="Center"/>
                                 <Label Text="{Binding Drink.ItemCount, Mode=TwoWay}"
                                        Grid.Column="2"
+                                       Margin="0"
                                        TextColor="White"
                                        HorizontalOptions="Center"
                                        VerticalOptions="Center"
@@ -126,6 +127,7 @@
                                                     BackgroundColor="Black"
                                                     TextColor="White"
                                                     Text="fa-plus-circle"
+                                                    Margin="0"
                                                     Command="{Binding PlusButtonCommand}"
                                                     FontSize="20"
                                                     HorizontalOptions="Center"
@@ -135,6 +137,15 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <Button Text="Add Pizza to Order"
+                    Margin="0,5,0,0"
+                    HorizontalOptions="FillAndExpand"
+                    HeightRequest="40"
+                    BorderColor="White"
+                    BorderRadius="2"
+                    BorderWidth="2"
+                    BackgroundColor="LightBlue"
+                    TextColor="Black"/>
             <views:MenuScrollFooterView VerticalOptions="EndAndExpand"/>
         </StackLayout>
     </ContentPage.Content>

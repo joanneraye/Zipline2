@@ -21,30 +21,84 @@ namespace Zipline2.BusinessLogic
             { PizzaType.PestoWhiteMedium, "Special Base Medium" },
             { PizzaType.PestoWhiteLarge, "Special Base Large" },
         };
-        public static Dictionary<SoftDrinkType, string> DisplaySoftDrinkNameDictionary = new Dictionary<SoftDrinkType, string>
+        public static Dictionary<DrinkType, string> DisplaySoftDrinkNameDictionary = new Dictionary<DrinkType, string>
         {
-            { SoftDrinkType.Water, "Water" },
-            { SoftDrinkType.WaterWithLemon, "Water with Lemon" },
-            { SoftDrinkType.WaterNoIce, "Water No Ice" },
-            { SoftDrinkType.LolaCola, "Lola Cola" },
-            { SoftDrinkType.StevieZ, "Stevie Z-Cal" },
-            { SoftDrinkType.LennieLemonLime, "Lennie Lemon Lime" },
-            { SoftDrinkType.GinnieGingerAle, "Ginnie Ginger Ale" },
-            { SoftDrinkType.RubyRootBeer, "Ruby Root Beer" },
-            { SoftDrinkType.AppleJuice, "Apple Juice" },
-            { SoftDrinkType.Lemonade, "Lemonade" },
-            { SoftDrinkType.SweetTea, "Sweet Tea" },
-            { SoftDrinkType.SweetArnoldPalmer, "Sweet Arnold Palmer" },
-            { SoftDrinkType.UnsweetArnoldPalmer, "Unsweet Arnold Palmer" },
-            { SoftDrinkType.UnsweetTea, "Unsweet Tea" },
-            { SoftDrinkType.SodaWater, "Soda Water" },
-            { SoftDrinkType.Milk, "Milk" },
-            { SoftDrinkType.BottledCoke, "Bottled Coke" },
-            { SoftDrinkType.HalfNHalfTea, "Half N Half Tea" },
-            { SoftDrinkType.DietCokeCan, "Diet Coke Can" },
-            { SoftDrinkType.SodaPitcher, "Soda Pitcher" },
-            { SoftDrinkType.Flight, "Flight" },
-            { SoftDrinkType.CrystalCreme, "Crystal Creme" }
+            { DrinkType.Water, "Water" },
+            { DrinkType.WaterWithLemon, "Water with Lemon" },
+            { DrinkType.WaterNoIce, "Water No Ice" },
+            { DrinkType.LolaCola, "Lola Cola" },
+            { DrinkType.StevieZ, "Stevie Z-Cal" },
+            { DrinkType.LennieLemonLime, "Lennie Lemon Lime" },
+            { DrinkType.GinnieGingerAle, "Ginnie Ginger Ale" },
+            { DrinkType.RubyRootBeer, "Ruby Root Beer" },
+            { DrinkType.AppleJuice, "Apple Juice" },
+            { DrinkType.Lemonade, "Lemonade" },
+            { DrinkType.SweetTea, "Sweet Tea" },
+            { DrinkType.SweetArnoldPalmer, "Sweet Arnold Palmer" },
+            { DrinkType.UnsweetArnoldPalmer, "Unsweet Arnold Palmer" },
+            { DrinkType.UnsweetTea, "Unsweet Tea" },
+            { DrinkType.SodaWater, "Soda Water" },
+            { DrinkType.Milk, "Milk" },
+            { DrinkType.BottledCoke, "Bottled Coke" },
+            { DrinkType.HalfNHalfTea, "Half N Half Tea" },
+            { DrinkType.DietCokeCan, "Diet Coke Can" },
+            { DrinkType.SodaPitcher, "Soda Pitcher" },
+            { DrinkType.Flight, "Flight" },
+            { DrinkType.CrystalCreme, "Crystal Creme" }
+        };
+        public static Dictionary<DrinkType, string> DisplayDraftBeerNameDictionary = new Dictionary<DrinkType, string>
+        {
+            { DrinkType.Hefeweizen, "Hefeweizen" },
+            { DrinkType.FirstMagnitude72, "First Magnitude 72" },
+            { DrinkType.EmployeeBeer, "Employee Beer" },
+            { DrinkType.SwampHeadBigNoseIpa, "Swamp Head Big Nose Ipa" },
+            { DrinkType.PilsLagerOrBlondeAle, "Pils, Lager, Or BlondeAle" },
+            { DrinkType.Beer12Oz, "12 Oz. Beer" }
+        };
+        public static Dictionary<DrinkType, string> DisplayBottledBeerNameDictionary = new Dictionary<DrinkType, string>
+        {
+             { DrinkType.Guinness, "Guinness" },
+             { DrinkType.OmissionPaleAle, "Omission Pale Ale" },
+             { DrinkType.Bud, "Bud" },
+             { DrinkType.BudLight, "Bud Light" },
+             { DrinkType.NaGenesee, "NA Genesee" },
+             { DrinkType.JaiAlaiIpa, "Jai Alai IPA" }
+        };
+
+        public static Dictionary<DrinkType, string> DisplayWhiteWineNameDictionary = new Dictionary<DrinkType, string>
+        {
+             { DrinkType.AlverdiPinotGrigio, "Alverdi Pinot Grigio" },
+             { DrinkType.SilverRidgeChardonnay, "Silver Ridge Chardonnay" },
+             { DrinkType.PinkTruckPinkWine, "Pink Truck Pink Wine" },
+             { DrinkType.TheRoseGardenRose, "The Rose Garden Rose" },
+             { DrinkType.DouglasGreenSb, "Douglas Green SB" }
+        };
+        public static Dictionary<DrinkType, string> DisplayRedWineNameDictionary = new Dictionary<DrinkType, string>
+        {
+             { DrinkType.LeeseFitchCab, "Leese Fitch Cab Cabernet" },
+             { DrinkType.AlverdiSangiovese, "Alverdi Sangiovese" },
+             { DrinkType.CaposaldoChianti, "Caposaldo Chianti" },
+             { DrinkType.ClineZinfandel, "Cline Zinfandel" },
+             { DrinkType.GreenTruckPetitiSyrah, ".Green Truck Petiti Syrah" },
+             { DrinkType.ClayhouseRedBlend, "Clayhouse Red Blend" },
+             { DrinkType.ElsaBianchiMalbec, "Elsa Bianchi Malbec" },
+             { DrinkType.BodegasLaya, "Bodegas Laya" }
+        };
+
+        public static Dictionary<DrinkType, string> DisplayHotDrinksNameDictionary = new Dictionary<DrinkType, string>
+        {
+             { DrinkType.RegularCoffee, "Regular Coffee" },
+             { DrinkType.DecafCoffee, "Decaf Coffee" },
+             { DrinkType.HotTea, "Hot Tea" },
+             { DrinkType.HotCocoa, "Hot Cocoa" }
+        };
+        public static Dictionary<DrinkType, string> DisplayHouseWineNameDictionary = new Dictionary<DrinkType, string>
+        {
+             { DrinkType.WineSpecial10, "$10 Wine Special" },
+             { DrinkType.WineSpecial12, "$12 Wine Special" },
+             { DrinkType.WineSpecial14, "$14 Wine Special" },
+             { DrinkType.WineSpecial15, "$15 Wine Special" },
+             { DrinkType.CorkageFee, "Corkage Fee" }
         };
 
         private static Dictionary<ToppingName, string> DisplayToppingNameDictionary = new Dictionary<ToppingName, string>
@@ -128,7 +182,7 @@ namespace Zipline2.BusinessLogic
             return "Not in Dictionary Yet";
         }
 
-        public static string GetSoftDrinkDisplayName(SoftDrinkType softdrinkName)
+        public static string GetSoftDrinkDisplayName(DrinkType softdrinkName)
         {
             if (DisplaySoftDrinkNameDictionary.ContainsKey(softdrinkName))
             {
@@ -136,6 +190,58 @@ namespace Zipline2.BusinessLogic
             }
             return "Not in Dictionary Yet";
 
+        }
+        public static string GetDraftBeerDisplayName(DrinkType draftBeerName)
+        {
+            if (DisplayDraftBeerNameDictionary.ContainsKey(draftBeerName))
+            {
+                return DisplayDraftBeerNameDictionary[draftBeerName];
+            }
+            return "Not in Dictionary Yet";
+        }
+        public static string GetBottledBeerDisplayName(DrinkType bottledBeerName)
+        {
+            if (DisplayBottledBeerNameDictionary.ContainsKey(bottledBeerName))
+            {
+                return DisplayBottledBeerNameDictionary[bottledBeerName];
+            }
+            return "Not in Dictionary Yet";
+        }
+
+        public static string GetRedWineDisplayName(DrinkType redWineName)
+        {
+            if (DisplayRedWineNameDictionary.ContainsKey(redWineName))
+            {
+                return DisplayRedWineNameDictionary[redWineName];
+            }
+            return "Not in Dictionary Yet";
+        }
+
+        public static string GetWhiteWineDisplayName(DrinkType whiteWineName)
+        {
+            if (DisplayWhiteWineNameDictionary.ContainsKey(whiteWineName))
+            {
+                return DisplayWhiteWineNameDictionary[whiteWineName];
+            }
+            return "Not in Dictionary Yet";
+        }
+
+        public static string GetHouseWineDisplayName(DrinkType houseWineName)
+        {
+            if (DisplayHouseWineNameDictionary.ContainsKey(houseWineName))
+            {
+                return DisplayHouseWineNameDictionary[houseWineName];
+            }
+            return "Not in Dictionary Yet";
+        }
+
+        public static string GetHotDrinksDisplayName(DrinkType hotDrinksName)
+        {
+            if (DisplayHotDrinksNameDictionary.ContainsKey(hotDrinksName))
+            {
+                return DisplayHotDrinksNameDictionary[hotDrinksName];
+            }
+            return "Not in Dictionary Yet";
         }
     }
 }
