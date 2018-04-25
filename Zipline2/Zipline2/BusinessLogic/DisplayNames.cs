@@ -21,6 +21,31 @@ namespace Zipline2.BusinessLogic
             { PizzaType.PestoWhiteMedium, "Special Base Medium" },
             { PizzaType.PestoWhiteLarge, "Special Base Large" },
         };
+        public static Dictionary<SoftDrinkType, string> DisplaySoftDrinkNameDictionary = new Dictionary<SoftDrinkType, string>
+        {
+            { SoftDrinkType.Water, "Water" },
+            { SoftDrinkType.WaterWithLemon, "Water with Lemon" },
+            { SoftDrinkType.WaterNoIce, "Water No Ice" },
+            { SoftDrinkType.LolaCola, "Lola Cola" },
+            { SoftDrinkType.StevieZ, "Stevie Z-Cal" },
+            { SoftDrinkType.LennieLemonLime, "Lennie Lemon Lime" },
+            { SoftDrinkType.GinnieGingerAle, "Ginnie Ginger Ale" },
+            { SoftDrinkType.RubyRootBeer, "Ruby Root Beer" },
+            { SoftDrinkType.AppleJuice, "Apple Juice" },
+            { SoftDrinkType.Lemonade, "Lemonade" },
+            { SoftDrinkType.SweetTea, "Sweet Tea" },
+            { SoftDrinkType.SweetArnoldPalmer, "Sweet Arnold Palmer" },
+            { SoftDrinkType.UnsweetArnoldPalmer, "Unsweet Arnold Palmer" },
+            { SoftDrinkType.UnsweetTea, "Unsweet Tea" },
+            { SoftDrinkType.SodaWater, "Soda Water" },
+            { SoftDrinkType.Milk, "Milk" },
+            { SoftDrinkType.BottledCoke, "Bottled Coke" },
+            { SoftDrinkType.HalfNHalfTea, "Half N Half Tea" },
+            { SoftDrinkType.DietCokeCan, "Diet Coke Can" },
+            { SoftDrinkType.SodaPitcher, "Soda Pitcher" },
+            { SoftDrinkType.Flight, "Flight" },
+            { SoftDrinkType.CrystalCreme, "Crystal Creme" }
+        };
 
         private static Dictionary<ToppingName, string> DisplayToppingNameDictionary = new Dictionary<ToppingName, string>
         {
@@ -101,6 +126,16 @@ namespace Zipline2.BusinessLogic
                 return DisplayToppingNameDictionary[toppingName];
             }
             return "Not in Dictionary Yet";
+        }
+
+        public static string GetSoftDrinkDisplayName(SoftDrinkType softdrinkName)
+        {
+            if (DisplaySoftDrinkNameDictionary.ContainsKey(softdrinkName))
+            {
+                return DisplaySoftDrinkNameDictionary[softdrinkName];
+            }
+            return "Not in Dictionary Yet";
+
         }
     }
 }

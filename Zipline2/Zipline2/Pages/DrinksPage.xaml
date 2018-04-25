@@ -86,26 +86,24 @@
 
             <ListView ItemsSource="{Binding DrinkDisplayItems, Mode=TwoWay}"
                       CachingStrategy="RecycleElementAndDataTemplate"
-                      x:Name="ToppingsListView"
                       Margin="10, 10"
                       BackgroundColor="Black"
-                      SeparatorVisibility="Default"
-                      SeparatorColor="BlanchedAlmond">
+                      SeparatorVisibility="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="4*"/>
                                     <ColumnDefinition Width="2*"/>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="2*"/>
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0"
-                                       Text="{Binding DrinkSelection.ItemName}"
+                                       Text="{Binding Drink.ItemName}"
                                        TextColor="White"
                                        FontSize="Small"
                                        HorizontalOptions="Start"
@@ -114,11 +112,11 @@
                                                     BackgroundColor="Black"
                                                     TextColor="White"
                                                     Text="fa-minus-circle"
-                                                    FontSize="15"
+                                                    FontSize="20"
                                                     Command="{Binding MinusButtonCommand}"
                                                     HorizontalOptions="Center"
                                                     VerticalOptions="Center"/>
-                                <Label Text="{Binding DrinkSelection.ItemCount, Mode=TwoWay}"
+                                <Label Text="{Binding Drink.ItemCount, Mode=TwoWay}"
                                        Grid.Column="2"
                                        TextColor="White"
                                        HorizontalOptions="Center"
@@ -129,7 +127,7 @@
                                                     TextColor="White"
                                                     Text="fa-plus-circle"
                                                     Command="{Binding PlusButtonCommand}"
-                                                    FontSize="15"
+                                                    FontSize="20"
                                                     HorizontalOptions="Center"
                                                     VerticalOptions="Center"/>
                             </Grid>

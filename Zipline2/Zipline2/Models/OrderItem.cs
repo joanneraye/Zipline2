@@ -1,6 +1,7 @@
 ﻿using SQLite;
 using System;
 using Xamarin.Forms;
+using Zipline2.PageModels;
 
 namespace Zipline2.Models
 {
@@ -9,7 +10,7 @@ namespace Zipline2.Models
     /// of Zipline is to create Orders by creating OrderItems.
     /// </summary>
 
-    public abstract class OrderItem 
+    public abstract class OrderItem : BasePageModel
     {
         #region Class Properties
         [PrimaryKey, AutoIncrement, Column("orderitemid")]
@@ -27,8 +28,18 @@ namespace Zipline2.Models
         /// as the number of medium pizzas) but the number of this 
         /// exact item (such as medium thin with anchovies).
         /// </summary>
-        [Column("itemcount")]
-        public int ItemCount { get; set; }
+        private int itemCount;
+        public int ItemCount
+        {
+            get
+            {
+                return itemCount;
+            }
+            set
+            {
+                SetProperty(ref itemCount, value);
+            }
+        }
         private decimal pricePerItem;
         [Column("itemprice")]
         public decimal PricePerItem

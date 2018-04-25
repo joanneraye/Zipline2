@@ -14,17 +14,16 @@ namespace Zipline2.PageModels
         //******************************NOTE IMBEDDED CLASS************************
         public class DrinkDisplayItem : BasePageModel
         {
-            private DrinksPageModel parentDrinksPageModel;
-            private DrinkSelection drinkSelection;
-            public DrinkSelection DrinkSelection
+            private Drink drink;
+            public Drink Drink
             {
                 get
                 {
-                    return drinkSelection;
+                    return drink;
                 }
                 set
                 {
-                    SetProperty(ref drinkSelection, value);
+                    SetProperty(ref drink, value);
                 }
             }
             public int DrinkDisplayItemIndex { get; set; }
@@ -32,25 +31,27 @@ namespace Zipline2.PageModels
             public ICommand PlusButtonCommand { get; set; }
 
 
-            public DrinkDisplayItem(DrinksPageModel drinksPageModelReference)
+            public DrinkDisplayItem()
             {
-                parentDrinksPageModel = drinksPageModelReference;
                 MinusButtonCommand = new Command(OnMinusButton);
                 PlusButtonCommand = new Command(OnPlusButton);
             }
 
             public void OnMinusButton()
             {
-                if (DrinkSelection.ItemCount > 0)
+                Drink tempDrink = Drink;
+                if (tempDrink.ItemCount > 0)
                 {
-                    DrinkSelection.ItemCount--;
-                    //DrinkSelection.ItemCount = DrinkSelection.ItemCount - 1;
+                    tempDrink.ItemCount--;
+                    Drink = tempDrink;
                 }
             }
 
             public void OnPlusButton()
             {
-                DrinkSelection.ItemCount = DrinkSelection.ItemCount + 1;
+                Drink tempDrink = Drink;
+                tempDrink.ItemCount++;
+                Drink = tempDrink;
             }
         }
 
@@ -62,7 +63,8 @@ namespace Zipline2.PageModels
         private bool redWineSelected;
         private bool hotDrinksSelected;
         private bool houseWineSelected;
-
+        private DrinkType currentDrinkTypeSelected;
+        private List<Drink> drinkSelections;
         private ObservableCollection<DrinkDisplayItem> drinkDisplayItems;
         public ObservableCollection<DrinkDisplayItem> DrinkDisplayItems
         {
@@ -87,6 +89,10 @@ namespace Zipline2.PageModels
             set
             {
                 SetProperty(ref softDrinksSelected, value);
+                if (value)
+                {
+                    LoadSoftDrinksForDisplay();
+                }
             }
         }
         public bool DraftBeerSelected
@@ -168,52 +174,50 @@ namespace Zipline2.PageModels
             }
         }
         public ICommand DrinksSelectedCommand { get; set; }
-       
 
-        private static readonly string[] softDrinks =
-        {
-            "Water",
-            "Water with Lemon",
-            "Water No Ice",
-            "Water Light Ice",            
-            "Water Extra Ice",
-            "Lola Cola",
-            "Stevie Z-Cal",
-            "Lennie Lemon Lime",
-            "Ginnie Ginger Ale",
-            "Ruby Root Beer",
-            "Apple Juice",
-            "Lemonade",
-            "Sweet Tea",
-            "Sweet Arnold Palmer",
-            "Unsweet Arnold Palmer",
-            "Unsweet Tea",
-            "Soda Water",
-            "Milk",
-            "Bottled Coke",
-            "Half n Half Tea",
-            "Diet Coke Can",
-            "Soda Pitcher",
-            "Flight",
-            "Crystal Creme"
-         };
+        //private static readonly string[] softDrinks =
+        //{
+        //    "Water",
+        //    "Water with Lemon",
+        //    "Water No Ice",
+        //    "Lola Cola",
+        //    "Stevie Z-Cal",
+        //    "Lennie Lemon Lime",
+        //    "Ginnie Ginger Ale",
+        //    "Ruby Root Beer",
+        //    "Apple Juice",
+        //    "Lemonade",
+        //    "Sweet Tea",
+        //    "Sweet Arnold Palmer",
+        //    "Unsweet Arnold Palmer",
+        //    "Unsweet Tea",
+        //    "Soda Water",
+        //    "Milk",
+        //    "Bottled Coke",
+        //    "Half n Half Tea",
+        //    "Diet Coke Can",
+        //    "Soda Pitcher",
+        //    "Flight",
+        //    "Crystal Creme"
+         //};
 
         public DrinksPageModel()
         {
             DrinkDisplayItems = new ObservableCollection<DrinkDisplayItem>();
             DrinksSelectedCommand = new Command<DrinkType>(OnDrinksSelected);
+            drinkSelections = new List<Drink>();
             
             SoftDrinksSelected = true;
-            for (int i = 0; i < softDrinks.Length; i++)
+        }
+
+        private void LoadSoftDrinksForDisplay()
+        {
+            Drinks.LoadSoftDrinks();
+            for (int i = 0; i < Drinks.SoftDrinks.Count; i++)
             {
-                var drinkSelection = new DrinkSelection()
+                var drinkDisplayItem = new DrinkDisplayItem()
                 {
-                    ItemName = softDrinks[i],
-                    ItemCount = 0
-                };
-                var drinkDisplayItem = new DrinkDisplayItem(this)
-                {
-                    DrinkSelection = drinkSelection,
+                    Drink = Drinks.SoftDrinks[i],
                     DrinkDisplayItemIndex = i
                 };
                 DrinkDisplayItems.Add(drinkDisplayItem);
@@ -222,11 +226,21 @@ namespace Zipline2.PageModels
 
         public void OnDrinksSelected(DrinkType drinkType)
         {
+            //Load drinks from existing order for this page.
+            if (drinkSelections.Count > 0)
+            {
+                LoadDrinkSelections(drinkType);
+            }
+            //Add to drink order in progress whatever was entered on the page we are leaving.
+            if (currentDrinkTypeSelected != DrinkType.None)
+            {
+                AddDrinkSelections();
+            }
+
             switch (drinkType)
             {
                 case DrinkType.SoftDrinks:
                     SoftDrinksSelected = true;
-                    DrinkList = softDrinks;
                     BottledBeerSelected = false;
                     DraftBeerSelected = false;
                     RedWineSelected = false;
@@ -288,6 +302,38 @@ namespace Zipline2.PageModels
                     DraftBeerSelected = false;
                     WhiteWineSelected = false;
                     break;
+            }
+            currentDrinkTypeSelected = drinkType;
+        }
+
+        private void AddDrinkSelections()
+        {
+            foreach (var drinkdisplayitem in DrinkDisplayItems)
+            {
+                if (drinkdisplayitem.Drink.ItemCount > 0)
+                {
+                    drinkSelections.Add(drinkdisplayitem.Drink);
+                }
+            }
+        }
+
+        private void LoadDrinkSelections(DrinkType drinkType)
+        {
+            foreach (var drink in drinkSelections)
+            {
+                //Only find drinks that are on the page that will be displayed.
+                if (drink.DrinkType == drinkType)
+                {
+                    //Find the drink already selected on this page.
+                    foreach (var drinkDisplayItem in DrinkDisplayItems)
+                    {
+                        if (drinkDisplayItem.Drink.DrinkType == drink.DrinkType)
+                        {
+                            drinkDisplayItem.Drink.ItemCount = drink.ItemCount;
+                            break;
+                        }
+                    }
+                }
             }
         }
 

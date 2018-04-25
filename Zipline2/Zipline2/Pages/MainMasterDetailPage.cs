@@ -15,7 +15,8 @@ namespace Zipline2.Pages
             Master = new MasterPage()
             {
                 BackgroundColor = Color.Black,
-                Title = "Satchel's Pizza"
+                Title = "Satchel's Pizza",
+                Icon = "hamburger.png"
             };
            
             Detail = new NavigationPage(new TablesPage());

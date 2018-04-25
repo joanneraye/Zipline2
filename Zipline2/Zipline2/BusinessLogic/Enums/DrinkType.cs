@@ -6,6 +6,7 @@ namespace Zipline2.BusinessLogic.Enums
 {
     public enum DrinkType
     {
+        None,
         SoftDrinks,
         DraftBeer,
         BottledBeer,

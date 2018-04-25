@@ -21,7 +21,7 @@ namespace Zipline2.Pages
 		{
 			InitializeComponent ();
             BindingContext = new DrinksPageModel();
-            string drinkTitle = OrderManager.Instance.CurrentTableName + " Drinks";
+            string drinkTitle = "TBL " + OrderManager.Instance.CurrentTableName + " Drinks";
             this.ToolbarItems.Add(new ToolbarItem { Text = drinkTitle, Priority = 0 });
         }
 	}

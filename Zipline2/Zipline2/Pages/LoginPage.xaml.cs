@@ -25,7 +25,6 @@ namespace Zipline2.Pages
             PinEnteredByUser.Focus();
             LoginPageModel = new LoginPageModel();
             BindingContext = LoginPageModel;
-
         }
 
         async void OnAddNewUserButtonClicked(object sender, EventArgs e)

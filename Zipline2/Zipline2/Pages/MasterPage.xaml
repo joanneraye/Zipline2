@@ -9,7 +9,7 @@
                 <RowDefinition Height="60" />
             </Grid.RowDefinitions>
             <Grid>
-                <!--<Image Source="hamburger.png" Aspect="AspectFill" Margin="0" />-->
+                <Image Source="hamburger.png" Aspect="AspectFill" Margin="0" />
                 <StackLayout Padding="0,0,0,0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
                     <Image Source="icon.png" Aspect="AspectFit" WidthRequest="50" HeightRequest="50" />
                     <!--<Label Text="Satchel''s Pizza" TextColor="White" FontSize="Medium"

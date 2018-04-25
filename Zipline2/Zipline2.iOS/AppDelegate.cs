@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Foundation;
 using UIKit;
 
@@ -27,6 +26,8 @@ namespace Zipline2.iOS
             //string dbPath = FileAccessHelper.GetLocalFilePath("orders.db3");
 
             //LoadApplication(new App(dbPath));
+            Plugin.Iconize.Iconize.With(new Plugin.Iconize.Fonts.FontAwesomeModule());
+            FormsPlugin.Iconize.iOS.IconControls.Init();
 
             LoadApplication(new App());
 

@@ -12,7 +12,9 @@
                 <Setter Property="BorderRadius" Value="3" />
                 <Setter Property="BorderWidth" Value="3" />
                 <Setter Property="BackgroundColor" Value="Black" />
-                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                <Setter Property="WidthRequest" Value="200" />
+                <Setter Property="Margin" Value="10,0,10,0" />
                 <Setter Property="FontSize" Value="8" />
             </Style>
         </ResourceDictionary>

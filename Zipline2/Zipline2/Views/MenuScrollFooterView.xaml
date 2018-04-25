@@ -11,6 +11,7 @@
                 <Setter Property="BorderColor" Value="White" />
                 <Setter Property="BorderRadius" Value="3" />
                 <Setter Property="BorderWidth" Value="3" />
+                <Setter Property="WidthRequest" Value="100" />
                 <Setter Property="BackgroundColor" Value="Black" />
                 <Setter Property="HorizontalOptions" Value="Center" />
                 <Setter Property="FontSize" Value="Small" />
@@ -19,12 +20,6 @@
     </ContentView.Resources>
     <ContentView.Content>
         <StackLayout Orientation="Vertical">
-            <Button Text="Add to Order"
-                    HorizontalOptions="FillAndExpand"
-                    HeightRequest="40"
-                    Style="{StaticResource footerScrollMenu}"
-                    BackgroundColor="LightBlue"
-                    TextColor="Black"/>
             <ScrollView Orientation="Horizontal">
             <StackLayout Orientation="Horizontal"
                             BackgroundColor="Black">

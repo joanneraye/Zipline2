@@ -7,9 +7,7 @@ namespace Zipline2.Models
 {
     public class DrinkSelection : CustomerSelection
     {
-        public DrinkType DrinkType { get; set; }
-
-        public DrinkName DrinkName { get; set; }
+       public Drink Drink { get; set; }
 
     }
 }

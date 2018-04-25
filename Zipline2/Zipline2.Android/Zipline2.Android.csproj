@@ -60,9 +60,6 @@
     <PackageReference Include="Forms.Controls.FlexButton">
       <Version>0.6.1</Version>
     </PackageReference>
-    <PackageReference Include="FreshMvvm">
-      <Version>2.2.4</Version>
-    </PackageReference>
     <PackageReference Include="PCLStorage">
       <Version>1.0.2</Version>
     </PackageReference>
@@ -183,7 +180,9 @@
     <AndroidResource Include="Resources\drawable-hdpi\hamburger.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\values\colors.xml" />
+    <AndroidResource Include="Resources\values\colors.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Zipline2\Zipline2.csproj">
