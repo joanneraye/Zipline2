@@ -24,11 +24,12 @@ namespace Zipline2.PageModels
             private Color selectionColor;
             #endregion
 
+            
             #region Command Variables
-
             public System.Windows.Input.ICommand AButtonCommand { get; set; }
             public System.Windows.Input.ICommand BButtonCommand { get; set; }
             public System.Windows.Input.ICommand WButtonCommand { get; set; }
+            public ICommand ToppingSelectedCommand { get; set; }
             #endregion
 
             #region Properties
@@ -135,6 +136,7 @@ namespace Zipline2.PageModels
                 AButtonCommand = new Xamarin.Forms.Command(OnButtonAClick);
                 BButtonCommand = new Xamarin.Forms.Command(OnButtonBClick);
                 WButtonCommand = new Xamarin.Forms.Command(OnButtonWClick);
+                ToppingSelectedCommand = new Command(OnToppingSelected);
             }
 
             #endregion
@@ -153,6 +155,11 @@ namespace Zipline2.PageModels
             private void OnButtonWClick()
             {
                 parentToppingsPageModel.SelectButtonWAB(ToppingWholeHalf.Whole, SelectionIndex);
+            }
+
+            private void OnToppingSelected()
+            {
+                parentToppingsPageModel.SelectTopping(SelectionIndex);
             }
 
             #endregion
@@ -178,21 +185,6 @@ namespace Zipline2.PageModels
             }
         }
 
-        
-        //public Toppings Toppings
-        //{
-        //    get
-        //    {
-        //        return toppings;
-        //    }
-        //    set
-        //    {
-        //        SetProperty(ref toppings, value);
-        //        ThisPizza.AddToppings(toppings);
-        //        MenuHeaderModel.GetInstance().UpdateItemTotal(ThisPizza.BasePrice, toppings.ToppingsTotal);
-
-        //    }
-        //}
         public List<ToppingDisplayItem> SelectedItems = new List<ToppingDisplayItem>();
         public ObservableCollection<ToppingDisplayItem> ToppingSelectionsList
         {
@@ -277,7 +269,8 @@ namespace Zipline2.PageModels
         #endregion
 
         #region Methods
-        
+
+      
         public void SelectMajorToppings(ToppingWholeHalf toppingWholeHalf = ToppingWholeHalf.Whole)
         {
             foreach (var toppingselection in ToppingSelectionsList)
@@ -305,6 +298,93 @@ namespace Zipline2.PageModels
                     }
                 }
             }
+        }
+
+        public void SelectTopping(int selectionIndex)
+        {
+            //Can't change ListView directly - must change underlying data.  Get this data by the index.
+            ToppingDisplayItem thisSelection = ToppingSelectionsList[selectionIndex];
+            if (thisSelection.ListTopping.ToppingName == ToppingName.HalfMajor)
+            {
+                ProcessHalfMajorToppingSelection(thisSelection);
+            }
+            else
+            {
+                if (thisSelection.ListItemIsSelected)   //If selected, toggle to unselect...
+                {
+                    thisSelection.ListTopping.SequenceSelected = 0;
+                    thisSelection.ButtonWSelected = true;
+                    thisSelection.ButtonASelected = false;
+                    thisSelection.ButtonBSelected = false;
+                    ThisPizza.Toppings.RemoveTopping(thisSelection.ListTopping.ToppingName);
+                }
+                else
+                {
+                    thisSelection.ListTopping.SequenceSelected = ThisPizza.Toppings.CurrentToppings.Count + 1;
+                    ThisPizza.Toppings.AddTopping(thisSelection.ListTopping);
+                }
+                thisSelection.ListItemIsSelected = !thisSelection.ListItemIsSelected;
+                //Appearance...
+                if (thisSelection.ListItemIsSelected)
+                {
+                    thisSelection.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
+                    thisSelection.ButtonWSelected = true;
+                }
+                else
+                {
+                    thisSelection.SelectionColor = Xamarin.Forms.Color.Black;
+                    thisSelection.ButtonASelected = false;
+                    thisSelection.ButtonBSelected = false;
+                    thisSelection.ButtonWSelected = false;
+                }
+            }
+        }
+
+        //For selection or deselection of the Half Major topping.
+        private void ProcessHalfMajorToppingSelection(ToppingDisplayItem halfMajorSelection)
+        {
+            if (
+                halfMajorSelection.ListItemIsSelected)   //If selected, toggle to unselect...
+            {
+                ThisPizza.Toppings.RemoveToppings(new List<ToppingName>
+                {
+                    ToppingName.Mushrooms,
+                    ToppingName.BlackOlives,
+                    ToppingName.GreenPeppers,
+                    ToppingName.Onion,
+                    ToppingName.Pepperoni,
+                    ToppingName.Sausage
+                });
+
+                foreach (var toppingSelection in ToppingSelectionsList)
+                {
+                    if (toppingSelection.ListTopping.ToppingName == ToppingName.Mushrooms ||
+                        toppingSelection.ListTopping.ToppingName == ToppingName.GreenPeppers ||
+                        toppingSelection.ListTopping.ToppingName == ToppingName.Onion ||
+                        toppingSelection.ListTopping.ToppingName == ToppingName.Pepperoni ||
+                        toppingSelection.ListTopping.ToppingName == ToppingName.Sausage ||
+                        toppingSelection.ListTopping.ToppingName == ToppingName.BlackOlives)
+                    {
+                        toppingSelection.ButtonWSelected = false;
+                        toppingSelection.ButtonASelected = false;
+                        toppingSelection.ButtonBSelected = false;
+                        toppingSelection.ListItemIsSelected = false;
+                    }
+                }
+                halfMajorSelection.ListItemIsSelected = false;
+                halfMajorSelection.ButtonWSelected = false;
+                halfMajorSelection.ButtonASelected = false;
+                halfMajorSelection.ButtonBSelected = false;
+            }
+            else
+            {
+                SelectMajorToppings(halfMajorSelection.ListTopping.ToppingWholeHalf);
+                ThisPizza.Toppings.AddMajorToppingsToHalf(ToppingWholeHalf.HalfA);
+
+                halfMajorSelection.ListItemIsSelected = true;
+                halfMajorSelection.ButtonASelected = true;
+            }
+            halfMajorSelection.ListItemIsSelected = !halfMajorSelection.ListItemIsSelected;
         }
 
         /// <summary>

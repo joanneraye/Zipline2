@@ -137,7 +137,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Text="Add Pizza to Order"
+            <Button Text="Add Drinks to Order"
                     Margin="0,5,0,0"
                     HorizontalOptions="FillAndExpand"
                     HeightRequest="40"

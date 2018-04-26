@@ -43,6 +43,11 @@ namespace Zipline2.Pages
         {
             await Navigation.PushAsync(new ToppingsPage(e.CurrentPizza));
         }
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            pizzaPageModel.NavigateToToppingsPage -= HandleNavigateToToppingsPage;
+        }
         #endregion
     }
 }

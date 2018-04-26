@@ -82,17 +82,15 @@
                      WidthRequest="50"
                      Color="White"/>
             <ListView ItemsSource="{Binding ToppingSelectionsList, Mode=TwoWay}"
-                      ItemTapped="ListItemTapped"
-                      SelectedItem="{Binding SelectedToppingItem, Mode=TwoWay}"
+                      SelectedItem="{Binding ToppingDisplayItem}"
                       CachingStrategy="RecycleElementAndDataTemplate"
                       x:Name="ToppingsListView"
-                      SeparatorVisibility="Default"
-                      BackgroundColor="Black"
-                      SeparatorColor="BlanchedAlmond">
+                      SeparatorVisibility="None"
+                      BackgroundColor="Black">
                 <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell x:Name="ListViewCell">
-                        <Grid x:Name="ToppingsGrid">
+                            <Grid x:Name="ToppingsGrid">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
@@ -102,12 +100,20 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0"
+                                <Button Grid.Column="0"
+                                        BackgroundColor="{Binding SelectionColor, Mode=TwoWay}"
+                                        Command="{Binding ToppingSelectedCommand}"/>
+                                <Label Grid.Column="0"
                                        Text="{Binding ListTopping.ToppingDisplayName}"
-                                       BackgroundColor="{Binding SelectionColor, Mode=TwoWay}"
+                                       BackgroundColor="Transparent"
+                                       HorizontalOptions="StartAndExpand"
+                                       VerticalOptions="CenterAndExpand"
                                        TextColor="White"
-                                       FontSize="Small"
-                                       VerticalOptions="Center"/>
+                                       FontSize="Small">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ToppingSelectedCommand}"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
                                 <Button Grid.Column="1"
                                         x:Name="ButtonW"
                                         IsVisible="{Binding AreWholeHalfColumnsVisible}"

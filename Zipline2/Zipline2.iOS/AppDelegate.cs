@@ -27,6 +27,7 @@ namespace Zipline2.iOS
 
             //LoadApplication(new App(dbPath));
             Plugin.Iconize.Iconize.With(new Plugin.Iconize.Fonts.FontAwesomeModule());
+
             FormsPlugin.Iconize.iOS.IconControls.Init();
 
             LoadApplication(new App());

@@ -280,7 +280,6 @@
                                               CommandParameter="{x:Static enums:PizzaType.SatchPan}"/>
                     </Label.GestureRecognizers>
                 </Label>
-
                 <!--*************************************MFP-->
                 <Label Grid.Row ="5"
                                Grid.Column="0"
@@ -297,13 +296,6 @@
                         <TapGestureRecognizer Command="{Binding AddMfpCommand}" />
                     </iconize:IconImage.GestureRecognizers>
                 </iconize:IconImage>
-                <!--<iconize:IconButton Grid.Row ="5"
-                            Grid.Column="3" 
-                            Text="fa-plus-circle"
-                            FontSize="30"
-                            VerticalOptions="Start"
-                            BackgroundColor="Black"
-                            TextColor="LightBlue"/>-->
                 <!--*************************************SATCH PAN-->
                 <Label Grid.Row ="6"
                            Grid.Column="0"

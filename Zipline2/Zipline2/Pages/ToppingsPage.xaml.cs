@@ -7,12 +7,14 @@ using Zipline2.Models;
 using Zipline2.BusinessLogic.Enums;
 using static Zipline2.PageModels.ToppingsPageModel;
 using Zipline2.BusinessLogic;
+using System.Windows.Input;
 
 namespace Zipline2.Pages
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ToppingsPage : BasePage
 	{
+     
         #region Private Variables
         private ToppingsPageModel ToppingsPageModel;
         private int CarouselSelectedPosition { get; set; }
@@ -25,6 +27,7 @@ namespace Zipline2.Pages
             ToppingsPageModel = new ToppingsPageModel(currentPizza);
             InitializeComponent ();
             BindingContext = ToppingsPageModel;
+            ToppingsListView.ItemSelected += ToppingsListView_ItemSelected;
 
             string pizzaTitle = currentPizza.ItemName + " Toppings";
             this.ToolbarItems.Add(new ToolbarItem { Text = pizzaTitle, Priority = 0 });
@@ -37,100 +40,125 @@ namespace Zipline2.Pages
                 ToppingsPageModel.ThisPizza.Toppings.AddMajorToppings();
             }
         }
+
+        private void ToppingsListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            return;
+            //if (e.SelectedItem != null)
+            //{
+            //    ToppingDisplayItem thisSelection = e.SelectedItem as ToppingDisplayItem;
+            //    if (thisSelection.ListTopping.ToppingName == ToppingName.HalfMajor)
+            //    {
+            //        ProcessHalfMajorToppingSelection(thisSelection);
+            //    }
+            //    else
+            //    {
+            //        thisSelection.ListItemIsSelected = !thisSelection.ListItemIsSelected;
+            //        if (thisSelection.ListItemIsSelected)
+            //        {
+            //            thisSelection.ListTopping.SequenceSelected = ToppingsPageModel.ThisPizza.Toppings.CurrentToppings.Count + 1;
+            //            ToppingsPageModel.ThisPizza.Toppings.AddTopping(thisSelection.ListTopping);
+            //            thisSelection.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
+            //            thisSelection.ButtonWSelected = true;
+            //        }
+            //        else
+            //        {
+            //            thisSelection.ListTopping.SequenceSelected = 0;
+            //            ToppingsPageModel.ThisPizza.Toppings.RemoveTopping(thisSelection.ListTopping.ToppingName);
+            //            thisSelection.SelectionColor = Xamarin.Forms.Color.Black;
+            //            thisSelection.ButtonASelected = false;
+            //            thisSelection.ButtonBSelected = false;
+            //            thisSelection.ButtonWSelected = false;
+            //        }
+            //    }
+            //}
+        }
         #endregion
 
         #region Methods
 
-        private void ListItemTapped(object sender, ItemTappedEventArgs e)
-        {
-            ToppingDisplayItem selectedItem = e.Item as ToppingDisplayItem;
-            int indexOfItemSelected = selectedItem.SelectionIndex;
 
-            //Can't change ListView directly - must change underlying data.  Get this data by the index.
-            ToppingDisplayItem thisSelection = ToppingsPageModel.ToppingSelectionsList[indexOfItemSelected];
-            if (thisSelection.ListTopping.ToppingName == ToppingName.HalfMajor)
-            {
-                ProcessHalfMajorToppingSelection(thisSelection);
-            }
-            else
-            {
-                if (thisSelection.ListItemIsSelected)   //If selected, toggle to unselect...
-                {
-                    thisSelection.ListTopping.SequenceSelected = 0;
-                    ToppingsPageModel.ThisPizza.Toppings.RemoveTopping(thisSelection.ListTopping.ToppingName);
-                }
-                else
-                {
-                    thisSelection.ListTopping.SequenceSelected = ToppingsPageModel.ThisPizza.Toppings.CurrentToppings.Count + 1;
-                    ToppingsPageModel.ThisPizza.Toppings.AddTopping(thisSelection.ListTopping);
-                }
-                thisSelection.ListItemIsSelected = !thisSelection.ListItemIsSelected;
-                //Appearance...
-                if (thisSelection.ListItemIsSelected)
-                {
-                    thisSelection.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
-                    thisSelection.ButtonWSelected = true;
-                }
-                else
-                {
-                    thisSelection.SelectionColor = Xamarin.Forms.Color.Black;
-                    thisSelection.ButtonASelected = false;
-                    thisSelection.ButtonBSelected = false;
-                    thisSelection.ButtonWSelected = false;
-                }
-            }
-           
-            //NOTE:  Modifying ToppingsPageModel.Toppings directly instead of 
-            //explicitly setting it here does not trigger bindings.
-            //ThisPizza.Toppings = Toppings;
-        }
+        //private void ListItemTapped(object sender, ItemTappedEventArgs e)
+        //{
+        //    var listView = sender as ListView;
+        //    ToppingDisplayItem selectedItem = listView.SelectedItem as ToppingDisplayItem;
+        //    int indexOfItemSelected = selectedItem.SelectionIndex;
 
-        //For selection or deselection of the Half Major topping.
-        private void ProcessHalfMajorToppingSelection(ToppingDisplayItem halfMajorSelection)
-        {
-            if (
-                halfMajorSelection.ListItemIsSelected)   //If selected, toggle to unselect...
-            {
-                ToppingsPageModel.ThisPizza.Toppings.RemoveToppings(new List<ToppingName>
-                {
-                    ToppingName.Mushrooms,
-                    ToppingName.BlackOlives,
-                    ToppingName.GreenPeppers,
-                    ToppingName.Onion,
-                    ToppingName.Pepperoni,
-                    ToppingName.Sausage
-                });
-              
-                foreach (var toppingSelection in ToppingsPageModel.ToppingSelectionsList)
-                {
-                    if (toppingSelection.ListTopping.ToppingName == ToppingName.Mushrooms ||
-                        toppingSelection.ListTopping.ToppingName == ToppingName.GreenPeppers ||
-                        toppingSelection.ListTopping.ToppingName == ToppingName.Onion ||
-                        toppingSelection.ListTopping.ToppingName == ToppingName.Pepperoni ||
-                        toppingSelection.ListTopping.ToppingName == ToppingName.Sausage ||
-                        toppingSelection.ListTopping.ToppingName == ToppingName.BlackOlives)
-                    {
-                        toppingSelection.ButtonWSelected = false;
-                        toppingSelection.ButtonASelected = false;
-                        toppingSelection.ButtonBSelected = false;
-                        toppingSelection.ListItemIsSelected = false;
-                    }
-                }
-                halfMajorSelection.ListItemIsSelected = false;
-                halfMajorSelection.ButtonWSelected = false;
-                halfMajorSelection.ButtonASelected = false;
-                halfMajorSelection.ButtonBSelected = false;
-            }
-            else
-            {
-                ToppingsPageModel.SelectMajorToppings(halfMajorSelection.ListTopping.ToppingWholeHalf);
-                ToppingsPageModel.ThisPizza.Toppings.AddMajorToppingsToHalf(ToppingWholeHalf.HalfA);
+        //    //Can't change ListView directly - must change underlying data.  Get this data by the index.
+        //    ToppingDisplayItem thisSelection = ToppingsPageModel.ToppingSelectionsList[indexOfItemSelected];
 
-                halfMajorSelection.ListItemIsSelected = true;
-                halfMajorSelection.ButtonASelected = true;
-            }
-            halfMajorSelection.ListItemIsSelected = !halfMajorSelection.ListItemIsSelected;
-        }
+        //    if (thisSelection.ListTopping.ToppingName == ToppingName.HalfMajor)
+        //    {
+        //        ProcessHalfMajorToppingSelection(thisSelection);
+        //    }
+        //    else
+        //    {
+        //        thisSelection.ListItemIsSelected = !thisSelection.ListItemIsSelected;
+        //        if (thisSelection.ListItemIsSelected)
+        //        {
+        //            thisSelection.ListTopping.SequenceSelected = ToppingsPageModel.ThisPizza.Toppings.CurrentToppings.Count + 1;
+        //            ToppingsPageModel.ThisPizza.Toppings.AddTopping(thisSelection.ListTopping);
+        //            thisSelection.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
+        //            thisSelection.ButtonWSelected = true;
+        //        }
+        //        else
+        //        {
+        //            thisSelection.ListTopping.SequenceSelected = 0;
+        //            ToppingsPageModel.ThisPizza.Toppings.RemoveTopping(thisSelection.ListTopping.ToppingName);
+        //            thisSelection.SelectionColor = Xamarin.Forms.Color.Black;
+        //            thisSelection.ButtonASelected = false;
+        //            thisSelection.ButtonBSelected = false;
+        //            thisSelection.ButtonWSelected = false;
+        //        }
+        //    }
+        //}
+
+        ////For selection or deselection of the Half Major topping.
+        //private void ProcessHalfMajorToppingSelection(ToppingDisplayItem halfMajorSelection)
+        //{
+        //    if (halfMajorSelection.ListItemIsSelected)   //If selected, toggle to unselect...
+        //    {
+        //        ToppingsPageModel.ThisPizza.Toppings.RemoveToppings(new List<ToppingName>
+        //        {
+        //            ToppingName.Mushrooms,
+        //            ToppingName.BlackOlives,
+        //            ToppingName.GreenPeppers,
+        //            ToppingName.Onion,
+        //            ToppingName.Pepperoni,
+        //            ToppingName.Sausage
+        //        });
+
+        //        foreach (var toppingSelection in ToppingsPageModel.ToppingSelectionsList)
+        //        {
+        //            if (toppingSelection.ListTopping.ToppingName == ToppingName.Mushrooms ||
+        //                toppingSelection.ListTopping.ToppingName == ToppingName.GreenPeppers ||
+        //                toppingSelection.ListTopping.ToppingName == ToppingName.Onion ||
+        //                toppingSelection.ListTopping.ToppingName == ToppingName.Pepperoni ||
+        //                toppingSelection.ListTopping.ToppingName == ToppingName.Sausage ||
+        //                toppingSelection.ListTopping.ToppingName == ToppingName.BlackOlives)
+        //            {
+        //                toppingSelection.ButtonWSelected = false;
+        //                toppingSelection.ButtonASelected = false;
+        //                toppingSelection.ButtonBSelected = false;
+        //                toppingSelection.ListItemIsSelected = false;
+        //            }
+        //        }
+        //        halfMajorSelection.ListItemIsSelected = false;
+        //        halfMajorSelection.ButtonWSelected = false;
+        //        halfMajorSelection.ButtonASelected = false;
+        //        halfMajorSelection.ButtonBSelected = false;
+        //    }
+        //    else
+        //    {
+        //        ToppingsPageModel.SelectMajorToppings(halfMajorSelection.ListTopping.ToppingWholeHalf);
+        //        ToppingsPageModel.ThisPizza.Toppings.AddMajorToppingsToHalf(ToppingWholeHalf.HalfA);
+
+        //        halfMajorSelection.ListItemIsSelected = true;
+        //        halfMajorSelection.ButtonASelected = true;
+        //    }
+        //    halfMajorSelection.ListItemIsSelected = !halfMajorSelection.ListItemIsSelected;
+
+        //}
 
         private void BasePickerTapped(object sender, EventArgs e)
         {
@@ -229,6 +257,12 @@ namespace Zipline2.Pages
     
             //not sure if needed...
             //ToppingsPageModel.Toppings = Toppings;
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            ToppingsListView.ItemSelected -= ToppingsListView_ItemSelected;
         }
         #endregion
     }
