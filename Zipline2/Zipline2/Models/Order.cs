@@ -30,6 +30,8 @@ namespace Zipline2.Models
         [Column("istakeout")]
         public bool IsTakeout { get; set; }
 
+        public bool WasSentToKitchen { get; set; }
+
         [Column("tableid")]
         public int TableId { get; set; }
 

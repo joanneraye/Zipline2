@@ -96,6 +96,11 @@ namespace Zipline2.BusinessLogic
             OrderItemInProgress.UpdateItemTotal();
         }
 
+        public void AddDrinksToOrder(OrderItem drinkOrder)
+        {
+            OrderInProgress.AddItemToOrder(drinkOrder);
+        }
+
         public void SendOrder()
         {
             //1)  Create kitchen printout from the order.

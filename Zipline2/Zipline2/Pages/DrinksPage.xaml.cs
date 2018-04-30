@@ -15,8 +15,6 @@ namespace Zipline2.Pages
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class DrinksPage : BasePage
 	{
-
-
         public DrinksPage ()
 		{
 			InitializeComponent ();

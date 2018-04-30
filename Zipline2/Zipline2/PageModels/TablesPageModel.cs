@@ -88,7 +88,6 @@ namespace Zipline2.PageModels
         #endregion
 
         #region Properties     
-        public event EventHandler NavigateToPizzaPage;
         public event EventHandler NavigateToDrinksPage;
         public string UserName
         {

@@ -11,10 +11,20 @@ namespace Zipline2.PageModels
     {
         public ICommand DrinksCommand { get; set; }
         public ICommand PizzaCommand { get; set; }
+
+        public ICommand OrderPageCommand { get; set; }
         public MenuButtonFooterModel()
         {
             DrinksCommand = new Command(OnDrinksButtonClick);
             PizzaCommand = new Command(OnPizzaButtonClick);
+            OrderPageCommand = new Command(OnOrderPage);
+        }
+
+        private void OnOrderPage()
+        {
+            var currentMainPage = Application.Current.MainPage as MasterDetailPage;
+            currentMainPage.Detail = new NavigationPage(new OrderPage());
+            Application.Current.MainPage = currentMainPage;
         }
 
         void OnDrinksButtonClick()

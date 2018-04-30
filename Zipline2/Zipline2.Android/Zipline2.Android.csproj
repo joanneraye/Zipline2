@@ -95,6 +95,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ItemSelectedEffect.cs" />
     <Compile Include="FileAccessHelper.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />

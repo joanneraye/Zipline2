@@ -24,6 +24,11 @@
             <ScrollView Orientation="Horizontal">
             <StackLayout Orientation="Horizontal"
                             BackgroundColor="Black">
+                <Button Text="Order"
+                            Command="{Binding OrderPageCommand}"
+                            Style="{StaticResource footerScrollMenu}"
+                            TextColor="Black"
+                            BackgroundColor="LightBlue"/>
                 <Button Text="Drinks"
                             Command="{Binding DrinksCommand}"
                             Style="{StaticResource footerScrollMenu}"/>

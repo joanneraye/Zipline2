@@ -39,7 +39,10 @@ namespace Zipline2.PageModels
 
             public void OnMinusButton()
             {
-                Drink.ItemCount--;
+                if (Drink.ItemCount > 0)
+                {
+                    Drink.ItemCount--;
+                }               
             }
 
             public void OnPlusButton()
@@ -163,6 +166,7 @@ namespace Zipline2.PageModels
             }
         }
         public ICommand DrinksSelectedCommand { get; set; }
+        public ICommand AddDrinksCommand { get; set; }
 
         public Dictionary<DrinkCategory, List<DrinkDisplayItem>> DrinkDisplayDictionary { get; private set; } 
         public Dictionary<DrinkType, Drink> DrinkSelectionDictionary { get; set; } 
@@ -170,6 +174,7 @@ namespace Zipline2.PageModels
         {
             DrinkDisplayItems = new ObservableCollection<DrinkDisplayItem>();
             DrinksSelectedCommand = new Command<DrinkCategory>(OnDrinksSelected);
+            AddDrinksCommand = new Command(OnAddDrinks);
             DrinkDisplayDictionary = new Dictionary<DrinkCategory, List<DrinkDisplayItem>>();
             DrinkSelectionDictionary = new Dictionary<DrinkType, Drink>();
             SoftDrinksSelected = true;
@@ -229,6 +234,19 @@ namespace Zipline2.PageModels
                         DrinkType = drinkType
                     }
                 };
+
+                //Handle pricing.
+                if (drinkDisplayItem.Drink.DrinkCategory == DrinkCategory.SoftDrinks)
+                {
+                    if (drinkType == DrinkType.Water ||
+                                       drinkType == DrinkType.WaterNoIce ||
+                                       drinkType == DrinkType.WaterWithLemon ||
+                                       drinkType == DrinkType.SodaWater ||
+                                       drinkType == DrinkType.SodaPitcher)
+                    {
+                        drinkDisplayItem.Drink.IsDrinkFree = true;
+                    }
+                }
                 drinkDisplayItems.Add(drinkDisplayItem);
             }
             DrinkDisplayDictionary.Add(drinkCategory, drinkDisplayItems);
@@ -318,6 +336,15 @@ namespace Zipline2.PageModels
             currentDrinkTypeSelected = newDrinkCategory;
         }
 
+        private void OnAddDrinks()
+        {
+            AddDrinkSelections(currentDrinkTypeSelected);
+            foreach (var item in DrinkSelectionDictionary.Values)
+            {
+                OrderManager.Instance.AddDrinksToOrder(item);
+            }
+        }
+
         private void AddDrinkSelections(DrinkCategory drinkCategory)
         {
             //Check all of the drinks displayed to see if the drink
@@ -328,6 +355,7 @@ namespace Zipline2.PageModels
             {
                 if (drinkDisplayItem.Drink.ItemCount > 0)
                 {
+                    drinkDisplayItem.Drink.UpdateItemTotal();
                     if (DrinkSelectionDictionary.ContainsKey(drinkDisplayItem.Drink.DrinkType))
                     {
                         DrinkSelectionDictionary[drinkDisplayItem.Drink.DrinkType] = drinkDisplayItem.Drink;

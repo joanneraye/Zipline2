@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Input;
 using Xamarin.Forms;
 using Zipline2.BusinessLogic;
 using Zipline2.BusinessLogic.Enums;
@@ -90,12 +91,13 @@ namespace Zipline2.PageModels
         #endregion
         private static MenuHeaderModel instance = null;
         private static readonly object padlock = new object();
+        
         private MenuHeaderModel()
         {
             itemTotal = 0M;
             OrderTotal = OrderManager.Instance.OrderInProgress.Total;
             UserName = Users.Instance.LoggedInUser.UserName;
-            
+            TableName = OrderManager.Instance.GetCurrentTable().TableName;
             MessagingCenter.Subscribe<OrderItem, decimal>(this, "ItemPriceUpdated",
                 (sender, arg) => { UpdateItemTotal(arg); });
         }
@@ -114,7 +116,7 @@ namespace Zipline2.PageModels
             }
         }
         #region Methods
-
+        
         public void UpdateItemTotal(decimal newItemTotal)
         {
             ItemTotal = newItemTotal;
@@ -123,6 +125,7 @@ namespace Zipline2.PageModels
         {
             ItemTotal = basePrice + toppingsTotal;
         }
+        
         #endregion
     }
 }

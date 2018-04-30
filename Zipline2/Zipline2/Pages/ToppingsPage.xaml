@@ -90,7 +90,9 @@
                 <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell x:Name="ListViewCell">
-                            <Grid x:Name="ToppingsGrid">
+                            <Grid x:Name="ToppingsGrid"
+                                  ColumnSpacing="0"
+                                  RowSpacing="0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>

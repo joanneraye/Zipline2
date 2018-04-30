@@ -20,7 +20,7 @@ namespace Zipline2.Views
             InitializeComponent();
             BindingContext = MenuHeaderModel.Instance;
         }
-
+        
         async public void TablesButtonClicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new TablesPage());

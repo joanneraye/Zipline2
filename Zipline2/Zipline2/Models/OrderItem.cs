@@ -50,6 +50,7 @@ namespace Zipline2.Models
             }
             set
             {
+                SetProperty(ref pricePerItem, value);
                 if (value != pricePerItem)
                 {
                     pricePerItem = value;
@@ -58,15 +59,28 @@ namespace Zipline2.Models
             }
         }
 
+        private decimal total;
         [Column("itemtotal")]
-        public decimal Total { get; set; }
-        
+        public decimal Total
+        {
+            get
+            {
+                return total;
+            }
+            set
+            {
+                SetProperty(ref total, value);
+            }
+        }
+
         /// <summary>
         /// The base price is the total of an item without toppings
         /// or extras.  The PricePerItem may be calculated starting 
         /// with the BasePrice and making modifications to it.
         /// </summary>
         public decimal BasePrice { get; set; }
+
+        public bool WasSentToKitchen { get; set; }
 
         #endregion
 

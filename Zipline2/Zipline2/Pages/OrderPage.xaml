@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Zipline2.Pages;assembly=Zipline2.Pages"
+             xmlns:views="clr-namespace:Zipline2.Views"
+             xmlns:converters="clr-namespace:Zipline2.Converters"
+             x:Class="Zipline2.Pages.OrderPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:SentOrderItemColorConverter x:Key="sentToKitchenTextConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout Padding ="10,0,10,10">
+            <ListView ItemsSource="{Binding CurrentOrderItems}"
+                 SelectedItem="{Binding OrderItem}"
+                      CachingStrategy="RecycleElementAndDataTemplate"
+                      BackgroundColor="Black">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2.5*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0"
+                                    Text="{Binding ItemName}"
+                                       TextColor="{Binding WasSentToKitchen, 
+                                        Converter={StaticResource sentToKitchenTextConverter}}"/>
+                                <Label Grid.Column="1"
+                                       Text="{Binding PricePerItem, StringFormat='{0:C}'}"
+                                       TextColor="White"
+                                       HorizontalOptions="End" />
+                                <Label Grid.Column="2"
+                                       Text="{Binding ItemCount, StringFormat='{0}'}"
+                                       TextColor="White"
+                                       HorizontalOptions="Center" />
+                                <Label Grid.Column="3"
+                                       Text="{Binding Total, StringFormat='{0:C}'}"
+                                       TextColor="White"
+                                       HorizontalOptions="End" />
+
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</local:BasePage>
