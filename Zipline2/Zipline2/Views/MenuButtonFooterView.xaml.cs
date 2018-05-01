@@ -16,7 +16,7 @@ namespace Zipline2.Views
 		public MenuButtonFooterView()
 		{
 			InitializeComponent ();
-            BindingContext = new MenuButtonFooterModel();
+            BindingContext = new MenuButtonsModel();
 		}
 	}
 }
