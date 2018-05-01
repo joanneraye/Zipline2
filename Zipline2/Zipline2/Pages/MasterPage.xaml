@@ -20,8 +20,7 @@
                 <local:NavigationItem Text="{Binding MenuLoggedOnText}" Icon="{Binding MenuLoggedOnIconName}" />
                 <ContentView HeightRequest="1" BackgroundColor="Gray" />
                 <local:NavigationItem Text="Tables" Icon="fa-table" Command="{Binding NavigationCommand}" CommandParameter="1" />
-                <local:NavigationItem Text="Drinks" Icon="fa-glass" Command="{Binding NavigationCommand}" CommandParameter="2" />
-                <local:NavigationItem Text="Pizza" Icon="fa-pie-chart" Command="{Binding NavigationCommand}" CommandParameter="5" />
+                <local:NavigationItem Text="Menu/Pizza" Icon="fa-pie-chart" Command="{Binding NavigationCommand}" CommandParameter="5" />
                 <local:NavigationItem Text="Merchandise" Icon="fa-shopping-basket" Command="{Binding NavigationCommand}" CommandParameter="3" />
                 <local:NavigationItem Text="Log Out" Icon="fa-sign-out" Command="{Binding NavigationCommand}" CommandParameter="4" />
             </StackLayout>

@@ -22,9 +22,24 @@ namespace Zipline2.Pages
         public LoginPage()
         {
             InitializeComponent();
+            if (Device.RuntimePlatform == Device.Android)
+            {
+                ZiplineLogoImage.Source = "zipline_logo.jpg";
+
+            }
+            //No problem with this code, but if I put the file in the 
+            //ios Resources folder, I get a compiler error that the file
+            //doesn't exist!!
+            else    //Logo doesn't show up but at least it compiles....
+            {
+                ZiplineLogoImage.Source = ImageSource.FromFile("ZiplineLogo");
+            }
+            ZiplineLogoImage.Aspect = Aspect.AspectFit;
             PinEnteredByUser.Focus();
             LoginPageModel = new LoginPageModel();
             BindingContext = LoginPageModel;
+            
+            
         }
 
         async void OnAddNewUserButtonClicked(object sender, EventArgs e)

@@ -7,6 +7,7 @@ using Xamarin.Forms;
 using Zipline2.BusinessLogic;
 using Zipline2.BusinessLogic.Enums;
 using Zipline2.Models;
+using Zipline2.Pages;
 
 namespace Zipline2.PageModels
 {
@@ -226,27 +227,13 @@ namespace Zipline2.PageModels
                 var drinkDisplayItem = new DrinkDisplayItem()
                 {
                     DrinkDisplayItemIndex = indexOfSoftDrink,
-                    Drink = new Drink()
+                    Drink = new Drink(drinkType)
                     {
                         ItemName = methodToGetDisplayName(drinkType),
                         ItemCount = 0,
-                        DrinkCategory = drinkCategory,
-                        DrinkType = drinkType
+                        DrinkCategory = drinkCategory
                     }
                 };
-
-                //Handle pricing.
-                if (drinkDisplayItem.Drink.DrinkCategory == DrinkCategory.SoftDrinks)
-                {
-                    if (drinkType == DrinkType.Water ||
-                                       drinkType == DrinkType.WaterNoIce ||
-                                       drinkType == DrinkType.WaterWithLemon ||
-                                       drinkType == DrinkType.SodaWater ||
-                                       drinkType == DrinkType.SodaPitcher)
-                    {
-                        drinkDisplayItem.Drink.IsDrinkFree = true;
-                    }
-                }
                 drinkDisplayItems.Add(drinkDisplayItem);
             }
             DrinkDisplayDictionary.Add(drinkCategory, drinkDisplayItems);
@@ -343,6 +330,10 @@ namespace Zipline2.PageModels
             {
                 OrderManager.Instance.AddDrinksToOrder(item);
             }
+
+            var currentMainPage = (Application.Current.MainPage as MasterDetailPage);
+            currentMainPage.Detail = new NavigationPage(new PizzaPage());
+            Application.Current.MainPage = currentMainPage;
         }
 
         private void AddDrinkSelections(DrinkCategory drinkCategory)

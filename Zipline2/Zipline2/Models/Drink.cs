@@ -10,12 +10,12 @@ namespace Zipline2.Models
     {
         public DrinkCategory DrinkCategory { get; set; }
         public DrinkType DrinkType { get; set; }
-        public bool IsDrinkFree { get; set; }
-        public Drink()
+        public Drink(DrinkType drinkType)
         {
+            DrinkType = drinkType;
             PopulatePricePerItem();
         }
-        public Drink(CustomerSelection guiData) : this()
+        public Drink(CustomerSelection guiData)
         {
             if (guiData is DrinkSelection)
             {
@@ -31,10 +31,7 @@ namespace Zipline2.Models
 
         public override void PopulatePricePerItem()
         {
-            if (!IsDrinkFree)
-            {
-                PricePerItem = 3.00M;
-            }
+            PricePerItem = Prices.DrinkTypeDictionary[DrinkType];
         }
     }
 }

@@ -79,7 +79,7 @@ namespace Zipline2.BusinessLogic
              { DrinkType.AlverdiSangiovese, "Alverdi Sangiovese" },
              { DrinkType.CaposaldoChianti, "Caposaldo Chianti" },
              { DrinkType.ClineZinfandel, "Cline Zinfandel" },
-             { DrinkType.GreenTruckPetitiSyrah, ".Green Truck Petiti Syrah" },
+             { DrinkType.GreenTruckPetitiSyrah, "Green Truck Petiti Syrah" },
              { DrinkType.ClayhouseRedBlend, "Clayhouse Red Blend" },
              { DrinkType.ElsaBianchiMalbec, "Elsa Bianchi Malbec" },
              { DrinkType.BodegasLaya, "Bodegas Laya" }
