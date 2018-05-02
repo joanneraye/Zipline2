@@ -331,10 +331,16 @@ namespace Zipline2.PageModels
                 OrderManager.Instance.AddDrinksToOrder(item);
             }
 
+            LoadPizzaPage();
+        }
+
+        private void LoadPizzaPage()
+        {
             var currentMainPage = (Application.Current.MainPage as MasterDetailPage);
             currentMainPage.Detail = new NavigationPage(new PizzaPage());
             Application.Current.MainPage = currentMainPage;
         }
+
 
         private void AddDrinkSelections(DrinkCategory drinkCategory)
         {

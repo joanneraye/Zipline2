@@ -243,26 +243,34 @@ namespace Zipline2.Pages
             }
            
             ToppingsOtherPage = new ToppingsOtherPage(toppingsAlreadySelected);
-            ToppingsOtherPage.Disappearing += (newSender, newE) => { this.OnAppearing(newSender, newE); };
+            ToppingsOtherPage.Disappearing += (newSender, newE) => { this.OnAppearing(); };
           
             await Navigation.PushModalAsync(ToppingsOtherPage);
         }
 
-        private void OnAppearing(object sender, EventArgs e)
+        protected override void OnAppearing()
         {
+            base.OnAppearing();
             if (ToppingsOtherPage != null && ToppingsOtherPage.SelectedOtherToppings.Count > 0)
             {
                 ToppingsPageModel.ThisPizza.Toppings.AddToppings(ToppingsOtherPage.SelectedOtherToppings);
             }
-    
-            //not sure if needed...
-            //ToppingsPageModel.Toppings = Toppings;
+            ToppingsPageModel.NavigateToPizzaPage += HandleNavigateToPizzaPage;
+
+        }
+       
+        void HandleNavigateToPizzaPage(object sender, EventArgs e)
+        {
+            var currentMainPage = (Application.Current.MainPage as MasterDetailPage);
+            currentMainPage.Detail = new NavigationPage(new PizzaPage());
+            Application.Current.MainPage = currentMainPage;
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
             ToppingsListView.ItemSelected -= ToppingsListView_ItemSelected;
+            ToppingsPageModel.NavigateToPizzaPage -= HandleNavigateToPizzaPage;
         }
         #endregion
     }

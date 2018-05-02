@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,7 +26,18 @@ namespace Zipline2
             Toppings.LoadInitialToppings();
 
             MainPage = new MainMasterDetailPage();
-           
+            //var assembly = typeof(App).GetType().Assembly;
+            //foreach (var res in assembly.GetManifestResourceNames())
+            //{
+            //    System.Diagnostics.Debug.WriteLine("Found resource: " + res);
+            //}
+        }
+
+        public void LoadMenuPizzaPage()
+        {
+            var currentMainPage = (Current.MainPage as MasterDetailPage);
+            currentMainPage.Detail = new NavigationPage(new PizzaPage());
+            Application.Current.MainPage = currentMainPage;
         }
 
         protected override void OnStart()

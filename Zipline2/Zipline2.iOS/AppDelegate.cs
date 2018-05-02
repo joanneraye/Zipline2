@@ -24,10 +24,9 @@ namespace Zipline2.iOS
             global::Xamarin.Forms.Forms.Init();
 
             //string dbPath = FileAccessHelper.GetLocalFilePath("orders.db3");
-
             //LoadApplication(new App(dbPath));
-            Plugin.Iconize.Iconize.With(new Plugin.Iconize.Fonts.FontAwesomeModule());
 
+            Plugin.Iconize.Iconize.With(new Plugin.Iconize.Fonts.FontAwesomeModule());
             FormsPlugin.Iconize.iOS.IconControls.Init();
 
             LoadApplication(new App());

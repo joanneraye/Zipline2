@@ -11,7 +11,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout Padding ="10,0,10,10">
+        <StackLayout Padding ="10,5,10,10">
             <ListView ItemsSource="{Binding CurrentOrderItems}"
                  SelectedItem="{Binding OrderItem}"
                       CachingStrategy="RecycleElementAndDataTemplate"

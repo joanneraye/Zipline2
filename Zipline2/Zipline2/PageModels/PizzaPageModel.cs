@@ -151,6 +151,7 @@ namespace Zipline2.PageModels
         public ICommand AddMfpCommand { get; set; }
         public ICommand AddSatchPanCommand { get; set; }
         public event EventHandler<ToppingsPageEventArgs> NavigateToToppingsPage;
+        
 
         public PizzaPageModel()
         {

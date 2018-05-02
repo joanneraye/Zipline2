@@ -213,6 +213,10 @@ namespace Zipline2.PageModels
         public string[] BaseSelections { get; set; }
         public string[] CookSelections { get; set; }
 
+        public ICommand AddPizzaToOrderCommand { get; set; }
+
+        public event EventHandler NavigateToPizzaPage;
+
         #endregion
 
         #region Constructor
@@ -220,7 +224,7 @@ namespace Zipline2.PageModels
         {
             ThisPizza = currentPizza;
             string pizzaName = ThisPizza.ItemName;
-
+            AddPizzaToOrderCommand = new Command(OnAddPizzaToOrder);
             BaseSelections = new string[]
             {
                 "Pesto Base", "White Base", "Regular Base"
@@ -512,6 +516,15 @@ namespace Zipline2.PageModels
             }
         }
 
+        private void OnAddPizzaToOrder()
+        {
+            OnNavigateToPizzaPage();
+        }
+
+        private void OnNavigateToPizzaPage()
+        {
+            NavigateToPizzaPage?.Invoke(this, EventArgs.Empty);
+        }
         
         public List<Topping> GetToppingsSelected()
         {

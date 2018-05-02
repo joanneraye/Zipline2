@@ -50,12 +50,12 @@ namespace Zipline2.Models
             }
             set
             {
-                SetProperty(ref pricePerItem, value);
-                if (value != pricePerItem)
+               
+                if (pricePerItem != value)
                 {
-                    pricePerItem = value;
-                    OnPricePerItemUpdated();
+                    OnPricePerItemUpdated(value);
                 }
+                SetProperty(ref pricePerItem, value);
             }
         }
 
@@ -91,8 +91,6 @@ namespace Zipline2.Models
         public OrderItem()
         {
             ItemCount = 1;
-            MessagingCenter.Subscribe<Toppings>(this, "ToppingsTotalUpdated",
-                (sender) => { this.PopulatePricePerItem(); });
         }
         #endregion
 
@@ -117,11 +115,11 @@ namespace Zipline2.Models
         /// </summary>
         public abstract void PopulatePricePerItem();
 
-        protected virtual void OnPricePerItemUpdated()
+        protected virtual void OnPricePerItemUpdated(decimal newValue)
         {
             //Publish message -
             // MenuHeaderModel should subscribe and update ItemTotal.
-            MessagingCenter.Send<OrderItem, decimal>(this, "ItemPriceUpdated", PricePerItem);
+            MessagingCenter.Send<OrderItem, decimal>(this, "ItemPriceUpdated", newValue);
         }
             #endregion
     }

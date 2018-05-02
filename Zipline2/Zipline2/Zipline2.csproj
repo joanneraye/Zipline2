@@ -50,6 +50,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Images\zipline_logo.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Images\zipline_logo.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Forms.Controls.FlexButton" Version="0.6.1" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="sqlite-net-pcl" Version="1.4.118" />
@@ -80,6 +88,11 @@
     </Compile>
     <Compile Update="Pages\TablesPage.xaml.cs">
       <DependentUpon>TablesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Update="Views\MenuScrollFooterView.xaml.cs">
       <DependentUpon>MenuScrollFooterView.xaml</DependentUpon>
@@ -116,6 +129,10 @@
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\ToppingsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\MenuButtonFooterView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>

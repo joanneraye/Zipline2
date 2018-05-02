@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using SQLite;
+using Xamarin.Forms;
 using Zipline2.BusinessLogic;
 using Zipline2.BusinessLogic.Enums;
 
@@ -29,6 +30,8 @@ namespace Zipline2.Models
             PizzaType = pizzaGuiData.PizzaType;
             Toppings = new Toppings(PizzaType);
             PopulateBasePrice();
+            MessagingCenter.Subscribe<Toppings>(this, "ToppingsTotalUpdated",
+              (sender) => { this.PopulatePricePerItem(); });
         }
         #endregion
 
