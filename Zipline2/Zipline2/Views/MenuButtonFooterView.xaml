@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Zipline2.Views.MenuButtonFooterView"
+             xmlns:views="clr-namespace:Zipline2.Views" >
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Style x:Key="MenuButtons" TargetType="Button">
+                <!--<Setter Property="Margin" Value="2, 2, 2, 2" />-->
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="BorderColor" Value="White" />
+                <Setter Property="BorderRadius" Value="3" />
+                <Setter Property="BorderWidth" Value="3" />
+                <Setter Property="BackgroundColor" Value="Black" />
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                <Setter Property="WidthRequest" Value="200" />
+                <Setter Property="Margin" Value="10,0,10,0" />
+                <Setter Property="FontSize" Value="8" />
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid VerticalOptions="EndAndExpand"
+              Padding="10,0,10,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Text="Drinks"  
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Command="{Binding DrinksCommand}"
+                    Style="{StaticResource MenuButtons}" />
+            <Button Text="Pizza" 
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Command="{Binding PizzaCommand}"
+                    Style="{StaticResource MenuButtons}" />
+            <Button Text="Special" 
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Style="{StaticResource MenuButtons}" />
+            <Button Text="Salads" 
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Style="{StaticResource MenuButtons}" />
+            <Button Text="Calzone" 
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Style="{StaticResource MenuButtons}" />
+            <Button Text="Desserts" 
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Style="{StaticResource MenuButtons}" />
+        </Grid>
+    </ContentView.Content>
+</ContentView>

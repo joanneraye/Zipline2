@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Zipline2.Pages;assembly=Zipline2.Pages"
+             xmlns:converters="clr-namespace:Zipline2.Converters"
+             xmlns:views="clr-namespace:Zipline2.Views"
+             xmlns:iconize="clr-namespace:FormsPlugin.Iconize;assembly=FormsPlugin.Iconize"
+             xmlns:enums="clr-namespace:Zipline2.BusinessLogic.Enums"
+             x:Class="Zipline2.Pages.DrinksPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:SelectedDrinkColorConverter x:Key="drinksTextColorConverter"/>
+            <Style x:Key="DrinkSelectionButtons" TargetType="Button">
+                <!--<Setter Property="Margin" Value="0, 10" />-->
+                <Setter Property="BackgroundColor" Value="Black" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Start" />
+                <Setter Property="FontSize" Value="Small" />
+            </Style>
+            <!--<Style x:Key="PlusInCircleIcon" TargetType="iconize:IconImage">
+                <Setter Property="Icon" Value="fa-plus-circle" />
+                <Setter Property="IconSize" Value="25" />
+                <Setter Property="IconColor" Value="LightBlue" />
+            </Style>-->
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout Spacing="0"
+                     Padding="10,0,10,5">
+            <ScrollView Orientation="Horizontal">
+                <StackLayout Orientation="Horizontal"
+                             BackgroundColor="Black"
+                             Margin="0">
+                    <Button Text="Soft Drinks"
+                            TextColor="{Binding SoftDrinksSelected,
+                                Mode=TwoWay, 
+                                Converter={StaticResource drinksTextColorConverter}}"
+                            Command="{Binding DrinksSelectedCommand}"
+                            CommandParameter="{x:Static enums:DrinkCategory.SoftDrinks}"
+                            Style="{StaticResource DrinkSelectionButtons}"/>
+                    <Button Text="Draft Beer"
+                            TextColor="{Binding DraftBeerSelected,
+                                Mode=TwoWay, 
+                                Converter={StaticResource drinksTextColorConverter}}"
+                            Command="{Binding DrinksSelectedCommand}"
+                            CommandParameter="{x:Static enums:DrinkCategory.DraftBeer}"
+                            Style="{StaticResource DrinkSelectionButtons}"/>
+                    <Button Text="Bottled Beer"
+                            TextColor="{Binding BottledBeerSelected,
+                                Mode=TwoWay, 
+                                Converter={StaticResource drinksTextColorConverter}}"
+                            Command="{Binding DrinksSelectedCommand}"
+                            CommandParameter="{x:Static enums:DrinkCategory.BottledBeer}"
+                            Style="{StaticResource DrinkSelectionButtons}"/>
+                    <Button Text="White Wine"
+                            TextColor="{Binding WhiteWineSelected,
+                                Mode=TwoWay, 
+                                Converter={StaticResource drinksTextColorConverter}}"
+                            Command="{Binding DrinksSelectedCommand}"
+                            CommandParameter="{x:Static enums:DrinkCategory.WhiteWine}"
+                            Style="{StaticResource DrinkSelectionButtons}"/>
+                    <Button Text="Red Wine"
+                            TextColor="{Binding RedWineSelected,
+                                Mode=TwoWay, 
+                                Converter={StaticResource drinksTextColorConverter}}"
+                            Command="{Binding DrinksSelectedCommand}"
+                            CommandParameter="{x:Static enums:DrinkCategory.RedWine}"
+                            Style="{StaticResource DrinkSelectionButtons}"/>
+                    <Button Text="Hot Drinks"
+                            TextColor="{Binding HotDrinksSelected,
+                                Mode=TwoWay, 
+                                Converter={StaticResource drinksTextColorConverter}}"
+                            Command="{Binding DrinksSelectedCommand}"
+                            CommandParameter="{x:Static enums:DrinkCategory.HotDrinks}"
+                            Style="{StaticResource DrinkSelectionButtons}"/>
+                    <Button Text="House Wine"
+                            TextColor="{Binding HouseWineSelected,
+                                Mode=TwoWay, 
+                                Converter={StaticResource drinksTextColorConverter}}"
+                            Command="{Binding DrinksSelectedCommand}"
+                            CommandParameter="{x:Static enums:DrinkCategory.HouseWine}"
+                            Style="{StaticResource DrinkSelectionButtons}"/>
+                   
+                </StackLayout>
+            </ScrollView>
+
+            <ListView ItemsSource="{Binding DrinkDisplayItems, Mode=TwoWay}"
+                      CachingStrategy="RecycleElementAndDataTemplate"
+                      BackgroundColor="Black"
+                      SeparatorVisibility="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="8*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0"
+                                       Text="{Binding Drink.ItemName}"
+                                       TextColor="White"
+                                       FontSize="Small"
+                                       HorizontalOptions="Start"
+                                       VerticalOptions="Center"/>
+                                <iconize:IconButton Grid.Column ="1"
+                                                    BackgroundColor="Black"
+                                                    TextColor="White"
+                                                    Text="fa-minus-circle"
+                                                    FontSize="20"
+                                                    Margin="0"
+                                                    Command="{Binding MinusButtonCommand}"
+                                                    HorizontalOptions="Center"
+                                                    VerticalOptions="Center"/>
+                                <Label Text="{Binding Drink.ItemCount, Mode=TwoWay}"
+                                       Grid.Column="2"
+                                       Margin="0"
+                                       TextColor="White"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"
+                                       FontSize="20"/>
+                                <iconize:IconButton Grid.Column ="3"
+                                                    BackgroundColor="Black"
+                                                    TextColor="White"
+                                                    Text="fa-plus-circle"
+                                                    Margin="0"
+                                                    Command="{Binding PlusButtonCommand}"
+                                                    FontSize="20"
+                                                    HorizontalOptions="Center"
+                                                    VerticalOptions="Center"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Text="Add Drinks to Order"
+                    Margin="0,5,0,0"
+                    HorizontalOptions="FillAndExpand"
+                    HeightRequest="40"
+                    BorderColor="White"
+                    BorderRadius="2"
+                    BorderWidth="2"
+                    BackgroundColor="LightBlue"
+                    Command="{Binding AddDrinksCommand}"
+                    TextColor="Black"/>
+            <views:MenuScrollFooterView VerticalOptions="EndAndExpand"/>
+        </StackLayout>
+    </ContentPage.Content>
+</local:BasePage>

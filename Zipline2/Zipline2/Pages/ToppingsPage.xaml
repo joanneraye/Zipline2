@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Zipline2.Pages;assembly=Zipline2.Pages"
+             xmlns:views="clr-namespace:Zipline2.Views"
+             xmlns:converters="clr-namespace:Zipline2.Converters"
+             x:Class="Zipline2.Pages.ToppingsPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:SelectedItemColorConverter x:Key="selectedItemBackgroundConverter"/>
+            <converters:VisibleItemTextColorConverter x:Key="hideTextColorConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="Black"
+                     Padding="10, 0, 10, 10"
+                     VerticalOptions="FillAndExpand">
+            <views:MenuHeaderView x:Name="ToppingsHeader" />
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0"
+                        Grid.Row="0"
+                        TextColor="White"
+                        x:Name="BasePickerLabel"
+                        Text="BASE"
+                        HorizontalTextAlignment="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="BasePickerTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label Grid.Column="1"
+                        Grid.Row="0"
+                        TextColor="White"
+                        Text="COOK"
+                       x:Name="CookPickerLabel"
+                        HorizontalTextAlignment="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="CookPickerTapped" />
+                    </Label.GestureRecognizers>
+
+                </Label>
+                <Label Grid.Column="2"
+                        Grid.Row="0"
+                        TextColor="White"
+                        Text="OTHER"
+                        x:Name="OtherToppingsLabel"
+                        HorizontalTextAlignment="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OtherToppingsTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+                <Picker Grid.Column="0"
+                        Grid.Row="0"
+                        x:Name="BasePicker"
+                        BackgroundColor="Black"
+                        HorizontalOptions="Center"
+                        SelectedIndexChanged="OnBasePickerSelectionChanged"
+                        SelectedIndex="0"
+                        IsVisible="False"
+                        TextColor="White"
+                        ItemsSource="{Binding BaseSelections}"/>
+                <Picker Grid.Column="1"
+                        Grid.Row="0"
+                        x:Name="CookPicker"
+                        Title="COOK"
+                        HorizontalOptions="Center"
+                        SelectedIndexChanged="OnCookPickerSelectionChanged"
+                        BackgroundColor="Black"
+                        SelectedIndex="0"
+                        IsVisible="False"
+                        TextColor="White"
+                        ItemsSource="{Binding CookSelections}"/>
+            </Grid>
+            <BoxView HeightRequest="1" 
+                     WidthRequest="50"
+                     Color="White"/>
+            <ListView ItemsSource="{Binding ToppingSelectionsList, Mode=TwoWay}"
+                      SelectedItem="{Binding ToppingDisplayItem}"
+                      CachingStrategy="RecycleElementAndDataTemplate"
+                      x:Name="ToppingsListView"
+                      SeparatorVisibility="None"
+                      BackgroundColor="Black">
+                <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell x:Name="ListViewCell">
+                            <Grid x:Name="ToppingsGrid"
+                                  ColumnSpacing="0"
+                                  RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3.5*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0"
+                                        BackgroundColor="{Binding SelectionColor, Mode=TwoWay}"
+                                        Command="{Binding ToppingSelectedCommand}"/>
+                                <Label Grid.Column="0"
+                                       Text="{Binding ListTopping.ToppingDisplayName}"
+                                       BackgroundColor="Transparent"
+                                       HorizontalOptions="StartAndExpand"
+                                       VerticalOptions="CenterAndExpand"
+                                       TextColor="White"
+                                       FontSize="Small">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ToppingSelectedCommand}"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
+                                <Button Grid.Column="1"
+                                        x:Name="ButtonW"
+                                        IsVisible="{Binding AreWholeHalfColumnsVisible}"
+                                        Text="W"
+                                        TextColor="{Binding ButtonWVisible,
+                                            Converter={StaticResource hideTextColorConverter}}"
+                                        BackgroundColor="{Binding ButtonWSelected,
+                                            Mode=TwoWay, 
+                                            Converter={StaticResource selectedItemBackgroundConverter}}"
+                                        FontSize="Small"
+                                        Command="{Binding WButtonCommand}"
+                                        VerticalOptions="Center"/>
+                                <Button Grid.Column="2"
+                                       Text="A"
+                                       IsVisible="{Binding AreWholeHalfColumnsVisible}"
+                                       TextColor="White"
+                                       BackgroundColor="{Binding ButtonASelected,
+                                            Mode=TwoWay, 
+                                            Converter={StaticResource selectedItemBackgroundConverter}}"
+                                       FontSize="Small"
+                                       Command="{Binding AButtonCommand}"
+                                       VerticalOptions="Center"/>
+                                <Button Grid.Column="3"
+                                        Text="B"
+                                        IsVisible="{Binding AreWholeHalfColumnsVisible}"
+                                        TextColor="White"
+                                        BackgroundColor="{Binding ButtonBSelected,
+                                            Mode=TwoWay, 
+                                            Converter={StaticResource selectedItemBackgroundConverter}}"
+                                        Command="{Binding BButtonCommand}"
+                                        FontSize="Small"
+                                        VerticalOptions="Center"/>   
+
+                            </Grid>
+                        </ViewCell>
+                </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Text="Add Pizza to Order"
+                    Command="{Binding AddPizzaToOrderCommand}"
+                    HorizontalOptions="FillAndExpand"
+                    HeightRequest="40"
+                    BorderColor="White"
+                    BorderRadius="2"
+                    BorderWidth="2"
+                    BackgroundColor="LightBlue"
+                    TextColor="Black"/>
+        </StackLayout>
+    </ContentPage.Content>
+</local:BasePage>
+
+
+
+

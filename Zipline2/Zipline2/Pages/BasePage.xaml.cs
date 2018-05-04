@@ -15,6 +15,7 @@ namespace Zipline2.Pages
         public BasePage()
         {
             InitializeComponent();
+            BackgroundColor = Color.Black;
         }
     }
 }

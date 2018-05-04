@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Foundation;
 using UIKit;
 
@@ -23,6 +22,13 @@ namespace Zipline2.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+
+            //string dbPath = FileAccessHelper.GetLocalFilePath("orders.db3");
+            //LoadApplication(new App(dbPath));
+
+            Plugin.Iconize.Iconize.With(new Plugin.Iconize.Fonts.FontAwesomeModule());
+            FormsPlugin.Iconize.iOS.IconControls.Init();
+
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Zipline2.Views.MyCarouselViewControl"
+             xmlns:controls="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions">
+  <ContentView.Content>
+        <AbsoluteLayout>
+        <controls:CarouselViewControl 
+                x:Name="CarouselViewControl"
+                Orientation="Horizontal"
+                InterPageSpacing="50"
+                Position="{Binding ToppingsCarouselIndex}"
+                VerticalOptions="Center"
+                HorizontalOptions="CenterAndExpand"
+                ShowArrows="True"
+                ArrowsTransparency="1.0"
+                ArrowsBackgroundColor="Red"
+                ArrowsTintColor="White"
+                Scrolled="OnToppingsCarouselScroll"
+                HeightRequest="25"
+                BackgroundColor="Black"
+                ItemsSource="{Binding ToppingsCarousel}">
+            <controls:CarouselViewControl.ItemTemplate>
+                <DataTemplate>
+                    <Label Text="{Binding .}" 
+                               TextColor="White" 
+                               FontSize="Small"
+                               Margin="15, 0, 5, 0" />
+                </DataTemplate>
+            </controls:CarouselViewControl.ItemTemplate>
+        </controls:CarouselViewControl>
+        </AbsoluteLayout>
+    </ContentView.Content>
+</ContentView>

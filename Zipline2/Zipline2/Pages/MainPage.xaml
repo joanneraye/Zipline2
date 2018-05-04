@@ -1,19 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:pages="clr-namespace:Zipline2.Pages;assembly=Zipline2"
+             xmlns:local="clr-namespace:Zipline2.Pages;assembly=Zipline2.Pages"
              x:Class="Zipline2.Pages.MainPage">
-
-    <ContentPage.Resources>
-        
-    </ContentPage.Resources>
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Enter your PIN"
-                   FontSize="Medium"/>
-            <Entry Placeholder="Your PIN"/>
-            <Button Text="Log In"/>
-        </StackLayout>
-    </ContentPage.Content>
-
-</pages:BasePage>
+    <!--<local:TableListPage />
+    <local:MainMenuPage />-->
+</local:BasePage>
