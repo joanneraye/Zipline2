@@ -142,28 +142,8 @@ namespace Zipline2.Models
             }
             return PizzaType.None;
         }
-        
-        //public void AddToppings(Toppings toppings)
-        //{
-        //    Toppings = toppings;
-        //    PopulatePricePerItem();
-        //}
+      
         #endregion
-        //Not sure if this will be needed??
-        //public static decimal CalculatePizzaItemCostNoTax(PizzaType pizzaType, int numberOfItems, Toppings toppings = null)
-        //{
-        //    var basePrice = Prices.GetPizzaBasePrice(pizzaType);
-        //    decimal subtotal = 0M;
-        //    if (toppings != null && toppings.ToppingsTotal != 0)
-        //    {
-        //        subtotal = (basePrice + toppings.ToppingsTotal) * numberOfItems;
-        //    }
-        //    else
-        //    {
-        //        subtotal = basePrice * numberOfItems;
-        //    }
-
-        //    return subtotal;
-        //}
+        
     }
 }

@@ -20,23 +20,23 @@ namespace Zipline2.PageModels
                 SetProperty(ref currentOrder, value);
             }
         }
-        private List<OrderItem> currentOrderItems;
-        public List<OrderItem> CurrentOrderItems
-        {
-            get
-            {
-                return currentOrderItems;
-            }
-            set
-            {
-                SetProperty(ref currentOrderItems, value);
-            }
-        }
+        //private List<OrderItem> currentOrderItems;
+        //public List<OrderItem> CurrentOrderItems
+        //{
+        //    get
+        //    {
+        //        return currentOrderItems;
+        //    }
+        //    set
+        //    {
+        //        SetProperty(ref currentOrderItems, value);
+        //    }
+        //}
 
         public OrderPageModel()
         {
-            currentOrder = OrderManager.Instance.OrderInProgress;
-            currentOrderItems = currentOrder.OrderItems;
+            CurrentOrder = OrderManager.Instance.OrderInProgress;
+            //CurrentOrderItems = CurrentOrder.OrderItems;
         }
         //public class DisplayOrderItem : BasePageModel
         //{

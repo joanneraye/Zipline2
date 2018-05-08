@@ -69,7 +69,7 @@ namespace Zipline2.BusinessLogic
         {
              { DrinkType.AlverdiPinotGrigio, "Alverdi Pinot Grigio" },
              { DrinkType.SilverRidgeChardonnay, "Silver Ridge Chardonnay" },
-             { DrinkType.PinkTruckPinkWine, "Pink Truck Pink Wine" },
+             { DrinkType.RaywoodWhiteZin, "Raywood White Zin" },
              { DrinkType.TheRoseGardenRose, "The Rose Garden Rose" },
              { DrinkType.DouglasGreenSb, "Douglas Green SB" }
         };
@@ -85,7 +85,7 @@ namespace Zipline2.BusinessLogic
              { DrinkType.BodegasLaya, "Bodegas Laya" }
         };
 
-        public static Dictionary<DrinkType, string> DisplayHotDrinksNameDictionary = new Dictionary<DrinkType, string>
+        public static Dictionary<DrinkType, string> DisplayHotDrinkNameDictionary = new Dictionary<DrinkType, string>
         {
              { DrinkType.RegularCoffee, "Regular Coffee" },
              { DrinkType.DecafCoffee, "Decaf Coffee" },
@@ -237,9 +237,9 @@ namespace Zipline2.BusinessLogic
 
         public static string GetHotDrinksDisplayName(DrinkType hotDrinksName)
         {
-            if (DisplayHotDrinksNameDictionary.ContainsKey(hotDrinksName))
+            if (DisplayHotDrinkNameDictionary.ContainsKey(hotDrinksName))
             {
-                return DisplayHotDrinksNameDictionary[hotDrinksName];
+                return DisplayHotDrinkNameDictionary[hotDrinksName];
             }
             return "Not in Dictionary Yet";
         }

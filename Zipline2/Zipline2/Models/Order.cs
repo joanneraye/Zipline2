@@ -15,24 +15,24 @@ namespace Zipline2.Models
     [Table("order")]
     public class Order
     {
-        [PrimaryKey, AutoIncrement, Column("id")]
+      
         public int OrderNumberId { get; set; }
 
         public List<OrderItem> OrderItems { get; private set; }
 
-        [Column("subtotal")]
+        
         public decimal SubTotal { get; private set; }
-        [Column("tax")]
+       
         public decimal Tax { get; private set; }
-        [Column("total")]
+       
         public decimal Total { get; private set; }
 
-        [Column("istakeout")]
+     
         public bool IsTakeout { get; set; }
 
         public bool WasSentToKitchen { get; set; }
 
-        [Column("tableid")]
+       
         public int TableId { get; set; }
 
         public Order()
@@ -48,9 +48,22 @@ namespace Zipline2.Models
             if (item != null)
             {
                 SubTotal += item.Total;
-                Total = SubTotal + HelperMethods.GetTaxAmount(SubTotal);
+                Tax = HelperMethods.GetTaxAmount(SubTotal);
+                Total = SubTotal + Tax;
                 OrderItems.Add(item);
             }
+        }
+
+        public void AddItemsToOrder(List<OrderItem> orderItems)
+        {
+            foreach (var item in orderItems)
+            {
+                OrderItems.Add(item);
+                SubTotal += item.Total;
+            }
+
+            Tax = HelperMethods.GetTaxAmount(SubTotal);
+            Total = SubTotal + Tax;
         }
 
     }

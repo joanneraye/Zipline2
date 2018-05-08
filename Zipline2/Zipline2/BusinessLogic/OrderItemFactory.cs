@@ -24,8 +24,8 @@ namespace Zipline2.BusinessLogic
                 case Enums.MenuCategory.Pizza:
                 case Enums.MenuCategory.Calzone:
                     return CreatePizza(guiData);
-                case Enums.MenuCategory.Drink:
-                    return CreateDrink(guiData);
+                //case Enums.MenuCategory.Drink:
+                //    return CreateDrink(guiData);
                 case Enums.MenuCategory.Dessert:
                     return CreateDessert(guiData);
                 case Enums.MenuCategory.LunchSpecial:
@@ -42,10 +42,10 @@ namespace Zipline2.BusinessLogic
             return new Pizza(guiData);
             
         }
-        private static OrderItem CreateDrink(CustomerSelection guiData)
-        {
-            return new Drink(guiData);
-        }
+        //private static OrderItem CreateDrink(CustomerSelection guiData)
+        //{
+        //    return new Drink(guiData);
+        //}
         private static OrderItem CreateDessert(CustomerSelection guiData)
         {
             return new Dessert(guiData);

@@ -29,7 +29,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>Zipline2</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.Zipline2</string>
+	<string>PQQ9M442P6.com.jocode.zipline2</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>CFBundleIconFiles</key>
@@ -56,5 +56,7 @@
 	<string>Zipline2</string>
 	<key>XSLaunchImageAssets</key>
 	<string>Resources/Media.xcassets/LaunchImages.launchimage</string>
+	<key>XSAppIconAssets</key>
+	<string>Resources/Media.xcassets/AppIcons.appiconset</string>
 </dict>
 </plist>

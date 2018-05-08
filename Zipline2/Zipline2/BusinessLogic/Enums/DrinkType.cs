@@ -43,7 +43,7 @@ namespace Zipline2.BusinessLogic.Enums
         JaiAlaiIpa,
         AlverdiPinotGrigio,
         SilverRidgeChardonnay,
-        PinkTruckPinkWine,
+        RaywoodWhiteZin,
         TheRoseGardenRose,
         DouglasGreenSb,
         LeeseFitchCab,

@@ -38,6 +38,7 @@
         <StackLayout BackgroundColor="Black"
                      VerticalOptions="FillAndExpand"
                      Padding="10,10">
+            <views:MenuHeaderView x:Name="ToppingsHeader" />
                 <Grid x:Name="PizzaGrid"
                       ColumnSpacing="8"
                       HorizontalOptions="StartAndExpand">
@@ -314,6 +315,15 @@
                 </iconize:IconImage>
 
             </Grid>
+            <!--<Button Text="Add Pizza to Order"
+                    Command="{Binding AddPizzaToOrderCommand}"
+                    HorizontalOptions="FillAndExpand"
+                    HeightRequest="40"
+                    BorderColor="White"
+                    BorderRadius="2"
+                    BorderWidth="2"
+                    BackgroundColor="LightBlue"
+                    TextColor="Black"/>-->
             <views:MenuScrollFooterView VerticalOptions="EndAndExpand"/>
         </StackLayout>
     </ContentPage.Content>

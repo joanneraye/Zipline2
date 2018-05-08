@@ -36,7 +36,6 @@ namespace Zipline2.BusinessLogic
 
         //public static Dictionary<string, decimal> PricesFromJsonFile;
 
-            //TODO:  PRICES AREN'T FINISHED!!
         public static Dictionary<DrinkType, decimal> DrinkTypeDictionary = new Dictionary<DrinkType, decimal>
         {
             { DrinkType.Water, 0M },
@@ -75,7 +74,7 @@ namespace Zipline2.BusinessLogic
              { DrinkType.JaiAlaiIpa,  3.00M },
              { DrinkType.AlverdiPinotGrigio,  5.00M },
              { DrinkType.SilverRidgeChardonnay,  6.00M },
-             { DrinkType.PinkTruckPinkWine,  5.00M },
+             { DrinkType.RaywoodWhiteZin,  5.00M },
              { DrinkType.TheRoseGardenRose,  6.00M },
              { DrinkType.DouglasGreenSb,  18.00M },       
              { DrinkType.LeeseFitchCab, 6.00M },

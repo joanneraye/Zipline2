@@ -12,8 +12,9 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout Padding ="10,5,10,10">
-            <ListView ItemsSource="{Binding CurrentOrderItems}"
+            <ListView ItemsSource="{Binding CurrentOrder.OrderItems}"
                  SelectedItem="{Binding OrderItem}"
+                      Footer="{Binding CurrentOrder}"
                       CachingStrategy="RecycleElementAndDataTemplate"
                       BackgroundColor="Black">
                 <ListView.ItemTemplate>
@@ -31,6 +32,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0"
                                     Text="{Binding ItemName}"
+                                       FontSize="Micro"
                                        TextColor="{Binding WasSentToKitchen, 
                                         Converter={StaticResource sentToKitchenTextConverter}}"/>
                                 <Label Grid.Column="1"
@@ -50,7 +52,76 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+                <ListView.FooterTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="3*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0"
+                                    Grid.ColumnSpan="2"
+                                    Grid.Row="0"
+                                    Text="SUBTOTAL"
+                                    TextColor="LightBlue"/>
+                            <Label Grid.Column="2"
+                                   Grid.ColumnSpan="2"
+                                   Grid.Row="0"
+                                    TextColor="LightBlue"
+                                    Text="{Binding SubTotal, StringFormat='{0:C}'}" />
+                            <Label Grid.Column="0"
+                                    Grid.ColumnSpan="2"
+                                    Grid.Row="1"
+                                    Text="TAX"
+                                    TextColor="LightBlue"/>
+                            <Label Grid.Column="2"
+                                   Grid.ColumnSpan="2"
+                                   Grid.Row="1"
+                                    TextColor="LightBlue"
+                                    Text="{Binding Tax, StringFormat='{0:C}'}" />
+                            <Label Grid.Column="0"
+                                    Grid.ColumnSpan="2"
+                                    Grid.Row="2"
+                                    Text="TOTAL"
+                                    TextColor="LightBlue"/>
+                            <Label Grid.Column="2"
+                                   Grid.ColumnSpan="2"
+                                   Grid.Row="2"
+                                    TextColor="LightBlue"
+                                    Text="{Binding Total, StringFormat='{0:C}'}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListView.FooterTemplate>
             </ListView>
         </StackLayout>
     </ContentPage.Content>
 </local:BasePage>
+
+
+
+
+
+<!--<Label Grid.Column="3"
+                                    Text="{Binding SubTotal, StringFormat=='{0:C}'}" />
+<Label Grid.Column="1"
+                                    Grid.ColumnSpan="2"
+                                    Grid.Row="1"
+                                    Text="TAX"
+                                    TextColor="LightBlue"/>
+<Label Grid.Column="3"
+                                    Text="{Binding Tax, StringFormat=='{0:C}'}" />
+<Label Grid.Column="1"
+                                    Grid.ColumnSpan="2"
+                                    Grid.Row="2"
+                                    Text="TOTAL"
+                                    TextColor="LightBlue"/>
+<Label Grid.Column="3"
+                                    Text="{Binding Total, StringFormat=='{0:C}'}" />-->

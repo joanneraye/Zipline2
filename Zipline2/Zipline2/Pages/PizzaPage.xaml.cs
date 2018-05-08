@@ -38,15 +38,22 @@ namespace Zipline2.Pages
         {
             base.OnAppearing();
             pizzaPageModel.NavigateToToppingsPage += HandleNavigateToToppingsPage;
-            
+            //pizzaPageModel.NavigateToPizzaPage += HandleNavigateToPizzaPage;
+
         }
         async void HandleNavigateToToppingsPage(object sender, ToppingsPageEventArgs e)
         {
             await Navigation.PushAsync(new ToppingsPage(e.CurrentPizza));
         }
 
+        //void HandleNavigateToPizzaPage(object sender, EventArgs e)
+        //{
+        //    var currentMainPage = (Application.Current.MainPage as MasterDetailPage);
+        //    currentMainPage.Detail = new NavigationPage(new PizzaPage());
+        //    Application.Current.MainPage = currentMainPage;
+        //}
 
-      
+
         protected override void OnDisappearing()
         {
             base.OnDisappearing();

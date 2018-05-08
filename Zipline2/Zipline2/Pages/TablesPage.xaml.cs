@@ -72,7 +72,6 @@ namespace Zipline2.Pages
             var currentMainPage = (Application.Current.MainPage as MasterDetailPage);
             currentMainPage.Detail = new NavigationPage(new DrinksPage());
             Application.Current.MainPage = currentMainPage;
-            //await Navigation.PushAsync(new PizzaPage());
         }
         //void HandleNavigateToPizzaPage(object sender, EventArgs e)
         //{

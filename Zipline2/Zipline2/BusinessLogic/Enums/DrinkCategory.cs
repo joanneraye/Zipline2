@@ -7,12 +7,12 @@ namespace Zipline2.BusinessLogic.Enums
     public enum DrinkCategory
     {
         None,
-        SoftDrinks,
+        SoftDrink,
         DraftBeer,
         BottledBeer,
         RedWine,
         WhiteWine,
-        HotDrinks,
+        HotDrink,
         HouseWine
     }
 }

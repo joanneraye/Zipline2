@@ -150,8 +150,11 @@ namespace Zipline2.PageModels
         public ICommand AddMajorCommand { get; set; }
         public ICommand AddMfpCommand { get; set; }
         public ICommand AddSatchPanCommand { get; set; }
+        public ICommand AddPizzaToOrderCommand { get; set; }
+
         public event EventHandler<ToppingsPageEventArgs> NavigateToToppingsPage;
-        
+        //public event EventHandler NavigateToPizzaPage;
+
 
         public PizzaPageModel()
         {
@@ -161,6 +164,7 @@ namespace Zipline2.PageModels
             AddSatchPanCommand = new Command(OnAddSatchPan);
             PizzaSelectionCommand = new Command<PizzaType>(OnCheeseSelected);
             MajorPizzaSelectionCommand = new Command<PizzaType>(OnMajorSelected);
+            //AddPizzaToOrderCommand = new Command(OnAddPizzaToOrder);
             CheeseSliceSelected = true;
             MajorSliceSelected = true;
         }
@@ -400,6 +404,12 @@ namespace Zipline2.PageModels
 
             OnNavigateToToppingsPage(currentPizza);
         }
+
+        //private void OnAddPizzaToOrder()
+        //{
+        //    OrderManager.Instance.AddItemInProgressToOrder();
+        //    NavigateToPizzaPage?.Invoke(this, EventArgs.Empty);
+        //}
 
         void OnNavigateToToppingsPage(Pizza currentPizza)
         {

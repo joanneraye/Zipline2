@@ -96,9 +96,10 @@ namespace Zipline2.BusinessLogic
             OrderItemInProgress.UpdateItemTotal();
         }
 
-        public void AddDrinksToOrder(OrderItem drinkOrder)
+        public void AddDrinksToOrder(List<Drink> drinksToAdd)
         {
-            OrderInProgress.AddItemToOrder(drinkOrder);
+             List<OrderItem> orderItemList = new List<OrderItem>(drinksToAdd);
+;            OrderInProgress.AddItemsToOrder(orderItemList);
         }
 
         public void SendOrder()
@@ -125,6 +126,8 @@ namespace Zipline2.BusinessLogic
         /// </summary>
         public void AddItemInProgressToOrder()
         {
+            OrderItemInProgress.PopulatePricePerItem();
+            OrderItemInProgress.UpdateItemTotal();
             OrderInProgress.AddItemToOrder(OrderItemInProgress);
             OrderItemInProgress = null;
         }

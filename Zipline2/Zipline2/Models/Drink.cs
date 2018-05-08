@@ -10,23 +10,33 @@ namespace Zipline2.Models
     {
         public DrinkCategory DrinkCategory { get; set; }
         public DrinkType DrinkType { get; set; }
+        public DrinkSize DrinkSize { get; set; }
+
+        public Drink GetClone()
+        {
+            return (Drink)MemberwiseClone();
+        }
+        //public bool CanBeBothSizes { get; set; }
+        //public bool OnlyGlassOrPint { get; set; }
+        //public bool OnlyBottleOrPitcher { get; set; }
         public Drink(DrinkType drinkType)
         {
             DrinkType = drinkType;
             PopulatePricePerItem();
         }
-        public Drink(CustomerSelection guiData)
-        {
-            if (guiData is DrinkSelection)
-            {
-                DrinkSelection drinkSelection = guiData as DrinkSelection;
-                drinkSelection.Drink.PopulateDisplayName();
-                drinkSelection.Drink.PopulatePricePerItem();
-            }
-        }
+        //public Drink(CustomerSelection guiData)
+        //{
+        //    if (guiData is DrinkSelection)
+        //    {
+        //        DrinkSelection drinkSelection = guiData as DrinkSelection;
+        //        drinkSelection.Drink.PopulateDisplayName();
+        //        drinkSelection.Drink.PopulatePricePerItem();
+        //    }
+        //}
 
         public override void PopulateDisplayName()
         {
+            //Done when drink created according to drink category.
         }
 
         public override void PopulatePricePerItem()

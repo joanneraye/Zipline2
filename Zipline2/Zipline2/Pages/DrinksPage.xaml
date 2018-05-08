@@ -36,7 +36,7 @@
                                 Mode=TwoWay, 
                                 Converter={StaticResource drinksTextColorConverter}}"
                             Command="{Binding DrinksSelectedCommand}"
-                            CommandParameter="{x:Static enums:DrinkCategory.SoftDrinks}"
+                            CommandParameter="{x:Static enums:DrinkCategory.SoftDrink}"
                             Style="{StaticResource DrinkSelectionButtons}"/>
                     <Button Text="Draft Beer"
                             TextColor="{Binding DraftBeerSelected,
@@ -71,7 +71,7 @@
                                 Mode=TwoWay, 
                                 Converter={StaticResource drinksTextColorConverter}}"
                             Command="{Binding DrinksSelectedCommand}"
-                            CommandParameter="{x:Static enums:DrinkCategory.HotDrinks}"
+                            CommandParameter="{x:Static enums:DrinkCategory.HotDrink}"
                             Style="{StaticResource DrinkSelectionButtons}"/>
                     <Button Text="House Wine"
                             TextColor="{Binding HouseWineSelected,
@@ -85,53 +85,97 @@
             </ScrollView>
 
             <ListView ItemsSource="{Binding DrinkDisplayItems, Mode=TwoWay}"
-                      CachingStrategy="RecycleElementAndDataTemplate"
+                      CachingStrategy="RecycleElement"
                       BackgroundColor="Black"
                       SeparatorVisibility="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Grid>
+                            <Grid RowSpacing="0" ColumnSpacing="0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="8*"/>
                                     <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="3*"/>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="3*"/>
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0"
+                                       Margin="0"
+                                       IsVisible="True"
                                        Text="{Binding Drink.ItemName}"
                                        TextColor="White"
                                        FontSize="Small"
                                        HorizontalOptions="Start"
-                                       VerticalOptions="Center"/>
-                                <iconize:IconButton Grid.Column ="1"
+                                       VerticalOptions="Center">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label" 
+                                                        Binding="{Binding Drink.DrinkSize, Mode=TwoWay}"
+                                                        Value="Pitcher">
+                                            <Setter Property="IsVisible" Value="False" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <Label Grid.Column="1"
+                                       Text=" "
+                                       FontSize="Micro"
+                                       TextColor="Orange"
+                                       HorizontalOptions="Start"
+                                       VerticalOptions="Center"
+                                       Margin="5,0,0,0">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label" 
+                                                    Binding="{Binding Drink.DrinkSize, Mode=TwoWay}"
+                                                    Value="Pint">
+                                            <Setter Property="Text" Value="Pint" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Label" 
+                                                    Binding="{Binding Drink.DrinkSize, Mode=TwoWay}"
+                                                    Value="Pitcher">
+                                            <Setter Property="Text" Value="Pitcher" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Label" 
+                                                    Binding="{Binding Drink.DrinkSize, Mode=TwoWay}"
+                                                    Value="Glass">
+                                            <Setter Property="Text" Value="Glass" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Label" 
+                                                    Binding="{Binding Drink.DrinkSize, Mode=TwoWay}"
+                                                    Value="Bottle">
+                                            <Setter Property="Text" Value="Bottle" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Label" 
+                                                    Binding="{Binding Drink.DrinkSize, Mode=TwoWay}"
+                                                    Value="JustOneSize">
+                                            <Setter Property="Text" Value=" " />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <iconize:IconButton Grid.Column ="2"
                                                     BackgroundColor="Black"
                                                     TextColor="White"
                                                     Text="fa-minus-circle"
-                                                    FontSize="20"
                                                     Margin="0"
                                                     Command="{Binding MinusButtonCommand}"
-                                                    HorizontalOptions="Center"
-                                                    VerticalOptions="Center"/>
+                                                    HorizontalOptions="FillAndExpand"
+                                                    VerticalOptions="FillAndExpand"/>
                                 <Label Text="{Binding Drink.ItemCount, Mode=TwoWay}"
-                                       Grid.Column="2"
+                                       Grid.Column="3"
+                                       BackgroundColor="Black"
                                        Margin="0"
                                        TextColor="White"
                                        HorizontalOptions="Center"
-                                       VerticalOptions="Center"
-                                       FontSize="20"/>
-                                <iconize:IconButton Grid.Column ="3"
+                                       VerticalOptions="Center"/>
+                                <iconize:IconButton Grid.Column ="4"
                                                     BackgroundColor="Black"
                                                     TextColor="White"
                                                     Text="fa-plus-circle"
                                                     Margin="0"
                                                     Command="{Binding PlusButtonCommand}"
-                                                    FontSize="20"
-                                                    HorizontalOptions="Center"
-                                                    VerticalOptions="Center"/>
+                                                    HorizontalOptions="FillAndExpand"
+                                                    VerticalOptions="FillAndExpand"/>
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
