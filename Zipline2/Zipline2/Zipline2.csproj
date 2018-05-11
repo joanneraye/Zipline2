@@ -62,9 +62,18 @@
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="sqlite-net-pcl" Version="1.4.118" />
     <PackageReference Include="System.Runtime" Version="4.3.0" />
+    <PackageReference Include="System.ServiceModel.Http" Version="4.4.2" />
+    <PackageReference Include="System.ServiceModel.Security" Version="4.4.2" />
     <PackageReference Include="Xam.FormsPlugin.Iconize" Version="1.0.10" />
+    <PackageReference Include="Xam.Plugin.Iconize" Version="1.0.10" />
     <PackageReference Include="Xam.Plugins.Settings" Version="4.0.0.7" />
-    <PackageReference Include="Xamarin.Forms" Version="2.5.1.527436" />
+    <PackageReference Include="Xamarin.Forms" Version="3.0.0.446417" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Portable-POS Classes">
+      <HintPath>..\..\..\..\LIBRARIES\Portable - Classes\Portable-POS Classes\bin\Debug\Portable-POS Classes.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

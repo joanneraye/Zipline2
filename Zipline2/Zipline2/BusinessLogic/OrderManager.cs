@@ -73,6 +73,17 @@ namespace Zipline2.BusinessLogic
             Tables.AllTables[CurrentTableIndex].IsOccupied = isTableOccupied;
         }
 
+        public void RemoveOrderItem(OrderItem itemToRemove)
+        {
+            //TODO:  Need to ensure deleting the correct item.  Best
+            //way is through ID but not sure how to do that yet (SQL Lite DB?)
+
+            //foreach (var item in OrderInProgress.OrderItems)
+            //{
+            //    if (item.GetType() == itemToRemove.GetType())
+            //}
+        }
+
         /// <summary>
         /// Adds a new OrderItem.  This OrderItem may not be completed
         /// (such as in the case of a Pizza) since toppings or notes may
@@ -96,10 +107,38 @@ namespace Zipline2.BusinessLogic
             OrderItemInProgress.UpdateItemTotal();
         }
 
-        public void AddDrinksToOrder(List<Drink> drinksToAdd)
+        public void AddOrUpdateDrink(Drink drinkToUpdate)
         {
-             List<OrderItem> orderItemList = new List<OrderItem>(drinksToAdd);
-;            OrderInProgress.AddItemsToOrder(orderItemList);
+            bool isDrinkAlreadyOnOrder = false;
+            foreach (var item in OrderInProgress.OrderItems)
+            {
+                if (item is Drink)
+                {
+                    Drink drinkAlreadyOnOrder = (Drink)item;
+
+                    //If this drinktype and size is already on the order, just update count.
+                    if (drinkAlreadyOnOrder.DrinkType == drinkToUpdate.DrinkType &&
+                        drinkAlreadyOnOrder.DrinkSize == drinkToUpdate.DrinkSize)
+                    {
+                        drinkAlreadyOnOrder.ItemCount = drinkToUpdate.ItemCount;
+                        isDrinkAlreadyOnOrder = true;
+                        break;
+                    }
+                }
+            }
+            if (!isDrinkAlreadyOnOrder)
+            {
+                OrderInProgress.OrderItems.Add(drinkToUpdate);
+            }
+        }
+
+        public void AddDrinksToOrder(List<Drink> drinksToAdd)
+        { 
+             foreach (var drink in drinksToAdd)
+            {
+                AddOrUpdateDrink(drink);
+            }
+            
         }
 
         public void SendOrder()

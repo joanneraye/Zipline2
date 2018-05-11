@@ -12,15 +12,15 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout Padding ="10,5,10,10">
-            <ListView ItemsSource="{Binding CurrentOrder.OrderItems}"
-                 SelectedItem="{Binding OrderItem}"
+            <ListView ItemsSource="{Binding DisplayOrder}"
                       Footer="{Binding CurrentOrder}"
-                      CachingStrategy="RecycleElementAndDataTemplate"
+                      HasUnevenRows="True"
+                      Margin="0"
                       BackgroundColor="Black">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Grid>
+                            <Grid RowSpacing="0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
@@ -30,31 +30,42 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="3*"/>
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0"
-                                    Text="{Binding ItemName}"
+                                <StackLayout Grid.Column="0" >
+                                    <Label Grid.ColumnSpan="1" Margin="0"
+                                            Text="{Binding OrderItemName}"
+                                               FontSize="Micro"
+                                               TextColor="{Binding WasSentToKitchen, 
+                                                Converter={StaticResource sentToKitchenTextConverter}}"/>
+                                    <Label Grid.ColumnSpan="4" Margin="5,0,0,0"
+                                      TextColor="White"
                                        FontSize="Micro"
-                                       TextColor="{Binding WasSentToKitchen, 
-                                        Converter={StaticResource sentToKitchenTextConverter}}"/>
+                                      Text="{Binding Toppings}"/>
+                                </StackLayout>
+                                    
+                           
                                 <Label Grid.Column="1"
                                        Text="{Binding PricePerItem, StringFormat='{0:C}'}"
                                        TextColor="White"
+                                        FontSize="Micro"
                                        HorizontalOptions="End" />
                                 <Label Grid.Column="2"
                                        Text="{Binding ItemCount, StringFormat='{0}'}"
                                        TextColor="White"
-                                       HorizontalOptions="Center" />
+                                        FontSize="Micro"
+                                       HorizontalOptions="End" />
                                 <Label Grid.Column="3"
+                                        FontSize="Micro"
                                        Text="{Binding Total, StringFormat='{0:C}'}"
                                        TextColor="White"
                                        HorizontalOptions="End" />
-
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+
                 <ListView.FooterTemplate>
                     <DataTemplate>
-                        <Grid>
+                        <Grid Margin="0,10,0,0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="*"/>
@@ -101,27 +112,19 @@
                     </DataTemplate>
                 </ListView.FooterTemplate>
             </ListView>
+            <Button Text="Send Order"
+                    Margin="0,5,0,0"
+                    HorizontalOptions="FillAndExpand"
+                    HeightRequest="40"
+                    BorderColor="White"
+                    BorderRadius="2"
+                    BorderWidth="2"
+                    BackgroundColor="LightBlue"
+                    Command="{Binding SendOrderCommand}"
+                    TextColor="Black"/>
+            <views:MenuScrollFooterView VerticalOptions="EndAndExpand"/>
         </StackLayout>
     </ContentPage.Content>
 </local:BasePage>
 
 
-
-
-
-<!--<Label Grid.Column="3"
-                                    Text="{Binding SubTotal, StringFormat=='{0:C}'}" />
-<Label Grid.Column="1"
-                                    Grid.ColumnSpan="2"
-                                    Grid.Row="1"
-                                    Text="TAX"
-                                    TextColor="LightBlue"/>
-<Label Grid.Column="3"
-                                    Text="{Binding Tax, StringFormat=='{0:C}'}" />
-<Label Grid.Column="1"
-                                    Grid.ColumnSpan="2"
-                                    Grid.Row="2"
-                                    Text="TOTAL"
-                                    TextColor="LightBlue"/>
-<Label Grid.Column="3"
-                                    Text="{Binding Total, StringFormat=='{0:C}'}" />-->

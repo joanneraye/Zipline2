@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using Zipline2.BusinessLogic;
 using Zipline2.BusinessLogic.Enums;
+using Zipline2.PageModels;
 
 namespace Zipline2.Models
 {
-    public class Topping
+    public class Topping : BasePageModel
     {
         #region Properties
         public int ToppingId { get; set; }
@@ -16,7 +17,18 @@ namespace Zipline2.Models
         
         public ToppingName ToppingName { get; set; }
 
-        public string ToppingDisplayName { get; set; }
+        private string toppingDisplayName;
+        public string ToppingDisplayName
+        {
+            get
+            {
+                return toppingDisplayName;
+            }
+            set
+            {
+                SetProperty(ref toppingDisplayName, value);
+            }
+        }
         
         public ToppingWholeHalf ToppingWholeHalf { get; set; }
 
