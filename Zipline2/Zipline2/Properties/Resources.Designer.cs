@@ -59,15 +59,5 @@ namespace Zipline2.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] zipline_logo {
-            get {
-                object obj = ResourceManager.GetObject("zipline_logo", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
     }
 }

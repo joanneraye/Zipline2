@@ -25,6 +25,10 @@ namespace Zipline2
             Tables.LoadInitialTableData();
             Toppings.LoadInitialToppings();
 
+            var wcfService = new WcfServicesProxy();
+            var table = wcfService.GetTableAsync();
+            wcfService.CloseWaiterService();
+
             MainPage = new MainMasterDetailPage();
             //var assembly = typeof(App).GetType().Assembly;
             //foreach (var res in assembly.GetManifestResourceNames())
