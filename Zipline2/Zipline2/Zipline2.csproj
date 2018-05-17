@@ -10,8 +10,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="BusinessLogic\WcfServicesProxy\DataClasses\**" />
     <Compile Remove="BusinessLogic\WcfServicesProxy\WcfClasses\**" />
+    <EmbeddedResource Remove="BusinessLogic\WcfServicesProxy\DataClasses\**" />
     <EmbeddedResource Remove="BusinessLogic\WcfServicesProxy\WcfClasses\**" />
+    <None Remove="BusinessLogic\WcfServicesProxy\DataClasses\**" />
     <None Remove="BusinessLogic\WcfServicesProxy\WcfClasses\**" />
   </ItemGroup>
 
@@ -65,23 +68,18 @@
 
   <ItemGroup>
     <PackageReference Include="Forms.Controls.FlexButton" Version="0.6.1" />
+    <PackageReference Include="Microsoft.Bcl.Async" Version="1.0.168" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="sqlite-net-pcl" Version="1.4.118" />
     <PackageReference Include="System.Runtime" Version="4.3.0" />
-    <PackageReference Include="System.ServiceModel.Duplex" Version="4.4.*" />
+    <PackageReference Include="System.ServiceModel.Duplex" Version="4.4.2" />
     <PackageReference Include="System.ServiceModel.Http" Version="4.4.2" />
-    <PackageReference Include="System.ServiceModel.NetTcp" Version="4.4.*" />
+    <PackageReference Include="System.ServiceModel.NetTcp" Version="4.4.2" />
     <PackageReference Include="System.ServiceModel.Security" Version="4.4.2" />
     <PackageReference Include="Xam.FormsPlugin.Iconize" Version="1.0.10" />
     <PackageReference Include="Xam.Plugin.Iconize" Version="1.0.10" />
     <PackageReference Include="Xam.Plugins.Settings" Version="4.0.0.7" />
-    <PackageReference Include="Xamarin.Forms" Version="3.0.0.446417" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Portable-POS Classes">
-      <HintPath>..\..\..\..\LIBRARIES\Portable - Classes\Portable-POS Classes\bin\Debug\Portable-POS Classes.dll</HintPath>
-    </Reference>
+    <PackageReference Include="Xamarin.Forms" Version="3.0.0.482510" />
   </ItemGroup>
 
   <ItemGroup>

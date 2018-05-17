@@ -143,6 +143,7 @@ namespace Zipline2.BusinessLogic
 
         public void SendOrder()
         {
+            WcfServicesProxy.Instance.SendOrder(OrderInProgress);
             //1)  Create kitchen printout from the order.
             //2)  Send to kitchen printer.
             //3)  Send order to online service for storage and retrieval by all phones.

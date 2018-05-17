@@ -7,9 +7,12 @@ using Xamarin.Forms;
 using Zipline2.Models;
 using Zipline2.Pages;
 using Zipline2.BusinessLogic;
+using Zipline2.Connected_Services;
+using System.Threading.Tasks;
 
 namespace Zipline2
 {
+    
     public partial class App : Application
     {
         public App()
@@ -25,9 +28,9 @@ namespace Zipline2
             Tables.LoadInitialTableData();
             Toppings.LoadInitialToppings();
 
-            var wcfService = new WcfServicesProxy();
-            var table = wcfService.GetTableAsync();
-            wcfService.CloseWaiterService();
+            LoadMenu();
+
+            //TODO:  When and how to close services?
 
             MainPage = new MainMasterDetailPage();
             //var assembly = typeof(App).GetType().Assembly;
@@ -35,6 +38,11 @@ namespace Zipline2
             //{
             //    System.Diagnostics.Debug.WriteLine("Found resource: " + res);
             //}
+        }
+
+        async private void LoadMenu()
+        {
+            await WcfServicesProxy.Instance.GetMenuAsync();
         }
 
         public void LoadMenuPizzaPage()

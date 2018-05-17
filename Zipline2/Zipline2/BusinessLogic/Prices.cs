@@ -13,19 +13,7 @@ namespace Zipline2.BusinessLogic
         //       current data.  Can make another program for this file to be edited
         //       by the restaurant to change pricing.
 
-        //public async Task CreateFileAsync()
-        //{
-        //    IFolder rootFolder = FileSystem.Current.LocalStorage;
-        //    IFolder folder = await rootFolder.CreateFolderAsync("SatchelsFiles", CreationCollisionOption.OpenIfExists);
-        //    IFile file = await folder.CreateFileAsync("SatchelsPrices", CreationCollisionOption.ReplaceExisting);
-        //    await file.
-        //}
-
-       //public static void WritePricesToJsonFile()
-       // {
-       //     string jsonPrices = JsonConvert.SerializeObject(BasePriceDictionary);
-       //     File.WriteAllText(@"c:\satchelsprices.json", jsonPrices);            
-       // }
+        
 
         //public static void ReadPricesFromJsonFile()
         //{
@@ -35,7 +23,17 @@ namespace Zipline2.BusinessLogic
         //}
 
         //public static Dictionary<string, decimal> PricesFromJsonFile;
-
+        public static decimal GetDrinkPrice(DrinkType drinkType)
+        {
+            if (DrinkTypeDictionary.ContainsKey(drinkType))
+            {
+                return DrinkTypeDictionary[drinkType];
+            }
+            else
+            {
+                return 0M;
+            }
+        }
         public static Dictionary<DrinkType, decimal> DrinkTypeDictionary = new Dictionary<DrinkType, decimal>
         {
             { DrinkType.Water, 0M },

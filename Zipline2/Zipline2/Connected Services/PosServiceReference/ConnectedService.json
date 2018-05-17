@@ -1,9 +1,6 @@
 ﻿{
   "ProviderId": "Microsoft.VisualStudio.ConnectedService.Wcf",
   "Version": "15.0.20406.879",
-  "GettingStartedDocument": {
-    "Uri": "https://go.microsoft.com/fwlink/?linkid=858517"
-  },
   "ExtendedData": {
     "Uri": "http://localhost/WP7Waiter/POServiceHost.svc",
     "Namespace": "PosServiceReference",
@@ -12,8 +9,8 @@
     "ReuseTypesinReferencedAssemblies": false,
     "ReuseTypesinAllReferencedAssemblies": true,
     "CollectionTypeReference": {
-      "Item1": "System.Collections.Generic.List`1",
-      "Item2": "System.Collections.dll"
+      "Item1": "System.Array",
+      "Item2": "System.Runtime.dll"
     },
     "DictionaryCollectionTypeReference": {
       "Item1": "System.Collections.Generic.Dictionary`2",

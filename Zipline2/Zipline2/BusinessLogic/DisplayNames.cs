@@ -6,7 +6,7 @@ namespace Zipline2.BusinessLogic
 {
     public static class DisplayNames
     {
-        private static Dictionary<PizzaType, string> DisplayPizzaNameDictionary = new Dictionary<PizzaType, string>
+        public static Dictionary<PizzaType, string> DisplayPizzaNameDictionary = new Dictionary<PizzaType, string>
         {
             { PizzaType.ThinSlice, "Pizza Slice" },
             { PizzaType.PanSlice, "Satch-Pan Slice" },
