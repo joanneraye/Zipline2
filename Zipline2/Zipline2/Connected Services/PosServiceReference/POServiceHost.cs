@@ -8,249 +8,246 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-
-using Zipline2.Connected_Services;
-
 namespace Zipline2.Connected_Services
 {
     using System.Runtime.Serialization;
     
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="DBTable", Namespace="http://schemas.datacontract.org/2004/07/Staunch.POS.Classes")]
-    public partial class DBTable : object, System.Runtime.Serialization.IExtensibleDataObject
-    {
+    //[System.Diagnostics.DebuggerStepThroughAttribute()]
+    //[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    //[System.Runtime.Serialization.DataContractAttribute(Name="DBTable", Namespace="http://schemas.datacontract.org/2004/07/Staunch.POS.Classes")]
+    //public partial class DBTable : object, System.Runtime.Serialization.IExtensibleDataObject
+    //{
         
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+    //    private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
-        private  Guest_DB[] GuestsField;
+    //    private Staunch.POS.Classes.Guest_DB[] GuestsField;
         
-        private decimal IDField;
+    //    private decimal IDField;
         
-        private bool IsClearField;
+    //    private bool IsClearField;
         
-        private bool IsMainField;
+    //    private bool IsMainField;
         
-        private bool IsSplitField;
+    //    private bool IsSplitField;
         
-        private bool IsSubField;
+    //    private bool IsSubField;
         
-        private bool JoinedField;
+    //    private bool JoinedField;
         
-        private int[] JoinedTableIDsField;
+    //    private int[] JoinedTableIDsField;
         
-        private decimal MaxSizeField;
+    //    private decimal MaxSizeField;
         
-        private string NameField;
+    //    private string NameField;
         
-        private decimal[] SectionsField;
+    //    private decimal[] SectionsField;
         
-        private string ShapeField;
+    //    private string ShapeField;
         
-        private decimal[] SplitTableIDsField;
+    //    private decimal[] SplitTableIDsField;
         
-        private decimal StandardSizeField;
+    //    private decimal StandardSizeField;
         
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData
-        {
-            get
-            {
-                return this.extensionDataField;
-            }
-            set
-            {
-                this.extensionDataField = value;
-            }
-        }
+    //    public System.Runtime.Serialization.ExtensionDataObject ExtensionData
+    //    {
+    //        get
+    //        {
+    //            return this.extensionDataField;
+    //        }
+    //        set
+    //        {
+    //            this.extensionDataField = value;
+    //        }
+    //    }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public  Guest_DB[] Guests
-        {
-            get
-            {
-                return this.GuestsField;
-            }
-            set
-            {
-                this.GuestsField = value;
-            }
-        }
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public Staunch.POS.Classes.Guest_DB[] Guests
+    //    {
+    //        get
+    //        {
+    //            return this.GuestsField;
+    //        }
+    //        set
+    //        {
+    //            this.GuestsField = value;
+    //        }
+    //    }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal ID
-        {
-            get
-            {
-                return this.IDField;
-            }
-            set
-            {
-                this.IDField = value;
-            }
-        }
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public decimal ID
+    //    {
+    //        get
+    //        {
+    //            return this.IDField;
+    //        }
+    //        set
+    //        {
+    //            this.IDField = value;
+    //        }
+    //    }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool IsClear
-        {
-            get
-            {
-                return this.IsClearField;
-            }
-            set
-            {
-                this.IsClearField = value;
-            }
-        }
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public bool IsClear
+    //    {
+    //        get
+    //        {
+    //            return this.IsClearField;
+    //        }
+    //        set
+    //        {
+    //            this.IsClearField = value;
+    //        }
+    //    }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool IsMain
-        {
-            get
-            {
-                return this.IsMainField;
-            }
-            set
-            {
-                this.IsMainField = value;
-            }
-        }
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public bool IsMain
+    //    {
+    //        get
+    //        {
+    //            return this.IsMainField;
+    //        }
+    //        set
+    //        {
+    //            this.IsMainField = value;
+    //        }
+    //    }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool IsSplit
-        {
-            get
-            {
-                return this.IsSplitField;
-            }
-            set
-            {
-                this.IsSplitField = value;
-            }
-        }
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public bool IsSplit
+    //    {
+    //        get
+    //        {
+    //            return this.IsSplitField;
+    //        }
+    //        set
+    //        {
+    //            this.IsSplitField = value;
+    //        }
+    //    }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool IsSub
-        {
-            get
-            {
-                return this.IsSubField;
-            }
-            set
-            {
-                this.IsSubField = value;
-            }
-        }
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public bool IsSub
+    //    {
+    //        get
+    //        {
+    //            return this.IsSubField;
+    //        }
+    //        set
+    //        {
+    //            this.IsSubField = value;
+    //        }
+    //    }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool Joined
-        {
-            get
-            {
-                return this.JoinedField;
-            }
-            set
-            {
-                this.JoinedField = value;
-            }
-        }
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public bool Joined
+    //    {
+    //        get
+    //        {
+    //            return this.JoinedField;
+    //        }
+    //        set
+    //        {
+    //            this.JoinedField = value;
+    //        }
+    //    }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int[] JoinedTableIDs
-        {
-            get
-            {
-                return this.JoinedTableIDsField;
-            }
-            set
-            {
-                this.JoinedTableIDsField = value;
-            }
-        }
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public int[] JoinedTableIDs
+    //    {
+    //        get
+    //        {
+    //            return this.JoinedTableIDsField;
+    //        }
+    //        set
+    //        {
+    //            this.JoinedTableIDsField = value;
+    //        }
+    //    }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal MaxSize
-        {
-            get
-            {
-                return this.MaxSizeField;
-            }
-            set
-            {
-                this.MaxSizeField = value;
-            }
-        }
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public decimal MaxSize
+    //    {
+    //        get
+    //        {
+    //            return this.MaxSizeField;
+    //        }
+    //        set
+    //        {
+    //            this.MaxSizeField = value;
+    //        }
+    //    }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Name
-        {
-            get
-            {
-                return this.NameField;
-            }
-            set
-            {
-                this.NameField = value;
-            }
-        }
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public string Name
+    //    {
+    //        get
+    //        {
+    //            return this.NameField;
+    //        }
+    //        set
+    //        {
+    //            this.NameField = value;
+    //        }
+    //    }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal[] Sections
-        {
-            get
-            {
-                return this.SectionsField;
-            }
-            set
-            {
-                this.SectionsField = value;
-            }
-        }
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public decimal[] Sections
+    //    {
+    //        get
+    //        {
+    //            return this.SectionsField;
+    //        }
+    //        set
+    //        {
+    //            this.SectionsField = value;
+    //        }
+    //    }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Shape
-        {
-            get
-            {
-                return this.ShapeField;
-            }
-            set
-            {
-                this.ShapeField = value;
-            }
-        }
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public string Shape
+    //    {
+    //        get
+    //        {
+    //            return this.ShapeField;
+    //        }
+    //        set
+    //        {
+    //            this.ShapeField = value;
+    //        }
+    //    }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal[] SplitTableIDs
-        {
-            get
-            {
-                return this.SplitTableIDsField;
-            }
-            set
-            {
-                this.SplitTableIDsField = value;
-            }
-        }
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public decimal[] SplitTableIDs
+    //    {
+    //        get
+    //        {
+    //            return this.SplitTableIDsField;
+    //        }
+    //        set
+    //        {
+    //            this.SplitTableIDsField = value;
+    //        }
+    //    }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal StandardSize
-        {
-            get
-            {
-                return this.StandardSizeField;
-            }
-            set
-            {
-                this.StandardSizeField = value;
-            }
-        }
-    }
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public decimal StandardSize
+    //    {
+    //        get
+    //        {
+    //            return this.StandardSizeField;
+    //        }
+    //        set
+    //        {
+    //            this.StandardSizeField = value;
+    //        }
+    //    }
+    //}
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Guest_DB", Namespace="http://schemas.datacontract.org/2004/07/Staunch.POS.Classes")]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof( TakeoutOrder))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Staunch.POS.Classes.TakeoutOrder))]
     public partial class Guest_DB : object, System.Runtime.Serialization.IExtensibleDataObject
     {
         
@@ -258,13 +255,13 @@ namespace Zipline2.Connected_Services
         
         private bool CheckedOutField;
         
-        private  GuestComboItem[] ComboItemsField;
+        private Staunch.POS.Classes.GuestComboItem[] ComboItemsField;
         
         private decimal IDField;
         
         private bool IsWholeField;
         
-        private  GuestItem[] ItemsField;
+        private Staunch.POS.Classes.GuestItem[] ItemsField;
         
         private decimal TableIDField;
         
@@ -294,7 +291,7 @@ namespace Zipline2.Connected_Services
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public GuestComboItem[] ComboItems
+        public Staunch.POS.Classes.GuestComboItem[] ComboItems
         {
             get
             {
@@ -333,7 +330,7 @@ namespace Zipline2.Connected_Services
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public  GuestItem[] Items
+        public Staunch.POS.Classes.GuestItem[] Items
         {
             get
             {
@@ -359,245 +356,1098 @@ namespace Zipline2.Connected_Services
         }
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TakeoutOrder", Namespace="http://schemas.datacontract.org/2004/07/Staunch.POS.Classes")]
-    public partial class TakeoutOrder :  Guest_DB
-    {
+    //[System.Diagnostics.DebuggerStepThroughAttribute()]
+    //[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    //[System.Runtime.Serialization.DataContractAttribute(Name="TakeoutOrder", Namespace="http://schemas.datacontract.org/2004/07/Staunch.POS.Classes")]
+    //public partial class TakeoutOrder : Staunch.POS.Classes.Guest_DB
+    //{
         
-        private string NameField;
+    //    private string NameField;
         
-        private string[] NotesField;
+    //    private string[] NotesField;
         
-        private System.DateTime OrderPickupTimeField;
+    //    private System.DateTime OrderPickupTimeField;
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Name
-        {
-            get
-            {
-                return this.NameField;
-            }
-            set
-            {
-                this.NameField = value;
-            }
-        }
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public string Name
+    //    {
+    //        get
+    //        {
+    //            return this.NameField;
+    //        }
+    //        set
+    //        {
+    //            this.NameField = value;
+    //        }
+    //    }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string[] Notes
-        {
-            get
-            {
-                return this.NotesField;
-            }
-            set
-            {
-                this.NotesField = value;
-            }
-        }
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public string[] Notes
+    //    {
+    //        get
+    //        {
+    //            return this.NotesField;
+    //        }
+    //        set
+    //        {
+    //            this.NotesField = value;
+    //        }
+    //    }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime OrderPickupTime
-        {
-            get
-            {
-                return this.OrderPickupTimeField;
-            }
-            set
-            {
-                this.OrderPickupTimeField = value;
-            }
-        }
-    }
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public System.DateTime OrderPickupTime
+    //    {
+    //        get
+    //        {
+    //            return this.OrderPickupTimeField;
+    //        }
+    //        set
+    //        {
+    //            this.OrderPickupTimeField = value;
+    //        }
+    //    }
+    //}
     
-   
+    //[System.Diagnostics.DebuggerStepThroughAttribute()]
+    //[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    //[System.Runtime.Serialization.DataContractAttribute(Name="GuestComboItem", Namespace="http://schemas.datacontract.org/2004/07/Staunch.POS.Classes")]
+    //public partial class GuestComboItem : object, System.Runtime.Serialization.IExtensibleDataObject
+    //{
+        
+    //    private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+    //    private decimal BasePriceField;
+        
+    //    private Staunch.POS.Classes.GuestItem[] ComboGuestItemsField;
+        
+    //    private decimal IDField;
+        
+    //    private string NameField;
+        
+    //    private decimal OrderComboIDField;
+        
+    //    public System.Runtime.Serialization.ExtensionDataObject ExtensionData
+    //    {
+    //        get
+    //        {
+    //            return this.extensionDataField;
+    //        }
+    //        set
+    //        {
+    //            this.extensionDataField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public decimal BasePrice
+    //    {
+    //        get
+    //        {
+    //            return this.BasePriceField;
+    //        }
+    //        set
+    //        {
+    //            this.BasePriceField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public Staunch.POS.Classes.GuestItem[] ComboGuestItems
+    //    {
+    //        get
+    //        {
+    //            return this.ComboGuestItemsField;
+    //        }
+    //        set
+    //        {
+    //            this.ComboGuestItemsField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public decimal ID
+    //    {
+    //        get
+    //        {
+    //            return this.IDField;
+    //        }
+    //        set
+    //        {
+    //            this.IDField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public string Name
+    //    {
+    //        get
+    //        {
+    //            return this.NameField;
+    //        }
+    //        set
+    //        {
+    //            this.NameField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public decimal OrderComboID
+    //    {
+    //        get
+    //        {
+    //            return this.OrderComboIDField;
+    //        }
+    //        set
+    //        {
+    //            this.OrderComboIDField = value;
+    //        }
+    //    }
+    //}
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ComboDBItem", Namespace="http://schemas.datacontract.org/2004/07/Staunch.POS.Classes")]
-    public partial class ComboDBItem :  DBItem
-    {
+    //[System.Diagnostics.DebuggerStepThroughAttribute()]
+    //[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    //[System.Runtime.Serialization.DataContractAttribute(Name="GuestItem", Namespace="http://schemas.datacontract.org/2004/07/Staunch.POS.Classes")]
+    //public partial class GuestItem : Staunch.POS.Classes.DBItem
+    //{
         
-        private  SizeData[] AvailableSizesField;
+    //    private decimal BasePriceField;
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public  SizeData[] AvailableSizes
-        {
-            get
-            {
-                return this.AvailableSizesField;
-            }
-            set
-            {
-                this.AvailableSizesField = value;
-            }
-        }
-    }
+    //    private Staunch.POS.Classes.GuestModifier[] DefaultModifiersField;
+        
+    //    private Staunch.POS.Classes.GuestModifier[] ModsField;
+        
+    //    private string[] NoteField;
+        
+    //    private decimal OrderIDField;
+        
+    //    private bool OrderSentField;
+        
+    //    private decimal PlateIDField;
+        
+    //    private decimal SelectSizeIDField;
+        
+    //    private Staunch.POS.Classes.GuestModifier[] SidesField;
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public decimal BasePrice
+    //    {
+    //        get
+    //        {
+    //            return this.BasePriceField;
+    //        }
+    //        set
+    //        {
+    //            this.BasePriceField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public Staunch.POS.Classes.GuestModifier[] DefaultModifiers
+    //    {
+    //        get
+    //        {
+    //            return this.DefaultModifiersField;
+    //        }
+    //        set
+    //        {
+    //            this.DefaultModifiersField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public Staunch.POS.Classes.GuestModifier[] Mods
+    //    {
+    //        get
+    //        {
+    //            return this.ModsField;
+    //        }
+    //        set
+    //        {
+    //            this.ModsField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public string[] Note
+    //    {
+    //        get
+    //        {
+    //            return this.NoteField;
+    //        }
+    //        set
+    //        {
+    //            this.NoteField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public decimal OrderID
+    //    {
+    //        get
+    //        {
+    //            return this.OrderIDField;
+    //        }
+    //        set
+    //        {
+    //            this.OrderIDField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public bool OrderSent
+    //    {
+    //        get
+    //        {
+    //            return this.OrderSentField;
+    //        }
+    //        set
+    //        {
+    //            this.OrderSentField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public decimal PlateID
+    //    {
+    //        get
+    //        {
+    //            return this.PlateIDField;
+    //        }
+    //        set
+    //        {
+    //            this.PlateIDField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public decimal SelectSizeID
+    //    {
+    //        get
+    //        {
+    //            return this.SelectSizeIDField;
+    //        }
+    //        set
+    //        {
+    //            this.SelectSizeIDField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public Staunch.POS.Classes.GuestModifier[] Sides
+    //    {
+    //        get
+    //        {
+    //            return this.SidesField;
+    //        }
+    //        set
+    //        {
+    //            this.SidesField = value;
+    //        }
+    //    }
+    //}
     
+    //[System.Diagnostics.DebuggerStepThroughAttribute()]
+    //[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    //[System.Runtime.Serialization.DataContractAttribute(Name="DBItem", Namespace="http://schemas.datacontract.org/2004/07/Staunch.POS.Classes")]
+    //[System.Runtime.Serialization.KnownTypeAttribute(typeof(Staunch.POS.Classes.ComboDBItem))]
+    //[System.Runtime.Serialization.KnownTypeAttribute(typeof(Staunch.POS.Classes.GuestItem))]
+    //public partial class DBItem : object, System.Runtime.Serialization.IExtensibleDataObject
+    //{
+        
+    //    private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+    //    private bool AvailabilityField;
+        
+    //    private bool CanBeHalfField;
+        
+    //    private string DescriptionField;
+        
+    //    private bool HasAllModsField;
+        
+    //    private bool HasRequiredModsField;
+        
+    //    private decimal IDField;
+        
+    //    private string LongNameField;
+        
+    //    private bool NonTaxableField;
+        
+    //    private string SelectCommandField;
+        
+    //    private string ShortNameField;
+        
+    //    private System.Collections.Generic.Dictionary<decimal, Staunch.POS.Classes.SizeData> SizeTableField;
+        
+    //    private bool StackableField;
+        
+    //    private decimal SubCategoryIDField;
+        
+    //    private string SubCategoryNameField;
+        
+    //    private string SuperCategoryField;
+        
+    //    private decimal SuperCategoryIDField;
+        
+    //    private Staunch.POS.Classes.Tiered[] TieredPricingField;
+        
+    //    public System.Runtime.Serialization.ExtensionDataObject ExtensionData
+    //    {
+    //        get
+    //        {
+    //            return this.extensionDataField;
+    //        }
+    //        set
+    //        {
+    //            this.extensionDataField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public bool Availability
+    //    {
+    //        get
+    //        {
+    //            return this.AvailabilityField;
+    //        }
+    //        set
+    //        {
+    //            this.AvailabilityField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public bool CanBeHalf
+    //    {
+    //        get
+    //        {
+    //            return this.CanBeHalfField;
+    //        }
+    //        set
+    //        {
+    //            this.CanBeHalfField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public string Description
+    //    {
+    //        get
+    //        {
+    //            return this.DescriptionField;
+    //        }
+    //        set
+    //        {
+    //            this.DescriptionField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public bool HasAllMods
+    //    {
+    //        get
+    //        {
+    //            return this.HasAllModsField;
+    //        }
+    //        set
+    //        {
+    //            this.HasAllModsField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public bool HasRequiredMods
+    //    {
+    //        get
+    //        {
+    //            return this.HasRequiredModsField;
+    //        }
+    //        set
+    //        {
+    //            this.HasRequiredModsField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public decimal ID
+    //    {
+    //        get
+    //        {
+    //            return this.IDField;
+    //        }
+    //        set
+    //        {
+    //            this.IDField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public string LongName
+    //    {
+    //        get
+    //        {
+    //            return this.LongNameField;
+    //        }
+    //        set
+    //        {
+    //            this.LongNameField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public bool NonTaxable
+    //    {
+    //        get
+    //        {
+    //            return this.NonTaxableField;
+    //        }
+    //        set
+    //        {
+    //            this.NonTaxableField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public string SelectCommand
+    //    {
+    //        get
+    //        {
+    //            return this.SelectCommandField;
+    //        }
+    //        set
+    //        {
+    //            this.SelectCommandField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public string ShortName
+    //    {
+    //        get
+    //        {
+    //            return this.ShortNameField;
+    //        }
+    //        set
+    //        {
+    //            this.ShortNameField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public System.Collections.Generic.Dictionary<decimal, Staunch.POS.Classes.SizeData> SizeTable
+    //    {
+    //        get
+    //        {
+    //            return this.SizeTableField;
+    //        }
+    //        set
+    //        {
+    //            this.SizeTableField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public bool Stackable
+    //    {
+    //        get
+    //        {
+    //            return this.StackableField;
+    //        }
+    //        set
+    //        {
+    //            this.StackableField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public decimal SubCategoryID
+    //    {
+    //        get
+    //        {
+    //            return this.SubCategoryIDField;
+    //        }
+    //        set
+    //        {
+    //            this.SubCategoryIDField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public string SubCategoryName
+    //    {
+    //        get
+    //        {
+    //            return this.SubCategoryNameField;
+    //        }
+    //        set
+    //        {
+    //            this.SubCategoryNameField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public string SuperCategory
+    //    {
+    //        get
+    //        {
+    //            return this.SuperCategoryField;
+    //        }
+    //        set
+    //        {
+    //            this.SuperCategoryField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public decimal SuperCategoryID
+    //    {
+    //        get
+    //        {
+    //            return this.SuperCategoryIDField;
+    //        }
+    //        set
+    //        {
+    //            this.SuperCategoryIDField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public Staunch.POS.Classes.Tiered[] TieredPricing
+    //    {
+    //        get
+    //        {
+    //            return this.TieredPricingField;
+    //        }
+    //        set
+    //        {
+    //            this.TieredPricingField = value;
+    //        }
+    //    }
+    //}
     
+    //[System.Diagnostics.DebuggerStepThroughAttribute()]
+    //[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    //[System.Runtime.Serialization.DataContractAttribute(Name="ComboDBItem", Namespace="http://schemas.datacontract.org/2004/07/Staunch.POS.Classes")]
+    //public partial class ComboDBItem : Staunch.POS.Classes.DBItem
+    //{
+        
+    //    private Staunch.POS.Classes.SizeData[] AvailableSizesField;
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public Staunch.POS.Classes.SizeData[] AvailableSizes
+    //    {
+    //        get
+    //        {
+    //            return this.AvailableSizesField;
+    //        }
+    //        set
+    //        {
+    //            this.AvailableSizesField = value;
+    //        }
+    //    }
+    //}
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="DBUser", Namespace="http://schemas.datacontract.org/2004/07/Staunch.POS.Classes")]
-    public partial class DBUser : object, System.Runtime.Serialization.IExtensibleDataObject
-    {
+    //[System.Diagnostics.DebuggerStepThroughAttribute()]
+    //[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    //[System.Runtime.Serialization.DataContractAttribute(Name="SizeData", Namespace="http://schemas.datacontract.org/2004/07/Staunch.POS.Classes")]
+    //public partial class SizeData : object, System.Runtime.Serialization.IExtensibleDataObject
+    //{
         
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+    //    private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
-        private string DescriptionField;
+    //    private decimal IDField;
         
-        private decimal IDField;
+    //    private string NameField;
         
-        private string NameField;
+    //    private decimal PriceField;
         
-        private string PinField;
+    //    private string ReceiptNameField;
         
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData
-        {
-            get
-            {
-                return this.extensionDataField;
-            }
-            set
-            {
-                this.extensionDataField = value;
-            }
-        }
+    //    public System.Runtime.Serialization.ExtensionDataObject ExtensionData
+    //    {
+    //        get
+    //        {
+    //            return this.extensionDataField;
+    //        }
+    //        set
+    //        {
+    //            this.extensionDataField = value;
+    //        }
+    //    }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Description
-        {
-            get
-            {
-                return this.DescriptionField;
-            }
-            set
-            {
-                this.DescriptionField = value;
-            }
-        }
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public decimal ID
+    //    {
+    //        get
+    //        {
+    //            return this.IDField;
+    //        }
+    //        set
+    //        {
+    //            this.IDField = value;
+    //        }
+    //    }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal ID
-        {
-            get
-            {
-                return this.IDField;
-            }
-            set
-            {
-                this.IDField = value;
-            }
-        }
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public string Name
+    //    {
+    //        get
+    //        {
+    //            return this.NameField;
+    //        }
+    //        set
+    //        {
+    //            this.NameField = value;
+    //        }
+    //    }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Name
-        {
-            get
-            {
-                return this.NameField;
-            }
-            set
-            {
-                this.NameField = value;
-            }
-        }
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public decimal Price
+    //    {
+    //        get
+    //        {
+    //            return this.PriceField;
+    //        }
+    //        set
+    //        {
+    //            this.PriceField = value;
+    //        }
+    //    }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Pin
-        {
-            get
-            {
-                return this.PinField;
-            }
-            set
-            {
-                this.PinField = value;
-            }
-        }
-    }
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public string ReceiptName
+    //    {
+    //        get
+    //        {
+    //            return this.ReceiptNameField;
+    //        }
+    //        set
+    //        {
+    //            this.ReceiptNameField = value;
+    //        }
+    //    }
+    //}
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="DBModGroup", Namespace="http://schemas.datacontract.org/2004/07/Staunch.POS.Classes")]
-    public partial class DBModGroup : object, System.Runtime.Serialization.IExtensibleDataObject
-    {
+    //[System.Diagnostics.DebuggerStepThroughAttribute()]
+    //[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    //[System.Runtime.Serialization.DataContractAttribute(Name="Tiered", Namespace="http://schemas.datacontract.org/2004/07/Staunch.POS.Classes")]
+    //public partial class Tiered : object, System.Runtime.Serialization.IExtensibleDataObject
+    //{
         
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+    //    private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
-        private decimal IDField;
+    //    private decimal ModifierCountField;
         
-        private int MinSelectionsField;
+    //    private decimal ModifierTierIDField;
         
-        private string NameField;
+    //    private decimal PriceAdjustmentField;
         
-        private  DBModifier[] SelectionListField;
+    //    private decimal SizeField;
         
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData
-        {
-            get
-            {
-                return this.extensionDataField;
-            }
-            set
-            {
-                this.extensionDataField = value;
-            }
-        }
+    //    public System.Runtime.Serialization.ExtensionDataObject ExtensionData
+    //    {
+    //        get
+    //        {
+    //            return this.extensionDataField;
+    //        }
+    //        set
+    //        {
+    //            this.extensionDataField = value;
+    //        }
+    //    }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal ID
-        {
-            get
-            {
-                return this.IDField;
-            }
-            set
-            {
-                this.IDField = value;
-            }
-        }
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public decimal ModifierCount
+    //    {
+    //        get
+    //        {
+    //            return this.ModifierCountField;
+    //        }
+    //        set
+    //        {
+    //            this.ModifierCountField = value;
+    //        }
+    //    }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int MinSelections
-        {
-            get
-            {
-                return this.MinSelectionsField;
-            }
-            set
-            {
-                this.MinSelectionsField = value;
-            }
-        }
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public decimal ModifierTierID
+    //    {
+    //        get
+    //        {
+    //            return this.ModifierTierIDField;
+    //        }
+    //        set
+    //        {
+    //            this.ModifierTierIDField = value;
+    //        }
+    //    }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Name
-        {
-            get
-            {
-                return this.NameField;
-            }
-            set
-            {
-                this.NameField = value;
-            }
-        }
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public decimal PriceAdjustment
+    //    {
+    //        get
+    //        {
+    //            return this.PriceAdjustmentField;
+    //        }
+    //        set
+    //        {
+    //            this.PriceAdjustmentField = value;
+    //        }
+    //    }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public  DBModifier[] SelectionList
-        {
-            get
-            {
-                return this.SelectionListField;
-            }
-            set
-            {
-                this.SelectionListField = value;
-            }
-        }
-    }
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public decimal Size
+    //    {
+    //        get
+    //        {
+    //            return this.SizeField;
+    //        }
+    //        set
+    //        {
+    //            this.SizeField = value;
+    //        }
+    //    }
+    //}
+    
+    //[System.Diagnostics.DebuggerStepThroughAttribute()]
+    //[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    //[System.Runtime.Serialization.DataContractAttribute(Name="GuestModifier", Namespace="http://schemas.datacontract.org/2004/07/Staunch.POS.Classes")]
+    //public partial class GuestModifier : Staunch.POS.Classes.DBModifier
+    //{
+        
+    //    private string HalfField;
+        
+    //    private decimal MultiplierField;
+        
+    //    private bool SpecialCountField;
+        
+    //    private string StateField;
+        
+    //    private bool isDefaultField;
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public string Half
+    //    {
+    //        get
+    //        {
+    //            return this.HalfField;
+    //        }
+    //        set
+    //        {
+    //            this.HalfField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public decimal Multiplier
+    //    {
+    //        get
+    //        {
+    //            return this.MultiplierField;
+    //        }
+    //        set
+    //        {
+    //            this.MultiplierField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public bool SpecialCount
+    //    {
+    //        get
+    //        {
+    //            return this.SpecialCountField;
+    //        }
+    //        set
+    //        {
+    //            this.SpecialCountField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public string State
+    //    {
+    //        get
+    //        {
+    //            return this.StateField;
+    //        }
+    //        set
+    //        {
+    //            this.StateField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public bool isDefault
+    //    {
+    //        get
+    //        {
+    //            return this.isDefaultField;
+    //        }
+    //        set
+    //        {
+    //            this.isDefaultField = value;
+    //        }
+    //    }
+    //}
+    
+    //[System.Diagnostics.DebuggerStepThroughAttribute()]
+    //[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    //[System.Runtime.Serialization.DataContractAttribute(Name="DBModifier", Namespace="http://schemas.datacontract.org/2004/07/Staunch.POS.Classes")]
+    //[System.Runtime.Serialization.KnownTypeAttribute(typeof(Staunch.POS.Classes.GuestModifier))]
+    //public partial class DBModifier : object, System.Runtime.Serialization.IExtensibleDataObject
+    //{
+        
+    //    private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+    //    private int BaseCountField;
+        
+    //    private decimal BasePriceField;
+        
+    //    private decimal IDField;
+        
+    //    private string NameField;
+        
+    //    private decimal PriorityField;
+        
+    //    public System.Runtime.Serialization.ExtensionDataObject ExtensionData
+    //    {
+    //        get
+    //        {
+    //            return this.extensionDataField;
+    //        }
+    //        set
+    //        {
+    //            this.extensionDataField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public int BaseCount
+    //    {
+    //        get
+    //        {
+    //            return this.BaseCountField;
+    //        }
+    //        set
+    //        {
+    //            this.BaseCountField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public decimal BasePrice
+    //    {
+    //        get
+    //        {
+    //            return this.BasePriceField;
+    //        }
+    //        set
+    //        {
+    //            this.BasePriceField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public decimal ID
+    //    {
+    //        get
+    //        {
+    //            return this.IDField;
+    //        }
+    //        set
+    //        {
+    //            this.IDField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public string Name
+    //    {
+    //        get
+    //        {
+    //            return this.NameField;
+    //        }
+    //        set
+    //        {
+    //            this.NameField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public decimal Priority
+    //    {
+    //        get
+    //        {
+    //            return this.PriorityField;
+    //        }
+    //        set
+    //        {
+    //            this.PriorityField = value;
+    //        }
+    //    }
+    //}
+    
+    //[System.Diagnostics.DebuggerStepThroughAttribute()]
+    //[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    //[System.Runtime.Serialization.DataContractAttribute(Name="DBUser", Namespace="http://schemas.datacontract.org/2004/07/Staunch.POS.Classes")]
+    //public partial class DBUser : object, System.Runtime.Serialization.IExtensibleDataObject
+    //{
+        
+    //    private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+    //    private string DescriptionField;
+        
+    //    private decimal IDField;
+        
+    //    private string NameField;
+        
+    //    private string PinField;
+        
+    //    public System.Runtime.Serialization.ExtensionDataObject ExtensionData
+    //    {
+    //        get
+    //        {
+    //            return this.extensionDataField;
+    //        }
+    //        set
+    //        {
+    //            this.extensionDataField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public string Description
+    //    {
+    //        get
+    //        {
+    //            return this.DescriptionField;
+    //        }
+    //        set
+    //        {
+    //            this.DescriptionField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public decimal ID
+    //    {
+    //        get
+    //        {
+    //            return this.IDField;
+    //        }
+    //        set
+    //        {
+    //            this.IDField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public string Name
+    //    {
+    //        get
+    //        {
+    //            return this.NameField;
+    //        }
+    //        set
+    //        {
+    //            this.NameField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public string Pin
+    //    {
+    //        get
+    //        {
+    //            return this.PinField;
+    //        }
+    //        set
+    //        {
+    //            this.PinField = value;
+    //        }
+    //    }
+    //}
+    
+    //[System.Diagnostics.DebuggerStepThroughAttribute()]
+    //[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    //[System.Runtime.Serialization.DataContractAttribute(Name="DBModGroup", Namespace="http://schemas.datacontract.org/2004/07/Staunch.POS.Classes")]
+    //public partial class DBModGroup : object, System.Runtime.Serialization.IExtensibleDataObject
+    //{
+        
+    //    private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+    //    private decimal IDField;
+        
+    //    private int MinSelectionsField;
+        
+    //    private string NameField;
+        
+    //    private Staunch.POS.Classes.DBModifier[] SelectionListField;
+        
+    //    public System.Runtime.Serialization.ExtensionDataObject ExtensionData
+    //    {
+    //        get
+    //        {
+    //            return this.extensionDataField;
+    //        }
+    //        set
+    //        {
+    //            this.extensionDataField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public decimal ID
+    //    {
+    //        get
+    //        {
+    //            return this.IDField;
+    //        }
+    //        set
+    //        {
+    //            this.IDField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public int MinSelections
+    //    {
+    //        get
+    //        {
+    //            return this.MinSelectionsField;
+    //        }
+    //        set
+    //        {
+    //            this.MinSelectionsField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public string Name
+    //    {
+    //        get
+    //        {
+    //            return this.NameField;
+    //        }
+    //        set
+    //        {
+    //            this.NameField = value;
+    //        }
+    //    }
+        
+    //    [System.Runtime.Serialization.DataMemberAttribute()]
+    //    public Staunch.POS.Classes.DBModifier[] SelectionList
+    //    {
+    //        get
+    //        {
+    //            return this.SelectionListField;
+    //        }
+    //        set
+    //        {
+    //            this.SelectionListField = value;
+    //        }
+    //    }
+    //}
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
@@ -609,7 +1459,7 @@ namespace Zipline2.Connected_Services
         
         private string DescriptionField;
         
-        private  PictureFile PictureField;
+        private Staunch.POS.Classes.PictureFile PictureField;
         
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData
         {
@@ -637,7 +1487,7 @@ namespace Zipline2.Connected_Services
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public  PictureFile Picture
+        public Staunch.POS.Classes.PictureFile Picture
         {
             get
             {
@@ -972,7 +1822,7 @@ namespace Zipline2.Connected_Services
         
         private decimal BasePriceField;
         
-        private  ComboDBItem[] ComboItemsField;
+        private Staunch.POS.Classes.ComboDBItem[] ComboItemsField;
         
         private decimal IDField;
         
@@ -1008,7 +1858,7 @@ namespace Zipline2.Connected_Services
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public  ComboDBItem[] ComboItems
+        public Staunch.POS.Classes.ComboDBItem[] ComboItems
         {
             get
             {
@@ -1129,7 +1979,7 @@ namespace Zipline2.Connected_Services
         
         private decimal SubTotalField;
         
-        private  TakeoutOrder TakeoutGuestField;
+        private Staunch.POS.Classes.TakeoutOrder TakeoutGuestField;
         
         private decimal TakeoutGuestIDField;
         
@@ -1466,7 +2316,7 @@ namespace Zipline2.Connected_Services
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public  TakeoutOrder TakeoutGuest
+        public Staunch.POS.Classes.TakeoutOrder TakeoutGuest
         {
             get
             {
@@ -1552,52 +2402,52 @@ public interface IPosService
 {
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/GetTable", ReplyAction="http://tempuri.org/IPosService/GetTableResponse")]
-     DBTable GetTable(int tableNum);
+    Staunch.POS.Classes.DBTable GetTable(int tableNum);
     
     [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPosService/GetTable", ReplyAction="http://tempuri.org/IPosService/GetTableResponse")]
     System.IAsyncResult BeginGetTable(int tableNum, System.AsyncCallback callback, object asyncState);
     
-     DBTable EndGetTable(System.IAsyncResult result);
+    Staunch.POS.Classes.DBTable EndGetTable(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/ValidateUser", ReplyAction="http://tempuri.org/IPosService/ValidateUserResponse")]
-     DBUser ValidateUser(decimal AuthenticationID, string UserName, string Pin);
+    Staunch.POS.Classes.DBUser ValidateUser(decimal AuthenticationID, string UserName, string Pin);
     
     [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPosService/ValidateUser", ReplyAction="http://tempuri.org/IPosService/ValidateUserResponse")]
     System.IAsyncResult BeginValidateUser(decimal AuthenticationID, string UserName, string Pin, System.AsyncCallback callback, object asyncState);
     
-     DBUser EndValidateUser(System.IAsyncResult result);
+    Staunch.POS.Classes.DBUser EndValidateUser(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/GetTableInfo", ReplyAction="http://tempuri.org/IPosService/GetTableInfoResponse")]
-     DBTable[] GetTableInfo();
+    Staunch.POS.Classes.DBTable[] GetTableInfo();
     
     [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPosService/GetTableInfo", ReplyAction="http://tempuri.org/IPosService/GetTableInfoResponse")]
     System.IAsyncResult BeginGetTableInfo(System.AsyncCallback callback, object asyncState);
     
-     DBTable[] EndGetTableInfo(System.IAsyncResult result);
+    Staunch.POS.Classes.DBTable[] EndGetTableInfo(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/FillTables", ReplyAction="http://tempuri.org/IPosService/FillTablesResponse")]
-     DBTable[] FillTables(decimal userID);
+    Staunch.POS.Classes.DBTable[] FillTables(decimal userID);
     
     [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPosService/FillTables", ReplyAction="http://tempuri.org/IPosService/FillTablesResponse")]
     System.IAsyncResult BeginFillTables(decimal userID, System.AsyncCallback callback, object asyncState);
     
-     DBTable[] EndFillTables(System.IAsyncResult result);
+    Staunch.POS.Classes.DBTable[] EndFillTables(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/GetMenu", ReplyAction="http://tempuri.org/IPosService/GetMenuResponse")]
-    System.Collections.Generic.Dictionary<string,  DBItem[]> GetMenu();
+    System.Collections.Generic.Dictionary<string, Staunch.POS.Classes.DBItem[]> GetMenu();
     
     [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPosService/GetMenu", ReplyAction="http://tempuri.org/IPosService/GetMenuResponse")]
     System.IAsyncResult BeginGetMenu(System.AsyncCallback callback, object asyncState);
     
-    System.Collections.Generic.Dictionary<string,  DBItem[]> EndGetMenu(System.IAsyncResult result);
+    System.Collections.Generic.Dictionary<string, Staunch.POS.Classes.DBItem[]> EndGetMenu(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/GetModifiers", ReplyAction="http://tempuri.org/IPosService/GetModifiersResponse")]
-     DBModGroup[] GetModifiers();
+    Staunch.POS.Classes.DBModGroup[] GetModifiers();
     
     [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPosService/GetModifiers", ReplyAction="http://tempuri.org/IPosService/GetModifiersResponse")]
     System.IAsyncResult BeginGetModifiers(System.AsyncCallback callback, object asyncState);
     
-     DBModGroup[] EndGetModifiers(System.IAsyncResult result);
+    Staunch.POS.Classes.DBModGroup[] EndGetModifiers(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/GetAvailablePaymentOptions", ReplyAction="http://tempuri.org/IPosService/GetAvailablePaymentOptionsResponse")]
     string[] GetAvailablePaymentOptions();
@@ -1608,10 +2458,10 @@ public interface IPosService
     string[] EndGetAvailablePaymentOptions(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/UpdateTables", ReplyAction="http://tempuri.org/IPosService/UpdateTablesResponse")]
-    void UpdateTables( DBTable[] updatedTables, decimal userID);
+    void UpdateTables(Staunch.POS.Classes.DBTable[] updatedTables, decimal userID);
     
     [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPosService/UpdateTables", ReplyAction="http://tempuri.org/IPosService/UpdateTablesResponse")]
-    System.IAsyncResult BeginUpdateTables( DBTable[] updatedTables, decimal userID, System.AsyncCallback callback, object asyncState);
+    System.IAsyncResult BeginUpdateTables(Staunch.POS.Classes.DBTable[] updatedTables, decimal userID, System.AsyncCallback callback, object asyncState);
     
     void EndUpdateTables(System.IAsyncResult result);
     
@@ -1680,28 +2530,28 @@ public interface IPosService
     bool EndRemoveItem(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/GetItemInfo", ReplyAction="http://tempuri.org/IPosService/GetItemInfoResponse")]
-     ItemInfo GetItemInfo(decimal ItemID);
+    Staunch.POS.Classes.ItemInfo GetItemInfo(decimal ItemID);
     
     [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPosService/GetItemInfo", ReplyAction="http://tempuri.org/IPosService/GetItemInfoResponse")]
     System.IAsyncResult BeginGetItemInfo(decimal ItemID, System.AsyncCallback callback, object asyncState);
     
-     ItemInfo EndGetItemInfo(System.IAsyncResult result);
+    Staunch.POS.Classes.ItemInfo EndGetItemInfo(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/GetThumbnails", ReplyAction="http://tempuri.org/IPosService/GetThumbnailsResponse")]
-    System.Collections.Generic.Dictionary<decimal,  PictureFile> GetThumbnails(decimal[] ItemIDs);
+    System.Collections.Generic.Dictionary<decimal, Staunch.POS.Classes.PictureFile> GetThumbnails(decimal[] ItemIDs);
     
     [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPosService/GetThumbnails", ReplyAction="http://tempuri.org/IPosService/GetThumbnailsResponse")]
     System.IAsyncResult BeginGetThumbnails(decimal[] ItemIDs, System.AsyncCallback callback, object asyncState);
     
-    System.Collections.Generic.Dictionary<decimal,  PictureFile> EndGetThumbnails(System.IAsyncResult result);
+    System.Collections.Generic.Dictionary<decimal, Staunch.POS.Classes.PictureFile> EndGetThumbnails(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/GetOrders", ReplyAction="http://tempuri.org/IPosService/GetOrdersResponse")]
-     GuestItem[] GetOrders(decimal TableID);
+    Staunch.POS.Classes.GuestItem[] GetOrders(decimal TableID);
     
     [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPosService/GetOrders", ReplyAction="http://tempuri.org/IPosService/GetOrdersResponse")]
     System.IAsyncResult BeginGetOrders(decimal TableID, System.AsyncCallback callback, object asyncState);
     
-     GuestItem[] EndGetOrders(System.IAsyncResult result);
+    Staunch.POS.Classes.GuestItem[] EndGetOrders(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/SendOrders", ReplyAction="http://tempuri.org/IPosService/SendOrdersResponse")]
     void SendOrders(decimal[] OrderIDs, decimal UserID);
@@ -1720,10 +2570,10 @@ public interface IPosService
     void EndRemoveSentOrder(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/SaveUserSettings", ReplyAction="http://tempuri.org/IPosService/SaveUserSettingsResponse")]
-    bool SaveUserSettings( DBUser user);
+    bool SaveUserSettings(Staunch.POS.Classes.DBUser user);
     
     [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPosService/SaveUserSettings", ReplyAction="http://tempuri.org/IPosService/SaveUserSettingsResponse")]
-    System.IAsyncResult BeginSaveUserSettings( DBUser user, System.AsyncCallback callback, object asyncState);
+    System.IAsyncResult BeginSaveUserSettings(Staunch.POS.Classes.DBUser user, System.AsyncCallback callback, object asyncState);
     
     bool EndSaveUserSettings(System.IAsyncResult result);
     
@@ -1752,12 +2602,12 @@ public interface IPosService
     bool EndHasUnsentOrders(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/GetManagerSettings", ReplyAction="http://tempuri.org/IPosService/GetManagerSettingsResponse")]
-     ManagerSettings GetManagerSettings();
+    Staunch.POS.Classes.ManagerSettings GetManagerSettings();
     
     [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPosService/GetManagerSettings", ReplyAction="http://tempuri.org/IPosService/GetManagerSettingsResponse")]
     System.IAsyncResult BeginGetManagerSettings(System.AsyncCallback callback, object asyncState);
     
-     ManagerSettings EndGetManagerSettings(System.IAsyncResult result);
+    Staunch.POS.Classes.ManagerSettings EndGetManagerSettings(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/Logout", ReplyAction="http://tempuri.org/IPosService/LogoutResponse")]
     bool Logout(decimal UserID);
@@ -1776,28 +2626,28 @@ public interface IPosService
     int EndPing(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/GetRequiredMods", ReplyAction="http://tempuri.org/IPosService/GetRequiredModsResponse")]
-     DBModGroup[] GetRequiredMods(decimal ItemID);
+    Staunch.POS.Classes.DBModGroup[] GetRequiredMods(decimal ItemID);
     
     [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPosService/GetRequiredMods", ReplyAction="http://tempuri.org/IPosService/GetRequiredModsResponse")]
     System.IAsyncResult BeginGetRequiredMods(decimal ItemID, System.AsyncCallback callback, object asyncState);
     
-     DBModGroup[] EndGetRequiredMods(System.IAsyncResult result);
+    Staunch.POS.Classes.DBModGroup[] EndGetRequiredMods(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/GetAllMods", ReplyAction="http://tempuri.org/IPosService/GetAllModsResponse")]
-     DBModGroup[] GetAllMods(decimal ItemID, decimal SizeID);
+    Staunch.POS.Classes.DBModGroup[] GetAllMods(decimal ItemID, decimal SizeID);
     
     [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPosService/GetAllMods", ReplyAction="http://tempuri.org/IPosService/GetAllModsResponse")]
     System.IAsyncResult BeginGetAllMods(decimal ItemID, decimal SizeID, System.AsyncCallback callback, object asyncState);
     
-     DBModGroup[] EndGetAllMods(System.IAsyncResult result);
+    Staunch.POS.Classes.DBModGroup[] EndGetAllMods(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/GetComboMenu", ReplyAction="http://tempuri.org/IPosService/GetComboMenuResponse")]
-     ComboItem[] GetComboMenu();
+    Staunch.POS.Classes.ComboItem[] GetComboMenu();
     
     [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPosService/GetComboMenu", ReplyAction="http://tempuri.org/IPosService/GetComboMenuResponse")]
     System.IAsyncResult BeginGetComboMenu(System.AsyncCallback callback, object asyncState);
     
-     ComboItem[] EndGetComboMenu(System.IAsyncResult result);
+    Staunch.POS.Classes.ComboItem[] EndGetComboMenu(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/RemoveGuestCombo", ReplyAction="http://tempuri.org/IPosService/RemoveGuestComboResponse")]
     bool RemoveGuestCombo(decimal GuestID, decimal OrderComboID, decimal UserID);
@@ -1824,34 +2674,34 @@ public interface IPosService
     bool EndClearTable(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/SubmitTakeout", ReplyAction="http://tempuri.org/IPosService/SubmitTakeoutResponse")]
-     TakeoutOrder SubmitTakeout( TakeoutOrder TakeoutGuest, decimal UserID);
+    Staunch.POS.Classes.TakeoutOrder SubmitTakeout(Staunch.POS.Classes.TakeoutOrder TakeoutGuest, decimal UserID);
     
     [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPosService/SubmitTakeout", ReplyAction="http://tempuri.org/IPosService/SubmitTakeoutResponse")]
-    System.IAsyncResult BeginSubmitTakeout( TakeoutOrder TakeoutGuest, decimal UserID, System.AsyncCallback callback, object asyncState);
+    System.IAsyncResult BeginSubmitTakeout(Staunch.POS.Classes.TakeoutOrder TakeoutGuest, decimal UserID, System.AsyncCallback callback, object asyncState);
     
-     TakeoutOrder EndSubmitTakeout(System.IAsyncResult result);
+    Staunch.POS.Classes.TakeoutOrder EndSubmitTakeout(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/GetTakeoutOrders", ReplyAction="http://tempuri.org/IPosService/GetTakeoutOrdersResponse")]
-     TakeoutOrder[] GetTakeoutOrders();
+    Staunch.POS.Classes.TakeoutOrder[] GetTakeoutOrders();
     
     [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPosService/GetTakeoutOrders", ReplyAction="http://tempuri.org/IPosService/GetTakeoutOrdersResponse")]
     System.IAsyncResult BeginGetTakeoutOrders(System.AsyncCallback callback, object asyncState);
     
-     TakeoutOrder[] EndGetTakeoutOrders(System.IAsyncResult result);
+    Staunch.POS.Classes.TakeoutOrder[] EndGetTakeoutOrders(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/GetTakeoutOrder", ReplyAction="http://tempuri.org/IPosService/GetTakeoutOrderResponse")]
-     TakeoutOrder GetTakeoutOrder(decimal GuestID, decimal CheckID);
+    Staunch.POS.Classes.TakeoutOrder GetTakeoutOrder(decimal GuestID, decimal CheckID);
     
     [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPosService/GetTakeoutOrder", ReplyAction="http://tempuri.org/IPosService/GetTakeoutOrderResponse")]
     System.IAsyncResult BeginGetTakeoutOrder(decimal GuestID, decimal CheckID, System.AsyncCallback callback, object asyncState);
     
-     TakeoutOrder EndGetTakeoutOrder(System.IAsyncResult result);
+    Staunch.POS.Classes.TakeoutOrder EndGetTakeoutOrder(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/SendTakeout", ReplyAction="http://tempuri.org/IPosService/SendTakeoutResponse")]
-    void SendTakeout( TakeoutOrder TakeoutGuest, decimal UserID);
+    void SendTakeout(Staunch.POS.Classes.TakeoutOrder TakeoutGuest, decimal UserID);
     
     [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPosService/SendTakeout", ReplyAction="http://tempuri.org/IPosService/SendTakeoutResponse")]
-    System.IAsyncResult BeginSendTakeout( TakeoutOrder TakeoutGuest, decimal UserID, System.AsyncCallback callback, object asyncState);
+    System.IAsyncResult BeginSendTakeout(Staunch.POS.Classes.TakeoutOrder TakeoutGuest, decimal UserID, System.AsyncCallback callback, object asyncState);
     
     void EndSendTakeout(System.IAsyncResult result);
     
@@ -1880,28 +2730,28 @@ public interface IPosService
     bool EndPrintMoveNotice(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/GetModsForAllItems", ReplyAction="http://tempuri.org/IPosService/GetModsForAllItemsResponse")]
-    System.Collections.Generic.Dictionary<decimal, System.Collections.Generic.Dictionary<decimal,  DBModGroup[]>> GetModsForAllItems();
+    System.Collections.Generic.Dictionary<decimal, System.Collections.Generic.Dictionary<decimal, Staunch.POS.Classes.DBModGroup[]>> GetModsForAllItems();
     
     [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPosService/GetModsForAllItems", ReplyAction="http://tempuri.org/IPosService/GetModsForAllItemsResponse")]
     System.IAsyncResult BeginGetModsForAllItems(System.AsyncCallback callback, object asyncState);
     
-    System.Collections.Generic.Dictionary<decimal, System.Collections.Generic.Dictionary<decimal,  DBModGroup[]>> EndGetModsForAllItems(System.IAsyncResult result);
+    System.Collections.Generic.Dictionary<decimal, System.Collections.Generic.Dictionary<decimal, Staunch.POS.Classes.DBModGroup[]>> EndGetModsForAllItems(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/GetSpecialItems", ReplyAction="http://tempuri.org/IPosService/GetSpecialItemsResponse")]
-     DBItem[] GetSpecialItems();
+    Staunch.POS.Classes.DBItem[] GetSpecialItems();
     
     [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPosService/GetSpecialItems", ReplyAction="http://tempuri.org/IPosService/GetSpecialItemsResponse")]
     System.IAsyncResult BeginGetSpecialItems(System.AsyncCallback callback, object asyncState);
     
-     DBItem[] EndGetSpecialItems(System.IAsyncResult result);
+    Staunch.POS.Classes.DBItem[] EndGetSpecialItems(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/GetTablesForSection", ReplyAction="http://tempuri.org/IPosService/GetTablesForSectionResponse")]
-     DBTable[] GetTablesForSection(decimal sectionID);
+    Staunch.POS.Classes.DBTable[] GetTablesForSection(decimal sectionID);
     
     [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPosService/GetTablesForSection", ReplyAction="http://tempuri.org/IPosService/GetTablesForSectionResponse")]
     System.IAsyncResult BeginGetTablesForSection(decimal sectionID, System.AsyncCallback callback, object asyncState);
     
-     DBTable[] EndGetTablesForSection(System.IAsyncResult result);
+    Staunch.POS.Classes.DBTable[] EndGetTablesForSection(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/ChangeItemSize", ReplyAction="http://tempuri.org/IPosService/ChangeItemSizeResponse")]
     bool ChangeItemSize(decimal orderID, decimal newSizeID);
@@ -1912,12 +2762,12 @@ public interface IPosService
     bool EndChangeItemSize(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/GetUser", ReplyAction="http://tempuri.org/IPosService/GetUserResponse")]
-     DBUser GetUser(string pin);
+    Staunch.POS.Classes.DBUser GetUser(string pin);
     
     [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPosService/GetUser", ReplyAction="http://tempuri.org/IPosService/GetUserResponse")]
     System.IAsyncResult BeginGetUser(string pin, System.AsyncCallback callback, object asyncState);
     
-     DBUser EndGetUser(System.IAsyncResult result);
+    Staunch.POS.Classes.DBUser EndGetUser(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/CancelTakeout", ReplyAction="http://tempuri.org/IPosService/CancelTakeoutResponse")]
     bool CancelTakeout(decimal TakeoutGuestID);
@@ -1928,28 +2778,28 @@ public interface IPosService
     bool EndCancelTakeout(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/GetLSEOrders", ReplyAction="http://tempuri.org/IPosService/GetLSEOrdersResponse")]
-     TakeoutOrder[] GetLSEOrders();
+    Staunch.POS.Classes.TakeoutOrder[] GetLSEOrders();
     
     [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPosService/GetLSEOrders", ReplyAction="http://tempuri.org/IPosService/GetLSEOrdersResponse")]
     System.IAsyncResult BeginGetLSEOrders(System.AsyncCallback callback, object asyncState);
     
-     TakeoutOrder[] EndGetLSEOrders(System.IAsyncResult result);
+    Staunch.POS.Classes.TakeoutOrder[] EndGetLSEOrders(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/SubmitLSETakeout", ReplyAction="http://tempuri.org/IPosService/SubmitLSETakeoutResponse")]
-     TakeoutOrder SubmitLSETakeout( TakeoutOrder TakeoutGuest, decimal UserID);
+    Staunch.POS.Classes.TakeoutOrder SubmitLSETakeout(Staunch.POS.Classes.TakeoutOrder TakeoutGuest, decimal UserID);
     
     [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPosService/SubmitLSETakeout", ReplyAction="http://tempuri.org/IPosService/SubmitLSETakeoutResponse")]
-    System.IAsyncResult BeginSubmitLSETakeout( TakeoutOrder TakeoutGuest, decimal UserID, System.AsyncCallback callback, object asyncState);
+    System.IAsyncResult BeginSubmitLSETakeout(Staunch.POS.Classes.TakeoutOrder TakeoutGuest, decimal UserID, System.AsyncCallback callback, object asyncState);
     
-     TakeoutOrder EndSubmitLSETakeout(System.IAsyncResult result);
+    Staunch.POS.Classes.TakeoutOrder EndSubmitLSETakeout(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/PriceOrder", ReplyAction="http://tempuri.org/IPosService/PriceOrderResponse")]
-     Guest_DB PriceOrder( Guest_DB guest);
+    Staunch.POS.Classes.Guest_DB PriceOrder(Staunch.POS.Classes.Guest_DB guest);
     
     [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPosService/PriceOrder", ReplyAction="http://tempuri.org/IPosService/PriceOrderResponse")]
-    System.IAsyncResult BeginPriceOrder( Guest_DB guest, System.AsyncCallback callback, object asyncState);
+    System.IAsyncResult BeginPriceOrder(Staunch.POS.Classes.Guest_DB guest, System.AsyncCallback callback, object asyncState);
     
-     Guest_DB EndPriceOrder(System.IAsyncResult result);
+    Staunch.POS.Classes.Guest_DB EndPriceOrder(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/PrintKitchenNote", ReplyAction="http://tempuri.org/IPosService/PrintKitchenNoteResponse")]
     void PrintKitchenNote(string note);
@@ -1992,58 +2842,58 @@ public interface IPosService
     bool EndRemoveMultipleFromPlate(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/SubmitCatering", ReplyAction="http://tempuri.org/IPosService/SubmitCateringResponse")]
-     CateringOrder SubmitCatering( CateringOrder catering, decimal UserID);
+    Staunch.POS.Classes.CateringOrder SubmitCatering(Staunch.POS.Classes.CateringOrder catering, decimal UserID);
     
     [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPosService/SubmitCatering", ReplyAction="http://tempuri.org/IPosService/SubmitCateringResponse")]
-    System.IAsyncResult BeginSubmitCatering( CateringOrder catering, decimal UserID, System.AsyncCallback callback, object asyncState);
+    System.IAsyncResult BeginSubmitCatering(Staunch.POS.Classes.CateringOrder catering, decimal UserID, System.AsyncCallback callback, object asyncState);
     
-     CateringOrder EndSubmitCatering(System.IAsyncResult result);
+    Staunch.POS.Classes.CateringOrder EndSubmitCatering(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/GetCateringTakeouts", ReplyAction="http://tempuri.org/IPosService/GetCateringTakeoutsResponse")]
-     TakeoutOrder[] GetCateringTakeouts();
+    Staunch.POS.Classes.TakeoutOrder[] GetCateringTakeouts();
     
     [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPosService/GetCateringTakeouts", ReplyAction="http://tempuri.org/IPosService/GetCateringTakeoutsResponse")]
     System.IAsyncResult BeginGetCateringTakeouts(System.AsyncCallback callback, object asyncState);
     
-     TakeoutOrder[] EndGetCateringTakeouts(System.IAsyncResult result);
+    Staunch.POS.Classes.TakeoutOrder[] EndGetCateringTakeouts(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/GetCateringOrder", ReplyAction="http://tempuri.org/IPosService/GetCateringOrderResponse")]
-     CateringOrder GetCateringOrder(decimal TakeoutID);
+    Staunch.POS.Classes.CateringOrder GetCateringOrder(decimal TakeoutID);
     
     [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPosService/GetCateringOrder", ReplyAction="http://tempuri.org/IPosService/GetCateringOrderResponse")]
     System.IAsyncResult BeginGetCateringOrder(decimal TakeoutID, System.AsyncCallback callback, object asyncState);
     
-     CateringOrder EndGetCateringOrder(System.IAsyncResult result);
+    Staunch.POS.Classes.CateringOrder EndGetCateringOrder(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/GetAllCateringOrdersInfo", ReplyAction="http://tempuri.org/IPosService/GetAllCateringOrdersInfoResponse")]
-     CateringOrder[] GetAllCateringOrdersInfo();
+    Staunch.POS.Classes.CateringOrder[] GetAllCateringOrdersInfo();
     
     [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPosService/GetAllCateringOrdersInfo", ReplyAction="http://tempuri.org/IPosService/GetAllCateringOrdersInfoResponse")]
     System.IAsyncResult BeginGetAllCateringOrdersInfo(System.AsyncCallback callback, object asyncState);
     
-     CateringOrder[] EndGetAllCateringOrdersInfo(System.IAsyncResult result);
+    Staunch.POS.Classes.CateringOrder[] EndGetAllCateringOrdersInfo(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/SendCateringTakeout", ReplyAction="http://tempuri.org/IPosService/SendCateringTakeoutResponse")]
-    void SendCateringTakeout( TakeoutOrder TakeoutGuest, decimal UserID);
+    void SendCateringTakeout(Staunch.POS.Classes.TakeoutOrder TakeoutGuest, decimal UserID);
     
     [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPosService/SendCateringTakeout", ReplyAction="http://tempuri.org/IPosService/SendCateringTakeoutResponse")]
-    System.IAsyncResult BeginSendCateringTakeout( TakeoutOrder TakeoutGuest, decimal UserID, System.AsyncCallback callback, object asyncState);
+    System.IAsyncResult BeginSendCateringTakeout(Staunch.POS.Classes.TakeoutOrder TakeoutGuest, decimal UserID, System.AsyncCallback callback, object asyncState);
     
     void EndSendCateringTakeout(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/GetTableSummary", ReplyAction="http://tempuri.org/IPosService/GetTableSummaryResponse")]
-     DBTable[] GetTableSummary();
+    Staunch.POS.Classes.DBTable[] GetTableSummary();
     
     [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPosService/GetTableSummary", ReplyAction="http://tempuri.org/IPosService/GetTableSummaryResponse")]
     System.IAsyncResult BeginGetTableSummary(System.AsyncCallback callback, object asyncState);
     
-     DBTable[] EndGetTableSummary(System.IAsyncResult result);
+    Staunch.POS.Classes.DBTable[] EndGetTableSummary(System.IAsyncResult result);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPosService/PrintCateringOrder", ReplyAction="http://tempuri.org/IPosService/PrintCateringOrderResponse")]
-    void PrintCateringOrder( CateringOrder catering, decimal UserID);
+    void PrintCateringOrder(Staunch.POS.Classes.CateringOrder catering, decimal UserID);
     
     [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IPosService/PrintCateringOrder", ReplyAction="http://tempuri.org/IPosService/PrintCateringOrderResponse")]
-    System.IAsyncResult BeginPrintCateringOrder( CateringOrder catering, decimal UserID, System.AsyncCallback callback, object asyncState);
+    System.IAsyncResult BeginPrintCateringOrder(Staunch.POS.Classes.CateringOrder catering, decimal UserID, System.AsyncCallback callback, object asyncState);
     
     void EndPrintCateringOrder(System.IAsyncResult result);
 }
@@ -2066,12 +2916,12 @@ public partial class GetTableCompletedEventArgs : System.ComponentModel.AsyncCom
         this.results = results;
     }
     
-    public  DBTable Result
+    public Staunch.POS.Classes.DBTable Result
     {
         get
         {
             base.RaiseExceptionIfNecessary();
-            return (( DBTable)(this.results[0]));
+            return ((Staunch.POS.Classes.DBTable)(this.results[0]));
         }
     }
 }
@@ -2089,12 +2939,12 @@ public partial class ValidateUserCompletedEventArgs : System.ComponentModel.Asyn
         this.results = results;
     }
     
-    public  DBUser Result
+    public Staunch.POS.Classes.DBUser Result
     {
         get
         {
             base.RaiseExceptionIfNecessary();
-            return (( DBUser)(this.results[0]));
+            return ((Staunch.POS.Classes.DBUser)(this.results[0]));
         }
     }
 }
@@ -2112,12 +2962,12 @@ public partial class GetTableInfoCompletedEventArgs : System.ComponentModel.Asyn
         this.results = results;
     }
     
-    public  DBTable[] Result
+    public Staunch.POS.Classes.DBTable[] Result
     {
         get
         {
             base.RaiseExceptionIfNecessary();
-            return (( DBTable[])(this.results[0]));
+            return ((Staunch.POS.Classes.DBTable[])(this.results[0]));
         }
     }
 }
@@ -2135,12 +2985,12 @@ public partial class FillTablesCompletedEventArgs : System.ComponentModel.AsyncC
         this.results = results;
     }
     
-    public  DBTable[] Result
+    public Staunch.POS.Classes.DBTable[] Result
     {
         get
         {
             base.RaiseExceptionIfNecessary();
-            return (( DBTable[])(this.results[0]));
+            return ((Staunch.POS.Classes.DBTable[])(this.results[0]));
         }
     }
 }
@@ -2158,12 +3008,12 @@ public partial class GetMenuCompletedEventArgs : System.ComponentModel.AsyncComp
         this.results = results;
     }
     
-    public System.Collections.Generic.Dictionary<string,  DBItem[]> Result
+    public System.Collections.Generic.Dictionary<string, Staunch.POS.Classes.DBItem[]> Result
     {
         get
         {
             base.RaiseExceptionIfNecessary();
-            return ((System.Collections.Generic.Dictionary<string,  DBItem[]>)(this.results[0]));
+            return ((System.Collections.Generic.Dictionary<string, Staunch.POS.Classes.DBItem[]>)(this.results[0]));
         }
     }
 }
@@ -2181,12 +3031,12 @@ public partial class GetModifiersCompletedEventArgs : System.ComponentModel.Asyn
         this.results = results;
     }
     
-    public  DBModGroup[] Result
+    public Staunch.POS.Classes.DBModGroup[] Result
     {
         get
         {
             base.RaiseExceptionIfNecessary();
-            return (( DBModGroup[])(this.results[0]));
+            return ((Staunch.POS.Classes.DBModGroup[])(this.results[0]));
         }
     }
 }
@@ -2411,12 +3261,12 @@ public partial class GetItemInfoCompletedEventArgs : System.ComponentModel.Async
         this.results = results;
     }
     
-    public  ItemInfo Result
+    public Staunch.POS.Classes.ItemInfo Result
     {
         get
         {
             base.RaiseExceptionIfNecessary();
-            return (( ItemInfo)(this.results[0]));
+            return ((Staunch.POS.Classes.ItemInfo)(this.results[0]));
         }
     }
 }
@@ -2434,12 +3284,12 @@ public partial class GetThumbnailsCompletedEventArgs : System.ComponentModel.Asy
         this.results = results;
     }
     
-    public System.Collections.Generic.Dictionary<decimal,  PictureFile> Result
+    public System.Collections.Generic.Dictionary<decimal, Staunch.POS.Classes.PictureFile> Result
     {
         get
         {
             base.RaiseExceptionIfNecessary();
-            return ((System.Collections.Generic.Dictionary<decimal,  PictureFile>)(this.results[0]));
+            return ((System.Collections.Generic.Dictionary<decimal, Staunch.POS.Classes.PictureFile>)(this.results[0]));
         }
     }
 }
@@ -2457,12 +3307,12 @@ public partial class GetOrdersCompletedEventArgs : System.ComponentModel.AsyncCo
         this.results = results;
     }
     
-    public  GuestItem[] Result
+    public Staunch.POS.Classes.GuestItem[] Result
     {
         get
         {
             base.RaiseExceptionIfNecessary();
-            return (( GuestItem[])(this.results[0]));
+            return ((Staunch.POS.Classes.GuestItem[])(this.results[0]));
         }
     }
 }
@@ -2572,12 +3422,12 @@ public partial class GetManagerSettingsCompletedEventArgs : System.ComponentMode
         this.results = results;
     }
     
-    public  ManagerSettings Result
+    public Staunch.POS.Classes.ManagerSettings Result
     {
         get
         {
             base.RaiseExceptionIfNecessary();
-            return (( ManagerSettings)(this.results[0]));
+            return ((Staunch.POS.Classes.ManagerSettings)(this.results[0]));
         }
     }
 }
@@ -2641,12 +3491,12 @@ public partial class GetRequiredModsCompletedEventArgs : System.ComponentModel.A
         this.results = results;
     }
     
-    public  DBModGroup[] Result
+    public Staunch.POS.Classes.DBModGroup[] Result
     {
         get
         {
             base.RaiseExceptionIfNecessary();
-            return (( DBModGroup[])(this.results[0]));
+            return ((Staunch.POS.Classes.DBModGroup[])(this.results[0]));
         }
     }
 }
@@ -2664,12 +3514,12 @@ public partial class GetAllModsCompletedEventArgs : System.ComponentModel.AsyncC
         this.results = results;
     }
     
-    public  DBModGroup[] Result
+    public Staunch.POS.Classes.DBModGroup[] Result
     {
         get
         {
             base.RaiseExceptionIfNecessary();
-            return (( DBModGroup[])(this.results[0]));
+            return ((Staunch.POS.Classes.DBModGroup[])(this.results[0]));
         }
     }
 }
@@ -2687,12 +3537,12 @@ public partial class GetComboMenuCompletedEventArgs : System.ComponentModel.Asyn
         this.results = results;
     }
     
-    public  ComboItem[] Result
+    public Staunch.POS.Classes.ComboItem[] Result
     {
         get
         {
             base.RaiseExceptionIfNecessary();
-            return (( ComboItem[])(this.results[0]));
+            return ((Staunch.POS.Classes.ComboItem[])(this.results[0]));
         }
     }
 }
@@ -2779,12 +3629,12 @@ public partial class SubmitTakeoutCompletedEventArgs : System.ComponentModel.Asy
         this.results = results;
     }
     
-    public  TakeoutOrder Result
+    public Staunch.POS.Classes.TakeoutOrder Result
     {
         get
         {
             base.RaiseExceptionIfNecessary();
-            return (( TakeoutOrder)(this.results[0]));
+            return ((Staunch.POS.Classes.TakeoutOrder)(this.results[0]));
         }
     }
 }
@@ -2802,12 +3652,12 @@ public partial class GetTakeoutOrdersCompletedEventArgs : System.ComponentModel.
         this.results = results;
     }
     
-    public  TakeoutOrder[] Result
+    public Staunch.POS.Classes.TakeoutOrder[] Result
     {
         get
         {
             base.RaiseExceptionIfNecessary();
-            return (( TakeoutOrder[])(this.results[0]));
+            return ((Staunch.POS.Classes.TakeoutOrder[])(this.results[0]));
         }
     }
 }
@@ -2825,12 +3675,12 @@ public partial class GetTakeoutOrderCompletedEventArgs : System.ComponentModel.A
         this.results = results;
     }
     
-    public  TakeoutOrder Result
+    public Staunch.POS.Classes.TakeoutOrder Result
     {
         get
         {
             base.RaiseExceptionIfNecessary();
-            return (( TakeoutOrder)(this.results[0]));
+            return ((Staunch.POS.Classes.TakeoutOrder)(this.results[0]));
         }
     }
 }
@@ -2917,12 +3767,12 @@ public partial class GetModsForAllItemsCompletedEventArgs : System.ComponentMode
         this.results = results;
     }
     
-    public System.Collections.Generic.Dictionary<decimal, System.Collections.Generic.Dictionary<decimal,  DBModGroup[]>> Result
+    public System.Collections.Generic.Dictionary<decimal, System.Collections.Generic.Dictionary<decimal, Staunch.POS.Classes.DBModGroup[]>> Result
     {
         get
         {
             base.RaiseExceptionIfNecessary();
-            return ((System.Collections.Generic.Dictionary<decimal, System.Collections.Generic.Dictionary<decimal,  DBModGroup[]>>)(this.results[0]));
+            return ((System.Collections.Generic.Dictionary<decimal, System.Collections.Generic.Dictionary<decimal, Staunch.POS.Classes.DBModGroup[]>>)(this.results[0]));
         }
     }
 }
@@ -2940,12 +3790,12 @@ public partial class GetSpecialItemsCompletedEventArgs : System.ComponentModel.A
         this.results = results;
     }
     
-    public  DBItem[] Result
+    public Staunch.POS.Classes.DBItem[] Result
     {
         get
         {
             base.RaiseExceptionIfNecessary();
-            return (( DBItem[])(this.results[0]));
+            return ((Staunch.POS.Classes.DBItem[])(this.results[0]));
         }
     }
 }
@@ -2963,12 +3813,12 @@ public partial class GetTablesForSectionCompletedEventArgs : System.ComponentMod
         this.results = results;
     }
     
-    public  DBTable[] Result
+    public Staunch.POS.Classes.DBTable[] Result
     {
         get
         {
             base.RaiseExceptionIfNecessary();
-            return (( DBTable[])(this.results[0]));
+            return ((Staunch.POS.Classes.DBTable[])(this.results[0]));
         }
     }
 }
@@ -3009,12 +3859,12 @@ public partial class GetUserCompletedEventArgs : System.ComponentModel.AsyncComp
         this.results = results;
     }
     
-    public  DBUser Result
+    public Staunch.POS.Classes.DBUser Result
     {
         get
         {
             base.RaiseExceptionIfNecessary();
-            return (( DBUser)(this.results[0]));
+            return ((Staunch.POS.Classes.DBUser)(this.results[0]));
         }
     }
 }
@@ -3055,12 +3905,12 @@ public partial class GetLSEOrdersCompletedEventArgs : System.ComponentModel.Asyn
         this.results = results;
     }
     
-    public  TakeoutOrder[] Result
+    public Staunch.POS.Classes.TakeoutOrder[] Result
     {
         get
         {
             base.RaiseExceptionIfNecessary();
-            return (( TakeoutOrder[])(this.results[0]));
+            return ((Staunch.POS.Classes.TakeoutOrder[])(this.results[0]));
         }
     }
 }
@@ -3078,12 +3928,12 @@ public partial class SubmitLSETakeoutCompletedEventArgs : System.ComponentModel.
         this.results = results;
     }
     
-    public  TakeoutOrder Result
+    public Staunch.POS.Classes.TakeoutOrder Result
     {
         get
         {
             base.RaiseExceptionIfNecessary();
-            return (( TakeoutOrder)(this.results[0]));
+            return ((Staunch.POS.Classes.TakeoutOrder)(this.results[0]));
         }
     }
 }
@@ -3101,12 +3951,12 @@ public partial class PriceOrderCompletedEventArgs : System.ComponentModel.AsyncC
         this.results = results;
     }
     
-    public  Guest_DB Result
+    public Staunch.POS.Classes.Guest_DB Result
     {
         get
         {
             base.RaiseExceptionIfNecessary();
-            return (( Guest_DB)(this.results[0]));
+            return ((Staunch.POS.Classes.Guest_DB)(this.results[0]));
         }
     }
 }
@@ -3216,12 +4066,12 @@ public partial class SubmitCateringCompletedEventArgs : System.ComponentModel.As
         this.results = results;
     }
     
-    public  CateringOrder Result
+    public Staunch.POS.Classes.CateringOrder Result
     {
         get
         {
             base.RaiseExceptionIfNecessary();
-            return (( CateringOrder)(this.results[0]));
+            return ((Staunch.POS.Classes.CateringOrder)(this.results[0]));
         }
     }
 }
@@ -3239,12 +4089,12 @@ public partial class GetCateringTakeoutsCompletedEventArgs : System.ComponentMod
         this.results = results;
     }
     
-    public  TakeoutOrder[] Result
+    public Staunch.POS.Classes.TakeoutOrder[] Result
     {
         get
         {
             base.RaiseExceptionIfNecessary();
-            return (( TakeoutOrder[])(this.results[0]));
+            return ((Staunch.POS.Classes.TakeoutOrder[])(this.results[0]));
         }
     }
 }
@@ -3262,12 +4112,12 @@ public partial class GetCateringOrderCompletedEventArgs : System.ComponentModel.
         this.results = results;
     }
     
-    public  CateringOrder Result
+    public Staunch.POS.Classes.CateringOrder Result
     {
         get
         {
             base.RaiseExceptionIfNecessary();
-            return (( CateringOrder)(this.results[0]));
+            return ((Staunch.POS.Classes.CateringOrder)(this.results[0]));
         }
     }
 }
@@ -3285,12 +4135,12 @@ public partial class GetAllCateringOrdersInfoCompletedEventArgs : System.Compone
         this.results = results;
     }
     
-    public  CateringOrder[] Result
+    public Staunch.POS.Classes.CateringOrder[] Result
     {
         get
         {
             base.RaiseExceptionIfNecessary();
-            return (( CateringOrder[])(this.results[0]));
+            return ((Staunch.POS.Classes.CateringOrder[])(this.results[0]));
         }
     }
 }
@@ -3308,12 +4158,12 @@ public partial class GetTableSummaryCompletedEventArgs : System.ComponentModel.A
         this.results = results;
     }
     
-    public  DBTable[] Result
+    public Staunch.POS.Classes.DBTable[] Result
     {
         get
         {
             base.RaiseExceptionIfNecessary();
-            return (( DBTable[])(this.results[0]));
+            return ((Staunch.POS.Classes.DBTable[])(this.results[0]));
         }
     }
 }
@@ -3843,7 +4693,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     
     public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> PrintCateringOrderCompleted;
     
-    public  DBTable GetTable(int tableNum)
+    public Staunch.POS.Classes.DBTable GetTable(int tableNum)
     {
         return base.Channel.GetTable(tableNum);
     }
@@ -3855,7 +4705,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public  DBTable EndGetTable(System.IAsyncResult result)
+    public Staunch.POS.Classes.DBTable EndGetTable(System.IAsyncResult result)
     {
         return base.Channel.EndGetTable(result);
     }
@@ -3868,7 +4718,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     
     private object[] OnEndGetTable(System.IAsyncResult result)
     {
-         DBTable retVal = this.EndGetTable(result);
+        Staunch.POS.Classes.DBTable retVal = this.EndGetTable(result);
         return new object[] {
                 retVal};
     }
@@ -3905,7 +4755,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
                     tableNum}, this.onEndGetTableDelegate, this.onGetTableCompletedDelegate, userState);
     }
     
-    public  DBUser ValidateUser(decimal AuthenticationID, string UserName, string Pin)
+    public Staunch.POS.Classes.DBUser ValidateUser(decimal AuthenticationID, string UserName, string Pin)
     {
         return base.Channel.ValidateUser(AuthenticationID, UserName, Pin);
     }
@@ -3917,7 +4767,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public  DBUser EndValidateUser(System.IAsyncResult result)
+    public Staunch.POS.Classes.DBUser EndValidateUser(System.IAsyncResult result)
     {
         return base.Channel.EndValidateUser(result);
     }
@@ -3932,7 +4782,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     
     private object[] OnEndValidateUser(System.IAsyncResult result)
     {
-         DBUser retVal = this.EndValidateUser(result);
+        Staunch.POS.Classes.DBUser retVal = this.EndValidateUser(result);
         return new object[] {
                 retVal};
     }
@@ -3971,7 +4821,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
                     Pin}, this.onEndValidateUserDelegate, this.onValidateUserCompletedDelegate, userState);
     }
     
-    public  DBTable[] GetTableInfo()
+    public Staunch.POS.Classes.DBTable[] GetTableInfo()
     {
         return base.Channel.GetTableInfo();
     }
@@ -3983,7 +4833,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public  DBTable[] EndGetTableInfo(System.IAsyncResult result)
+    public Staunch.POS.Classes.DBTable[] EndGetTableInfo(System.IAsyncResult result)
     {
         return base.Channel.EndGetTableInfo(result);
     }
@@ -3995,7 +4845,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     
     private object[] OnEndGetTableInfo(System.IAsyncResult result)
     {
-         DBTable[] retVal = this.EndGetTableInfo(result);
+        Staunch.POS.Classes.DBTable[] retVal = this.EndGetTableInfo(result);
         return new object[] {
                 retVal};
     }
@@ -4031,7 +4881,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
         base.InvokeAsync(this.onBeginGetTableInfoDelegate, null, this.onEndGetTableInfoDelegate, this.onGetTableInfoCompletedDelegate, userState);
     }
     
-    public  DBTable[] FillTables(decimal userID)
+    public Staunch.POS.Classes.DBTable[] FillTables(decimal userID)
     {
         return base.Channel.FillTables(userID);
     }
@@ -4043,7 +4893,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public  DBTable[] EndFillTables(System.IAsyncResult result)
+    public Staunch.POS.Classes.DBTable[] EndFillTables(System.IAsyncResult result)
     {
         return base.Channel.EndFillTables(result);
     }
@@ -4056,7 +4906,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     
     private object[] OnEndFillTables(System.IAsyncResult result)
     {
-         DBTable[] retVal = this.EndFillTables(result);
+        Staunch.POS.Classes.DBTable[] retVal = this.EndFillTables(result);
         return new object[] {
                 retVal};
     }
@@ -4093,7 +4943,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
                     userID}, this.onEndFillTablesDelegate, this.onFillTablesCompletedDelegate, userState);
     }
     
-    public System.Collections.Generic.Dictionary<string,  DBItem[]> GetMenu()
+    public System.Collections.Generic.Dictionary<string, Staunch.POS.Classes.DBItem[]> GetMenu()
     {
         return base.Channel.GetMenu();
     }
@@ -4105,7 +4955,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public System.Collections.Generic.Dictionary<string,  DBItem[]> EndGetMenu(System.IAsyncResult result)
+    public System.Collections.Generic.Dictionary<string, Staunch.POS.Classes.DBItem[]> EndGetMenu(System.IAsyncResult result)
     {
         return base.Channel.EndGetMenu(result);
     }
@@ -4117,7 +4967,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     
     private object[] OnEndGetMenu(System.IAsyncResult result)
     {
-        System.Collections.Generic.Dictionary<string,  DBItem[]> retVal = this.EndGetMenu(result);
+        System.Collections.Generic.Dictionary<string, Staunch.POS.Classes.DBItem[]> retVal = this.EndGetMenu(result);
         return new object[] {
                 retVal};
     }
@@ -4153,7 +5003,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
         base.InvokeAsync(this.onBeginGetMenuDelegate, null, this.onEndGetMenuDelegate, this.onGetMenuCompletedDelegate, userState);
     }
     
-    public  DBModGroup[] GetModifiers()
+    public Staunch.POS.Classes.DBModGroup[] GetModifiers()
     {
         return base.Channel.GetModifiers();
     }
@@ -4165,7 +5015,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public  DBModGroup[] EndGetModifiers(System.IAsyncResult result)
+    public Staunch.POS.Classes.DBModGroup[] EndGetModifiers(System.IAsyncResult result)
     {
         return base.Channel.EndGetModifiers(result);
     }
@@ -4177,7 +5027,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     
     private object[] OnEndGetModifiers(System.IAsyncResult result)
     {
-         DBModGroup[] retVal = this.EndGetModifiers(result);
+        Staunch.POS.Classes.DBModGroup[] retVal = this.EndGetModifiers(result);
         return new object[] {
                 retVal};
     }
@@ -4273,13 +5123,13 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
         base.InvokeAsync(this.onBeginGetAvailablePaymentOptionsDelegate, null, this.onEndGetAvailablePaymentOptionsDelegate, this.onGetAvailablePaymentOptionsCompletedDelegate, userState);
     }
     
-    public void UpdateTables( DBTable[] updatedTables, decimal userID)
+    public void UpdateTables(Staunch.POS.Classes.DBTable[] updatedTables, decimal userID)
     {
         base.Channel.UpdateTables(updatedTables, userID);
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public System.IAsyncResult BeginUpdateTables( DBTable[] updatedTables, decimal userID, System.AsyncCallback callback, object asyncState)
+    public System.IAsyncResult BeginUpdateTables(Staunch.POS.Classes.DBTable[] updatedTables, decimal userID, System.AsyncCallback callback, object asyncState)
     {
         return base.Channel.BeginUpdateTables(updatedTables, userID, callback, asyncState);
     }
@@ -4292,7 +5142,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     
     private System.IAsyncResult OnBeginUpdateTables(object[] inValues, System.AsyncCallback callback, object asyncState)
     {
-         DBTable[] updatedTables = (( DBTable[])(inValues[0]));
+        Staunch.POS.Classes.DBTable[] updatedTables = ((Staunch.POS.Classes.DBTable[])(inValues[0]));
         decimal userID = ((decimal)(inValues[1]));
         return this.BeginUpdateTables(updatedTables, userID, callback, asyncState);
     }
@@ -4312,12 +5162,12 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
         }
     }
     
-    public void UpdateTablesAsync( DBTable[] updatedTables, decimal userID)
+    public void UpdateTablesAsync(Staunch.POS.Classes.DBTable[] updatedTables, decimal userID)
     {
         this.UpdateTablesAsync(updatedTables, userID, null);
     }
     
-    public void UpdateTablesAsync( DBTable[] updatedTables, decimal userID, object userState)
+    public void UpdateTablesAsync(Staunch.POS.Classes.DBTable[] updatedTables, decimal userID, object userState)
     {
         if ((this.onBeginUpdateTablesDelegate == null))
         {
@@ -4830,7 +5680,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
                     UserID}, this.onEndRemoveItemDelegate, this.onRemoveItemCompletedDelegate, userState);
     }
     
-    public  ItemInfo GetItemInfo(decimal ItemID)
+    public Staunch.POS.Classes.ItemInfo GetItemInfo(decimal ItemID)
     {
         return base.Channel.GetItemInfo(ItemID);
     }
@@ -4842,7 +5692,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public  ItemInfo EndGetItemInfo(System.IAsyncResult result)
+    public Staunch.POS.Classes.ItemInfo EndGetItemInfo(System.IAsyncResult result)
     {
         return base.Channel.EndGetItemInfo(result);
     }
@@ -4855,7 +5705,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     
     private object[] OnEndGetItemInfo(System.IAsyncResult result)
     {
-         ItemInfo retVal = this.EndGetItemInfo(result);
+        Staunch.POS.Classes.ItemInfo retVal = this.EndGetItemInfo(result);
         return new object[] {
                 retVal};
     }
@@ -4892,7 +5742,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
                     ItemID}, this.onEndGetItemInfoDelegate, this.onGetItemInfoCompletedDelegate, userState);
     }
     
-    public System.Collections.Generic.Dictionary<decimal,  PictureFile> GetThumbnails(decimal[] ItemIDs)
+    public System.Collections.Generic.Dictionary<decimal, Staunch.POS.Classes.PictureFile> GetThumbnails(decimal[] ItemIDs)
     {
         return base.Channel.GetThumbnails(ItemIDs);
     }
@@ -4904,7 +5754,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public System.Collections.Generic.Dictionary<decimal,  PictureFile> EndGetThumbnails(System.IAsyncResult result)
+    public System.Collections.Generic.Dictionary<decimal, Staunch.POS.Classes.PictureFile> EndGetThumbnails(System.IAsyncResult result)
     {
         return base.Channel.EndGetThumbnails(result);
     }
@@ -4917,7 +5767,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     
     private object[] OnEndGetThumbnails(System.IAsyncResult result)
     {
-        System.Collections.Generic.Dictionary<decimal,  PictureFile> retVal = this.EndGetThumbnails(result);
+        System.Collections.Generic.Dictionary<decimal, Staunch.POS.Classes.PictureFile> retVal = this.EndGetThumbnails(result);
         return new object[] {
                 retVal};
     }
@@ -4954,7 +5804,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
                     ItemIDs}, this.onEndGetThumbnailsDelegate, this.onGetThumbnailsCompletedDelegate, userState);
     }
     
-    public  GuestItem[] GetOrders(decimal TableID)
+    public Staunch.POS.Classes.GuestItem[] GetOrders(decimal TableID)
     {
         return base.Channel.GetOrders(TableID);
     }
@@ -4966,7 +5816,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public  GuestItem[] EndGetOrders(System.IAsyncResult result)
+    public Staunch.POS.Classes.GuestItem[] EndGetOrders(System.IAsyncResult result)
     {
         return base.Channel.EndGetOrders(result);
     }
@@ -4979,7 +5829,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     
     private object[] OnEndGetOrders(System.IAsyncResult result)
     {
-         GuestItem[] retVal = this.EndGetOrders(result);
+        Staunch.POS.Classes.GuestItem[] retVal = this.EndGetOrders(result);
         return new object[] {
                 retVal};
     }
@@ -5142,13 +5992,13 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
                     UserID}, this.onEndRemoveSentOrderDelegate, this.onRemoveSentOrderCompletedDelegate, userState);
     }
     
-    public bool SaveUserSettings( DBUser user)
+    public bool SaveUserSettings(Staunch.POS.Classes.DBUser user)
     {
         return base.Channel.SaveUserSettings(user);
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public System.IAsyncResult BeginSaveUserSettings( DBUser user, System.AsyncCallback callback, object asyncState)
+    public System.IAsyncResult BeginSaveUserSettings(Staunch.POS.Classes.DBUser user, System.AsyncCallback callback, object asyncState)
     {
         return base.Channel.BeginSaveUserSettings(user, callback, asyncState);
     }
@@ -5161,7 +6011,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     
     private System.IAsyncResult OnBeginSaveUserSettings(object[] inValues, System.AsyncCallback callback, object asyncState)
     {
-         DBUser user = (( DBUser)(inValues[0]));
+        Staunch.POS.Classes.DBUser user = ((Staunch.POS.Classes.DBUser)(inValues[0]));
         return this.BeginSaveUserSettings(user, callback, asyncState);
     }
     
@@ -5181,12 +6031,12 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
         }
     }
     
-    public void SaveUserSettingsAsync( DBUser user)
+    public void SaveUserSettingsAsync(Staunch.POS.Classes.DBUser user)
     {
         this.SaveUserSettingsAsync(user, null);
     }
     
-    public void SaveUserSettingsAsync( DBUser user, object userState)
+    public void SaveUserSettingsAsync(Staunch.POS.Classes.DBUser user, object userState)
     {
         if ((this.onBeginSaveUserSettingsDelegate == null))
         {
@@ -5392,7 +6242,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
                     TableID}, this.onEndHasUnsentOrdersDelegate, this.onHasUnsentOrdersCompletedDelegate, userState);
     }
     
-    public  ManagerSettings GetManagerSettings()
+    public Staunch.POS.Classes.ManagerSettings GetManagerSettings()
     {
         return base.Channel.GetManagerSettings();
     }
@@ -5404,7 +6254,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public  ManagerSettings EndGetManagerSettings(System.IAsyncResult result)
+    public Staunch.POS.Classes.ManagerSettings EndGetManagerSettings(System.IAsyncResult result)
     {
         return base.Channel.EndGetManagerSettings(result);
     }
@@ -5416,7 +6266,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     
     private object[] OnEndGetManagerSettings(System.IAsyncResult result)
     {
-         ManagerSettings retVal = this.EndGetManagerSettings(result);
+        Staunch.POS.Classes.ManagerSettings retVal = this.EndGetManagerSettings(result);
         return new object[] {
                 retVal};
     }
@@ -5576,7 +6426,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
                     Delay}, this.onEndPingDelegate, this.onPingCompletedDelegate, userState);
     }
     
-    public  DBModGroup[] GetRequiredMods(decimal ItemID)
+    public Staunch.POS.Classes.DBModGroup[] GetRequiredMods(decimal ItemID)
     {
         return base.Channel.GetRequiredMods(ItemID);
     }
@@ -5588,7 +6438,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public  DBModGroup[] EndGetRequiredMods(System.IAsyncResult result)
+    public Staunch.POS.Classes.DBModGroup[] EndGetRequiredMods(System.IAsyncResult result)
     {
         return base.Channel.EndGetRequiredMods(result);
     }
@@ -5601,7 +6451,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     
     private object[] OnEndGetRequiredMods(System.IAsyncResult result)
     {
-         DBModGroup[] retVal = this.EndGetRequiredMods(result);
+        Staunch.POS.Classes.DBModGroup[] retVal = this.EndGetRequiredMods(result);
         return new object[] {
                 retVal};
     }
@@ -5638,7 +6488,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
                     ItemID}, this.onEndGetRequiredModsDelegate, this.onGetRequiredModsCompletedDelegate, userState);
     }
     
-    public  DBModGroup[] GetAllMods(decimal ItemID, decimal SizeID)
+    public Staunch.POS.Classes.DBModGroup[] GetAllMods(decimal ItemID, decimal SizeID)
     {
         return base.Channel.GetAllMods(ItemID, SizeID);
     }
@@ -5650,7 +6500,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public  DBModGroup[] EndGetAllMods(System.IAsyncResult result)
+    public Staunch.POS.Classes.DBModGroup[] EndGetAllMods(System.IAsyncResult result)
     {
         return base.Channel.EndGetAllMods(result);
     }
@@ -5664,7 +6514,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     
     private object[] OnEndGetAllMods(System.IAsyncResult result)
     {
-         DBModGroup[] retVal = this.EndGetAllMods(result);
+        Staunch.POS.Classes.DBModGroup[] retVal = this.EndGetAllMods(result);
         return new object[] {
                 retVal};
     }
@@ -5702,7 +6552,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
                     SizeID}, this.onEndGetAllModsDelegate, this.onGetAllModsCompletedDelegate, userState);
     }
     
-    public  ComboItem[] GetComboMenu()
+    public Staunch.POS.Classes.ComboItem[] GetComboMenu()
     {
         return base.Channel.GetComboMenu();
     }
@@ -5714,7 +6564,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public  ComboItem[] EndGetComboMenu(System.IAsyncResult result)
+    public Staunch.POS.Classes.ComboItem[] EndGetComboMenu(System.IAsyncResult result)
     {
         return base.Channel.EndGetComboMenu(result);
     }
@@ -5726,7 +6576,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     
     private object[] OnEndGetComboMenu(System.IAsyncResult result)
     {
-         ComboItem[] retVal = this.EndGetComboMenu(result);
+        Staunch.POS.Classes.ComboItem[] retVal = this.EndGetComboMenu(result);
         return new object[] {
                 retVal};
     }
@@ -5956,33 +6806,33 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
                     TableID}, this.onEndClearTableDelegate, this.onClearTableCompletedDelegate, userState);
     }
     
-    public  TakeoutOrder SubmitTakeout( TakeoutOrder TakeoutGuest, decimal UserID)
+    public Staunch.POS.Classes.TakeoutOrder SubmitTakeout(Staunch.POS.Classes.TakeoutOrder TakeoutGuest, decimal UserID)
     {
         return base.Channel.SubmitTakeout(TakeoutGuest, UserID);
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public System.IAsyncResult BeginSubmitTakeout( TakeoutOrder TakeoutGuest, decimal UserID, System.AsyncCallback callback, object asyncState)
+    public System.IAsyncResult BeginSubmitTakeout(Staunch.POS.Classes.TakeoutOrder TakeoutGuest, decimal UserID, System.AsyncCallback callback, object asyncState)
     {
         return base.Channel.BeginSubmitTakeout(TakeoutGuest, UserID, callback, asyncState);
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public  TakeoutOrder EndSubmitTakeout(System.IAsyncResult result)
+    public Staunch.POS.Classes.TakeoutOrder EndSubmitTakeout(System.IAsyncResult result)
     {
         return base.Channel.EndSubmitTakeout(result);
     }
     
     private System.IAsyncResult OnBeginSubmitTakeout(object[] inValues, System.AsyncCallback callback, object asyncState)
     {
-         TakeoutOrder TakeoutGuest = (( TakeoutOrder)(inValues[0]));
+        Staunch.POS.Classes.TakeoutOrder TakeoutGuest = ((Staunch.POS.Classes.TakeoutOrder)(inValues[0]));
         decimal UserID = ((decimal)(inValues[1]));
         return this.BeginSubmitTakeout(TakeoutGuest, UserID, callback, asyncState);
     }
     
     private object[] OnEndSubmitTakeout(System.IAsyncResult result)
     {
-         TakeoutOrder retVal = this.EndSubmitTakeout(result);
+        Staunch.POS.Classes.TakeoutOrder retVal = this.EndSubmitTakeout(result);
         return new object[] {
                 retVal};
     }
@@ -5996,12 +6846,12 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
         }
     }
     
-    public void SubmitTakeoutAsync( TakeoutOrder TakeoutGuest, decimal UserID)
+    public void SubmitTakeoutAsync(Staunch.POS.Classes.TakeoutOrder TakeoutGuest, decimal UserID)
     {
         this.SubmitTakeoutAsync(TakeoutGuest, UserID, null);
     }
     
-    public void SubmitTakeoutAsync( TakeoutOrder TakeoutGuest, decimal UserID, object userState)
+    public void SubmitTakeoutAsync(Staunch.POS.Classes.TakeoutOrder TakeoutGuest, decimal UserID, object userState)
     {
         if ((this.onBeginSubmitTakeoutDelegate == null))
         {
@@ -6020,7 +6870,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
                     UserID}, this.onEndSubmitTakeoutDelegate, this.onSubmitTakeoutCompletedDelegate, userState);
     }
     
-    public  TakeoutOrder[] GetTakeoutOrders()
+    public Staunch.POS.Classes.TakeoutOrder[] GetTakeoutOrders()
     {
         return base.Channel.GetTakeoutOrders();
     }
@@ -6032,7 +6882,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public  TakeoutOrder[] EndGetTakeoutOrders(System.IAsyncResult result)
+    public Staunch.POS.Classes.TakeoutOrder[] EndGetTakeoutOrders(System.IAsyncResult result)
     {
         return base.Channel.EndGetTakeoutOrders(result);
     }
@@ -6044,7 +6894,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     
     private object[] OnEndGetTakeoutOrders(System.IAsyncResult result)
     {
-         TakeoutOrder[] retVal = this.EndGetTakeoutOrders(result);
+        Staunch.POS.Classes.TakeoutOrder[] retVal = this.EndGetTakeoutOrders(result);
         return new object[] {
                 retVal};
     }
@@ -6080,7 +6930,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
         base.InvokeAsync(this.onBeginGetTakeoutOrdersDelegate, null, this.onEndGetTakeoutOrdersDelegate, this.onGetTakeoutOrdersCompletedDelegate, userState);
     }
     
-    public  TakeoutOrder GetTakeoutOrder(decimal GuestID, decimal CheckID)
+    public Staunch.POS.Classes.TakeoutOrder GetTakeoutOrder(decimal GuestID, decimal CheckID)
     {
         return base.Channel.GetTakeoutOrder(GuestID, CheckID);
     }
@@ -6092,7 +6942,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public  TakeoutOrder EndGetTakeoutOrder(System.IAsyncResult result)
+    public Staunch.POS.Classes.TakeoutOrder EndGetTakeoutOrder(System.IAsyncResult result)
     {
         return base.Channel.EndGetTakeoutOrder(result);
     }
@@ -6106,7 +6956,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     
     private object[] OnEndGetTakeoutOrder(System.IAsyncResult result)
     {
-         TakeoutOrder retVal = this.EndGetTakeoutOrder(result);
+        Staunch.POS.Classes.TakeoutOrder retVal = this.EndGetTakeoutOrder(result);
         return new object[] {
                 retVal};
     }
@@ -6144,13 +6994,13 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
                     CheckID}, this.onEndGetTakeoutOrderDelegate, this.onGetTakeoutOrderCompletedDelegate, userState);
     }
     
-    public void SendTakeout( TakeoutOrder TakeoutGuest, decimal UserID)
+    public void SendTakeout(Staunch.POS.Classes.TakeoutOrder TakeoutGuest, decimal UserID)
     {
         base.Channel.SendTakeout(TakeoutGuest, UserID);
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public System.IAsyncResult BeginSendTakeout( TakeoutOrder TakeoutGuest, decimal UserID, System.AsyncCallback callback, object asyncState)
+    public System.IAsyncResult BeginSendTakeout(Staunch.POS.Classes.TakeoutOrder TakeoutGuest, decimal UserID, System.AsyncCallback callback, object asyncState)
     {
         return base.Channel.BeginSendTakeout(TakeoutGuest, UserID, callback, asyncState);
     }
@@ -6163,7 +7013,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     
     private System.IAsyncResult OnBeginSendTakeout(object[] inValues, System.AsyncCallback callback, object asyncState)
     {
-         TakeoutOrder TakeoutGuest = (( TakeoutOrder)(inValues[0]));
+        Staunch.POS.Classes.TakeoutOrder TakeoutGuest = ((Staunch.POS.Classes.TakeoutOrder)(inValues[0]));
         decimal UserID = ((decimal)(inValues[1]));
         return this.BeginSendTakeout(TakeoutGuest, UserID, callback, asyncState);
     }
@@ -6183,12 +7033,12 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
         }
     }
     
-    public void SendTakeoutAsync( TakeoutOrder TakeoutGuest, decimal UserID)
+    public void SendTakeoutAsync(Staunch.POS.Classes.TakeoutOrder TakeoutGuest, decimal UserID)
     {
         this.SendTakeoutAsync(TakeoutGuest, UserID, null);
     }
     
-    public void SendTakeoutAsync( TakeoutOrder TakeoutGuest, decimal UserID, object userState)
+    public void SendTakeoutAsync(Staunch.POS.Classes.TakeoutOrder TakeoutGuest, decimal UserID, object userState)
     {
         if ((this.onBeginSendTakeoutDelegate == null))
         {
@@ -6397,7 +7247,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
                     toTableID}, this.onEndPrintMoveNoticeDelegate, this.onPrintMoveNoticeCompletedDelegate, userState);
     }
     
-    public System.Collections.Generic.Dictionary<decimal, System.Collections.Generic.Dictionary<decimal,  DBModGroup[]>> GetModsForAllItems()
+    public System.Collections.Generic.Dictionary<decimal, System.Collections.Generic.Dictionary<decimal, Staunch.POS.Classes.DBModGroup[]>> GetModsForAllItems()
     {
         return base.Channel.GetModsForAllItems();
     }
@@ -6409,7 +7259,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public System.Collections.Generic.Dictionary<decimal, System.Collections.Generic.Dictionary<decimal,  DBModGroup[]>> EndGetModsForAllItems(System.IAsyncResult result)
+    public System.Collections.Generic.Dictionary<decimal, System.Collections.Generic.Dictionary<decimal, Staunch.POS.Classes.DBModGroup[]>> EndGetModsForAllItems(System.IAsyncResult result)
     {
         return base.Channel.EndGetModsForAllItems(result);
     }
@@ -6421,7 +7271,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     
     private object[] OnEndGetModsForAllItems(System.IAsyncResult result)
     {
-        System.Collections.Generic.Dictionary<decimal, System.Collections.Generic.Dictionary<decimal,  DBModGroup[]>> retVal = this.EndGetModsForAllItems(result);
+        System.Collections.Generic.Dictionary<decimal, System.Collections.Generic.Dictionary<decimal, Staunch.POS.Classes.DBModGroup[]>> retVal = this.EndGetModsForAllItems(result);
         return new object[] {
                 retVal};
     }
@@ -6457,7 +7307,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
         base.InvokeAsync(this.onBeginGetModsForAllItemsDelegate, null, this.onEndGetModsForAllItemsDelegate, this.onGetModsForAllItemsCompletedDelegate, userState);
     }
     
-    public  DBItem[] GetSpecialItems()
+    public Staunch.POS.Classes.DBItem[] GetSpecialItems()
     {
         return base.Channel.GetSpecialItems();
     }
@@ -6469,7 +7319,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public  DBItem[] EndGetSpecialItems(System.IAsyncResult result)
+    public Staunch.POS.Classes.DBItem[] EndGetSpecialItems(System.IAsyncResult result)
     {
         return base.Channel.EndGetSpecialItems(result);
     }
@@ -6481,7 +7331,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     
     private object[] OnEndGetSpecialItems(System.IAsyncResult result)
     {
-         DBItem[] retVal = this.EndGetSpecialItems(result);
+        Staunch.POS.Classes.DBItem[] retVal = this.EndGetSpecialItems(result);
         return new object[] {
                 retVal};
     }
@@ -6517,7 +7367,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
         base.InvokeAsync(this.onBeginGetSpecialItemsDelegate, null, this.onEndGetSpecialItemsDelegate, this.onGetSpecialItemsCompletedDelegate, userState);
     }
     
-    public  DBTable[] GetTablesForSection(decimal sectionID)
+    public Staunch.POS.Classes.DBTable[] GetTablesForSection(decimal sectionID)
     {
         return base.Channel.GetTablesForSection(sectionID);
     }
@@ -6529,7 +7379,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public  DBTable[] EndGetTablesForSection(System.IAsyncResult result)
+    public Staunch.POS.Classes.DBTable[] EndGetTablesForSection(System.IAsyncResult result)
     {
         return base.Channel.EndGetTablesForSection(result);
     }
@@ -6542,7 +7392,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     
     private object[] OnEndGetTablesForSection(System.IAsyncResult result)
     {
-         DBTable[] retVal = this.EndGetTablesForSection(result);
+        Staunch.POS.Classes.DBTable[] retVal = this.EndGetTablesForSection(result);
         return new object[] {
                 retVal};
     }
@@ -6643,7 +7493,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
                     newSizeID}, this.onEndChangeItemSizeDelegate, this.onChangeItemSizeCompletedDelegate, userState);
     }
     
-    public  DBUser GetUser(string pin)
+    public Staunch.POS.Classes.DBUser GetUser(string pin)
     {
         return base.Channel.GetUser(pin);
     }
@@ -6655,7 +7505,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public  DBUser EndGetUser(System.IAsyncResult result)
+    public Staunch.POS.Classes.DBUser EndGetUser(System.IAsyncResult result)
     {
         return base.Channel.EndGetUser(result);
     }
@@ -6668,7 +7518,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     
     private object[] OnEndGetUser(System.IAsyncResult result)
     {
-         DBUser retVal = this.EndGetUser(result);
+        Staunch.POS.Classes.DBUser retVal = this.EndGetUser(result);
         return new object[] {
                 retVal};
     }
@@ -6767,7 +7617,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
                     TakeoutGuestID}, this.onEndCancelTakeoutDelegate, this.onCancelTakeoutCompletedDelegate, userState);
     }
     
-    public  TakeoutOrder[] GetLSEOrders()
+    public Staunch.POS.Classes.TakeoutOrder[] GetLSEOrders()
     {
         return base.Channel.GetLSEOrders();
     }
@@ -6779,7 +7629,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public  TakeoutOrder[] EndGetLSEOrders(System.IAsyncResult result)
+    public Staunch.POS.Classes.TakeoutOrder[] EndGetLSEOrders(System.IAsyncResult result)
     {
         return base.Channel.EndGetLSEOrders(result);
     }
@@ -6791,7 +7641,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     
     private object[] OnEndGetLSEOrders(System.IAsyncResult result)
     {
-         TakeoutOrder[] retVal = this.EndGetLSEOrders(result);
+        Staunch.POS.Classes.TakeoutOrder[] retVal = this.EndGetLSEOrders(result);
         return new object[] {
                 retVal};
     }
@@ -6827,33 +7677,33 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
         base.InvokeAsync(this.onBeginGetLSEOrdersDelegate, null, this.onEndGetLSEOrdersDelegate, this.onGetLSEOrdersCompletedDelegate, userState);
     }
     
-    public  TakeoutOrder SubmitLSETakeout( TakeoutOrder TakeoutGuest, decimal UserID)
+    public Staunch.POS.Classes.TakeoutOrder SubmitLSETakeout(Staunch.POS.Classes.TakeoutOrder TakeoutGuest, decimal UserID)
     {
         return base.Channel.SubmitLSETakeout(TakeoutGuest, UserID);
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public System.IAsyncResult BeginSubmitLSETakeout( TakeoutOrder TakeoutGuest, decimal UserID, System.AsyncCallback callback, object asyncState)
+    public System.IAsyncResult BeginSubmitLSETakeout(Staunch.POS.Classes.TakeoutOrder TakeoutGuest, decimal UserID, System.AsyncCallback callback, object asyncState)
     {
         return base.Channel.BeginSubmitLSETakeout(TakeoutGuest, UserID, callback, asyncState);
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public  TakeoutOrder EndSubmitLSETakeout(System.IAsyncResult result)
+    public Staunch.POS.Classes.TakeoutOrder EndSubmitLSETakeout(System.IAsyncResult result)
     {
         return base.Channel.EndSubmitLSETakeout(result);
     }
     
     private System.IAsyncResult OnBeginSubmitLSETakeout(object[] inValues, System.AsyncCallback callback, object asyncState)
     {
-         TakeoutOrder TakeoutGuest = (( TakeoutOrder)(inValues[0]));
+        Staunch.POS.Classes.TakeoutOrder TakeoutGuest = ((Staunch.POS.Classes.TakeoutOrder)(inValues[0]));
         decimal UserID = ((decimal)(inValues[1]));
         return this.BeginSubmitLSETakeout(TakeoutGuest, UserID, callback, asyncState);
     }
     
     private object[] OnEndSubmitLSETakeout(System.IAsyncResult result)
     {
-         TakeoutOrder retVal = this.EndSubmitLSETakeout(result);
+        Staunch.POS.Classes.TakeoutOrder retVal = this.EndSubmitLSETakeout(result);
         return new object[] {
                 retVal};
     }
@@ -6867,12 +7717,12 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
         }
     }
     
-    public void SubmitLSETakeoutAsync( TakeoutOrder TakeoutGuest, decimal UserID)
+    public void SubmitLSETakeoutAsync(Staunch.POS.Classes.TakeoutOrder TakeoutGuest, decimal UserID)
     {
         this.SubmitLSETakeoutAsync(TakeoutGuest, UserID, null);
     }
     
-    public void SubmitLSETakeoutAsync( TakeoutOrder TakeoutGuest, decimal UserID, object userState)
+    public void SubmitLSETakeoutAsync(Staunch.POS.Classes.TakeoutOrder TakeoutGuest, decimal UserID, object userState)
     {
         if ((this.onBeginSubmitLSETakeoutDelegate == null))
         {
@@ -6891,32 +7741,32 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
                     UserID}, this.onEndSubmitLSETakeoutDelegate, this.onSubmitLSETakeoutCompletedDelegate, userState);
     }
     
-    public  Guest_DB PriceOrder( Guest_DB guest)
+    public Staunch.POS.Classes.Guest_DB PriceOrder(Staunch.POS.Classes.Guest_DB guest)
     {
         return base.Channel.PriceOrder(guest);
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public System.IAsyncResult BeginPriceOrder( Guest_DB guest, System.AsyncCallback callback, object asyncState)
+    public System.IAsyncResult BeginPriceOrder(Staunch.POS.Classes.Guest_DB guest, System.AsyncCallback callback, object asyncState)
     {
         return base.Channel.BeginPriceOrder(guest, callback, asyncState);
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public  Guest_DB EndPriceOrder(System.IAsyncResult result)
+    public Staunch.POS.Classes.Guest_DB EndPriceOrder(System.IAsyncResult result)
     {
         return base.Channel.EndPriceOrder(result);
     }
     
     private System.IAsyncResult OnBeginPriceOrder(object[] inValues, System.AsyncCallback callback, object asyncState)
     {
-         Guest_DB guest = (( Guest_DB)(inValues[0]));
+        Staunch.POS.Classes.Guest_DB guest = ((Staunch.POS.Classes.Guest_DB)(inValues[0]));
         return this.BeginPriceOrder(guest, callback, asyncState);
     }
     
     private object[] OnEndPriceOrder(System.IAsyncResult result)
     {
-         Guest_DB retVal = this.EndPriceOrder(result);
+        Staunch.POS.Classes.Guest_DB retVal = this.EndPriceOrder(result);
         return new object[] {
                 retVal};
     }
@@ -6930,12 +7780,12 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
         }
     }
     
-    public void PriceOrderAsync( Guest_DB guest)
+    public void PriceOrderAsync(Staunch.POS.Classes.Guest_DB guest)
     {
         this.PriceOrderAsync(guest, null);
     }
     
-    public void PriceOrderAsync( Guest_DB guest, object userState)
+    public void PriceOrderAsync(Staunch.POS.Classes.Guest_DB guest, object userState)
     {
         if ((this.onBeginPriceOrderDelegate == null))
         {
@@ -7266,33 +8116,33 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
                     orderIDs}, this.onEndRemoveMultipleFromPlateDelegate, this.onRemoveMultipleFromPlateCompletedDelegate, userState);
     }
     
-    public  CateringOrder SubmitCatering( CateringOrder catering, decimal UserID)
+    public Staunch.POS.Classes.CateringOrder SubmitCatering(Staunch.POS.Classes.CateringOrder catering, decimal UserID)
     {
         return base.Channel.SubmitCatering(catering, UserID);
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public System.IAsyncResult BeginSubmitCatering( CateringOrder catering, decimal UserID, System.AsyncCallback callback, object asyncState)
+    public System.IAsyncResult BeginSubmitCatering(Staunch.POS.Classes.CateringOrder catering, decimal UserID, System.AsyncCallback callback, object asyncState)
     {
         return base.Channel.BeginSubmitCatering(catering, UserID, callback, asyncState);
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public  CateringOrder EndSubmitCatering(System.IAsyncResult result)
+    public Staunch.POS.Classes.CateringOrder EndSubmitCatering(System.IAsyncResult result)
     {
         return base.Channel.EndSubmitCatering(result);
     }
     
     private System.IAsyncResult OnBeginSubmitCatering(object[] inValues, System.AsyncCallback callback, object asyncState)
     {
-         CateringOrder catering = (( CateringOrder)(inValues[0]));
+        Staunch.POS.Classes.CateringOrder catering = ((Staunch.POS.Classes.CateringOrder)(inValues[0]));
         decimal UserID = ((decimal)(inValues[1]));
         return this.BeginSubmitCatering(catering, UserID, callback, asyncState);
     }
     
     private object[] OnEndSubmitCatering(System.IAsyncResult result)
     {
-         CateringOrder retVal = this.EndSubmitCatering(result);
+        Staunch.POS.Classes.CateringOrder retVal = this.EndSubmitCatering(result);
         return new object[] {
                 retVal};
     }
@@ -7306,12 +8156,12 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
         }
     }
     
-    public void SubmitCateringAsync( CateringOrder catering, decimal UserID)
+    public void SubmitCateringAsync(Staunch.POS.Classes.CateringOrder catering, decimal UserID)
     {
         this.SubmitCateringAsync(catering, UserID, null);
     }
     
-    public void SubmitCateringAsync( CateringOrder catering, decimal UserID, object userState)
+    public void SubmitCateringAsync(Staunch.POS.Classes.CateringOrder catering, decimal UserID, object userState)
     {
         if ((this.onBeginSubmitCateringDelegate == null))
         {
@@ -7330,7 +8180,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
                     UserID}, this.onEndSubmitCateringDelegate, this.onSubmitCateringCompletedDelegate, userState);
     }
     
-    public  TakeoutOrder[] GetCateringTakeouts()
+    public Staunch.POS.Classes.TakeoutOrder[] GetCateringTakeouts()
     {
         return base.Channel.GetCateringTakeouts();
     }
@@ -7342,7 +8192,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public  TakeoutOrder[] EndGetCateringTakeouts(System.IAsyncResult result)
+    public Staunch.POS.Classes.TakeoutOrder[] EndGetCateringTakeouts(System.IAsyncResult result)
     {
         return base.Channel.EndGetCateringTakeouts(result);
     }
@@ -7354,7 +8204,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     
     private object[] OnEndGetCateringTakeouts(System.IAsyncResult result)
     {
-         TakeoutOrder[] retVal = this.EndGetCateringTakeouts(result);
+        Staunch.POS.Classes.TakeoutOrder[] retVal = this.EndGetCateringTakeouts(result);
         return new object[] {
                 retVal};
     }
@@ -7390,7 +8240,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
         base.InvokeAsync(this.onBeginGetCateringTakeoutsDelegate, null, this.onEndGetCateringTakeoutsDelegate, this.onGetCateringTakeoutsCompletedDelegate, userState);
     }
     
-    public  CateringOrder GetCateringOrder(decimal TakeoutID)
+    public Staunch.POS.Classes.CateringOrder GetCateringOrder(decimal TakeoutID)
     {
         return base.Channel.GetCateringOrder(TakeoutID);
     }
@@ -7402,7 +8252,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public  CateringOrder EndGetCateringOrder(System.IAsyncResult result)
+    public Staunch.POS.Classes.CateringOrder EndGetCateringOrder(System.IAsyncResult result)
     {
         return base.Channel.EndGetCateringOrder(result);
     }
@@ -7415,7 +8265,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     
     private object[] OnEndGetCateringOrder(System.IAsyncResult result)
     {
-         CateringOrder retVal = this.EndGetCateringOrder(result);
+        Staunch.POS.Classes.CateringOrder retVal = this.EndGetCateringOrder(result);
         return new object[] {
                 retVal};
     }
@@ -7452,7 +8302,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
                     TakeoutID}, this.onEndGetCateringOrderDelegate, this.onGetCateringOrderCompletedDelegate, userState);
     }
     
-    public  CateringOrder[] GetAllCateringOrdersInfo()
+    public Staunch.POS.Classes.CateringOrder[] GetAllCateringOrdersInfo()
     {
         return base.Channel.GetAllCateringOrdersInfo();
     }
@@ -7464,7 +8314,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public  CateringOrder[] EndGetAllCateringOrdersInfo(System.IAsyncResult result)
+    public Staunch.POS.Classes.CateringOrder[] EndGetAllCateringOrdersInfo(System.IAsyncResult result)
     {
         return base.Channel.EndGetAllCateringOrdersInfo(result);
     }
@@ -7476,7 +8326,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     
     private object[] OnEndGetAllCateringOrdersInfo(System.IAsyncResult result)
     {
-         CateringOrder[] retVal = this.EndGetAllCateringOrdersInfo(result);
+        Staunch.POS.Classes.CateringOrder[] retVal = this.EndGetAllCateringOrdersInfo(result);
         return new object[] {
                 retVal};
     }
@@ -7512,13 +8362,13 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
         base.InvokeAsync(this.onBeginGetAllCateringOrdersInfoDelegate, null, this.onEndGetAllCateringOrdersInfoDelegate, this.onGetAllCateringOrdersInfoCompletedDelegate, userState);
     }
     
-    public void SendCateringTakeout( TakeoutOrder TakeoutGuest, decimal UserID)
+    public void SendCateringTakeout(Staunch.POS.Classes.TakeoutOrder TakeoutGuest, decimal UserID)
     {
         base.Channel.SendCateringTakeout(TakeoutGuest, UserID);
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public System.IAsyncResult BeginSendCateringTakeout( TakeoutOrder TakeoutGuest, decimal UserID, System.AsyncCallback callback, object asyncState)
+    public System.IAsyncResult BeginSendCateringTakeout(Staunch.POS.Classes.TakeoutOrder TakeoutGuest, decimal UserID, System.AsyncCallback callback, object asyncState)
     {
         return base.Channel.BeginSendCateringTakeout(TakeoutGuest, UserID, callback, asyncState);
     }
@@ -7531,7 +8381,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     
     private System.IAsyncResult OnBeginSendCateringTakeout(object[] inValues, System.AsyncCallback callback, object asyncState)
     {
-         TakeoutOrder TakeoutGuest = (( TakeoutOrder)(inValues[0]));
+        Staunch.POS.Classes.TakeoutOrder TakeoutGuest = ((Staunch.POS.Classes.TakeoutOrder)(inValues[0]));
         decimal UserID = ((decimal)(inValues[1]));
         return this.BeginSendCateringTakeout(TakeoutGuest, UserID, callback, asyncState);
     }
@@ -7551,12 +8401,12 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
         }
     }
     
-    public void SendCateringTakeoutAsync( TakeoutOrder TakeoutGuest, decimal UserID)
+    public void SendCateringTakeoutAsync(Staunch.POS.Classes.TakeoutOrder TakeoutGuest, decimal UserID)
     {
         this.SendCateringTakeoutAsync(TakeoutGuest, UserID, null);
     }
     
-    public void SendCateringTakeoutAsync( TakeoutOrder TakeoutGuest, decimal UserID, object userState)
+    public void SendCateringTakeoutAsync(Staunch.POS.Classes.TakeoutOrder TakeoutGuest, decimal UserID, object userState)
     {
         if ((this.onBeginSendCateringTakeoutDelegate == null))
         {
@@ -7575,7 +8425,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
                     UserID}, this.onEndSendCateringTakeoutDelegate, this.onSendCateringTakeoutCompletedDelegate, userState);
     }
     
-    public  DBTable[] GetTableSummary()
+    public Staunch.POS.Classes.DBTable[] GetTableSummary()
     {
         return base.Channel.GetTableSummary();
     }
@@ -7587,7 +8437,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public  DBTable[] EndGetTableSummary(System.IAsyncResult result)
+    public Staunch.POS.Classes.DBTable[] EndGetTableSummary(System.IAsyncResult result)
     {
         return base.Channel.EndGetTableSummary(result);
     }
@@ -7599,7 +8449,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     
     private object[] OnEndGetTableSummary(System.IAsyncResult result)
     {
-         DBTable[] retVal = this.EndGetTableSummary(result);
+        Staunch.POS.Classes.DBTable[] retVal = this.EndGetTableSummary(result);
         return new object[] {
                 retVal};
     }
@@ -7635,13 +8485,13 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
         base.InvokeAsync(this.onBeginGetTableSummaryDelegate, null, this.onEndGetTableSummaryDelegate, this.onGetTableSummaryCompletedDelegate, userState);
     }
     
-    public void PrintCateringOrder( CateringOrder catering, decimal UserID)
+    public void PrintCateringOrder(Staunch.POS.Classes.CateringOrder catering, decimal UserID)
     {
         base.Channel.PrintCateringOrder(catering, UserID);
     }
     
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    public System.IAsyncResult BeginPrintCateringOrder( CateringOrder catering, decimal UserID, System.AsyncCallback callback, object asyncState)
+    public System.IAsyncResult BeginPrintCateringOrder(Staunch.POS.Classes.CateringOrder catering, decimal UserID, System.AsyncCallback callback, object asyncState)
     {
         return base.Channel.BeginPrintCateringOrder(catering, UserID, callback, asyncState);
     }
@@ -7654,7 +8504,7 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
     
     private System.IAsyncResult OnBeginPrintCateringOrder(object[] inValues, System.AsyncCallback callback, object asyncState)
     {
-         CateringOrder catering = (( CateringOrder)(inValues[0]));
+        Staunch.POS.Classes.CateringOrder catering = ((Staunch.POS.Classes.CateringOrder)(inValues[0]));
         decimal UserID = ((decimal)(inValues[1]));
         return this.BeginPrintCateringOrder(catering, UserID, callback, asyncState);
     }
@@ -7674,12 +8524,12 @@ public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosServi
         }
     }
     
-    public void PrintCateringOrderAsync( CateringOrder catering, decimal UserID)
+    public void PrintCateringOrderAsync(Staunch.POS.Classes.CateringOrder catering, decimal UserID)
     {
         this.PrintCateringOrderAsync(catering, UserID, null);
     }
     
-    public void PrintCateringOrderAsync( CateringOrder catering, decimal UserID, object userState)
+    public void PrintCateringOrderAsync(Staunch.POS.Classes.CateringOrder catering, decimal UserID, object userState)
     {
         if ((this.onBeginPrintCateringOrderDelegate == null))
         {

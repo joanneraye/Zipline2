@@ -10,12 +10,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="BusinessLogic\WcfServicesProxy\DataClasses\**" />
-    <Compile Remove="BusinessLogic\WcfServicesProxy\WcfClasses\**" />
-    <EmbeddedResource Remove="BusinessLogic\WcfServicesProxy\DataClasses\**" />
-    <EmbeddedResource Remove="BusinessLogic\WcfServicesProxy\WcfClasses\**" />
-    <None Remove="BusinessLogic\WcfServicesProxy\DataClasses\**" />
-    <None Remove="BusinessLogic\WcfServicesProxy\WcfClasses\**" />
+    <Compile Remove="BusinessLogic\WcfRemote\DataClasses\**" />
+    <Compile Remove="BusinessLogic\WcfRemote\WcfClasses\**" />
+    <EmbeddedResource Remove="BusinessLogic\WcfRemote\DataClasses\**" />
+    <EmbeddedResource Remove="BusinessLogic\WcfRemote\WcfClasses\**" />
+    <None Remove="BusinessLogic\WcfRemote\DataClasses\**" />
+    <None Remove="BusinessLogic\WcfRemote\WcfClasses\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -159,5 +159,11 @@
 
   <ItemGroup>
     <WCFMetadata Include="Connected Services" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Portable-POS Classes">
+      <HintPath>..\..\..\..\LIBRARIES\DLLS NO SOURCE CODE\Portable-POS Classes.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

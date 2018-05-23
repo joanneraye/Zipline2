@@ -81,7 +81,7 @@ namespace Zipline2.BusinessLogic
              { DrinkType.ClineZinfandel, "Cline Zinfandel" },
              { DrinkType.GreenTruckPetitiSyrah, "Green Truck Petiti Syrah" },
              { DrinkType.ClayhouseRedBlend, "Clayhouse Red Blend" },
-             { DrinkType.ElsaBianchiMalbec, "Elsa Bianchi Malbec" },
+             { DrinkType.YauquenMalbec, "Elsa Bianchi Malbec" },
              { DrinkType.BodegasLaya, "Bodegas Laya" }
         };
 

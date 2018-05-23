@@ -1,4 +1,6 @@
-﻿namespace Zipline2.Models
+﻿using System;
+
+namespace Zipline2.Models
 {
     public class LunchSpecial : OrderItem
     {
@@ -21,6 +23,16 @@
         public override void PopulatePricePerItem()
         {
             //BasePrice = Prices.
+        }
+
+        public override Tuple<string, decimal> GetMenuDbItemKeys()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool CompleteOrderItem()
+        {
+            throw new NotImplementedException();
         }
     }
 }

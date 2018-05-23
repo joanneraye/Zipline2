@@ -81,7 +81,7 @@ namespace Zipline2.BusinessLogic
              { DrinkType.ClineZinfandel,  18.00M },
              { DrinkType.GreenTruckPetitiSyrah,  18.00M },
              { DrinkType.ClayhouseRedBlend,  18.00M },
-             { DrinkType.ElsaBianchiMalbec,  18.00M },
+             { DrinkType.YauquenMalbec,  18.00M },
              { DrinkType.BodegasLaya,  18.00M },       
              { DrinkType.RegularCoffee,  3.00M },
              { DrinkType.DecafCoffee,  3.00M },

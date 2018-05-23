@@ -160,8 +160,8 @@ namespace Zipline2.PageModels
         {
             OrderManager.Instance.SendOrder();
 
-            //Should this be done from OrderPage.xaml.cs?
-            //TODO:  EXCEPTION HERE.....
+            //Should any of this be done from OrderPage.xaml.cs?
+          
             var currentMainPage = (Application.Current.MainPage as MasterDetailPage);
             currentMainPage.Detail = new NavigationPage(new TablesPage());
             Application.Current.MainPage = currentMainPage;

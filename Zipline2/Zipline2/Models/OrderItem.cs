@@ -1,5 +1,7 @@
 ﻿using SQLite;
+using Staunch.POS.Classes;
 using System;
+using System.Collections.Generic;
 using Xamarin.Forms;
 using Zipline2.PageModels;
 
@@ -22,6 +24,8 @@ namespace Zipline2.Models
 
         [MaxLength(100), Column("itemname")]
         public string ItemName { get; set; }
+
+        public bool OrderItemSent { get; set; }
 
         /// <summary>
         /// The item count is not the number of the general item (such
@@ -106,6 +110,11 @@ namespace Zipline2.Models
         }
 
         /// <summary>
+        /// A derived class must be able to complete a partially populated class object.
+        /// </summary>
+        public abstract bool CompleteOrderItem();
+
+        /// <summary>
         /// A derived class must populate its display name.
         /// </summary>
         public abstract void PopulateDisplayName();
@@ -121,6 +130,38 @@ namespace Zipline2.Models
             // MenuHeaderModel should subscribe and update ItemTotal.
             MessagingCenter.Send<OrderItem, decimal>(this, "ItemPriceUpdated", newValue);
         }
-            #endregion
+
+        public abstract Tuple<string, decimal> GetMenuDbItemKeys();
+
+        public virtual GuestItem CreateGuestItem(DBItem dbItem)
+        {
+            
+            var guestItem = new GuestItem()
+            {
+                Availability = dbItem.Availability,
+                CanBeHalf = dbItem.CanBeHalf,
+                Description = dbItem.Description,
+                HasAllMods = dbItem.HasAllMods,
+                HasRequiredMods = dbItem.HasRequiredMods,
+                OrderID = -1,
+                ID = dbItem.ID,
+                LongName = dbItem.LongName,
+                NonTaxable = dbItem.NonTaxable,
+                ShortName = dbItem.ShortName,
+                SelectCommand = dbItem.SelectCommand,
+                SizeTable = dbItem.SizeTable,
+                Stackable = dbItem.Stackable,
+                SubCategoryID = dbItem.SubCategoryID,
+                SubCategoryName = dbItem.SubCategoryName,
+                SuperCategory = dbItem.SuperCategory,
+                SuperCategoryID = dbItem.SuperCategoryID,
+                TieredPricing = dbItem.TieredPricing,
+                OrderSent = false,
+                Mods = new List<GuestModifier>(),
+                Note = new List<string>()
+            };
+            return guestItem;
+        }
+        #endregion
     }
 }

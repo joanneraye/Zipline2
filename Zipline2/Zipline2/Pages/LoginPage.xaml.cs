@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Staunch.POS.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +8,8 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Zipline2.BusinessLogic;
+using Zipline2.BusinessLogic.WcfRemote;
+using Zipline2.Connected_Services;
 using Zipline2.Models;
 using Zipline2.PageModels;
 
@@ -61,7 +64,7 @@ namespace Zipline2.Pages
         async void OnLoginButtonClicked(object sender, EventArgs e)
         {
             LoginButton.IsEnabled = false;
-            if (IsValidUser(PinEnteredByUser.Text)) 
+            if (await IsValidUser(PinEnteredByUser.Text)) 
             {
                 Users.IsUserLoggedIn = true;
                 await Navigation.PopModalAsync();
@@ -73,18 +76,32 @@ namespace Zipline2.Pages
             LoginButton.IsEnabled = true;
         }
 
-        private bool IsValidUser(string pin)
+        async private Task<bool> IsValidUser(string pin)
         {
-            if (Users.AuthenticateUser(pin))
+            DBUser user = await WcfServicesProxy.Instance.GetUserAsync(pin);
+            if (user.ID != -1)
             {
-               return true;
+                Users.Instance.LoggedInUser = new Zipline2.Models.User(user.Name, false, user.Pin);
+                return true;
             }
             return false;
+            
+            
+
+            //DO NOT DELETE - MAY BE USED IN FUTURE.
+            //FOR NOW THOUGH, USE EXISTING USERIDS....
+            //if (Users.AuthenticateUser(pin))
+            //{
+            //   return true;
+            //}
+            //return false;
+
+
         }
 
         async void OnChangePinButtonClicked(object sender, EventArgs e)
         {
-            if (IsValidUser(PinEnteredByUser.Text))
+            if (await IsValidUser(PinEnteredByUser.Text))
             {
                 Users.IsUserLoggedIn = true;
                 var isYes = await DisplayAlert("Hi!", "Are you " +

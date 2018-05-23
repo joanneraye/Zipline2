@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using SQLite;
+using Staunch.POS.Classes;
 using Xamarin.Forms;
 using Zipline2.BusinessLogic;
 using Zipline2.BusinessLogic.Enums;
@@ -18,24 +19,31 @@ namespace Zipline2.Models
         public PizzaCrust Crust { get; set; }
         public PizzaSize Size { get; set; }
         public PizzaBase Base { get; set; }
+
         #endregion
 
         #region Constructor
-        public Pizza(CustomerSelection guiData)
+        public Pizza()
         {
-            PizzaSelection pizzaGuiData = guiData as PizzaSelection;
-            MajorMamaInfo = pizzaGuiData.MajorOrMama;
-            Crust = pizzaGuiData.PizzaCrustType;
-            Size = pizzaGuiData.PizzaSize;
-            PizzaType = pizzaGuiData.PizzaType;
             Toppings = new Toppings(PizzaType);
-            PopulateBasePrice();
-            MessagingCenter.Subscribe<Toppings>(this, "ToppingsTotalUpdated",
-              (sender) => { this.PopulatePricePerItem(); });
         }
         #endregion
 
         #region Methods
+
+        public override bool CompleteOrderItem()
+        {
+            //TODO:  Are these already done?
+            //MajorMamaInfo = pizzaGuiData.MajorOrMama;
+            //Crust = pizzaGuiData.PizzaCrustType;
+            //Size = pizzaGuiData.PizzaSize;
+            //PizzaType = pizzaGuiData.PizzaType;
+           
+            PopulateBasePrice();
+            MessagingCenter.Subscribe<Toppings>(this, "ToppingsTotalUpdated",
+              (sender) => { this.PopulatePricePerItem(); });
+            return true;
+        }
         private void PopulateBasePrice()
         {
             BasePrice = Prices.GetPizzaBasePrice(PizzaType);
@@ -142,8 +150,35 @@ namespace Zipline2.Models
             }
             return PizzaType.None;
         }
-      
+
+        public override Tuple<string, decimal> GetMenuDbItemKeys()
+        {
+            return Tuple.Create<string, decimal>("Pizza", 57);
+        }
+
+        public override GuestItem CreateGuestItem(DBItem dbItem)
+        {
+            GuestItem guestItem = base.CreateGuestItem(dbItem);
+            switch (PizzaType)
+            {
+                //TODO: GuestComboItems
+                case PizzaType.Medium:
+                    guestItem.SelectSizeID = 11;
+                    break;
+                case PizzaType.Large:
+                    guestItem.SelectSizeID = 12;
+                    break;
+                case PizzaType.ThinSlice:
+                    guestItem.SelectSizeID = 9;
+                    break;
+                case PizzaType.Indy:
+                    guestItem.SelectSizeID = 10;
+                    break;
+            }
+            return guestItem;
+        }
+
         #endregion
-        
+
     }
 }

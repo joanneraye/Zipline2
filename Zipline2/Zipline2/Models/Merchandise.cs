@@ -11,6 +11,16 @@ namespace Zipline2.Models
 
         }
 
+        public override bool CompleteOrderItem()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Tuple<string, decimal> GetMenuDbItemKeys()
+        {
+            throw new NotImplementedException();
+        }
+
         public override void PopulateDisplayName()
         {
             throw new NotImplementedException();

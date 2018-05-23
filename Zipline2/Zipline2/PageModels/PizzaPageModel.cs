@@ -258,16 +258,18 @@ namespace Zipline2.PageModels
         {
             var pizzaSize = GetPizzaSizeSelected();
             var pizzaType = Pizza.GetPizzaType(pizzaSize, PizzaCrust.RegularThin);
-            //Send info to OrderManager
-            var guiData = new PizzaSelection(pizzaType)
+
+            var pizza = new Pizza()
             {
-                MenuItemGeneralCategory = MenuCategory.Pizza,
-                PizzaSize = pizzaSize,
-                PizzaCrustType = PizzaCrust.RegularThin,
+                MajorMamaInfo = MajorOrMama.Neither,
+                PizzaType = pizzaType,
+                Crust = PizzaCrust.RegularThin,
+                Base = PizzaBase.Regular,
+                Size = pizzaSize,
                 ItemCount = 1
             };
-
-            OrderManager.Instance.AddItemInProgress(guiData);
+           
+            OrderManager.Instance.AddItemInProgress(pizza);
             DisplayToppingsPage();
         }
 
@@ -303,74 +305,71 @@ namespace Zipline2.PageModels
         private void OnAddMajor()
         {
             var pizzaType = GetMajorSizeSelected();
-            var guiData = new PizzaSelection(pizzaType)
+            Pizza newPizza = new Pizza()
             {
-                MenuItemGeneralCategory = MenuCategory.Pizza,
-                MajorOrMama = MajorOrMama.Major,
+                MajorMamaInfo = MajorOrMama.Major,
                 ItemCount = 1
             };
-
+            
             switch (pizzaType)
             {
                 case PizzaType.Indy:
-                    guiData.PizzaSize = PizzaSize.Indy;
-                    guiData.PizzaCrustType = PizzaCrust.RegularThin;
+                    newPizza.Size = PizzaSize.Indy;
+                    newPizza.Crust = PizzaCrust.RegularThin;
                     break;
                 case PizzaType.Large:
-                    guiData.PizzaSize = PizzaSize.Large;
-                    guiData.PizzaCrustType = PizzaCrust.RegularThin;
+                    newPizza.Size = PizzaSize.Large;
+                    newPizza.Crust = PizzaCrust.RegularThin;
                     break;
                 case PizzaType.Medium:
-                    guiData.PizzaSize = PizzaSize.Medium;
-                    guiData.PizzaCrustType = PizzaCrust.RegularThin;
+                    newPizza.Size = PizzaSize.Medium;
+                    newPizza.Crust = PizzaCrust.RegularThin;
                     break;
                 case PizzaType.Mfp:
-                    guiData.PizzaSize = PizzaSize.OneSize;
-                    guiData.PizzaCrustType = PizzaCrust.Mfp;
+                    newPizza.Size = PizzaSize.OneSize;
+                    newPizza.Crust = PizzaCrust.Mfp;
                     break;
                 case PizzaType.SatchPan:
-                    guiData.PizzaSize = PizzaSize.OneSize;
-                    guiData.PizzaCrustType = PizzaCrust.SatchPan;
+                    newPizza.Size = PizzaSize.OneSize;
+                    newPizza.Crust = PizzaCrust.SatchPan;
                     break;
                 case PizzaType.ThinSlice:
-                    guiData.PizzaSize = PizzaSize.Slice;
-                    guiData.PizzaCrustType = PizzaCrust.RegularThin;
+                    newPizza.Size = PizzaSize.Slice;
+                    newPizza.Crust = PizzaCrust.RegularThin;
                     break;
             }
 
-            OrderManager.Instance.AddItemInProgress(guiData);
+            OrderManager.Instance.AddItemInProgress(newPizza);
 
             DisplayToppingsPage();
         }
 
         private void OnAddMfp()
         {
-            var pizzaType = PizzaType.Mfp;
-            //Send info to OrderManager
-            var guiData = new PizzaSelection(pizzaType)
+            Pizza newPizza = new Pizza()
             {
-                MenuItemGeneralCategory = MenuCategory.Pizza,
-                PizzaSize = PizzaSize.OneSize,
+                MajorMamaInfo = MajorOrMama.Neither,
+                Size = PizzaSize.OneSize,
+                PizzaType = PizzaType.Mfp,
                 ItemCount = 1
             };
-
-            OrderManager.Instance.AddItemInProgress(guiData);
+          
+            OrderManager.Instance.AddItemInProgress(newPizza);
 
             DisplayToppingsPage();
         }
 
         private void OnAddSatchPan()
         {
-            var pizzaType = PizzaType.SatchPan;
-            //Send info to OrderManager
-            var guiData = new PizzaSelection(pizzaType)
+            Pizza newPizza = new Pizza()
             {
-                MenuItemGeneralCategory = MenuCategory.Pizza,
-                PizzaSize = PizzaSize.OneSize,
+                MajorMamaInfo = MajorOrMama.Neither,
+                Size = PizzaSize.OneSize,
+                PizzaType = PizzaType.SatchPan,
                 ItemCount = 1
             };
 
-            OrderManager.Instance.AddItemInProgress(guiData);
+            OrderManager.Instance.AddItemInProgress(newPizza);
           
             DisplayToppingsPage();
         }
@@ -404,12 +403,6 @@ namespace Zipline2.PageModels
 
             OnNavigateToToppingsPage(currentPizza);
         }
-
-        //private void OnAddPizzaToOrder()
-        //{
-        //    OrderManager.Instance.AddItemInProgressToOrder();
-        //    NavigateToPizzaPage?.Invoke(this, EventArgs.Empty);
-        //}
 
         void OnNavigateToToppingsPage(Pizza currentPizza)
         {

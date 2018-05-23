@@ -9,6 +9,7 @@ using Zipline2.Pages;
 using Zipline2.BusinessLogic;
 using Zipline2.Connected_Services;
 using System.Threading.Tasks;
+using Zipline2.BusinessLogic.WcfRemote;
 
 namespace Zipline2
 {
@@ -28,7 +29,7 @@ namespace Zipline2
             Tables.LoadInitialTableData();
             Toppings.LoadInitialToppings();
 
-            LoadMenu();
+            LoadMenuFromServer();
 
             //TODO:  When and how to close services?
 
@@ -40,11 +41,12 @@ namespace Zipline2
             //}
         }
 
-        async private void LoadMenu()
+        async private void LoadMenuFromServer()
         {
             await WcfServicesProxy.Instance.GetMenuAsync();
         }
 
+        
         public void LoadMenuPizzaPage()
         {
             var currentMainPage = (Current.MainPage as MasterDetailPage);

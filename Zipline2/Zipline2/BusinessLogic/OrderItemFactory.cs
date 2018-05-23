@@ -4,6 +4,7 @@ using System.Text;
 using Zipline2.Models;
 using Zipline2.BusinessLogic.Enums;
 using Zipline2.Pages;
+using Staunch.POS.Classes;
 
 namespace Zipline2.BusinessLogic
 {
@@ -17,35 +18,73 @@ namespace Zipline2.BusinessLogic
 
         }
 
-        public static OrderItem GetOrderItem(CustomerSelection guiData)
+        public static OrderItem GetOrderItem(OrderItem partialOrderItem)
         {
-            switch (guiData.MenuItemGeneralCategory)
+            if (partialOrderItem is Pizza)
             {
-                case Enums.MenuCategory.Pizza:
-                case Enums.MenuCategory.Calzone:
-                    return CreatePizza(guiData);
-                //case Enums.MenuCategory.Drink:
-                //    return CreateDrink(guiData);
-                case Enums.MenuCategory.Dessert:
-                    return CreateDessert(guiData);
-                case Enums.MenuCategory.LunchSpecial:
-                    return CreateLunchSpecial(guiData);
-                case Enums.MenuCategory.Merchandise:
-                    return CreateMerchandise(guiData);
-                default:
-                    return null;
+                return CreatePizza(partialOrderItem);
             }
+            else if (partialOrderItem is Drink)
+            {
+                return CreateDrink(partialOrderItem);
+            }
+            return null;
+            //switch (guiData.MenuItemGeneralCategory)
+            //{
+            //    case Enums.MenuCategory.Pizza:
+            //    case Enums.MenuCategory.Calzone:
+            //        return CreatePizza(guiData);
+            //    //case Enums.MenuCategory.Drink:
+            //    //    return CreateDrink(guiData);
+            //    case Enums.MenuCategory.Dessert:
+            //        return CreateDessert(guiData);
+            //    case Enums.MenuCategory.LunchSpecial:
+            //        return CreateLunchSpecial(guiData);
+            //    case Enums.MenuCategory.Merchandise:
+            //        return CreateMerchandise(guiData);
+            //    default:
+            //        return null;
+            //}
         }
 
-        private static OrderItem CreatePizza(CustomerSelection guiData)
+        public static OrderItem GetOrderItem(GuestItem oldGuestItem)
         {
-            return new Pizza(guiData);
-            
+            switch (oldGuestItem.SuperCategoryID)
+            {
+                case 1:
+                    //Create Pizza or Major Pizza
+                    return new Pizza();
+                //case 2:
+                //    break;
+                //case 3:
+                //    //Create Salad
+                //    break;
+                case 4:
+                    return new Drink();
+                //case 5:
+                //    //Create Dessert
+                //    break;
+                //TODO:  Others????
+            }
+            return new Drink();
         }
-        //private static OrderItem CreateDrink(CustomerSelection guiData)
-        //{
-        //    return new Drink(guiData);
-        //}
+
+
+        private static OrderItem CreatePizza(OrderItem partialDataItem)
+        {
+            var newPizza = partialDataItem as Pizza;
+            newPizza.CompleteOrderItem();
+            return newPizza;
+        }
+        private static OrderItem CreateDrink(OrderItem partialDataItem)
+        {
+            var newDrink = partialDataItem as Drink;
+            if (newDrink.CompleteOrderItem())
+            {
+                return newDrink;
+            }
+            return null;
+        }
         private static OrderItem CreateDessert(CustomerSelection guiData)
         {
             return new Dessert(guiData);

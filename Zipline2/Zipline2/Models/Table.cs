@@ -18,7 +18,7 @@ namespace Zipline2.Models
 
         #region Properties
         [PrimaryKey, Column("tableid")]
-        public int TableId { get; set; }
+        public decimal TableId { get; set; }
 
         [Column("tablename")]
         public string TableName { get; set; }
@@ -34,13 +34,15 @@ namespace Zipline2.Models
 
         [Column("hasunsentorder")]
         public bool HasUnsentOrder { get; set; }
-       
+
+        public List<Order> OpenOrders { get; set; }
+
         #endregion
 
         #region constructor
         public Table()
         {
-           
+            OpenOrders = new List<Order>();
         }
         #endregion
     }

@@ -28,5 +28,15 @@ namespace Zipline2.Models
         {
             throw new NotImplementedException();
         }
+
+        public override Tuple<string, decimal> GetMenuDbItemKeys()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool CompleteOrderItem()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -19,13 +19,12 @@ namespace Zipline2.Models
         public int OrderNumberId { get; set; }
 
         public List<OrderItem> OrderItems { get; private set; }
-
         
-        public decimal SubTotal { get; private set; }
+        public decimal SubTotal { get; set; }
        
-        public decimal Tax { get; private set; }
+        public decimal Tax { get; set; }
        
-        public decimal Total { get; private set; }
+        public decimal Total { get; set; }
 
      
         public bool IsTakeout { get; set; }
@@ -33,7 +32,7 @@ namespace Zipline2.Models
         public bool WasSentToKitchen { get; set; }
 
        
-        public int TableId { get; set; }
+        public decimal TableId { get; set; }
 
         public Order()
         {

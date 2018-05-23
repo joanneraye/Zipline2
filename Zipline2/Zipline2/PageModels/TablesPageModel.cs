@@ -8,6 +8,8 @@ using Zipline2.BusinessLogic;
 using Zipline2.Pages;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using Zipline2.BusinessLogic.WcfRemote;
 
 namespace Zipline2.PageModels
 {
@@ -59,26 +61,21 @@ namespace Zipline2.PageModels
                 OutsideTableCommand = new Xamarin.Forms.Command(OnOutsideButtonClicked);
             }
 
+            
             private void OnInsideButtonClicked()
             {
                 TableSelection thisRow = parentTablesPageModel.DisplayTables[SelectionIndex];
                 Table tableSelected = thisRow.InsideTable;
-                tableSelected.IsOccupied = true;
                 InsideTableColor = Color.Orange;
-                //Change what the app's current table is.
-                OrderManager.Instance.UpdateCurrentTable(tableSelected);
-             
-                parentTablesPageModel.DisplayDrinksPage();
+                parentTablesPageModel.ProcessSelectedTable(tableSelected);
+               
             }
             private void OnOutsideButtonClicked()
             {
                 TableSelection thisRow = parentTablesPageModel.DisplayTables[SelectionIndex];
                 Table tableSelected = thisRow.OutsideTable;
-                tableSelected.IsOccupied = true;
                 OutsideTableColor = Color.Orange;
-                //Change what the app's current table is.
-                OrderManager.Instance.UpdateCurrentTable(tableSelected);
-                parentTablesPageModel.DisplayDrinksPage();
+                parentTablesPageModel.ProcessSelectedTable(tableSelected);
             }
         }
         //******************************NOTE IMBEDDED CLASS above ************************
@@ -89,6 +86,7 @@ namespace Zipline2.PageModels
 
         #region Properties     
         public event EventHandler NavigateToDrinksPage;
+        public event EventHandler NavigateToOrderPage;
         public string UserName
         {
             get
@@ -125,6 +123,49 @@ namespace Zipline2.PageModels
 
         #region Methods
 
+        async public Task<bool> TableHasOpenChecks(decimal tableId)
+        {
+            return await WcfServicesProxy.Instance.HasOpenChecksAsync(tableId);
+        }
+        
+        async private void ProcessSelectedTable(Table tableSelected)
+        {
+            tableSelected.IsOccupied = true;
+
+            //Change what the app's current table is.
+            OrderManager.Instance.UpdateCurrentTable(tableSelected);
+
+            
+
+            //See if OpenOrders for this table on this phone...
+            var ordersForThisTable = Tables.AllTables[tableSelected.IndexInAllTables].OpenOrders;
+            if (ordersForThisTable.Count > 0)
+            {
+                OrderManager.Instance.OrderInProgress = ordersForThisTable[0];
+                DisplayOrderPage();
+            }
+            else if (await TableHasOpenChecks(tableSelected.TableId))
+            //Are there checks on server for that table (not on phone)?  If, so
+            //load that order and bring up summary.
+            {
+                var checks = await WcfServicesProxy.Instance.GetOpenChecksAsync(tableSelected.TableId);
+                foreach (var check in checks)
+                {
+                    var openOrder = ConvertObjects.ConvertDbCheckToOrder(check, tableSelected.TableId);
+                    Tables.AllTables[tableSelected.IndexInAllTables].OpenOrders.Add(openOrder);
+                }
+              
+                OrderManager.Instance.OrderInProgress = ordersForThisTable[0];
+                DisplayOrderPage();
+            }
+            else
+            //if no open orders out there for this table, start a new order.
+            {
+                OrderManager.Instance.InitializeOrderInProgress();
+                DisplayDrinksPage();
+            }         
+        }
+
         private void PopulateRowWithInsideTable(ref TableSelection thisRow, int indexInAllTables)
         {
             thisRow.InsideTableName = Tables.AllTables[indexInAllTables].TableName;
@@ -138,6 +179,7 @@ namespace Zipline2.PageModels
                 thisRow.InsideTableColor = Color.Blue;
             }
         }
+
 
         private void PopulateRowWithOutsideTable(ref TableSelection thisRow, int indexInAllTables)
         {
@@ -199,8 +241,15 @@ namespace Zipline2.PageModels
         {
             OnNavigateToDrinksPage();
         }
+
+        void DisplayOrderPage()
+        {
+            OnNavigateToOrderPage();
+        }
        
         void OnNavigateToDrinksPage() => NavigateToDrinksPage?.Invoke(this, EventArgs.Empty);
+
+        void OnNavigateToOrderPage() => NavigateToOrderPage?.Invoke(this, EventArgs.Empty);
 
         #endregion
     }

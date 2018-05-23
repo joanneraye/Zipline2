@@ -66,11 +66,19 @@ namespace Zipline2.Pages
         {
             base.OnAppearing();
             TablesPageModel.NavigateToDrinksPage += HandleNavigateToDrinksPage;
+            TablesPageModel.NavigateToOrderPage += HandleNavigateToOrderPage;
         }
         void HandleNavigateToDrinksPage(object sender, EventArgs e)
         {
             var currentMainPage = (Application.Current.MainPage as MasterDetailPage);
             currentMainPage.Detail = new NavigationPage(new DrinksPage());
+            Application.Current.MainPage = currentMainPage;
+        }
+
+        void HandleNavigateToOrderPage(object sender, EventArgs e)
+        {
+            var currentMainPage = (Application.Current.MainPage as MasterDetailPage);
+            currentMainPage.Detail = new NavigationPage(new OrderPage());
             Application.Current.MainPage = currentMainPage;
         }
         //void HandleNavigateToPizzaPage(object sender, EventArgs e)
@@ -85,6 +93,7 @@ namespace Zipline2.Pages
         {
             base.OnDisappearing();
             TablesPageModel.NavigateToDrinksPage -= HandleNavigateToDrinksPage;
+            TablesPageModel.NavigateToOrderPage -= HandleNavigateToOrderPage;
         }
         #endregion
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Zipline2.BusinessLogic.Enums;
+using Zipline2.BusinessLogic.WcfRemote;
 using Zipline2.Models;
 using Zipline2.PageModels;
 using Zipline2.Pages;
@@ -17,7 +18,7 @@ namespace Zipline2.BusinessLogic
         private static readonly object padlock = new object();
         private OrderManager()
         {
-            OrderInProgress = new Order();
+            InitializeOrderInProgress();
         }
         public static OrderManager Instance
         {
@@ -43,7 +44,6 @@ namespace Zipline2.BusinessLogic
         /// Stores the index of the Table in the list of all tables
         /// for this order.
         /// </summary>
-        
         public int CurrentTableIndex { get; set; }
         public string CurrentTableName { get; set; }
         #endregion
@@ -54,6 +54,10 @@ namespace Zipline2.BusinessLogic
         /// <returns></returns>
         public Table GetCurrentTable()
         {
+            if (CurrentTableIndex < 0)
+            {
+                return new Table();
+            }
             return Tables.AllTables[CurrentTableIndex];
         }
 
@@ -68,9 +72,15 @@ namespace Zipline2.BusinessLogic
             CurrentTableName = updatedTable.TableName;
         }
 
+
         public void MarkCurrentTableOccupied(bool isTableOccupied)
         {
             Tables.AllTables[CurrentTableIndex].IsOccupied = isTableOccupied;
+        }
+
+        public void MarkCurrentTableUnsentOrder(bool hasUnsentOrder)
+        {
+            Tables.AllTables[CurrentTableIndex].HasUnsentOrder = hasUnsentOrder;
         }
 
         public void RemoveOrderItem(OrderItem itemToRemove)
@@ -91,9 +101,9 @@ namespace Zipline2.BusinessLogic
         /// OrderInProgress.
         /// </summary>
         /// <param name="guiData"></param>
-        public void AddItemInProgress(CustomerSelection guiData)
+        public void AddItemInProgress(OrderItem partialOrderItem)
         {
-            OrderItemInProgress = OrderItemFactory.GetOrderItem(guiData);
+            OrderItemInProgress = OrderItemFactory.GetOrderItem(partialOrderItem);
             if (OrderItemInProgress == null)
             {
                 throw new Exception("OrderManager null order item in progress");
@@ -102,48 +112,37 @@ namespace Zipline2.BusinessLogic
             //Derrived classed are responsible for populating the
             //name of the item and handle pricing for the item,
             //after which the order item total should be updated.
+            
+            //TODO:  Are these necessary - already done when object created???
             OrderItemInProgress.PopulateDisplayName();
             OrderItemInProgress.PopulatePricePerItem();
             OrderItemInProgress.UpdateItemTotal();
         }
 
-        public void AddOrUpdateDrink(Drink drinkToUpdate)
-        {
-            bool isDrinkAlreadyOnOrder = false;
-            foreach (var item in OrderInProgress.OrderItems)
-            {
-                if (item is Drink)
-                {
-                    Drink drinkAlreadyOnOrder = (Drink)item;
-
-                    //If this drinktype and size is already on the order, just update count.
-                    if (drinkAlreadyOnOrder.DrinkType == drinkToUpdate.DrinkType &&
-                        drinkAlreadyOnOrder.DrinkSize == drinkToUpdate.DrinkSize)
-                    {
-                        drinkAlreadyOnOrder.ItemCount = drinkToUpdate.ItemCount;
-                        isDrinkAlreadyOnOrder = true;
-                        break;
-                    }
-                }
-            }
-            if (!isDrinkAlreadyOnOrder)
-            {
-                OrderInProgress.OrderItems.Add(drinkToUpdate);
-            }
-        }
-
+       
         public void AddDrinksToOrder(List<Drink> drinksToAdd)
         { 
              foreach (var drink in drinksToAdd)
-            {
-                AddOrUpdateDrink(drink);
+             {
+                AddItemInProgress(drink);
             }
-            
+        }
+
+        public void InitializeOrderInProgress()
+        {
+            OrderInProgress = new Order();
         }
 
         public void SendOrder()
         {
-            WcfServicesProxy.Instance.SendOrder(OrderInProgress);
+            WcfServicesProxy.Instance.SendOrderAsync(OrderInProgress);
+            MarkCurrentTableUnsentOrder(false);
+            foreach (var item in OrderInProgress.OrderItems)
+            {
+                item.OrderItemSent = true;
+            }
+
+            //Send message that table 
             //1)  Create kitchen printout from the order.
             //2)  Send to kitchen printer.
             //3)  Send order to online service for storage and retrieval by all phones.
@@ -166,6 +165,10 @@ namespace Zipline2.BusinessLogic
         /// </summary>
         public void AddItemInProgressToOrder()
         {
+            if (OrderInProgress.OrderItems.Count <= 0)
+            {
+                MarkCurrentTableUnsentOrder(true);
+            }
             OrderItemInProgress.PopulatePricePerItem();
             OrderItemInProgress.UpdateItemTotal();
             OrderInProgress.AddItemToOrder(OrderItemInProgress);

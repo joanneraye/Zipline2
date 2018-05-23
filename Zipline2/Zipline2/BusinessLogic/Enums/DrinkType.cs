@@ -52,7 +52,7 @@ namespace Zipline2.BusinessLogic.Enums
         ClineZinfandel,
         GreenTruckPetitiSyrah,
         ClayhouseRedBlend,
-        ElsaBianchiMalbec,
+        YauquenMalbec,
         BodegasLaya,
         RegularCoffee,
         DecafCoffee,
