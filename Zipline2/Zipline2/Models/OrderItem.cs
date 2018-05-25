@@ -16,7 +16,7 @@ namespace Zipline2.Models
     {
         #region Class Properties
         [PrimaryKey, AutoIncrement, Column("orderitemid")]
-        public int OrderItemId { get; set; }
+        public int DbOrderId { get; set; }
 
         [Column("ordernumber")]
         //Must correspond to an order on the Order table (foreign key)
@@ -24,9 +24,7 @@ namespace Zipline2.Models
 
         [MaxLength(100), Column("itemname")]
         public string ItemName { get; set; }
-
-        public bool OrderItemSent { get; set; }
-
+        
         /// <summary>
         /// The item count is not the number of the general item (such
         /// as the number of medium pizzas) but the number of this 
@@ -84,7 +82,20 @@ namespace Zipline2.Models
         /// </summary>
         public decimal BasePrice { get; set; }
 
-        public bool WasSentToKitchen { get; set; }
+        private bool wasSentToKitchen;
+        public bool WasSentToKitchen
+        {
+            get
+            {
+                return wasSentToKitchen;
+            }
+            set
+            {
+                wasSentToKitchen = value;
+
+            }
+        }
+
 
         #endregion
 
@@ -112,7 +123,7 @@ namespace Zipline2.Models
         /// <summary>
         /// A derived class must be able to complete a partially populated class object.
         /// </summary>
-        public abstract bool CompleteOrderItem();
+        public abstract void CompleteOrderItem();
 
         /// <summary>
         /// A derived class must populate its display name.

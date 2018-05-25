@@ -11,7 +11,7 @@ namespace Zipline2.Models
 
         }
 
-        public override bool CompleteOrderItem()
+        public override void CompleteOrderItem()
         {
             throw new NotImplementedException();
         }

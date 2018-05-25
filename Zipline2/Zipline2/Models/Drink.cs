@@ -31,35 +31,20 @@ namespace Zipline2.Models
         public Drink(DrinkType drinkType)
         {
             DrinkType = drinkType;
+            DbItemId = Drinks.GetDbItemId(drinkType);
             PopulatePricePerItem();
         }
-       public override bool CompleteOrderItem()
+
+
+        public override void CompleteOrderItem()
        {
             if (ItemCount > 0 && OrderManager.Instance.OrderInProgress.OrderItems.Count <= 0)
             {
                 OrderManager.Instance.MarkCurrentTableUnsentOrder(true);
             }
-            bool addDrinkToOrder = true;
-            
-            foreach (var item in OrderManager.Instance.OrderInProgress.OrderItems)
-            {
-                if (item is Drink)
-                {
-                    Drink drinkAlreadyOnOrder = (Drink)item;
-
-                    //If this drinktype and size is already on the order, just update count.
-                    if (drinkAlreadyOnOrder.DrinkType == DrinkType &&
-                        drinkAlreadyOnOrder.DrinkSize == DrinkSize)
-                    {
-                        drinkAlreadyOnOrder.ItemCount = ItemCount;
-                        addDrinkToOrder = false;
-                        break;
-                    }
-                }
-            }
-            return addDrinkToOrder;
         }
 
+       
         //public Drink(CustomerSelection guiData)
         //{
         //    if (guiData is DrinkSelection)

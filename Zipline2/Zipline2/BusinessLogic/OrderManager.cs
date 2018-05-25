@@ -38,7 +38,7 @@ namespace Zipline2.BusinessLogic
         
 
         #region Public Properties
-        public OrderItem OrderItemInProgress { get; set; }
+        public OrderItem OrderItemPizzaInProgress { get; set; }
         public Order OrderInProgress { get; set; }
         /// <summary>
         /// Stores the index of the Table in the list of all tables
@@ -101,22 +101,11 @@ namespace Zipline2.BusinessLogic
         /// OrderInProgress.
         /// </summary>
         /// <param name="guiData"></param>
-        public void AddItemInProgress(OrderItem partialOrderItem)
+        public void AddItemPizzaInProgress(OrderItem partialPizzaItem)
         {
-            OrderItemInProgress = OrderItemFactory.GetOrderItem(partialOrderItem);
-            if (OrderItemInProgress == null)
-            {
-                throw new Exception("OrderManager null order item in progress");
-            }
-
-            //Derrived classed are responsible for populating the
-            //name of the item and handle pricing for the item,
-            //after which the order item total should be updated.
-            
-            //TODO:  Are these necessary - already done when object created???
-            OrderItemInProgress.PopulateDisplayName();
-            OrderItemInProgress.PopulatePricePerItem();
-            OrderItemInProgress.UpdateItemTotal();
+            OrderItemPizzaInProgress = OrderItemFactory.GetOrderItem(partialPizzaItem);
+           
+            OrderItemPizzaInProgress.UpdateItemTotal();
         }
 
        
@@ -124,8 +113,8 @@ namespace Zipline2.BusinessLogic
         { 
              foreach (var drink in drinksToAdd)
              {
-                AddItemInProgress(drink);
-            }
+                OrderManager.Instance.OrderInProgress.AddItemToOrder(drink);
+             }
         }
 
         public void InitializeOrderInProgress()
@@ -139,7 +128,7 @@ namespace Zipline2.BusinessLogic
             MarkCurrentTableUnsentOrder(false);
             foreach (var item in OrderInProgress.OrderItems)
             {
-                item.OrderItemSent = true;
+                item.WasSentToKitchen = true;
             }
 
             //Send message that table 
@@ -153,9 +142,9 @@ namespace Zipline2.BusinessLogic
         //creating a Pizza object.
         public Pizza GetCurrentPizza()
         {
-            if (OrderItemInProgress != null && OrderItemInProgress is Pizza)
+            if (OrderItemPizzaInProgress != null && OrderItemPizzaInProgress is Pizza)
             {
-                return OrderItemInProgress as Pizza;
+                return OrderItemPizzaInProgress as Pizza;
             }
             return null;
         }
@@ -163,16 +152,10 @@ namespace Zipline2.BusinessLogic
         /// <summary>
         /// The OrderItem has been completed and is added to the order.
         /// </summary>
-        public void AddItemInProgressToOrder()
+        public void AddPizzaInProgressToOrder()
         {
-            if (OrderInProgress.OrderItems.Count <= 0)
-            {
-                MarkCurrentTableUnsentOrder(true);
-            }
-            OrderItemInProgress.PopulatePricePerItem();
-            OrderItemInProgress.UpdateItemTotal();
-            OrderInProgress.AddItemToOrder(OrderItemInProgress);
-            OrderItemInProgress = null;
+            OrderInProgress.AddItemToOrder(OrderItemPizzaInProgress);
+            OrderItemPizzaInProgress = null;
         }
         #endregion
     }

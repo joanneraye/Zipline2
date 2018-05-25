@@ -18,6 +18,7 @@ namespace Zipline2.Pages
 		{
             InitializeComponent();
             BindingContext = new OrderPageModel();
+            Footer.FooterPageModel.IsOrderPageDisplayed = true;
             string pizzaTitle = "TBL " + OrderManager.Instance.CurrentTableName + " Order";
             this.ToolbarItems.Add(new ToolbarItem { Text = pizzaTitle, Priority = 0 });
            

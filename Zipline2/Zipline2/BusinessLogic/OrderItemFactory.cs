@@ -5,6 +5,7 @@ using Zipline2.Models;
 using Zipline2.BusinessLogic.Enums;
 using Zipline2.Pages;
 using Staunch.POS.Classes;
+using Zipline2.BusinessLogic.WcfRemote;
 
 namespace Zipline2.BusinessLogic
 {
@@ -29,44 +30,32 @@ namespace Zipline2.BusinessLogic
                 return CreateDrink(partialOrderItem);
             }
             return null;
-            //switch (guiData.MenuItemGeneralCategory)
-            //{
-            //    case Enums.MenuCategory.Pizza:
-            //    case Enums.MenuCategory.Calzone:
-            //        return CreatePizza(guiData);
-            //    //case Enums.MenuCategory.Drink:
-            //    //    return CreateDrink(guiData);
-            //    case Enums.MenuCategory.Dessert:
-            //        return CreateDessert(guiData);
-            //    case Enums.MenuCategory.LunchSpecial:
-            //        return CreateLunchSpecial(guiData);
-            //    case Enums.MenuCategory.Merchandise:
-            //        return CreateMerchandise(guiData);
-            //    default:
-            //        return null;
-            //}
+           
         }
 
         public static OrderItem GetOrderItem(GuestItem oldGuestItem)
         {
+            OrderItem thisOrderItem = new Drink();
             switch (oldGuestItem.SuperCategoryID)
             {
                 case 1:
-                    //Create Pizza or Major Pizza
-                    return new Pizza();
+                    thisOrderItem = DataConversion.GetPizza(oldGuestItem);
+                    break;
                 //case 2:
                 //    break;
                 //case 3:
                 //    //Create Salad
                 //    break;
                 case 4:
-                    return new Drink();
-                //case 5:
-                //    //Create Dessert
-                //    break;
-                //TODO:  Others????
+                    thisOrderItem = DataConversion.GetDrink(oldGuestItem);
+                    break;
+                    //case 5:
+                    //    //Create Dessert
+                    //    break;
+                    //TODO:  Others????
             }
-            return new Drink();
+
+            return thisOrderItem;
         }
 
 
@@ -74,16 +63,16 @@ namespace Zipline2.BusinessLogic
         {
             var newPizza = partialDataItem as Pizza;
             newPizza.CompleteOrderItem();
+            newPizza.PopulateDisplayName();
+            newPizza.PopulatePricePerItem();
+            newPizza.UpdateItemTotal();
             return newPizza;
         }
         private static OrderItem CreateDrink(OrderItem partialDataItem)
         {
             var newDrink = partialDataItem as Drink;
-            if (newDrink.CompleteOrderItem())
-            {
-                return newDrink;
-            }
-            return null;
+            newDrink.CompleteOrderItem();
+            return newDrink;
         }
         private static OrderItem CreateDessert(CustomerSelection guiData)
         {

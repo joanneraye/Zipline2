@@ -13,10 +13,12 @@ namespace Zipline2.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class MenuScrollFooterView : ContentView
 	{
-		public MenuScrollFooterView()
+        public MenuButtonFooterModel FooterPageModel;
+        public MenuScrollFooterView()
 		{
 			InitializeComponent ();
-            BindingContext = new MenuButtonFooterModel();
+            FooterPageModel = MenuButtonFooterModel.Instance;
+            BindingContext = MenuButtonFooterModel.Instance;
 		}
 	}
 }

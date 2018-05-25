@@ -3,11 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
+using Zipline2.PageModels;
 
 namespace Zipline2.Models
 {
     [Table("table")]
-    public class Table
+    public class Table : BasePageModel
     {
         #region Constants and Private Variables
        
@@ -32,8 +33,18 @@ namespace Zipline2.Models
         [Column("isoccupied")]
         public bool IsOccupied { get; set; }
 
-        [Column("hasunsentorder")]
-        public bool HasUnsentOrder { get; set; }
+        private bool hasUnsentOrder;
+        public bool HasUnsentOrder
+        {
+            get
+            {
+                return hasUnsentOrder;
+            }
+            set
+            {
+                SetProperty(ref hasUnsentOrder, value);
+            }
+        }
 
         public List<Order> OpenOrders { get; set; }
 

@@ -114,6 +114,7 @@
             </ListView>
             <Button Text="Send Order"
                     Margin="0,5,0,0"
+                    IsVisible="True"
                     HorizontalOptions="FillAndExpand"
                     HeightRequest="40"
                     BorderColor="White"
@@ -121,8 +122,16 @@
                     BorderWidth="2"
                     BackgroundColor="LightBlue"
                     Command="{Binding SendOrderCommand}"
-                    TextColor="Black"/>
-            <views:MenuScrollFooterView VerticalOptions="EndAndExpand"/>
+                    TextColor="Black">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" 
+                                 Binding="{Binding CurrentOrder.AllItemsSent, Mode=TwoWay}"
+                                Value="True">
+                        <Setter Property="IsVisible" Value="False" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+            <views:MenuScrollFooterView VerticalOptions="EndAndExpand" x:Name="Footer"/>
         </StackLayout>
     </ContentPage.Content>
 </local:BasePage>

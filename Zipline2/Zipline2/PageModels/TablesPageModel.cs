@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Zipline2.BusinessLogic.WcfRemote;
+using Staunch.POS.Classes;
 
 namespace Zipline2.PageModels
 {
@@ -21,10 +22,70 @@ namespace Zipline2.PageModels
             private TablesPageModel parentTablesPageModel;
             private Color outsideTableColor;
             private Color insideTableColor;
-            public string InsideTableName { get; set; }
-            public Table InsideTable { get; set; }
-            public string OutsideTableName { get; set; }
-            public Table OutsideTable { get; set; }
+            private string insideTableName;
+            public string InsideTableName
+            {
+                get
+                {
+                    return insideTableName;
+                }
+                set
+                {
+                    SetProperty(ref insideTableName, value);
+                }
+            }
+            private Table insideTable;
+            public Table InsideTable
+            {
+                get
+                {
+                    return insideTable;
+                }
+                set
+                {
+                    SetProperty(ref insideTable, value);
+                    if (insideTable.HasUnsentOrder)
+                    {
+                        insideTableName = insideTable.TableName + " UNSENT ORDER ITEM";
+                    }
+                    else
+                    {
+                        insideTableName = insideTable.TableName;
+                    }
+                }
+            }
+            private string outsideTableName;
+            public string OutsideTableName
+            {
+                get
+                {
+                    return outsideTableName;
+                }
+                set
+                {
+                    SetProperty(ref outsideTableName, value);
+                }
+            }
+            private Table outsideTable;
+            public Table OutsideTable
+            {
+                get
+                {
+                    return outsideTable;
+                }
+                set
+                {
+                    SetProperty(ref outsideTable, value);
+                    if (outsideTable.HasUnsentOrder)
+                    {
+                        outsideTableName = outsideTable.TableName + " UNSENT ORDER ITEM";
+                    }
+                    else
+                    {
+                        outsideTableName = outsideTable.TableName;
+                    }
+                }
+            }
             public int SelectionIndex;
             public Color OutsideTableColor
             {
@@ -135,41 +196,71 @@ namespace Zipline2.PageModels
             //Change what the app's current table is.
             OrderManager.Instance.UpdateCurrentTable(tableSelected);
 
-            
+            //Get Orders for this table from server.
+            var dbTable = await WcfServicesProxy.Instance.GetTableAsync((int)tableSelected.TableId);
 
-            //See if OpenOrders for this table on this phone...
+            if (dbTable.Guests.Count > 0)
+            {
+                List<GuestItem> guestItems = new List<GuestItem>();
+                foreach (var guest in dbTable.Guests)
+                {
+                    guestItems.AddRange(guest.Items);
+                }
+                if (guestItems.Count > 0)
+                {
+                    Order openOrder = DataConversion.ConvertDbGuestsToOrder(guestItems, tableSelected.TableId);
+                    OrderManager.Instance.OrderInProgress = openOrder;
+                    if (!openOrder.AllItemsSent)
+                    {
+                        tableSelected.HasUnsentOrder = true;
+                    }
+                    Tables.AllTables[tableSelected.IndexInAllTables].OpenOrders = new List<Order>() { openOrder };
+                    DisplayOrderPage();
+                    return;
+                }
+            }
+
+            //TODO:  Should this never occur?
+            //Only if no orders on server, see if OpenOrders for this table on this phone...
             var ordersForThisTable = Tables.AllTables[tableSelected.IndexInAllTables].OpenOrders;
             if (ordersForThisTable.Count > 0)
             {
                 OrderManager.Instance.OrderInProgress = ordersForThisTable[0];
                 DisplayOrderPage();
             }
-            else if (await TableHasOpenChecks(tableSelected.TableId))
-            //Are there checks on server for that table (not on phone)?  If, so
-            //load that order and bring up summary.
-            {
-                var checks = await WcfServicesProxy.Instance.GetOpenChecksAsync(tableSelected.TableId);
-                foreach (var check in checks)
-                {
-                    var openOrder = ConvertObjects.ConvertDbCheckToOrder(check, tableSelected.TableId);
-                    Tables.AllTables[tableSelected.IndexInAllTables].OpenOrders.Add(openOrder);
-                }
-              
-                OrderManager.Instance.OrderInProgress = ordersForThisTable[0];
-                DisplayOrderPage();
-            }
             else
             //if no open orders out there for this table, start a new order.
-            {
+            { 
                 OrderManager.Instance.InitializeOrderInProgress();
                 DisplayDrinksPage();
-            }         
+            }
+            
+            //else if (await TableHasOpenChecks(tableSelected.TableId))
+            //Are there checks on server for that table (not on phone)?  If, so
+            //load that order and bring up summary.
+            //{
+            //    var checks = await WcfServicesProxy.Instance.GetOpenChecksAsync(tableSelected.TableId);
+            //    foreach (var check in checks)
+            //    {
+            //        var openOrder = DataConversion.ConvertDbCheckToOrder(check, tableSelected.TableId);
+            //        Tables.AllTables[tableSelected.IndexInAllTables].OpenOrders.Add(openOrder);
+            //    }
+              
+            //    OrderManager.Instance.OrderInProgress = ordersForThisTable[0];
+            //    DisplayOrderPage();
+            //}
+              
         }
 
         private void PopulateRowWithInsideTable(ref TableSelection thisRow, int indexInAllTables)
         {
-            thisRow.InsideTableName = Tables.AllTables[indexInAllTables].TableName;
             thisRow.InsideTable = Tables.AllTables[indexInAllTables];
+            thisRow.InsideTableName = Tables.AllTables[indexInAllTables].TableName;
+            if (thisRow.InsideTable.HasUnsentOrder)
+            {
+                thisRow.InsideTableName += " UNSENT ORDER ITEM";
+            }
+
             if (thisRow.InsideTable.IsOccupied)
             {
                 thisRow.InsideTableColor = Color.Orange;
@@ -185,6 +276,10 @@ namespace Zipline2.PageModels
         {
             thisRow.OutsideTableName = Tables.AllTables[indexInAllTables].TableName;
             thisRow.OutsideTable = Tables.AllTables[indexInAllTables];
+            if (thisRow.OutsideTable.HasUnsentOrder)
+            {
+                thisRow.OutsideTableName += " UNSENT ORDER ITEM";
+            }
             if (thisRow.OutsideTable.IsOccupied)
             {
                 thisRow.OutsideTableColor = Color.Orange;

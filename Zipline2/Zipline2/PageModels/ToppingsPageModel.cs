@@ -518,7 +518,7 @@ namespace Zipline2.PageModels
 
         private void OnAddPizzaToOrder()
         {
-            OrderManager.Instance.AddItemInProgressToOrder();
+            OrderManager.Instance.AddPizzaInProgressToOrder();
             OnNavigateToPizzaPage();
         }
 

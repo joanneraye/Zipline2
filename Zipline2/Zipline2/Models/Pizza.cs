@@ -16,8 +16,8 @@ namespace Zipline2.Models
         public Toppings Toppings { get; set; }
         public MajorOrMama MajorMamaInfo { get; set; }
         public PizzaType PizzaType { get; set; }
-        public PizzaCrust Crust { get; set; }
-        public PizzaSize Size { get; set; }
+        //public PizzaCrust Crust { get; set; }
+        //public PizzaSize Size { get; set; }
         public PizzaBase Base { get; set; }
 
         #endregion
@@ -27,11 +27,15 @@ namespace Zipline2.Models
         {
             Toppings = new Toppings(PizzaType);
         }
+
+
+
+      
         #endregion
 
         #region Methods
 
-        public override bool CompleteOrderItem()
+        public override void CompleteOrderItem()
         {
             //TODO:  Are these already done?
             //MajorMamaInfo = pizzaGuiData.MajorOrMama;
@@ -42,7 +46,6 @@ namespace Zipline2.Models
             PopulateBasePrice();
             MessagingCenter.Subscribe<Toppings>(this, "ToppingsTotalUpdated",
               (sender) => { this.PopulatePricePerItem(); });
-            return true;
         }
         private void PopulateBasePrice()
         {

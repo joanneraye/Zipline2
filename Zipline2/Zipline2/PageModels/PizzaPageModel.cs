@@ -263,13 +263,11 @@ namespace Zipline2.PageModels
             {
                 MajorMamaInfo = MajorOrMama.Neither,
                 PizzaType = pizzaType,
-                Crust = PizzaCrust.RegularThin,
                 Base = PizzaBase.Regular,
-                Size = pizzaSize,
                 ItemCount = 1
             };
            
-            OrderManager.Instance.AddItemInProgress(pizza);
+            OrderManager.Instance.AddItemPizzaInProgress(pizza);
             DisplayToppingsPage();
         }
 
@@ -311,35 +309,35 @@ namespace Zipline2.PageModels
                 ItemCount = 1
             };
             
-            switch (pizzaType)
-            {
-                case PizzaType.Indy:
-                    newPizza.Size = PizzaSize.Indy;
-                    newPizza.Crust = PizzaCrust.RegularThin;
-                    break;
-                case PizzaType.Large:
-                    newPizza.Size = PizzaSize.Large;
-                    newPizza.Crust = PizzaCrust.RegularThin;
-                    break;
-                case PizzaType.Medium:
-                    newPizza.Size = PizzaSize.Medium;
-                    newPizza.Crust = PizzaCrust.RegularThin;
-                    break;
-                case PizzaType.Mfp:
-                    newPizza.Size = PizzaSize.OneSize;
-                    newPizza.Crust = PizzaCrust.Mfp;
-                    break;
-                case PizzaType.SatchPan:
-                    newPizza.Size = PizzaSize.OneSize;
-                    newPizza.Crust = PizzaCrust.SatchPan;
-                    break;
-                case PizzaType.ThinSlice:
-                    newPizza.Size = PizzaSize.Slice;
-                    newPizza.Crust = PizzaCrust.RegularThin;
-                    break;
-            }
+            //switch (pizzaType)
+            //{
+            //    case PizzaType.Indy:
+            //        newPizza.Size = PizzaSize.Indy;
+            //        newPizza.Crust = PizzaCrust.RegularThin;
+            //        break;
+            //    case PizzaType.Large:
+            //        newPizza.Size = PizzaSize.Large;
+            //        newPizza.Crust = PizzaCrust.RegularThin;
+            //        break;
+            //    case PizzaType.Medium:
+            //        newPizza.Size = PizzaSize.Medium;
+            //        newPizza.Crust = PizzaCrust.RegularThin;
+            //        break;
+            //    case PizzaType.Mfp:
+            //        newPizza.Size = PizzaSize.OneSize;
+            //        newPizza.Crust = PizzaCrust.Mfp;
+            //        break;
+            //    case PizzaType.SatchPan:
+            //        newPizza.Size = PizzaSize.OneSize;
+            //        newPizza.Crust = PizzaCrust.SatchPan;
+            //        break;
+            //    case PizzaType.ThinSlice:
+            //        newPizza.Size = PizzaSize.Slice;
+            //        newPizza.Crust = PizzaCrust.RegularThin;
+            //        break;
+            //}
 
-            OrderManager.Instance.AddItemInProgress(newPizza);
+            OrderManager.Instance.AddItemPizzaInProgress(newPizza);
 
             DisplayToppingsPage();
         }
@@ -349,12 +347,12 @@ namespace Zipline2.PageModels
             Pizza newPizza = new Pizza()
             {
                 MajorMamaInfo = MajorOrMama.Neither,
-                Size = PizzaSize.OneSize,
+                //Size = PizzaSize.OneSize,
                 PizzaType = PizzaType.Mfp,
                 ItemCount = 1
             };
           
-            OrderManager.Instance.AddItemInProgress(newPizza);
+            OrderManager.Instance.AddItemPizzaInProgress(newPizza);
 
             DisplayToppingsPage();
         }
@@ -364,12 +362,12 @@ namespace Zipline2.PageModels
             Pizza newPizza = new Pizza()
             {
                 MajorMamaInfo = MajorOrMama.Neither,
-                Size = PizzaSize.OneSize,
+                //Size = PizzaSize.OneSize,
                 PizzaType = PizzaType.SatchPan,
                 ItemCount = 1
             };
 
-            OrderManager.Instance.AddItemInProgress(newPizza);
+            OrderManager.Instance.AddItemPizzaInProgress(newPizza);
           
             DisplayToppingsPage();
         }

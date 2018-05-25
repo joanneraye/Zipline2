@@ -15,21 +15,47 @@ namespace Zipline2.Models
         public static List<Drink> WhiteWines { get; set; }
         public static List<Drink> HouseWines { get; set; }
         public static List<Drink> HotDrinks { get; set; }
-        private static Dictionary<DrinkType, decimal> dbItemIdDictionary;
-        private static Dictionary<DrinkType, decimal> DbItemIdDictionary
+        private static Dictionary<DrinkType, decimal> drinkTypeDbIdDictionary;
+        private static Dictionary<DrinkType, decimal> DrinkTypeDbIdDictionary
         {
             get
             {
-                if (dbItemIdDictionary == null)
+                if (drinkTypeDbIdDictionary == null)
                 {
-                    CreateDbItemIdDictionary();
+                    CreateDrinkTypeDbIdDictionary();
                 }
-                return dbItemIdDictionary;
+                return drinkTypeDbIdDictionary;
             }
         }
-        private static void CreateDbItemIdDictionary()
+
+        private static Dictionary<decimal, DrinkType> dbIdDrinkTypeDictionary;
+        private static Dictionary<decimal, DrinkType> DbIdDrinkTypeDictionary
         {
-            dbItemIdDictionary = new Dictionary<DrinkType, decimal>()
+            get
+            {
+                if (dbIdDrinkTypeDictionary == null)
+                {
+                    CreateDbIdDrinkTypeDictionary();
+                }
+                return dbIdDrinkTypeDictionary;
+            }
+        }
+
+        private static Dictionary<Tuple<decimal, DrinkSize>, Drink> dbIdDrinkDictionary;
+        private static Dictionary<Tuple<decimal, DrinkSize>, Drink> DbIdDrinkDictionary
+        {
+            get
+            {
+                if (dbIdDrinkDictionary == null)
+                {
+                    dbIdDrinkDictionary = new Dictionary<Tuple<decimal, DrinkSize>, Drink>();
+                }
+                return dbIdDrinkDictionary;
+            }
+        }
+        private static void CreateDrinkTypeDbIdDictionary()
+        {
+            drinkTypeDbIdDictionary = new Dictionary<DrinkType, decimal>()
             {
                  { DrinkType.Water, 1 },
                 { DrinkType.WaterWithLemon, 1 },
@@ -87,11 +113,77 @@ namespace Zipline2.Models
                  { DrinkType.WineSpecial14, 174 },
                  { DrinkType.WineSpecial15, 152 },
                  { DrinkType.CorkageFee, 166 }
-
             };
+        }
+
+        private static void CreateDbIdDrinkDictionary()
+        {
 
         }
-    public static List<Drink> GetDrinksList(DrinkCategory drinkCategory)
+
+        private static void CreateDbIdDrinkTypeDictionary()
+        {
+            dbIdDrinkTypeDictionary = new Dictionary<decimal, DrinkType>()
+            {
+                 { 1,  DrinkType.Water },
+                { 1,  DrinkType.WaterWithLemon },
+                { 1, DrinkType.WaterNoIce },
+                { 4, DrinkType.LolaCola },
+                { 5, DrinkType.StevieZ },
+                { 6,  DrinkType.LennieLemonLime },
+                { 7,  DrinkType.GinnieGingerAle },
+                { 8, DrinkType.RubyRootBeer },
+                { 9, DrinkType.AppleJuice },
+                { 10, DrinkType.Lemonade },
+                { 11,  DrinkType.SweetTea },
+                { 42, DrinkType.SweetArnoldPalmer },
+                { 43, DrinkType.UnsweetArnoldPalmer },
+                { 78, DrinkType.UnsweetTea },
+                { 79, DrinkType.SodaWater },
+                { 98, DrinkType.Milk },
+                { 161, DrinkType.BottledCoke },
+                { 163, DrinkType.HalfNHalfTea },
+                { 175, DrinkType.DietCokeCan },
+                { 185, DrinkType.SodaPitcher },
+                { 190, DrinkType.Flight },
+                { 214, DrinkType.CrystalCreme },
+                { 13, DrinkType.Hefeweizen },
+                { 199, DrinkType.FirstMagnitude72 },
+                { 203, DrinkType.EmployeeBeer },
+                { 204, DrinkType.SwampHeadBigNoseIpa },
+                { 207, DrinkType.PilsLagerOrBlondeAle },
+                { 212,  DrinkType.Beer12Oz },
+                { 17, DrinkType.Guinness },
+                 { 21, DrinkType.OmissionPaleAle },
+                 { 22, DrinkType.Bud },
+                 { 23, DrinkType.BudLight },
+                 { 211, DrinkType.NaGenesee },
+                 { 216, DrinkType.JaiAlaiIpa },
+                 { 24, DrinkType.AlverdiPinotGrigio },
+                 { 25, DrinkType.SilverRidgeChardonnay },
+                 { 30, DrinkType.RaywoodWhiteZin },
+                 { 205, DrinkType.TheRoseGardenRose },
+                 { 210, DrinkType.DouglasGreenSb },
+                 { 26, DrinkType.LeeseFitchCab },
+                 { 28, DrinkType.AlverdiSangiovese },
+                 { 37, DrinkType.CaposaldoChianti },
+                 { 188, DrinkType.ClineZinfandel },
+                 { 195, DrinkType.GreenTruckPetitiSyrah },
+                 { 197, DrinkType.ClayhouseRedBlend },
+                 { 208, DrinkType.YauquenMalbec },
+                 { 209, DrinkType.BodegasLaya },
+                 { 74, DrinkType.RegularCoffee },
+                 { 75,  DrinkType.DecafCoffee },
+                 { 80, DrinkType.HotTea },
+                 { 160, DrinkType.HotCocoa },
+                 { 150, DrinkType.WineSpecial10 },
+                 { 151, DrinkType.WineSpecial12 },
+                 { 174, DrinkType.WineSpecial14 },
+                 { 152, DrinkType.WineSpecial15 },
+                 { 166, DrinkType.CorkageFee }
+            };
+        }
+        public static List<Drink> GetDrinksList(DrinkCategory drinkCategory)
         {
             switch (drinkCategory)
             {
@@ -154,17 +246,53 @@ namespace Zipline2.Models
                     DrinkSize = DrinkSize.JustOneSize,
                     DbItemId = Drinks.GetDbItemId(drinks.Key)
                 };
+
+                PopulateDbInfo(ref thisDrink);                               
                 SoftDrinks.Add(thisDrink);
+            }
+        }
+
+        public static void PopulateDbInfo(ref Drink thisDrink)
+        {
+            thisDrink.DbItemId = GetDbItemId(thisDrink.DrinkType);
+            var drinkItemKey = Tuple.Create<decimal, DrinkSize>(thisDrink.DbItemId, thisDrink.DrinkSize);
+            if (DbIdDrinkDictionary.ContainsKey(drinkItemKey))
+            {
+                DbIdDrinkDictionary[drinkItemKey] = thisDrink;
+            }
+            else
+            {
+                DbIdDrinkDictionary.Add(drinkItemKey, thisDrink);
             }
         }
 
         public static decimal GetDbItemId(DrinkType drinkType)
         {
-            if (DbItemIdDictionary.ContainsKey(drinkType))
+            if (DrinkTypeDbIdDictionary.ContainsKey(drinkType))
             {
-                return DbItemIdDictionary[drinkType];
+                return DrinkTypeDbIdDictionary[drinkType];
             }
             return 0;
+        }
+
+        public static DrinkType GetDrinkType(decimal dbId)
+        {
+            if (DbIdDrinkTypeDictionary.ContainsKey(dbId))
+            {
+                return DbIdDrinkTypeDictionary[dbId];
+            }
+            return DrinkType.None;
+        }
+
+        public static Drink GetDrinkFromMenu(decimal dbId, DrinkSize drinkSize)
+        {
+            var drinkKey = Tuple.Create<decimal, DrinkSize>(dbId, drinkSize);
+            if (DbIdDrinkDictionary.ContainsKey(drinkKey))
+            {
+                return DbIdDrinkDictionary[drinkKey];
+            }
+            //TODO:  Display error if drink is not in dictionary!
+            return new Drink();
         }
 
         private static void CreateDraftBeers()
@@ -182,14 +310,16 @@ namespace Zipline2.Models
                 {
                     thisDrink.ItemName = drinks.Value;
                     thisDrink.DrinkSize = DrinkSize.JustOneSize;
+                    PopulateDbInfo(ref thisDrink);
                     DraftBeers.Add(thisDrink);
                 }
                 else
                 {
                     thisDrink.ItemName = drinks.Value + " - Pint";
                     thisDrink.DrinkSize = DrinkSize.Pint;
+                    PopulateDbInfo(ref thisDrink);
                     DraftBeers.Add(thisDrink);
-
+                    
                     Drink pitcherDrink = new Drink(drinks.Key)
                     {
                         ItemName = drinks.Value + " - Pitcher",
@@ -198,8 +328,10 @@ namespace Zipline2.Models
                         DrinkSize = DrinkSize.Pitcher
                     };
                     pitcherDrink.PricePerItem *= 3;
+                    PopulateDbInfo(ref pitcherDrink);
                     DraftBeers.Add(pitcherDrink);
                 }
+                
             }
         }
 
@@ -215,6 +347,7 @@ namespace Zipline2.Models
                     DrinkCategory = DrinkCategory.BottledBeer,
                     DrinkSize = DrinkSize.JustOneSize
                 };
+                PopulateDbInfo(ref thisDrink);
                 BottledBeers.Add(thisDrink);
             }
         }
@@ -233,6 +366,7 @@ namespace Zipline2.Models
                 {
                     thisDrink.ItemName = drinks.Value +" - Glass";
                     thisDrink.DrinkSize = DrinkSize.Glass;
+                    PopulateDbInfo(ref thisDrink);
                     RedWines.Add(thisDrink);
 
                     Drink bottleDrink = new Drink(drinks.Key)
@@ -243,12 +377,14 @@ namespace Zipline2.Models
                     };
                     bottleDrink.DrinkSize = DrinkSize.Bottle;
                     bottleDrink.PricePerItem *= 3;
+                    PopulateDbInfo(ref bottleDrink);
                     RedWines.Add(bottleDrink);
                 }
                 else
                 {
                     thisDrink.ItemName = drinks.Value + " - Bottle";
                     thisDrink.DrinkSize = DrinkSize.Bottle;
+                    PopulateDbInfo(ref thisDrink);
                     RedWines.Add(thisDrink);
                 }
             }
@@ -267,12 +403,14 @@ namespace Zipline2.Models
                 {
                     thisDrink.ItemName = drinks.Value + " - Bottle";
                     thisDrink.DrinkSize = DrinkSize.Bottle;
+                    PopulateDbInfo(ref thisDrink);
                     WhiteWines.Add(thisDrink);
                 }
                 else
                 {
                     thisDrink.ItemName = drinks.Value + " - Glass";
                     thisDrink.DrinkSize = DrinkSize.Glass;
+                    PopulateDbInfo(ref thisDrink);
                     WhiteWines.Add(thisDrink);
 
                     Drink bottleDrink = new Drink(drinks.Key)
@@ -283,6 +421,7 @@ namespace Zipline2.Models
                         DrinkSize = DrinkSize.Bottle
                     };
                     bottleDrink.PricePerItem *= 3;
+                    PopulateDbInfo(ref bottleDrink);
                     WhiteWines.Add(bottleDrink);
                 }
             }
@@ -299,6 +438,7 @@ namespace Zipline2.Models
                     DrinkCategory = DrinkCategory.HouseWine,
                     DrinkSize = DrinkSize.JustOneSize
                 };
+                PopulateDbInfo(ref thisDrink);
                 HouseWines.Add(thisDrink);
             }
         }
@@ -314,8 +454,20 @@ namespace Zipline2.Models
                     DrinkCategory = DrinkCategory.HotDrink,
                     DrinkSize = DrinkSize.JustOneSize
                 };
+                PopulateDbInfo(ref thisDrink);
                 HotDrinks.Add(thisDrink);
             }
+        }
+
+        public static void CreateAllDrinks()
+        {
+            CreateSoftDrinks();
+            CreateHotDrinks();
+            CreateRedWines();
+            CreateWhiteWines();
+            CreateHouseWines();
+            CreateDraftBeers();
+            CreateBottledBeers();
         }
     }
 }

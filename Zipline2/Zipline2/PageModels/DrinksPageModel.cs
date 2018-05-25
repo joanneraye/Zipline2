@@ -221,14 +221,14 @@ namespace Zipline2.PageModels
             }
         }
 
-        public Dictionary<Tuple<DrinkType, DrinkSize>, Drink> DrinksAlreadyOnOrderDictionary { get; set; } 
+        public Dictionary<Tuple<DrinkType, DrinkSize>, Drink> DrinksOnTempOrderDictionary { get; set; } 
         public DrinksPageModel()
         {
             DrinkDisplayItems = new ObservableCollection<DrinkDisplayItem>();
             DrinksSelectedCommand = new Command<DrinkCategory>(OnDrinksSelected);
             AddDrinksCommand = new Command(OnAddDrinks);
             DrinkDisplayDictionary = new Dictionary<DrinkCategory, List<DrinkDisplayItem>>();
-            DrinksAlreadyOnOrderDictionary = new Dictionary<Tuple<DrinkType, DrinkSize>, Drink>();
+            DrinksOnTempOrderDictionary = new Dictionary<Tuple<DrinkType, DrinkSize>, Drink>();
             SoftDrinksSelected = true;
             OnDrinksSelected(DrinkCategory.SoftDrink);
         }
@@ -356,20 +356,12 @@ namespace Zipline2.PageModels
                         //Need to see if any items with zero count on the page 
                         //were on the order before and need to be deleted from the order.
                         var drinkKey = Tuple.Create<DrinkType, DrinkSize>(drinkDisplayItem.Drink.DrinkType, drinkDisplayItem.Drink.DrinkSize);
-                        if (DrinksAlreadyOnOrderDictionary.ContainsKey(drinkKey))
+                        if (DrinksOnTempOrderDictionary.ContainsKey(drinkKey))
                         {
-                            OrderManager.Instance.RemoveOrderItem(DrinksAlreadyOnOrderDictionary[drinkKey]);
+                            OrderManager.Instance.RemoveOrderItem(DrinksOnTempOrderDictionary[drinkKey]);
                         }
                       
-                        foreach (var drinkAlreadyOnOrder in DrinksAlreadyOnOrderDictionary.Values)
-                        {
-                            if (currentDrinkCategorySelected == drinkAlreadyOnOrder.DrinkCategory)
-                            {
-
-                            }
-                        }
                     }
-                    
                 }
             }
         
@@ -393,22 +385,22 @@ namespace Zipline2.PageModels
             {
                 if (orderItem is Drink)
                 {
-                    var drinkAlreadyOnOrder = (Drink)orderItem;
+                    var drinkAlreadyOnTempOrder = (Drink)orderItem;
 
-                    //Save itemsto Dictionary that is on the current order.
-                    var drinkKey = Tuple.Create<DrinkType, DrinkSize>(drinkAlreadyOnOrder.DrinkType, drinkAlreadyOnOrder.DrinkSize);
-                    if (DrinksAlreadyOnOrderDictionary.ContainsKey(drinkKey))
+                    //Save items to Dictionary that is on the current order.
+                    var drinkKey = Tuple.Create<DrinkType, DrinkSize>(drinkAlreadyOnTempOrder.DrinkType, drinkAlreadyOnTempOrder.DrinkSize);
+                    if (DrinksOnTempOrderDictionary.ContainsKey(drinkKey))
                     {
-                        DrinksAlreadyOnOrderDictionary[drinkKey] = drinkAlreadyOnOrder;
+                        DrinksOnTempOrderDictionary[drinkKey] = drinkAlreadyOnTempOrder;
                     }
                     else
                     {
-                        DrinksAlreadyOnOrderDictionary.Add(drinkKey, drinkAlreadyOnOrder);
+                        DrinksOnTempOrderDictionary.Add(drinkKey, drinkAlreadyOnTempOrder);
                     }
 
                     //if drink on current order is in category displayed, then we'll want 
                     //to show what the order already has.
-                    if (drinkAlreadyOnOrder.DrinkCategory == categoryDisplayed)
+                    if (drinkAlreadyOnTempOrder.DrinkCategory == categoryDisplayed)
                     {
                         if (!DrinkDisplayDictionary.ContainsKey(categoryDisplayed))
                         {
@@ -420,10 +412,10 @@ namespace Zipline2.PageModels
                         var drinksDisplayed = DrinkDisplayDictionary[categoryDisplayed];                        
                         foreach (var drinkDisplayItem in drinksDisplayed)
                         {
-                            if (drinkDisplayItem.Drink.DrinkType == drinkAlreadyOnOrder.DrinkType &&
-                                drinkDisplayItem.Drink.DrinkSize == drinkAlreadyOnOrder.DrinkSize)
+                            if (drinkDisplayItem.Drink.DrinkType == drinkAlreadyOnTempOrder.DrinkType &&
+                                drinkDisplayItem.Drink.DrinkSize == drinkAlreadyOnTempOrder.DrinkSize)
                             {
-                                drinkDisplayItem.Drink.ItemCount = drinkAlreadyOnOrder.ItemCount;
+                                drinkDisplayItem.Drink.ItemCount = drinkAlreadyOnTempOrder.ItemCount;
                             }
                         } 
                     }

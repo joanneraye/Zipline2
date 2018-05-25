@@ -30,6 +30,7 @@ namespace Zipline2
             Toppings.LoadInitialToppings();
 
             LoadMenuFromServer();
+            LoadDrinks();
 
             //TODO:  When and how to close services?
 
@@ -44,6 +45,11 @@ namespace Zipline2
         async private void LoadMenuFromServer()
         {
             await WcfServicesProxy.Instance.GetMenuAsync();
+        }
+
+        private void LoadDrinks()
+        {
+            Drinks.CreateAllDrinks();
         }
 
         

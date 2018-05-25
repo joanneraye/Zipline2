@@ -23,22 +23,46 @@
             <ScrollView Orientation="Horizontal">
             <StackLayout Orientation="Horizontal"
                             BackgroundColor="Black">
-                <Button Text="Order Summary"
+                    <Button Text="Order Summary"
                             Command="{Binding OrderPageCommand}"
                             Style="{StaticResource footerScrollMenu}"
                             TextColor="Black"
-                            BackgroundColor="LightBlue"/>
-                <Button Text="Salads"
+                            BackgroundColor="LightBlue">
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" 
+                                 Binding="{Binding IsOrderPageDisplayed}"
+                                 Value="True">
+                                <Setter Property="IsVisible" Value="False" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Button Text="Salads"
                         Style="{StaticResource footerScrollMenu}"/>
                 <Button Text="Calzone"
                         Style="{StaticResource footerScrollMenu}"/>
-                <Button Text="Drinks"
+                    <Button Text="Drinks"
                         Command="{Binding DrinksCommand}"
-                        Style="{StaticResource footerScrollMenu}"/>
-                <Button Text="Pizza"
-                    Command="{Binding PizzaCommand}"
-                    Style="{StaticResource footerScrollMenu}"/>
-                <Button Text="Special"
+                        Style="{StaticResource footerScrollMenu}">
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" 
+                                 Binding="{Binding IsDrinkPageDisplayed}"
+                                 Value="True">
+                                <Setter Property="IsVisible" Value="False" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Button Text="Pizza"
+                        Command="{Binding PizzaCommand}"
+                        Style="{StaticResource footerScrollMenu}">
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" 
+                                 Binding="{Binding IsPizzaPageDisplayed}"
+                                 Value="True">
+                                <Setter Property="IsVisible" Value="False" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Button Text="Special"
                         Style="{StaticResource footerScrollMenu}"/>
                 <Button Text="Dessert"
                             Style="{StaticResource footerScrollMenu}"/>

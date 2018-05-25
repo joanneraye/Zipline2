@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
 using Zipline2.BusinessLogic;
+using Zipline2.BusinessLogic.Enums;
+using Zipline2.PageModels;
 
 namespace Zipline2.Models
 {
@@ -13,7 +15,7 @@ namespace Zipline2.Models
     /// the table for the order.
     /// </summary>
     [Table("order")]
-    public class Order
+    public class Order : BasePageModel
     {
       
         public int OrderNumberId { get; set; }
@@ -29,7 +31,18 @@ namespace Zipline2.Models
      
         public bool IsTakeout { get; set; }
 
-        public bool WasSentToKitchen { get; set; }
+        private bool allItemsSent;
+        public bool AllItemsSent
+        {
+            get
+            {
+                return allItemsSent;
+            }
+            set
+            {
+                SetProperty(ref allItemsSent, value);
+            }
+        }
 
        
         public decimal TableId { get; set; }
@@ -40,30 +53,104 @@ namespace Zipline2.Models
             IsTakeout = false;
         }
 
-        //When a new OrderItem is added, subtotal, tax, and total are 
-        //automatically updated.
-        public void AddItemToOrder(OrderItem item)
+        private void UpdateOrderTotals()
         {
-            if (item != null)
+            SubTotal = 0;
+            foreach (var orderItem in OrderItems)
             {
-                SubTotal += item.Total;
-                Tax = HelperMethods.GetTaxAmount(SubTotal);
-                Total = SubTotal + Tax;
-                OrderItems.Add(item);
+                SubTotal += orderItem.Total;
             }
-        }
-
-        public void AddItemsToOrder(List<OrderItem> orderItems)
-        {
-            foreach (var item in orderItems)
-            {
-                OrderItems.Add(item);
-                SubTotal += item.Total;
-            }
-
             Tax = HelperMethods.GetTaxAmount(SubTotal);
             Total = SubTotal + Tax;
         }
 
+        
+
+        //When a new OrderItem is added, subtotal, tax, and total are 
+        //automatically updated.
+        public void AddItemToOrder(OrderItem item)
+        {
+            bool addItemToOrder = true;
+            if (item != null)
+            {
+                if (item is Drink)
+                {
+                    Drink drinkToAdd = (Drink)item;
+                    var beforeOrderItems = OrderItems;
+                    if (UpdateDrinkIfAlreadyOnOrder(drinkToAdd))
+                    {
+                        addItemToOrder = false;
+                    }
+                }
+              
+                if (addItemToOrder)
+                {
+                    OrderItems.Add(item);
+                }
+
+                UpdateOrderTotals();
+            }
+        }
+
+        public bool UpdateDrinkIfAlreadyOnOrder(Drink drinkToAdd)
+        {
+            foreach (var orderItem in OrderItems)
+            {
+                if (orderItem is Drink)
+                {
+                    Drink drinkAlreadyOnOrder = (Drink)orderItem;
+                    if (drinkToAdd.DrinkType == drinkAlreadyOnOrder.DrinkType &&
+                        drinkToAdd.DrinkSize == drinkAlreadyOnOrder.DrinkSize)
+                    {
+                        orderItem.ItemCount++;
+                        orderItem.UpdateItemTotal();
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+       
+        public void CombineLikeItems()
+        {
+            //For now just combining drink like items - not sure which other ones
+            //I will need to combine...
+            var newOrderItemList = new List<OrderItem>();
+            Dictionary<Tuple<DrinkType, DrinkSize>, int> drinkTally = new Dictionary<Tuple<DrinkType, DrinkSize>, int>();
+            foreach (var item in OrderItems)
+            {
+                if (item is Drink)
+                {
+                    Drink drink = (Drink)item;
+                    var drinkKey = Tuple.Create<DrinkType, DrinkSize>(drink.DrinkType, drink.DrinkSize);
+                    if (drinkTally.ContainsKey(drinkKey))
+                    {
+                        drinkTally[drinkKey]++;
+                    }
+                    else
+                    {
+                        drinkTally.Add(drinkKey, 1);
+                        newOrderItemList.Add(item);
+                    }
+                }
+                else
+                {
+                    newOrderItemList.Add(item);
+                }
+            }
+           foreach (var item in newOrderItemList)
+            {
+                if (item is Drink)
+                {
+                    var drink = (Drink)item;
+                    var key = Tuple.Create<DrinkType, DrinkSize>(drink.DrinkType, drink.DrinkSize);
+                    drink.ItemCount = drinkTally[key];
+                }
+            }
+            OrderItems = newOrderItemList;
+        }
+        
     }
 }

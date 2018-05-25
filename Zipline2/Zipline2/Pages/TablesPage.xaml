@@ -57,13 +57,6 @@
                                        BackgroundColor="{Binding InsideTableColor}" 
                                        Text=" "
                                        Margin="5, 10, 5, 10">
-                                    <Label.Triggers>
-                                        <DataTrigger TargetType="Label" 
-                                                            Binding="{Binding InsideTable.HasUnsentOrder, Mode=TwoWay}"
-                                                            Value="True">
-                                            <Setter Property="Text" Value="UNSENT ORDER" />
-                                        </DataTrigger>
-                                    </Label.Triggers>
                                 </Label>
 
                                 <Button Grid.Column="1"
@@ -75,18 +68,19 @@
                                         FontAttributes="Bold"
                                         BorderRadius="1"
                                         BorderWidth="1"
-                                        Command="{Binding InsideTableCommand}"/>
+                                        Command="{Binding InsideTableCommand}">                                   
+                                </Button>
                                 <Label Grid.Column="2" 
                                        BackgroundColor="{Binding OutsideTableColor}"
                                        Text=" "
                                        Margin="5, 10, 5, 10">
-                                    <Label.Triggers>
+                                    <!--<Label.Triggers>
                                         <DataTrigger TargetType="Label" 
                                                             Binding="{Binding OutsideTable.HasUnsentOrder, Mode=TwoWay}"
                                                             Value="True">
                                             <Setter Property="Text" Value="UNSENT ORDER" />
                                         </DataTrigger>
-                                    </Label.Triggers>
+                                    </Label.Triggers>-->
                                 </Label>
                                 <Button Grid.Column="3" Text="{Binding OutsideTableName}" 
                                         TextColor="White"
@@ -97,7 +91,6 @@
                                         BorderRadius="1"
                                         BorderWidth="1"
                                         Command="{Binding OutsideTableCommand}"/>
-
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
