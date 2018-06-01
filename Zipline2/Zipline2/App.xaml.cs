@@ -10,6 +10,7 @@ using Zipline2.BusinessLogic;
 using Zipline2.Connected_Services;
 using System.Threading.Tasks;
 using Zipline2.BusinessLogic.WcfRemote;
+using Staunch.POS.Classes;
 
 namespace Zipline2
 {
@@ -20,9 +21,9 @@ namespace Zipline2
         {
             InitializeComponent();
             //for now....
-            User joanne = new User("Joanne", true, "8011");
-            User satch = new User("Satch", true, "1168");
-            User jim = new User("Jim", true, "4321");
+            Zipline2.Models.User joanne = new Zipline2.Models.User("Joanne", true, "8011");
+            Zipline2.Models.User satch = new Zipline2.Models.User("Satch", true, "1168");
+            Zipline2.Models.User jim = new Zipline2.Models.User("Jim", true, "4321");
             Users.Instance.AddNewUser(joanne);
             Users.Instance.AddNewUser(satch);
             Users.Instance.AddNewUser(jim);
@@ -30,6 +31,7 @@ namespace Zipline2
             Toppings.LoadInitialToppings();
 
             LoadMenuFromServer();
+            LoadToppingsFromServer();
             LoadDrinks();
 
             //TODO:  When and how to close services?
@@ -45,6 +47,27 @@ namespace Zipline2
         async private void LoadMenuFromServer()
         {
             await WcfServicesProxy.Instance.GetMenuAsync();
+        }
+
+        async private void LoadToppingsFromServer()
+        {
+            //TODO:  Not doing anything with this dictionary yet.
+            DataBaseDictionaries.PizzaToppingsDictionary = new Dictionary<decimal, DBModifier>();
+            DBModGroup[] modgroups = await WcfServicesProxy.Instance.GetToppingsAsync();
+            foreach (var modgroup in modgroups)
+            {
+                foreach (var mod in modgroup.SelectionList)
+                {
+                    if (!DataBaseDictionaries.PizzaToppingsDictionary.ContainsKey(mod.ID))
+                    {
+                        DataBaseDictionaries.PizzaToppingsDictionary.Add(mod.ID, mod);
+                        if (!Toppings.DbIdToppingDictionary.ContainsKey(mod.ID))
+                        {
+                            Console.WriteLine("TOPPINGS DICTIONARY ITEM NOT FOUND: " + mod.Name + mod.ID);
+                        }
+                    }
+                }
+            }
         }
 
         private void LoadDrinks()

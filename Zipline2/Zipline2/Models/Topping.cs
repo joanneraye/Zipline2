@@ -10,12 +10,24 @@ namespace Zipline2.Models
     public class Topping : BasePageModel
     {
         #region Properties
-        public int ToppingId { get; set; }
+        public decimal DbItemId { get; set; } 
 
         //Foreign key with OrderItem table - can include toppings for salad or pizza
         public int OrderItemId { get; set; }
-        
-        public ToppingName ToppingName { get; set; }
+
+        private ToppingName toppingName;
+        public ToppingName ToppingName
+        {
+            get
+            {
+                return toppingName;
+            }
+            set
+            {
+                SetProperty(ref toppingName, value);
+                ToppingDisplayName = DisplayNames.GetToppingDisplayName(toppingName);
+            }
+        }
 
         private string toppingDisplayName;
         public string ToppingDisplayName
@@ -32,20 +44,23 @@ namespace Zipline2.Models
         
         public ToppingWholeHalf ToppingWholeHalf { get; set; }
 
+        public int Count { get; set; }
+
         public int SequenceSelected { get; set; }
 
         public SpecialPricingType SpecialPricingType { get; set; }
 
         public decimal SpecialPriceChange { get; set; }
 
+       
         #endregion
 
         #region Constructor
         public Topping(ToppingName toppingName, ToppingWholeHalf toppingWholeHalf = ToppingWholeHalf.Whole)
         {
             ToppingName = toppingName;
+            DbItemId = Toppings.GetDbItemId(toppingName);
             ToppingWholeHalf = toppingWholeHalf;
-            ToppingDisplayName = DisplayNames.GetToppingDisplayName(toppingName);
         }
         #endregion
     }

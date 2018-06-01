@@ -5,6 +5,7 @@ using System.Text;
 using Xamarin.Forms;
 using Zipline2.BusinessLogic;
 using Zipline2.BusinessLogic.Enums;
+using Zipline2.BusinessLogic.WcfRemote;
 using Zipline2.PageModels;
 
 namespace Zipline2.Models
@@ -20,7 +21,18 @@ namespace Zipline2.Models
       
         public int OrderNumberId { get; set; }
 
-        public List<OrderItem> OrderItems { get; private set; }
+        private List<OrderItem> orderItems;
+        public List<OrderItem> OrderItems
+        {
+            get
+            {
+                return orderItems;
+            }
+            set
+            {
+                SetProperty(ref orderItems, value);
+            }
+        }
         
         public decimal SubTotal { get; set; }
        
@@ -46,6 +58,7 @@ namespace Zipline2.Models
 
        
         public decimal TableId { get; set; }
+        public decimal GuestId { get; set; }
 
         public Order()
         {
@@ -89,6 +102,7 @@ namespace Zipline2.Models
                 }
 
                 UpdateOrderTotals();
+                WcfServicesProxy.Instance.UpdateOrderAsync(this);
             }
         }
 

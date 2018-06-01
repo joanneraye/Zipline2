@@ -1195,102 +1195,102 @@ namespace Zipline2.Connected_Services
     //    }
     //}
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="DBModifier", Namespace="http://schemas.datacontract.org/2004/07/Staunch.POS.Classes")]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Staunch.POS.Classes.GuestModifier))]
-    public partial class DBModifier : object, System.Runtime.Serialization.IExtensibleDataObject
-    {
+    //[System.Diagnostics.DebuggerStepThroughAttribute()]
+    //[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    //[System.Runtime.Serialization.DataContractAttribute(Name="DBModifier", Namespace="http://schemas.datacontract.org/2004/07/Staunch.POS.Classes")]
+    //[System.Runtime.Serialization.KnownTypeAttribute(typeof(Staunch.POS.Classes.GuestModifier))]
+    //public partial class DBModifier : object, System.Runtime.Serialization.IExtensibleDataObject
+    //{
         
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+    //    private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
-        private int BaseCountField;
+    //    private int BaseCountField;
         
-        private decimal BasePriceField;
+    //    private decimal BasePriceField;
         
-        private decimal IDField;
+    //    private decimal IDField;
         
-        private string NameField;
+    //    private string NameField;
         
-        private decimal PriorityField;
+    //    private decimal PriorityField;
         
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData
-        {
-            get
-            {
-                return this.extensionDataField;
-            }
-            set
-            {
-                this.extensionDataField = value;
-            }
-        }
+//        public System.Runtime.Serialization.ExtensionDataObject ExtensionData
+//        {
+//            get
+//            {
+//                return this.extensionDataField;
+//            }
+//            set
+//            {
+//                this.extensionDataField = value;
+//            }
+//        }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int BaseCount
-        {
-            get
-            {
-                return this.BaseCountField;
-            }
-            set
-            {
-                this.BaseCountField = value;
-            }
-        }
+//        [System.Runtime.Serialization.DataMemberAttribute()]
+//        public int BaseCount
+//        {
+//            get
+//            {
+//                return this.BaseCountField;
+//            }
+//            set
+//            {
+//                this.BaseCountField = value;
+//            }
+//        }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal BasePrice
-        {
-            get
-            {
-                return this.BasePriceField;
-            }
-            set
-            {
-                this.BasePriceField = value;
-            }
-        }
+//        [System.Runtime.Serialization.DataMemberAttribute()]
+//        public decimal BasePrice
+//        {
+//            get
+//            {
+//                return this.BasePriceField;
+//            }
+//            set
+//            {
+//                this.BasePriceField = value;
+//            }
+//        }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal ID
-        {
-            get
-            {
-                return this.IDField;
-            }
-            set
-            {
-                this.IDField = value;
-            }
-        }
+//        [System.Runtime.Serialization.DataMemberAttribute()]
+//        public decimal ID
+//        {
+//            get
+//            {
+//                return this.IDField;
+//            }
+//            set
+//            {
+//                this.IDField = value;
+//            }
+//        }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Name
-        {
-            get
-            {
-                return this.NameField;
-            }
-            set
-            {
-                this.NameField = value;
-            }
-        }
+//        [System.Runtime.Serialization.DataMemberAttribute()]
+//        public string Name
+//        {
+//            get
+//            {
+//                return this.NameField;
+//            }
+//            set
+//            {
+//                this.NameField = value;
+//            }
+//        }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal Priority
-        {
-            get
-            {
-                return this.PriorityField;
-            }
-            set
-            {
-                this.PriorityField = value;
-            }
-        }
-    }
+//        [System.Runtime.Serialization.DataMemberAttribute()]
+//        public decimal Priority
+//        {
+//            get
+//            {
+//                return this.PriorityField;
+//            }
+//            set
+//            {
+//                this.PriorityField = value;
+//            }
+//        }
+//    }
 }
 
 

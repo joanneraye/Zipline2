@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Zipline2.PageModels;
 
 namespace Zipline2.Models
 {
@@ -35,6 +36,11 @@ namespace Zipline2.Models
         }
 
         public override void CompleteOrderItem()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override OrderDisplayItem PopulateOrderDisplayItem()
         {
             throw new NotImplementedException();
         }

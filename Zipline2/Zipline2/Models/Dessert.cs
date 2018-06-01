@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Zipline2.BusinessLogic.Enums;
+using Zipline2.PageModels;
 
 namespace Zipline2.Models
 {
@@ -26,6 +27,11 @@ namespace Zipline2.Models
         public override void PopulateDisplayName()
         {
            //ItemName = DisplayNames.Get????PopulateDisplayName...
+        }
+
+        public override OrderDisplayItem PopulateOrderDisplayItem()
+        {
+            throw new NotImplementedException();
         }
 
         public override void PopulatePricePerItem()

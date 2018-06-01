@@ -196,9 +196,8 @@ namespace Zipline2.PageModels
             //Change what the app's current table is.
             OrderManager.Instance.UpdateCurrentTable(tableSelected);
 
-            //Get Orders for this table from server.
             var dbTable = await WcfServicesProxy.Instance.GetTableAsync((int)tableSelected.TableId);
-
+            
             if (dbTable.Guests.Count > 0)
             {
                 List<GuestItem> guestItems = new List<GuestItem>();

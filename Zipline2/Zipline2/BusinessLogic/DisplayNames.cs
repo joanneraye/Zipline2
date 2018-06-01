@@ -103,6 +103,7 @@ namespace Zipline2.BusinessLogic
 
         private static Dictionary<ToppingName, string> DisplayToppingNameDictionary = new Dictionary<ToppingName, string>
         {
+             { ToppingName.Unknown, "Unknown" },
             { ToppingName.Anchovies, "Anchovies" },
             { ToppingName.Artichokes, "Artichokes" },
             { ToppingName.Bacon, "Bacon" },
@@ -140,6 +141,7 @@ namespace Zipline2.BusinessLogic
             { ToppingName.SundriedTomatoes, "Sun-dried Tomatoes" },
             { ToppingName.Teese, "TEESE" },
             { ToppingName.TempehBBQ, "Tempeh BBQ" },
+            { ToppingName.TempehOriginal, "Tempeh Original" },
             { ToppingName.Tomatoes, "Tomatoes" },
             { ToppingName.Zucchini, "Zucchini" },
             { ToppingName.Cheese, "Cheese" },

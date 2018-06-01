@@ -32,9 +32,9 @@
                                 </Grid.ColumnDefinitions>
                                 <StackLayout Grid.Column="0" >
                                     <Label Grid.ColumnSpan="1" Margin="0"
-                                            Text="{Binding OrderItemName}"
+                                            Text="{Binding OrderItem.ItemName}"
                                                FontSize="Micro"
-                                               TextColor="{Binding WasSentToKitchen, 
+                                               TextColor="{Binding OrderItem.WasSentToKitchen, 
                                                 Converter={StaticResource sentToKitchenTextConverter}}"/>
                                     <Label Grid.ColumnSpan="4" Margin="5,0,0,0"
                                       TextColor="White"
@@ -44,18 +44,18 @@
                                     
                            
                                 <Label Grid.Column="1"
-                                       Text="{Binding PricePerItem, StringFormat='{0:C}'}"
+                                       Text="{Binding OrderItem.PricePerItem, StringFormat='{0:C}'}"
                                        TextColor="White"
                                         FontSize="Micro"
                                        HorizontalOptions="End" />
                                 <Label Grid.Column="2"
-                                       Text="{Binding ItemCount, StringFormat='{0}'}"
+                                       Text="{Binding OrderItem.ItemCount, StringFormat='{0}'}"
                                        TextColor="White"
                                         FontSize="Micro"
                                        HorizontalOptions="End" />
                                 <Label Grid.Column="3"
                                         FontSize="Micro"
-                                       Text="{Binding Total, StringFormat='{0:C}'}"
+                                       Text="{Binding OrderItem.Total, StringFormat='{0:C}'}"
                                        TextColor="White"
                                        HorizontalOptions="End" />
                             </Grid>

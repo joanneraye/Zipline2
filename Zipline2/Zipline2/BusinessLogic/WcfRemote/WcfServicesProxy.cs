@@ -9,8 +9,14 @@ using Staunch.POS.Classes;
 
 namespace Zipline2.BusinessLogic.WcfRemote
 {
+    
     public class WcfServicesProxy
     {
+
+        private int counter = 0;
+
+
+
         #region Singleton
         private static WcfServicesProxy instance = null;
         private static readonly object padlock = new object();
@@ -29,6 +35,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 }
             }
         }
+
+        
         #endregion
 
         //The current Windows Phone app has a Service Reference folder with references
@@ -37,7 +45,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         private PosServiceClient waiterClient;
         private CheckHostClient checkClient;
-        public Dictionary<string, DBItem[]> DBMenu;
+        
         //public Dictionary<decimal, DBItem> MenuItemsPizza { get; private set; }
         //public Dictionary<decimal, DBItem> MenuItemsCalzone { get; private set; }
         //public Dictionary<decimal, DBItem> MenuItemsSalads { get; private set; }
@@ -70,14 +78,15 @@ namespace Zipline2.BusinessLogic.WcfRemote
             }
         }
 
-        async public Task UpdateTablesAsync(DBTable currentTable)
+        async public Task UpdateTableAsync(DBTable currentTable)
         {
+
             DBTable[] tablesToUpdate = new DBTable[] { currentTable };
             await Task.Factory.FromAsync(
                 waiterClient.BeginUpdateTables,
                 waiterClient.EndUpdateTables,
                 tablesToUpdate,
-                9M,
+                (decimal)Users.Instance.LoggedInUser.UserId,
                 TaskCreationOptions.None);
         }
        
@@ -103,12 +112,23 @@ namespace Zipline2.BusinessLogic.WcfRemote
             //return FromWaiterService(dbTable); 
         }
 
+        async public Task<DBModGroup[]> GetToppingsAsync()
+        {
+           return await Task.Factory.FromAsync(
+                waiterClient.BeginGetAllMods,
+                waiterClient.EndGetAllMods,
+                (decimal)57,
+                (decimal)12,
+                TaskCreationOptions.None);
+
+        }
+
         async public Task GetMenuAsync()
         {
-            DBMenu = new Dictionary<string, DBItem[]>();
+            DataBaseDictionaries.MenuDictionary = new Dictionary<string, DBItem[]>();
             try
             {
-                DBMenu = await Task.Factory.FromAsync(
+                DataBaseDictionaries.MenuDictionary = await Task.Factory.FromAsync(
                     waiterClient.BeginGetMenu,
                     waiterClient.EndGetMenu,
                     null,
@@ -150,54 +170,51 @@ namespace Zipline2.BusinessLogic.WcfRemote
             return 0;
         }
 
-        async public void SendOrderAsync(Order orderToSend)
-        { 
-            decimal currentTableId = OrderManager.Instance.GetCurrentTable().TableId;
-            int currentTableIdAsInt = (int)currentTableId;
-            
-            //Create Guest_DB object.
-            var guestDB = new Staunch.POS.Classes.Guest_DB()
-            {
-                ComboItems = new List<GuestComboItem>(),
-                Items = new List<GuestItem>(),
-                ID = await GetNextGuestIdAsync()
-            };
-
-            //Create DBItems for Guest_DB object.
-            foreach (var orderItem in orderToSend.OrderItems)
-            {
-                var keysTuple = orderItem.GetMenuDbItemKeys();
-                var dbItem = new DBItem();
-                foreach (var menuItem in DBMenu[keysTuple.Item1])
-                {
-                    if (menuItem.ID == keysTuple.Item2)
-                    {
-                        dbItem = menuItem;
-                    }
-                }
-                GuestItem guestItem = orderItem.CreateGuestItem(dbItem);
-                guestItem.OrderSent = true;
-                guestDB.Items.Add(guestItem);
-            }
-
-            //Add guestDB just created to Guests of new DBTable object.
-            DBTable currentTable = new DBTable()
-            {
-                ID = currentTableId,
-                Guests = new List<Staunch.POS.Classes.Guest_DB>()
-                {
-                    guestDB
-                }
-            };
+        async public void UpdateOrderAsync(Order orderToUpdate)
+        {
+            counter = counter + 1;
+            decimal guestId = await GetGuestIdAsync(orderToUpdate.TableId);
+            DBTable dbTableCurrent = DataConversion.ConvertOrderToDbTable(orderToUpdate, guestId, false);
 
             //Update the database table with built DBTable in order to obtain new OrderID.
-            await UpdateTablesAsync(currentTable);
+            await UpdateTableAsync(dbTableCurrent);
+        }
+
+        async private Task<decimal> GetGuestIdAsync(decimal tableId)
+        {
+            DBTable thisTable = await GetTableAsync((int)tableId);
+            if (thisTable.Guests.Count > 0)
+            {
+                return thisTable.Guests[0].ID;
+            }
+            else
+            {
+                return await WcfServicesProxy.Instance.GetNextGuestIdAsync();
+            }
+
+        }
+
+        async public void SendOrderAsync(Order orderToSend)
+        {
+            decimal guestId;
+            if (orderToSend.GuestId != 0)
+            {
+                guestId = orderToSend.GuestId;
+            }
+            else
+            {
+                guestId = await GetGuestIdAsync(orderToSend.TableId);
+            }
+            DBTable dbTableCurrent = DataConversion.ConvertOrderToDbTable(orderToSend, guestId, true);
+
+            //Update the database table with built DBTable in order to obtain new OrderID.
+            await UpdateTableAsync(dbTableCurrent);
 
             //Get the table just updated - will contain new OrderID.
-            DBTable thisTable = await GetTableAsync(currentTableIdAsInt);
+            DBTable updatedTable = await GetTableAsync((int)dbTableCurrent.ID);
 
             //Get the GuestItem obejcts from the DBTable object needed for the DBCheck.
-            List<GuestItem> items = thisTable.Guests[0].Items;
+            List<GuestItem> items = updatedTable.Guests[0].Items;
             DBCheck dbCheck = new DBCheck()
             {
                 ID = orderToSend.TableId,

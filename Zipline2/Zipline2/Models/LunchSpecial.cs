@@ -34,5 +34,7 @@ namespace Zipline2.Models
         {
             throw new NotImplementedException();
         }
+
+        
     }
 }

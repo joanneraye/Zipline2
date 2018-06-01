@@ -34,12 +34,12 @@
                     VerticalOptions="Center"
                     HeightRequest="55"
                     FontAttributes="Bold" />
-            <Button Text="Change My PIN"
+            <!--<Button Text="Change My PIN"
                     FontSize="Small"
                     Clicked="OnChangePinButtonClicked" />
             <Button Text="Add User (Manager Only)"
                     Clicked="OnAddNewUserButtonClicked" 
-                    FontSize="Small" />
+                    FontSize="Small" />-->
         </StackLayout>
     </ContentPage.Content>
 

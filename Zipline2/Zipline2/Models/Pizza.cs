@@ -6,6 +6,7 @@ using Staunch.POS.Classes;
 using Xamarin.Forms;
 using Zipline2.BusinessLogic;
 using Zipline2.BusinessLogic.Enums;
+using Zipline2.PageModels;
 
 namespace Zipline2.Models
 {
@@ -47,7 +48,7 @@ namespace Zipline2.Models
             MessagingCenter.Subscribe<Toppings>(this, "ToppingsTotalUpdated",
               (sender) => { this.PopulatePricePerItem(); });
         }
-        private void PopulateBasePrice()
+        public void PopulateBasePrice()
         {
             BasePrice = Prices.GetPizzaBasePrice(PizzaType);
         }
@@ -62,7 +63,27 @@ namespace Zipline2.Models
                 Toppings.ToppingsTotal;
         }
 
-        public void ChangePizzaBase(PizzaBase baseChangeTo)
+        public void ChangePizzaToDeep()
+        {
+            switch (PizzaType)
+            {
+                case PizzaType.ThinSlice:
+                    PizzaType = PizzaType.PanSlice;
+                    break;
+                case PizzaType.Large:
+                case PizzaType.Medium:
+                    PizzaType = PizzaType.SatchPan;
+                    break;
+                case PizzaType.PestoWhiteLarge:
+                case PizzaType.PestoWhiteMedium:
+                    PizzaType = PizzaType.PestoWhitePan;
+                    break;
+            }
+            PopulateBasePrice();
+            Toppings.UpdateToppingsTotal();
+        }
+
+        public void ChangePizzaBase(PizzaBase baseChangeTo, bool updateTotals = true)
         {
             Base = baseChangeTo;
             if (Base == PizzaBase.Regular)
@@ -97,8 +118,11 @@ namespace Zipline2.Models
             }
 
             //Base price and toppings price will change due to the base change.
-            PopulateBasePrice();
-            Toppings.UpdateToppingsTotal();
+            if (updateTotals)
+            {
+                PopulateBasePrice();
+                Toppings.UpdateToppingsTotal();
+            }
         }
        
         //The PizzaType is used for pricing and so is combination of crust, size, base, etc.
@@ -159,9 +183,9 @@ namespace Zipline2.Models
             return Tuple.Create<string, decimal>("Pizza", 57);
         }
 
-        public override GuestItem CreateGuestItem(DBItem dbItem)
+        public override GuestItem CreateGuestItem(DBItem dbItem, decimal orderId)
         {
-            GuestItem guestItem = base.CreateGuestItem(dbItem);
+            GuestItem guestItem = base.CreateGuestItem(dbItem, orderId);
             switch (PizzaType)
             {
                 //TODO: GuestComboItems
@@ -179,6 +203,24 @@ namespace Zipline2.Models
                     break;
             }
             return guestItem;
+        }
+
+        public override OrderDisplayItem PopulateOrderDisplayItem()
+        {
+            var orderDisplayItem = base.PopulateOrderDisplayItem();
+            var toppingsString = new StringBuilder();
+            for (int i = 0; i < Toppings.CurrentToppings.Count; i++)
+            {
+                if (i > 0)
+                {
+                    toppingsString.Append(", ");
+                }
+                toppingsString.Append(Toppings.CurrentToppings[i].ToppingDisplayName);
+
+
+            orderDisplayItem.Toppings = toppingsString.ToString();
+            }
+            return orderDisplayItem;
         }
 
         #endregion

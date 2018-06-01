@@ -78,13 +78,14 @@ namespace Zipline2.Pages
 
         async private Task<bool> IsValidUser(string pin)
         {
-            DBUser user = await WcfServicesProxy.Instance.GetUserAsync(pin);
-            if (user.ID != -1)
-            {
-                Users.Instance.LoggedInUser = new Zipline2.Models.User(user.Name, false, user.Pin);
+            //DBUser user = await WcfServicesProxy.Instance.GetUserAsync(pin);
+            //if (user.ID != -1)
+            //{
+                Users.Instance.LoggedInUser = new Zipline2.Models.User("Employee", false, "1111");
+                //Users.Instance.LoggedInUser = new Zipline2.Models.User(user.Name, false, user.Pin);
                 return true;
-            }
-            return false;
+            //}
+            //return false;
             
             
 

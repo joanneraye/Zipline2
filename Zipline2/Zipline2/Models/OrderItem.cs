@@ -82,6 +82,8 @@ namespace Zipline2.Models
         /// </summary>
         public decimal BasePrice { get; set; }
 
+        public decimal DbItemId { get; set; }
+
         private bool wasSentToKitchen;
         public bool WasSentToKitchen
         {
@@ -91,7 +93,7 @@ namespace Zipline2.Models
             }
             set
             {
-                wasSentToKitchen = value;
+                SetProperty(ref wasSentToKitchen, value);
 
             }
         }
@@ -135,6 +137,15 @@ namespace Zipline2.Models
         /// </summary>
         public abstract void PopulatePricePerItem();
 
+        public virtual OrderDisplayItem PopulateOrderDisplayItem()
+        {
+            return new OrderDisplayItem
+            {
+                OrderItem = this,
+                Toppings = string.Empty
+            };
+        }
+
         protected virtual void OnPricePerItemUpdated(decimal newValue)
         {
             //Publish message -
@@ -144,7 +155,7 @@ namespace Zipline2.Models
 
         public abstract Tuple<string, decimal> GetMenuDbItemKeys();
 
-        public virtual GuestItem CreateGuestItem(DBItem dbItem)
+        public virtual GuestItem CreateGuestItem(DBItem dbItem, decimal orderId)
         {
             
             var guestItem = new GuestItem()
@@ -154,7 +165,7 @@ namespace Zipline2.Models
                 Description = dbItem.Description,
                 HasAllMods = dbItem.HasAllMods,
                 HasRequiredMods = dbItem.HasRequiredMods,
-                OrderID = -1,
+                OrderID = orderId,
                 ID = dbItem.ID,
                 LongName = dbItem.LongName,
                 NonTaxable = dbItem.NonTaxable,

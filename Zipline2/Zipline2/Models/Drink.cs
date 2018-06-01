@@ -12,8 +12,6 @@ namespace Zipline2.Models
         public DrinkCategory DrinkCategory { get; set; }
         public DrinkType DrinkType { get; set; }
         public DrinkSize DrinkSize { get; set; }
-        public decimal DbItemId { get; set; }
-
 
         public Drink GetClone()
         {
@@ -70,10 +68,11 @@ namespace Zipline2.Models
             return Tuple.Create<string, decimal>("Beverages", Drinks.GetDbItemId(DrinkType));
         }
 
-        public override GuestItem CreateGuestItem(DBItem dbItem)
+        public override GuestItem CreateGuestItem(DBItem dbItem, decimal orderId)
         {
-            return base.CreateGuestItem(dbItem);
+            return base.CreateGuestItem(dbItem, orderId);
         }
 
+       
     }
 }

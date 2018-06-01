@@ -26,6 +26,8 @@ namespace Zipline2.Models
             throw new NotImplementedException();
         }
 
+      
+
         public override void PopulatePricePerItem()
         {
             throw new NotImplementedException();

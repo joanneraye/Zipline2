@@ -6,6 +6,7 @@ namespace Zipline2.BusinessLogic.Enums
 {
     public enum ToppingName
     {
+        Unknown,
         Anchovies,
         Artichokes,
         Bacon,
@@ -26,7 +27,10 @@ namespace Zipline2.BusinessLogic.Enums
         GreenOlives,
         GreenPeppers,
         HalfMajor,
+        Ham,
         Jalapenos,
+        Lettuce,
+        Major,
         Meatballs,
         Mushrooms,
         NoCheese,
@@ -53,6 +57,8 @@ namespace Zipline2.BusinessLogic.Enums
         LightRicotta,
         NoButter,
         NoSauce,
+        NoMozarella,
+        NoRicotta,
         LightCook,
         CrispyCook,
         KidCook, 

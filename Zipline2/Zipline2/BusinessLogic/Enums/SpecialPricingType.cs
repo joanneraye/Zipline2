@@ -8,9 +8,10 @@ namespace Zipline2.BusinessLogic.Enums
     {
         None,
         Free,
-        Half,
-        AddorSubtractAmount,
         GetExtraTopping,
+        DoubleTopping,
+        AddHalfTopping,
+        SubtractTopping,
         Unknown
     }
 }
