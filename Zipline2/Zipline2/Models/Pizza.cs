@@ -6,6 +6,7 @@ using Staunch.POS.Classes;
 using Xamarin.Forms;
 using Zipline2.BusinessLogic;
 using Zipline2.BusinessLogic.Enums;
+using Zipline2.BusinessLogic.WcfRemote;
 using Zipline2.PageModels;
 
 namespace Zipline2.Models
@@ -16,7 +17,26 @@ namespace Zipline2.Models
         #region Properties
         public Toppings Toppings { get; set; }
         public MajorOrMama MajorMamaInfo { get; set; }
-        public PizzaType PizzaType { get; set; }
+        private PizzaType pizzaType;
+        public PizzaType PizzaType
+        {
+            get
+            {
+                return pizzaType;
+            }
+            set
+            {
+                pizzaType = value;
+                if (Toppings == null)
+                {
+                    Toppings = new Toppings(pizzaType);
+                }
+                else
+                {
+                    Toppings.PizzaTypeForPricing = pizzaType;
+                }
+            }
+        }
         //public PizzaCrust Crust { get; set; }
         //public PizzaSize Size { get; set; }
         public PizzaBase Base { get; set; }
@@ -55,6 +75,10 @@ namespace Zipline2.Models
         public override void PopulateDisplayName()
         {
             ItemName = DisplayNames.GetPizzaDisplayName(PizzaType);
+            if (MajorMamaInfo == MajorOrMama.Major)
+            {
+                ItemName += " - MAJOR";
+            }
         }
 
         public override void PopulatePricePerItem()
@@ -124,7 +148,9 @@ namespace Zipline2.Models
                 Toppings.UpdateToppingsTotal();
             }
         }
-       
+
+      
+
         //The PizzaType is used for pricing and so is combination of crust, size, base, etc.
         public static PizzaType GetPizzaType(PizzaSize size, PizzaCrust crust, PizzaBase pizzaBase = PizzaBase.Regular)
         {
@@ -221,6 +247,123 @@ namespace Zipline2.Models
             orderDisplayItem.Toppings = toppingsString.ToString();
             }
             return orderDisplayItem;
+        }
+
+        public override List<GuestModifier> CreateMods()
+        {
+            //if the toppings are just major toppings and designated as major, then 
+            //don't add toppings. 
+            List<Topping> tempToppings = Toppings.CurrentToppings;
+
+            bool hasOnion = false;
+            bool hasGreenPeppers = false;
+            bool hasPepperoni = false;
+            bool hasSausage = false;
+            bool hasMushrooms = false;
+            bool hasBlackOlives = false;
+            ToppingWholeHalf onionWholeHalf = ToppingWholeHalf.Whole;
+            ToppingWholeHalf grpepWholeHalf = ToppingWholeHalf.Whole;
+            ToppingWholeHalf pepWholeHalf = ToppingWholeHalf.Whole;
+            ToppingWholeHalf sausWholeHalf = ToppingWholeHalf.Whole;
+            ToppingWholeHalf mushWholeHalf = ToppingWholeHalf.Whole;
+            ToppingWholeHalf blackolWholeHalf = ToppingWholeHalf.Whole;
+
+            if (MajorMamaInfo == MajorOrMama.Major)
+            {
+                foreach (var topping in Toppings.CurrentToppings)
+                {
+                    if (topping.ToppingName == ToppingName.Onion)
+                    {
+                        hasOnion = true;
+                        onionWholeHalf = topping.ToppingWholeHalf;
+                    }
+                    else if (topping.ToppingName == ToppingName.GreenPeppers)
+                    {
+                        hasGreenPeppers = true;
+                        grpepWholeHalf = topping.ToppingWholeHalf;
+                    }
+                    else if (topping.ToppingName == ToppingName.Pepperoni)
+                    {
+                        hasPepperoni = true;
+                        pepWholeHalf = topping.ToppingWholeHalf;
+                    }
+                    else if (topping.ToppingName == ToppingName.Sausage)
+                    {
+                        hasSausage = true;
+                        sausWholeHalf = topping.ToppingWholeHalf;
+                    }
+                    else if (topping.ToppingName == ToppingName.Mushrooms)
+                    {
+                        hasMushrooms = true;
+                        mushWholeHalf = topping.ToppingWholeHalf;
+                    }
+                    else if (topping.ToppingName == ToppingName.BlackOlives)
+                    {
+                        hasBlackOlives = true;
+                        blackolWholeHalf = topping.ToppingWholeHalf;
+                    }
+                    else
+                    {
+                        tempToppings.Add(topping);
+                    }
+                }
+            }
+
+            List<GuestModifier> mods = DataConversion.GetDbMods(tempToppings);
+
+            if (MajorMamaInfo == MajorOrMama.Major)
+            {
+                if (!hasOnion)
+                {
+                    mods.Add(DataConversion.GetNoMod(new Topping(ToppingName.Onion)));
+                }
+                if (!hasGreenPeppers)
+                {
+                    mods.Add(DataConversion.GetNoMod(new Topping(ToppingName.GreenPeppers)));
+                }
+                if (!hasBlackOlives)
+                {
+                    mods.Add(DataConversion.GetNoMod(new Topping(ToppingName.BlackOlives)));
+                }
+                if (!hasPepperoni)
+                {
+                    mods.Add(DataConversion.GetNoMod(new Topping(ToppingName.Pepperoni)));
+                }
+                if (!hasSausage)
+                {
+                    mods.Add(DataConversion.GetNoMod(new Topping(ToppingName.Sausage)));
+                }
+                if (!hasMushrooms)
+                {
+                    mods.Add(DataConversion.GetNoMod(new Topping(ToppingName.Mushrooms)));
+                }
+                if (hasOnion && onionWholeHalf != ToppingWholeHalf.Whole)
+                {
+                    mods.Add(DataConversion.GetMod(new Topping(ToppingName.Onion, onionWholeHalf)));
+                }
+                if (hasGreenPeppers && grpepWholeHalf != ToppingWholeHalf.Whole)
+                {
+                    mods.Add(DataConversion.GetMod(new Topping(ToppingName.GreenPeppers, grpepWholeHalf)));
+                }
+                if (hasBlackOlives && blackolWholeHalf != ToppingWholeHalf.Whole)
+                {
+                    mods.Add(DataConversion.GetMod(new Topping(ToppingName.BlackOlives, blackolWholeHalf)));
+                }
+                if (hasMushrooms && mushWholeHalf != ToppingWholeHalf.Whole)
+                {
+                    mods.Add(DataConversion.GetMod(new Topping(ToppingName.Mushrooms, mushWholeHalf)));
+                }
+                if (hasPepperoni && pepWholeHalf != ToppingWholeHalf.Whole)
+                {
+                    mods.Add(DataConversion.GetMod(new Topping(ToppingName.Pepperoni, pepWholeHalf)));
+                }
+                if (hasSausage && sausWholeHalf != ToppingWholeHalf.Whole)
+                {
+                    mods.Add(DataConversion.GetMod(new Topping(ToppingName.Sausage, sausWholeHalf)));
+                }
+            }
+
+            return mods;
         }
 
         #endregion

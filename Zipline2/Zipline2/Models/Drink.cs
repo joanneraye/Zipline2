@@ -73,6 +73,11 @@ namespace Zipline2.Models
             return base.CreateGuestItem(dbItem, orderId);
         }
 
-       
+        public override List<GuestModifier> CreateMods()
+        {
+            return new List<GuestModifier>();
+        }
+
+
     }
 }

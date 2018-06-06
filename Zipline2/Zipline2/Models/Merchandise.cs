@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Staunch.POS.Classes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -31,6 +32,11 @@ namespace Zipline2.Models
         public override void PopulatePricePerItem()
         {
             throw new NotImplementedException();
+        }
+
+        public override List<GuestModifier> CreateMods()
+        {
+            return new List<GuestModifier>();
         }
     }
 }

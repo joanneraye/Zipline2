@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Staunch.POS.Classes;
 using Zipline2.PageModels;
 
 namespace Zipline2.Models
@@ -43,6 +44,11 @@ namespace Zipline2.Models
         public override OrderDisplayItem PopulateOrderDisplayItem()
         {
             throw new NotImplementedException();
+        }
+
+        public override List<GuestModifier> CreateMods()
+        {
+            return new List<GuestModifier>();
         }
     }
 }

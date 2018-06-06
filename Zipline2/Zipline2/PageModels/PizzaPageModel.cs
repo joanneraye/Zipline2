@@ -306,7 +306,8 @@ namespace Zipline2.PageModels
             Pizza newPizza = new Pizza()
             {
                 MajorMamaInfo = MajorOrMama.Major,
-                ItemCount = 1
+                ItemCount = 1,
+                PizzaType = pizzaType
             };
             
             //switch (pizzaType)

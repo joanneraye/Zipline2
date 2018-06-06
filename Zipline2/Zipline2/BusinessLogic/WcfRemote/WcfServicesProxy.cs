@@ -78,6 +78,12 @@ namespace Zipline2.BusinessLogic.WcfRemote
             }
         }
 
+        public void UpdateTableSync(DBTable currentTable)
+        {
+            DBTable[] tablesToUpdate = new DBTable[] { currentTable };
+            waiterClient.UpdateTables(tablesToUpdate, (decimal)Users.Instance.LoggedInUser.UserId);
+        }
+
         async public Task UpdateTableAsync(DBTable currentTable)
         {
 
@@ -89,27 +95,44 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 (decimal)Users.Instance.LoggedInUser.UserId,
                 TaskCreationOptions.None);
         }
-       
-        async public Task<DBTable> GetTableAsync(int tableNum)
+
+        public DBTable GetTableSync(int tableNum)
         {
-            
-            DBTable dbTable;
             try
             {
-                dbTable = await Task.Factory.FromAsync(
+                return waiterClient.GetTable(tableNum);
+            }
+            catch (Exception e)
+            {
+             waiterClient.GetTablesForSection(1);   Exception error = e;
+                throw;
+            }
+        }
+
+        public void GetTablesSync()
+        {
+            DataBaseDictionaries.DbTablesDictionary = new Dictionary<decimal, DBTable>();
+            DBTable[] tablesSection1 = waiterClient.GetTablesForSection(1);
+            foreach (var item1 in tablesSection1)
+            {
+                item1.Guests = new List<Staunch.POS.Classes.Guest_DB>();
+                DataBaseDictionaries.DbTablesDictionary.Add(item1.ID, item1);
+            }
+            DBTable[] tablesSection2 = waiterClient.GetTablesForSection(2);
+            foreach (var item2 in tablesSection2)
+            {
+                item2.Guests = new List<Staunch.POS.Classes.Guest_DB>();
+                DataBaseDictionaries.DbTablesDictionary.Add(item2.ID, item2);
+            }
+        }
+
+        async public Task<DBTable> GetTableAsync(int tableNum)
+        {
+                return await Task.Factory.FromAsync(
                     waiterClient.BeginGetTable,
                     waiterClient.EndGetTable,
                     tableNum,
                     TaskCreationOptions.None);
-            }
-            catch (Exception ex)
-            {
-                var errormessage = ex;
-                throw;
-            }
-
-            return dbTable;
-            //return FromWaiterService(dbTable); 
         }
 
         async public Task<DBModGroup[]> GetToppingsAsync()
@@ -121,6 +144,19 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 (decimal)12,
                 TaskCreationOptions.None);
 
+        }
+
+        public void GetMenuSync()
+        {
+            try
+            {
+                DataBaseDictionaries.MenuDictionary = waiterClient.GetMenu();
+            }
+            catch (Exception ex)
+            {
+                var errormessage = ex;
+                throw;
+            }
         }
 
         async public Task GetMenuAsync()
@@ -139,20 +175,6 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 var errormessage = ex;
                 throw;
             }
-            //foreach (var dbItem in menu["Pizza"])
-            //{
-            //    orderItem.MenuItems.Add(dbItem.ID, dbItem);
-            //}
-            //foreach (var dbItem in menu["Calzone"])
-            //{
-            //    MenuItemsPizza.Add(dbItem.ID, dbItem);
-            //}
-            //MenuItemsPizza = menu["Pizza"];
-            //MenuItemsCalzone = menu["Calzone"];
-            //MenuItemsSalads = menu["Salads"];
-            //MenuItemsBeverages = menu["Beverages"];
-            //MenuItemsDessert = menu["Dessert"];
-
         }
 
         async public Task<decimal> GetNextGuestIdAsync()
@@ -170,45 +192,172 @@ namespace Zipline2.BusinessLogic.WcfRemote
             return 0;
         }
 
+        public decimal GetNextGuestIdSync()
+        {
+            decimal[] ids = waiterClient.GetNextGuestIDs(1, UserIdDecimal);
+            if (ids.Length > 0)
+            {
+                return ids[0];
+            }
+            return 0;
+        }
+
+        public void UpdateOrderSync(Order orderToUpdate)
+        {
+            counter = counter + 1;
+           
+            DBTable dbTableCurrent = ConvertOrderToDbTable(orderToUpdate, false);
+
+            //Update the database table with built DBTable in order to obtain new OrderID.
+            //await UpdateTableAsync(dbTableCurrent);
+            UpdateTableSync(dbTableCurrent);
+        }
+
+        internal DBTable ConvertOrderToDbTable(Order orderToSend, bool sendOrderToKitchen = false)
+        {
+            decimal[] guestIds = GetGuestIdsSync(orderToSend.TableId);
+            //decimal guestId = await GetGuestIdAsync(orderToUpdate.TableId);
+
+            //Get stored DBTable.
+            DBTable newTable = DataBaseDictionaries.DbTablesDictionary[orderToSend.TableId];
+
+            //Create Guest_DBs for table Guests.
+            bool first = true;
+            foreach (decimal id in guestIds)
+            {
+                Staunch.POS.Classes.Guest_DB guest = new Staunch.POS.Classes.Guest_DB();
+                guest.ID = id;
+                guest.CheckedOut = false;
+                guest.Items = new List<GuestItem>();
+                guest.ComboItems = new List<GuestComboItem>();
+                guest.TableID = orderToSend.TableId;
+
+                if (first)
+                {
+                    guest.IsWhole = true;
+                    first = false;
+                }
+
+                newTable.Guests.Add(guest);
+            }
+
+            if (DataBaseDictionaries.MenuDictionary != null &&
+                DataBaseDictionaries.MenuDictionary.Count > 0)
+            {
+                //Create DBItems for Guest_DB object.
+                foreach (var orderItem in orderToSend.OrderItems)
+                {
+                    var keysTuple = orderItem.GetMenuDbItemKeys();
+                    var dbItem = new DBItem();
+                    bool menuItemFound = false;
+
+                    //Use the item from the Database Dictionary.                    
+                    foreach (var menuItem in DataBaseDictionaries.MenuDictionary[keysTuple.Item1])
+                    {
+                        if (menuItem.ID == keysTuple.Item2)
+                        {
+                            dbItem = menuItem;
+                            menuItemFound = true;
+                            break;
+                        }
+                    }
+                    if (orderItem.DbOrderId <= 0)
+                    {
+                        orderItem.DbOrderId = -1;
+                    }
+                    if (menuItemFound)
+                    {
+                        GuestItem guestItem = orderItem.CreateGuestItem(dbItem, orderItem.DbOrderId);
+                        guestItem.Mods = orderItem.CreateMods();
+                        guestItem.OrderSent = sendOrderToKitchen;
+                        newTable.Guests[0].Items.Add(guestItem);
+                    }
+                }
+            }
+            return newTable;
+        }
+
+
         async public void UpdateOrderAsync(Order orderToUpdate)
         {
             counter = counter + 1;
-            decimal guestId = await GetGuestIdAsync(orderToUpdate.TableId);
-            DBTable dbTableCurrent = DataConversion.ConvertOrderToDbTable(orderToUpdate, guestId, false);
+            //decimal guestId = await GetGuestIdAsync(orderToUpdate.TableId);
+            DBTable dbTableCurrent = ConvertOrderToDbTable(orderToUpdate, false);
 
             //Update the database table with built DBTable in order to obtain new OrderID.
+            //await UpdateTableAsync(dbTableCurrent);
             await UpdateTableAsync(dbTableCurrent);
         }
 
-        async private Task<decimal> GetGuestIdAsync(decimal tableId)
+        private decimal[] GetGuestIdsSync(decimal tableId)
         {
-            DBTable thisTable = await GetTableAsync((int)tableId);
-            if (thisTable.Guests.Count > 0)
+            DBTable thisTable = GetTableSync((int)tableId);
+            decimal[] guestIds = new decimal[2];
+            if (thisTable.Guests.Count > 1)
             {
-                return thisTable.Guests[0].ID;
+                guestIds[0] = (thisTable.Guests[0].ID);
+                guestIds[1] = (thisTable.Guests[1].ID);
             }
             else
             {
-                return await WcfServicesProxy.Instance.GetNextGuestIdAsync();
+                guestIds = waiterClient.GetNextGuestIDs((2), UserIdDecimal);
             }
+            return guestIds;
+        }
 
+        async private Task<decimal[]> GetGuestIdsAsync(decimal tableId)
+        {
+            DBTable thisTable = await GetTableAsync((int)tableId);
+            decimal[] guestIds = new decimal[2];
+            if (thisTable.Guests.Count > 1)
+            {
+                guestIds[0] = (thisTable.Guests[0].ID);
+                guestIds[1] = (thisTable.Guests[1].ID);
+            }
+            else
+            {
+                guestIds = waiterClient.GetNextGuestIDs((2), UserIdDecimal);
+            }
+            return guestIds;
+
+        }
+
+        async public void SendOrderSync(Order orderToSend)
+        {
+            DBTable dbTableCurrent = ConvertOrderToDbTable(orderToSend, true);
+
+            //Update the database table with built DBTable in order to obtain new OrderID.
+            //await UpdateTableAsync(dbTableCurrent);
+            UpdateTableSync(dbTableCurrent);
+
+            //Get the table just updated - will contain new OrderID.
+            DBTable updatedTable = GetTableSync((int)dbTableCurrent.ID);
+
+            //Get the GuestItem obejcts from the DBTable object needed for the DBCheck.
+            List<GuestItem> items = updatedTable.Guests[0].Items;
+            DBCheck dbCheck = new DBCheck()
+            {
+                ID = orderToSend.TableId,
+                ComboItems = new List<GuestComboItem>(),
+                Discounts = new List<OrderDiscount>(),
+                GuestIDs = new List<decimal>(),
+                Name = string.Empty,
+                Notes = new DBNotes(),
+                Items = items
+            };
+
+            //Creates and adds check to database.
+            await CreateCheckAsync(dbCheck);
         }
 
         async public void SendOrderAsync(Order orderToSend)
         {
-            decimal guestId;
-            if (orderToSend.GuestId != 0)
-            {
-                guestId = orderToSend.GuestId;
-            }
-            else
-            {
-                guestId = await GetGuestIdAsync(orderToSend.TableId);
-            }
-            DBTable dbTableCurrent = DataConversion.ConvertOrderToDbTable(orderToSend, guestId, true);
+           
+            DBTable dbTableCurrent = ConvertOrderToDbTable(orderToSend, true);
 
             //Update the database table with built DBTable in order to obtain new OrderID.
-            await UpdateTableAsync(dbTableCurrent);
+            //await UpdateTableAsync(dbTableCurrent);
+            UpdateTableSync(dbTableCurrent);
 
             //Get the table just updated - will contain new OrderID.
             DBTable updatedTable = await GetTableAsync((int)dbTableCurrent.ID);
@@ -230,16 +379,20 @@ namespace Zipline2.BusinessLogic.WcfRemote
             await CreateCheckAsync(dbCheck);
         }
 
-        
-
-        async public Task<DBUser> GetUserAsync(string pin)
+        public DBUser GetUserSync(string pin)
         {
-            return await Task.Factory.FromAsync(
-                   waiterClient.BeginGetUser,
-                   waiterClient.EndGetUser,
-                   pin,                
-                   TaskCreationOptions.None);
+            DBUser thisUser =  waiterClient.GetUser(pin);
+            return thisUser;
         }
+
+        //async public Task<DBUser> GetUserAsync(string pin)
+        //{
+        //    return await Task.Factory.FromAsync(
+        //            waiterClient.BeginGetUser,
+        //            waiterClient.EndGetUser,
+        //            pin,
+        //            TaskCreationOptions.None);
+        //}
 
         async public Task<DBTable[]> GetTablesForSectionAsync(decimal sectionID)
         {

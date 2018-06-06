@@ -11,12 +11,25 @@ using Zipline2.Connected_Services;
 using System.Threading.Tasks;
 using Zipline2.BusinessLogic.WcfRemote;
 using Staunch.POS.Classes;
+using Zipline2.BusinessLogic.Enums;
 
 namespace Zipline2
 {
     
     public partial class App : Application
     {
+        private static List<Topping> allToppings;
+        public static List<Topping> AllToppings
+        {
+            get
+            {
+                if (allToppings == null || allToppings.Count == 0)
+                {
+                    LoadInitialToppings();
+                }
+                return allToppings;
+            }
+        }
         public App()
         {
             InitializeComponent();
@@ -28,10 +41,11 @@ namespace Zipline2
             Users.Instance.AddNewUser(satch);
             Users.Instance.AddNewUser(jim);
             Tables.LoadInitialTableData();
-            Toppings.LoadInitialToppings();
+            LoadInitialToppings();
 
-            LoadMenuFromServer();
+            LoadMenuFromServerSync();
             LoadToppingsFromServer();
+            LoadTablesFromServerSync();
             LoadDrinks();
 
             //TODO:  When and how to close services?
@@ -44,7 +58,18 @@ namespace Zipline2
             //}
         }
 
-        async private void LoadMenuFromServer()
+        private void LoadMenuFromServerSync()
+        {
+            WcfServicesProxy.Instance.GetMenuSync();
+        }
+        
+
+        private void LoadTablesFromServerSync()
+        {
+            WcfServicesProxy.Instance.GetTablesSync();
+        }
+
+        async private void LoadMenuFromServerAsync()
         {
             await WcfServicesProxy.Instance.GetMenuAsync();
         }
@@ -61,7 +86,7 @@ namespace Zipline2
                     if (!DataBaseDictionaries.PizzaToppingsDictionary.ContainsKey(mod.ID))
                     {
                         DataBaseDictionaries.PizzaToppingsDictionary.Add(mod.ID, mod);
-                        if (!Toppings.DbIdToppingDictionary.ContainsKey(mod.ID))
+                        if (!DataBaseDictionaries.DbIdToppingDictionary.ContainsKey(mod.ID))
                         {
                             Console.WriteLine("TOPPINGS DICTIONARY ITEM NOT FOUND: " + mod.Name + mod.ID);
                         }
@@ -103,6 +128,63 @@ namespace Zipline2
             //went to sleep
 
             //Maybe just display tables screen?
+        }
+
+        public static void LoadInitialToppings()
+        {
+            allToppings = new List<Topping>()
+            {
+                new Topping(ToppingName.Anchovies),
+                new Topping(ToppingName.Artichokes),
+                new Topping(ToppingName.Bacon),
+                new Topping(ToppingName.BananaPeppers),
+                new Topping(ToppingName.Basil),
+                new Topping(ToppingName.Beef),
+                new Topping(ToppingName.BlackOlives),
+                new Topping(ToppingName.Broccoli),
+                new Topping(ToppingName.Carrots),
+                new Topping(ToppingName.Cheese),
+                new Topping(ToppingName.DAIYA),
+                new Topping(ToppingName.Deep) {SpecialPricingType = SpecialPricingType.Unknown},
+                new Topping(ToppingName.ExtraCheese),
+                new Topping(ToppingName.ExtraMozarellaCalzone),
+                new Topping(ToppingName.ExtraPSauceOS) { SpecialPricingType = SpecialPricingType.AddHalfTopping },
+                new Topping(ToppingName.ExtraPSauceOP) { SpecialPricingType = SpecialPricingType.AddHalfTopping },
+                new Topping(ToppingName.ExtraRicottaCalzone),
+                new Topping(ToppingName.Feta),
+                new Topping(ToppingName.Garlic) ,
+                new Topping(ToppingName.GreenOlives),
+                new Topping(ToppingName.GreenPeppers),
+                new Topping(ToppingName.HalfMajor)
+                            { ToppingWholeHalf = ToppingWholeHalf.HalfA },
+                new Topping(ToppingName.Jalapenos),
+                new Topping(ToppingName.Meatballs),
+                new Topping(ToppingName.Mushrooms),
+                new Topping(ToppingName.NoCheese) {SpecialPricingType = SpecialPricingType.GetExtraTopping},
+                new Topping(ToppingName.Onion),
+                new Topping(ToppingName.PestoTopping) ,
+                new Topping(ToppingName.Pepperoni),
+                new Topping(ToppingName.Pineapple),
+                new Topping(ToppingName.RedOnions),
+                new Topping(ToppingName.Ricotta),
+                new Topping(ToppingName.RoastedRedPepper),
+                new Topping(ToppingName.Sausage),
+                new Topping(ToppingName.Spinach),
+                new Topping(ToppingName.Steak),
+                new Topping(ToppingName.SundriedTomatoes),
+                new Topping(ToppingName.Teese) {SpecialPricingType = SpecialPricingType.DoubleTopping},
+                new Topping(ToppingName.TempehBBQ),
+                new Topping(ToppingName.TempehOriginal),
+                new Topping(ToppingName.Tomatoes),
+                new Topping(ToppingName.Zucchini),
+                new Topping(ToppingName.LightSauce) {SpecialPricingType = SpecialPricingType.Free},
+                new Topping(ToppingName.LightMozarella) {SpecialPricingType = SpecialPricingType.Free},
+                new Topping(ToppingName.LightRicotta) {SpecialPricingType = SpecialPricingType.Free},
+                new Topping(ToppingName.NoButter) {SpecialPricingType = SpecialPricingType.Free},
+                new Topping(ToppingName.NoSauce) {SpecialPricingType = SpecialPricingType.Free},
+                new Topping(ToppingName.NoMozarella) {SpecialPricingType = SpecialPricingType.Free},
+                new Topping(ToppingName.NoRicotta) {SpecialPricingType = SpecialPricingType.SubtractTopping}
+            };
         }
     }
 }

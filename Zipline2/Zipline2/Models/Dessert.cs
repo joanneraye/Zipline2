@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Staunch.POS.Classes;
 using Zipline2.BusinessLogic.Enums;
 using Zipline2.PageModels;
 
@@ -17,6 +18,11 @@ namespace Zipline2.Models
         public override void CompleteOrderItem()
         {
             throw new NotImplementedException();
+        }
+
+        public override List<GuestModifier> CreateMods()
+        {
+            return new List<GuestModifier>();
         }
 
         public override Tuple<string, decimal> GetMenuDbItemKeys()

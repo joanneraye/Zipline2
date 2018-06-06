@@ -1,4 +1,5 @@
 ﻿using SQLite;
+using Staunch.POS.Classes;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -44,16 +45,18 @@ namespace Zipline2.Models
             {
                 SetProperty(ref hasUnsentOrder, value);
             }
-        }
+        } 
 
-        public List<Order> OpenOrders { get; set; }
+        public DBTable DatabaseTable { get; set; }
+
+        //public List<Order> OpenOrders { get; set; }
 
         #endregion
 
         #region constructor
         public Table()
         {
-            OpenOrders = new List<Order>();
+            //OpenOrders = new List<Order>();
         }
         #endregion
     }

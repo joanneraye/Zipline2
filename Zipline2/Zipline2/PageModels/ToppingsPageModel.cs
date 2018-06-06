@@ -234,7 +234,7 @@ namespace Zipline2.PageModels
                 "Crispy Cook", "Kid Cook", "Light Cook", "Regular Cook"
             };
 
-            var toppingsList = Toppings.AllToppings;
+            var toppingsList = App.AllToppings;
             ToppingSelectionsList = new ObservableCollection<ToppingDisplayItem>();
             for (int i = 0; i < toppingsList.Count; i++)
             {
@@ -326,6 +326,7 @@ namespace Zipline2.PageModels
                 {
                     thisSelection.ListTopping.SequenceSelected = ThisPizza.Toppings.CurrentToppings.Count + 1;
                     ThisPizza.Toppings.AddTopping(thisSelection.ListTopping);
+                    ThisPizza.UpdateItemTotal();
                 }
                 thisSelection.ListItemIsSelected = !thisSelection.ListItemIsSelected;
                 //Appearance...
@@ -438,6 +439,7 @@ namespace Zipline2.PageModels
                     thisItemSelected.ListTopping.SequenceSelected = thisPizza.Toppings.CurrentToppings.Count + 1;
                     thisPizza.Toppings.AddTopping(thisItemSelected.ListTopping);
                 }
+                thisPizza.UpdateItemTotal();
                 ChangeButtonSelection(thisItemSelected, wholeOrHalf);
             }
         }

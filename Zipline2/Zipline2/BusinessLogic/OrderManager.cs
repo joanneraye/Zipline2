@@ -35,9 +35,11 @@ namespace Zipline2.BusinessLogic
             }
         }
         #endregion
-        
+
 
         #region Public Properties
+
+       
         public OrderItem OrderItemPizzaInProgress { get; set; }
         public Order OrderInProgress { get; set; }
         /// <summary>
@@ -46,6 +48,8 @@ namespace Zipline2.BusinessLogic
         /// </summary>
         public int CurrentTableIndex { get; set; }
         public string CurrentTableName { get; set; }
+
+        public decimal CurrentTableId { get; set; }
         #endregion
         #region Methods
         /// <summary>
@@ -70,6 +74,7 @@ namespace Zipline2.BusinessLogic
             CurrentTableIndex = updatedTable.IndexInAllTables;
             Tables.AllTables[CurrentTableIndex] = updatedTable;
             CurrentTableName = updatedTable.TableName;
+            CurrentTableId = updatedTable.TableId;
         }
 
 
@@ -119,12 +124,13 @@ namespace Zipline2.BusinessLogic
 
         public void InitializeOrderInProgress()
         {
-            OrderInProgress = new Order();
+            OrderInProgress = new Order(CurrentTableId);
         }
 
         public void SendOrder()
         {
-            WcfServicesProxy.Instance.SendOrderAsync(OrderInProgress);
+            WcfServicesProxy.Instance.SendOrderSync(OrderInProgress);
+            //WcfServicesProxy.Instance.SendOrderAsync(OrderInProgress);
             MarkCurrentTableUnsentOrder(false);
             foreach (var item in OrderInProgress.OrderItems)
             {
@@ -157,6 +163,8 @@ namespace Zipline2.BusinessLogic
             OrderInProgress.AddItemToOrder(OrderItemPizzaInProgress);
             OrderItemPizzaInProgress = null;
         }
+
+        
         #endregion
     }
 }

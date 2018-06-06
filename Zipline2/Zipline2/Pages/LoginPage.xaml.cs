@@ -64,30 +64,33 @@ namespace Zipline2.Pages
         async void OnLoginButtonClicked(object sender, EventArgs e)
         {
             LoginButton.IsEnabled = false;
-            if (await IsValidUser(PinEnteredByUser.Text)) 
+            if (IsValidUser(PinEnteredByUser.Text)) 
             {
                 Users.IsUserLoggedIn = true;
                 await Navigation.PopModalAsync();
             }
-            //TODO: See this example....
-            //Device.BeginInvokeOnMainThread(async () => await DisplayAlert("Save Failed", message, "OK"));
-            await DisplayAlert("Oops", "Sorry that PIN is not in our system as belonging to anyone.", "OK");
-            PinEnteredByUser.Text = "";
-            LoginButton.IsEnabled = true;
+            else
+            {
+                //TODO: See this example....
+                //Device.BeginInvokeOnMainThread(async () => await DisplayAlert("Save Failed", message, "OK"));
+                await DisplayAlert("Oops", "Sorry that PIN is not in our system as belonging to anyone.", "OK");
+                PinEnteredByUser.Text = "";
+                LoginButton.IsEnabled = true;
+            }
         }
 
-        async private Task<bool> IsValidUser(string pin)
+        private bool IsValidUser(string pin)
         {
-            //DBUser user = await WcfServicesProxy.Instance.GetUserAsync(pin);
-            //if (user.ID != -1)
-            //{
-                Users.Instance.LoggedInUser = new Zipline2.Models.User("Employee", false, "1111");
-                //Users.Instance.LoggedInUser = new Zipline2.Models.User(user.Name, false, user.Pin);
+            DBUser user = WcfServicesProxy.Instance.GetUserSync(pin);
+            if (user.ID != -1)
+            {
+                //Users.Instance.LoggedInUser = new Zipline2.Models.User("Employee", false, "1111");
+                Users.Instance.LoggedInUser = new Zipline2.Models.User(user.Name, false, user.Pin);
                 return true;
-            //}
-            //return false;
-            
-            
+            }
+            return false;
+
+
 
             //DO NOT DELETE - MAY BE USED IN FUTURE.
             //FOR NOW THOUGH, USE EXISTING USERIDS....
@@ -102,7 +105,7 @@ namespace Zipline2.Pages
 
         async void OnChangePinButtonClicked(object sender, EventArgs e)
         {
-            if (await IsValidUser(PinEnteredByUser.Text))
+            if (IsValidUser(PinEnteredByUser.Text))
             {
                 Users.IsUserLoggedIn = true;
                 var isYes = await DisplayAlert("Hi!", "Are you " +

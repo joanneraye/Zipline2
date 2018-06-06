@@ -60,7 +60,7 @@ namespace Zipline2.Models
         {
             ToppingName = toppingName;
             DbItemId = Toppings.GetDbItemId(toppingName);
-            ToppingWholeHalf = toppingWholeHalf;
+         
         }
         #endregion
     }

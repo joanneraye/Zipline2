@@ -155,6 +155,8 @@ namespace Zipline2.Models
 
         public abstract Tuple<string, decimal> GetMenuDbItemKeys();
 
+        public abstract List<GuestModifier> CreateMods();
+
         public virtual GuestItem CreateGuestItem(DBItem dbItem, decimal orderId)
         {
             

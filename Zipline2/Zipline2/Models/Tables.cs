@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Staunch.POS.Classes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -45,10 +46,11 @@ namespace Zipline2.Models
             {
                 allTables = value;
             }
-       
+        
         }
+        
 
-        public static int NumSeated { get; set; } = 0;
+    public static int NumSeated { get; set; } = 0;
         #endregion
 
         #region Methods

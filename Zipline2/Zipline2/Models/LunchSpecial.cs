@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Staunch.POS.Classes;
+using System;
+using System.Collections.Generic;
 
 namespace Zipline2.Models
 {
@@ -35,6 +37,10 @@ namespace Zipline2.Models
             throw new NotImplementedException();
         }
 
-        
+        public override List<GuestModifier> CreateMods()
+        {
+            return new List<GuestModifier>();
+        }
+
     }
 }

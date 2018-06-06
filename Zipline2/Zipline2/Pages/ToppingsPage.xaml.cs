@@ -254,6 +254,7 @@ namespace Zipline2.Pages
             if (ToppingsOtherPage != null && ToppingsOtherPage.SelectedOtherToppings.Count > 0)
             {
                 ToppingsPageModel.ThisPizza.Toppings.AddToppings(ToppingsOtherPage.SelectedOtherToppings);
+                ToppingsPageModel.ThisPizza.UpdateItemTotal();
             }
             ToppingsPageModel.NavigateToPizzaPage += HandleNavigateToPizzaPage;
 

@@ -58,12 +58,13 @@ namespace Zipline2.Models
 
        
         public decimal TableId { get; set; }
-        public decimal GuestId { get; set; }
+        public decimal[] GuestIds { get; set; } = new decimal[2];
 
-        public Order()
+        public Order(decimal tableId)
         {
             OrderItems = new List<OrderItem>();
             IsTakeout = false;
+            TableId = tableId;
         }
 
         private void UpdateOrderTotals()
@@ -81,7 +82,7 @@ namespace Zipline2.Models
 
         //When a new OrderItem is added, subtotal, tax, and total are 
         //automatically updated.
-        public void AddItemToOrder(OrderItem item)
+        public void AddItemToOrder(OrderItem item, bool sendToServer = true)
         {
             bool addItemToOrder = true;
             if (item != null)
@@ -102,7 +103,11 @@ namespace Zipline2.Models
                 }
 
                 UpdateOrderTotals();
-                WcfServicesProxy.Instance.UpdateOrderAsync(this);
+                if (sendToServer)
+                {
+                    WcfServicesProxy.Instance.UpdateOrderSync(this);
+                    //WcfServicesProxy.Instance.UpdateOrderAsync(this);
+                }
             }
         }
 

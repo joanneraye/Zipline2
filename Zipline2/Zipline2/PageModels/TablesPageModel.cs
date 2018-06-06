@@ -192,12 +192,15 @@ namespace Zipline2.PageModels
         async private void ProcessSelectedTable(Table tableSelected)
         {
             tableSelected.IsOccupied = true;
-
             //Change what the app's current table is.
             OrderManager.Instance.UpdateCurrentTable(tableSelected);
 
-            var dbTable = await WcfServicesProxy.Instance.GetTableAsync((int)tableSelected.TableId);
-            
+            //var result = await WcfServicesProxy.Instance.HasOpenChecksAsync(tableSelected.TableId);
+            //var dbTable = await WcfServicesProxy.Instance.GetTableAsync((int)tableSelected.TableId);
+
+            var dbTable = WcfServicesProxy.Instance.GetTableSync((int)tableSelected.TableId);
+            tableSelected.DatabaseTable = dbTable;
+            Tables.AllTables[tableSelected.IndexInAllTables] = tableSelected;
             if (dbTable.Guests.Count > 0)
             {
                 List<GuestItem> guestItems = new List<GuestItem>();
@@ -213,7 +216,7 @@ namespace Zipline2.PageModels
                     {
                         tableSelected.HasUnsentOrder = true;
                     }
-                    Tables.AllTables[tableSelected.IndexInAllTables].OpenOrders = new List<Order>() { openOrder };
+                    //Tables.AllTables[tableSelected.IndexInAllTables].OpenOrders = new List<Order>() { openOrder };
                     DisplayOrderPage();
                     return;
                 }
@@ -221,18 +224,18 @@ namespace Zipline2.PageModels
 
             //TODO:  Should this never occur?
             //Only if no orders on server, see if OpenOrders for this table on this phone...
-            var ordersForThisTable = Tables.AllTables[tableSelected.IndexInAllTables].OpenOrders;
-            if (ordersForThisTable.Count > 0)
-            {
-                OrderManager.Instance.OrderInProgress = ordersForThisTable[0];
-                DisplayOrderPage();
-            }
-            else
-            //if no open orders out there for this table, start a new order.
-            { 
+            //var ordersForThisTable = Tables.AllTables[tableSelected.IndexInAllTables].OpenOrders;
+            //if (ordersForThisTable.Count > 0)
+            //{
+            //    OrderManager.Instance.OrderInProgress = ordersForThisTable[0];
+            //    DisplayOrderPage();
+            //}
+            //else
+            ////if no open orders out there for this table, start a new order.
+            //{ 
                 OrderManager.Instance.InitializeOrderInProgress();
                 DisplayDrinksPage();
-            }
+            //}
             
             //else if (await TableHasOpenChecks(tableSelected.TableId))
             //Are there checks on server for that table (not on phone)?  If, so
