@@ -178,6 +178,44 @@ namespace Zipline2.PageModels
         #region Constructor
         public TablesPageModel()
         {
+            //First populate list of tables with whether table is occupied and has unsent orders.
+            //(Then build the page with that data in LoadTablesForDisplay method.)
+            List<DBTable> tables = WcfServicesProxy.Instance.GetTableInfoFromServer();
+           
+            foreach (var table in tables)
+            {
+                bool hasUnsentItems = false;
+                bool tableOccupied = false;
+                int indexInAllTables = 0;
+                if (DataBaseDictionaries.TableIdAllTablesIndexDictionary.ContainsKey(table.ID))
+                {
+                    indexInAllTables = DataBaseDictionaries.TableIdAllTablesIndexDictionary[table.ID];
+                }
+                foreach (var guest in table.Guests)
+                {
+                    if (guest.Items.Count > 0 || guest.ComboItems.Count > 0)
+                    {
+                        tableOccupied = true;
+                        foreach (var item in guest.Items)
+                        {
+                            if (!item.OrderSent)
+                            {
+                                hasUnsentItems = true;
+                            }
+                        }
+                    }
+                }
+
+                if (tableOccupied)
+                {
+                    Tables.AllTables[indexInAllTables].IsOccupied = tableOccupied;
+                }
+
+                if (hasUnsentItems)
+                {
+                    Tables.AllTables[indexInAllTables].HasUnsentOrder = hasUnsentItems;
+                }
+            }
             LoadTablesForDisplay();
         }
         #endregion

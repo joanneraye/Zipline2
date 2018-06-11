@@ -3,12 +3,25 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Zipline2.BusinessLogic.Enums;
+using Zipline2.Models;
 
 namespace Zipline2.BusinessLogic.WcfRemote
 {
     public static class DataBaseDictionaries
     {
-        public static Dictionary<string, DBItem[]> MenuDictionary { get; set; }
+        private static Dictionary<decimal, int> tableIdAllTablesIndexDictionary;
+        public static Dictionary<decimal, int> TableIdAllTablesIndexDictionary
+        {
+            get
+            {
+                if (tableIdAllTablesIndexDictionary == null)
+                {
+                    LoadTableIdAllTablesIndexDictionary();
+                }
+                return tableIdAllTablesIndexDictionary;
+            }
+        }
+        public static Dictionary<string, List<DBItem>> MenuDictionary { get; set; }
 
         public static Dictionary<decimal, DBModifier> PizzaToppingsDictionary { get; set; }
 
@@ -184,6 +197,18 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 { ToppingName.TakeoutBring2Table, 126 },
                 { ToppingName.TakeoutKeepInKitch, 150 }
             };
+        }
+
+        private static void LoadTableIdAllTablesIndexDictionary()
+        {
+            tableIdAllTablesIndexDictionary = new Dictionary<decimal, int>();
+            foreach (var table in Tables.AllTables)
+            {
+                if (!tableIdAllTablesIndexDictionary.ContainsKey(table.TableId))
+                {
+                    tableIdAllTablesIndexDictionary.Add(table.TableId, table.IndexInAllTables);
+                }
+            }
         }
     }
 }

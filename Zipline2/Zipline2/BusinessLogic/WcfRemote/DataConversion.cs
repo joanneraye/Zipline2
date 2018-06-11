@@ -20,7 +20,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
             foreach (var item in check.Items)
             {
                 var openOrderItem = OrderItemFactory.GetOrderItem(item);
-                openOrder.AddItemToOrder(openOrderItem, false);
+                openOrder.AddItemToOrder(openOrderItem);
             }
             return openOrder;
         }
@@ -243,7 +243,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 {
                     openOrder.AllItemsSent = false;
                 }
-                openOrder.AddItemToOrder(openOrderItem, false);
+                openOrder.AddItemToOrder(openOrderItem);
             }
 
             if (guestItems.Count > 1)

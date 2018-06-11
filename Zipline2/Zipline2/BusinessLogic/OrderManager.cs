@@ -120,6 +120,7 @@ namespace Zipline2.BusinessLogic
              {
                 OrderManager.Instance.OrderInProgress.AddItemToOrder(drink);
              }
+            OrderManager.Instance.OrderInProgress.UpdateOrderOnServer();
         }
 
         public void InitializeOrderInProgress()
@@ -161,6 +162,7 @@ namespace Zipline2.BusinessLogic
         public void AddPizzaInProgressToOrder()
         {
             OrderInProgress.AddItemToOrder(OrderItemPizzaInProgress);
+            OrderInProgress.UpdateOrderOnServer();
             OrderItemPizzaInProgress = null;
         }
 

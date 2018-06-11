@@ -19,7 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Connected Services\PosServiceReference\Reference.cs" />
+    <Compile Remove="Connected Services\CheckHostReference\CheckHostold.cs" />
+    <Compile Remove="Connected Services\PosServiceReference\POServiceHostold.cs" />
     <Compile Remove="CustomControls\MyFlexButton.cs" />
     <Compile Remove="Models\PizzaCalzone.cs" />
     <Compile Remove="Models\PizzaCalzoneSteakAndCheese.cs" />

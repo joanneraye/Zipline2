@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Staunch.POS.Classes;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -34,6 +35,8 @@ namespace Zipline2.BusinessLogic
                 return 0M;
             }
         }
+
+        
         public static Dictionary<DrinkType, decimal> DrinkTypeDictionary = new Dictionary<DrinkType, decimal>
         {
             { DrinkType.Water, 0M },
@@ -50,17 +53,17 @@ namespace Zipline2.BusinessLogic
             { DrinkType.SweetArnoldPalmer, 3.00M },
             { DrinkType.UnsweetArnoldPalmer, 3.00M },
             { DrinkType.UnsweetTea, 3.00M },
-            { DrinkType.SodaWater, 0M },
+            { DrinkType.SodaWater, 2.00M },
             { DrinkType.Milk, 3.00M },
-            { DrinkType.BottledCoke, 3.00M },
+            { DrinkType.BottledCoke, 2.50M },
             { DrinkType.HalfNHalfTea, 3.00M },
-            { DrinkType.DietCokeCan, 3.00M },
-            { DrinkType.SodaPitcher, 0M },
+            { DrinkType.DietCokeCan, 1.50M },
+            { DrinkType.SodaPitcher, 12.00M },
             { DrinkType.Flight, 5.00M },
             { DrinkType.CrystalCreme, 3.00M },
             { DrinkType.Hefeweizen, 6.00M },
             { DrinkType.FirstMagnitude72,  6.00M },
-            { DrinkType.EmployeeBeer,  6.00M },
+            { DrinkType.EmployeeBeer,  1.88M },
             { DrinkType.SwampHeadBigNoseIpa,  6.00M },
             { DrinkType.PilsLagerOrBlondeAle,  6.00M },
             { DrinkType.Beer12Oz,  4.00M },
@@ -85,7 +88,7 @@ namespace Zipline2.BusinessLogic
              { DrinkType.BodegasLaya,  18.00M },       
              { DrinkType.RegularCoffee,  3.00M },
              { DrinkType.DecafCoffee,  3.00M },
-             { DrinkType.HotTea,  3.00M },
+             { DrinkType.HotTea,  2.00M },
              { DrinkType.HotCocoa, 3.00M },
              { DrinkType.WineSpecial10, 10.00M },
              { DrinkType.WineSpecial12, 12.00M },

@@ -82,7 +82,7 @@ namespace Zipline2.Models
 
         //When a new OrderItem is added, subtotal, tax, and total are 
         //automatically updated.
-        public void AddItemToOrder(OrderItem item, bool sendToServer = true)
+        public void AddItemToOrder(OrderItem item)
         {
             bool addItemToOrder = true;
             if (item != null)
@@ -96,19 +96,19 @@ namespace Zipline2.Models
                         addItemToOrder = false;
                     }
                 }
-              
+
                 if (addItemToOrder)
                 {
                     OrderItems.Add(item);
                 }
 
                 UpdateOrderTotals();
-                if (sendToServer)
-                {
-                    WcfServicesProxy.Instance.UpdateOrderSync(this);
-                    //WcfServicesProxy.Instance.UpdateOrderAsync(this);
-                }
             }
+        }
+
+        public void UpdateOrderOnServer()
+        {
+            WcfServicesProxy.Instance.UpdateOrderSync(this);
         }
 
         public bool UpdateDrinkIfAlreadyOnOrder(Drink drinkToAdd)

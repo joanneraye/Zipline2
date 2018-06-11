@@ -7,7 +7,7 @@ using Xamarin.Forms;
 using Zipline2.Models;
 using Zipline2.Pages;
 using Zipline2.BusinessLogic;
-using Zipline2.Connected_Services;
+using Zipline2.ConnectedServices;
 using System.Threading.Tasks;
 using Zipline2.BusinessLogic.WcfRemote;
 using Staunch.POS.Classes;
@@ -44,7 +44,7 @@ namespace Zipline2
             LoadInitialToppings();
 
             LoadMenuFromServerSync();
-            LoadToppingsFromServer();
+            LoadToppingsFromServerAsync();
             LoadTablesFromServerSync();
             LoadDrinks();
 
@@ -74,11 +74,11 @@ namespace Zipline2
             await WcfServicesProxy.Instance.GetMenuAsync();
         }
 
-        async private void LoadToppingsFromServer()
+        async private void LoadToppingsFromServerAsync()
         {
             //TODO:  Not doing anything with this dictionary yet.
             DataBaseDictionaries.PizzaToppingsDictionary = new Dictionary<decimal, DBModifier>();
-            DBModGroup[] modgroups = await WcfServicesProxy.Instance.GetToppingsAsync();
+            List<DBModGroup> modgroups = await WcfServicesProxy.Instance.GetToppingsAsync();
             foreach (var modgroup in modgroups)
             {
                 foreach (var mod in modgroup.SelectionList)

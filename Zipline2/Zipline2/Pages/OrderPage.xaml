@@ -115,6 +115,7 @@
             <Button Text="Send Order"
                     Margin="0,5,0,0"
                     IsVisible="True"
+                    IsEnabled="False"
                     HorizontalOptions="FillAndExpand"
                     HeightRequest="40"
                     BorderColor="White"

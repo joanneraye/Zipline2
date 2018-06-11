@@ -70,7 +70,23 @@ namespace Zipline2.Models
 
         public override GuestItem CreateGuestItem(DBItem dbItem, decimal orderId)
         {
-            return base.CreateGuestItem(dbItem, orderId);
+            GuestItem item = base.CreateGuestItem(dbItem, orderId);
+            switch (DrinkSize)
+            {
+                case DrinkSize.Pint:
+                    item.SelectSizeID = 1;
+                    break;
+                case DrinkSize.Pitcher:
+                    item.SelectSizeID = 2;
+                    break;
+                case DrinkSize.Glass:
+                    item.SelectSizeID = 3;
+                    break;
+                case DrinkSize.Bottle:
+                    item.SelectSizeID = 6;
+                    break;
+            }
+            return item;
         }
 
         public override List<GuestModifier> CreateMods()

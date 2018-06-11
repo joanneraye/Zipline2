@@ -158,11 +158,11 @@ namespace Zipline2.Models
         public abstract List<GuestModifier> CreateMods();
 
         public virtual GuestItem CreateGuestItem(DBItem dbItem, decimal orderId)
-        {
-            
+        {           
             var guestItem = new GuestItem()
             {
                 Availability = dbItem.Availability,
+                BasePrice = PricePerItem,
                 CanBeHalf = dbItem.CanBeHalf,
                 Description = dbItem.Description,
                 HasAllMods = dbItem.HasAllMods,

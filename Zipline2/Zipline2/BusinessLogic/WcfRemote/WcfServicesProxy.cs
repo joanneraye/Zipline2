@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.ServiceModel;
 using System.Threading.Tasks;
-using Zipline2.Connected_Services;
+using Zipline2.ConnectedServices;
 using Zipline2.Models;
 using Staunch.POS.Classes;
 
@@ -80,14 +80,14 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         public void UpdateTableSync(DBTable currentTable)
         {
-            DBTable[] tablesToUpdate = new DBTable[] { currentTable };
+            List<DBTable> tablesToUpdate = new List<DBTable> { currentTable };
             waiterClient.UpdateTables(tablesToUpdate, (decimal)Users.Instance.LoggedInUser.UserId);
         }
 
         async public Task UpdateTableAsync(DBTable currentTable)
         {
 
-            DBTable[] tablesToUpdate = new DBTable[] { currentTable };
+            List<DBTable> tablesToUpdate = new List<DBTable> { currentTable };
             await Task.Factory.FromAsync(
                 waiterClient.BeginUpdateTables,
                 waiterClient.EndUpdateTables,
@@ -112,16 +112,14 @@ namespace Zipline2.BusinessLogic.WcfRemote
         public void GetTablesSync()
         {
             DataBaseDictionaries.DbTablesDictionary = new Dictionary<decimal, DBTable>();
-            DBTable[] tablesSection1 = waiterClient.GetTablesForSection(1);
+            List<DBTable> tablesSection1 = waiterClient.GetTablesForSection(1);
             foreach (var item1 in tablesSection1)
             {
-                item1.Guests = new List<Staunch.POS.Classes.Guest_DB>();
                 DataBaseDictionaries.DbTablesDictionary.Add(item1.ID, item1);
             }
-            DBTable[] tablesSection2 = waiterClient.GetTablesForSection(2);
+            List<DBTable> tablesSection2 = waiterClient.GetTablesForSection(2);
             foreach (var item2 in tablesSection2)
             {
-                item2.Guests = new List<Staunch.POS.Classes.Guest_DB>();
                 DataBaseDictionaries.DbTablesDictionary.Add(item2.ID, item2);
             }
         }
@@ -135,7 +133,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
                     TaskCreationOptions.None);
         }
 
-        async public Task<DBModGroup[]> GetToppingsAsync()
+        async public Task<List<DBModGroup>> GetToppingsAsync()
         {
            return await Task.Factory.FromAsync(
                 waiterClient.BeginGetAllMods,
@@ -146,6 +144,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         }
 
+       
         public void GetMenuSync()
         {
             try
@@ -161,7 +160,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         async public Task GetMenuAsync()
         {
-            DataBaseDictionaries.MenuDictionary = new Dictionary<string, DBItem[]>();
+            DataBaseDictionaries.MenuDictionary = new Dictionary<string, List<DBItem>>();
             try
             {
                 DataBaseDictionaries.MenuDictionary = await Task.Factory.FromAsync(
@@ -179,13 +178,13 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         async public Task<decimal> GetNextGuestIdAsync()
         {
-            decimal[] ids = await Task.Factory.FromAsync(
+            List<decimal> ids = await Task.Factory.FromAsync(
                 waiterClient.BeginGetNextGuestIDs,
                 waiterClient.EndGetNextGuestIDs,
                 1,
                 UserIdDecimal,
                 TaskCreationOptions.None);
-            if (ids.Length > 0)
+            if (ids.Count > 0)
             {
                 return ids[0];
             }
@@ -194,8 +193,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         public decimal GetNextGuestIdSync()
         {
-            decimal[] ids = waiterClient.GetNextGuestIDs(1, UserIdDecimal);
-            if (ids.Length > 0)
+            List<decimal> ids = waiterClient.GetNextGuestIDs(1, UserIdDecimal);
+            if (ids.Count > 0)
             {
                 return ids[0];
             }
@@ -215,7 +214,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         internal DBTable ConvertOrderToDbTable(Order orderToSend, bool sendOrderToKitchen = false)
         {
-            decimal[] guestIds = GetGuestIdsSync(orderToSend.TableId);
+            List<decimal> guestIds = GetGuestIdsSync(orderToSend.TableId);
             //decimal guestId = await GetGuestIdAsync(orderToUpdate.TableId);
 
             //Get stored DBTable.
@@ -238,6 +237,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
                     first = false;
                 }
 
+                //TODO:  Too many guests are added to table - not sure why....
                 newTable.Guests.Add(guest);
             }
 
@@ -271,6 +271,12 @@ namespace Zipline2.BusinessLogic.WcfRemote
                         guestItem.Mods = orderItem.CreateMods();
                         guestItem.OrderSent = sendOrderToKitchen;
                         newTable.Guests[0].Items.Add(guestItem);
+                        //Pricing check - TODO:  Take out for production??
+                        GuestItem databaseGuestItem = checkClient.PriceOrder(guestItem);
+                        if (databaseGuestItem.Price != guestItem.Price)
+                        {
+                            Console.WriteLine("JOANNE LOG:  price differs for " + guestItem.ShortName);
+                        }
                     }
                 }
             }
@@ -289,14 +295,14 @@ namespace Zipline2.BusinessLogic.WcfRemote
             await UpdateTableAsync(dbTableCurrent);
         }
 
-        private decimal[] GetGuestIdsSync(decimal tableId)
+        private List<decimal> GetGuestIdsSync(decimal tableId)
         {
             DBTable thisTable = GetTableSync((int)tableId);
-            decimal[] guestIds = new decimal[2];
+            List<decimal> guestIds = new List<decimal>();
             if (thisTable.Guests.Count > 1)
             {
-                guestIds[0] = (thisTable.Guests[0].ID);
-                guestIds[1] = (thisTable.Guests[1].ID);
+                guestIds.Add(thisTable.Guests[0].ID);
+                guestIds.Add(thisTable.Guests[1].ID);
             }
             else
             {
@@ -305,14 +311,14 @@ namespace Zipline2.BusinessLogic.WcfRemote
             return guestIds;
         }
 
-        async private Task<decimal[]> GetGuestIdsAsync(decimal tableId)
+        async private Task<List<decimal>> GetGuestIdsAsync(decimal tableId)
         {
             DBTable thisTable = await GetTableAsync((int)tableId);
-            decimal[] guestIds = new decimal[2];
+            List<decimal> guestIds = new List<decimal>();
             if (thisTable.Guests.Count > 1)
             {
-                guestIds[0] = (thisTable.Guests[0].ID);
-                guestIds[1] = (thisTable.Guests[1].ID);
+                guestIds.Add(thisTable.Guests[0].ID);
+                guestIds.Add(thisTable.Guests[1].ID);
             }
             else
             {
@@ -322,7 +328,12 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         }
 
-        async public void SendOrderSync(Order orderToSend)
+        public List<DBTable> GetTableInfoFromServer()
+        {
+            return waiterClient.GetTableSummary();
+        }
+
+        public void SendOrderSync(Order orderToSend)
         {
             DBTable dbTableCurrent = ConvertOrderToDbTable(orderToSend, true);
 
@@ -333,51 +344,120 @@ namespace Zipline2.BusinessLogic.WcfRemote
             //Get the table just updated - will contain new OrderID.
             DBTable updatedTable = GetTableSync((int)dbTableCurrent.ID);
 
-            //Get the GuestItem obejcts from the DBTable object needed for the DBCheck.
-            List<GuestItem> items = updatedTable.Guests[0].Items;
-            DBCheck dbCheck = new DBCheck()
+            //See if outstanding checks for this table.
+            List<DBCheck> checks = GetOpenChecksSync(dbTableCurrent.ID);
+            decimal checkId = -1;
+            if (checks.Count > 0)
             {
-                ID = orderToSend.TableId,
-                ComboItems = new List<GuestComboItem>(),
-                Discounts = new List<OrderDiscount>(),
-                GuestIDs = new List<decimal>(),
-                Name = string.Empty,
-                Notes = new DBNotes(),
-                Items = items
-            };
+                checkId = checks[0].ID;
+            }
 
-            //Creates and adds check to database.
-            await CreateCheckAsync(dbCheck);
+            DBCheck newDbCheck = new DBCheck(checkId);
+
+
+            List<decimal> orderIDs = new List<decimal>();
+
+            //Get items for check from updated Table just retrieved.
+            foreach (GuestItem item in updatedTable.Guests[0].Items)
+            {
+                if (!item.OrderSent)
+                {
+                    orderIDs.Add(item.OrderID);
+                    newDbCheck.Items.Add(item);
+                }
+            }
+            foreach (GuestComboItem combo in updatedTable.Guests[0].ComboItems)
+            {
+                bool first = true;
+                foreach (GuestItem gItem in combo.ComboGuestItems)
+                {
+                    if (!gItem.OrderSent)
+                    {
+                        orderIDs.Add(gItem.OrderID);
+                        if (first)
+                        {
+                            first = false;
+                            newDbCheck.ComboItems.Add(combo);
+                        }
+                    }
+                }
+            }
+
+            //Create and add check to database.
+            CreateCheckSync(newDbCheck);
+            SendOrdersToServerSync(orderIDs, UserIdDecimal);
+        }
+
+        async public void SendOrdersToServerAsync(List<decimal> orderIds, decimal userId)
+        {
+            await Task.Factory.FromAsync(
+                waiterClient.BeginSendOrders,
+                waiterClient.EndSendOrders,
+                orderIds,
+                userId,
+                TaskCreationOptions.None);
+        }
+
+        public void SendOrdersToServerSync(List<decimal> orderIds, decimal userId)
+        {
+            waiterClient.SendOrders(orderIds, userId);
         }
 
         async public void SendOrderAsync(Order orderToSend)
         {
-           
             DBTable dbTableCurrent = ConvertOrderToDbTable(orderToSend, true);
 
             //Update the database table with built DBTable in order to obtain new OrderID.
             //await UpdateTableAsync(dbTableCurrent);
-            UpdateTableSync(dbTableCurrent);
+            await UpdateTableAsync(dbTableCurrent);
 
             //Get the table just updated - will contain new OrderID.
             DBTable updatedTable = await GetTableAsync((int)dbTableCurrent.ID);
 
-            //Get the GuestItem obejcts from the DBTable object needed for the DBCheck.
-            List<GuestItem> items = updatedTable.Guests[0].Items;
-            DBCheck dbCheck = new DBCheck()
+            //See if outstanding checks for this table.
+            List<DBCheck> checks = await GetOpenChecksAsync(dbTableCurrent.ID);
+            decimal checkId = -1;
+            if (checks.Count > 0)
             {
-                ID = orderToSend.TableId,
-                ComboItems = new List<GuestComboItem>(),
-                Discounts = new List<OrderDiscount>(),
-                GuestIDs = new List<decimal>(),
-                Name = string.Empty,
-                Notes = new DBNotes(),
-                Items = items
-            };
+                checkId = checks[0].ID;
+            }
 
-            //Creates and adds check to database.
-            await CreateCheckAsync(dbCheck);
+            DBCheck newDbCheck = new DBCheck(checkId);
+
+            List<decimal> orderIDs = new List<decimal>();
+
+            //Get items for check from updated Table just retrieved.
+            foreach (GuestItem item in updatedTable.Guests[0].Items)
+            {
+                if (!item.OrderSent)
+                {
+                    orderIDs.Add(item.OrderID);
+                    newDbCheck.Items.Add(item);
+                }
+            }
+            foreach (GuestComboItem combo in updatedTable.Guests[0].ComboItems)
+            {
+                bool first = true;
+                foreach (GuestItem gItem in combo.ComboGuestItems)
+                {
+                    if (!gItem.OrderSent)
+                    {
+                        orderIDs.Add(gItem.OrderID);
+                        if (first)
+                        {
+                            first = false;
+                            newDbCheck.ComboItems.Add(combo);
+                        }
+                    }
+                }
+            }
+
+            //Create and add check to database.
+            await CreateCheckAsync(newDbCheck);
+            SendOrdersToServerAsync(orderIDs, UserIdDecimal);
         }
+
+        
 
         public DBUser GetUserSync(string pin)
         {
@@ -394,7 +474,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
         //            TaskCreationOptions.None);
         //}
 
-        async public Task<DBTable[]> GetTablesForSectionAsync(decimal sectionID)
+        async public Task<List<DBTable>> GetTablesForSectionAsync(decimal sectionID)
         {
             return await Task.Factory.FromAsync(
                 waiterClient.BeginGetTablesForSection,
@@ -413,7 +493,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         }
 
-        async public Task<DBCheck[]> GetOpenChecksAsync(decimal tableId)
+        async public Task<List<DBCheck>> GetOpenChecksAsync(decimal tableId)
         {
             return await Task.Factory.FromAsync(
                 checkClient.BeginGetOpenChecks,
@@ -422,12 +502,32 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 TaskCreationOptions.None);
         }
 
+        public List<DBCheck> GetOpenChecksSync(decimal tableId)
+        {
+            return checkClient.GetOpenChecks(tableId);
+        }
 
+        public void CreateCheckSync(DBCheck dbCheck)
+        {
+            var dbChecks = new List<DBCheck>()
+            {
+                dbCheck
+            };
+            try
+            {
+                checkClient.CreateChecks(dbChecks, UserIdDecimal, false);
+            }
+            catch (Exception ex)
+            {
+                var errormessage = ex;
+                throw;
+            }
+        }
 
 
         async public Task CreateCheckAsync(DBCheck dbCheck)
         {
-            var dbChecks = new DBCheck[]
+            var dbChecks = new List<DBCheck>()
             {
                 dbCheck
             };
