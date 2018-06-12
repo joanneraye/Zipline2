@@ -93,9 +93,28 @@
                                               CommandParameter="{x:Static enums:PizzaType.ThinSlice}"/>
                     </Label.GestureRecognizers>
                 </Label>
-                <!--*************************************CHEESE MEDIUM-->
+                <!--*************************************PAN SLICE-->
                 <Button Grid.Column="2"
                          Grid.Row="0"
+                         Style="{StaticResource PizzaSelectionButtons}" 
+                         Command="{Binding PizzaSelectionCommand}"
+                                              CommandParameter="{x:Static enums:PizzaType.PanSlice}"
+                         BackgroundColor="{Binding PanSliceSelected,
+                                Mode=TwoWay, 
+                                Converter={StaticResource selectBackgroundConverter}}" />
+                <Label 
+                    Grid.Column="2"
+                    Grid.Row="0" 
+                    Style="{StaticResource PizzaSelectionLabels}" 
+                    Text="PAN-SL">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding PizzaSelectionCommand}"
+                                              CommandParameter="{x:Static enums:PizzaType.PanSlice}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <!--*************************************CHEESE MEDIUM-->
+                <Button Grid.Column="0"
+                         Grid.Row="1"
                          Style="{StaticResource PizzaSelectionButtons}" 
                          Command="{Binding PizzaSelectionCommand}"
                          CommandParameter="{x:Static enums:PizzaType.Medium}"
@@ -103,8 +122,8 @@
                                 Mode=TwoWay, 
                                 Converter={StaticResource selectBackgroundConverter}}" />
                 <Label 
-                    Grid.Column="2"
-                    Grid.Row="0" 
+                    Grid.Column="0"
+                    Grid.Row="1" 
                     Style="{StaticResource PizzaSelectionLabels}" 
                     Text="MED">
                     <Label.GestureRecognizers>

@@ -51,7 +51,8 @@ namespace Zipline2.PageModels
         
         private void OnSendOrder()
         {
-            OrderManager.Instance.SendOrder();
+            //TODO:  Don't actually send order until ready to work on:
+            //OrderManager.Instance.SendOrder();
 
             //Should any of this be done from OrderPage.xaml.cs?
           

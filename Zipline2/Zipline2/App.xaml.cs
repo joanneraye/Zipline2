@@ -18,8 +18,8 @@ namespace Zipline2
     
     public partial class App : Application
     {
-        private static List<Topping> allToppings;
-        public static List<Topping> AllToppings
+        private static Dictionary<ToppingName, Topping> allToppings;
+        public static Dictionary<ToppingName, Topping> AllToppings
         {
             get
             {
@@ -88,7 +88,7 @@ namespace Zipline2
                         DataBaseDictionaries.PizzaToppingsDictionary.Add(mod.ID, mod);
                         if (!DataBaseDictionaries.DbIdToppingDictionary.ContainsKey(mod.ID))
                         {
-                            Console.WriteLine("TOPPINGS DICTIONARY ITEM NOT FOUND: " + mod.Name + mod.ID);
+                            Console.WriteLine("***Debug JOANNE***TOPPINGS DICTIONARY ITEM NOT FOUND: " + mod.Name + mod.ID);
                         }
                     }
                 }
@@ -132,59 +132,56 @@ namespace Zipline2
 
         public static void LoadInitialToppings()
         {
-            allToppings = new List<Topping>()
-            {
-                new Topping(ToppingName.Anchovies),
-                new Topping(ToppingName.Artichokes),
-                new Topping(ToppingName.Bacon),
-                new Topping(ToppingName.BananaPeppers),
-                new Topping(ToppingName.Basil),
-                new Topping(ToppingName.Beef),
-                new Topping(ToppingName.BlackOlives),
-                new Topping(ToppingName.Broccoli),
-                new Topping(ToppingName.Carrots),
-                new Topping(ToppingName.Cheese),
-                new Topping(ToppingName.DAIYA),
-                new Topping(ToppingName.Deep) {SpecialPricingType = SpecialPricingType.Unknown},
-                new Topping(ToppingName.ExtraCheese),
-                new Topping(ToppingName.ExtraMozarellaCalzone),
-                new Topping(ToppingName.ExtraPSauceOS) { SpecialPricingType = SpecialPricingType.AddHalfTopping },
-                new Topping(ToppingName.ExtraPSauceOP) { SpecialPricingType = SpecialPricingType.AddHalfTopping },
-                new Topping(ToppingName.ExtraRicottaCalzone),
-                new Topping(ToppingName.Feta),
-                new Topping(ToppingName.Garlic) ,
-                new Topping(ToppingName.GreenOlives),
-                new Topping(ToppingName.GreenPeppers),
-                new Topping(ToppingName.HalfMajor)
-                            { ToppingWholeHalf = ToppingWholeHalf.HalfA },
-                new Topping(ToppingName.Jalapenos),
-                new Topping(ToppingName.Meatballs),
-                new Topping(ToppingName.Mushrooms),
-                new Topping(ToppingName.NoCheese) {SpecialPricingType = SpecialPricingType.GetExtraTopping},
-                new Topping(ToppingName.Onion),
-                new Topping(ToppingName.PestoTopping) ,
-                new Topping(ToppingName.Pepperoni),
-                new Topping(ToppingName.Pineapple),
-                new Topping(ToppingName.RedOnions),
-                new Topping(ToppingName.Ricotta),
-                new Topping(ToppingName.RoastedRedPepper),
-                new Topping(ToppingName.Sausage),
-                new Topping(ToppingName.Spinach),
-                new Topping(ToppingName.Steak),
-                new Topping(ToppingName.SundriedTomatoes),
-                new Topping(ToppingName.Teese) {SpecialPricingType = SpecialPricingType.DoubleTopping},
-                new Topping(ToppingName.TempehBBQ),
-                new Topping(ToppingName.TempehOriginal),
-                new Topping(ToppingName.Tomatoes),
-                new Topping(ToppingName.Zucchini),
-                new Topping(ToppingName.LightSauce) {SpecialPricingType = SpecialPricingType.Free},
-                new Topping(ToppingName.LightMozarella) {SpecialPricingType = SpecialPricingType.Free},
-                new Topping(ToppingName.LightRicotta) {SpecialPricingType = SpecialPricingType.Free},
-                new Topping(ToppingName.NoButter) {SpecialPricingType = SpecialPricingType.Free},
-                new Topping(ToppingName.NoSauce) {SpecialPricingType = SpecialPricingType.Free},
-                new Topping(ToppingName.NoMozarella) {SpecialPricingType = SpecialPricingType.Free},
-                new Topping(ToppingName.NoRicotta) {SpecialPricingType = SpecialPricingType.SubtractTopping}
-            };
+            allToppings = new Dictionary<ToppingName, Topping>();
+            allToppings.Add(ToppingName.Anchovies, new Topping(ToppingName.Anchovies));
+            allToppings.Add(ToppingName.Artichokes, new Topping(ToppingName.Artichokes));
+            allToppings.Add(ToppingName.Bacon, new Topping(ToppingName.Bacon));
+            allToppings.Add(ToppingName.BananaPeppers, new Topping(ToppingName.BananaPeppers));
+            allToppings.Add(ToppingName.Basil, new Topping(ToppingName.Basil));
+            allToppings.Add(ToppingName.Beef, new Topping(ToppingName.Beef));
+            allToppings.Add(ToppingName.BlackOlives, new Topping(ToppingName.BlackOlives));
+            allToppings.Add(ToppingName.Broccoli, new Topping(ToppingName.Broccoli));
+            allToppings.Add(ToppingName.Carrots, new Topping(ToppingName.Carrots));
+            allToppings.Add(ToppingName.Cheese, new Topping(ToppingName.Cheese));
+            allToppings.Add(ToppingName.DAIYA, new Topping(ToppingName.DAIYA) { SpecialPricingType = SpecialPricingType.DoubleTopping });
+            allToppings.Add(ToppingName.Deep, new Topping(ToppingName.Deep) { SpecialPricingType = SpecialPricingType.SpecialLogic });
+            allToppings.Add(ToppingName.ExtraCheese, new Topping(ToppingName.ExtraCheese));
+            allToppings.Add(ToppingName.ExtraMozarellaCalzone, new Topping(ToppingName.ExtraMozarellaCalzone));
+            allToppings.Add(ToppingName.ExtraPSauceOS, new Topping(ToppingName.ExtraPSauceOS));
+            allToppings.Add(ToppingName.ExtraPSauceOP, new Topping(ToppingName.ExtraPSauceOP));
+            allToppings.Add(ToppingName.ExtraRicottaCalzone, new Topping(ToppingName.ExtraRicottaCalzone));
+            allToppings.Add(ToppingName.Feta, new Topping(ToppingName.Feta));
+            allToppings.Add(ToppingName.Garlic, new Topping(ToppingName.Garlic));
+            allToppings.Add(ToppingName.GreenOlives, new Topping(ToppingName.GreenOlives));
+            allToppings.Add(ToppingName.GreenPeppers, new Topping(ToppingName.GreenPeppers));
+            allToppings.Add(ToppingName.HalfMajor, new Topping(ToppingName.HalfMajor) { SpecialPricingType = SpecialPricingType.SpecialLogic });
+            allToppings.Add(ToppingName.Jalapenos, new Topping(ToppingName.Jalapenos));
+            allToppings.Add(ToppingName.Meatballs, new Topping(ToppingName.Meatballs));
+            allToppings.Add(ToppingName.Mushrooms, new Topping(ToppingName.Mushrooms));
+            allToppings.Add(ToppingName.NoCheese, new Topping(ToppingName.NoCheese) { SpecialPricingType = SpecialPricingType.SubtractTopping });
+            allToppings.Add(ToppingName.Onion, new Topping(ToppingName.Onion));
+            allToppings.Add(ToppingName.PestoTopping, new Topping(ToppingName.PestoTopping));
+            allToppings.Add(ToppingName.Pepperoni, new Topping(ToppingName.Pepperoni));
+            allToppings.Add(ToppingName.Pineapple, new Topping(ToppingName.Pineapple));
+            allToppings.Add(ToppingName.RedOnions, new Topping(ToppingName.RedOnions));
+            allToppings.Add(ToppingName.Ricotta, new Topping(ToppingName.Ricotta));
+            allToppings.Add(ToppingName.RoastedRedPepper, new Topping(ToppingName.RoastedRedPepper));
+            allToppings.Add(ToppingName.Sausage, new Topping(ToppingName.Sausage));
+            allToppings.Add(ToppingName.Spinach, new Topping(ToppingName.Spinach));
+            allToppings.Add(ToppingName.Steak, new Topping(ToppingName.Steak));
+            allToppings.Add(ToppingName.Teese, new Topping(ToppingName.Teese) { SpecialPricingType = SpecialPricingType.DoubleTopping });
+            allToppings.Add(ToppingName.TempehBBQ, new Topping(ToppingName.TempehBBQ));
+            allToppings.Add(ToppingName.TempehOriginal, new Topping(ToppingName.TempehOriginal));
+            allToppings.Add(ToppingName.Tomatoes, new Topping(ToppingName.Tomatoes));
+            allToppings.Add(ToppingName.Zucchini, new Topping(ToppingName.Zucchini));
+            allToppings.Add(ToppingName.LightSauce, new Topping(ToppingName.LightSauce) { SpecialPricingType = SpecialPricingType.Free });
+            allToppings.Add(ToppingName.LightMozarella, new Topping(ToppingName.LightMozarella) { SpecialPricingType = SpecialPricingType.Free });
+            allToppings.Add(ToppingName.LightRicotta, new Topping(ToppingName.LightRicotta) { SpecialPricingType = SpecialPricingType.Free });
+            allToppings.Add(ToppingName.NoButter, new Topping(ToppingName.NoButter) { SpecialPricingType = SpecialPricingType.Free });
+            allToppings.Add(ToppingName.NoSauce, new Topping(ToppingName.NoSauce) { SpecialPricingType = SpecialPricingType.Free });
+            allToppings.Add(ToppingName.NoMozarella, new Topping(ToppingName.NoMozarella) { SpecialPricingType = SpecialPricingType.SubtractTopping });
+            allToppings.Add(ToppingName.NoRicotta, new Topping(ToppingName.NoRicotta) { SpecialPricingType = SpecialPricingType.SubtractTopping });
+           
         }
     }
 }

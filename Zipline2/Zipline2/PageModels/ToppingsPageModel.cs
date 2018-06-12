@@ -234,7 +234,7 @@ namespace Zipline2.PageModels
                 "Crispy Cook", "Kid Cook", "Light Cook", "Regular Cook"
             };
 
-            var toppingsList = App.AllToppings;
+            var toppingsList = App.AllToppings.Values.ToList();
             ToppingSelectionsList = new ObservableCollection<ToppingDisplayItem>();
             for (int i = 0; i < toppingsList.Count; i++)
             {
@@ -348,8 +348,7 @@ namespace Zipline2.PageModels
         //For selection or deselection of the Half Major topping.
         private void ProcessHalfMajorToppingSelection(ToppingDisplayItem halfMajorSelection)
         {
-            if (
-                halfMajorSelection.ListItemIsSelected)   //If selected, toggle to unselect...
+            if (halfMajorSelection.ListItemIsSelected)   //If selected, toggle to unselect...
             {
                 ThisPizza.Toppings.RemoveToppings(new List<ToppingName>
                 {

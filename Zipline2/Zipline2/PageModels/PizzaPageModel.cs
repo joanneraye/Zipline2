@@ -14,6 +14,7 @@ namespace Zipline2.PageModels
     public class PizzaPageModel : BasePageModel
     {
         private bool cheeseSliceSelected;
+        private bool panSliceSelected;
         private bool mediumSelected;
         private bool largeSelected;
         private bool indySelected;
@@ -33,6 +34,18 @@ namespace Zipline2.PageModels
             set
             {
                 SetProperty(ref cheeseSliceSelected, value);
+            }
+        }
+
+        public bool PanSliceSelected
+        {
+            get
+            {
+                return panSliceSelected;
+            }
+            set
+            {
+                SetProperty(ref panSliceSelected, value);
             }
         }
 
@@ -175,18 +188,28 @@ namespace Zipline2.PageModels
             {
                 case PizzaType.ThinSlice:
                     CheeseSliceSelected = true;
+                    PanSliceSelected = false;
+                    MediumSelected = false;
+                    LargeSelected = false;
+                    IndySelected = false;
+                    break;
+                case PizzaType.PanSlice:
+                    PanSliceSelected = true;
+                    CheeseSliceSelected = false;
                     MediumSelected = false;
                     LargeSelected = false;
                     IndySelected = false;
                     break;
                 case PizzaType.Medium:
                     MediumSelected = true;
+                    PanSliceSelected = false;
                     CheeseSliceSelected = false;
                     LargeSelected = false;
                     IndySelected = false;
                     break;
                 case PizzaType.Large:
                     LargeSelected = true;
+                    PanSliceSelected = false;
                     CheeseSliceSelected = false;
                     MediumSelected = false;
                     IndySelected = false;
@@ -194,6 +217,7 @@ namespace Zipline2.PageModels
                 case PizzaType.Indy:
                     IndySelected = true;
                     CheeseSliceSelected = false;
+                    PanSliceSelected = false;
                     MediumSelected = false;
                     LargeSelected = false;
                     break;
@@ -256,8 +280,7 @@ namespace Zipline2.PageModels
         }
         private void OnAddCheese()
         {
-            var pizzaSize = GetPizzaSizeSelected();
-            var pizzaType = Pizza.GetPizzaType(pizzaSize, PizzaCrust.RegularThin);
+            PizzaType pizzaType = GetPizzaSelected();
 
             var pizza = new Pizza()
             {
@@ -372,26 +395,30 @@ namespace Zipline2.PageModels
           
             DisplayToppingsPage();
         }
-        private PizzaSize GetPizzaSizeSelected()
+        private PizzaType GetPizzaSelected()
         {
-            PizzaSize sizeSelected = PizzaSize.OneSize;
+            PizzaType pizzaTypeSelected = PizzaType.None;
             if (CheeseSliceSelected)
             {
-                sizeSelected = PizzaSize.Slice;
+                pizzaTypeSelected = PizzaType.ThinSlice;
             }
             else if (MediumSelected)
             {
-                sizeSelected = PizzaSize.Medium;
+                pizzaTypeSelected = PizzaType.Medium;
             }
             else if (LargeSelected)
             {
-                sizeSelected = PizzaSize.Large;
+                pizzaTypeSelected = PizzaType.Large;
+            }
+            else if (PanSliceSelected)
+            {
+                pizzaTypeSelected = PizzaType.PanSlice;
             }
             else if (IndySelected)
             {
-                sizeSelected = PizzaSize.Indy;
+                pizzaTypeSelected = PizzaType.Indy;
             }
-            return sizeSelected;
+            return pizzaTypeSelected;
         }
         void DisplayToppingsPage()
         {

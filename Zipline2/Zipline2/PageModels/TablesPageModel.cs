@@ -191,6 +191,10 @@ namespace Zipline2.PageModels
                 {
                     indexInAllTables = DataBaseDictionaries.TableIdAllTablesIndexDictionary[table.ID];
                 }
+                else
+                {
+                    Console.WriteLine("***Debug JOANNE***TABLE NOTE FOUND FOR TABLE ID: " + table.ID);
+                }
                 foreach (var guest in table.Guests)
                 {
                     if (guest.Items.Count > 0 || guest.ComboItems.Count > 0)

@@ -58,7 +58,6 @@ namespace Zipline2.BusinessLogic.WcfRemote
             dbIdToppingDictionary = new Dictionary<decimal, ToppingName>
             {
                  { 1, ToppingName.ExtraPSauceOS },
-
                 { 9, ToppingName.Lettuce },
                  { 11, ToppingName.ExtraCheese  },
                    { 12, ToppingName.Pepperoni },

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Xamarin.Forms;
 using Zipline2.BusinessLogic;
 using Zipline2.BusinessLogic.Enums;
@@ -18,7 +17,6 @@ namespace Zipline2.Models
         
         public List<Topping> CurrentToppings { get; private set; }
 
-        
         public PizzaType PizzaTypeForPricing { get; set; }
         private decimal toppingsTotal;
         public decimal ToppingsTotal
@@ -146,8 +144,9 @@ namespace Zipline2.Models
 
         private decimal GetCurrentToppingsCost()
         {
+            decimal specialExtraCost = 0M;
             decimal toppingCost = 0M;
-            decimal toppingCountForPrice = GetToppingCountForPricing();
+            decimal toppingCountForPrice = GetToppingCountForPricing(ref specialExtraCost, PizzaTypeForPricing);
             int wholeToppingCount = Convert.ToInt32(Math.Floor(toppingCountForPrice));
             int wholeToppingIndex = (wholeToppingCount - 1);
             var thisPizzaToppingPrices = Prices.ToppingsPriceDictionary[PizzaTypeForPricing];
@@ -158,7 +157,9 @@ namespace Zipline2.Models
             if (wholeToppingCount <= 0)
             {
                 // Whole topping count is <= 0, so topping cost will be zero or a negative number.
-                return wholeToppingCount * pricePerAdditionalTopping;
+                toppingCost = wholeToppingCount * pricePerAdditionalTopping;
+                toppingCost += specialExtraCost;
+                return toppingCost;
             }
             else if (numberOfExtraWholeToppings > 0)
             {
@@ -186,42 +187,53 @@ namespace Zipline2.Models
                     toppingCost = toppingCostWithHalfTopping;
                 }
             }
-            
+            toppingCost += specialExtraCost;
             return toppingCost;
         }
 
-        private decimal GetToppingCountForPricing()
+        private decimal GetToppingCountForPricing(ref decimal specialExtraCost, PizzaType pizzaType)
         {
             decimal toppingCount = 0M;
             //TODO:  Still have to handle half and whole toppings
             foreach (var topping in CurrentToppings)
-            { 
+            {
+                //For Pan, Indy, & MFP, and Slice  extra sauce is just like another topping. 
+                //Medium and Large Pizzas charge 1.50 extra for extra sauce.
+                if (topping.ToppingName == ToppingName.ExtraPSauceOP ||
+                    topping.ToppingName == ToppingName.ExtraPSauceOS)
+                {
+                    if (pizzaType == PizzaType.Medium ||
+                       pizzaType == PizzaType.Large)
+                    {
+                        specialExtraCost = 1.5M;
+                        topping.SpecialPricingType = SpecialPricingType.AddSubtractAmount;
+                    }
+                }
+                if (topping.ToppingWholeHalf != ToppingWholeHalf.Whole)
+                {
+                    topping.SpecialPricingType = SpecialPricingType.AddHalfTopping;
+                }
+
                 switch (topping.SpecialPricingType)
                 {
                     case SpecialPricingType.Free:
+                    case SpecialPricingType.SpecialLogic:
+                    case SpecialPricingType.AddSubtractAmount:
                         break;
-                    case SpecialPricingType.None:
-                        if (topping.ToppingWholeHalf == ToppingWholeHalf.Whole)
-                        {
-                            toppingCount++;
-                        }
-                        else
-                        {
-                            toppingCount += .5M; ;
-                        }
+                    case SpecialPricingType.DefaultOneTopping:
+                        toppingCount++;
                         break;
                     case SpecialPricingType.AddHalfTopping: 
                         toppingCount += .5M;
                         break;
                     case SpecialPricingType.SubtractTopping:
-                    case SpecialPricingType.GetExtraTopping:
                         toppingCount--;
                         break;
                     case SpecialPricingType.DoubleTopping:
                         if (topping.ToppingWholeHalf == ToppingWholeHalf.Whole)
                         {
                             toppingCount += 2M;
-                        }
+                        } 
                         else
                         {
                             toppingCount++;
@@ -254,6 +266,7 @@ namespace Zipline2.Models
             majorToppings.Add(new Topping(ToppingName.Onion, whichHalf)); ;
             majorToppings.Add(new Topping(ToppingName.BlackOlives, whichHalf));
             AddToppings(majorToppings);
+            UpdateToppingsTotal();
         }
 
         public void ChangeMajorToppingsHalf(ToppingWholeHalf whichHalf)
@@ -279,6 +292,7 @@ namespace Zipline2.Models
             {
                 return DataBaseDictionaries.ToppingDbIdDictionary[toppingName];
             }
+            Console.WriteLine("***Debug JOANNE***TOPPINGS DICTIONARY ITEM NOT FOUND: " + toppingName);
             return 0;
         }
 

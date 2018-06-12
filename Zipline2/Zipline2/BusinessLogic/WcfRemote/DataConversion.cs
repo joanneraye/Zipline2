@@ -82,6 +82,10 @@ namespace Zipline2.BusinessLogic.WcfRemote
             {
                 databaseMod = DataBaseDictionaries.PizzaToppingsDictionary[topping.DbItemId];
             }
+            else
+            {
+                Console.WriteLine("***Debug JOANNE***Topping DB ID not found: " + topping.DbItemId);
+            }
 
             GuestModifier newGuestMod = new GuestModifier(databaseMod);
 
@@ -175,41 +179,89 @@ namespace Zipline2.BusinessLogic.WcfRemote
           
             foreach (GuestModifier mod in oldGuestItem.Mods)
             {
-                Topping topping = new Topping(ToppingName.Unknown);
-                topping.ToppingWholeHalf = ToppingWholeHalf.Whole;
-                topping.Count = (int)mod.Count;
+                bool addThisModAsTopping = true;
+                Topping newTopping = new Topping(ToppingName.Unknown);
+                var wholeOrHalf = ToppingWholeHalf.Whole;
+                var halfOpposite = ToppingWholeHalf.Whole;
                 if (DataBaseDictionaries.DbIdToppingDictionary.ContainsKey(mod.ID))
                 {
-                    topping.ToppingName = DataBaseDictionaries.DbIdToppingDictionary[mod.ID];
+                    var ToppingName = DataBaseDictionaries.DbIdToppingDictionary[mod.ID];
+                    if (App.AllToppings.ContainsKey(ToppingName))
+                    {
+                        newTopping = App.AllToppings[ToppingName];
+                    }
+                    else
+                    {
+                        addThisModAsTopping = false;
+                        Console.WriteLine("***Debug JOANNE***TOPPINGS DICTIONARY DOES NOT CONTAIN: " + ToppingName);
+                    }
                     switch (mod.Half)
                     {
                         case "Half_A":
                         case "Half A":
-                            topping.ToppingWholeHalf = ToppingWholeHalf.HalfA;
-                            topping.ToppingDisplayName = "Half A - " + topping.ToppingDisplayName;
+                            wholeOrHalf = ToppingWholeHalf.HalfA;
+                            halfOpposite = ToppingWholeHalf.HalfB;
                             break;
                         case "Half_B":
                         case "Half B":
-                            topping.ToppingWholeHalf = ToppingWholeHalf.HalfB;
-                            topping.ToppingDisplayName = "Half B - " + topping.ToppingDisplayName;
+                            wholeOrHalf = ToppingWholeHalf.HalfB;
+                            halfOpposite = ToppingWholeHalf.HalfA;
                             break;
                     }
+                    if (DataBaseDictionaries.ToppingDbIdDictionary.ContainsKey(ToppingName.HalfMajor) &&
+                          mod.ID == DataBaseDictionaries.ToppingDbIdDictionary[ToppingName.HalfMajor])
+                    {
+                        addThisModAsTopping = false;
+                        if (wholeOrHalf == ToppingWholeHalf.Whole)
+                        {
+                            wholeOrHalf = ToppingWholeHalf.HalfA;
+                        }
+                        
+                        pizza.Toppings.AddMajorToppingsToHalf(wholeOrHalf);
+                    }
+                    newTopping.Count = (int)mod.Count;
+                  
+                    if (mod.State == "No" && pizza.MajorMamaInfo == MajorOrMama.Major)
+                    {
+                        if (wholeOrHalf == ToppingWholeHalf.Whole)
+                        {
+                            pizza.Toppings.RemoveTopping(newTopping.ToppingName);
+                            addThisModAsTopping = false;
+                        }
+                        else
+                        {
+                            pizza.Toppings.ChangeToppingToHalf(newTopping.ToppingName, halfOpposite);
+                            addThisModAsTopping = false;
+                        }
+                    }
                 }
-
-                pizza.Toppings.AddTopping(topping);
+                else
+                {
+                    addThisModAsTopping = false;
+                    Console.WriteLine("***Debug JOANNE***TOPPINGS DICTIONARY ITEM NOT FOUND: " + mod.Name + mod.ID);
+                }
                 
                 if (mod.ID == 50)
                 {
                     pizza.ChangePizzaBase(PizzaBase.Pesto, false);
+                    addThisModAsTopping = false;
                 }
                 else if (mod.ID == 51)
                 {
                     pizza.ChangePizzaBase(PizzaBase.White, false);
+                    addThisModAsTopping = false;
                 }
                 else if (DataBaseDictionaries.ToppingDbIdDictionary.ContainsKey(ToppingName.Deep) && 
                           mod.ID == DataBaseDictionaries.ToppingDbIdDictionary[ToppingName.Deep])
                 {
                     pizza.ChangePizzaToDeep();
+                    addThisModAsTopping = false;
+                }
+                if (addThisModAsTopping)
+                {
+                    newTopping.ToppingWholeHalf = wholeOrHalf;
+                    newTopping.ChangeToppingDisplayNameHalf(wholeOrHalf);
+                    pizza.Toppings.AddTopping(newTopping, false);
                 }
             }
             

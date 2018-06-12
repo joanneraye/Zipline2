@@ -6,12 +6,12 @@ namespace Zipline2.BusinessLogic.Enums
 {
     public enum SpecialPricingType
     {
-        None,
+        DefaultOneTopping,
         Free,
-        GetExtraTopping,
         DoubleTopping,
         AddHalfTopping,
         SubtractTopping,
-        Unknown
+        AddSubtractAmount,
+        SpecialLogic
     }
 }

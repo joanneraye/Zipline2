@@ -305,8 +305,7 @@ namespace Zipline2.Models
                     ItemCount = 0,
                     DrinkCategory = DrinkCategory.DraftBeer
                 };
-                if (drinks.Key == DrinkType.EmployeeBeer ||
-                    drinks.Key == DrinkType.Beer12Oz)
+                if (drinks.Key == DrinkType.Beer12Oz)
                 {
                     thisDrink.ItemName = drinks.Value;
                     thisDrink.DrinkSize = DrinkSize.JustOneSize;

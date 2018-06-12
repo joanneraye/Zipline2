@@ -59,8 +59,25 @@ namespace Zipline2.Models
         public Topping(ToppingName toppingName, ToppingWholeHalf toppingWholeHalf = ToppingWholeHalf.Whole)
         {
             ToppingName = toppingName;
+            ToppingWholeHalf = toppingWholeHalf;
+            if (toppingWholeHalf != ToppingWholeHalf.Whole)
+            {
+                ChangeToppingDisplayNameHalf(toppingWholeHalf);
+            }
             DbItemId = Toppings.GetDbItemId(toppingName);
-         
+            SpecialPricingType = SpecialPricingType.DefaultOneTopping;
+        }
+
+        public void ChangeToppingDisplayNameHalf(ToppingWholeHalf whichHalf)
+        {
+            if (whichHalf == ToppingWholeHalf.HalfA)
+            {
+                ToppingDisplayName = "Half A - " + ToppingDisplayName;
+            }
+            else if (whichHalf == ToppingWholeHalf.HalfB)
+            {
+                ToppingDisplayName = "Half B - " + ToppingDisplayName;
+            }
         }
         #endregion
     }

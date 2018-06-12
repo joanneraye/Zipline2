@@ -88,7 +88,7 @@ namespace Zipline2.BusinessLogic
              { DrinkType.BodegasLaya,  18.00M },       
              { DrinkType.RegularCoffee,  3.00M },
              { DrinkType.DecafCoffee,  3.00M },
-             { DrinkType.HotTea,  2.00M },
+             { DrinkType.HotTea,  3.00M },
              { DrinkType.HotCocoa, 3.00M },
              { DrinkType.WineSpecial10, 10.00M },
              { DrinkType.WineSpecial12, 12.00M },
@@ -100,6 +100,7 @@ namespace Zipline2.BusinessLogic
         public static Dictionary<PizzaType, decimal> BasePriceDictionary = new Dictionary<PizzaType, decimal>
         {
             { PizzaType.ThinSlice, 3.00M },
+            { PizzaType.PanSlice, 3.50M },
             { PizzaType.Medium, 13.00M },
             { PizzaType.Large, 17.00M },
             { PizzaType.Calzone,  9.00M},
@@ -171,6 +172,7 @@ namespace Zipline2.BusinessLogic
         public static Dictionary<PizzaType, decimal[]> ToppingsPriceDictionary = new Dictionary<PizzaType, decimal[]>
         {
             { PizzaType.ThinSlice, PizzaSliceToppingsPrices },
+            { PizzaType.PanSlice, PizzaSliceToppingsPrices },
             { PizzaType.Medium, PizzaMediumToppingsPrices },
             { PizzaType.Large, PizzaLargeToppingsPrices },
             { PizzaType.Calzone, CalzoneToppingsPrices },

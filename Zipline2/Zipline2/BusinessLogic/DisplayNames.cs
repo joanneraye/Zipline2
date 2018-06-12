@@ -116,7 +116,7 @@ namespace Zipline2.BusinessLogic
             { ToppingName.DAIYA, "DAIYA" },
             { ToppingName.ExtraCheese, "Extra Cheese" },
             { ToppingName.ExtraMozarellaCalzone, "Extra Mozarella (Calzone)" },
-            { ToppingName.ExtraPSauceOP, "Extra Pizza Sauce On Pizza" },
+            { ToppingName.ExtraPSauceOP, "Extra Pizza Sauce On Pie" },
             { ToppingName.ExtraPSauceOS, "Extra Pizza Sauce On Side" },
             { ToppingName.ExtraRicottaCalzone, "Extra Ricotta (Calzone)" },
             { ToppingName.Feta, "Feta" },
