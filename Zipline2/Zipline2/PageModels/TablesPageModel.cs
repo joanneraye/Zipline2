@@ -193,7 +193,7 @@ namespace Zipline2.PageModels
                 }
                 else
                 {
-                    Console.WriteLine("***Debug JOANNE***TABLE NOTE FOUND FOR TABLE ID: " + table.ID);
+                    Console.WriteLine("***Debug JOANNE***TABLE NOT FOUND FOR TABLE ID: " + table.ID);
                 }
                 foreach (var guest in table.Guests)
                 {

@@ -35,6 +35,8 @@ namespace Zipline2.PageModels
             #region Properties
             public Topping ListTopping { get; set; }
 
+           
+
             public int SelectionIndex;
 
             public bool AreWholeHalfColumnsVisible
@@ -212,6 +214,7 @@ namespace Zipline2.PageModels
 
         public string[] BaseSelections { get; set; }
         public string[] CookSelections { get; set; }
+        public ToppingFooterPageModel ToppingFooterPageModel { get; set; }
 
         public ICommand AddPizzaToOrderCommand { get; set; }
 
@@ -221,7 +224,7 @@ namespace Zipline2.PageModels
 
         #region Constructor
         public ToppingsPageModel(Pizza currentPizza)
-        {
+        { 
             ThisPizza = currentPizza;
             string pizzaName = ThisPizza.ItemName;
             AddPizzaToOrderCommand = new Command(OnAddPizzaToOrder);
@@ -308,6 +311,43 @@ namespace Zipline2.PageModels
         {
             //Can't change ListView directly - must change underlying data.  Get this data by the index.
             ToppingDisplayItem thisSelection = ToppingSelectionsList[selectionIndex];
+            thisSelection.ListTopping.ToppingModifier = ToppingModifierType.None;
+            if (ToppingFooterPageModel.ExtraToppingSelected)
+            {
+                thisSelection.ListTopping.ToppingModifier = ToppingModifierType.ExtraTopping;
+                thisSelection.ListTopping.Count++;
+            }
+            else if (ToppingFooterPageModel.LiteToppingSelected)
+            {
+                thisSelection.ListTopping.ToppingModifier = ToppingModifierType.LightTopping;
+            }
+            else if (ToppingFooterPageModel.NoToppingSelected)
+            {
+                thisSelection.ListTopping.ToppingModifier = ToppingModifierType.NoTopping;
+                thisPizza.Toppings.RemoveTopping(thisSelection.ListTopping.ToppingName);
+                //if (thisSelection.ListTopping.ToppingName == ToppingName.Cheese)
+                //{
+                //    if (App.AllToppings.ContainsKey(ToppingName.NoCheese))
+                //    {
+                //        thisPizza.Toppings.AddTopping(App.AllToppings[ToppingName.NoCheese]);
+                //    }
+                //}
+                //else if (thisSelection.ListTopping.ToppingName == ToppingName.RicottaCalzone ||
+                //    thisSelection.ListTopping.ToppingName == ToppingName.Ricotta)
+                //{
+                //    if (App.AllToppings.ContainsKey(ToppingName.NoRicotta))
+                //    {
+                //        thisPizza.Toppings.AddTopping(App.AllToppings[ToppingName.NoRicotta]);
+                //    }
+                //}
+               
+            }
+            else if (ToppingFooterPageModel.OnSideToppingSelected)
+            {
+                thisSelection.ListTopping.ToppingModifier = ToppingModifierType.ToppingOnSide;
+            }
+           
+
             if (thisSelection.ListTopping.ToppingName == ToppingName.HalfMajor)
             {
                 ProcessHalfMajorToppingSelection(thisSelection);

@@ -62,7 +62,7 @@ namespace Zipline2
         {
             WcfServicesProxy.Instance.GetMenuSync();
         }
-        
+
 
         private void LoadTablesFromServerSync()
         {
@@ -86,7 +86,7 @@ namespace Zipline2
                     if (!DataBaseDictionaries.PizzaToppingsDictionary.ContainsKey(mod.ID))
                     {
                         DataBaseDictionaries.PizzaToppingsDictionary.Add(mod.ID, mod);
-                        if (!DataBaseDictionaries.DbIdToppingDictionary.ContainsKey(mod.ID))
+                        if (!DataBaseDictionaries.DbIdToppingDictionary.ContainsKey(mod.ID) && mod.ID != 50 && mod.ID != 51)
                         {
                             Console.WriteLine("***Debug JOANNE***TOPPINGS DICTIONARY ITEM NOT FOUND: " + mod.Name + mod.ID);
                         }
@@ -143,6 +143,7 @@ namespace Zipline2
             allToppings.Add(ToppingName.Broccoli, new Topping(ToppingName.Broccoli));
             allToppings.Add(ToppingName.Carrots, new Topping(ToppingName.Carrots));
             allToppings.Add(ToppingName.Cheese, new Topping(ToppingName.Cheese));
+            allToppings.Add(ToppingName.CrispyCook, new Topping(ToppingName.CrispyCook) { SpecialPricingType = SpecialPricingType.Free });
             allToppings.Add(ToppingName.DAIYA, new Topping(ToppingName.DAIYA) { SpecialPricingType = SpecialPricingType.DoubleTopping });
             allToppings.Add(ToppingName.Deep, new Topping(ToppingName.Deep) { SpecialPricingType = SpecialPricingType.SpecialLogic });
             allToppings.Add(ToppingName.ExtraCheese, new Topping(ToppingName.ExtraCheese));
@@ -152,10 +153,13 @@ namespace Zipline2
             allToppings.Add(ToppingName.ExtraRicottaCalzone, new Topping(ToppingName.ExtraRicottaCalzone));
             allToppings.Add(ToppingName.Feta, new Topping(ToppingName.Feta));
             allToppings.Add(ToppingName.Garlic, new Topping(ToppingName.Garlic));
+            allToppings.Add(ToppingName.GlutenFreeIndyOnly, new Topping(ToppingName.GlutenFreeIndyOnly) { SpecialPricingType = SpecialPricingType.Free });
             allToppings.Add(ToppingName.GreenOlives, new Topping(ToppingName.GreenOlives));
             allToppings.Add(ToppingName.GreenPeppers, new Topping(ToppingName.GreenPeppers));
             allToppings.Add(ToppingName.HalfMajor, new Topping(ToppingName.HalfMajor) { SpecialPricingType = SpecialPricingType.SpecialLogic });
             allToppings.Add(ToppingName.Jalapenos, new Topping(ToppingName.Jalapenos));
+            allToppings.Add(ToppingName.KidCook, new Topping(ToppingName.KidCook) { SpecialPricingType = SpecialPricingType.Free });
+            allToppings.Add(ToppingName.LightCook, new Topping(ToppingName.LightCook) { SpecialPricingType = SpecialPricingType.Free });
             allToppings.Add(ToppingName.Meatballs, new Topping(ToppingName.Meatballs));
             allToppings.Add(ToppingName.Mushrooms, new Topping(ToppingName.Mushrooms));
             allToppings.Add(ToppingName.NoCheese, new Topping(ToppingName.NoCheese) { SpecialPricingType = SpecialPricingType.SubtractTopping });
@@ -165,10 +169,12 @@ namespace Zipline2
             allToppings.Add(ToppingName.Pineapple, new Topping(ToppingName.Pineapple));
             allToppings.Add(ToppingName.RedOnions, new Topping(ToppingName.RedOnions));
             allToppings.Add(ToppingName.Ricotta, new Topping(ToppingName.Ricotta));
+            allToppings.Add(ToppingName.RicottaCalzone, new Topping(ToppingName.RicottaCalzone));
             allToppings.Add(ToppingName.RoastedRedPepper, new Topping(ToppingName.RoastedRedPepper));
             allToppings.Add(ToppingName.Sausage, new Topping(ToppingName.Sausage));
             allToppings.Add(ToppingName.Spinach, new Topping(ToppingName.Spinach));
             allToppings.Add(ToppingName.Steak, new Topping(ToppingName.Steak));
+            allToppings.Add(ToppingName.SundriedTomatoes, new Topping(ToppingName.SundriedTomatoes));
             allToppings.Add(ToppingName.Teese, new Topping(ToppingName.Teese) { SpecialPricingType = SpecialPricingType.DoubleTopping });
             allToppings.Add(ToppingName.TempehBBQ, new Topping(ToppingName.TempehBBQ));
             allToppings.Add(ToppingName.TempehOriginal, new Topping(ToppingName.TempehOriginal));

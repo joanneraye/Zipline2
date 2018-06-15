@@ -110,6 +110,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Views\ToppingFooterView.xaml.cs">
+      <DependentUpon>ToppingFooterView.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\MenuScrollFooterView.xaml.cs">
       <DependentUpon>MenuScrollFooterView.xaml</DependentUpon>
     </Compile>

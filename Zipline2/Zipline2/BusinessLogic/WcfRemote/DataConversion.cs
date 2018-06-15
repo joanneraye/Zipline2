@@ -88,20 +88,22 @@ namespace Zipline2.BusinessLogic.WcfRemote
             }
 
             GuestModifier newGuestMod = new GuestModifier(databaseMod);
-
-            //TODO:  See the following from POSTabletClient ModifiersPage.xaml.cs:
-            //I don't have buttons for lite, no, Side, plus, and extra button yet....
-            //if (extraButton.IsChecked == true)
-            //    guestMod.Multiplier = 2;
-
-            //if (liteButton.IsChecked == true)
-            //    guestMod.State = "Lite";
-            //else if (noButton.IsChecked == true)
-            //    guestMod.State = "No";
-            //else if (sideButton.IsChecked == true)
-            //    guestMod.State = "Side";
-            //else
-            //    guestMod.State = "Plus";
+            newGuestMod.State = "Plus";
+            switch (topping.ToppingModifier)
+            {
+                case (ToppingModifierType.ExtraTopping):
+                    newGuestMod.Multiplier = topping.Count;
+                    break;
+                case (ToppingModifierType.NoTopping):
+                    newGuestMod.State = "No";
+                    break;
+                case (ToppingModifierType.LightTopping):
+                    newGuestMod.State = "Lite";
+                    break;
+                case (ToppingModifierType.ToppingOnSide):
+                    newGuestMod.State = "Side";
+                    break;
+            }
 
             newGuestMod.Half = "Whole";
             if (topping.ToppingWholeHalf == ToppingWholeHalf.HalfA)
@@ -130,6 +132,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
                     if (dbGuestItem.SelectSizeID == 10) pizza.PizzaType = PizzaType.Indy;
                     if (dbGuestItem.SelectSizeID == 11) pizza.PizzaType = PizzaType.Medium;
                     if (dbGuestItem.SelectSizeID == 12) pizza.PizzaType = PizzaType.Large;
+                    if (dbGuestItem.SelectSizeID == 90) pizza.PizzaType = PizzaType.ThinSlice;
+
                     break;
                 case 59:
                     if (dbGuestItem.SelectSizeID == 9) pizza.PizzaType = PizzaType.ThinSlice;
@@ -188,12 +192,13 @@ namespace Zipline2.BusinessLogic.WcfRemote
                     var ToppingName = DataBaseDictionaries.DbIdToppingDictionary[mod.ID];
                     if (App.AllToppings.ContainsKey(ToppingName))
                     {
-                        newTopping = App.AllToppings[ToppingName];
+                        newTopping = App.AllToppings[ToppingName].GetClone();
                     }
                     else
                     {
                         addThisModAsTopping = false;
                         Console.WriteLine("***Debug JOANNE***TOPPINGS DICTIONARY DOES NOT CONTAIN: " + ToppingName);
+                        continue;
                     }
                     switch (mod.Half)
                     {
@@ -219,26 +224,51 @@ namespace Zipline2.BusinessLogic.WcfRemote
                         
                         pizza.Toppings.AddMajorToppingsToHalf(wholeOrHalf);
                     }
-                    newTopping.Count = (int)mod.Count;
-                  
-                    if (mod.State == "No" && pizza.MajorMamaInfo == MajorOrMama.Major)
+
+                    if (mod.State == "Lite")
                     {
-                        if (wholeOrHalf == ToppingWholeHalf.Whole)
+                        newTopping.ToppingModifier = ToppingModifierType.LightTopping;
+                    }
+                    else if (mod.State == "Plus" && mod.Count > 1)
+                    {
+                        newTopping.ToppingModifier = ToppingModifierType.ExtraTopping;
+                        newTopping.Count = (int)mod.Count;
+                    }
+                    else if (mod.State == "Side")
+                    {
+                        newTopping.ToppingModifier = ToppingModifierType.ToppingOnSide;
+                    }
+                    
+
+                    if (mod.State == "No")
+                    {
+                        if (pizza.MajorMamaInfo == MajorOrMama.Major)
                         {
-                            pizza.Toppings.RemoveTopping(newTopping.ToppingName);
-                            addThisModAsTopping = false;
+                            if (wholeOrHalf == ToppingWholeHalf.Whole)
+                            {
+                                pizza.Toppings.RemoveTopping(newTopping.ToppingName);
+                                addThisModAsTopping = false;
+                            }
+                            else
+                            {
+                                pizza.Toppings.ChangeToppingToHalf(newTopping.ToppingName, halfOpposite);
+                                addThisModAsTopping = false;
+                            }
                         }
-                        else
+                        else 
                         {
-                            pizza.Toppings.ChangeToppingToHalf(newTopping.ToppingName, halfOpposite);
-                            addThisModAsTopping = false;
+                            newTopping.ToppingModifier = ToppingModifierType.NoTopping;
+                            pizza.Toppings.RemoveTopping(newTopping.ToppingName);
                         }
                     }
                 }
                 else
                 {
                     addThisModAsTopping = false;
-                    Console.WriteLine("***Debug JOANNE***TOPPINGS DICTIONARY ITEM NOT FOUND: " + mod.Name + mod.ID);
+                    if (mod.ID != 50 && mod.ID != 51)
+                    {
+                        Console.WriteLine("***Debug JOANNE***TOPPINGS DICTIONARY ITEM NOT FOUND: " + mod.Name + mod.ID);
+                    }
                 }
                 
                 if (mod.ID == 50)

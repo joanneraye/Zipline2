@@ -19,14 +19,17 @@ namespace Zipline2.Pages
         private ToppingsPageModel ToppingsPageModel;
         private int CarouselSelectedPosition { get; set; }
         private ToppingsOtherPage ToppingsOtherPage { get; set; }
+
+       
         #endregion
 
         #region Constructor
         public ToppingsPage (Pizza currentPizza)
 		{
             ToppingsPageModel = new ToppingsPageModel(currentPizza);
-            InitializeComponent ();
+            InitializeComponent();
             BindingContext = ToppingsPageModel;
+            ToppingsPageModel.ToppingFooterPageModel = ToppingFooter.ToppingFooterPageModel;
             ToppingsListView.ItemSelected += ToppingsListView_ItemSelected;
 
             string pizzaTitle = currentPizza.ItemName + " Toppings";

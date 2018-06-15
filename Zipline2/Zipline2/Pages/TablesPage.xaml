@@ -64,11 +64,18 @@
                                         TextColor="White" 
                                         BackgroundColor="Black"
                                         BorderColor="White"
-                                        FontSize="Micro" 
+                                        FontSize="8" 
                                         FontAttributes="Bold"
                                         BorderRadius="1"
                                         BorderWidth="1"
-                                        Command="{Binding InsideTableCommand}">                                   
+                                        Command="{Binding InsideTableCommand}">
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button"
+                                                        Binding="{Binding InsideTable.HasUnsentOrder, Mode=TwoWay}"
+                                                            Value="True">
+                                            <Setter Property="TextColor" Value="Red" />
+                                        </DataTrigger>
+                                    </Button.Triggers>
                                 </Button>
                                 <Label Grid.Column="2" 
                                        BackgroundColor="{Binding OutsideTableColor}"
@@ -90,7 +97,15 @@
                                         BorderColor="White"
                                         BorderRadius="1"
                                         BorderWidth="1"
-                                        Command="{Binding OutsideTableCommand}"/>
+                                        Command="{Binding OutsideTableCommand}">
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button"
+                                                        Binding="{Binding OutsideTable.HasUnsentOrder, Mode=TwoWay}"
+                                                            Value="True">
+                                            <Setter Property="TextColor" Value="Red" />
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
                             </Grid>
                         </ViewCell>
                     </DataTemplate>

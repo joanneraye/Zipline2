@@ -126,11 +126,11 @@ namespace Zipline2.Models
             if (indexToRemove != 99)
             {
                 CurrentToppings.RemoveAt(indexToRemove);
+                if (calculateTotal)
+                {
+                    ToppingsTotal = GetCurrentToppingsCost();
+                }
             } 
-            if (calculateTotal)
-            {
-                ToppingsTotal = GetCurrentToppingsCost();
-            }
         }
 
         public void RemoveToppings(List<ToppingName> toppingNames)
@@ -193,10 +193,11 @@ namespace Zipline2.Models
 
         private decimal GetToppingCountForPricing(ref decimal specialExtraCost, PizzaType pizzaType)
         {
-            decimal toppingCount = 0M;
+            decimal toppingCountForPricing = 0M;
             //TODO:  Still have to handle half and whole toppings
             foreach (var topping in CurrentToppings)
             {
+                decimal thisToppingCount = 0M;
                 //For Pan, Indy, & MFP, and Slice  extra sauce is just like another topping. 
                 //Medium and Large Pizzas charge 1.50 extra for extra sauce.
                 if (topping.ToppingName == ToppingName.ExtraPSauceOP ||
@@ -221,27 +222,28 @@ namespace Zipline2.Models
                     case SpecialPricingType.AddSubtractAmount:
                         break;
                     case SpecialPricingType.DefaultOneTopping:
-                        toppingCount++;
+                        thisToppingCount = 1;
                         break;
-                    case SpecialPricingType.AddHalfTopping: 
-                        toppingCount += .5M;
+                    case SpecialPricingType.AddHalfTopping:
+                        thisToppingCount = .5M;
                         break;
                     case SpecialPricingType.SubtractTopping:
-                        toppingCount--;
+                        thisToppingCount = -1;
                         break;
                     case SpecialPricingType.DoubleTopping:
                         if (topping.ToppingWholeHalf == ToppingWholeHalf.Whole)
                         {
-                            toppingCount += 2M;
+                            thisToppingCount = 2M;
                         } 
                         else
                         {
-                            toppingCount++;
+                            thisToppingCount = 1;
                         }
                         break;
                 }
+                toppingCountForPricing += (thisToppingCount * topping.Count);
             }
-            return toppingCount;
+            return toppingCountForPricing;
         }
       
         public void AddMajorToppings()

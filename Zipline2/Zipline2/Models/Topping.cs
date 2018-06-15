@@ -41,7 +41,45 @@ namespace Zipline2.Models
                 SetProperty(ref toppingDisplayName, value);
             }
         }
-        
+
+        private ToppingModifierType toppingModifier;
+        public ToppingModifierType ToppingModifier
+        {
+            get
+            {
+                return toppingModifier;
+            }
+            set
+            {
+                toppingModifier = value;
+                if (toppingModifier == ToppingModifierType.None)
+                {
+                    ToppingDisplayName = DisplayNames.GetToppingDisplayName(ToppingName);
+                }
+                else
+                {
+                    if (toppingModifier == ToppingModifierType.ExtraTopping)
+                    {
+                        ToppingDisplayName = "Extra " + DisplayNames.GetToppingDisplayName(ToppingName);
+                    }
+                    else if (toppingModifier == ToppingModifierType.LightTopping)
+                    {
+                        ToppingDisplayName = "Light " + DisplayNames.GetToppingDisplayName(ToppingName);
+                    }
+                    else if (toppingModifier == ToppingModifierType.ToppingOnSide)
+                    {
+                        ToppingDisplayName = DisplayNames.GetToppingDisplayName(ToppingName) + " On Side";
+                    }
+                    else if (toppingModifier == ToppingModifierType.NoTopping)
+                    {
+                        ToppingDisplayName = "No " + DisplayNames.GetToppingDisplayName(ToppingName);
+                        SpecialPricingType = SpecialPricingType.SubtractTopping;
+                    }
+                }
+                
+            }
+        }
+
         public ToppingWholeHalf ToppingWholeHalf { get; set; }
 
         public int Count { get; set; }
@@ -59,7 +97,9 @@ namespace Zipline2.Models
         public Topping(ToppingName toppingName, ToppingWholeHalf toppingWholeHalf = ToppingWholeHalf.Whole)
         {
             ToppingName = toppingName;
+            toppingModifier = ToppingModifierType.None;
             ToppingWholeHalf = toppingWholeHalf;
+            Count = 1;
             if (toppingWholeHalf != ToppingWholeHalf.Whole)
             {
                 ChangeToppingDisplayNameHalf(toppingWholeHalf);
@@ -67,6 +107,13 @@ namespace Zipline2.Models
             DbItemId = Toppings.GetDbItemId(toppingName);
             SpecialPricingType = SpecialPricingType.DefaultOneTopping;
         }
+
+        public Topping GetClone()
+        {
+            return (Topping)MemberwiseClone();
+        }
+
+        
 
         public void ChangeToppingDisplayNameHalf(ToppingWholeHalf whichHalf)
         {

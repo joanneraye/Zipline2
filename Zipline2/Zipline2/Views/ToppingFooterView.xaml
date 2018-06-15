@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Zipline2.Views.ToppingFooterView"
+             xmlns:views="clr-namespace:Zipline2.Views" >
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Style x:Key="footerToppingMenu" TargetType="Button">
+                <!--<Setter Property="Margin" Value="2, 2, 2, 2" />-->
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="BorderColor" Value="White" />
+                <Setter Property="BorderRadius" Value="3" />
+                <Setter Property="BorderWidth" Value="3" />
+                <Setter Property="BackgroundColor" Value="Black" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="FontSize" Value="Micro" />
+                <Setter Property="WidthRequest" Value="55" />
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <StackLayout Orientation="Vertical"
+                     Margin="0,5,0,0">
+           
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="Center"
+                            BackgroundColor="Black">
+                    <Button Text="NO"
+                            Command="{Binding NoToppingCommand}"
+                            Style="{StaticResource footerToppingMenu}"
+                            TextColor="White"
+                            BackgroundColor="Black">
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" 
+                                 Binding="{Binding NoToppingSelected}"
+                                 Value="True">
+                                <Setter Property="BackgroundColor" Value="LightBlue" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Button Text="O/S"
+                        Command="{Binding OnSideToppingCommand}"
+                        Style="{StaticResource footerToppingMenu}"
+                             TextColor="White"
+                            BackgroundColor="Black">
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" 
+                                 Binding="{Binding OnSideToppingSelected}"
+                                 Value="True">
+                                <Setter Property="BackgroundColor" Value="LightBlue" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Button Text="Lite"
+                        Command="{Binding LiteToppingCommand}"
+                        Style="{StaticResource footerToppingMenu}"
+                             TextColor="White"
+                            BackgroundColor="Black">
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" 
+                                 Binding="{Binding LiteToppingSelected}"
+                                 Value="True">
+                                <Setter Property="BackgroundColor" Value="LightBlue" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Button Text="Extra"
+                        Command="{Binding ExtraToppingCommand}"
+                        Style="{StaticResource footerToppingMenu}"
+                             TextColor="White"
+                            BackgroundColor="Black">
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" 
+                                 Binding="{Binding ExtraToppingSelected}"
+                                 Value="True">
+                                <Setter Property="BackgroundColor" Value="LightBlue" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+                </StackLayout>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

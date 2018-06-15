@@ -30,13 +30,13 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="3*"/>
                                 </Grid.ColumnDefinitions>
-                                <StackLayout Grid.Column="0" >
+                                <StackLayout Grid.Column="0" Spacing="0" >
                                     <Label Grid.ColumnSpan="1" Margin="0"
                                             Text="{Binding OrderItem.ItemName}"
                                                FontSize="Micro"
                                                TextColor="{Binding OrderItem.WasSentToKitchen, 
                                                 Converter={StaticResource sentToKitchenTextConverter}}"/>
-                                    <Label Grid.ColumnSpan="4" Margin="5,0,0,0"
+                                    <Label Grid.ColumnSpan="4" Margin="5,0,0,3"
                                       TextColor="White"
                                        FontSize="Micro"
                                       Text="{Binding Toppings}"/>
