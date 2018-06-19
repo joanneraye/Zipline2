@@ -180,8 +180,9 @@ namespace Zipline2.PageModels
         {
             //First populate list of tables with whether table is occupied and has unsent orders.
             //(Then build the page with that data in LoadTablesForDisplay method.)
-            List<DBTable> tables = WcfServicesProxy.Instance.GetTableInfoFromServer();
-           
+
+            List<DBTable> tables = WcfServicesProxy.Instance.GetTableInfoFromServerSync();
+
             foreach (var table in tables)
             {
                 bool hasUnsentItems = false;
@@ -226,21 +227,27 @@ namespace Zipline2.PageModels
 
         #region Methods
 
+        //async public Task<List<DBTable>> GetTablesAsync()
+        //{
+            
+        //    return await WcfServicesProxy.Instance.GetTableInfoFromServerAsync();
+        //}
+
         async public Task<bool> TableHasOpenChecks(decimal tableId)
         {
             return await WcfServicesProxy.Instance.HasOpenChecksAsync(tableId);
         }
         
-        async private void ProcessSelectedTable(Table tableSelected)
+        private void ProcessSelectedTable(Table tableSelected)
         {
             tableSelected.IsOccupied = true;
             //Change what the app's current table is.
             OrderManager.Instance.UpdateCurrentTable(tableSelected);
 
-            //var result = await WcfServicesProxy.Instance.HasOpenChecksAsync(tableSelected.TableId);
+            //GetTableAsync doesn't work...?
             //var dbTable = await WcfServicesProxy.Instance.GetTableAsync((int)tableSelected.TableId);
-
             var dbTable = WcfServicesProxy.Instance.GetTableSync((int)tableSelected.TableId);
+
             tableSelected.DatabaseTable = dbTable;
             Tables.AllTables[tableSelected.IndexInAllTables] = tableSelected;
             if (dbTable.Guests.Count > 0)

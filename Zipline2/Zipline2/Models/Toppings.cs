@@ -15,7 +15,7 @@ namespace Zipline2.Models
     {
         #region Properties
         
-        public List<Topping> CurrentToppings { get; private set; }
+        public List<Topping> CurrentToppings { get; set; }
 
         public PizzaType PizzaTypeForPricing { get; set; }
         private decimal toppingsTotal;
@@ -61,6 +61,34 @@ namespace Zipline2.Models
         public void UpdateToppingsTotal()
         {
             ToppingsTotal = GetCurrentToppingsCost();
+        }
+
+        private void GroupHalfAB()
+        {
+            List<Topping> sortedToppingList = new List<Topping>();
+            List<Topping> halfAToppings = new List<Topping>();
+            List<Topping> halfBToppings = new List<Topping>();
+
+            foreach (var topping in CurrentToppings)
+            {
+                if (topping.ToppingWholeHalf == ToppingWholeHalf.Whole)
+                {
+                    sortedToppingList.Add(topping);
+                }
+                else if (topping.ToppingWholeHalf == ToppingWholeHalf.HalfA)
+                {
+                    halfAToppings.Add(topping);
+                }
+                else if (topping.ToppingWholeHalf == ToppingWholeHalf.HalfB)
+                {
+                    halfBToppings.Add(topping);
+                }
+            }
+            if (halfAToppings.Count > 0 || halfBToppings.Count > 0)
+            {
+                sortedToppingList.AddRange(halfAToppings);
+                sortedToppingList.AddRange(halfBToppings);
+            }
         }
             
         public bool CurrentToppingsHas(ToppingName toppingName)

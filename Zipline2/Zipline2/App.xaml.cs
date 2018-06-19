@@ -43,9 +43,9 @@ namespace Zipline2
             Tables.LoadInitialTableData();
             LoadInitialToppings();
 
-            LoadMenuFromServerSync();
+            LoadMenuFromServerAsync();
             LoadToppingsFromServerAsync();
-            LoadTablesFromServerSync();
+            LoadTablesFromServerAsync();
             LoadDrinks();
 
             //TODO:  When and how to close services?
@@ -69,6 +69,11 @@ namespace Zipline2
             WcfServicesProxy.Instance.GetTablesSync();
         }
 
+        async private void LoadTablesFromServerAsync()
+        {
+            await WcfServicesProxy.Instance.GetTablesAsync();
+        }
+
         async private void LoadMenuFromServerAsync()
         {
             await WcfServicesProxy.Instance.GetMenuAsync();
@@ -76,7 +81,6 @@ namespace Zipline2
 
         async private void LoadToppingsFromServerAsync()
         {
-            //TODO:  Not doing anything with this dictionary yet.
             DataBaseDictionaries.PizzaToppingsDictionary = new Dictionary<decimal, DBModifier>();
             List<DBModGroup> modgroups = await WcfServicesProxy.Instance.GetToppingsAsync();
             foreach (var modgroup in modgroups)

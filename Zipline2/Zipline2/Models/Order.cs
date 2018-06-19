@@ -108,7 +108,8 @@ namespace Zipline2.Models
 
         public void UpdateOrderOnServer()
         {
-            WcfServicesProxy.Instance.UpdateOrderSync(this);
+            WcfServicesProxy.Instance.UpdateOrderAsync(this);
+            //WcfServicesProxy.Instance.UpdateOrderSync(this);
         }
 
         public bool UpdateDrinkIfAlreadyOnOrder(Drink drinkToAdd)

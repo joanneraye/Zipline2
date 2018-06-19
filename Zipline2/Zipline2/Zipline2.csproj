@@ -73,14 +73,14 @@
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="sqlite-net-pcl" Version="1.4.118" />
     <PackageReference Include="System.Runtime" Version="4.3.0" />
-    <PackageReference Include="System.ServiceModel.Duplex" Version="4.5.0" />
-    <PackageReference Include="System.ServiceModel.Http" Version="4.5.0" />
-    <PackageReference Include="System.ServiceModel.NetTcp" Version="4.5.0" />
-    <PackageReference Include="System.ServiceModel.Security" Version="4.5.0" />
+    <PackageReference Include="System.ServiceModel.Duplex" Version="4.5.1" />
+    <PackageReference Include="System.ServiceModel.Http" Version="4.5.1" />
+    <PackageReference Include="System.ServiceModel.NetTcp" Version="4.5.1" />
+    <PackageReference Include="System.ServiceModel.Security" Version="4.5.1" />
     <PackageReference Include="Xam.FormsPlugin.Iconize" Version="1.0.10" />
     <PackageReference Include="Xam.Plugin.Iconize" Version="1.0.10" />
     <PackageReference Include="Xam.Plugins.Settings" Version="4.0.0.7" />
-    <PackageReference Include="Xamarin.Forms" Version="3.0.0.530893" />
+    <PackageReference Include="Xamarin.Forms" Version="3.0.0.561731" />
   </ItemGroup>
 
   <ItemGroup>

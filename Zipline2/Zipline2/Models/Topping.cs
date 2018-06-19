@@ -72,7 +72,10 @@ namespace Zipline2.Models
                     }
                     else if (toppingModifier == ToppingModifierType.NoTopping)
                     {
-                        ToppingDisplayName = "No " + DisplayNames.GetToppingDisplayName(ToppingName);
+                        if (!DisplayNames.GetToppingDisplayName(ToppingName).ToUpper().StartsWith("NO"))
+                        {
+                            ToppingDisplayName = "No " + DisplayNames.GetToppingDisplayName(ToppingName);
+                        }
                         SpecialPricingType = SpecialPricingType.SubtractTopping;
                     }
                 }

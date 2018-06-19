@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Staunch.POS.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Zipline2.BusinessLogic;
+using Zipline2.BusinessLogic.WcfRemote;
 using Zipline2.Models;
 using Zipline2.PageModels;
 
@@ -44,7 +46,13 @@ namespace Zipline2.Pages
         #endregion
 
         #region Methods
-        
+
+        //async public Task<List<DBTable>> GetTablesAsync()
+        //{
+
+        //    return await WcfServicesProxy.Instance.GetTableInfoFromServerAsync();
+        //}
+
         public void OnPrintCheckButtonClicked(object sender, EventArgs e)
         {
         }

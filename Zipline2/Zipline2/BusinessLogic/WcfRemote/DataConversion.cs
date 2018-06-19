@@ -140,6 +140,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
                     if (dbGuestItem.SelectSizeID == 10) pizza.PizzaType = PizzaType.Indy;
                     if (dbGuestItem.SelectSizeID == 11) pizza.PizzaType = PizzaType.Medium;
                     if (dbGuestItem.SelectSizeID == 12) pizza.PizzaType = PizzaType.Large;
+                    if (dbGuestItem.SelectSizeID == 22) pizza.PizzaType = PizzaType.Mfp;
+                    if (dbGuestItem.SelectSizeID == 23) pizza.PizzaType = PizzaType.SatchPan;
                     pizza.MajorMamaInfo = MajorOrMama.Major;
                     pizza.Toppings.AddMajorToppings();
                     break;
@@ -160,6 +162,10 @@ namespace Zipline2.BusinessLogic.WcfRemote
                     pizza.MajorMamaInfo = MajorOrMama.Major;
                     pizza.Toppings.AddMajorToppings();
                     break;
+                default:
+                    Console.WriteLine("***Debug JOANNE***PIZZA TYPE FROM SERVER NOT FOUND FOR GuestItem ID " + dbGuestItem.ID + " & SizeID: " + dbGuestItem.SelectSizeID);
+                    break;
+
             }
             if (dbGuestItem.Mods.Count > 0)
             {
@@ -179,6 +185,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         private static void GetPizzaToppings(GuestItem oldGuestItem, ref Pizza pizza)
         {
+           
             //TODO:  Not yet accounting for mod.State
           
             foreach (GuestModifier mod in oldGuestItem.Mods)
@@ -229,10 +236,15 @@ namespace Zipline2.BusinessLogic.WcfRemote
                     {
                         newTopping.ToppingModifier = ToppingModifierType.LightTopping;
                     }
-                    else if (mod.State == "Plus" && mod.Count > 1)
+                    else if (mod.State == "" || (mod.State == "Plus" && mod.Count > 1))
                     {
                         newTopping.ToppingModifier = ToppingModifierType.ExtraTopping;
                         newTopping.Count = (int)mod.Count;
+                    }
+                    else if (mod.State == "Plus" && mod.Name.ToUpper() == "NO CHEESE")
+                    {
+                        newTopping.ToppingModifier = ToppingModifierType.NoTopping;
+                        addThisModAsTopping = true;
                     }
                     else if (mod.State == "Side")
                     {
@@ -258,7 +270,10 @@ namespace Zipline2.BusinessLogic.WcfRemote
                         else 
                         {
                             newTopping.ToppingModifier = ToppingModifierType.NoTopping;
+                            //Try to remove topping just in case it is there, but will probably
+                            //be something like no cheese.
                             pizza.Toppings.RemoveTopping(newTopping.ToppingName);
+                            addThisModAsTopping = true;
                         }
                     }
                 }
@@ -290,7 +305,6 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 if (addThisModAsTopping)
                 {
                     newTopping.ToppingWholeHalf = wholeOrHalf;
-                    newTopping.ChangeToppingDisplayNameHalf(wholeOrHalf);
                     pizza.Toppings.AddTopping(newTopping, false);
                 }
             }

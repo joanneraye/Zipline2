@@ -235,20 +235,86 @@ namespace Zipline2.Models
         {
             var orderDisplayItem = base.PopulateOrderDisplayItem();
             var toppingsString = new StringBuilder();
+
+            //First just sort toppings....
+
+            List<Topping> wholeToppingsList = new List<Topping>();
+            List<Topping> halfAToppings = new List<Topping>();
+            List<Topping> halfBToppings = new List<Topping>();
+
+            foreach (var topping in Toppings.CurrentToppings)
+            {
+                if (topping.ToppingWholeHalf == ToppingWholeHalf.Whole)
+                {
+                    wholeToppingsList.Add(topping);
+                }
+                else if (topping.ToppingWholeHalf == ToppingWholeHalf.HalfA)
+                {
+                    topping.ToppingDisplayName = DisplayNames.GetToppingDisplayName(topping.ToppingName);
+                    halfAToppings.Add(topping);
+                }
+                else if (topping.ToppingWholeHalf == ToppingWholeHalf.HalfB)
+                {
+                    topping.ToppingDisplayName = DisplayNames.GetToppingDisplayName(topping.ToppingName);
+                    halfBToppings.Add(topping);
+                }
+            }
+           
+            Toppings.CurrentToppings = new List<Topping>();
+            Toppings.CurrentToppings.AddRange(wholeToppingsList);
+            Toppings.CurrentToppings.AddRange(halfAToppings);
+            Toppings.CurrentToppings.AddRange(halfBToppings);
+
+            //Next loop through toppings again and insert Half A and Half B as needed.
+            bool halfATitlePrinted = false;
+            bool halfBTitlePrinted = false;
             for (int i = 0; i < Toppings.CurrentToppings.Count; i++)
             {
-                if (i > 0)
+                if (i > 0 && Toppings.CurrentToppings[i].ToppingWholeHalf == ToppingWholeHalf.Whole)
                 {
-                    toppingsString.Append(", ");
+                    toppingsString.Append("\n");
                 }
-                toppingsString.Append(Toppings.CurrentToppings[i].ToppingDisplayName);
+                if (Toppings.CurrentToppings[i].ToppingWholeHalf == ToppingWholeHalf.HalfA)
+                {
+                    if (!halfATitlePrinted)
+                    {
+                        if (wholeToppingsList.Count > 0)
+                        {
+                            toppingsString.Append("\n");
+                        }
+                        toppingsString.Append("HALF A: \n");
+                        halfATitlePrinted = true;
+                    }
+                    else
+                    {
+                        toppingsString.Append("\n");
+                    }
+                    
 
-
-            orderDisplayItem.Toppings = toppingsString.ToString();
+                }
+                else if (Toppings.CurrentToppings[i].ToppingWholeHalf == ToppingWholeHalf.HalfB && !halfBTitlePrinted)
+                {
+                    if (!halfBTitlePrinted)
+                    {
+                        if (wholeToppingsList.Count > 0 || halfAToppings.Count > 0)
+                        {
+                            toppingsString.Append("\n");
+                        }
+                        toppingsString.Append("HALF B: \n");
+                        halfBTitlePrinted = true;
+                    }
+                    else
+                    {
+                        toppingsString.Append("\n");
+                    }
+                }
+                toppingsString.Append(Toppings.CurrentToppings[i].ToppingDisplayName);            
             }
+            orderDisplayItem.Toppings = toppingsString.ToString();
             return orderDisplayItem;
         }
 
+        
         public override List<GuestModifier> CreateMods()
         {
             //if the toppings are just major toppings and designated as major, then 
