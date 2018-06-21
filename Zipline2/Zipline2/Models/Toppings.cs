@@ -161,6 +161,19 @@ namespace Zipline2.Models
             } 
         }
 
+        public bool IsToppingAlreadyAdded(ToppingName toppingName)
+        {
+            foreach (var topping in CurrentToppings)
+            {
+                if (topping.ToppingName == toppingName)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
         public void RemoveToppings(List<ToppingName> toppingNames)
         {
             foreach (var toppingName in toppingNames)

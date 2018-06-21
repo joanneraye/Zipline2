@@ -58,13 +58,15 @@ namespace Zipline2.Models
 
        
         public decimal TableId { get; set; }
+        public int TableIndexInAllTables { get; set; }
         public decimal[] GuestIds { get; set; } = new decimal[2];
 
-        public Order(decimal tableId)
+        public Order(decimal tableId, int tableIndex)
         {
             OrderItems = new List<OrderItem>();
             IsTakeout = false;
             TableId = tableId;
+            TableIndexInAllTables = tableIndex;
         }
 
         private void UpdateOrderTotals()

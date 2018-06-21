@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Zipline2.BusinessLogic;
@@ -12,6 +13,7 @@ namespace Zipline2.PageModels
     public class OrderPageModel : BasePageModel
     {
         public ICommand SendOrderCommand { get; set; }
+        public event EventHandler NavigateToToppingsPage;
         private List<OrderDisplayItem> displayOrder;
         public List<OrderDisplayItem> DisplayOrder
         {
@@ -48,17 +50,20 @@ namespace Zipline2.PageModels
                 DisplayOrder.Add(orderitem.PopulateOrderDisplayItem());
             }
         }
-        
+
+       
+
         private void OnSendOrder()
         {
             //TODO:  Don't actually send order until ready to work on:
-            //OrderManager.Instance.SendOrder();
+            OrderManager.Instance.SendOrder();
 
-            //Should any of this be done from OrderPage.xaml.cs?
-          
-            var currentMainPage = (Application.Current.MainPage as MasterDetailPage);
-            currentMainPage.Detail = new NavigationPage(new TablesPage());
-            Application.Current.MainPage = currentMainPage;
+            OnNavigateToTablesPage();
+        }
+
+        void OnNavigateToTablesPage()
+        {
+            NavigateToToppingsPage?.Invoke(this, EventArgs.Empty);
         }
     }
 }

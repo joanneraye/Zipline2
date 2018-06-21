@@ -259,32 +259,33 @@ namespace Zipline2.PageModels
                 }
                 if (guestItems.Count > 0)
                 {
-                    Order openOrder = DataConversion.ConvertDbGuestsToOrder(guestItems, tableSelected.TableId);
+                    Order openOrder = DataConversion.ConvertDbGuestsToOrder(guestItems, tableSelected.TableId, tableSelected.IndexInAllTables);
                     OrderManager.Instance.OrderInProgress = openOrder;
                     if (!openOrder.AllItemsSent)
                     {
                         tableSelected.HasUnsentOrder = true;
                     }
-                    //Tables.AllTables[tableSelected.IndexInAllTables].OpenOrders = new List<Order>() { openOrder };
+                    //used just during testing so that orders can be looked at without sending to server.
+                    Tables.AllTables[tableSelected.IndexInAllTables].OpenOrder = openOrder;
                     DisplayOrderPage();
                     return;
                 }
             }
 
-            //TODO:  Should this never occur?
+            //used just during testing so that orders can be looked at without sending to server.
             //Only if no orders on server, see if OpenOrders for this table on this phone...
-            //var ordersForThisTable = Tables.AllTables[tableSelected.IndexInAllTables].OpenOrders;
-            //if (ordersForThisTable.Count > 0)
-            //{
-            //    OrderManager.Instance.OrderInProgress = ordersForThisTable[0];
-            //    DisplayOrderPage();
-            //}
-            //else
-            ////if no open orders out there for this table, start a new order.
-            //{ 
+            var orderForThisTable = Tables.AllTables[tableSelected.IndexInAllTables].OpenOrder;
+            if (orderForThisTable != null)
+            {
+                OrderManager.Instance.OrderInProgress = orderForThisTable;
+                DisplayOrderPage();
+            }
+            else
+            //if no open orders out there for this table, start a new order.
+            {
                 OrderManager.Instance.InitializeOrderInProgress();
                 DisplayDrinksPage();
-            //}
+            }
             
             //else if (await TableHasOpenChecks(tableSelected.TableId))
             //Are there checks on server for that table (not on phone)?  If, so

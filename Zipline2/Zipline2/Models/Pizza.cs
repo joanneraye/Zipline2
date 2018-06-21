@@ -107,6 +107,7 @@ namespace Zipline2.Models
             Toppings.UpdateToppingsTotal();
         }
 
+       
         public void ChangePizzaBase(PizzaBase baseChangeTo, bool updateTotals = true)
         {
             Base = baseChangeTo;
@@ -206,6 +207,18 @@ namespace Zipline2.Models
 
         public override Tuple<string, decimal> GetMenuDbItemKeys()
         {
+            if (MajorMamaInfo == MajorOrMama.Major)
+            {
+                return Tuple.Create<string, decimal>("Pizza", 59);
+            }
+            if (PizzaType == PizzaType.Mfp)
+            {
+                return Tuple.Create<string, decimal>("Pizza", 60);
+            }
+            else if (PizzaType == PizzaType.SatchPan)
+            {
+                return Tuple.Create<string, decimal>("Pizza", 61);
+            }
             return Tuple.Create<string, decimal>("Pizza", 57);
         }
 
@@ -222,11 +235,40 @@ namespace Zipline2.Models
                     guestItem.SelectSizeID = 12;
                     break;
                 case PizzaType.ThinSlice:
-                    guestItem.SelectSizeID = 9;
+                    if (MajorMamaInfo == MajorOrMama.Major)
+                    {
+                        guestItem.SelectSizeID = 9;
+                    }
+                    else
+                    {
+                        guestItem.SelectSizeID = 24;
+                    }
+                    
                     break;
                 case PizzaType.Indy:
                     guestItem.SelectSizeID = 10;
                     break;
+                case PizzaType.Mfp:
+                    if (MajorMamaInfo == MajorOrMama.Major)
+                    {
+                        guestItem.SelectSizeID = 22;
+                    }
+                    else
+                    {
+                        guestItem.SelectSizeID = 60;
+                    }
+                    break;
+                case PizzaType.SatchPan:
+                    if (MajorMamaInfo == MajorOrMama.Major)
+                    {
+                        guestItem.SelectSizeID = 23;
+                    }
+                    else
+                    {
+                        guestItem.SelectSizeID = 15;
+                    }                   
+                    break;
+
             }
             return guestItem;
         }
@@ -282,7 +324,7 @@ namespace Zipline2.Models
                         {
                             toppingsString.Append("\n");
                         }
-                        toppingsString.Append("HALF A: \n");
+                        toppingsString.Append("    HALF A: \n");
                         halfATitlePrinted = true;
                     }
                     else
@@ -300,7 +342,7 @@ namespace Zipline2.Models
                         {
                             toppingsString.Append("\n");
                         }
-                        toppingsString.Append("HALF B: \n");
+                        toppingsString.Append("    HALF B: \n");
                         halfBTitlePrinted = true;
                     }
                     else

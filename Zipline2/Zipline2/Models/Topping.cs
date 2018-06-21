@@ -10,7 +10,12 @@ namespace Zipline2.Models
     public class Topping : BasePageModel
     {
         #region Properties
-        public decimal DbItemId { get; set; } 
+        public decimal DbItemId { get; set; }
+        public bool ForPizza { get; set; }
+        public bool ForSalad { get; set; }
+        public bool ForTakeout { get; set; }
+
+        public bool ForCalzone { get; set; }
 
         //Foreign key with OrderItem table - can include toppings for salad or pizza
         public int OrderItemId { get; set; }
@@ -60,7 +65,7 @@ namespace Zipline2.Models
                 {
                     if (toppingModifier == ToppingModifierType.ExtraTopping)
                     {
-                        ToppingDisplayName = "Extra " + DisplayNames.GetToppingDisplayName(ToppingName);
+                        ToppingDisplayName = DisplayNames.GetToppingDisplayName(ToppingName) + " " + Count + "X";
                     }
                     else if (toppingModifier == ToppingModifierType.LightTopping)
                     {
@@ -103,6 +108,10 @@ namespace Zipline2.Models
             toppingModifier = ToppingModifierType.None;
             ToppingWholeHalf = toppingWholeHalf;
             Count = 1;
+            ForPizza = true;
+            ForSalad = false;
+            ForCalzone = false;
+            ForTakeout = false;
             if (toppingWholeHalf != ToppingWholeHalf.Whole)
             {
                 ChangeToppingDisplayNameHalf(toppingWholeHalf);

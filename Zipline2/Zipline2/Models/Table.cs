@@ -49,14 +49,14 @@ namespace Zipline2.Models
 
         public DBTable DatabaseTable { get; set; }
 
-        //public List<Order> OpenOrders { get; set; }
+        public Order OpenOrder { get; set; }
 
         #endregion
 
         #region constructor
         public Table()
         {
-            //OpenOrders = new List<Order>();
+            //Don't initialize OpenOrder.  We can tell it is not valued if it is null;
         }
         #endregion
     }

@@ -14,6 +14,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
     {
 
         public bool ServiceCallsOff = false;
+        public bool UpdatesToServiceOffOnly = false;
+        public bool AllowUpdatesToServerNoSend = false;
 
         #region Singleton
         private static WcfServicesProxy instance = null;
@@ -53,6 +55,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         private WcfServicesProxy()
         {
+            UpdatesToServiceOffOnly = true;
+            AllowUpdatesToServerNoSend = false;
             if (Users.Instance.LoggedInUser != null)
             {
                 UserIdDecimal = Users.Instance.LoggedInUser.UserId;
@@ -81,11 +85,22 @@ namespace Zipline2.BusinessLogic.WcfRemote
             }
         }
 
+
+        //ASYNC Calls
         async public void UpdateOrderAsync(Order orderToUpdate)
         {
-            if (ServiceCallsOff)
+            if (ServiceCallsOff || UpdatesToServiceOffOnly)
             {
                 return;
+            }
+
+            if (!AllowUpdatesToServerNoSend)
+            {
+                if (DataBaseDictionaries.DbTablesDictionary.ContainsKey(orderToUpdate.TableId))
+                {
+                    var thisTable = DataBaseDictionaries.DbTablesDictionary[orderToUpdate.TableId];
+                    Tables.AllTables[orderToUpdate.TableIndexInAllTables].OpenOrder = orderToUpdate;
+                }
             }
             //decimal guestId = await GetGuestIdAsync(orderToUpdate.TableId);
             DBTable dbTableCurrent = ConvertOrderToDbTable(orderToUpdate, false);
@@ -97,9 +112,14 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         async public void SendOrderAsync(Order orderToSend)
         {
-            if (ServiceCallsOff)
+            if (ServiceCallsOff || UpdatesToServiceOffOnly)
             {
+                if (Tables.AllTables.Count > orderToSend.TableIndexInAllTables)
+                {
+                    Tables.AllTables[orderToSend.TableIndexInAllTables].OpenOrder = orderToSend;
+                }
                 return;
+                
             }
             DBTable dbTableCurrent = ConvertOrderToDbTable(orderToSend, true);
 
@@ -149,15 +169,10 @@ namespace Zipline2.BusinessLogic.WcfRemote
             }          
         }
 
-
-
-
-
-
-        //ASYNC Calls
+        
         async public Task UpdateTableAsync(DBTable currentTable)
         {
-            if (ServiceCallsOff)
+            if (ServiceCallsOff || UpdatesToServiceOffOnly)
             {
                 return;
             }
@@ -221,7 +236,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 waiterClient.BeginGetAllMods,
                 waiterClient.EndGetAllMods,
                 (decimal)57,
-                (decimal)12,
+                (decimal)0,
                 TaskCreationOptions.None);
 
         }
@@ -231,9 +246,9 @@ namespace Zipline2.BusinessLogic.WcfRemote
             if (ServiceCallsOff)
             {
                 return;
-            }
+            }                       
             DataBaseDictionaries.MenuDictionary = new Dictionary<string, List<DBItem>>();
-            try
+            try                           
             {
                 DataBaseDictionaries.MenuDictionary = await Task.Factory.FromAsync(
                     waiterClient.BeginGetMenu,
@@ -269,7 +284,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         async public void SendOrdersToServerAsync(List<decimal> orderIds, decimal userId)
         {
-            if (ServiceCallsOff)
+            if (ServiceCallsOff || UpdatesToServiceOffOnly)
             {
                 return;
             }
@@ -304,7 +319,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         async public Task CreateCheckAsync(DBCheck dbCheck)
         {
-            if (ServiceCallsOff)
+            if (ServiceCallsOff || UpdatesToServiceOffOnly)
             {
                 return;
             }
@@ -395,7 +410,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
         //SYNC Calls
         public void UpdateTableSync(DBTable currentTable)
         {
-            if (ServiceCallsOff)
+            if (ServiceCallsOff || UpdatesToServiceOffOnly)
             {
                 return;
             }
@@ -427,12 +442,12 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 return;
             }
             DataBaseDictionaries.DbTablesDictionary = new Dictionary<decimal, DBTable>();
-            List<DBTable> tablesSection1 = waiterClient.GetTablesForSection(1);
+            List<DBTable> tablesSection1 = waiterClient.GetTablesForSection(1M);
             foreach (var item1 in tablesSection1)
             {
                 DataBaseDictionaries.DbTablesDictionary.Add(item1.ID, item1);
             }
-            List<DBTable> tablesSection2 = waiterClient.GetTablesForSection(2);
+            List<DBTable> tablesSection2 = waiterClient.GetTablesForSection(2M);
             foreach (var item2 in tablesSection2)
             {
                 DataBaseDictionaries.DbTablesDictionary.Add(item2.ID, item2);
@@ -475,7 +490,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         public void UpdateOrderSync(Order orderToUpdate)
         {
-            if (ServiceCallsOff)
+            if (ServiceCallsOff || UpdatesToServiceOffOnly)
             {
                 return;
             }
@@ -521,7 +536,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         public void SendOrderSync(Order orderToSend)
         {
-            if (ServiceCallsOff)
+            if (ServiceCallsOff || UpdatesToServiceOffOnly)
             {
                 return;
             }
@@ -590,7 +605,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         public void SendOrdersToServerSync(List<decimal> orderIds, decimal userId)
         {
-            if (ServiceCallsOff)
+            if (ServiceCallsOff || UpdatesToServiceOffOnly)
             {
                 return;
             }
@@ -608,7 +623,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         public void CreateCheckSync(DBCheck dbCheck)
         {
-            if (ServiceCallsOff)
+            if (ServiceCallsOff || UpdatesToServiceOffOnly)
             {
                 return;
             }
@@ -640,27 +655,27 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
             //Get stored DBTable.
             DBTable newTable = DataBaseDictionaries.DbTablesDictionary[orderToSend.TableId];
-
-            //Create Guest_DBs for table Guests.
-            bool first = true;
-            foreach (decimal id in guestIds)
+            if (newTable.Guests.Count == 0)
             {
-                Staunch.POS.Classes.Guest_DB guest = new Staunch.POS.Classes.Guest_DB();
-                guest.ID = id;
-                guest.CheckedOut = false;
-                guest.Items = new List<GuestItem>();
-                guest.ComboItems = new List<GuestComboItem>();
-                guest.TableID = orderToSend.TableId;
-
-                if (first)
+                bool first = true;
+                foreach (decimal id in guestIds)
                 {
-                    guest.IsWhole = true;
-                    first = false;
-                }
+                    Staunch.POS.Classes.Guest_DB guest = new Staunch.POS.Classes.Guest_DB();
+                    guest.ID = id;
+                    guest.CheckedOut = false;
+                    guest.Items = new List<GuestItem>();
+                    guest.ComboItems = new List<GuestComboItem>();
+                    guest.TableID = orderToSend.TableId;
 
-                //TODO:  Too many guests are added to table - not sure why....
-                newTable.Guests.Add(guest);
-            }
+                    if (first)
+                    {
+                        guest.IsWhole = true;
+                        first = false;
+                    }
+                  
+                    newTable.Guests.Add(guest);
+                }
+            }            
 
             if (DataBaseDictionaries.MenuDictionary != null &&
                 DataBaseDictionaries.MenuDictionary.Count > 0)

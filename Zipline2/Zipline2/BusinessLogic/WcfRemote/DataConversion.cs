@@ -10,20 +10,20 @@ namespace Zipline2.BusinessLogic.WcfRemote
     public static class DataConversion
     {
 
-        public static Order ConvertDbCheckToOrder(DBCheck check, decimal tableId, decimal[] guestIds)
-        {    
-            var openOrder = new Order(tableId)
-            {
-                IsTakeout = false,
-                GuestIds = guestIds
-            };
-            foreach (var item in check.Items)
-            {
-                var openOrderItem = OrderItemFactory.GetOrderItem(item);
-                openOrder.AddItemToOrder(openOrderItem);
-            }
-            return openOrder;
-        }
+        //public static Order ConvertDbCheckToOrder(DBCheck check, decimal tableId, decimal[] guestIds)
+        //{    
+        //    //var openOrder = new Order(tableId)
+        //    //{
+        //    //    IsTakeout = false,
+        //    //    GuestIds = guestIds
+        //    //};
+        //    //foreach (var item in check.Items)
+        //    //{
+        //    //    var openOrderItem = OrderItemFactory.GetOrderItem(item);
+        //    //    openOrder.AddItemToOrder(openOrderItem);
+        //    //}
+        //    //return openOrder;
+        //}
 
         public static Drink GetDrink(GuestItem oldGuestItem)
         {
@@ -324,9 +324,9 @@ namespace Zipline2.BusinessLogic.WcfRemote
             };
         }
 
-        internal static Order ConvertDbGuestsToOrder(List<GuestItem> guestItems, decimal tableId)
+        internal static Order ConvertDbGuestsToOrder(List<GuestItem> guestItems, decimal tableId, int tableIndex)
         {
-            var openOrder = new Order(tableId)
+            var openOrder = new Order(tableId, tableIndex)
             {
                 IsTakeout = false,
                 AllItemsSent = true

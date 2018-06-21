@@ -43,9 +43,11 @@ namespace Zipline2
             Tables.LoadInitialTableData();
             LoadInitialToppings();
 
-            LoadMenuFromServerAsync();
+            //LoadMenuFromServerAsync();
+            LoadMenuFromServerSync();
             LoadToppingsFromServerAsync();
-            LoadTablesFromServerAsync();
+            LoadTablesFromServerSync();
+            //LoadTablesFromServerAsync();
             LoadDrinks();
 
             //TODO:  When and how to close services?
@@ -151,10 +153,10 @@ namespace Zipline2
             allToppings.Add(ToppingName.DAIYA, new Topping(ToppingName.DAIYA) { SpecialPricingType = SpecialPricingType.DoubleTopping });
             allToppings.Add(ToppingName.Deep, new Topping(ToppingName.Deep) { SpecialPricingType = SpecialPricingType.SpecialLogic });
             allToppings.Add(ToppingName.ExtraCheese, new Topping(ToppingName.ExtraCheese));
-            allToppings.Add(ToppingName.ExtraMozarellaCalzone, new Topping(ToppingName.ExtraMozarellaCalzone));
+            allToppings.Add(ToppingName.ExtraMozarellaCalzone, new Topping(ToppingName.ExtraMozarellaCalzone) { ForCalzone = true, ForPizza = false });
             allToppings.Add(ToppingName.ExtraPSauceOS, new Topping(ToppingName.ExtraPSauceOS));
             allToppings.Add(ToppingName.ExtraPSauceOP, new Topping(ToppingName.ExtraPSauceOP));
-            allToppings.Add(ToppingName.ExtraRicottaCalzone, new Topping(ToppingName.ExtraRicottaCalzone));
+            allToppings.Add(ToppingName.ExtraRicottaCalzone, new Topping(ToppingName.ExtraRicottaCalzone) { ForCalzone = true, ForPizza = false });
             allToppings.Add(ToppingName.Feta, new Topping(ToppingName.Feta));
             allToppings.Add(ToppingName.Garlic, new Topping(ToppingName.Garlic));
             allToppings.Add(ToppingName.GlutenFreeIndyOnly, new Topping(ToppingName.GlutenFreeIndyOnly) { SpecialPricingType = SpecialPricingType.Free });
@@ -164,16 +166,23 @@ namespace Zipline2
             allToppings.Add(ToppingName.Jalapenos, new Topping(ToppingName.Jalapenos));
             allToppings.Add(ToppingName.KidCook, new Topping(ToppingName.KidCook) { SpecialPricingType = SpecialPricingType.Free });
             allToppings.Add(ToppingName.LightCook, new Topping(ToppingName.LightCook) { SpecialPricingType = SpecialPricingType.Free });
+            allToppings.Add(ToppingName.LightSauce, new Topping(ToppingName.LightSauce) { SpecialPricingType = SpecialPricingType.Free });
+            allToppings.Add(ToppingName.LightMozarella, new Topping(ToppingName.LightMozarella) { SpecialPricingType = SpecialPricingType.Free });
+            allToppings.Add(ToppingName.LightRicotta, new Topping(ToppingName.LightRicotta) { SpecialPricingType = SpecialPricingType.Free, ForCalzone = true, ForPizza = false });
             allToppings.Add(ToppingName.Meatballs, new Topping(ToppingName.Meatballs));
             allToppings.Add(ToppingName.Mushrooms, new Topping(ToppingName.Mushrooms));
+            allToppings.Add(ToppingName.NoButter, new Topping(ToppingName.NoButter) { SpecialPricingType = SpecialPricingType.Free });
             allToppings.Add(ToppingName.NoCheese, new Topping(ToppingName.NoCheese) { SpecialPricingType = SpecialPricingType.SubtractTopping });
+            allToppings.Add(ToppingName.NoMozarella, new Topping(ToppingName.NoMozarella) { SpecialPricingType = SpecialPricingType.SubtractTopping, ForCalzone = true, ForPizza = false });
+            allToppings.Add(ToppingName.NoRicotta, new Topping(ToppingName.NoRicotta) { SpecialPricingType = SpecialPricingType.SubtractTopping, ForCalzone = true, ForPizza = false });
+            allToppings.Add(ToppingName.NoSauce, new Topping(ToppingName.NoSauce) { SpecialPricingType = SpecialPricingType.Free });            
             allToppings.Add(ToppingName.Onion, new Topping(ToppingName.Onion));
             allToppings.Add(ToppingName.PestoTopping, new Topping(ToppingName.PestoTopping));
             allToppings.Add(ToppingName.Pepperoni, new Topping(ToppingName.Pepperoni));
             allToppings.Add(ToppingName.Pineapple, new Topping(ToppingName.Pineapple));
             allToppings.Add(ToppingName.RedOnions, new Topping(ToppingName.RedOnions));
-            allToppings.Add(ToppingName.Ricotta, new Topping(ToppingName.Ricotta));
-            allToppings.Add(ToppingName.RicottaCalzone, new Topping(ToppingName.RicottaCalzone));
+            allToppings.Add(ToppingName.Ricotta, new Topping(ToppingName.Ricotta) { ForCalzone = true, ForPizza = false });
+            allToppings.Add(ToppingName.RicottaCalzone, new Topping(ToppingName.RicottaCalzone) { ForCalzone = true, ForPizza = false });
             allToppings.Add(ToppingName.RoastedRedPepper, new Topping(ToppingName.RoastedRedPepper));
             allToppings.Add(ToppingName.Sausage, new Topping(ToppingName.Sausage));
             allToppings.Add(ToppingName.Spinach, new Topping(ToppingName.Spinach));
@@ -184,14 +193,6 @@ namespace Zipline2
             allToppings.Add(ToppingName.TempehOriginal, new Topping(ToppingName.TempehOriginal));
             allToppings.Add(ToppingName.Tomatoes, new Topping(ToppingName.Tomatoes));
             allToppings.Add(ToppingName.Zucchini, new Topping(ToppingName.Zucchini));
-            allToppings.Add(ToppingName.LightSauce, new Topping(ToppingName.LightSauce) { SpecialPricingType = SpecialPricingType.Free });
-            allToppings.Add(ToppingName.LightMozarella, new Topping(ToppingName.LightMozarella) { SpecialPricingType = SpecialPricingType.Free });
-            allToppings.Add(ToppingName.LightRicotta, new Topping(ToppingName.LightRicotta) { SpecialPricingType = SpecialPricingType.Free });
-            allToppings.Add(ToppingName.NoButter, new Topping(ToppingName.NoButter) { SpecialPricingType = SpecialPricingType.Free });
-            allToppings.Add(ToppingName.NoSauce, new Topping(ToppingName.NoSauce) { SpecialPricingType = SpecialPricingType.Free });
-            allToppings.Add(ToppingName.NoMozarella, new Topping(ToppingName.NoMozarella) { SpecialPricingType = SpecialPricingType.SubtractTopping });
-            allToppings.Add(ToppingName.NoRicotta, new Topping(ToppingName.NoRicotta) { SpecialPricingType = SpecialPricingType.SubtractTopping });
-           
         }
     }
 }

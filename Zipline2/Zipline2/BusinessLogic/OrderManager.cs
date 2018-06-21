@@ -125,7 +125,7 @@ namespace Zipline2.BusinessLogic
 
         public void InitializeOrderInProgress()
         {
-            OrderInProgress = new Order(CurrentTableId);
+            OrderInProgress = new Order(CurrentTableId, CurrentTableIndex);
         }
 
         public void SendOrder()
