@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Zipline2.BusinessLogic;
+using Zipline2.BusinessLogic.WcfRemote;
 using Zipline2.Models;
 
 namespace Zipline2.PageModels
@@ -18,7 +19,10 @@ namespace Zipline2.PageModels
         public User LoggedInUser { get; set; }
 
         public bool IsPinValidUser { get; set; }
-        
+
+        public string TestingNote { get; set; }
+
+
         public string PinEnteredByUser
         {
             get
@@ -43,7 +47,17 @@ namespace Zipline2.PageModels
 
         public LoginPageModel()
         {
-
+            if (DataBaseDictionaries.MenuDictionary.Count > 0 &&
+                DataBaseDictionaries.DbTablesDictionary.Count > 0 &&
+                DataBaseDictionaries.PizzaToppingsDictionary.Count > 0)
+            {
+                TestingNote = "Note to Joanne:  Server data seems to have been loaded.";
+            }
+            else
+            {
+                TestingNote = "Note to Joanne:  Some or all server data did not load.";
+            }
+            
         }
     }
 }

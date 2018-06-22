@@ -20,6 +20,7 @@ namespace Zipline2.Pages
     {
         private const string YES = "Yup";
         private const string NO = "No Way Jose";
+        private bool ServerButtonToggle = false;
         LoginPageModel LoginPageModel;
         Users Users = Users.Instance;
         public LoginPage()
@@ -45,6 +46,23 @@ namespace Zipline2.Pages
             
             
         }
+
+        //private void OnLiveServerClick()
+        //{
+        //    ServerButtonToggle = !ServerButtonToggle;
+        //    if (ServerButtonToggle)
+        //    {
+        //        LiveServerButton.BackgroundColor = Color.LightBlue;
+        //        WcfServicesProxy.Instance.MakeLiveServerConnection();
+        //    }
+        //    else
+        //    {
+        //        LiveServerButton.BackgroundColor = Color.Black;
+        //        WcfServicesProxy.Instance.MakeTestEnvironmentConnection();
+        //    }
+
+        //}
+
 
         async void OnAddNewUserButtonClicked(object sender, EventArgs e)
         {

@@ -12,7 +12,7 @@
                 <Setter Property="BorderRadius" Value="3" />
                 <Setter Property="BorderWidth" Value="3" />
                 <Setter Property="BackgroundColor" Value="Black" />
-                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
                 <Setter Property="FontSize" Value="Micro" />
                 <Setter Property="WidthRequest" Value="55" />
             </Style>

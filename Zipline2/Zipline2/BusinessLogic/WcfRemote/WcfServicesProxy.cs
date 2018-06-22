@@ -64,24 +64,52 @@ namespace Zipline2.BusinessLogic.WcfRemote
           
             if (!ServiceCallsOff)
             {
-                try
-                {
-                    waiterClient = new PosServiceClient(
-                         new BasicHttpBinding(),
-                         new EndpointAddress("http://192.168.1.26/WP7Waiter/POServiceHost.svc"));
-                    waiterClient.Endpoint.Binding.SendTimeout = new TimeSpan(0, 10, 0);
+                MakeTestEnvironmentConnection();
+                //MakeLiveServerConnection();
+            }
+        }
 
-                    checkClient = new CheckHostClient(
-                         new BasicHttpBinding(),
-                         new EndpointAddress("http://192.168.1.26/CheckHost/CheckHost.svc"));
-                    checkClient.Endpoint.Binding.SendTimeout = new TimeSpan(0, 10, 0);
-                }
+        internal void MakeTestEnvironmentConnection()
+        {
+            try
+            {
+                waiterClient = new PosServiceClient(
+                     new BasicHttpBinding(),
+                     new EndpointAddress("http://192.168.1.26/WP7Waiter/POServiceHost.svc"));
+                waiterClient.Endpoint.Binding.SendTimeout = new TimeSpan(0, 10, 0);
 
-                catch (Exception ex)
-                {
-                    var errorMessage = ex;
-                    throw;
-                }
+                checkClient = new CheckHostClient(
+                     new BasicHttpBinding(),
+                     new EndpointAddress("http://192.168.1.26/CheckHost/CheckHost.svc"));
+                checkClient.Endpoint.Binding.SendTimeout = new TimeSpan(0, 10, 0);
+            }
+
+            catch (Exception ex)
+            {
+                var errorMessage = ex;
+                throw;
+            }
+        }
+
+        internal void MakeLiveServerConnection()
+        {
+            try
+            {
+                waiterClient = new PosServiceClient(
+                     new BasicHttpBinding(),
+                     new EndpointAddress("http://192.168.1.21/WP7Waiter/POServiceHost.svc"));
+                waiterClient.Endpoint.Binding.SendTimeout = new TimeSpan(0, 10, 0);
+
+                checkClient = new CheckHostClient(
+                     new BasicHttpBinding(),
+                     new EndpointAddress("http://192.168.1.21/CheckHost/CheckHost.svc"));
+                checkClient.Endpoint.Binding.SendTimeout = new TimeSpan(0, 10, 0);
+            }
+
+            catch (Exception ex)
+            {
+                var errorMessage = ex;
+                throw;
             }
         }
 

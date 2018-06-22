@@ -40,6 +40,17 @@
             <Button Text="Add User (Manager Only)"
                     Clicked="OnAddNewUserButtonClicked" 
                     FontSize="Small" />-->
+            <!--<Button Text="Click to Test on Live Server"
+                    Clicked="OnLiveServerClick"
+                    HorizontalOptions="Center"
+                    x:Name="LiveServerButton"
+                    TextColor="White"
+                    BackgroundColor="Black"/>-->
+
+            <Label TextColor="White"
+                   Margin=" 10"
+                   HorizontalOptions="Center"
+                   Text="{Binding TestingNote}" />
         </StackLayout>
     </ContentPage.Content>
 
