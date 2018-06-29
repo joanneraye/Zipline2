@@ -6,6 +6,7 @@ using Foundation;
 using Staunch.POS.Classes;
 using UIKit;
 using Zipline2.ConnectedServices;
+using Zipline2.iOS.Services;
 
 namespace Zipline2.iOS
 {
@@ -15,6 +16,7 @@ namespace Zipline2.iOS
     [Register("AppDelegate")]
     public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
     {
+        
         //
         // This method is invoked when the application has loaded and is ready to run. In this 
         // method you should instantiate the window, load the UI into it and then make the window
@@ -31,33 +33,65 @@ namespace Zipline2.iOS
 
             Plugin.Iconize.Iconize.With(new Plugin.Iconize.Fonts.FontAwesomeModule());
             FormsPlugin.Iconize.iOS.IconControls.Init();
+            
+            //TODO:  All WcfServicesProxy calls must be modified to include different waiterclient.
+            PosServiceClientIos WaiterClient = new PosServiceClientIos( 
+                new BasicHttpBinding(),
+                new EndpointAddress("http://192.168.1.26/WP7Waiter/POServiceHost.svc"));
+            WaiterClient.Endpoint.Binding.SendTimeout = new TimeSpan(0, 30, 0);
 
+            //simple wcf test
+            var table = WaiterClient.GetTable(1);
 
-            //waiterClient = new PosServiceClient(
-            //         new BasicHttpBinding(),
-            //         new EndpointAddress("http://192.168.1.26/WP7Waiter/POServiceHost.svc"));
-            //waiterClient.Endpoint.Binding.SendTimeout = new TimeSpan(0, 10, 0);
-
-            //checkClient = new CheckHostClient(
-            //     new BasicHttpBinding(),
-            //     new EndpointAddress("http://192.168.1.26/CheckHost/CheckHost.svc"));
-            //checkClient.Endpoint.Binding.SendTimeout = new TimeSpan(0, 10, 0);
-
-            //ChannelFactory<IPosService> WaiterClientChannelFactory = new ChannelFactory<IPosService>(
-            //    new BasicHttpBinding(), 
-            //    new EndpointAddress("http://192.168.1.26/WP7Waiter/POServiceHost.svc"));
-
-            //IPosService waiterclient = WaiterClientChannelFactory.CreateChannel();
-            //DBUser user = waiterclient.GetUser("8011");
-
-
-            //ChannelFactory<Zipline2.ConnectedServices.ICheckHost> CheckClientChannelFactory = new ChannelFactory<ICheckHost>(
-            //    new BasicHttpBinding(),
-            //    new EndpointAddress("http://192.168.1.26/CheckHost/CheckHost.svc"));
+            //Load menu, toppings, tables.
+            //LoadMenu();
+            //LoadToppings();
+            LoadTables();
 
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
+        }
+
+        private void LoadMenu()
+        {
+            Zipline2.BusinessLogic.WcfRemote.DataBaseDictionaries.MenuDictionary = WaiterClient.GetMenu();
+            
+        }
+
+        private void LoadTables()
+        {
+            Zipline2.BusinessLogic.WcfRemote.DataBaseDictionaries.DbTablesDictionary = new Dictionary<decimal, DBTable>();
+            List<DBTable> tablesSection1 = WaiterClient.GetTablesForSection(1M);
+            foreach (var item1 in tablesSection1)
+            {
+                Zipline2.BusinessLogic.WcfRemote.DataBaseDictionaries.DbTablesDictionary.Add(item1.ID, item1);
+            }
+            List<DBTable> tablesSection2 = WaiterClient.GetTablesForSection(2M);
+            foreach (var item2 in tablesSection2)
+            {
+                Zipline2.BusinessLogic.WcfRemote.DataBaseDictionaries.DbTablesDictionary.Add(item2.ID, item2);
+            }
+        }
+
+        private void LoadToppings()
+        {
+            Zipline2.BusinessLogic.WcfRemote.DataBaseDictionaries.PizzaToppingsDictionary = new Dictionary<decimal, DBModifier>();
+            List<DBModGroup> modgroups = WaiterClient.GetAllMods(57M, 0M);
+            foreach (var modgroup in modgroups)
+            {
+                foreach (var mod in modgroup.SelectionList)
+                {
+                    if (!Zipline2.BusinessLogic.WcfRemote.DataBaseDictionaries.PizzaToppingsDictionary.ContainsKey(mod.ID))
+                    {
+                        Zipline2.BusinessLogic.WcfRemote.DataBaseDictionaries.PizzaToppingsDictionary.Add(mod.ID, mod);
+                        if (!Zipline2.BusinessLogic.WcfRemote.DataBaseDictionaries.DbIdToppingDictionary.ContainsKey(mod.ID) && mod.ID != 50 && mod.ID != 51)
+                        {
+                            Console.WriteLine("***Debug JOANNE***TOPPINGS DICTIONARY ITEM NOT FOUND: " + mod.Name + mod.ID);
+                        }
+                    }
+                }
+            }
         }
     }
 }

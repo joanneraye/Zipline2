@@ -455,6 +455,7 @@ namespace Staunch.POS.Classes
     {
     }
 
+    #region Event Args Classes
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class CreateChecksCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
@@ -1604,6 +1605,7 @@ namespace Staunch.POS.Classes
             }
         }
     }
+    #endregion
 
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]

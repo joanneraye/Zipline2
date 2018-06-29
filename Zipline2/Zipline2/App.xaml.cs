@@ -43,11 +43,19 @@ namespace Zipline2
             Tables.LoadInitialTableData();
             LoadInitialToppings();
 
-            //LoadMenuFromServerAsync();
-            LoadMenuFromServerSync();
-            LoadToppingsFromServerAsync();
-            LoadTablesFromServerSync();
-            //LoadTablesFromServerAsync();
+            if (Device.RuntimePlatform == Device.Android)
+            {
+                //LoadMenuFromServerAsync();
+                LoadMenuFromServerSync();
+
+                LoadToppingsFromServerAsync();
+
+                LoadTablesFromServerSync();
+                //LoadTablesFromServerAsync();
+                
+            }
+
+
             LoadDrinks();
 
             //TODO:  When and how to close services?
