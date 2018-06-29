@@ -43,17 +43,17 @@ namespace Zipline2
             Tables.LoadInitialTableData();
             LoadInitialToppings();
 
-            if (Device.RuntimePlatform == Device.Android)
-            {
-                //LoadMenuFromServerAsync();
-                LoadMenuFromServerSync();
 
-                LoadToppingsFromServerAsync();
+            //LoadMenuFromServerAsync();
+            //LoadTablesFromServerAsync();
+            //LoadToppingsFromServerAsync();
 
-                LoadTablesFromServerSync();
-                //LoadTablesFromServerAsync();
+            LoadMenuFromServerSync();
+            LoadToppingsFromServerSync();
+            LoadTablesFromServerSync();
+               
                 
-            }
+            //}
 
 
             LoadDrinks();
@@ -93,6 +93,26 @@ namespace Zipline2
         {
             DataBaseDictionaries.PizzaToppingsDictionary = new Dictionary<decimal, DBModifier>();
             List<DBModGroup> modgroups = await WcfServicesProxy.Instance.GetToppingsAsync();
+            foreach (var modgroup in modgroups)
+            {
+                foreach (var mod in modgroup.SelectionList)
+                {
+                    if (!DataBaseDictionaries.PizzaToppingsDictionary.ContainsKey(mod.ID))
+                    {
+                        DataBaseDictionaries.PizzaToppingsDictionary.Add(mod.ID, mod);
+                        if (!DataBaseDictionaries.DbIdToppingDictionary.ContainsKey(mod.ID) && mod.ID != 50 && mod.ID != 51)
+                        {
+                            Console.WriteLine("***Debug JOANNE***TOPPINGS DICTIONARY ITEM NOT FOUND: " + mod.Name + mod.ID);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void LoadToppingsFromServerSync()
+        {
+            DataBaseDictionaries.PizzaToppingsDictionary = new Dictionary<decimal, DBModifier>();
+            List<DBModGroup> modgroups = WcfServicesProxy.Instance.GetToppingsSync();
             foreach (var modgroup in modgroups)
             {
                 foreach (var mod in modgroup.SelectionList)

@@ -10,7 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace Zipline2.Droid
+namespace Zipline2.Android
 {
     public class FileAccessHelper
     {

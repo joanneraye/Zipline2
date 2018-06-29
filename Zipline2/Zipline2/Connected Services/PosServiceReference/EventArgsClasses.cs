@@ -11,7 +11,7 @@
 namespace Zipline2.ConnectedServices
 {
     using System.Runtime.Serialization;
-    using Zipline2.Connected_Services;
+    using Zipline2.ConnectedServices;
 
 
     [System.Diagnostics.DebuggerStepThroughAttribute()]

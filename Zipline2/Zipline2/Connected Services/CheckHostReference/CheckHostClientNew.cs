@@ -4,7 +4,7 @@ using System.ServiceModel;
 using System.Text;
 using Zipline2.ConnectedServices;
 
-namespace Zipline2.Connected_Services.CheckHostReference
+namespace Zipline2.ConnectedServices.CheckHostReference
 {
     public class CheckHostClientNew
     {

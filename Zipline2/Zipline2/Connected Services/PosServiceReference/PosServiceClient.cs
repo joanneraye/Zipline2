@@ -13,8 +13,8 @@ namespace Zipline2.ConnectedServices
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
+    using System.ServiceModel;
     using Staunch.POS.Classes;
-    using Zipline2.Connected_Services;
 
 
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -50,6 +50,7 @@ namespace Zipline2.ConnectedServices
                 base(binding, remoteAddress)
         {
         }
+
         #endregion
 
         #region Delegates

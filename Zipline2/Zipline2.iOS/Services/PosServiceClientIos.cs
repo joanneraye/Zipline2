@@ -7,582 +7,602 @@ using System.Text;
 
 using Foundation;
 using Staunch.POS.Classes;
-using UIKit;
-using Zipline2.Connected_Services;
 using Zipline2.ConnectedServices;
-using Zipline2.iOS.Services;
 
-[assembly: Dependency (typeof(PosServiceClientIos))]
 namespace Zipline2.iOS.Services
 {
-    
-   
-        [System.Diagnostics.DebuggerStepThroughAttribute()]
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
 
-        public class PosServiceClientIos : System.ServiceModel.ClientBase<IPosService>, IPosService
+    public class PosServiceClientIos : System.ServiceModel.ClientBase<IPosService>, IPosService
+    {
+
+        protected override IPosService CreateChannel()
         {
+            return new PosServiceChannel(this);
+        }
 
-            protected override IPosService CreateChannel()
-            {
-                return new PosServiceChannel(this);
-            }
+        public PosServiceClientIos()
+        {
+        }
 
-            public PosServiceClientIos()
-            {
-            }
+        public PosServiceClientIos(string endpointConfigurationName) :
+                base(endpointConfigurationName)
+        {
+        }
 
-            public PosServiceClientIos(string endpointConfigurationName) :
-                    base(endpointConfigurationName)
-            {
-            }
+        public PosServiceClientIos(string endpointConfigurationName, string remoteAddress) :
+                base(endpointConfigurationName, remoteAddress)
+        {
+        }
 
-            public PosServiceClientIos(string endpointConfigurationName, string remoteAddress) :
-                    base(endpointConfigurationName, remoteAddress)
-            {
-            }
+        public PosServiceClientIos(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) :
+                base(endpointConfigurationName, remoteAddress)
+        {
+        }
 
-            public PosServiceClientIos(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) :
-                    base(endpointConfigurationName, remoteAddress)
-            {
-            }
+        public PosServiceClientIos(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
+                base(binding, remoteAddress)
+        {
+        }
 
-            public PosServiceClientIos(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
-                    base(binding, remoteAddress)
-            {
-            }
+        #region Delegates
+        private BeginOperationDelegate onBeginGetTableDelegate;
 
-            #region Delegates
-            private BeginOperationDelegate onBeginGetTableDelegate;
+        private EndOperationDelegate onEndGetTableDelegate;
 
-            private EndOperationDelegate onEndGetTableDelegate;
+        private System.Threading.SendOrPostCallback onGetTableCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onGetTableCompletedDelegate;
+        private BeginOperationDelegate onBeginValidateUserDelegate;
 
-            private BeginOperationDelegate onBeginValidateUserDelegate;
+        private EndOperationDelegate onEndValidateUserDelegate;
 
-            private EndOperationDelegate onEndValidateUserDelegate;
+        private System.Threading.SendOrPostCallback onValidateUserCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onValidateUserCompletedDelegate;
+        private BeginOperationDelegate onBeginGetTableInfoDelegate;
 
-            private BeginOperationDelegate onBeginGetTableInfoDelegate;
+        private EndOperationDelegate onEndGetTableInfoDelegate;
 
-            private EndOperationDelegate onEndGetTableInfoDelegate;
+        private System.Threading.SendOrPostCallback onGetTableInfoCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onGetTableInfoCompletedDelegate;
+        private BeginOperationDelegate onBeginFillTablesDelegate;
 
-            private BeginOperationDelegate onBeginFillTablesDelegate;
+        private EndOperationDelegate onEndFillTablesDelegate;
 
-            private EndOperationDelegate onEndFillTablesDelegate;
+        private System.Threading.SendOrPostCallback onFillTablesCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onFillTablesCompletedDelegate;
+        private BeginOperationDelegate onBeginGetMenuDelegate;
 
-            private BeginOperationDelegate onBeginGetMenuDelegate;
+        private EndOperationDelegate onEndGetMenuDelegate;
 
-            private EndOperationDelegate onEndGetMenuDelegate;
+        private System.Threading.SendOrPostCallback onGetMenuCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onGetMenuCompletedDelegate;
+        private BeginOperationDelegate onBeginGetModifiersDelegate;
 
-            private BeginOperationDelegate onBeginGetModifiersDelegate;
+        private EndOperationDelegate onEndGetModifiersDelegate;
 
-            private EndOperationDelegate onEndGetModifiersDelegate;
+        private System.Threading.SendOrPostCallback onGetModifiersCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onGetModifiersCompletedDelegate;
+        private BeginOperationDelegate onBeginGetAvailablePaymentOptionsDelegate;
 
-            private BeginOperationDelegate onBeginGetAvailablePaymentOptionsDelegate;
+        private EndOperationDelegate onEndGetAvailablePaymentOptionsDelegate;
 
-            private EndOperationDelegate onEndGetAvailablePaymentOptionsDelegate;
+        private System.Threading.SendOrPostCallback onGetAvailablePaymentOptionsCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onGetAvailablePaymentOptionsCompletedDelegate;
+        private BeginOperationDelegate onBeginUpdateTablesDelegate;
 
-            private BeginOperationDelegate onBeginUpdateTablesDelegate;
+        private EndOperationDelegate onEndUpdateTablesDelegate;
 
-            private EndOperationDelegate onEndUpdateTablesDelegate;
+        private System.Threading.SendOrPostCallback onUpdateTablesCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onUpdateTablesCompletedDelegate;
+        private BeginOperationDelegate onBeginGetGratuityLimitDelegate;
 
-            private BeginOperationDelegate onBeginGetGratuityLimitDelegate;
+        private EndOperationDelegate onEndGetGratuityLimitDelegate;
 
-            private EndOperationDelegate onEndGetGratuityLimitDelegate;
+        private System.Threading.SendOrPostCallback onGetGratuityLimitCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onGetGratuityLimitCompletedDelegate;
+        private BeginOperationDelegate onBeginGetTaxRateDelegate;
 
-            private BeginOperationDelegate onBeginGetTaxRateDelegate;
+        private EndOperationDelegate onEndGetTaxRateDelegate;
 
-            private EndOperationDelegate onEndGetTaxRateDelegate;
+        private System.Threading.SendOrPostCallback onGetTaxRateCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onGetTaxRateCompletedDelegate;
+        private BeginOperationDelegate onBeginGetGratuityRateDelegate;
 
-            private BeginOperationDelegate onBeginGetGratuityRateDelegate;
+        private EndOperationDelegate onEndGetGratuityRateDelegate;
 
-            private EndOperationDelegate onEndGetGratuityRateDelegate;
+        private System.Threading.SendOrPostCallback onGetGratuityRateCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onGetGratuityRateCompletedDelegate;
+        private BeginOperationDelegate onBeginDoAutoGratuityDelegate;
 
-            private BeginOperationDelegate onBeginDoAutoGratuityDelegate;
+        private EndOperationDelegate onEndDoAutoGratuityDelegate;
 
-            private EndOperationDelegate onEndDoAutoGratuityDelegate;
+        private System.Threading.SendOrPostCallback onDoAutoGratuityCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onDoAutoGratuityCompletedDelegate;
+        private BeginOperationDelegate onBeginGetCategoryNamesDelegate;
 
-            private BeginOperationDelegate onBeginGetCategoryNamesDelegate;
+        private EndOperationDelegate onEndGetCategoryNamesDelegate;
 
-            private EndOperationDelegate onEndGetCategoryNamesDelegate;
+        private System.Threading.SendOrPostCallback onGetCategoryNamesCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onGetCategoryNamesCompletedDelegate;
+        private BeginOperationDelegate onBeginGetNextGuestIDsDelegate;
 
-            private BeginOperationDelegate onBeginGetNextGuestIDsDelegate;
+        private EndOperationDelegate onEndGetNextGuestIDsDelegate;
 
-            private EndOperationDelegate onEndGetNextGuestIDsDelegate;
+        private System.Threading.SendOrPostCallback onGetNextGuestIDsCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onGetNextGuestIDsCompletedDelegate;
+        private BeginOperationDelegate onBeginRemoveGuestDelegate;
 
-            private BeginOperationDelegate onBeginRemoveGuestDelegate;
+        private EndOperationDelegate onEndRemoveGuestDelegate;
 
-            private EndOperationDelegate onEndRemoveGuestDelegate;
+        private System.Threading.SendOrPostCallback onRemoveGuestCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onRemoveGuestCompletedDelegate;
+        private BeginOperationDelegate onBeginRemoveItemDelegate;
 
-            private BeginOperationDelegate onBeginRemoveItemDelegate;
+        private EndOperationDelegate onEndRemoveItemDelegate;
 
-            private EndOperationDelegate onEndRemoveItemDelegate;
+        private System.Threading.SendOrPostCallback onRemoveItemCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onRemoveItemCompletedDelegate;
+        private BeginOperationDelegate onBeginGetItemInfoDelegate;
 
-            private BeginOperationDelegate onBeginGetItemInfoDelegate;
+        private EndOperationDelegate onEndGetItemInfoDelegate;
 
-            private EndOperationDelegate onEndGetItemInfoDelegate;
+        private System.Threading.SendOrPostCallback onGetItemInfoCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onGetItemInfoCompletedDelegate;
+        private BeginOperationDelegate onBeginGetThumbnailsDelegate;
 
-            private BeginOperationDelegate onBeginGetThumbnailsDelegate;
+        private EndOperationDelegate onEndGetThumbnailsDelegate;
 
-            private EndOperationDelegate onEndGetThumbnailsDelegate;
+        private System.Threading.SendOrPostCallback onGetThumbnailsCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onGetThumbnailsCompletedDelegate;
+        private BeginOperationDelegate onBeginGetOrdersDelegate;
 
-            private BeginOperationDelegate onBeginGetOrdersDelegate;
+        private EndOperationDelegate onEndGetOrdersDelegate;
 
-            private EndOperationDelegate onEndGetOrdersDelegate;
+        private System.Threading.SendOrPostCallback onGetOrdersCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onGetOrdersCompletedDelegate;
+        private BeginOperationDelegate onBeginSendOrdersDelegate;
 
-            private BeginOperationDelegate onBeginSendOrdersDelegate;
+        private EndOperationDelegate onEndSendOrdersDelegate;
 
-            private EndOperationDelegate onEndSendOrdersDelegate;
+        private System.Threading.SendOrPostCallback onSendOrdersCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onSendOrdersCompletedDelegate;
+        private BeginOperationDelegate onBeginRemoveSentOrderDelegate;
 
-            private BeginOperationDelegate onBeginRemoveSentOrderDelegate;
+        private EndOperationDelegate onEndRemoveSentOrderDelegate;
 
-            private EndOperationDelegate onEndRemoveSentOrderDelegate;
+        private System.Threading.SendOrPostCallback onRemoveSentOrderCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onRemoveSentOrderCompletedDelegate;
+        private BeginOperationDelegate onBeginSaveUserSettingsDelegate;
 
-            private BeginOperationDelegate onBeginSaveUserSettingsDelegate;
+        private EndOperationDelegate onEndSaveUserSettingsDelegate;
 
-            private EndOperationDelegate onEndSaveUserSettingsDelegate;
+        private System.Threading.SendOrPostCallback onSaveUserSettingsCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onSaveUserSettingsCompletedDelegate;
+        private BeginOperationDelegate onBeginMoveGuestsDelegate;
 
-            private BeginOperationDelegate onBeginMoveGuestsDelegate;
+        private EndOperationDelegate onEndMoveGuestsDelegate;
 
-            private EndOperationDelegate onEndMoveGuestsDelegate;
+        private System.Threading.SendOrPostCallback onMoveGuestsCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onMoveGuestsCompletedDelegate;
+        private BeginOperationDelegate onBeginSplitTableDelegate;
 
-            private BeginOperationDelegate onBeginSplitTableDelegate;
+        private EndOperationDelegate onEndSplitTableDelegate;
 
-            private EndOperationDelegate onEndSplitTableDelegate;
+        private System.Threading.SendOrPostCallback onSplitTableCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onSplitTableCompletedDelegate;
+        private BeginOperationDelegate onBeginHasUnsentOrdersDelegate;
 
-            private BeginOperationDelegate onBeginHasUnsentOrdersDelegate;
+        private EndOperationDelegate onEndHasUnsentOrdersDelegate;
 
-            private EndOperationDelegate onEndHasUnsentOrdersDelegate;
+        private System.Threading.SendOrPostCallback onHasUnsentOrdersCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onHasUnsentOrdersCompletedDelegate;
+        private BeginOperationDelegate onBeginGetManagerSettingsDelegate;
 
-            private BeginOperationDelegate onBeginGetManagerSettingsDelegate;
+        private EndOperationDelegate onEndGetManagerSettingsDelegate;
 
-            private EndOperationDelegate onEndGetManagerSettingsDelegate;
+        private System.Threading.SendOrPostCallback onGetManagerSettingsCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onGetManagerSettingsCompletedDelegate;
+        private BeginOperationDelegate onBeginLogoutDelegate;
 
-            private BeginOperationDelegate onBeginLogoutDelegate;
+        private EndOperationDelegate onEndLogoutDelegate;
 
-            private EndOperationDelegate onEndLogoutDelegate;
+        private System.Threading.SendOrPostCallback onLogoutCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onLogoutCompletedDelegate;
+        private BeginOperationDelegate onBeginPingDelegate;
 
-            private BeginOperationDelegate onBeginPingDelegate;
+        private EndOperationDelegate onEndPingDelegate;
 
-            private EndOperationDelegate onEndPingDelegate;
+        private System.Threading.SendOrPostCallback onPingCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onPingCompletedDelegate;
+        private BeginOperationDelegate onBeginGetRequiredModsDelegate;
 
-            private BeginOperationDelegate onBeginGetRequiredModsDelegate;
+        private EndOperationDelegate onEndGetRequiredModsDelegate;
 
-            private EndOperationDelegate onEndGetRequiredModsDelegate;
+        private System.Threading.SendOrPostCallback onGetRequiredModsCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onGetRequiredModsCompletedDelegate;
+        private BeginOperationDelegate onBeginGetAllModsDelegate;
 
-            private BeginOperationDelegate onBeginGetAllModsDelegate;
+        private EndOperationDelegate onEndGetAllModsDelegate;
 
-            private EndOperationDelegate onEndGetAllModsDelegate;
+        private System.Threading.SendOrPostCallback onGetAllModsCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onGetAllModsCompletedDelegate;
+        private BeginOperationDelegate onBeginGetComboMenuDelegate;
 
-            private BeginOperationDelegate onBeginGetComboMenuDelegate;
+        private EndOperationDelegate onEndGetComboMenuDelegate;
 
-            private EndOperationDelegate onEndGetComboMenuDelegate;
+        private System.Threading.SendOrPostCallback onGetComboMenuCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onGetComboMenuCompletedDelegate;
+        private BeginOperationDelegate onBeginRemoveGuestComboDelegate;
 
-            private BeginOperationDelegate onBeginRemoveGuestComboDelegate;
+        private EndOperationDelegate onEndRemoveGuestComboDelegate;
 
-            private EndOperationDelegate onEndRemoveGuestComboDelegate;
+        private System.Threading.SendOrPostCallback onRemoveGuestComboCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onRemoveGuestComboCompletedDelegate;
+        private BeginOperationDelegate onBeginCombineOrdersDelegate;
 
-            private BeginOperationDelegate onBeginCombineOrdersDelegate;
+        private EndOperationDelegate onEndCombineOrdersDelegate;
 
-            private EndOperationDelegate onEndCombineOrdersDelegate;
+        private System.Threading.SendOrPostCallback onCombineOrdersCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onCombineOrdersCompletedDelegate;
+        private BeginOperationDelegate onBeginClearTableDelegate;
 
-            private BeginOperationDelegate onBeginClearTableDelegate;
+        private EndOperationDelegate onEndClearTableDelegate;
 
-            private EndOperationDelegate onEndClearTableDelegate;
+        private System.Threading.SendOrPostCallback onClearTableCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onClearTableCompletedDelegate;
+        private BeginOperationDelegate onBeginSubmitTakeoutDelegate;
 
-            private BeginOperationDelegate onBeginSubmitTakeoutDelegate;
+        private EndOperationDelegate onEndSubmitTakeoutDelegate;
 
-            private EndOperationDelegate onEndSubmitTakeoutDelegate;
+        private System.Threading.SendOrPostCallback onSubmitTakeoutCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onSubmitTakeoutCompletedDelegate;
+        private BeginOperationDelegate onBeginGetTakeoutOrdersDelegate;
 
-            private BeginOperationDelegate onBeginGetTakeoutOrdersDelegate;
+        private EndOperationDelegate onEndGetTakeoutOrdersDelegate;
 
-            private EndOperationDelegate onEndGetTakeoutOrdersDelegate;
+        private System.Threading.SendOrPostCallback onGetTakeoutOrdersCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onGetTakeoutOrdersCompletedDelegate;
+        private BeginOperationDelegate onBeginGetTakeoutOrderDelegate;
 
-            private BeginOperationDelegate onBeginGetTakeoutOrderDelegate;
+        private EndOperationDelegate onEndGetTakeoutOrderDelegate;
 
-            private EndOperationDelegate onEndGetTakeoutOrderDelegate;
+        private System.Threading.SendOrPostCallback onGetTakeoutOrderCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onGetTakeoutOrderCompletedDelegate;
+        private BeginOperationDelegate onBeginSendTakeoutDelegate;
 
-            private BeginOperationDelegate onBeginSendTakeoutDelegate;
+        private EndOperationDelegate onEndSendTakeoutDelegate;
 
-            private EndOperationDelegate onEndSendTakeoutDelegate;
+        private System.Threading.SendOrPostCallback onSendTakeoutCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onSendTakeoutCompletedDelegate;
+        private BeginOperationDelegate onBeginClearTakeoutOrderDelegate;
 
-            private BeginOperationDelegate onBeginClearTakeoutOrderDelegate;
+        private EndOperationDelegate onEndClearTakeoutOrderDelegate;
 
-            private EndOperationDelegate onEndClearTakeoutOrderDelegate;
+        private System.Threading.SendOrPostCallback onClearTakeoutOrderCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onClearTakeoutOrderCompletedDelegate;
+        private BeginOperationDelegate onBeginListUnsentOrdersDelegate;
 
-            private BeginOperationDelegate onBeginListUnsentOrdersDelegate;
+        private EndOperationDelegate onEndListUnsentOrdersDelegate;
 
-            private EndOperationDelegate onEndListUnsentOrdersDelegate;
+        private System.Threading.SendOrPostCallback onListUnsentOrdersCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onListUnsentOrdersCompletedDelegate;
+        private BeginOperationDelegate onBeginPrintMoveNoticeDelegate;
 
-            private BeginOperationDelegate onBeginPrintMoveNoticeDelegate;
+        private EndOperationDelegate onEndPrintMoveNoticeDelegate;
 
-            private EndOperationDelegate onEndPrintMoveNoticeDelegate;
+        private System.Threading.SendOrPostCallback onPrintMoveNoticeCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onPrintMoveNoticeCompletedDelegate;
+        private BeginOperationDelegate onBeginGetModsForAllItemsDelegate;
 
-            private BeginOperationDelegate onBeginGetModsForAllItemsDelegate;
+        private EndOperationDelegate onEndGetModsForAllItemsDelegate;
 
-            private EndOperationDelegate onEndGetModsForAllItemsDelegate;
+        private System.Threading.SendOrPostCallback onGetModsForAllItemsCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onGetModsForAllItemsCompletedDelegate;
+        private BeginOperationDelegate onBeginGetSpecialItemsDelegate;
 
-            private BeginOperationDelegate onBeginGetSpecialItemsDelegate;
+        private EndOperationDelegate onEndGetSpecialItemsDelegate;
 
-            private EndOperationDelegate onEndGetSpecialItemsDelegate;
+        private System.Threading.SendOrPostCallback onGetSpecialItemsCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onGetSpecialItemsCompletedDelegate;
+        private BeginOperationDelegate onBeginGetTablesForSectionDelegate;
 
-            private BeginOperationDelegate onBeginGetTablesForSectionDelegate;
+        private EndOperationDelegate onEndGetTablesForSectionDelegate;
 
-            private EndOperationDelegate onEndGetTablesForSectionDelegate;
+        private System.Threading.SendOrPostCallback onGetTablesForSectionCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onGetTablesForSectionCompletedDelegate;
+        private BeginOperationDelegate onBeginChangeItemSizeDelegate;
 
-            private BeginOperationDelegate onBeginChangeItemSizeDelegate;
+        private EndOperationDelegate onEndChangeItemSizeDelegate;
 
-            private EndOperationDelegate onEndChangeItemSizeDelegate;
+        private System.Threading.SendOrPostCallback onChangeItemSizeCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onChangeItemSizeCompletedDelegate;
+        private BeginOperationDelegate onBeginGetUserDelegate;
 
-            private BeginOperationDelegate onBeginGetUserDelegate;
+        private EndOperationDelegate onEndGetUserDelegate;
 
-            private EndOperationDelegate onEndGetUserDelegate;
+        private System.Threading.SendOrPostCallback onGetUserCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onGetUserCompletedDelegate;
+        private BeginOperationDelegate onBeginCancelTakeoutDelegate;
 
-            private BeginOperationDelegate onBeginCancelTakeoutDelegate;
+        private EndOperationDelegate onEndCancelTakeoutDelegate;
 
-            private EndOperationDelegate onEndCancelTakeoutDelegate;
+        private System.Threading.SendOrPostCallback onCancelTakeoutCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onCancelTakeoutCompletedDelegate;
+        private BeginOperationDelegate onBeginGetLSEOrdersDelegate;
 
-            private BeginOperationDelegate onBeginGetLSEOrdersDelegate;
+        private EndOperationDelegate onEndGetLSEOrdersDelegate;
 
-            private EndOperationDelegate onEndGetLSEOrdersDelegate;
+        private System.Threading.SendOrPostCallback onGetLSEOrdersCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onGetLSEOrdersCompletedDelegate;
+        private BeginOperationDelegate onBeginSubmitLSETakeoutDelegate;
 
-            private BeginOperationDelegate onBeginSubmitLSETakeoutDelegate;
+        private EndOperationDelegate onEndSubmitLSETakeoutDelegate;
 
-            private EndOperationDelegate onEndSubmitLSETakeoutDelegate;
+        private System.Threading.SendOrPostCallback onSubmitLSETakeoutCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onSubmitLSETakeoutCompletedDelegate;
+        private BeginOperationDelegate onBeginPriceOrderDelegate;
 
-            private BeginOperationDelegate onBeginPriceOrderDelegate;
+        private EndOperationDelegate onEndPriceOrderDelegate;
 
-            private EndOperationDelegate onEndPriceOrderDelegate;
+        private System.Threading.SendOrPostCallback onPriceOrderCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onPriceOrderCompletedDelegate;
+        private BeginOperationDelegate onBeginPrintKitchenNoteDelegate;
 
-            private BeginOperationDelegate onBeginPrintKitchenNoteDelegate;
+        private EndOperationDelegate onEndPrintKitchenNoteDelegate;
 
-            private EndOperationDelegate onEndPrintKitchenNoteDelegate;
+        private System.Threading.SendOrPostCallback onPrintKitchenNoteCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onPrintKitchenNoteCompletedDelegate;
+        private BeginOperationDelegate onBeginRemoveOrderFromPlateDelegate;
 
-            private BeginOperationDelegate onBeginRemoveOrderFromPlateDelegate;
+        private EndOperationDelegate onEndRemoveOrderFromPlateDelegate;
 
-            private EndOperationDelegate onEndRemoveOrderFromPlateDelegate;
+        private System.Threading.SendOrPostCallback onRemoveOrderFromPlateCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onRemoveOrderFromPlateCompletedDelegate;
+        private BeginOperationDelegate onBeginAddOrderToPlateDelegate;
 
-            private BeginOperationDelegate onBeginAddOrderToPlateDelegate;
+        private EndOperationDelegate onEndAddOrderToPlateDelegate;
 
-            private EndOperationDelegate onEndAddOrderToPlateDelegate;
+        private System.Threading.SendOrPostCallback onAddOrderToPlateCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onAddOrderToPlateCompletedDelegate;
+        private BeginOperationDelegate onBeginAddOrdersToPlateDelegate;
 
-            private BeginOperationDelegate onBeginAddOrdersToPlateDelegate;
+        private EndOperationDelegate onEndAddOrdersToPlateDelegate;
 
-            private EndOperationDelegate onEndAddOrdersToPlateDelegate;
+        private System.Threading.SendOrPostCallback onAddOrdersToPlateCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onAddOrdersToPlateCompletedDelegate;
+        private BeginOperationDelegate onBeginRemoveMultipleFromPlateDelegate;
 
-            private BeginOperationDelegate onBeginRemoveMultipleFromPlateDelegate;
+        private EndOperationDelegate onEndRemoveMultipleFromPlateDelegate;
 
-            private EndOperationDelegate onEndRemoveMultipleFromPlateDelegate;
+        private System.Threading.SendOrPostCallback onRemoveMultipleFromPlateCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onRemoveMultipleFromPlateCompletedDelegate;
+        private BeginOperationDelegate onBeginSubmitCateringDelegate;
 
-            private BeginOperationDelegate onBeginSubmitCateringDelegate;
+        private EndOperationDelegate onEndSubmitCateringDelegate;
 
-            private EndOperationDelegate onEndSubmitCateringDelegate;
+        private System.Threading.SendOrPostCallback onSubmitCateringCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onSubmitCateringCompletedDelegate;
+        private BeginOperationDelegate onBeginGetCateringTakeoutsDelegate;
 
-            private BeginOperationDelegate onBeginGetCateringTakeoutsDelegate;
+        private EndOperationDelegate onEndGetCateringTakeoutsDelegate;
 
-            private EndOperationDelegate onEndGetCateringTakeoutsDelegate;
+        private System.Threading.SendOrPostCallback onGetCateringTakeoutsCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onGetCateringTakeoutsCompletedDelegate;
+        private BeginOperationDelegate onBeginGetCateringOrderDelegate;
 
-            private BeginOperationDelegate onBeginGetCateringOrderDelegate;
+        private EndOperationDelegate onEndGetCateringOrderDelegate;
 
-            private EndOperationDelegate onEndGetCateringOrderDelegate;
+        private System.Threading.SendOrPostCallback onGetCateringOrderCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onGetCateringOrderCompletedDelegate;
+        private BeginOperationDelegate onBeginGetAllCateringOrdersInfoDelegate;
 
-            private BeginOperationDelegate onBeginGetAllCateringOrdersInfoDelegate;
+        private EndOperationDelegate onEndGetAllCateringOrdersInfoDelegate;
 
-            private EndOperationDelegate onEndGetAllCateringOrdersInfoDelegate;
+        private System.Threading.SendOrPostCallback onGetAllCateringOrdersInfoCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onGetAllCateringOrdersInfoCompletedDelegate;
+        private BeginOperationDelegate onBeginSendCateringTakeoutDelegate;
 
-            private BeginOperationDelegate onBeginSendCateringTakeoutDelegate;
+        private EndOperationDelegate onEndSendCateringTakeoutDelegate;
 
-            private EndOperationDelegate onEndSendCateringTakeoutDelegate;
+        private System.Threading.SendOrPostCallback onSendCateringTakeoutCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onSendCateringTakeoutCompletedDelegate;
+        private BeginOperationDelegate onBeginGetTableSummaryDelegate;
 
-            private BeginOperationDelegate onBeginGetTableSummaryDelegate;
+        private EndOperationDelegate onEndGetTableSummaryDelegate;
 
-            private EndOperationDelegate onEndGetTableSummaryDelegate;
+        private System.Threading.SendOrPostCallback onGetTableSummaryCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onGetTableSummaryCompletedDelegate;
+        private BeginOperationDelegate onBeginPrintCateringOrderDelegate;
 
-            private BeginOperationDelegate onBeginPrintCateringOrderDelegate;
+        private EndOperationDelegate onEndPrintCateringOrderDelegate;
 
-            private EndOperationDelegate onEndPrintCateringOrderDelegate;
+        private System.Threading.SendOrPostCallback onPrintCateringOrderCompletedDelegate;
 
-            private System.Threading.SendOrPostCallback onPrintCateringOrderCompletedDelegate;
+        #endregion
 
-            #endregion
+        #region Event Handlers
 
-            #region Event Handlers
+        public event System.EventHandler<GetTableCompletedEventArgs> GetTableCompleted;
 
-            public event System.EventHandler<GetTableCompletedEventArgs> GetTableCompleted;
+        public event System.EventHandler<ValidateUserCompletedEventArgs> ValidateUserCompleted;
 
-            public event System.EventHandler<ValidateUserCompletedEventArgs> ValidateUserCompleted;
+        public event System.EventHandler<GetTableInfoCompletedEventArgs> GetTableInfoCompleted;
 
-            public event System.EventHandler<GetTableInfoCompletedEventArgs> GetTableInfoCompleted;
+        public event System.EventHandler<FillTablesCompletedEventArgs> FillTablesCompleted;
 
-            public event System.EventHandler<FillTablesCompletedEventArgs> FillTablesCompleted;
+        public event System.EventHandler<GetMenuCompletedEventArgs> GetMenuCompleted;
 
-            public event System.EventHandler<GetMenuCompletedEventArgs> GetMenuCompleted;
+        public event System.EventHandler<GetModifiersCompletedEventArgs> GetModifiersCompleted;
 
-            public event System.EventHandler<GetModifiersCompletedEventArgs> GetModifiersCompleted;
+        public event System.EventHandler<GetAvailablePaymentOptionsCompletedEventArgs> GetAvailablePaymentOptionsCompleted;
 
-            public event System.EventHandler<GetAvailablePaymentOptionsCompletedEventArgs> GetAvailablePaymentOptionsCompleted;
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> UpdateTablesCompleted;
 
-            public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> UpdateTablesCompleted;
+        public event System.EventHandler<GetGratuityLimitCompletedEventArgs> GetGratuityLimitCompleted;
 
-            public event System.EventHandler<GetGratuityLimitCompletedEventArgs> GetGratuityLimitCompleted;
+        public event System.EventHandler<GetTaxRateCompletedEventArgs> GetTaxRateCompleted;
 
-            public event System.EventHandler<GetTaxRateCompletedEventArgs> GetTaxRateCompleted;
+        public event System.EventHandler<GetGratuityRateCompletedEventArgs> GetGratuityRateCompleted;
 
-            public event System.EventHandler<GetGratuityRateCompletedEventArgs> GetGratuityRateCompleted;
+        public event System.EventHandler<DoAutoGratuityCompletedEventArgs> DoAutoGratuityCompleted;
 
-            public event System.EventHandler<DoAutoGratuityCompletedEventArgs> DoAutoGratuityCompleted;
+        public event System.EventHandler<GetCategoryNamesCompletedEventArgs> GetCategoryNamesCompleted;
 
-            public event System.EventHandler<GetCategoryNamesCompletedEventArgs> GetCategoryNamesCompleted;
+        public event System.EventHandler<GetNextGuestIDsCompletedEventArgs> GetNextGuestIDsCompleted;
 
-            public event System.EventHandler<GetNextGuestIDsCompletedEventArgs> GetNextGuestIDsCompleted;
+        public event System.EventHandler<RemoveGuestCompletedEventArgs> RemoveGuestCompleted;
 
-            public event System.EventHandler<RemoveGuestCompletedEventArgs> RemoveGuestCompleted;
+        public event System.EventHandler<RemoveItemCompletedEventArgs> RemoveItemCompleted;
 
-            public event System.EventHandler<RemoveItemCompletedEventArgs> RemoveItemCompleted;
+        public event System.EventHandler<GetItemInfoCompletedEventArgs> GetItemInfoCompleted;
 
-            public event System.EventHandler<GetItemInfoCompletedEventArgs> GetItemInfoCompleted;
+        public event System.EventHandler<GetThumbnailsCompletedEventArgs> GetThumbnailsCompleted;
 
-            public event System.EventHandler<GetThumbnailsCompletedEventArgs> GetThumbnailsCompleted;
+        public event System.EventHandler<GetOrdersCompletedEventArgs> GetOrdersCompleted;
 
-            public event System.EventHandler<GetOrdersCompletedEventArgs> GetOrdersCompleted;
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> SendOrdersCompleted;
 
-            public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> SendOrdersCompleted;
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> RemoveSentOrderCompleted;
 
-            public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> RemoveSentOrderCompleted;
+        public event System.EventHandler<SaveUserSettingsCompletedEventArgs> SaveUserSettingsCompleted;
 
-            public event System.EventHandler<SaveUserSettingsCompletedEventArgs> SaveUserSettingsCompleted;
+        public event System.EventHandler<MoveGuestsCompletedEventArgs> MoveGuestsCompleted;
 
-            public event System.EventHandler<MoveGuestsCompletedEventArgs> MoveGuestsCompleted;
+        public event System.EventHandler<SplitTableCompletedEventArgs> SplitTableCompleted;
 
-            public event System.EventHandler<SplitTableCompletedEventArgs> SplitTableCompleted;
+        public event System.EventHandler<HasUnsentOrdersCompletedEventArgs> HasUnsentOrdersCompleted;
 
-            public event System.EventHandler<HasUnsentOrdersCompletedEventArgs> HasUnsentOrdersCompleted;
+        public event System.EventHandler<GetManagerSettingsCompletedEventArgs> GetManagerSettingsCompleted;
 
-            public event System.EventHandler<GetManagerSettingsCompletedEventArgs> GetManagerSettingsCompleted;
+        public event System.EventHandler<LogoutCompletedEventArgs> LogoutCompleted;
 
-            public event System.EventHandler<LogoutCompletedEventArgs> LogoutCompleted;
+        //public event System.EventHandler<PingCompletedEventArgs> PingCompleted;
 
-            //public event System.EventHandler<PingCompletedEventArgs> PingCompleted;
+        public event System.EventHandler<GetRequiredModsCompletedEventArgs> GetRequiredModsCompleted;
 
-            public event System.EventHandler<GetRequiredModsCompletedEventArgs> GetRequiredModsCompleted;
+        public event System.EventHandler<GetAllModsCompletedEventArgs> GetAllModsCompleted;
 
-            public event System.EventHandler<GetAllModsCompletedEventArgs> GetAllModsCompleted;
+        public event System.EventHandler<GetComboMenuCompletedEventArgs> GetComboMenuCompleted;
 
-            public event System.EventHandler<GetComboMenuCompletedEventArgs> GetComboMenuCompleted;
+        public event System.EventHandler<RemoveGuestComboCompletedEventArgs> RemoveGuestComboCompleted;
 
-            public event System.EventHandler<RemoveGuestComboCompletedEventArgs> RemoveGuestComboCompleted;
+        public event System.EventHandler<CombineOrdersCompletedEventArgs> CombineOrdersCompleted;
 
-            public event System.EventHandler<CombineOrdersCompletedEventArgs> CombineOrdersCompleted;
+        public event System.EventHandler<ClearTableCompletedEventArgs> ClearTableCompleted;
 
-            public event System.EventHandler<ClearTableCompletedEventArgs> ClearTableCompleted;
+        public event System.EventHandler<SubmitTakeoutCompletedEventArgs> SubmitTakeoutCompleted;
 
-            public event System.EventHandler<SubmitTakeoutCompletedEventArgs> SubmitTakeoutCompleted;
+        public event System.EventHandler<GetTakeoutOrdersCompletedEventArgs> GetTakeoutOrdersCompleted;
 
-            public event System.EventHandler<GetTakeoutOrdersCompletedEventArgs> GetTakeoutOrdersCompleted;
+        public event System.EventHandler<GetTakeoutOrderCompletedEventArgs> GetTakeoutOrderCompleted;
 
-            public event System.EventHandler<GetTakeoutOrderCompletedEventArgs> GetTakeoutOrderCompleted;
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> SendTakeoutCompleted;
 
-            public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> SendTakeoutCompleted;
+        public event System.EventHandler<ClearTakeoutOrderCompletedEventArgs> ClearTakeoutOrderCompleted;
 
-            public event System.EventHandler<ClearTakeoutOrderCompletedEventArgs> ClearTakeoutOrderCompleted;
+        public event System.EventHandler<ListUnsentOrdersCompletedEventArgs> ListUnsentOrdersCompleted;
 
-            public event System.EventHandler<ListUnsentOrdersCompletedEventArgs> ListUnsentOrdersCompleted;
+        public event System.EventHandler<PrintMoveNoticeCompletedEventArgs> PrintMoveNoticeCompleted;
 
-            public event System.EventHandler<PrintMoveNoticeCompletedEventArgs> PrintMoveNoticeCompleted;
+        public event System.EventHandler<GetModsForAllItemsCompletedEventArgs> GetModsForAllItemsCompleted;
 
-            public event System.EventHandler<GetModsForAllItemsCompletedEventArgs> GetModsForAllItemsCompleted;
+        public event System.EventHandler<GetSpecialItemsCompletedEventArgs> GetSpecialItemsCompleted;
 
-            public event System.EventHandler<GetSpecialItemsCompletedEventArgs> GetSpecialItemsCompleted;
+        public event System.EventHandler<GetTablesForSectionCompletedEventArgs> GetTablesForSectionCompleted;
 
-            public event System.EventHandler<GetTablesForSectionCompletedEventArgs> GetTablesForSectionCompleted;
+        public event System.EventHandler<ChangeItemSizeCompletedEventArgs> ChangeItemSizeCompleted;
 
-            public event System.EventHandler<ChangeItemSizeCompletedEventArgs> ChangeItemSizeCompleted;
+        public event System.EventHandler<GetUserCompletedEventArgs> GetUserCompleted;
 
-            public event System.EventHandler<GetUserCompletedEventArgs> GetUserCompleted;
+        public event System.EventHandler<CancelTakeoutCompletedEventArgs> CancelTakeoutCompleted;
 
-            public event System.EventHandler<CancelTakeoutCompletedEventArgs> CancelTakeoutCompleted;
+        public event System.EventHandler<GetLSEOrdersCompletedEventArgs> GetLSEOrdersCompleted;
 
-            public event System.EventHandler<GetLSEOrdersCompletedEventArgs> GetLSEOrdersCompleted;
+        public event System.EventHandler<SubmitLSETakeoutCompletedEventArgs> SubmitLSETakeoutCompleted;
 
-            public event System.EventHandler<SubmitLSETakeoutCompletedEventArgs> SubmitLSETakeoutCompleted;
+        //public event System.EventHandler<PriceOrderCompletedEventArgs> PriceOrderCompleted;
 
-            //public event System.EventHandler<PriceOrderCompletedEventArgs> PriceOrderCompleted;
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> PrintKitchenNoteCompleted;
 
-            public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> PrintKitchenNoteCompleted;
+        public event System.EventHandler<RemoveOrderFromPlateCompletedEventArgs> RemoveOrderFromPlateCompleted;
 
-            public event System.EventHandler<RemoveOrderFromPlateCompletedEventArgs> RemoveOrderFromPlateCompleted;
+        public event System.EventHandler<AddOrderToPlateCompletedEventArgs> AddOrderToPlateCompleted;
 
-            public event System.EventHandler<AddOrderToPlateCompletedEventArgs> AddOrderToPlateCompleted;
+        public event System.EventHandler<AddOrdersToPlateCompletedEventArgs> AddOrdersToPlateCompleted;
 
-            public event System.EventHandler<AddOrdersToPlateCompletedEventArgs> AddOrdersToPlateCompleted;
+        public event System.EventHandler<RemoveMultipleFromPlateCompletedEventArgs> RemoveMultipleFromPlateCompleted;
 
-            public event System.EventHandler<RemoveMultipleFromPlateCompletedEventArgs> RemoveMultipleFromPlateCompleted;
+        public event System.EventHandler<SubmitCateringCompletedEventArgs> SubmitCateringCompleted;
 
-            public event System.EventHandler<SubmitCateringCompletedEventArgs> SubmitCateringCompleted;
+        public event System.EventHandler<GetCateringTakeoutsCompletedEventArgs> GetCateringTakeoutsCompleted;
 
-            public event System.EventHandler<GetCateringTakeoutsCompletedEventArgs> GetCateringTakeoutsCompleted;
+        public event System.EventHandler<GetCateringOrderCompletedEventArgs> GetCateringOrderCompleted;
 
-            public event System.EventHandler<GetCateringOrderCompletedEventArgs> GetCateringOrderCompleted;
+        public event System.EventHandler<GetAllCateringOrdersInfoCompletedEventArgs> GetAllCateringOrdersInfoCompleted;
 
-            public event System.EventHandler<GetAllCateringOrdersInfoCompletedEventArgs> GetAllCateringOrdersInfoCompleted;
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> SendCateringTakeoutCompleted;
 
-            public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> SendCateringTakeoutCompleted;
+        //public event System.EventHandler<GetTableSummaryCompletedEventArgs> GetTableSummaryCompleted;
 
-            //public event System.EventHandler<GetTableSummaryCompletedEventArgs> GetTableSummaryCompleted;
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> PrintCateringOrderCompleted;
 
-            public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> PrintCateringOrderCompleted;
+        #endregion
 
-            #endregion
 
+        //***********************************METHODS***********************************************************************************
+        #region Methods Implemented
 
-            //***********************************METHODS***********************************************************************************
-            #region Methods Implemented
+        public DBTable GetTable(int tableNum)
+        {
+            return Channel.GetTable(tableNum);
+        }
 
-            public DBTable GetTable(int tableNum)
-            {
-                return Channel.GetTable(tableNum);
-            }
+        public List<DBTable> GetTablesForSection(decimal sectionID)
+        {
+            return Channel.GetTablesForSection(sectionID);
+        }
 
-            public List<DBTable> GetTablesForSection(decimal sectionID)
-            {
-                return Channel.GetTablesForSection(sectionID);
-            }
+        public System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<Staunch.POS.Classes.DBItem>> GetMenu()
+        {
+            return Channel.GetMenu();
+        }
 
-            public System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<Staunch.POS.Classes.DBItem>> GetMenu()
-            {
-                return Channel.GetMenu();
-            }
+        public System.Collections.Generic.List<Staunch.POS.Classes.DBModGroup> GetAllMods(decimal ItemID, decimal SizeID)
+        {
+            return Channel.GetAllMods(ItemID, SizeID);
+        }
 
-            public System.Collections.Generic.List<Staunch.POS.Classes.DBModGroup> GetAllMods(decimal ItemID, decimal SizeID)
-            {
-                return Channel.GetAllMods(ItemID, SizeID);
-            }
+        public IAsyncResult BeginGetAllMods(decimal ItemID, decimal SizeID, AsyncCallback callback, object asyncState)
+        {
+            return Channel.BeginGetAllMods(ItemID, SizeID, callback, asyncState);
+        }
 
-            #endregion
-            #region Methods To Implement
+        public List<DBModGroup> EndGetAllMods(IAsyncResult result)
+        {
+            return Channel.EndGetAllMods(result);
+        }
 
-            public IAsyncResult BeginGetTable(int tableNum, AsyncCallback callback, object asyncState)
+
+        public List<DBTable> GetTableSummary()
+        {
+            return Channel.GetTableSummary();
+        }
+
+        public IAsyncResult BeginGetTableSummary(AsyncCallback callback, object asyncState)
+        {
+            return Channel.BeginGetTableSummary(callback, asyncState);
+        }
+
+        public List<DBTable> EndGetTableSummary(IAsyncResult result)
+        {
+            return Channel.EndGetTableSummary(result);
+        }
+        #endregion
+
+        #region Methods To Implement
+
+        public IAsyncResult BeginGetTable(int tableNum, AsyncCallback callback, object asyncState)
             {
                 throw new NotImplementedException();
             }
@@ -1007,16 +1027,7 @@ namespace Zipline2.iOS.Services
                 throw new NotImplementedException();
             }
 
-            public IAsyncResult BeginGetAllMods(decimal ItemID, decimal SizeID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<DBModGroup> EndGetAllMods(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
+            
             public List<ComboItem> GetComboMenu()
             {
                 throw new NotImplementedException();
@@ -1462,21 +1473,6 @@ namespace Zipline2.iOS.Services
                 throw new NotImplementedException();
             }
 
-            public List<DBTable> GetTableSummary()
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginGetTableSummary(AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<DBTable> EndGetTableSummary(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
             public void PrintCateringOrder(CateringOrder catering, decimal UserID)
             {
                 throw new NotImplementedException();
@@ -1536,6 +1532,39 @@ namespace Zipline2.iOS.Services
                     return (List<DBModGroup>)base.Invoke("GetAllMods", args);
                 }
 
+                public IAsyncResult BeginGetAllMods(decimal itemId, decimal sizeId, AsyncCallback callback, object asyncState)
+                {
+                    object[] args = new object[2];
+                    args[0] = itemId;
+                    args[1] = sizeId;
+                    return (IAsyncResult)base.BeginInvoke("GetAllMods", args, callback, asyncState);
+                }
+
+                public List<DBModGroup> EndGetAllMods(IAsyncResult result)
+                {
+                    object[] args = new object[0];
+                    return (List<DBModGroup>)base.EndInvoke("GetAllMods", args, result);
+                }
+
+                public List<DBTable> GetTableSummary()
+                {
+                    return (List<DBTable>)base.Invoke("GetTableSummary", null);
+                }
+
+                public IAsyncResult BeginGetTableSummary(AsyncCallback callback, object asyncState)
+                {
+                    return (IAsyncResult)base.BeginInvoke("GetTableSummary", null, callback, asyncState);
+                }
+
+                public List<DBTable> EndGetTableSummary(IAsyncResult result)
+                {
+                    return (List<DBTable>)base.EndInvoke("GetTableSummary", null, result);
+                }
+
+                #endregion
+
+
+                #region TODO: Implement following....
                 public IAsyncResult BeginGetTable(int tableNum, AsyncCallback callback, object asyncState)
                 {
                     throw new NotImplementedException();
@@ -1961,15 +1990,7 @@ namespace Zipline2.iOS.Services
                     throw new NotImplementedException();
                 }
 
-                public IAsyncResult BeginGetAllMods(decimal ItemID, decimal SizeID, AsyncCallback callback, object asyncState)
-                {
-                    throw new NotImplementedException();
-                }
-
-                public List<DBModGroup> EndGetAllMods(IAsyncResult result)
-                {
-                    throw new NotImplementedException();
-                }
+                
 
                 public List<ComboItem> GetComboMenu()
                 {
@@ -2416,20 +2437,7 @@ namespace Zipline2.iOS.Services
                     throw new NotImplementedException();
                 }
 
-                public List<DBTable> GetTableSummary()
-                {
-                    throw new NotImplementedException();
-                }
-
-                public IAsyncResult BeginGetTableSummary(AsyncCallback callback, object asyncState)
-                {
-                    throw new NotImplementedException();
-                }
-
-                public List<DBTable> EndGetTableSummary(IAsyncResult result)
-                {
-                    throw new NotImplementedException();
-                }
+                
 
                 public void PrintCateringOrder(CateringOrder catering, decimal UserID)
                 {

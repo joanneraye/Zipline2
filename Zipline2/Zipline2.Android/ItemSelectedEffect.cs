@@ -12,11 +12,11 @@ using Android.Views;
 using Android.Widget;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using Zipline2.Droid;
+using Zipline2.Android;
 
 [assembly:ResolutionGroupName ("Zipline2")]
 [assembly:ExportEffect (typeof(ItemSelectedEffect), "ItemSelectedEffect")]
-namespace Zipline2.Droid
+namespace Zipline2.Android
 {
     /// <summary>
     /// NOTE THAT THIS EFFECT DOESN'T WORK, but leaving in case I might
@@ -40,7 +40,7 @@ namespace Zipline2.Droid
             {
                 if (args.PropertyName == "SelectedItem")
                 {
-                    Control.SetBackgroundColor(Android.Graphics.Color.Transparent);
+                    //Control.SetBackgroundColor(Android.Graphics.Color.Transparent);
                 }
             }
             catch (Exception ex)

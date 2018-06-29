@@ -20,7 +20,6 @@ namespace Zipline2.Pages
     {
         private const string YES = "Yup";
         private const string NO = "No Way Jose";
-        private bool ServerButtonToggle = false;
         LoginPageModel LoginPageModel;
         Users Users = Users.Instance;
         public LoginPage()

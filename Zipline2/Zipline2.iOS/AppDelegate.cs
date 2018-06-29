@@ -35,18 +35,18 @@ namespace Zipline2.iOS
             FormsPlugin.Iconize.iOS.IconControls.Init();
             
             //TODO:  All WcfServicesProxy calls must be modified to include different waiterclient.
-            PosServiceClientIos WaiterClient = new PosServiceClientIos( 
-                new BasicHttpBinding(),
-                new EndpointAddress("http://192.168.1.26/WP7Waiter/POServiceHost.svc"));
-            WaiterClient.Endpoint.Binding.SendTimeout = new TimeSpan(0, 30, 0);
+            //PosServiceClientIos WaiterClient = new PosServiceClientIos( 
+            //    new BasicHttpBinding(),
+            //    new EndpointAddress("http://192.168.1.26/WP7Waiter/POServiceHost.svc"));
+            //WaiterClient.Endpoint.Binding.SendTimeout = new TimeSpan(0, 30, 0);
 
-            //simple wcf test
-            var table = WaiterClient.GetTable(1);
+            ////simple wcf test
+            //var table = WaiterClient.GetTable(1);
 
-            //Load menu, toppings, tables.
-            //LoadMenu();
-            //LoadToppings();
-            LoadTables();
+            ////Load menu, toppings, tables.
+            ////LoadMenu();
+            ////LoadToppings();
+            //LoadTables();
 
             LoadApplication(new App());
 
@@ -55,43 +55,43 @@ namespace Zipline2.iOS
 
         private void LoadMenu()
         {
-            Zipline2.BusinessLogic.WcfRemote.DataBaseDictionaries.MenuDictionary = WaiterClient.GetMenu();
+        //    Zipline2.BusinessLogic.WcfRemote.DataBaseDictionaries.MenuDictionary = WaiterClient.GetMenu();
             
         }
 
         private void LoadTables()
         {
-            Zipline2.BusinessLogic.WcfRemote.DataBaseDictionaries.DbTablesDictionary = new Dictionary<decimal, DBTable>();
-            List<DBTable> tablesSection1 = WaiterClient.GetTablesForSection(1M);
-            foreach (var item1 in tablesSection1)
-            {
-                Zipline2.BusinessLogic.WcfRemote.DataBaseDictionaries.DbTablesDictionary.Add(item1.ID, item1);
-            }
-            List<DBTable> tablesSection2 = WaiterClient.GetTablesForSection(2M);
-            foreach (var item2 in tablesSection2)
-            {
-                Zipline2.BusinessLogic.WcfRemote.DataBaseDictionaries.DbTablesDictionary.Add(item2.ID, item2);
-            }
+            //Zipline2.BusinessLogic.WcfRemote.DataBaseDictionaries.DbTablesDictionary = new Dictionary<decimal, DBTable>();
+            //List<DBTable> tablesSection1 = WaiterClient.GetTablesForSection(1M);
+            //foreach (var item1 in tablesSection1)
+            //{
+            //    Zipline2.BusinessLogic.WcfRemote.DataBaseDictionaries.DbTablesDictionary.Add(item1.ID, item1);
+            //}
+            //List<DBTable> tablesSection2 = WaiterClient.GetTablesForSection(2M);
+            //foreach (var item2 in tablesSection2)
+            //{
+            //    Zipline2.BusinessLogic.WcfRemote.DataBaseDictionaries.DbTablesDictionary.Add(item2.ID, item2);
+            //}
         }
 
         private void LoadToppings()
         {
-            Zipline2.BusinessLogic.WcfRemote.DataBaseDictionaries.PizzaToppingsDictionary = new Dictionary<decimal, DBModifier>();
-            List<DBModGroup> modgroups = WaiterClient.GetAllMods(57M, 0M);
-            foreach (var modgroup in modgroups)
-            {
-                foreach (var mod in modgroup.SelectionList)
-                {
-                    if (!Zipline2.BusinessLogic.WcfRemote.DataBaseDictionaries.PizzaToppingsDictionary.ContainsKey(mod.ID))
-                    {
-                        Zipline2.BusinessLogic.WcfRemote.DataBaseDictionaries.PizzaToppingsDictionary.Add(mod.ID, mod);
-                        if (!Zipline2.BusinessLogic.WcfRemote.DataBaseDictionaries.DbIdToppingDictionary.ContainsKey(mod.ID) && mod.ID != 50 && mod.ID != 51)
-                        {
-                            Console.WriteLine("***Debug JOANNE***TOPPINGS DICTIONARY ITEM NOT FOUND: " + mod.Name + mod.ID);
-                        }
-                    }
-                }
-            }
+            //Zipline2.BusinessLogic.WcfRemote.DataBaseDictionaries.PizzaToppingsDictionary = new Dictionary<decimal, DBModifier>();
+            //List<DBModGroup> modgroups = WaiterClient.GetAllMods(57M, 0M);
+            //foreach (var modgroup in modgroups)
+            //{
+            //    foreach (var mod in modgroup.SelectionList)
+            //    {
+            //        if (!Zipline2.BusinessLogic.WcfRemote.DataBaseDictionaries.PizzaToppingsDictionary.ContainsKey(mod.ID))
+            //        {
+            //            Zipline2.BusinessLogic.WcfRemote.DataBaseDictionaries.PizzaToppingsDictionary.Add(mod.ID, mod);
+            //            if (!Zipline2.BusinessLogic.WcfRemote.DataBaseDictionaries.DbIdToppingDictionary.ContainsKey(mod.ID) && mod.ID != 50 && mod.ID != 51)
+            //            {
+            //                Console.WriteLine("***Debug JOANNE***TOPPINGS DICTIONARY ITEM NOT FOUND: " + mod.Name + mod.ID);
+            //            }
+            //        }
+            //    }
+            //}
         }
     }
 }
