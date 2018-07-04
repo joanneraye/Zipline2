@@ -7,6 +7,8 @@ using Zipline2.ConnectedServices;
 using Zipline2.Models;
 using Staunch.POS.Classes;
 using Xamarin.Forms;
+using Zipline2.ConnectedServices.PosServiceReference;
+using Zipline2.ConnectedServices.CheckHostReference;
 
 namespace Zipline2.BusinessLogic.WcfRemote
 {
@@ -64,8 +66,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
             }
         }
 
-        private CheckHostClient checkClient;
-        public CheckHostClient CheckClient
+        private ICheckHost checkClient;
+        public ICheckHost CheckClient
         {
             get
             {
@@ -126,13 +128,16 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         private void CreateCheckClient()
         {
-            checkClient = new CheckHostClient(
-                        new BasicHttpBinding(),
-                        new EndpointAddress(endpointIpAddressPart1 + checkIpAddressPart2));
-            checkClient.Endpoint.Binding.SendTimeout = new TimeSpan(0, 10, 0);
+            checkClient = DependencyService.Get<ICheckClient>().GetCheckClient(endpointIpAddressPart1 + waiterIpAddressPart2);
+            //checkClient = new CheckHostClient(
+            //            new BasicHttpBinding(),
+            //            new EndpointAddress(endpointIpAddressPart1 + checkIpAddressPart2));
+            //checkClient.Endpoint.Binding.SendTimeout = new TimeSpan(0, 10, 0);
         }
 
-        public List<DBModGroup> GetToppingsSync()
+        #region Regular methods (synchronous)
+
+        public List<DBModGroup> GetToppings()
         {
             if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
             {
@@ -143,22 +148,328 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         }
 
+        public void UpdateTable(DBTable currentTable)
+        {
+            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||
+                serviceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
+            {
+                return;
+            }
+            List<DBTable> tablesToUpdate = new List<DBTable> { currentTable };
+            waiterClient.UpdateTables(tablesToUpdate, (decimal)Users.Instance.LoggedInUser.UserId);
+        }
+
+        public DBTable GetTable(int tableNum)
+        {
+            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+            {
+                return new DBTable();
+            }
+            try
+            {
+                return waiterClient.GetTable(tableNum);
+            }
+            catch (Exception e)
+            {
+                waiterClient.GetTablesForSection(1);
+                Exception error = e;
+                throw;
+            }
+        }
+
+        public void GetTables()
+        {
+            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+            {
+                return;
+            }
+            DataBaseDictionaries.DbTablesDictionary = new Dictionary<decimal, DBTable>();
+            List<DBTable> tablesSection1 = waiterClient.GetTablesForSection(1M);
+            foreach (var item1 in tablesSection1)
+            {
+                DataBaseDictionaries.DbTablesDictionary.Add(item1.ID, item1);
+            }
+            List<DBTable> tablesSection2 = waiterClient.GetTablesForSection(2M);
+            foreach (var item2 in tablesSection2)
+            {
+                DataBaseDictionaries.DbTablesDictionary.Add(item2.ID, item2);
+            }
+        }
 
 
-        ////TODO:  Create IPosServiceClient interface in Zipline2 - it will have same methods as IPosService - could I just use IPosService
-        ////and just add Dependency statements??  TRY THIS FIRST
-        ////  Write its implementation in Android and Ios platforms.
-        ////  Use at assembly level(??) [assembly:Dependency(typeof(PosServiceClientIos))] - this is implmenetation class for ios....
-        //if (Device.RuntimePlatform == Device.Android)
-        //{
-        //    //Can't figure out how this will work to create with Endpoint Address as below.  In other 
-        //    //words, how is this class instantiated?
-        //    waiterClient = DependencyService.Get<IPosService>();
-        //}
+        public void GetMenu()
+        {
+            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+            {
+                return;
+            }
+            try
+            {
+                DataBaseDictionaries.MenuDictionary = waiterClient.GetMenu();
+            }
+            catch (Exception ex)
+            {
+                var errormessage = ex;
+                throw;
+            }
+        }
 
 
 
-        //ASYNC Calls
+        public decimal GetNextGuestId()
+        {
+            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+            {
+                return 0;
+            }
+            List<decimal> ids = waiterClient.GetNextGuestIDs(1, UserIdDecimal);
+            if (ids.Count > 0)
+            {
+                return ids[0];
+            }
+            return 0;
+        }
+
+        public void UpdateOrder(Order orderToUpdate)
+        {
+            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||
+                serviceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
+            {
+                return;
+            }
+            DBTable dbTableCurrent = ConvertOrderToDbTable(orderToUpdate, false);
+
+            //Update the database table with built DBTable in order to obtain new OrderID.
+            //await UpdateTableAsync(dbTableCurrent);
+            UpdateTable(dbTableCurrent);
+        }
+
+        //Since called from method already awaited, so this sync method is called since need to wait on result.
+
+        private List<decimal> GetGuestIds(decimal tableId)
+        {
+            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+            {
+                return new List<decimal>() { 0 };
+            }
+            DBTable thisTable = GetTable((int)tableId);
+            List<decimal> guestIds = new List<decimal>();
+            if (thisTable.Guests.Count > 1)
+            {
+                guestIds.Add(thisTable.Guests[0].ID);
+                guestIds.Add(thisTable.Guests[1].ID);
+            }
+            else
+            {
+                guestIds = waiterClient.GetNextGuestIDs((2), UserIdDecimal);
+            }
+            return guestIds;
+        }
+
+
+        public List<DBTable> GetTableInfo()
+        {
+            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+            {
+                return new List<DBTable>();
+            }
+            //Don't call async method because need to wait in order to display correct table info.
+            return waiterClient.GetTableSummary();
+        }
+
+        public void PrepareAndSendOrder(Order orderToSend)
+        {
+            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||
+                serviceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
+            {
+                return;
+            }
+            DBTable dbTableCurrent = ConvertOrderToDbTable(orderToSend, true);
+
+            //Update the database table with built DBTable in order to obtain new OrderID.
+            //await UpdateTableAsync(dbTableCurrent);
+            UpdateTable(dbTableCurrent);
+
+            //Get the table just updated - will contain new OrderID.
+            DBTable updatedTable = GetTable((int)dbTableCurrent.ID);
+
+            //See if outstanding checks for this table.
+            List<DBCheck> checks = GetOpenChecks(dbTableCurrent.ID);
+            decimal checkId = -1;
+            if (checks.Count > 0)
+            {
+                checkId = checks[0].ID;
+            }
+
+            DBCheck newDbCheck = new DBCheck(checkId);
+
+
+            List<decimal> orderIDs = new List<decimal>();
+
+            //Get items for check from updated Table just retrieved.
+            foreach (GuestItem item in updatedTable.Guests[0].Items)
+            {
+                if (!item.OrderSent)
+                {
+                    orderIDs.Add(item.OrderID);
+                    newDbCheck.Items.Add(item);
+                }
+            }
+            foreach (GuestComboItem combo in updatedTable.Guests[0].ComboItems)
+            {
+                bool first = true;
+                foreach (GuestItem gItem in combo.ComboGuestItems)
+                {
+                    if (!gItem.OrderSent)
+                    {
+                        orderIDs.Add(gItem.OrderID);
+                        if (first)
+                        {
+                            first = false;
+                            newDbCheck.ComboItems.Add(combo);
+                        }
+                    }
+                }
+            }
+
+            //Create and add check to database.
+            CreateCheck(newDbCheck);
+            SendOrders(orderIDs, UserIdDecimal);
+        }
+
+        public DBUser GetUser(string pin)
+        {
+            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+            {
+                return new DBUser();
+            }
+            DBUser thisUser = waiterClient.GetUser(pin);
+            return thisUser;
+        }
+
+        public void SendOrders(List<decimal> orderIds, decimal userId)
+        {
+            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||
+                serviceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
+            {
+                return;
+            }
+            waiterClient.SendOrders(orderIds, userId);
+        }
+
+        public List<DBCheck> GetOpenChecks(decimal tableId)
+        {
+            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+            {
+                return new List<DBCheck>();
+            }
+            return checkClient.GetOpenChecks(tableId);
+        }
+
+        public void CreateCheck(DBCheck dbCheck)
+        {
+            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||
+                serviceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
+            {
+                return;
+            }
+            var dbChecks = new List<DBCheck>()
+            {
+                dbCheck
+            };
+            try
+            {
+                checkClient.CreateChecks(dbChecks, UserIdDecimal, false);
+            }
+            catch (Exception ex)
+            {
+                var errormessage = ex;
+                throw;
+            }
+        }
+
+        //CONVERSION METHODS
+
+        internal DBTable ConvertOrderToDbTable(Order orderToSend, bool sendOrderToKitchen = false)
+        {
+            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+            {
+                return new DBTable();
+            }
+            List<decimal> guestIds = GetGuestIds(orderToSend.TableId);
+            //decimal guestId = await GetGuestIdAsync(orderToUpdate.TableId);
+
+            //Get stored DBTable.
+            DBTable newTable = DataBaseDictionaries.DbTablesDictionary[orderToSend.TableId];
+            if (newTable.Guests.Count == 0)
+            {
+                bool first = true;
+                foreach (decimal id in guestIds)
+                {
+                    Staunch.POS.Classes.Guest_DB guest = new Staunch.POS.Classes.Guest_DB();
+                    guest.ID = id;
+                    guest.CheckedOut = false;
+                    guest.Items = new List<GuestItem>();
+                    guest.ComboItems = new List<GuestComboItem>();
+                    guest.TableID = orderToSend.TableId;
+
+                    if (first)
+                    {
+                        guest.IsWhole = true;
+                        first = false;
+                    }
+
+                    newTable.Guests.Add(guest);
+                }
+            }
+
+            if (DataBaseDictionaries.MenuDictionary != null &&
+                DataBaseDictionaries.MenuDictionary.Count > 0)
+            {
+                //Create DBItems for Guest_DB object.
+                foreach (var orderItem in orderToSend.OrderItems)
+                {
+                    var keysTuple = orderItem.GetMenuDbItemKeys();
+                    var dbItem = new DBItem();
+                    bool menuItemFound = false;
+
+                    //Use the item from the Database Dictionary.                    
+                    foreach (var menuItem in DataBaseDictionaries.MenuDictionary[keysTuple.Item1])
+                    {
+                        if (menuItem.ID == keysTuple.Item2)
+                        {
+                            dbItem = menuItem;
+                            menuItemFound = true;
+                            break;
+                        }
+                    }
+                    if (orderItem.DbOrderId <= 0)
+                    {
+                        orderItem.DbOrderId = -1;
+                    }
+                    if (menuItemFound)
+                    {
+                        GuestItem guestItem = orderItem.CreateGuestItem(dbItem, orderItem.DbOrderId);
+                        guestItem.Mods = orderItem.CreateMods();
+                        guestItem.OrderSent = sendOrderToKitchen;
+                        newTable.Guests[0].Items.Add(guestItem);
+                        //Pricing check - TODO:  Take out for production??
+                        //Had to comment out in testing because wouldn't process - says mismatch with service but can't find problem.
+                        //GuestItem databaseGuestItem = checkClient.PriceOrder(guestItem);
+                        //if (databaseGuestItem.Price != guestItem.Price)
+                        //{
+                        //    Console.WriteLine("JOANNE LOG:  price differs for " + guestItem.ShortName);
+                        //}
+                    }
+                }
+            }
+            return newTable;
+        }
+
+        #endregion
+
+
+        #region Async Methods
         async public void UpdateOrderAsync(Order orderToUpdate)
         {
             if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
@@ -182,7 +493,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
             await UpdateTableAsync(dbTableCurrent);
         }
 
-        async public void SendOrderAsync(Order orderToSend)
+        async public void PrepareAndSendOrderAsync(Order orderToSend)
         {
             if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||
                 serviceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
@@ -240,7 +551,6 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 }
             }          
         }
-
         
         async public Task UpdateTableAsync(DBTable currentTable)
         {
@@ -358,7 +668,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
             return 0;
         }
 
-        async public void SendOrdersToServerAsync(List<decimal> orderIds, decimal userId)
+        async public void SendOrdersAsync(List<decimal> orderIds, decimal userId)
         {
             if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||
                 serviceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
@@ -469,7 +779,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         }
 
-        async public Task<List<DBTable>> GetTableInfoFromServerAsync()
+        async public Task<List<DBTable>> GetTableInfoAsync()
         {
             if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
             {
@@ -481,325 +791,10 @@ namespace Zipline2.BusinessLogic.WcfRemote
               null,
               TaskCreationOptions.None);
         }
+        #endregion
 
 
-
-
-        //SYNC Calls
-        public void UpdateTableSync(DBTable currentTable)
-        {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||
-                serviceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
-            {
-                return;
-            }
-            List<DBTable> tablesToUpdate = new List<DBTable> { currentTable };
-            waiterClient.UpdateTables(tablesToUpdate, (decimal)Users.Instance.LoggedInUser.UserId);
-        }
-
-        public DBTable GetTableSync(int tableNum)
-        {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
-            {
-                return new DBTable();
-            }
-            try
-            {
-                return waiterClient.GetTable(tableNum);
-            }
-            catch (Exception e)
-            {
-             waiterClient.GetTablesForSection(1);   Exception error = e;
-                throw;
-            }
-        }
-
-        public void GetTablesSync()
-        {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
-            {
-                return;
-            }
-            DataBaseDictionaries.DbTablesDictionary = new Dictionary<decimal, DBTable>();
-            List<DBTable> tablesSection1 = waiterClient.GetTablesForSection(1M);
-            foreach (var item1 in tablesSection1)
-            {
-                DataBaseDictionaries.DbTablesDictionary.Add(item1.ID, item1);
-            }
-            List<DBTable> tablesSection2 = waiterClient.GetTablesForSection(2M);
-            foreach (var item2 in tablesSection2)
-            {
-                DataBaseDictionaries.DbTablesDictionary.Add(item2.ID, item2);
-            }
-        }
 
        
-        public void GetMenuSync()
-        {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
-            {
-                return;
-            }
-            try
-            {
-                DataBaseDictionaries.MenuDictionary = waiterClient.GetMenu();
-            }
-            catch (Exception ex)
-            {
-                var errormessage = ex;
-                throw;
-            }
-        }
-
-        
-
-        public decimal GetNextGuestIdSync()
-        {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
-            {
-                return 0;
-            }
-            List<decimal> ids = waiterClient.GetNextGuestIDs(1, UserIdDecimal);
-            if (ids.Count > 0)
-            {
-                return ids[0];
-            }
-            return 0;
-        }
-
-        public void UpdateOrderSync(Order orderToUpdate)
-        {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||
-                serviceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
-            {
-                return;
-            }
-            DBTable dbTableCurrent = ConvertOrderToDbTable(orderToUpdate, false);
-
-            //Update the database table with built DBTable in order to obtain new OrderID.
-            //await UpdateTableAsync(dbTableCurrent);
-            UpdateTableSync(dbTableCurrent);
-        }
-
-        //Since called from method already awaited, so this sync method is called since need to wait on result.
-
-        private List<decimal> GetGuestIdsSync(decimal tableId)
-        {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
-            {
-                return new List<decimal>() { 0 };
-            }
-            DBTable thisTable = GetTableSync((int)tableId);
-            List<decimal> guestIds = new List<decimal>();
-            if (thisTable.Guests.Count > 1)
-            {
-                guestIds.Add(thisTable.Guests[0].ID);
-                guestIds.Add(thisTable.Guests[1].ID);
-            }
-            else
-            {
-                guestIds = waiterClient.GetNextGuestIDs((2), UserIdDecimal);
-            }
-            return guestIds;
-        }
-
-
-        public List<DBTable> GetTableInfoFromServerSync()
-        {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
-            {
-                return new List<DBTable>();
-            }
-            //Don't call async method because need to wait in order to display correct table info.
-            return waiterClient.GetTableSummary();
-        }
-
-        public void SendOrderSync(Order orderToSend)
-        {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||
-                serviceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
-            {
-                return;
-            }
-            DBTable dbTableCurrent = ConvertOrderToDbTable(orderToSend, true);
-
-            //Update the database table with built DBTable in order to obtain new OrderID.
-            //await UpdateTableAsync(dbTableCurrent);
-            UpdateTableSync(dbTableCurrent);
-
-            //Get the table just updated - will contain new OrderID.
-            DBTable updatedTable = GetTableSync((int)dbTableCurrent.ID);
-
-            //See if outstanding checks for this table.
-            List<DBCheck> checks = GetOpenChecksSync(dbTableCurrent.ID);
-            decimal checkId = -1;
-            if (checks.Count > 0)
-            {
-                checkId = checks[0].ID;
-            }
-
-            DBCheck newDbCheck = new DBCheck(checkId);
-
-
-            List<decimal> orderIDs = new List<decimal>();
-
-            //Get items for check from updated Table just retrieved.
-            foreach (GuestItem item in updatedTable.Guests[0].Items)
-            {
-                if (!item.OrderSent)
-                {
-                    orderIDs.Add(item.OrderID);
-                    newDbCheck.Items.Add(item);
-                }
-            }
-            foreach (GuestComboItem combo in updatedTable.Guests[0].ComboItems)
-            {
-                bool first = true;
-                foreach (GuestItem gItem in combo.ComboGuestItems)
-                {
-                    if (!gItem.OrderSent)
-                    {
-                        orderIDs.Add(gItem.OrderID);
-                        if (first)
-                        {
-                            first = false;
-                            newDbCheck.ComboItems.Add(combo);
-                        }
-                    }
-                }
-            }
-
-            //Create and add check to database.
-            CreateCheckSync(newDbCheck);
-            SendOrdersToServerSync(orderIDs, UserIdDecimal);
-        }
-
-        public DBUser GetUserSync(string pin)
-        {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
-            {
-                return new DBUser();
-            }
-            DBUser thisUser = waiterClient.GetUser(pin);
-            return thisUser;
-        }
-
-        public void SendOrdersToServerSync(List<decimal> orderIds, decimal userId)
-        {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||
-                serviceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
-            {
-                return;
-            }
-            waiterClient.SendOrders(orderIds, userId);
-        }
-
-        public List<DBCheck> GetOpenChecksSync(decimal tableId)
-        {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
-            {
-                return new List<DBCheck>();
-            }
-            return checkClient.GetOpenChecks(tableId);
-        }
-
-        public void CreateCheckSync(DBCheck dbCheck)
-        {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||
-                serviceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
-            {
-                return;
-            }
-            var dbChecks = new List<DBCheck>()
-            {
-                dbCheck
-            };
-            try
-            {
-                checkClient.CreateChecks(dbChecks, UserIdDecimal, false);
-            }
-            catch (Exception ex)
-            {
-                var errormessage = ex;
-                throw;
-            }
-        }
-
-        //CONVERSION METHODS
-
-        internal DBTable ConvertOrderToDbTable(Order orderToSend, bool sendOrderToKitchen = false)
-        {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
-            {
-                return new DBTable();
-            }
-            List<decimal> guestIds = GetGuestIdsSync(orderToSend.TableId);
-            //decimal guestId = await GetGuestIdAsync(orderToUpdate.TableId);
-
-            //Get stored DBTable.
-            DBTable newTable = DataBaseDictionaries.DbTablesDictionary[orderToSend.TableId];
-            if (newTable.Guests.Count == 0)
-            {
-                bool first = true;
-                foreach (decimal id in guestIds)
-                {
-                    Staunch.POS.Classes.Guest_DB guest = new Staunch.POS.Classes.Guest_DB();
-                    guest.ID = id;
-                    guest.CheckedOut = false;
-                    guest.Items = new List<GuestItem>();
-                    guest.ComboItems = new List<GuestComboItem>();
-                    guest.TableID = orderToSend.TableId;
-
-                    if (first)
-                    {
-                        guest.IsWhole = true;
-                        first = false;
-                    }
-                  
-                    newTable.Guests.Add(guest);
-                }
-            }            
-
-            if (DataBaseDictionaries.MenuDictionary != null &&
-                DataBaseDictionaries.MenuDictionary.Count > 0)
-            {
-                //Create DBItems for Guest_DB object.
-                foreach (var orderItem in orderToSend.OrderItems)
-                {
-                    var keysTuple = orderItem.GetMenuDbItemKeys();
-                    var dbItem = new DBItem();
-                    bool menuItemFound = false;
-
-                    //Use the item from the Database Dictionary.                    
-                    foreach (var menuItem in DataBaseDictionaries.MenuDictionary[keysTuple.Item1])
-                    {
-                        if (menuItem.ID == keysTuple.Item2)
-                        {
-                            dbItem = menuItem;
-                            menuItemFound = true;
-                            break;
-                        }
-                    }
-                    if (orderItem.DbOrderId <= 0)
-                    {
-                        orderItem.DbOrderId = -1;
-                    }
-                    if (menuItemFound)
-                    {
-                        GuestItem guestItem = orderItem.CreateGuestItem(dbItem, orderItem.DbOrderId);
-                        guestItem.Mods = orderItem.CreateMods();
-                        guestItem.OrderSent = sendOrderToKitchen;
-                        newTable.Guests[0].Items.Add(guestItem);
-                        //Pricing check - TODO:  Take out for production??
-                        GuestItem databaseGuestItem = checkClient.PriceOrder(guestItem);
-                        if (databaseGuestItem.Price != guestItem.Price)
-                        {
-                            Console.WriteLine("JOANNE LOG:  price differs for " + guestItem.ShortName);
-                        }
-                    }
-                }
-            }
-            return newTable;
-        }
     }
 }

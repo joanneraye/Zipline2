@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Zipline2.ConnectedServices
+namespace Zipline2.ConnectedServices.PosServiceReference
 {
     using System;
     using System.Collections.Generic;
@@ -19,34 +19,29 @@ namespace Zipline2.ConnectedServices
 
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosService>, IPosService
+    public partial class PosServiceClientAndroid : System.ServiceModel.ClientBase<IPosService>, IPosService
     {
-        //protected override IPosService CreateChannel()
-        //{
-        //    return new PosServiceChannel(this);
-        //}
-
         #region Constructors
-        public PosServiceClient()
+        public PosServiceClientAndroid()
         {
         }
 
-        public PosServiceClient(string endpointConfigurationName) :
+        public PosServiceClientAndroid(string endpointConfigurationName) :
                 base(endpointConfigurationName)
         {
         }
 
-        public PosServiceClient(string endpointConfigurationName, string remoteAddress) :
+        public PosServiceClientAndroid(string endpointConfigurationName, string remoteAddress) :
                 base(endpointConfigurationName, remoteAddress)
         {
         }
 
-        public PosServiceClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) :
+        public PosServiceClientAndroid(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) :
                 base(endpointConfigurationName, remoteAddress)
         {
         }
 
-        public PosServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
+        public PosServiceClientAndroid(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
                 base(binding, remoteAddress)
         {
         }
@@ -554,950 +549,7 @@ namespace Zipline2.ConnectedServices
         #endregion
 
 
-        //SPECIAL CHANNEL CLASS NECESSARY FOR IOS IMPLEMENTATION - NOT USED HERE
-        private class PosServiceChannel : ChannelBase<IPosService>, IPosService
-        {
-            public PosServiceChannel(System.ServiceModel.ClientBase<IPosService> client) : base(client)
-            {
-
-            }
-
-            #region Methods
-
-            public DBTable GetTable(int tableNum)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginGetTable(int tableNum, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public DBTable EndGetTable(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public DBUser ValidateUser(decimal AuthenticationID, string UserName, string Pin)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginValidateUser(decimal AuthenticationID, string UserName, string Pin, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public DBUser EndValidateUser(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<DBTable> GetTableInfo()
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginGetTableInfo(AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<DBTable> EndGetTableInfo(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<DBTable> FillTables(decimal userID)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginFillTables(decimal userID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<DBTable> EndFillTables(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public Dictionary<string, List<DBItem>> GetMenu()
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginGetMenu(AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public Dictionary<string, List<DBItem>> EndGetMenu(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<DBModGroup> GetModifiers()
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginGetModifiers(AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<DBModGroup> EndGetModifiers(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<string> GetAvailablePaymentOptions()
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginGetAvailablePaymentOptions(AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<string> EndGetAvailablePaymentOptions(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void UpdateTables(List<DBTable> updatedTables, decimal userID)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginUpdateTables(List<DBTable> updatedTables, decimal userID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void EndUpdateTables(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public int GetGratuityLimit()
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginGetGratuityLimit(AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public int EndGetGratuityLimit(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public decimal GetTaxRate()
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginGetTaxRate(AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public decimal EndGetTaxRate(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public decimal GetGratuityRate()
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginGetGratuityRate(AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public decimal EndGetGratuityRate(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool DoAutoGratuity()
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginDoAutoGratuity(AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool EndDoAutoGratuity(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<string> GetCategoryNames()
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginGetCategoryNames(AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<string> EndGetCategoryNames(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<decimal> GetNextGuestIDs(int num, decimal userID)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginGetNextGuestIDs(int num, decimal userID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<decimal> EndGetNextGuestIDs(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool RemoveGuest(decimal GuestID, bool RemoveOrder)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginRemoveGuest(decimal GuestID, bool RemoveOrder, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool EndRemoveGuest(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool RemoveItem(decimal GuestID, decimal OrderID, decimal UserID)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginRemoveItem(decimal GuestID, decimal OrderID, decimal UserID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool EndRemoveItem(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public ItemInfo GetItemInfo(decimal ItemID)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginGetItemInfo(decimal ItemID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public ItemInfo EndGetItemInfo(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public Dictionary<decimal, PictureFile> GetThumbnails(List<decimal> ItemIDs)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginGetThumbnails(List<decimal> ItemIDs, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public Dictionary<decimal, PictureFile> EndGetThumbnails(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<GuestItem> GetOrders(decimal TableID)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginGetOrders(decimal TableID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<GuestItem> EndGetOrders(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void SendOrders(List<decimal> OrderIDs, decimal UserID)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginSendOrders(List<decimal> OrderIDs, decimal UserID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void EndSendOrders(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void RemoveSentOrder(List<decimal> OrderIDs, decimal UserID)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginRemoveSentOrder(List<decimal> OrderIDs, decimal UserID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void EndRemoveSentOrder(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool SaveUserSettings(DBUser user)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginSaveUserSettings(DBUser user, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool EndSaveUserSettings(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool MoveGuests(List<decimal> GuestIDs, decimal NewTableID)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginMoveGuests(List<decimal> GuestIDs, decimal NewTableID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool EndMoveGuests(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool SplitTable(decimal TableID)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginSplitTable(decimal TableID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool EndSplitTable(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool HasUnsentOrders(decimal TableID)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginHasUnsentOrders(decimal TableID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool EndHasUnsentOrders(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public ManagerSettings GetManagerSettings()
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginGetManagerSettings(AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public ManagerSettings EndGetManagerSettings(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool Logout(decimal UserID)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginLogout(decimal UserID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool EndLogout(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public int Ping(int Delay)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginPing(int Delay, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public int EndPing(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<DBModGroup> GetRequiredMods(decimal ItemID)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginGetRequiredMods(decimal ItemID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<DBModGroup> EndGetRequiredMods(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<DBModGroup> GetAllMods(decimal ItemID, decimal SizeID)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginGetAllMods(decimal ItemID, decimal SizeID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<DBModGroup> EndGetAllMods(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<ComboItem> GetComboMenu()
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginGetComboMenu(AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<ComboItem> EndGetComboMenu(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool RemoveGuestCombo(decimal GuestID, decimal OrderComboID, decimal UserID)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginRemoveGuestCombo(decimal GuestID, decimal OrderComboID, decimal UserID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool EndRemoveGuestCombo(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool CombineOrders(decimal DestinationGuestID, List<decimal> GuestsToMoveIDs, bool RemoveAfterCombine)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginCombineOrders(decimal DestinationGuestID, List<decimal> GuestsToMoveIDs, bool RemoveAfterCombine, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool EndCombineOrders(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool ClearTable(decimal TableID)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginClearTable(decimal TableID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool EndClearTable(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public TakeoutOrder SubmitTakeout(TakeoutOrder TakeoutGuest, decimal UserID)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginSubmitTakeout(TakeoutOrder TakeoutGuest, decimal UserID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public TakeoutOrder EndSubmitTakeout(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<TakeoutOrder> GetTakeoutOrders()
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginGetTakeoutOrders(AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<TakeoutOrder> EndGetTakeoutOrders(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public TakeoutOrder GetTakeoutOrder(decimal GuestID, decimal CheckID)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginGetTakeoutOrder(decimal GuestID, decimal CheckID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public TakeoutOrder EndGetTakeoutOrder(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void SendTakeout(TakeoutOrder TakeoutGuest, decimal UserID)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginSendTakeout(TakeoutOrder TakeoutGuest, decimal UserID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void EndSendTakeout(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool ClearTakeoutOrder(decimal TakeoutID)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginClearTakeoutOrder(decimal TakeoutID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool EndClearTakeoutOrder(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<decimal> ListUnsentOrders(List<decimal> TableIDList)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginListUnsentOrders(List<decimal> TableIDList, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<decimal> EndListUnsentOrders(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool PrintMoveNotice(List<decimal> orderIDs, decimal fromTableID, decimal toTableID)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginPrintMoveNotice(List<decimal> orderIDs, decimal fromTableID, decimal toTableID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool EndPrintMoveNotice(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public Dictionary<decimal, Dictionary<decimal, List<DBModGroup>>> GetModsForAllItems()
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginGetModsForAllItems(AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public Dictionary<decimal, Dictionary<decimal, List<DBModGroup>>> EndGetModsForAllItems(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<DBItem> GetSpecialItems()
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginGetSpecialItems(AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<DBItem> EndGetSpecialItems(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<DBTable> GetTablesForSection(decimal sectionID)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginGetTablesForSection(decimal sectionID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<DBTable> EndGetTablesForSection(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool ChangeItemSize(decimal orderID, decimal newSizeID)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginChangeItemSize(decimal orderID, decimal newSizeID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool EndChangeItemSize(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public DBUser GetUser(string pin)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginGetUser(string pin, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public DBUser EndGetUser(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool CancelTakeout(decimal TakeoutGuestID)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginCancelTakeout(decimal TakeoutGuestID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool EndCancelTakeout(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<TakeoutOrder> GetLSEOrders()
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginGetLSEOrders(AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<TakeoutOrder> EndGetLSEOrders(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public TakeoutOrder SubmitLSETakeout(TakeoutOrder TakeoutGuest, decimal UserID)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginSubmitLSETakeout(TakeoutOrder TakeoutGuest, decimal UserID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public TakeoutOrder EndSubmitLSETakeout(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public Guest_DB PriceOrder(Guest_DB guest)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginPriceOrder(Guest_DB guest, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public Guest_DB EndPriceOrder(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void PrintKitchenNote(string note)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginPrintKitchenNote(string note, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void EndPrintKitchenNote(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool RemoveOrderFromPlate(decimal OrderID)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginRemoveOrderFromPlate(decimal OrderID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool EndRemoveOrderFromPlate(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool AddOrderToPlate(decimal OrderID, decimal PlateID)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginAddOrderToPlate(decimal OrderID, decimal PlateID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool EndAddOrderToPlate(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool AddOrdersToPlate(List<decimal> orderIds, decimal plateId)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginAddOrdersToPlate(List<decimal> orderIds, decimal plateId, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool EndAddOrdersToPlate(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool RemoveMultipleFromPlate(List<decimal> orderIDs)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginRemoveMultipleFromPlate(List<decimal> orderIDs, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool EndRemoveMultipleFromPlate(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public CateringOrder SubmitCatering(CateringOrder catering, decimal UserID)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginSubmitCatering(CateringOrder catering, decimal UserID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public CateringOrder EndSubmitCatering(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<TakeoutOrder> GetCateringTakeouts()
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginGetCateringTakeouts(AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<TakeoutOrder> EndGetCateringTakeouts(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public CateringOrder GetCateringOrder(decimal TakeoutID)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginGetCateringOrder(decimal TakeoutID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public CateringOrder EndGetCateringOrder(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<CateringOrder> GetAllCateringOrdersInfo()
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginGetAllCateringOrdersInfo(AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<CateringOrder> EndGetAllCateringOrdersInfo(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void SendCateringTakeout(TakeoutOrder TakeoutGuest, decimal UserID)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginSendCateringTakeout(TakeoutOrder TakeoutGuest, decimal UserID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void EndSendCateringTakeout(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<DBTable> GetTableSummary()
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginGetTableSummary(AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<DBTable> EndGetTableSummary(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void PrintCateringOrder(CateringOrder catering, decimal UserID)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginPrintCateringOrder(CateringOrder catering, decimal UserID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void EndPrintCateringOrder(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-            #endregion
-        }  //PosServiceChannel
-
-
-
+        
 
         public Staunch.POS.Classes.DBTable GetTable(int tableNum)
         {
@@ -1517,50 +569,51 @@ namespace Zipline2.ConnectedServices
             return base.Channel.EndGetTable(result);
         }
 
-        private System.IAsyncResult OnBeginGetTable(object[] inValues, System.AsyncCallback callback, object asyncState)
-        {
-            int tableNum = ((int)(inValues[0]));
-            return this.BeginGetTable(tableNum, callback, asyncState);
-        }
+        //private System.IAsyncResult OnBeginGetTable(object[] inValues, System.AsyncCallback callback, object asyncState)
+        //{
+        //    int tableNum = ((int)(inValues[0]));
+        //    return this.BeginGetTable(tableNum, callback, asyncState);
+        //}
 
-        private object[] OnEndGetTable(System.IAsyncResult result)
-        {
-            Staunch.POS.Classes.DBTable retVal = this.EndGetTable(result);
-            return new object[] {
-                retVal};
-        }
+        //private object[] OnEndGetTable(System.IAsyncResult result)
+        //{
+        //    Staunch.POS.Classes.DBTable retVal = this.EndGetTable(result);
+        //    return new object[] {
+        //        retVal};
+        //}
 
-        private void OnGetTableCompleted(object state)
-        {
-            if ((this.GetTableCompleted != null))
-            {
-                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.GetTableCompleted(this, new GetTableCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
-            }
-        }
+        //private void OnGetTableCompleted(object state)
+        //{
+        //    if ((this.GetTableCompleted != null))
+        //    {
+        //        InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+        //        this.GetTableCompleted(this, new GetTableCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+        //    }
+        //}
 
-        public void GetTableAsync(int tableNum)
-        {
-            this.GetTableAsync(tableNum, null);
-        }
+        //unused
+        //public void GetTableAsync(int tableNum)
+        //{
+        //    this.GetTableAsync(tableNum, null);
+        //}
 
-        public void GetTableAsync(int tableNum, object userState)
-        {
-            if ((this.onBeginGetTableDelegate == null))
-            {
-                this.onBeginGetTableDelegate = new BeginOperationDelegate(this.OnBeginGetTable);
-            }
-            if ((this.onEndGetTableDelegate == null))
-            {
-                this.onEndGetTableDelegate = new EndOperationDelegate(this.OnEndGetTable);
-            }
-            if ((this.onGetTableCompletedDelegate == null))
-            {
-                this.onGetTableCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetTableCompleted);
-            }
-            base.InvokeAsync(this.onBeginGetTableDelegate, new object[] {
-                    tableNum}, this.onEndGetTableDelegate, this.onGetTableCompletedDelegate, userState);
-        }
+        //public void GetTableAsync(int tableNum, object userState)
+        //{
+        //    if ((this.onBeginGetTableDelegate == null))
+        //    {
+        //        this.onBeginGetTableDelegate = new BeginOperationDelegate(this.OnBeginGetTable);
+        //    }
+        //    if ((this.onEndGetTableDelegate == null))
+        //    {
+        //        this.onEndGetTableDelegate = new EndOperationDelegate(this.OnEndGetTable);
+        //    }
+        //    if ((this.onGetTableCompletedDelegate == null))
+        //    {
+        //        this.onGetTableCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetTableCompleted);
+        //    }
+        //    base.InvokeAsync(this.onBeginGetTableDelegate, new object[] {
+        //            tableNum}, this.onEndGetTableDelegate, this.onGetTableCompletedDelegate, userState);
+        //}
 
         public Staunch.POS.Classes.DBUser ValidateUser(decimal AuthenticationID, string UserName, string Pin)
         {
@@ -1579,54 +632,55 @@ namespace Zipline2.ConnectedServices
             return base.Channel.EndValidateUser(result);
         }
 
-        private System.IAsyncResult OnBeginValidateUser(object[] inValues, System.AsyncCallback callback, object asyncState)
-        {
-            decimal AuthenticationID = ((decimal)(inValues[0]));
-            string UserName = ((string)(inValues[1]));
-            string Pin = ((string)(inValues[2]));
-            return this.BeginValidateUser(AuthenticationID, UserName, Pin, callback, asyncState);
-        }
+        //private System.IAsyncResult OnBeginValidateUser(object[] inValues, System.AsyncCallback callback, object asyncState)
+        //{
+        //    decimal AuthenticationID = ((decimal)(inValues[0]));
+        //    string UserName = ((string)(inValues[1]));
+        //    string Pin = ((string)(inValues[2]));
+        //    return this.BeginValidateUser(AuthenticationID, UserName, Pin, callback, asyncState);
+        //}
 
-        private object[] OnEndValidateUser(System.IAsyncResult result)
-        {
-            Staunch.POS.Classes.DBUser retVal = this.EndValidateUser(result);
-            return new object[] {
-                retVal};
-        }
+        //unused
+        //private object[] OnEndValidateUser(System.IAsyncResult result)
+        //{
+        //    Staunch.POS.Classes.DBUser retVal = this.EndValidateUser(result);
+        //    return new object[] {
+        //        retVal};
+        //}
 
-        private void OnValidateUserCompleted(object state)
-        {
-            if ((this.ValidateUserCompleted != null))
-            {
-                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.ValidateUserCompleted(this, new ValidateUserCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
-            }
-        }
+        //private void OnValidateUserCompleted(object state)
+        //{
+        //    if ((this.ValidateUserCompleted != null))
+        //    {
+        //        InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+        //        this.ValidateUserCompleted(this, new ValidateUserCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+        //    }
+        //}
 
-        public void ValidateUserAsync(decimal AuthenticationID, string UserName, string Pin)
-        {
-            this.ValidateUserAsync(AuthenticationID, UserName, Pin, null);
-        }
+        //public void ValidateUserAsync(decimal AuthenticationID, string UserName, string Pin)
+        //{
+        //    this.ValidateUserAsync(AuthenticationID, UserName, Pin, null);
+        //}
 
-        public void ValidateUserAsync(decimal AuthenticationID, string UserName, string Pin, object userState)
-        {
-            if ((this.onBeginValidateUserDelegate == null))
-            {
-                this.onBeginValidateUserDelegate = new BeginOperationDelegate(this.OnBeginValidateUser);
-            }
-            if ((this.onEndValidateUserDelegate == null))
-            {
-                this.onEndValidateUserDelegate = new EndOperationDelegate(this.OnEndValidateUser);
-            }
-            if ((this.onValidateUserCompletedDelegate == null))
-            {
-                this.onValidateUserCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnValidateUserCompleted);
-            }
-            base.InvokeAsync(this.onBeginValidateUserDelegate, new object[] {
-                    AuthenticationID,
-                    UserName,
-                    Pin}, this.onEndValidateUserDelegate, this.onValidateUserCompletedDelegate, userState);
-        }
+        //public void ValidateUserAsync(decimal AuthenticationID, string UserName, string Pin, object userState)
+        //{
+        //    if ((this.onBeginValidateUserDelegate == null))
+        //    {
+        //        this.onBeginValidateUserDelegate = new BeginOperationDelegate(this.OnBeginValidateUser);
+        //    }
+        //    if ((this.onEndValidateUserDelegate == null))
+        //    {
+        //        this.onEndValidateUserDelegate = new EndOperationDelegate(this.OnEndValidateUser);
+        //    }
+        //    if ((this.onValidateUserCompletedDelegate == null))
+        //    {
+        //        this.onValidateUserCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnValidateUserCompleted);
+        //    }
+        //    base.InvokeAsync(this.onBeginValidateUserDelegate, new object[] {
+        //            AuthenticationID,
+        //            UserName,
+        //            Pin}, this.onEndValidateUserDelegate, this.onValidateUserCompletedDelegate, userState);
+        //}
 
         public System.Collections.Generic.List<Staunch.POS.Classes.DBTable> GetTableInfo()
         {
@@ -1645,48 +699,48 @@ namespace Zipline2.ConnectedServices
             return base.Channel.EndGetTableInfo(result);
         }
 
-        private System.IAsyncResult OnBeginGetTableInfo(object[] inValues, System.AsyncCallback callback, object asyncState)
-        {
-            return this.BeginGetTableInfo(callback, asyncState);
-        }
+        //private System.IAsyncResult OnBeginGetTableInfo(object[] inValues, System.AsyncCallback callback, object asyncState)
+        //{
+        //    return this.BeginGetTableInfo(callback, asyncState);
+        //}
 
-        private object[] OnEndGetTableInfo(System.IAsyncResult result)
-        {
-            System.Collections.Generic.List<Staunch.POS.Classes.DBTable> retVal = this.EndGetTableInfo(result);
-            return new object[] {
-                retVal};
-        }
+        //private object[] OnEndGetTableInfo(System.IAsyncResult result)
+        //{
+        //    System.Collections.Generic.List<Staunch.POS.Classes.DBTable> retVal = this.EndGetTableInfo(result);
+        //    return new object[] {
+        //        retVal};
+        //}
 
-        private void OnGetTableInfoCompleted(object state)
-        {
-            if ((this.GetTableInfoCompleted != null))
-            {
-                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.GetTableInfoCompleted(this, new GetTableInfoCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
-            }
-        }
+        //private void OnGetTableInfoCompleted(object state)
+        //{
+        //    if ((this.GetTableInfoCompleted != null))
+        //    {
+        //        InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+        //        this.GetTableInfoCompleted(this, new GetTableInfoCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+        //    }
+        //}
 
-        public void GetTableInfoAsync()
-        {
-            this.GetTableInfoAsync(null);
-        }
+        //public void GetTableInfoAsync()
+        //{
+        //    this.GetTableInfoAsync(null);
+        //}
 
-        public void GetTableInfoAsync(object userState)
-        {
-            if ((this.onBeginGetTableInfoDelegate == null))
-            {
-                this.onBeginGetTableInfoDelegate = new BeginOperationDelegate(this.OnBeginGetTableInfo);
-            }
-            if ((this.onEndGetTableInfoDelegate == null))
-            {
-                this.onEndGetTableInfoDelegate = new EndOperationDelegate(this.OnEndGetTableInfo);
-            }
-            if ((this.onGetTableInfoCompletedDelegate == null))
-            {
-                this.onGetTableInfoCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetTableInfoCompleted);
-            }
-            base.InvokeAsync(this.onBeginGetTableInfoDelegate, null, this.onEndGetTableInfoDelegate, this.onGetTableInfoCompletedDelegate, userState);
-        }
+        //public void GetTableInfoAsync(object userState)
+        //{
+        //    if ((this.onBeginGetTableInfoDelegate == null))
+        //    {
+        //        this.onBeginGetTableInfoDelegate = new BeginOperationDelegate(this.OnBeginGetTableInfo);
+        //    }
+        //    if ((this.onEndGetTableInfoDelegate == null))
+        //    {
+        //        this.onEndGetTableInfoDelegate = new EndOperationDelegate(this.OnEndGetTableInfo);
+        //    }
+        //    if ((this.onGetTableInfoCompletedDelegate == null))
+        //    {
+        //        this.onGetTableInfoCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetTableInfoCompleted);
+        //    }
+        //    base.InvokeAsync(this.onBeginGetTableInfoDelegate, null, this.onEndGetTableInfoDelegate, this.onGetTableInfoCompletedDelegate, userState);
+        //}
 
         public System.Collections.Generic.List<Staunch.POS.Classes.DBTable> FillTables(decimal userID)
         {
@@ -1705,50 +759,50 @@ namespace Zipline2.ConnectedServices
             return base.Channel.EndFillTables(result);
         }
 
-        private System.IAsyncResult OnBeginFillTables(object[] inValues, System.AsyncCallback callback, object asyncState)
-        {
-            decimal userID = ((decimal)(inValues[0]));
-            return this.BeginFillTables(userID, callback, asyncState);
-        }
+        //private System.IAsyncResult OnBeginFillTables(object[] inValues, System.AsyncCallback callback, object asyncState)
+        //{
+        //    decimal userID = ((decimal)(inValues[0]));
+        //    return this.BeginFillTables(userID, callback, asyncState);
+        //}
 
-        private object[] OnEndFillTables(System.IAsyncResult result)
-        {
-            System.Collections.Generic.List<Staunch.POS.Classes.DBTable> retVal = this.EndFillTables(result);
-            return new object[] {
-                retVal};
-        }
+        //private object[] OnEndFillTables(System.IAsyncResult result)
+        //{
+        //    System.Collections.Generic.List<Staunch.POS.Classes.DBTable> retVal = this.EndFillTables(result);
+        //    return new object[] {
+        //        retVal};
+        //}
 
-        private void OnFillTablesCompleted(object state)
-        {
-            if ((this.FillTablesCompleted != null))
-            {
-                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.FillTablesCompleted(this, new FillTablesCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
-            }
-        }
+        //private void OnFillTablesCompleted(object state)
+        //{
+        //    if ((this.FillTablesCompleted != null))
+        //    {
+        //        InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+        //        this.FillTablesCompleted(this, new FillTablesCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+        //    }
+        //}
 
-        public void FillTablesAsync(decimal userID)
-        {
-            this.FillTablesAsync(userID, null);
-        }
+        //public void FillTablesAsync(decimal userID)
+        //{
+        //    this.FillTablesAsync(userID, null);
+        //}
 
-        public void FillTablesAsync(decimal userID, object userState)
-        {
-            if ((this.onBeginFillTablesDelegate == null))
-            {
-                this.onBeginFillTablesDelegate = new BeginOperationDelegate(this.OnBeginFillTables);
-            }
-            if ((this.onEndFillTablesDelegate == null))
-            {
-                this.onEndFillTablesDelegate = new EndOperationDelegate(this.OnEndFillTables);
-            }
-            if ((this.onFillTablesCompletedDelegate == null))
-            {
-                this.onFillTablesCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnFillTablesCompleted);
-            }
-            base.InvokeAsync(this.onBeginFillTablesDelegate, new object[] {
-                    userID}, this.onEndFillTablesDelegate, this.onFillTablesCompletedDelegate, userState);
-        }
+        //public void FillTablesAsync(decimal userID, object userState)
+        //{
+        //    if ((this.onBeginFillTablesDelegate == null))
+        //    {
+        //        this.onBeginFillTablesDelegate = new BeginOperationDelegate(this.OnBeginFillTables);
+        //    }
+        //    if ((this.onEndFillTablesDelegate == null))
+        //    {
+        //        this.onEndFillTablesDelegate = new EndOperationDelegate(this.OnEndFillTables);
+        //    }
+        //    if ((this.onFillTablesCompletedDelegate == null))
+        //    {
+        //        this.onFillTablesCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnFillTablesCompleted);
+        //    }
+        //    base.InvokeAsync(this.onBeginFillTablesDelegate, new object[] {
+        //            userID}, this.onEndFillTablesDelegate, this.onFillTablesCompletedDelegate, userState);
+        //}
 
         public System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<Staunch.POS.Classes.DBItem>> GetMenu()
         {

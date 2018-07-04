@@ -11,19 +11,19 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Zipline2.ConnectedServices;
-using Zipline2.ConnectedServices.PosServiceReference;
+using Zipline2.ConnectedServices.CheckHostReference;
 
 namespace Zipline2.Android.Services
 {
-    public class WaiterClient : IWaiterClient
+    public class CheckClient : ICheckClient
     {
-        public IPosService GetWaiterClient(string endpointAddress)
+        public ICheckHost GetCheckClient(string endpointAddress)
         {
-            PosServiceClientAndroid waiterClient = new PosServiceClientAndroid(
+            CheckHostClientAndroid checkClient = new CheckHostClientAndroid(
                          new BasicHttpBinding(),
                          new EndpointAddress(endpointAddress));
-            waiterClient.Endpoint.Binding.SendTimeout = new TimeSpan(0, 10, 0);
-            return waiterClient;
+            checkClient.Endpoint.Binding.SendTimeout = new TimeSpan(0, 10, 0);
+            return checkClient;
         }
     }
 }

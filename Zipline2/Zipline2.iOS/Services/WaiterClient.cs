@@ -7,6 +7,7 @@ using System.Text;
 using Foundation;
 using UIKit;
 using Zipline2.ConnectedServices;
+using Zipline2.ConnectedServices.PosServiceReference;
 
 namespace Zipline2.iOS.Services
 {

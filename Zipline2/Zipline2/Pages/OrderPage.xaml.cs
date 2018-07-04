@@ -32,9 +32,9 @@ namespace Zipline2.Pages
             orderPageModel.NavigateToToppingsPage += HandleNavigateToTablesPage;
 
         }
-        async void HandleNavigateToTablesPage(object sender, EventArgs e)
+        void HandleNavigateToTablesPage(object sender, EventArgs e)
         {
-            await DisplayAlert("NOTE:", "During this phase of testing, no orders are being sent to the server or kitchen.", "OK");
+            DisplayAlert("NOTE:", "During this phase of testing, no orders are being sent to the server or kitchen.", "OK");
             var currentMainPage = (Application.Current.MainPage as MasterDetailPage);
             currentMainPage.Detail = new NavigationPage(new TablesPage());
             Application.Current.MainPage = currentMainPage;

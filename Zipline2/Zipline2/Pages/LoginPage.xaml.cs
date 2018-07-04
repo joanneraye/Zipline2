@@ -98,7 +98,7 @@ namespace Zipline2.Pages
 
         private bool IsValidUser(string pin)
         {
-            DBUser user = WcfServicesProxy.Instance.GetUserSync(pin);
+            DBUser user = WcfServicesProxy.Instance.GetUser(pin);
             if (user.ID != -1)
             {
                 //Users.Instance.LoggedInUser = new Zipline2.Models.User("Employee", false, "1111");

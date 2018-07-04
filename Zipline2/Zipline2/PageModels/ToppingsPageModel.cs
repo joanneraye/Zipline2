@@ -239,6 +239,7 @@ namespace Zipline2.PageModels
 
             var toppingsList = App.AllToppings.Values.ToList();
             ToppingSelectionsList = new ObservableCollection<ToppingDisplayItem>();
+            int toppingSelectionIndex = 0;
             for (int i = 0; i < toppingsList.Count; i++)
             {
                 if (!toppingsList[i].ForPizza)
@@ -247,7 +248,8 @@ namespace Zipline2.PageModels
                 }
                 var toppingSelection = new ToppingDisplayItem(this);
                 toppingSelection.ListTopping = toppingsList[i];
-                toppingSelection.SelectionIndex = i;
+                toppingSelection.SelectionIndex = toppingSelectionIndex;
+                toppingSelectionIndex++;
                 toppingSelection.ListItemIsSelected = false;
                 toppingSelection.SelectionColor = Xamarin.Forms.Color.Black;
                 toppingSelection.ButtonWVisible = true;

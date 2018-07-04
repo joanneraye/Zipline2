@@ -105,6 +105,8 @@
     <Compile Include="FileAccessHelper.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Services\CheckClient.cs" />
+    <Compile Include="Services\CheckHostClientIos.cs" />
     <Compile Include="Services\WaiterClient.cs" />
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />

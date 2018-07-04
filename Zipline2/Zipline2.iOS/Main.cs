@@ -6,6 +6,7 @@ using Foundation;
 using UIKit;
 using Zipline2.iOS.Services;
 
+[assembly: Xamarin.Forms.Dependency(typeof(CheckClient))]
 [assembly: Xamarin.Forms.Dependency(typeof(WaiterClient))]
 namespace Zipline2.iOS
 {

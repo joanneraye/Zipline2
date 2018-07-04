@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Zipline2.ConnectedServices
+namespace Zipline2.ConnectedServices.PosServiceReference
 {
     using System.Runtime.Serialization;
     using Zipline2.ConnectedServices;

@@ -42,19 +42,12 @@ namespace Zipline2
             Users.Instance.AddNewUser(jim);
             Tables.LoadInitialTableData();
             LoadInitialToppings();
-
-
-            //LoadMenuFromServerAsync();
-            //LoadTablesFromServerAsync();
-            //LoadToppingsFromServerAsync();
-
-            LoadMenuFromServerSync();
-            LoadToppingsFromServerSync();
-            LoadTablesFromServerSync();
-               
-                
-            //}
-
+          
+            //These do not need to process on a different thread because they must be processed
+            //before the UI can be displayed.
+            LoadMenuFromServer();
+            LoadToppingsFromServer();
+            LoadTablesFromServer();
 
             LoadDrinks();
 
@@ -68,51 +61,51 @@ namespace Zipline2
             //}
         }
 
-        private void LoadMenuFromServerSync()
+        private void LoadMenuFromServer()
         {
-            WcfServicesProxy.Instance.GetMenuSync();
+            WcfServicesProxy.Instance.GetMenu();
         }
 
 
-        private void LoadTablesFromServerSync()
+        private void LoadTablesFromServer()
         {
-            WcfServicesProxy.Instance.GetTablesSync();
+            WcfServicesProxy.Instance.GetTables();
         }
 
-        async private void LoadTablesFromServerAsync()
-        {
-            await WcfServicesProxy.Instance.GetTablesAsync();
-        }
+        //async private void LoadTablesFromServerAsync()
+        //{
+        //    await WcfServicesProxy.Instance.GetTablesAsync();
+        //}
 
-        async private void LoadMenuFromServerAsync()
-        {
-            await WcfServicesProxy.Instance.GetMenuAsync();
-        }
+        //async private void LoadMenuFromServerAsync()
+        //{
+        //    await WcfServicesProxy.Instance.GetMenuAsync();
+        //}
 
-        async private void LoadToppingsFromServerAsync()
+        //async private void LoadToppingsFromServerAsync()
+        //{
+        //    DataBaseDictionaries.PizzaToppingsDictionary = new Dictionary<decimal, DBModifier>();
+        //    List<DBModGroup> modgroups = await WcfServicesProxy.Instance.GetToppingsAsync();
+        //    foreach (var modgroup in modgroups)
+        //    {
+        //        foreach (var mod in modgroup.SelectionList)
+        //        {
+        //            if (!DataBaseDictionaries.PizzaToppingsDictionary.ContainsKey(mod.ID))
+        //            {
+        //                DataBaseDictionaries.PizzaToppingsDictionary.Add(mod.ID, mod);
+        //                if (!DataBaseDictionaries.DbIdToppingDictionary.ContainsKey(mod.ID) && mod.ID != 50 && mod.ID != 51)
+        //                {
+        //                    Console.WriteLine("***Debug JOANNE***TOPPINGS DICTIONARY ITEM NOT FOUND: " + mod.Name + mod.ID);
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
+
+        private void LoadToppingsFromServer()
         {
             DataBaseDictionaries.PizzaToppingsDictionary = new Dictionary<decimal, DBModifier>();
-            List<DBModGroup> modgroups = await WcfServicesProxy.Instance.GetToppingsAsync();
-            foreach (var modgroup in modgroups)
-            {
-                foreach (var mod in modgroup.SelectionList)
-                {
-                    if (!DataBaseDictionaries.PizzaToppingsDictionary.ContainsKey(mod.ID))
-                    {
-                        DataBaseDictionaries.PizzaToppingsDictionary.Add(mod.ID, mod);
-                        if (!DataBaseDictionaries.DbIdToppingDictionary.ContainsKey(mod.ID) && mod.ID != 50 && mod.ID != 51)
-                        {
-                            Console.WriteLine("***Debug JOANNE***TOPPINGS DICTIONARY ITEM NOT FOUND: " + mod.Name + mod.ID);
-                        }
-                    }
-                }
-            }
-        }
-
-        private void LoadToppingsFromServerSync()
-        {
-            DataBaseDictionaries.PizzaToppingsDictionary = new Dictionary<decimal, DBModifier>();
-            List<DBModGroup> modgroups = WcfServicesProxy.Instance.GetToppingsSync();
+            List<DBModGroup> modgroups = WcfServicesProxy.Instance.GetToppings();
             foreach (var modgroup in modgroups)
             {
                 foreach (var mod in modgroup.SelectionList)

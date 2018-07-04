@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Zipline2.ConnectedServices
+namespace Zipline2.ConnectedServices.PosServiceReference
 {
  
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]

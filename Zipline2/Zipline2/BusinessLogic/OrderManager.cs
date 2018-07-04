@@ -131,7 +131,7 @@ namespace Zipline2.BusinessLogic
         public void SendOrder()
         {
             //WcfServicesProxy.Instance.SendOrderSync(OrderInProgress);
-            WcfServicesProxy.Instance.SendOrderAsync(OrderInProgress);
+            WcfServicesProxy.Instance.PrepareAndSendOrderAsync(OrderInProgress);
             MarkCurrentTableUnsentOrder(false);
             foreach (var item in OrderInProgress.OrderItems)
             {

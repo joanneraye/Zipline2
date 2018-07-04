@@ -181,7 +181,9 @@ namespace Zipline2.PageModels
             //First populate list of tables with whether table is occupied and has unsent orders.
             //(Then build the page with that data in LoadTablesForDisplay method.)
 
-            List<DBTable> tables = WcfServicesProxy.Instance.GetTableInfoFromServerSync();
+            //Cannot display tables page without tables data from server so no point in 
+            //calling async?  Plus cannot await because this is a constructor.
+            List<DBTable> tables = WcfServicesProxy.Instance.GetTableInfo();
 
             foreach (var table in tables)
             {
@@ -246,7 +248,7 @@ namespace Zipline2.PageModels
 
             //GetTableAsync doesn't work...?
             //var dbTable = await WcfServicesProxy.Instance.GetTableAsync((int)tableSelected.TableId);
-            var dbTable = WcfServicesProxy.Instance.GetTableSync((int)tableSelected.TableId);
+            var dbTable = WcfServicesProxy.Instance.GetTable((int)tableSelected.TableId);
 
             tableSelected.DatabaseTable = dbTable;
             Tables.AllTables[tableSelected.IndexInAllTables] = tableSelected;
