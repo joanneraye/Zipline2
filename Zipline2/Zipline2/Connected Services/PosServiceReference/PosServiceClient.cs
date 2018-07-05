@@ -19,31 +19,36 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class PosServiceClientAndroid : System.ServiceModel.ClientBase<IPosService>, IPosService
+    public partial class PosServiceClient : System.ServiceModel.ClientBase<IPosService>, IPosService
     {
         #region Constructors
-        public PosServiceClientAndroid()
+        public PosServiceClient()
         {
         }
 
-        public PosServiceClientAndroid(string endpointConfigurationName) :
+        public PosServiceClient(string endpointConfigurationName) :
                 base(endpointConfigurationName)
         {
         }
 
-        public PosServiceClientAndroid(string endpointConfigurationName, string remoteAddress) :
+        public PosServiceClient(string endpointConfigurationName, string remoteAddress) :
                 base(endpointConfigurationName, remoteAddress)
         {
         }
 
-        public PosServiceClientAndroid(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) :
+        public PosServiceClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) :
                 base(endpointConfigurationName, remoteAddress)
         {
         }
 
-        public PosServiceClientAndroid(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
+        public PosServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
                 base(binding, remoteAddress)
         {
+        }
+
+        protected override IPosService CreateChannel()
+        {
+            return new PosServiceChannel(this);
         }
 
         #endregion
@@ -554,19 +559,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
         public Staunch.POS.Classes.DBTable GetTable(int tableNum)
         {
             
-            return base.Channel.GetTable(tableNum);
+            return Channel.GetTable(tableNum);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetTable(int tableNum, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetTable(tableNum, callback, asyncState);
+            return Channel.BeginGetTable(tableNum, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public Staunch.POS.Classes.DBTable EndGetTable(System.IAsyncResult result)
         {
-            return base.Channel.EndGetTable(result);
+            return Channel.EndGetTable(result);
         }
 
         //private System.IAsyncResult OnBeginGetTable(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -617,19 +622,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public Staunch.POS.Classes.DBUser ValidateUser(decimal AuthenticationID, string UserName, string Pin)
         {
-            return base.Channel.ValidateUser(AuthenticationID, UserName, Pin);
+            return Channel.ValidateUser(AuthenticationID, UserName, Pin);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginValidateUser(decimal AuthenticationID, string UserName, string Pin, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginValidateUser(AuthenticationID, UserName, Pin, callback, asyncState);
+            return Channel.BeginValidateUser(AuthenticationID, UserName, Pin, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public Staunch.POS.Classes.DBUser EndValidateUser(System.IAsyncResult result)
         {
-            return base.Channel.EndValidateUser(result);
+            return Channel.EndValidateUser(result);
         }
 
         //private System.IAsyncResult OnBeginValidateUser(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -684,19 +689,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public System.Collections.Generic.List<Staunch.POS.Classes.DBTable> GetTableInfo()
         {
-            return base.Channel.GetTableInfo();
+            return Channel.GetTableInfo();
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetTableInfo(System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetTableInfo(callback, asyncState);
+            return Channel.BeginGetTableInfo(callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.Collections.Generic.List<Staunch.POS.Classes.DBTable> EndGetTableInfo(System.IAsyncResult result)
         {
-            return base.Channel.EndGetTableInfo(result);
+            return Channel.EndGetTableInfo(result);
         }
 
         //private System.IAsyncResult OnBeginGetTableInfo(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -744,19 +749,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public System.Collections.Generic.List<Staunch.POS.Classes.DBTable> FillTables(decimal userID)
         {
-            return base.Channel.FillTables(userID);
+            return Channel.FillTables(userID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginFillTables(decimal userID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginFillTables(userID, callback, asyncState);
+            return Channel.BeginFillTables(userID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.Collections.Generic.List<Staunch.POS.Classes.DBTable> EndFillTables(System.IAsyncResult result)
         {
-            return base.Channel.EndFillTables(result);
+            return Channel.EndFillTables(result);
         }
 
         //private System.IAsyncResult OnBeginFillTables(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -806,19 +811,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<Staunch.POS.Classes.DBItem>> GetMenu()
         {
-            return base.Channel.GetMenu();
+            return Channel.GetMenu();
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetMenu(System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetMenu(callback, asyncState);
+            return Channel.BeginGetMenu(callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<Staunch.POS.Classes.DBItem>> EndGetMenu(System.IAsyncResult result)
         {
-            return base.Channel.EndGetMenu(result);
+            return Channel.EndGetMenu(result);
         }
 
         private System.IAsyncResult OnBeginGetMenu(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -866,19 +871,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public System.Collections.Generic.List<Staunch.POS.Classes.DBModGroup> GetModifiers()
         {
-            return base.Channel.GetModifiers();
+            return Channel.GetModifiers();
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetModifiers(System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetModifiers(callback, asyncState);
+            return Channel.BeginGetModifiers(callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.Collections.Generic.List<Staunch.POS.Classes.DBModGroup> EndGetModifiers(System.IAsyncResult result)
         {
-            return base.Channel.EndGetModifiers(result);
+            return Channel.EndGetModifiers(result);
         }
 
         private System.IAsyncResult OnBeginGetModifiers(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -926,19 +931,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public System.Collections.Generic.List<string> GetAvailablePaymentOptions()
         {
-            return base.Channel.GetAvailablePaymentOptions();
+            return Channel.GetAvailablePaymentOptions();
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetAvailablePaymentOptions(System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetAvailablePaymentOptions(callback, asyncState);
+            return Channel.BeginGetAvailablePaymentOptions(callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.Collections.Generic.List<string> EndGetAvailablePaymentOptions(System.IAsyncResult result)
         {
-            return base.Channel.EndGetAvailablePaymentOptions(result);
+            return Channel.EndGetAvailablePaymentOptions(result);
         }
 
         private System.IAsyncResult OnBeginGetAvailablePaymentOptions(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -986,19 +991,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public void UpdateTables(System.Collections.Generic.List<Staunch.POS.Classes.DBTable> updatedTables, decimal userID)
         {
-            base.Channel.UpdateTables(updatedTables, userID);
+            Channel.UpdateTables(updatedTables, userID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginUpdateTables(System.Collections.Generic.List<Staunch.POS.Classes.DBTable> updatedTables, decimal userID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginUpdateTables(updatedTables, userID, callback, asyncState);
+            return Channel.BeginUpdateTables(updatedTables, userID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public void EndUpdateTables(System.IAsyncResult result)
         {
-            base.Channel.EndUpdateTables(result);
+            Channel.EndUpdateTables(result);
         }
 
         private System.IAsyncResult OnBeginUpdateTables(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -1049,19 +1054,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public int GetGratuityLimit()
         {
-            return base.Channel.GetGratuityLimit();
+            return Channel.GetGratuityLimit();
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetGratuityLimit(System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetGratuityLimit(callback, asyncState);
+            return Channel.BeginGetGratuityLimit(callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public int EndGetGratuityLimit(System.IAsyncResult result)
         {
-            return base.Channel.EndGetGratuityLimit(result);
+            return Channel.EndGetGratuityLimit(result);
         }
 
         private System.IAsyncResult OnBeginGetGratuityLimit(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -1109,19 +1114,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public decimal GetTaxRate()
         {
-            return base.Channel.GetTaxRate();
+            return Channel.GetTaxRate();
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetTaxRate(System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetTaxRate(callback, asyncState);
+            return Channel.BeginGetTaxRate(callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public decimal EndGetTaxRate(System.IAsyncResult result)
         {
-            return base.Channel.EndGetTaxRate(result);
+            return Channel.EndGetTaxRate(result);
         }
 
         private System.IAsyncResult OnBeginGetTaxRate(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -1169,19 +1174,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public decimal GetGratuityRate()
         {
-            return base.Channel.GetGratuityRate();
+            return Channel.GetGratuityRate();
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetGratuityRate(System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetGratuityRate(callback, asyncState);
+            return Channel.BeginGetGratuityRate(callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public decimal EndGetGratuityRate(System.IAsyncResult result)
         {
-            return base.Channel.EndGetGratuityRate(result);
+            return Channel.EndGetGratuityRate(result);
         }
 
         private System.IAsyncResult OnBeginGetGratuityRate(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -1229,19 +1234,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public bool DoAutoGratuity()
         {
-            return base.Channel.DoAutoGratuity();
+            return Channel.DoAutoGratuity();
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginDoAutoGratuity(System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginDoAutoGratuity(callback, asyncState);
+            return Channel.BeginDoAutoGratuity(callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndDoAutoGratuity(System.IAsyncResult result)
         {
-            return base.Channel.EndDoAutoGratuity(result);
+            return Channel.EndDoAutoGratuity(result);
         }
 
         private System.IAsyncResult OnBeginDoAutoGratuity(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -1289,19 +1294,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public System.Collections.Generic.List<string> GetCategoryNames()
         {
-            return base.Channel.GetCategoryNames();
+            return Channel.GetCategoryNames();
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetCategoryNames(System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetCategoryNames(callback, asyncState);
+            return Channel.BeginGetCategoryNames(callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.Collections.Generic.List<string> EndGetCategoryNames(System.IAsyncResult result)
         {
-            return base.Channel.EndGetCategoryNames(result);
+            return Channel.EndGetCategoryNames(result);
         }
 
         private System.IAsyncResult OnBeginGetCategoryNames(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -1349,19 +1354,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public System.Collections.Generic.List<decimal> GetNextGuestIDs(int num, decimal userID)
         {
-            return base.Channel.GetNextGuestIDs(num, userID);
+            return Channel.GetNextGuestIDs(num, userID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetNextGuestIDs(int num, decimal userID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetNextGuestIDs(num, userID, callback, asyncState);
+            return Channel.BeginGetNextGuestIDs(num, userID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.Collections.Generic.List<decimal> EndGetNextGuestIDs(System.IAsyncResult result)
         {
-            return base.Channel.EndGetNextGuestIDs(result);
+            return Channel.EndGetNextGuestIDs(result);
         }
 
         private System.IAsyncResult OnBeginGetNextGuestIDs(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -1413,19 +1418,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public bool RemoveGuest(decimal GuestID, bool RemoveOrder)
         {
-            return base.Channel.RemoveGuest(GuestID, RemoveOrder);
+            return Channel.RemoveGuest(GuestID, RemoveOrder);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginRemoveGuest(decimal GuestID, bool RemoveOrder, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginRemoveGuest(GuestID, RemoveOrder, callback, asyncState);
+            return Channel.BeginRemoveGuest(GuestID, RemoveOrder, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndRemoveGuest(System.IAsyncResult result)
         {
-            return base.Channel.EndRemoveGuest(result);
+            return Channel.EndRemoveGuest(result);
         }
 
         private System.IAsyncResult OnBeginRemoveGuest(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -1477,19 +1482,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public bool RemoveItem(decimal GuestID, decimal OrderID, decimal UserID)
         {
-            return base.Channel.RemoveItem(GuestID, OrderID, UserID);
+            return Channel.RemoveItem(GuestID, OrderID, UserID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginRemoveItem(decimal GuestID, decimal OrderID, decimal UserID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginRemoveItem(GuestID, OrderID, UserID, callback, asyncState);
+            return Channel.BeginRemoveItem(GuestID, OrderID, UserID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndRemoveItem(System.IAsyncResult result)
         {
-            return base.Channel.EndRemoveItem(result);
+            return Channel.EndRemoveItem(result);
         }
 
         private System.IAsyncResult OnBeginRemoveItem(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -1543,19 +1548,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public Staunch.POS.Classes.ItemInfo GetItemInfo(decimal ItemID)
         {
-            return base.Channel.GetItemInfo(ItemID);
+            return Channel.GetItemInfo(ItemID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetItemInfo(decimal ItemID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetItemInfo(ItemID, callback, asyncState);
+            return Channel.BeginGetItemInfo(ItemID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public Staunch.POS.Classes.ItemInfo EndGetItemInfo(System.IAsyncResult result)
         {
-            return base.Channel.EndGetItemInfo(result);
+            return Channel.EndGetItemInfo(result);
         }
 
         private System.IAsyncResult OnBeginGetItemInfo(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -1605,19 +1610,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public System.Collections.Generic.Dictionary<decimal, Staunch.POS.Classes.PictureFile> GetThumbnails(System.Collections.Generic.List<decimal> ItemIDs)
         {
-            return base.Channel.GetThumbnails(ItemIDs);
+            return Channel.GetThumbnails(ItemIDs);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetThumbnails(System.Collections.Generic.List<decimal> ItemIDs, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetThumbnails(ItemIDs, callback, asyncState);
+            return Channel.BeginGetThumbnails(ItemIDs, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.Collections.Generic.Dictionary<decimal, Staunch.POS.Classes.PictureFile> EndGetThumbnails(System.IAsyncResult result)
         {
-            return base.Channel.EndGetThumbnails(result);
+            return Channel.EndGetThumbnails(result);
         }
 
         private System.IAsyncResult OnBeginGetThumbnails(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -1667,19 +1672,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public System.Collections.Generic.List<Staunch.POS.Classes.GuestItem> GetOrders(decimal TableID)
         {
-            return base.Channel.GetOrders(TableID);
+            return Channel.GetOrders(TableID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetOrders(decimal TableID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetOrders(TableID, callback, asyncState);
+            return Channel.BeginGetOrders(TableID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.Collections.Generic.List<Staunch.POS.Classes.GuestItem> EndGetOrders(System.IAsyncResult result)
         {
-            return base.Channel.EndGetOrders(result);
+            return Channel.EndGetOrders(result);
         }
 
         private System.IAsyncResult OnBeginGetOrders(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -1729,19 +1734,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public void SendOrders(System.Collections.Generic.List<decimal> OrderIDs, decimal UserID)
         {
-            base.Channel.SendOrders(OrderIDs, UserID);
+            Channel.SendOrders(OrderIDs, UserID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginSendOrders(System.Collections.Generic.List<decimal> OrderIDs, decimal UserID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginSendOrders(OrderIDs, UserID, callback, asyncState);
+            return Channel.BeginSendOrders(OrderIDs, UserID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public void EndSendOrders(System.IAsyncResult result)
         {
-            base.Channel.EndSendOrders(result);
+            Channel.EndSendOrders(result);
         }
 
         private System.IAsyncResult OnBeginSendOrders(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -1792,19 +1797,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public void RemoveSentOrder(System.Collections.Generic.List<decimal> OrderIDs, decimal UserID)
         {
-            base.Channel.RemoveSentOrder(OrderIDs, UserID);
+            Channel.RemoveSentOrder(OrderIDs, UserID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginRemoveSentOrder(System.Collections.Generic.List<decimal> OrderIDs, decimal UserID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginRemoveSentOrder(OrderIDs, UserID, callback, asyncState);
+            return Channel.BeginRemoveSentOrder(OrderIDs, UserID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public void EndRemoveSentOrder(System.IAsyncResult result)
         {
-            base.Channel.EndRemoveSentOrder(result);
+            Channel.EndRemoveSentOrder(result);
         }
 
         private System.IAsyncResult OnBeginRemoveSentOrder(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -1855,19 +1860,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public bool SaveUserSettings(Staunch.POS.Classes.DBUser user)
         {
-            return base.Channel.SaveUserSettings(user);
+            return Channel.SaveUserSettings(user);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginSaveUserSettings(Staunch.POS.Classes.DBUser user, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginSaveUserSettings(user, callback, asyncState);
+            return Channel.BeginSaveUserSettings(user, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndSaveUserSettings(System.IAsyncResult result)
         {
-            return base.Channel.EndSaveUserSettings(result);
+            return Channel.EndSaveUserSettings(result);
         }
 
         private System.IAsyncResult OnBeginSaveUserSettings(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -1917,19 +1922,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public bool MoveGuests(System.Collections.Generic.List<decimal> GuestIDs, decimal NewTableID)
         {
-            return base.Channel.MoveGuests(GuestIDs, NewTableID);
+            return Channel.MoveGuests(GuestIDs, NewTableID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginMoveGuests(System.Collections.Generic.List<decimal> GuestIDs, decimal NewTableID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginMoveGuests(GuestIDs, NewTableID, callback, asyncState);
+            return Channel.BeginMoveGuests(GuestIDs, NewTableID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndMoveGuests(System.IAsyncResult result)
         {
-            return base.Channel.EndMoveGuests(result);
+            return Channel.EndMoveGuests(result);
         }
 
         private System.IAsyncResult OnBeginMoveGuests(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -1981,19 +1986,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public bool SplitTable(decimal TableID)
         {
-            return base.Channel.SplitTable(TableID);
+            return Channel.SplitTable(TableID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginSplitTable(decimal TableID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginSplitTable(TableID, callback, asyncState);
+            return Channel.BeginSplitTable(TableID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndSplitTable(System.IAsyncResult result)
         {
-            return base.Channel.EndSplitTable(result);
+            return Channel.EndSplitTable(result);
         }
 
         private System.IAsyncResult OnBeginSplitTable(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -2043,19 +2048,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public bool HasUnsentOrders(decimal TableID)
         {
-            return base.Channel.HasUnsentOrders(TableID);
+            return Channel.HasUnsentOrders(TableID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginHasUnsentOrders(decimal TableID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginHasUnsentOrders(TableID, callback, asyncState);
+            return Channel.BeginHasUnsentOrders(TableID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndHasUnsentOrders(System.IAsyncResult result)
         {
-            return base.Channel.EndHasUnsentOrders(result);
+            return Channel.EndHasUnsentOrders(result);
         }
 
         private System.IAsyncResult OnBeginHasUnsentOrders(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -2105,19 +2110,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public Staunch.POS.Classes.ManagerSettings GetManagerSettings()
         {
-            return base.Channel.GetManagerSettings();
+            return Channel.GetManagerSettings();
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetManagerSettings(System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetManagerSettings(callback, asyncState);
+            return Channel.BeginGetManagerSettings(callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public Staunch.POS.Classes.ManagerSettings EndGetManagerSettings(System.IAsyncResult result)
         {
-            return base.Channel.EndGetManagerSettings(result);
+            return Channel.EndGetManagerSettings(result);
         }
 
         private System.IAsyncResult OnBeginGetManagerSettings(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -2165,19 +2170,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public bool Logout(decimal UserID)
         {
-            return base.Channel.Logout(UserID);
+            return Channel.Logout(UserID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginLogout(decimal UserID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginLogout(UserID, callback, asyncState);
+            return Channel.BeginLogout(UserID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndLogout(System.IAsyncResult result)
         {
-            return base.Channel.EndLogout(result);
+            return Channel.EndLogout(result);
         }
 
         private System.IAsyncResult OnBeginLogout(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -2227,19 +2232,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public int Ping(int Delay)
         {
-            return base.Channel.Ping(Delay);
+            return Channel.Ping(Delay);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginPing(int Delay, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginPing(Delay, callback, asyncState);
+            return Channel.BeginPing(Delay, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public int EndPing(System.IAsyncResult result)
         {
-            return base.Channel.EndPing(result);
+            return Channel.EndPing(result);
         }
 
         private System.IAsyncResult OnBeginPing(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -2289,19 +2294,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public System.Collections.Generic.List<Staunch.POS.Classes.DBModGroup> GetRequiredMods(decimal ItemID)
         {
-            return base.Channel.GetRequiredMods(ItemID);
+            return Channel.GetRequiredMods(ItemID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetRequiredMods(decimal ItemID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetRequiredMods(ItemID, callback, asyncState);
+            return Channel.BeginGetRequiredMods(ItemID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.Collections.Generic.List<Staunch.POS.Classes.DBModGroup> EndGetRequiredMods(System.IAsyncResult result)
         {
-            return base.Channel.EndGetRequiredMods(result);
+            return Channel.EndGetRequiredMods(result);
         }
 
         private System.IAsyncResult OnBeginGetRequiredMods(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -2351,19 +2356,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public System.Collections.Generic.List<Staunch.POS.Classes.DBModGroup> GetAllMods(decimal ItemID, decimal SizeID)
         {
-            return base.Channel.GetAllMods(ItemID, SizeID);
+            return Channel.GetAllMods(ItemID, SizeID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetAllMods(decimal ItemID, decimal SizeID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetAllMods(ItemID, SizeID, callback, asyncState);
+            return Channel.BeginGetAllMods(ItemID, SizeID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.Collections.Generic.List<Staunch.POS.Classes.DBModGroup> EndGetAllMods(System.IAsyncResult result)
         {
-            return base.Channel.EndGetAllMods(result);
+            return Channel.EndGetAllMods(result);
         }
 
         private System.IAsyncResult OnBeginGetAllMods(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -2415,19 +2420,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public System.Collections.Generic.List<Staunch.POS.Classes.ComboItem> GetComboMenu()
         {
-            return base.Channel.GetComboMenu();
+            return Channel.GetComboMenu();
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetComboMenu(System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetComboMenu(callback, asyncState);
+            return Channel.BeginGetComboMenu(callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.Collections.Generic.List<Staunch.POS.Classes.ComboItem> EndGetComboMenu(System.IAsyncResult result)
         {
-            return base.Channel.EndGetComboMenu(result);
+            return Channel.EndGetComboMenu(result);
         }
 
         private System.IAsyncResult OnBeginGetComboMenu(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -2475,19 +2480,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public bool RemoveGuestCombo(decimal GuestID, decimal OrderComboID, decimal UserID)
         {
-            return base.Channel.RemoveGuestCombo(GuestID, OrderComboID, UserID);
+            return Channel.RemoveGuestCombo(GuestID, OrderComboID, UserID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginRemoveGuestCombo(decimal GuestID, decimal OrderComboID, decimal UserID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginRemoveGuestCombo(GuestID, OrderComboID, UserID, callback, asyncState);
+            return Channel.BeginRemoveGuestCombo(GuestID, OrderComboID, UserID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndRemoveGuestCombo(System.IAsyncResult result)
         {
-            return base.Channel.EndRemoveGuestCombo(result);
+            return Channel.EndRemoveGuestCombo(result);
         }
 
         private System.IAsyncResult OnBeginRemoveGuestCombo(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -2541,19 +2546,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public bool CombineOrders(decimal DestinationGuestID, System.Collections.Generic.List<decimal> GuestsToMoveIDs, bool RemoveAfterCombine)
         {
-            return base.Channel.CombineOrders(DestinationGuestID, GuestsToMoveIDs, RemoveAfterCombine);
+            return Channel.CombineOrders(DestinationGuestID, GuestsToMoveIDs, RemoveAfterCombine);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginCombineOrders(decimal DestinationGuestID, System.Collections.Generic.List<decimal> GuestsToMoveIDs, bool RemoveAfterCombine, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginCombineOrders(DestinationGuestID, GuestsToMoveIDs, RemoveAfterCombine, callback, asyncState);
+            return Channel.BeginCombineOrders(DestinationGuestID, GuestsToMoveIDs, RemoveAfterCombine, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndCombineOrders(System.IAsyncResult result)
         {
-            return base.Channel.EndCombineOrders(result);
+            return Channel.EndCombineOrders(result);
         }
 
         private System.IAsyncResult OnBeginCombineOrders(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -2607,19 +2612,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public bool ClearTable(decimal TableID)
         {
-            return base.Channel.ClearTable(TableID);
+            return Channel.ClearTable(TableID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginClearTable(decimal TableID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginClearTable(TableID, callback, asyncState);
+            return Channel.BeginClearTable(TableID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndClearTable(System.IAsyncResult result)
         {
-            return base.Channel.EndClearTable(result);
+            return Channel.EndClearTable(result);
         }
 
         private System.IAsyncResult OnBeginClearTable(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -2669,19 +2674,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public Staunch.POS.Classes.TakeoutOrder SubmitTakeout(Staunch.POS.Classes.TakeoutOrder TakeoutGuest, decimal UserID)
         {
-            return base.Channel.SubmitTakeout(TakeoutGuest, UserID);
+            return Channel.SubmitTakeout(TakeoutGuest, UserID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginSubmitTakeout(Staunch.POS.Classes.TakeoutOrder TakeoutGuest, decimal UserID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginSubmitTakeout(TakeoutGuest, UserID, callback, asyncState);
+            return Channel.BeginSubmitTakeout(TakeoutGuest, UserID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public Staunch.POS.Classes.TakeoutOrder EndSubmitTakeout(System.IAsyncResult result)
         {
-            return base.Channel.EndSubmitTakeout(result);
+            return Channel.EndSubmitTakeout(result);
         }
 
         private System.IAsyncResult OnBeginSubmitTakeout(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -2733,19 +2738,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public System.Collections.Generic.List<Staunch.POS.Classes.TakeoutOrder> GetTakeoutOrders()
         {
-            return base.Channel.GetTakeoutOrders();
+            return Channel.GetTakeoutOrders();
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetTakeoutOrders(System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetTakeoutOrders(callback, asyncState);
+            return Channel.BeginGetTakeoutOrders(callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.Collections.Generic.List<Staunch.POS.Classes.TakeoutOrder> EndGetTakeoutOrders(System.IAsyncResult result)
         {
-            return base.Channel.EndGetTakeoutOrders(result);
+            return Channel.EndGetTakeoutOrders(result);
         }
 
         private System.IAsyncResult OnBeginGetTakeoutOrders(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -2793,19 +2798,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public Staunch.POS.Classes.TakeoutOrder GetTakeoutOrder(decimal GuestID, decimal CheckID)
         {
-            return base.Channel.GetTakeoutOrder(GuestID, CheckID);
+            return Channel.GetTakeoutOrder(GuestID, CheckID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetTakeoutOrder(decimal GuestID, decimal CheckID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetTakeoutOrder(GuestID, CheckID, callback, asyncState);
+            return Channel.BeginGetTakeoutOrder(GuestID, CheckID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public Staunch.POS.Classes.TakeoutOrder EndGetTakeoutOrder(System.IAsyncResult result)
         {
-            return base.Channel.EndGetTakeoutOrder(result);
+            return Channel.EndGetTakeoutOrder(result);
         }
 
         private System.IAsyncResult OnBeginGetTakeoutOrder(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -2857,19 +2862,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public void SendTakeout(Staunch.POS.Classes.TakeoutOrder TakeoutGuest, decimal UserID)
         {
-            base.Channel.SendTakeout(TakeoutGuest, UserID);
+            Channel.SendTakeout(TakeoutGuest, UserID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginSendTakeout(Staunch.POS.Classes.TakeoutOrder TakeoutGuest, decimal UserID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginSendTakeout(TakeoutGuest, UserID, callback, asyncState);
+            return Channel.BeginSendTakeout(TakeoutGuest, UserID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public void EndSendTakeout(System.IAsyncResult result)
         {
-            base.Channel.EndSendTakeout(result);
+            Channel.EndSendTakeout(result);
         }
 
         private System.IAsyncResult OnBeginSendTakeout(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -2920,19 +2925,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public bool ClearTakeoutOrder(decimal TakeoutID)
         {
-            return base.Channel.ClearTakeoutOrder(TakeoutID);
+            return Channel.ClearTakeoutOrder(TakeoutID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginClearTakeoutOrder(decimal TakeoutID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginClearTakeoutOrder(TakeoutID, callback, asyncState);
+            return Channel.BeginClearTakeoutOrder(TakeoutID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndClearTakeoutOrder(System.IAsyncResult result)
         {
-            return base.Channel.EndClearTakeoutOrder(result);
+            return Channel.EndClearTakeoutOrder(result);
         }
 
         private System.IAsyncResult OnBeginClearTakeoutOrder(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -2982,19 +2987,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public System.Collections.Generic.List<decimal> ListUnsentOrders(System.Collections.Generic.List<decimal> TableIDList)
         {
-            return base.Channel.ListUnsentOrders(TableIDList);
+            return Channel.ListUnsentOrders(TableIDList);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginListUnsentOrders(System.Collections.Generic.List<decimal> TableIDList, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginListUnsentOrders(TableIDList, callback, asyncState);
+            return Channel.BeginListUnsentOrders(TableIDList, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.Collections.Generic.List<decimal> EndListUnsentOrders(System.IAsyncResult result)
         {
-            return base.Channel.EndListUnsentOrders(result);
+            return Channel.EndListUnsentOrders(result);
         }
 
         private System.IAsyncResult OnBeginListUnsentOrders(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -3044,19 +3049,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public bool PrintMoveNotice(System.Collections.Generic.List<decimal> orderIDs, decimal fromTableID, decimal toTableID)
         {
-            return base.Channel.PrintMoveNotice(orderIDs, fromTableID, toTableID);
+            return Channel.PrintMoveNotice(orderIDs, fromTableID, toTableID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginPrintMoveNotice(System.Collections.Generic.List<decimal> orderIDs, decimal fromTableID, decimal toTableID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginPrintMoveNotice(orderIDs, fromTableID, toTableID, callback, asyncState);
+            return Channel.BeginPrintMoveNotice(orderIDs, fromTableID, toTableID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndPrintMoveNotice(System.IAsyncResult result)
         {
-            return base.Channel.EndPrintMoveNotice(result);
+            return Channel.EndPrintMoveNotice(result);
         }
 
         private System.IAsyncResult OnBeginPrintMoveNotice(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -3110,19 +3115,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public System.Collections.Generic.Dictionary<decimal, System.Collections.Generic.Dictionary<decimal, System.Collections.Generic.List<Staunch.POS.Classes.DBModGroup>>> GetModsForAllItems()
         {
-            return base.Channel.GetModsForAllItems();
+            return Channel.GetModsForAllItems();
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetModsForAllItems(System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetModsForAllItems(callback, asyncState);
+            return Channel.BeginGetModsForAllItems(callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.Collections.Generic.Dictionary<decimal, System.Collections.Generic.Dictionary<decimal, System.Collections.Generic.List<Staunch.POS.Classes.DBModGroup>>> EndGetModsForAllItems(System.IAsyncResult result)
         {
-            return base.Channel.EndGetModsForAllItems(result);
+            return Channel.EndGetModsForAllItems(result);
         }
 
         private System.IAsyncResult OnBeginGetModsForAllItems(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -3170,19 +3175,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public System.Collections.Generic.List<Staunch.POS.Classes.DBItem> GetSpecialItems()
         {
-            return base.Channel.GetSpecialItems();
+            return Channel.GetSpecialItems();
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetSpecialItems(System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetSpecialItems(callback, asyncState);
+            return Channel.BeginGetSpecialItems(callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.Collections.Generic.List<Staunch.POS.Classes.DBItem> EndGetSpecialItems(System.IAsyncResult result)
         {
-            return base.Channel.EndGetSpecialItems(result);
+            return Channel.EndGetSpecialItems(result);
         }
 
         private System.IAsyncResult OnBeginGetSpecialItems(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -3230,19 +3235,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public System.Collections.Generic.List<Staunch.POS.Classes.DBTable> GetTablesForSection(decimal sectionID)
         {
-            return base.Channel.GetTablesForSection(sectionID);
+            return Channel.GetTablesForSection(sectionID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetTablesForSection(decimal sectionID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetTablesForSection(sectionID, callback, asyncState);
+            return Channel.BeginGetTablesForSection(sectionID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.Collections.Generic.List<Staunch.POS.Classes.DBTable> EndGetTablesForSection(System.IAsyncResult result)
         {
-            return base.Channel.EndGetTablesForSection(result);
+            return Channel.EndGetTablesForSection(result);
         }
 
         private System.IAsyncResult OnBeginGetTablesForSection(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -3292,19 +3297,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public bool ChangeItemSize(decimal orderID, decimal newSizeID)
         {
-            return base.Channel.ChangeItemSize(orderID, newSizeID);
+            return Channel.ChangeItemSize(orderID, newSizeID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginChangeItemSize(decimal orderID, decimal newSizeID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginChangeItemSize(orderID, newSizeID, callback, asyncState);
+            return Channel.BeginChangeItemSize(orderID, newSizeID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndChangeItemSize(System.IAsyncResult result)
         {
-            return base.Channel.EndChangeItemSize(result);
+            return Channel.EndChangeItemSize(result);
         }
 
         private System.IAsyncResult OnBeginChangeItemSize(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -3356,19 +3361,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public Staunch.POS.Classes.DBUser GetUser(string pin)
         {
-            return base.Channel.GetUser(pin);
+            return Channel.GetUser(pin);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetUser(string pin, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetUser(pin, callback, asyncState);
+            return Channel.BeginGetUser(pin, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public Staunch.POS.Classes.DBUser EndGetUser(System.IAsyncResult result)
         {
-            return base.Channel.EndGetUser(result);
+            return Channel.EndGetUser(result);
         }
 
         private System.IAsyncResult OnBeginGetUser(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -3418,19 +3423,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public bool CancelTakeout(decimal TakeoutGuestID)
         {
-            return base.Channel.CancelTakeout(TakeoutGuestID);
+            return Channel.CancelTakeout(TakeoutGuestID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginCancelTakeout(decimal TakeoutGuestID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginCancelTakeout(TakeoutGuestID, callback, asyncState);
+            return Channel.BeginCancelTakeout(TakeoutGuestID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndCancelTakeout(System.IAsyncResult result)
         {
-            return base.Channel.EndCancelTakeout(result);
+            return Channel.EndCancelTakeout(result);
         }
 
         private System.IAsyncResult OnBeginCancelTakeout(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -3480,19 +3485,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public System.Collections.Generic.List<Staunch.POS.Classes.TakeoutOrder> GetLSEOrders()
         {
-            return base.Channel.GetLSEOrders();
+            return Channel.GetLSEOrders();
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetLSEOrders(System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetLSEOrders(callback, asyncState);
+            return Channel.BeginGetLSEOrders(callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.Collections.Generic.List<Staunch.POS.Classes.TakeoutOrder> EndGetLSEOrders(System.IAsyncResult result)
         {
-            return base.Channel.EndGetLSEOrders(result);
+            return Channel.EndGetLSEOrders(result);
         }
 
         private System.IAsyncResult OnBeginGetLSEOrders(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -3540,19 +3545,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public Staunch.POS.Classes.TakeoutOrder SubmitLSETakeout(Staunch.POS.Classes.TakeoutOrder TakeoutGuest, decimal UserID)
         {
-            return base.Channel.SubmitLSETakeout(TakeoutGuest, UserID);
+            return Channel.SubmitLSETakeout(TakeoutGuest, UserID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginSubmitLSETakeout(Staunch.POS.Classes.TakeoutOrder TakeoutGuest, decimal UserID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginSubmitLSETakeout(TakeoutGuest, UserID, callback, asyncState);
+            return Channel.BeginSubmitLSETakeout(TakeoutGuest, UserID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public Staunch.POS.Classes.TakeoutOrder EndSubmitLSETakeout(System.IAsyncResult result)
         {
-            return base.Channel.EndSubmitLSETakeout(result);
+            return Channel.EndSubmitLSETakeout(result);
         }
 
         private System.IAsyncResult OnBeginSubmitLSETakeout(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -3604,19 +3609,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public Staunch.POS.Classes.Guest_DB PriceOrder(Staunch.POS.Classes.Guest_DB guest)
         {
-            return base.Channel.PriceOrder(guest);
+            return Channel.PriceOrder(guest);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginPriceOrder(Staunch.POS.Classes.Guest_DB guest, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginPriceOrder(guest, callback, asyncState);
+            return Channel.BeginPriceOrder(guest, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public Staunch.POS.Classes.Guest_DB EndPriceOrder(System.IAsyncResult result)
         {
-            return base.Channel.EndPriceOrder(result);
+            return Channel.EndPriceOrder(result);
         }
 
         private System.IAsyncResult OnBeginPriceOrder(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -3666,19 +3671,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public void PrintKitchenNote(string note)
         {
-            base.Channel.PrintKitchenNote(note);
+            Channel.PrintKitchenNote(note);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginPrintKitchenNote(string note, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginPrintKitchenNote(note, callback, asyncState);
+            return Channel.BeginPrintKitchenNote(note, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public void EndPrintKitchenNote(System.IAsyncResult result)
         {
-            base.Channel.EndPrintKitchenNote(result);
+            Channel.EndPrintKitchenNote(result);
         }
 
         private System.IAsyncResult OnBeginPrintKitchenNote(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -3727,19 +3732,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public bool RemoveOrderFromPlate(decimal OrderID)
         {
-            return base.Channel.RemoveOrderFromPlate(OrderID);
+            return Channel.RemoveOrderFromPlate(OrderID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginRemoveOrderFromPlate(decimal OrderID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginRemoveOrderFromPlate(OrderID, callback, asyncState);
+            return Channel.BeginRemoveOrderFromPlate(OrderID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndRemoveOrderFromPlate(System.IAsyncResult result)
         {
-            return base.Channel.EndRemoveOrderFromPlate(result);
+            return Channel.EndRemoveOrderFromPlate(result);
         }
 
         private System.IAsyncResult OnBeginRemoveOrderFromPlate(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -3789,19 +3794,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public bool AddOrderToPlate(decimal OrderID, decimal PlateID)
         {
-            return base.Channel.AddOrderToPlate(OrderID, PlateID);
+            return Channel.AddOrderToPlate(OrderID, PlateID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginAddOrderToPlate(decimal OrderID, decimal PlateID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginAddOrderToPlate(OrderID, PlateID, callback, asyncState);
+            return Channel.BeginAddOrderToPlate(OrderID, PlateID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndAddOrderToPlate(System.IAsyncResult result)
         {
-            return base.Channel.EndAddOrderToPlate(result);
+            return Channel.EndAddOrderToPlate(result);
         }
 
         private System.IAsyncResult OnBeginAddOrderToPlate(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -3853,19 +3858,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public bool AddOrdersToPlate(System.Collections.Generic.List<decimal> orderIds, decimal plateId)
         {
-            return base.Channel.AddOrdersToPlate(orderIds, plateId);
+            return Channel.AddOrdersToPlate(orderIds, plateId);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginAddOrdersToPlate(System.Collections.Generic.List<decimal> orderIds, decimal plateId, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginAddOrdersToPlate(orderIds, plateId, callback, asyncState);
+            return Channel.BeginAddOrdersToPlate(orderIds, plateId, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndAddOrdersToPlate(System.IAsyncResult result)
         {
-            return base.Channel.EndAddOrdersToPlate(result);
+            return Channel.EndAddOrdersToPlate(result);
         }
 
         private System.IAsyncResult OnBeginAddOrdersToPlate(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -3917,19 +3922,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public bool RemoveMultipleFromPlate(System.Collections.Generic.List<decimal> orderIDs)
         {
-            return base.Channel.RemoveMultipleFromPlate(orderIDs);
+            return Channel.RemoveMultipleFromPlate(orderIDs);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginRemoveMultipleFromPlate(System.Collections.Generic.List<decimal> orderIDs, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginRemoveMultipleFromPlate(orderIDs, callback, asyncState);
+            return Channel.BeginRemoveMultipleFromPlate(orderIDs, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndRemoveMultipleFromPlate(System.IAsyncResult result)
         {
-            return base.Channel.EndRemoveMultipleFromPlate(result);
+            return Channel.EndRemoveMultipleFromPlate(result);
         }
 
         private System.IAsyncResult OnBeginRemoveMultipleFromPlate(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -3979,19 +3984,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public Staunch.POS.Classes.CateringOrder SubmitCatering(Staunch.POS.Classes.CateringOrder catering, decimal UserID)
         {
-            return base.Channel.SubmitCatering(catering, UserID);
+            return Channel.SubmitCatering(catering, UserID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginSubmitCatering(Staunch.POS.Classes.CateringOrder catering, decimal UserID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginSubmitCatering(catering, UserID, callback, asyncState);
+            return Channel.BeginSubmitCatering(catering, UserID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public Staunch.POS.Classes.CateringOrder EndSubmitCatering(System.IAsyncResult result)
         {
-            return base.Channel.EndSubmitCatering(result);
+            return Channel.EndSubmitCatering(result);
         }
 
         private System.IAsyncResult OnBeginSubmitCatering(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -4043,19 +4048,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public System.Collections.Generic.List<Staunch.POS.Classes.TakeoutOrder> GetCateringTakeouts()
         {
-            return base.Channel.GetCateringTakeouts();
+            return Channel.GetCateringTakeouts();
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetCateringTakeouts(System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetCateringTakeouts(callback, asyncState);
+            return Channel.BeginGetCateringTakeouts(callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.Collections.Generic.List<Staunch.POS.Classes.TakeoutOrder> EndGetCateringTakeouts(System.IAsyncResult result)
         {
-            return base.Channel.EndGetCateringTakeouts(result);
+            return Channel.EndGetCateringTakeouts(result);
         }
 
         private System.IAsyncResult OnBeginGetCateringTakeouts(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -4105,19 +4110,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public Staunch.POS.Classes.CateringOrder GetCateringOrder(decimal TakeoutID)
         {
-            return base.Channel.GetCateringOrder(TakeoutID);
+            return Channel.GetCateringOrder(TakeoutID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetCateringOrder(decimal TakeoutID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetCateringOrder(TakeoutID, callback, asyncState);
+            return Channel.BeginGetCateringOrder(TakeoutID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public Staunch.POS.Classes.CateringOrder EndGetCateringOrder(System.IAsyncResult result)
         {
-            return base.Channel.EndGetCateringOrder(result);
+            return Channel.EndGetCateringOrder(result);
         }
 
         private System.IAsyncResult OnBeginGetCateringOrder(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -4167,19 +4172,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public System.Collections.Generic.List<Staunch.POS.Classes.CateringOrder> GetAllCateringOrdersInfo()
         {
-            return base.Channel.GetAllCateringOrdersInfo();
+            return Channel.GetAllCateringOrdersInfo();
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetAllCateringOrdersInfo(System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetAllCateringOrdersInfo(callback, asyncState);
+            return Channel.BeginGetAllCateringOrdersInfo(callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.Collections.Generic.List<Staunch.POS.Classes.CateringOrder> EndGetAllCateringOrdersInfo(System.IAsyncResult result)
         {
-            return base.Channel.EndGetAllCateringOrdersInfo(result);
+            return Channel.EndGetAllCateringOrdersInfo(result);
         }
 
         private System.IAsyncResult OnBeginGetAllCateringOrdersInfo(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -4227,19 +4232,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public void SendCateringTakeout(Staunch.POS.Classes.TakeoutOrder TakeoutGuest, decimal UserID)
         {
-            base.Channel.SendCateringTakeout(TakeoutGuest, UserID);
+            Channel.SendCateringTakeout(TakeoutGuest, UserID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginSendCateringTakeout(Staunch.POS.Classes.TakeoutOrder TakeoutGuest, decimal UserID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginSendCateringTakeout(TakeoutGuest, UserID, callback, asyncState);
+            return Channel.BeginSendCateringTakeout(TakeoutGuest, UserID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public void EndSendCateringTakeout(System.IAsyncResult result)
         {
-            base.Channel.EndSendCateringTakeout(result);
+            Channel.EndSendCateringTakeout(result);
         }
 
         private System.IAsyncResult OnBeginSendCateringTakeout(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -4290,19 +4295,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public System.Collections.Generic.List<Staunch.POS.Classes.DBTable> GetTableSummary()
         {
-            return base.Channel.GetTableSummary();
+            return Channel.GetTableSummary();
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetTableSummary(System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetTableSummary(callback, asyncState);
+            return Channel.BeginGetTableSummary(callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.Collections.Generic.List<Staunch.POS.Classes.DBTable> EndGetTableSummary(System.IAsyncResult result)
         {
-            return base.Channel.EndGetTableSummary(result);
+            return Channel.EndGetTableSummary(result);
         }
 
         private System.IAsyncResult OnBeginGetTableSummary(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -4350,19 +4355,19 @@ namespace Zipline2.ConnectedServices.PosServiceReference
 
         public void PrintCateringOrder(Staunch.POS.Classes.CateringOrder catering, decimal UserID)
         {
-            base.Channel.PrintCateringOrder(catering, UserID);
+            Channel.PrintCateringOrder(catering, UserID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginPrintCateringOrder(Staunch.POS.Classes.CateringOrder catering, decimal UserID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginPrintCateringOrder(catering, UserID, callback, asyncState);
+            return Channel.BeginPrintCateringOrder(catering, UserID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public void EndPrintCateringOrder(System.IAsyncResult result)
         {
-            base.Channel.EndPrintCateringOrder(result);
+            Channel.EndPrintCateringOrder(result);
         }
 
         private System.IAsyncResult OnBeginPrintCateringOrder(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -4410,5 +4415,1063 @@ namespace Zipline2.ConnectedServices.PosServiceReference
                     catering,
                     UserID}, this.onEndPrintCateringOrderDelegate, this.onPrintCateringOrderCompletedDelegate, userState);
         }
+
+
+
+
+
+        private class PosServiceChannel : ChannelBase<IPosService>, IPosService
+        {
+
+            public PosServiceChannel(System.ServiceModel.ClientBase<IPosService> client) : base(client)
+            {
+
+            }
+           
+
+            public IAsyncResult BeginGetTable(int tableNum, AsyncCallback callback, object asyncState)
+            {
+                object[] _args = new object[1];
+                _args[0] = tableNum;
+                return (IAsyncResult)base.BeginInvoke("GetTable", _args, callback, asyncState);
+            }
+
+            public DBTable EndGetTable(IAsyncResult result)
+            {
+                object[] _args = new object[0];
+                return (DBTable)base.EndInvoke("GetTable", _args, result);
+            }
+           
+
+            public IAsyncResult BeginGetMenu(AsyncCallback callback, object asyncState)
+            {
+                return (IAsyncResult)base.BeginInvoke("GetMenu", null, callback, asyncState);
+            }
+
+            public Dictionary<string, List<DBItem>> EndGetMenu(IAsyncResult result)
+            {
+                return (Dictionary<string, List<DBItem>>)base.EndInvoke("GetMenu", null, result);
+            }
+
+
+            //public List<DBTable> GetTablesForSection(decimal sectionID)
+            //{
+            //    object[] args = new object[1];
+            //    args[0] = sectionID;
+            //    return (List<DBTable>)base.Invoke("GetTablesForSection", args);
+            //}
+
+            //public System.Collections.Generic.List<Staunch.POS.Classes.DBModGroup> GetAllMods(decimal itemId, decimal sizeId)
+            //{
+            //    object[] args = new object[2];
+            //    args[0] = itemId;
+            //    args[1] = sizeId;
+            //    return (List<DBModGroup>)base.Invoke("GetAllMods", args);
+            //}
+
+            public IAsyncResult BeginGetAllMods(decimal itemId, decimal sizeId, AsyncCallback callback, object asyncState)
+            {
+                object[] args = new object[2];
+                args[0] = itemId;
+                args[1] = sizeId;
+                return (IAsyncResult)base.BeginInvoke("GetAllMods", args, callback, asyncState);
+            }
+
+            public List<DBModGroup> EndGetAllMods(IAsyncResult result)
+            {
+                object[] args = new object[0];
+                return (List<DBModGroup>)base.EndInvoke("GetAllMods", args, result);
+            }
+
+            //public List<DBTable> GetTableSummary()
+            //{
+            //    return (List<DBTable>)base.Invoke("GetTableSummary", null);
+            //}
+
+            public IAsyncResult BeginGetTableSummary(AsyncCallback callback, object asyncState)
+            {
+                return (IAsyncResult)base.BeginInvoke("GetTableSummary", null, callback, asyncState);
+            }
+
+            public List<DBTable> EndGetTableSummary(IAsyncResult result)
+            {
+                return (List<DBTable>)base.EndInvoke("GetTableSummary", null, result);
+            }
+
+
+            //public DBUser ValidateUser(decimal AuthenticationID, string UserName, string Pin)
+            //{
+            //    object[] args = new object[2];
+            //    args[0] = UserName;
+            //    args[1] = Pin;
+            //    return (DBUser)base.Invoke("ValidateUser", args);
+            //}
+
+            public IAsyncResult BeginValidateUser(decimal AuthenticationID, string UserName, string Pin, AsyncCallback callback, object asyncState)
+            {
+                object[] args = new object[2];
+                args[0] = UserName;
+                args[1] = Pin;
+                return (IAsyncResult)base.BeginInvoke("ValidateUser", args, callback, asyncState);
+            }
+
+            public DBUser EndValidateUser(IAsyncResult result)
+            {
+                object[] args = new object[0];
+                return (DBUser)base.EndInvoke("ValidateUser", args, result);
+            }
+
+            //public List<DBTable> GetTableInfo()
+            //{
+            //    return (List<DBTable>)base.Invoke("GetTableInfo", null);
+            //}
+
+            public IAsyncResult BeginGetTableInfo(AsyncCallback callback, object asyncState)
+            {
+                return (IAsyncResult)base.BeginInvoke("GetTableInfo", null, callback, asyncState);
+            }
+
+            public List<DBTable> EndGetTableInfo(IAsyncResult result)
+            {
+                return (List<DBTable>)base.EndInvoke("GetTableInfo", null, result);
+            }
+
+            //public void UpdateTables(List<DBTable> updatedTables, decimal userID)
+            //{
+            //    object[] args = new object[2];
+            //    args[0] = updatedTables;
+            //    args[1] = userID;
+            //    base.Invoke("UpdateTables", args);
+            //}
+
+            public IAsyncResult BeginUpdateTables(List<DBTable> updatedTables, decimal userID, AsyncCallback callback, object asyncState)
+            {
+                object[] args = new object[2];
+                args[0] = updatedTables;
+                args[1] = userID;
+                return (IAsyncResult)base.BeginInvoke("UpdateTables", args, callback, asyncState);
+            }
+
+            public void EndUpdateTables(IAsyncResult result)
+            {
+                object[] args = new object[0];
+                base.EndInvoke("UpdateTables", args, result);
+            }
+
+
+            //public void SendOrders(List<decimal> OrderIDs, decimal UserID)
+            //{
+            //    object[] args = new object[2];
+            //    args[0] = OrderIDs;
+            //    args[1] = UserID;
+            //    base.Invoke("SendOrders", args);
+            //}
+
+            public IAsyncResult BeginSendOrders(List<decimal> OrderIDs, decimal UserID, AsyncCallback callback, object asyncState)
+            {
+                object[] args = new object[2];
+                args[0] = OrderIDs;
+                args[1] = UserID;
+                return (IAsyncResult)base.BeginInvoke("SendOrders", args, callback, asyncState);
+            }
+
+            public void EndSendOrders(IAsyncResult result)
+            {
+                object[] args = new object[0];
+                base.EndInvoke("SendOrders", args, result);
+            }
+
+
+            //public List<decimal> GetNextGuestIDs(int num, decimal userID)
+            //{
+            //    object[] args = new object[2];
+            //    args[0] = num;
+            //    args[1] = userID;
+            //    return (List<decimal>)base.Invoke("GetNextGuestIDs", args);
+            //}
+
+            public IAsyncResult BeginGetNextGuestIDs(int num, decimal userID, AsyncCallback callback, object asyncState)
+            {
+                object[] args = new object[2];
+                args[0] = num;
+                args[1] = userID;
+                return (IAsyncResult)base.BeginInvoke("GetNextGuestIDs", args, callback, asyncState);
+            }
+
+            public List<decimal> EndGetNextGuestIDs(IAsyncResult result)
+            {
+                object[] args = new object[0];
+                return (List<decimal>)base.EndInvoke("GetNextGuestIDs", args, result);
+            }
+
+            //public DBUser GetUser(string pin)
+            //{
+            //    object[] args = new object[1];
+            //    args[0] = pin;
+            //    return (DBUser)base.Invoke("GetUser", args);
+            //}
+
+            public IAsyncResult BeginGetUser(string pin, AsyncCallback callback, object asyncState)
+            {
+                object[] args = new object[1];
+                args[0] = pin;
+                return (IAsyncResult)base.BeginInvoke("GetUser", args, callback, asyncState);
+            }
+
+            public DBUser EndGetUser(IAsyncResult result)
+            {
+                object[] args = new object[0];
+                return (DBUser)base.EndInvoke("GetUser", args, result);
+            }
+
+
+
+
+            #region TODO: Implement following....
+
+
+            public List<GuestItem> GetOrders(decimal TableID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetOrders(decimal TableID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<GuestItem> EndGetOrders(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+
+            public List<DBModGroup> GetModifiers()
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetModifiers(AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<DBModGroup> EndGetModifiers(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+
+
+            public void RemoveSentOrder(List<decimal> OrderIDs, decimal UserID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginRemoveSentOrder(List<decimal> OrderIDs, decimal UserID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void EndRemoveSentOrder(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<DBTable> FillTables(decimal userID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginFillTables(decimal userID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<DBTable> EndFillTables(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<string> GetAvailablePaymentOptions()
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetAvailablePaymentOptions(AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<string> EndGetAvailablePaymentOptions(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public int GetGratuityLimit()
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetGratuityLimit(AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public int EndGetGratuityLimit(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public decimal GetTaxRate()
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetTaxRate(AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public decimal EndGetTaxRate(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public decimal GetGratuityRate()
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetGratuityRate(AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public decimal EndGetGratuityRate(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool DoAutoGratuity()
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginDoAutoGratuity(AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndDoAutoGratuity(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<string> GetCategoryNames()
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetCategoryNames(AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<string> EndGetCategoryNames(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+
+            public bool RemoveGuest(decimal GuestID, bool RemoveOrder)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginRemoveGuest(decimal GuestID, bool RemoveOrder, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndRemoveGuest(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool RemoveItem(decimal GuestID, decimal OrderID, decimal UserID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginRemoveItem(decimal GuestID, decimal OrderID, decimal UserID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndRemoveItem(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public ItemInfo GetItemInfo(decimal ItemID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetItemInfo(decimal ItemID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public ItemInfo EndGetItemInfo(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public Dictionary<decimal, PictureFile> GetThumbnails(List<decimal> ItemIDs)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetThumbnails(List<decimal> ItemIDs, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public Dictionary<decimal, PictureFile> EndGetThumbnails(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+
+            public bool SaveUserSettings(DBUser user)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginSaveUserSettings(DBUser user, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndSaveUserSettings(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool MoveGuests(List<decimal> GuestIDs, decimal NewTableID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginMoveGuests(List<decimal> GuestIDs, decimal NewTableID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndMoveGuests(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool SplitTable(decimal TableID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginSplitTable(decimal TableID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndSplitTable(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool HasUnsentOrders(decimal TableID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginHasUnsentOrders(decimal TableID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndHasUnsentOrders(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public ManagerSettings GetManagerSettings()
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetManagerSettings(AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public ManagerSettings EndGetManagerSettings(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool Logout(decimal UserID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginLogout(decimal UserID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndLogout(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public int Ping(int Delay)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginPing(int Delay, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public int EndPing(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<DBModGroup> GetRequiredMods(decimal ItemID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetRequiredMods(decimal ItemID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<DBModGroup> EndGetRequiredMods(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+
+
+            public List<ComboItem> GetComboMenu()
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetComboMenu(AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<ComboItem> EndGetComboMenu(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool RemoveGuestCombo(decimal GuestID, decimal OrderComboID, decimal UserID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginRemoveGuestCombo(decimal GuestID, decimal OrderComboID, decimal UserID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndRemoveGuestCombo(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool CombineOrders(decimal DestinationGuestID, List<decimal> GuestsToMoveIDs, bool RemoveAfterCombine)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginCombineOrders(decimal DestinationGuestID, List<decimal> GuestsToMoveIDs, bool RemoveAfterCombine, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndCombineOrders(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool ClearTable(decimal TableID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginClearTable(decimal TableID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndClearTable(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public TakeoutOrder SubmitTakeout(TakeoutOrder TakeoutGuest, decimal UserID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginSubmitTakeout(TakeoutOrder TakeoutGuest, decimal UserID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public TakeoutOrder EndSubmitTakeout(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<TakeoutOrder> GetTakeoutOrders()
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetTakeoutOrders(AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<TakeoutOrder> EndGetTakeoutOrders(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public TakeoutOrder GetTakeoutOrder(decimal GuestID, decimal CheckID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetTakeoutOrder(decimal GuestID, decimal CheckID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public TakeoutOrder EndGetTakeoutOrder(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void SendTakeout(TakeoutOrder TakeoutGuest, decimal UserID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginSendTakeout(TakeoutOrder TakeoutGuest, decimal UserID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void EndSendTakeout(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool ClearTakeoutOrder(decimal TakeoutID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginClearTakeoutOrder(decimal TakeoutID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndClearTakeoutOrder(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<decimal> ListUnsentOrders(List<decimal> TableIDList)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginListUnsentOrders(List<decimal> TableIDList, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<decimal> EndListUnsentOrders(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool PrintMoveNotice(List<decimal> orderIDs, decimal fromTableID, decimal toTableID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginPrintMoveNotice(List<decimal> orderIDs, decimal fromTableID, decimal toTableID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndPrintMoveNotice(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public Dictionary<decimal, Dictionary<decimal, List<DBModGroup>>> GetModsForAllItems()
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetModsForAllItems(AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public Dictionary<decimal, Dictionary<decimal, List<DBModGroup>>> EndGetModsForAllItems(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<DBItem> GetSpecialItems()
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetSpecialItems(AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<DBItem> EndGetSpecialItems(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetTablesForSection(decimal sectionID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<DBTable> EndGetTablesForSection(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool ChangeItemSize(decimal orderID, decimal newSizeID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginChangeItemSize(decimal orderID, decimal newSizeID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndChangeItemSize(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+
+
+            public bool CancelTakeout(decimal TakeoutGuestID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginCancelTakeout(decimal TakeoutGuestID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndCancelTakeout(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<TakeoutOrder> GetLSEOrders()
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetLSEOrders(AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<TakeoutOrder> EndGetLSEOrders(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public TakeoutOrder SubmitLSETakeout(TakeoutOrder TakeoutGuest, decimal UserID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginSubmitLSETakeout(TakeoutOrder TakeoutGuest, decimal UserID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public TakeoutOrder EndSubmitLSETakeout(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public Guest_DB PriceOrder(Guest_DB guest)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginPriceOrder(Guest_DB guest, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public Guest_DB EndPriceOrder(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void PrintKitchenNote(string note)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginPrintKitchenNote(string note, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void EndPrintKitchenNote(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool RemoveOrderFromPlate(decimal OrderID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginRemoveOrderFromPlate(decimal OrderID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndRemoveOrderFromPlate(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool AddOrderToPlate(decimal OrderID, decimal PlateID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginAddOrderToPlate(decimal OrderID, decimal PlateID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndAddOrderToPlate(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool AddOrdersToPlate(List<decimal> orderIds, decimal plateId)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginAddOrdersToPlate(List<decimal> orderIds, decimal plateId, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndAddOrdersToPlate(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool RemoveMultipleFromPlate(List<decimal> orderIDs)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginRemoveMultipleFromPlate(List<decimal> orderIDs, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndRemoveMultipleFromPlate(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public CateringOrder SubmitCatering(CateringOrder catering, decimal UserID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginSubmitCatering(CateringOrder catering, decimal UserID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public CateringOrder EndSubmitCatering(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<TakeoutOrder> GetCateringTakeouts()
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetCateringTakeouts(AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<TakeoutOrder> EndGetCateringTakeouts(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public CateringOrder GetCateringOrder(decimal TakeoutID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetCateringOrder(decimal TakeoutID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public CateringOrder EndGetCateringOrder(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<CateringOrder> GetAllCateringOrdersInfo()
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetAllCateringOrdersInfo(AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<CateringOrder> EndGetAllCateringOrdersInfo(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void SendCateringTakeout(TakeoutOrder TakeoutGuest, decimal UserID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginSendCateringTakeout(TakeoutOrder TakeoutGuest, decimal UserID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void EndSendCateringTakeout(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+
+
+            public void PrintCateringOrder(CateringOrder catering, decimal UserID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginPrintCateringOrder(CateringOrder catering, decimal UserID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void EndPrintCateringOrder(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public DBTable GetTable(int tableNum)
+            {
+                throw new NotImplementedException();
+            }
+
+            public DBUser ValidateUser(decimal AuthenticationID, string UserName, string Pin)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<DBTable> GetTableInfo()
+            {
+                throw new NotImplementedException();
+            }
+
+            public Dictionary<string, List<DBItem>> GetMenu()
+            {
+                throw new NotImplementedException();
+            }
+
+            public void UpdateTables(List<DBTable> updatedTables, decimal userID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<decimal> GetNextGuestIDs(int num, decimal userID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void SendOrders(List<decimal> OrderIDs, decimal UserID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<DBModGroup> GetAllMods(decimal ItemID, decimal SizeID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<DBTable> GetTablesForSection(decimal sectionID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public DBUser GetUser(string pin)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<DBTable> GetTableSummary()
+            {
+                throw new NotImplementedException();
+            }
+            #endregion
+        }  //PosServiceChannel
+
     }
 }

@@ -277,65 +277,66 @@ namespace Zipline2.BusinessLogic.WcfRemote
             return waiterClient.GetTableSummary();
         }
 
-        public void PrepareAndSendOrder(Order orderToSend)
-        {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||
-                serviceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
-            {
-                return;
-            }
-            DBTable dbTableCurrent = ConvertOrderToDbTable(orderToSend, true);
+        //public Task PrepareAndSendOrder(Order orderToSend)
+        //{
+        //    if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||
+        //        serviceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
+        //    {
+        //        return;
+        //    }
+        //    DBTable dbTableCurrent = ConvertOrderToDbTable(orderToSend, true);
 
-            //Update the database table with built DBTable in order to obtain new OrderID.
-            //await UpdateTableAsync(dbTableCurrent);
-            UpdateTable(dbTableCurrent);
+        //    //Update the database table with built DBTable in order to obtain new OrderID.
+        //    //await UpdateTableAsync(dbTableCurrent);
+        //    UpdateTable(dbTableCurrent);
 
-            //Get the table just updated - will contain new OrderID.
-            DBTable updatedTable = GetTable((int)dbTableCurrent.ID);
+        //    //Get the table just updated - will contain new OrderID.
+        //    DBTable updatedTable = GetTable((int)dbTableCurrent.ID);
 
-            //See if outstanding checks for this table.
-            List<DBCheck> checks = GetOpenChecks(dbTableCurrent.ID);
-            decimal checkId = -1;
-            if (checks.Count > 0)
-            {
-                checkId = checks[0].ID;
-            }
+        //    //See if outstanding checks for this table.
+        //    //Cannot call a synchronous method in Zipline2.
+        //    List<DBCheck> checks = GetOpenChecks(dbTableCurrent.ID);
+        //    decimal checkId = -1;
+        //    if (checks.Count > 0)
+        //    {
+        //        checkId = checks[0].ID;
+        //    }
 
-            DBCheck newDbCheck = new DBCheck(checkId);
+        //    DBCheck newDbCheck = new DBCheck(checkId);
 
 
-            List<decimal> orderIDs = new List<decimal>();
+        //    List<decimal> orderIDs = new List<decimal>();
 
-            //Get items for check from updated Table just retrieved.
-            foreach (GuestItem item in updatedTable.Guests[0].Items)
-            {
-                if (!item.OrderSent)
-                {
-                    orderIDs.Add(item.OrderID);
-                    newDbCheck.Items.Add(item);
-                }
-            }
-            foreach (GuestComboItem combo in updatedTable.Guests[0].ComboItems)
-            {
-                bool first = true;
-                foreach (GuestItem gItem in combo.ComboGuestItems)
-                {
-                    if (!gItem.OrderSent)
-                    {
-                        orderIDs.Add(gItem.OrderID);
-                        if (first)
-                        {
-                            first = false;
-                            newDbCheck.ComboItems.Add(combo);
-                        }
-                    }
-                }
-            }
+        //    //Get items for check from updated Table just retrieved.
+        //    foreach (GuestItem item in updatedTable.Guests[0].Items)
+        //    {
+        //        if (!item.OrderSent)
+        //        {
+        //            orderIDs.Add(item.OrderID);
+        //            newDbCheck.Items.Add(item);
+        //        }
+        //    }
+        //    foreach (GuestComboItem combo in updatedTable.Guests[0].ComboItems)
+        //    {
+        //        bool first = true;
+        //        foreach (GuestItem gItem in combo.ComboGuestItems)
+        //        {
+        //            if (!gItem.OrderSent)
+        //            {
+        //                orderIDs.Add(gItem.OrderID);
+        //                if (first)
+        //                {
+        //                    first = false;
+        //                    newDbCheck.ComboItems.Add(combo);
+        //                }
+        //            }
+        //        }
+        //    }
 
-            //Create and add check to database.
-            CreateCheck(newDbCheck);
-            SendOrders(orderIDs, UserIdDecimal);
-        }
+        //    //Create and add check to database.
+        //    CreateCheck(newDbCheck);
+        //    SendOrders(orderIDs, UserIdDecimal);
+        //}
 
         public DBUser GetUser(string pin)
         {
@@ -357,14 +358,14 @@ namespace Zipline2.BusinessLogic.WcfRemote
             waiterClient.SendOrders(orderIds, userId);
         }
 
-        public List<DBCheck> GetOpenChecks(decimal tableId)
-        {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
-            {
-                return new List<DBCheck>();
-            }
-            return checkClient.GetOpenChecks(tableId);
-        }
+        //public List<DBCheck> GetOpenChecks(decimal tableId)
+        //{
+        //    if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+        //    {
+        //        return new List<DBCheck>();
+        //    }
+        //    //return checkClient.GetOpenChecks(tableId);
+        //}
 
         public void CreateCheck(DBCheck dbCheck)
         {
@@ -493,7 +494,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
             await UpdateTableAsync(dbTableCurrent);
         }
 
-        async public void PrepareAndSendOrderAsync(Order orderToSend)
+        async public Task PrepareAndSendOrderAsync(Order orderToSend)
         {
             if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||
                 serviceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)

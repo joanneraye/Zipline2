@@ -11,17 +11,12 @@
 namespace Zipline2.ConnectedServices.CheckHostReference
 
 {
+    using Staunch.POS.Classes;
+    using System;
+    using System.Collections.Generic;
     using System.Runtime.Serialization;
 
    
-
-    //Needed?
-    //[System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    //public interface ICheckHostChannel : ICheckHost, System.ServiceModel.IClientChannel
-    //{
-    //}
-
-
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class CheckHostClient : System.ServiceModel.ClientBase<ICheckHost>, ICheckHost
@@ -48,6 +43,12 @@ namespace Zipline2.ConnectedServices.CheckHostReference
         public CheckHostClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
                 base(binding, remoteAddress)
         {
+        }
+
+        //This is the critical part that makes connnecting with WCF service via iOS possible.
+        protected override ICheckHost CreateChannel()
+        {
+            return new CheckHostChannel(this);
         }
 
         #region Delegates & Callbacks
@@ -487,21 +488,21 @@ namespace Zipline2.ConnectedServices.CheckHostReference
         #endregion
 
         #region Methods
-        public string CreateChecks(System.Collections.Generic.List<Staunch.POS.Classes.DBCheck> CheckList, decimal UserID, bool forTakeout)
-        {
-            return base.Channel.CreateChecks(CheckList, UserID, forTakeout);
-        }
+        //public string CreateChecks(System.Collections.Generic.List<Staunch.POS.Classes.DBCheck> CheckList, decimal UserID, bool forTakeout)
+        //{
+        //    return Channel.CreateChecks(CheckList, UserID, forTakeout);
+        //}
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginCreateChecks(System.Collections.Generic.List<Staunch.POS.Classes.DBCheck> CheckList, decimal UserID, bool forTakeout, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginCreateChecks(CheckList, UserID, forTakeout, callback, asyncState);
+            return Channel.BeginCreateChecks(CheckList, UserID, forTakeout, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public string EndCreateChecks(System.IAsyncResult result)
         {
-            return base.Channel.EndCreateChecks(result);
+            return Channel.EndCreateChecks(result);
         }
 
         private System.IAsyncResult OnBeginCreateChecks(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -555,19 +556,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public void UpdateCheckNotes(Staunch.POS.Classes.DBNotes Notes, decimal CheckID)
         {
-            base.Channel.UpdateCheckNotes(Notes, CheckID);
+            Channel.UpdateCheckNotes(Notes, CheckID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginUpdateCheckNotes(Staunch.POS.Classes.DBNotes Notes, decimal CheckID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginUpdateCheckNotes(Notes, CheckID, callback, asyncState);
+            return Channel.BeginUpdateCheckNotes(Notes, CheckID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public void EndUpdateCheckNotes(System.IAsyncResult result)
         {
-            base.Channel.EndUpdateCheckNotes(result);
+            Channel.EndUpdateCheckNotes(result);
         }
 
         private System.IAsyncResult OnBeginUpdateCheckNotes(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -618,19 +619,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public void UpdateOrderNotes(Staunch.POS.Classes.DBNotes Notes, decimal OrderID)
         {
-            base.Channel.UpdateOrderNotes(Notes, OrderID);
+            Channel.UpdateOrderNotes(Notes, OrderID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginUpdateOrderNotes(Staunch.POS.Classes.DBNotes Notes, decimal OrderID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginUpdateOrderNotes(Notes, OrderID, callback, asyncState);
+            return Channel.BeginUpdateOrderNotes(Notes, OrderID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public void EndUpdateOrderNotes(System.IAsyncResult result)
         {
-            base.Channel.EndUpdateOrderNotes(result);
+            Channel.EndUpdateOrderNotes(result);
         }
 
         private System.IAsyncResult OnBeginUpdateOrderNotes(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -679,21 +680,21 @@ namespace Zipline2.ConnectedServices.CheckHostReference
                     OrderID}, this.onEndUpdateOrderNotesDelegate, this.onUpdateOrderNotesCompletedDelegate, userState);
         }
 
-        public System.Collections.Generic.List<Staunch.POS.Classes.DBCheck> GetOpenChecks(decimal TableID)
-        {
-            return base.Channel.GetOpenChecks(TableID);
-        }
+        //public System.Collections.Generic.List<Staunch.POS.Classes.DBCheck> GetOpenChecks(decimal TableID)
+        //{
+        //    return Channel.GetOpenChecks(TableID);
+        //}
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetOpenChecks(decimal TableID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetOpenChecks(TableID, callback, asyncState);
+            return Channel.BeginGetOpenChecks(TableID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.Collections.Generic.List<Staunch.POS.Classes.DBCheck> EndGetOpenChecks(System.IAsyncResult result)
         {
-            return base.Channel.EndGetOpenChecks(result);
+            return Channel.EndGetOpenChecks(result);
         }
 
         private System.IAsyncResult OnBeginGetOpenChecks(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -743,19 +744,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public System.Collections.Generic.List<decimal> GetChecksForOrder(decimal OrderID)
         {
-            return base.Channel.GetChecksForOrder(OrderID);
+            return Channel.GetChecksForOrder(OrderID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetChecksForOrder(decimal OrderID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetChecksForOrder(OrderID, callback, asyncState);
+            return Channel.BeginGetChecksForOrder(OrderID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.Collections.Generic.List<decimal> EndGetChecksForOrder(System.IAsyncResult result)
         {
-            return base.Channel.EndGetChecksForOrder(result);
+            return Channel.EndGetChecksForOrder(result);
         }
 
         private System.IAsyncResult OnBeginGetChecksForOrder(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -805,19 +806,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public int GetCheckCount(decimal OrderID)
         {
-            return base.Channel.GetCheckCount(OrderID);
+            return Channel.GetCheckCount(OrderID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetCheckCount(decimal OrderID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetCheckCount(OrderID, callback, asyncState);
+            return Channel.BeginGetCheckCount(OrderID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public int EndGetCheckCount(System.IAsyncResult result)
         {
-            return base.Channel.EndGetCheckCount(result);
+            return Channel.EndGetCheckCount(result);
         }
 
         private System.IAsyncResult OnBeginGetCheckCount(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -867,19 +868,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public bool CombineChecks(decimal CheckID1, decimal CheckID2)
         {
-            return base.Channel.CombineChecks(CheckID1, CheckID2);
+            return Channel.CombineChecks(CheckID1, CheckID2);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginCombineChecks(decimal CheckID1, decimal CheckID2, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginCombineChecks(CheckID1, CheckID2, callback, asyncState);
+            return Channel.BeginCombineChecks(CheckID1, CheckID2, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndCombineChecks(System.IAsyncResult result)
         {
-            return base.Channel.EndCombineChecks(result);
+            return Channel.EndCombineChecks(result);
         }
 
         private System.IAsyncResult OnBeginCombineChecks(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -931,19 +932,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public bool SplitItem(decimal OrderID, System.Collections.Generic.List<decimal> CheckIDs)
         {
-            return base.Channel.SplitItem(OrderID, CheckIDs);
+            return Channel.SplitItem(OrderID, CheckIDs);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginSplitItem(decimal OrderID, System.Collections.Generic.List<decimal> CheckIDs, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginSplitItem(OrderID, CheckIDs, callback, asyncState);
+            return Channel.BeginSplitItem(OrderID, CheckIDs, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndSplitItem(System.IAsyncResult result)
         {
-            return base.Channel.EndSplitItem(result);
+            return Channel.EndSplitItem(result);
         }
 
         private System.IAsyncResult OnBeginSplitItem(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -995,19 +996,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public bool UpdateChecks(System.Collections.Generic.List<Staunch.POS.Classes.DBCheck> Checks, decimal UserID)
         {
-            return base.Channel.UpdateChecks(Checks, UserID);
+            return Channel.UpdateChecks(Checks, UserID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginUpdateChecks(System.Collections.Generic.List<Staunch.POS.Classes.DBCheck> Checks, decimal UserID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginUpdateChecks(Checks, UserID, callback, asyncState);
+            return Channel.BeginUpdateChecks(Checks, UserID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndUpdateChecks(System.IAsyncResult result)
         {
-            return base.Channel.EndUpdateChecks(result);
+            return Channel.EndUpdateChecks(result);
         }
 
         private System.IAsyncResult OnBeginUpdateChecks(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -1059,19 +1060,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public bool MoveItems(System.Collections.Generic.Dictionary<decimal, System.Collections.Generic.List<decimal>> Items, decimal newCheckID)
         {
-            return base.Channel.MoveItems(Items, newCheckID);
+            return Channel.MoveItems(Items, newCheckID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginMoveItems(System.Collections.Generic.Dictionary<decimal, System.Collections.Generic.List<decimal>> Items, decimal newCheckID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginMoveItems(Items, newCheckID, callback, asyncState);
+            return Channel.BeginMoveItems(Items, newCheckID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndMoveItems(System.IAsyncResult result)
         {
-            return base.Channel.EndMoveItems(result);
+            return Channel.EndMoveItems(result);
         }
 
         private System.IAsyncResult OnBeginMoveItems(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -1121,21 +1122,21 @@ namespace Zipline2.ConnectedServices.CheckHostReference
                     newCheckID}, this.onEndMoveItemsDelegate, this.onMoveItemsCompletedDelegate, userState);
         }
 
-        public bool HasOpenChecks(decimal TableID)
-        {
-            return base.Channel.HasOpenChecks(TableID);
-        }
+        //public bool HasOpenChecks(decimal TableID)
+        //{
+        //    return Channel.HasOpenChecks(TableID);
+        //}
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginHasOpenChecks(decimal TableID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginHasOpenChecks(TableID, callback, asyncState);
+            return Channel.BeginHasOpenChecks(TableID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndHasOpenChecks(System.IAsyncResult result)
         {
-            return base.Channel.EndHasOpenChecks(result);
+            return Channel.EndHasOpenChecks(result);
         }
 
         private System.IAsyncResult OnBeginHasOpenChecks(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -1185,19 +1186,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public bool AddPayment(decimal CheckID, string PaymentOption, decimal Amount, decimal UserID)
         {
-            return base.Channel.AddPayment(CheckID, PaymentOption, Amount, UserID);
+            return Channel.AddPayment(CheckID, PaymentOption, Amount, UserID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginAddPayment(decimal CheckID, string PaymentOption, decimal Amount, decimal UserID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginAddPayment(CheckID, PaymentOption, Amount, UserID, callback, asyncState);
+            return Channel.BeginAddPayment(CheckID, PaymentOption, Amount, UserID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndAddPayment(System.IAsyncResult result)
         {
-            return base.Channel.EndAddPayment(result);
+            return Channel.EndAddPayment(result);
         }
 
         private System.IAsyncResult OnBeginAddPayment(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -1253,19 +1254,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public bool AddGratuity(decimal CheckID, decimal Amount, decimal UserID)
         {
-            return base.Channel.AddGratuity(CheckID, Amount, UserID);
+            return Channel.AddGratuity(CheckID, Amount, UserID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginAddGratuity(decimal CheckID, decimal Amount, decimal UserID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginAddGratuity(CheckID, Amount, UserID, callback, asyncState);
+            return Channel.BeginAddGratuity(CheckID, Amount, UserID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndAddGratuity(System.IAsyncResult result)
         {
-            return base.Channel.EndAddGratuity(result);
+            return Channel.EndAddGratuity(result);
         }
 
         private System.IAsyncResult OnBeginAddGratuity(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -1319,19 +1320,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public bool PrintCheckforMoble(System.Collections.Generic.List<decimal> CheckIDs, decimal UserID, bool isReceipt)
         {
-            return base.Channel.PrintCheckforMoble(CheckIDs, UserID, isReceipt);
+            return Channel.PrintCheckforMoble(CheckIDs, UserID, isReceipt);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginPrintCheckforMoble(System.Collections.Generic.List<decimal> CheckIDs, decimal UserID, bool isReceipt, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginPrintCheckforMoble(CheckIDs, UserID, isReceipt, callback, asyncState);
+            return Channel.BeginPrintCheckforMoble(CheckIDs, UserID, isReceipt, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndPrintCheckforMoble(System.IAsyncResult result)
         {
-            return base.Channel.EndPrintCheckforMoble(result);
+            return Channel.EndPrintCheckforMoble(result);
         }
 
         private System.IAsyncResult OnBeginPrintCheckforMoble(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -1385,19 +1386,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public bool PrintCheckforRegister(System.Collections.Generic.List<decimal> CheckIDs, decimal UserID, bool isReceipt, int copies, decimal actionID)
         {
-            return base.Channel.PrintCheckforRegister(CheckIDs, UserID, isReceipt, copies, actionID);
+            return Channel.PrintCheckforRegister(CheckIDs, UserID, isReceipt, copies, actionID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginPrintCheckforRegister(System.Collections.Generic.List<decimal> CheckIDs, decimal UserID, bool isReceipt, int copies, decimal actionID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginPrintCheckforRegister(CheckIDs, UserID, isReceipt, copies, actionID, callback, asyncState);
+            return Channel.BeginPrintCheckforRegister(CheckIDs, UserID, isReceipt, copies, actionID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndPrintCheckforRegister(System.IAsyncResult result)
         {
-            return base.Channel.EndPrintCheckforRegister(result);
+            return Channel.EndPrintCheckforRegister(result);
         }
 
         private System.IAsyncResult OnBeginPrintCheckforRegister(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -1455,19 +1456,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public bool ClearCheck(decimal CheckID)
         {
-            return base.Channel.ClearCheck(CheckID);
+            return Channel.ClearCheck(CheckID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginClearCheck(decimal CheckID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginClearCheck(CheckID, callback, asyncState);
+            return Channel.BeginClearCheck(CheckID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndClearCheck(System.IAsyncResult result)
         {
-            return base.Channel.EndClearCheck(result);
+            return Channel.EndClearCheck(result);
         }
 
         private System.IAsyncResult OnBeginClearCheck(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -1517,19 +1518,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public Staunch.POS.Classes.DBCheck GetCheck(decimal CheckID)
         {
-            return base.Channel.GetCheck(CheckID);
+            return Channel.GetCheck(CheckID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetCheck(decimal CheckID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetCheck(CheckID, callback, asyncState);
+            return Channel.BeginGetCheck(CheckID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public Staunch.POS.Classes.DBCheck EndGetCheck(System.IAsyncResult result)
         {
-            return base.Channel.EndGetCheck(result);
+            return Channel.EndGetCheck(result);
         }
 
         private System.IAsyncResult OnBeginGetCheck(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -1579,19 +1580,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public bool removeOrderFromCheck(decimal OrderID, decimal CheckID)
         {
-            return base.Channel.removeOrderFromCheck(OrderID, CheckID);
+            return Channel.removeOrderFromCheck(OrderID, CheckID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginremoveOrderFromCheck(decimal OrderID, decimal CheckID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginremoveOrderFromCheck(OrderID, CheckID, callback, asyncState);
+            return Channel.BeginremoveOrderFromCheck(OrderID, CheckID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndremoveOrderFromCheck(System.IAsyncResult result)
         {
-            return base.Channel.EndremoveOrderFromCheck(result);
+            return Channel.EndremoveOrderFromCheck(result);
         }
 
         private System.IAsyncResult OnBeginremoveOrderFromCheck(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -1643,19 +1644,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public int Ping()
         {
-            return base.Channel.Ping();
+            return Channel.Ping();
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginPing(System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginPing(callback, asyncState);
+            return Channel.BeginPing(callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public int EndPing(System.IAsyncResult result)
         {
-            return base.Channel.EndPing(result);
+            return Channel.EndPing(result);
         }
 
         private System.IAsyncResult OnBeginPing(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -1703,19 +1704,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public string OpenDrawer(decimal actionID)
         {
-            return base.Channel.OpenDrawer(actionID);
+            return Channel.OpenDrawer(actionID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginOpenDrawer(decimal actionID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginOpenDrawer(actionID, callback, asyncState);
+            return Channel.BeginOpenDrawer(actionID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public string EndOpenDrawer(System.IAsyncResult result)
         {
-            return base.Channel.EndOpenDrawer(result);
+            return Channel.EndOpenDrawer(result);
         }
 
         private System.IAsyncResult OnBeginOpenDrawer(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -1765,19 +1766,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public string GetCashDrawerPort(decimal ActionID)
         {
-            return base.Channel.GetCashDrawerPort(ActionID);
+            return Channel.GetCashDrawerPort(ActionID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetCashDrawerPort(decimal ActionID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetCashDrawerPort(ActionID, callback, asyncState);
+            return Channel.BeginGetCashDrawerPort(ActionID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public string EndGetCashDrawerPort(System.IAsyncResult result)
         {
-            return base.Channel.EndGetCashDrawerPort(result);
+            return Channel.EndGetCashDrawerPort(result);
         }
 
         private System.IAsyncResult OnBeginGetCashDrawerPort(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -1827,19 +1828,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public System.Collections.Generic.Dictionary<string, decimal> GetGrossSalesForToday()
         {
-            return base.Channel.GetGrossSalesForToday();
+            return Channel.GetGrossSalesForToday();
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetGrossSalesForToday(System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetGrossSalesForToday(callback, asyncState);
+            return Channel.BeginGetGrossSalesForToday(callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.Collections.Generic.Dictionary<string, decimal> EndGetGrossSalesForToday(System.IAsyncResult result)
         {
-            return base.Channel.EndGetGrossSalesForToday(result);
+            return Channel.EndGetGrossSalesForToday(result);
         }
 
         private System.IAsyncResult OnBeginGetGrossSalesForToday(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -1887,19 +1888,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public System.Collections.Generic.Dictionary<string, decimal> GetGrossSalesFor(System.DateTime Start, System.DateTime End)
         {
-            return base.Channel.GetGrossSalesFor(Start, End);
+            return Channel.GetGrossSalesFor(Start, End);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetGrossSalesFor(System.DateTime Start, System.DateTime End, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetGrossSalesFor(Start, End, callback, asyncState);
+            return Channel.BeginGetGrossSalesFor(Start, End, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.Collections.Generic.Dictionary<string, decimal> EndGetGrossSalesFor(System.IAsyncResult result)
         {
-            return base.Channel.EndGetGrossSalesFor(result);
+            return Channel.EndGetGrossSalesFor(result);
         }
 
         private System.IAsyncResult OnBeginGetGrossSalesFor(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -1951,19 +1952,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public decimal GetTaxFor(System.DateTime Start, System.DateTime End)
         {
-            return base.Channel.GetTaxFor(Start, End);
+            return Channel.GetTaxFor(Start, End);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetTaxFor(System.DateTime Start, System.DateTime End, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetTaxFor(Start, End, callback, asyncState);
+            return Channel.BeginGetTaxFor(Start, End, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public decimal EndGetTaxFor(System.IAsyncResult result)
         {
-            return base.Channel.EndGetTaxFor(result);
+            return Channel.EndGetTaxFor(result);
         }
 
         private System.IAsyncResult OnBeginGetTaxFor(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -2015,19 +2016,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public decimal GetTaxForToday()
         {
-            return base.Channel.GetTaxForToday();
+            return Channel.GetTaxForToday();
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetTaxForToday(System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetTaxForToday(callback, asyncState);
+            return Channel.BeginGetTaxForToday(callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public decimal EndGetTaxForToday(System.IAsyncResult result)
         {
-            return base.Channel.EndGetTaxForToday(result);
+            return Channel.EndGetTaxForToday(result);
         }
 
         private System.IAsyncResult OnBeginGetTaxForToday(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -2075,19 +2076,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public decimal GetGratuityFor(System.DateTime Start, System.DateTime End)
         {
-            return base.Channel.GetGratuityFor(Start, End);
+            return Channel.GetGratuityFor(Start, End);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetGratuityFor(System.DateTime Start, System.DateTime End, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetGratuityFor(Start, End, callback, asyncState);
+            return Channel.BeginGetGratuityFor(Start, End, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public decimal EndGetGratuityFor(System.IAsyncResult result)
         {
-            return base.Channel.EndGetGratuityFor(result);
+            return Channel.EndGetGratuityFor(result);
         }
 
         private System.IAsyncResult OnBeginGetGratuityFor(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -2139,19 +2140,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public decimal GetGratuityForToday()
         {
-            return base.Channel.GetGratuityForToday();
+            return Channel.GetGratuityForToday();
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetGratuityForToday(System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetGratuityForToday(callback, asyncState);
+            return Channel.BeginGetGratuityForToday(callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public decimal EndGetGratuityForToday(System.IAsyncResult result)
         {
-            return base.Channel.EndGetGratuityForToday(result);
+            return Channel.EndGetGratuityForToday(result);
         }
 
         private System.IAsyncResult OnBeginGetGratuityForToday(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -2199,19 +2200,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public decimal GetDiscountsFor(System.DateTime Start, System.DateTime End)
         {
-            return base.Channel.GetDiscountsFor(Start, End);
+            return Channel.GetDiscountsFor(Start, End);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetDiscountsFor(System.DateTime Start, System.DateTime End, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetDiscountsFor(Start, End, callback, asyncState);
+            return Channel.BeginGetDiscountsFor(Start, End, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public decimal EndGetDiscountsFor(System.IAsyncResult result)
         {
-            return base.Channel.EndGetDiscountsFor(result);
+            return Channel.EndGetDiscountsFor(result);
         }
 
         private System.IAsyncResult OnBeginGetDiscountsFor(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -2263,19 +2264,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public System.Collections.Generic.List<Staunch.POS.Classes.DBCheck> GetChecksWithPayments(System.DateTime start, System.DateTime end)
         {
-            return base.Channel.GetChecksWithPayments(start, end);
+            return Channel.GetChecksWithPayments(start, end);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetChecksWithPayments(System.DateTime start, System.DateTime end, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetChecksWithPayments(start, end, callback, asyncState);
+            return Channel.BeginGetChecksWithPayments(start, end, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.Collections.Generic.List<Staunch.POS.Classes.DBCheck> EndGetChecksWithPayments(System.IAsyncResult result)
         {
-            return base.Channel.EndGetChecksWithPayments(result);
+            return Channel.EndGetChecksWithPayments(result);
         }
 
         private System.IAsyncResult OnBeginGetChecksWithPayments(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -2327,19 +2328,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public string PrintZReport(decimal UserID, System.DateTime start, System.DateTime end)
         {
-            return base.Channel.PrintZReport(UserID, start, end);
+            return Channel.PrintZReport(UserID, start, end);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginPrintZReport(decimal UserID, System.DateTime start, System.DateTime end, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginPrintZReport(UserID, start, end, callback, asyncState);
+            return Channel.BeginPrintZReport(UserID, start, end, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public string EndPrintZReport(System.IAsyncResult result)
         {
-            return base.Channel.EndPrintZReport(result);
+            return Channel.EndPrintZReport(result);
         }
 
         private System.IAsyncResult OnBeginPrintZReport(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -2393,19 +2394,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public System.Collections.Generic.Dictionary<string, decimal> GetSalesReport(System.DateTime start, System.DateTime end)
         {
-            return base.Channel.GetSalesReport(start, end);
+            return Channel.GetSalesReport(start, end);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetSalesReport(System.DateTime start, System.DateTime end, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetSalesReport(start, end, callback, asyncState);
+            return Channel.BeginGetSalesReport(start, end, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.Collections.Generic.Dictionary<string, decimal> EndGetSalesReport(System.IAsyncResult result)
         {
-            return base.Channel.EndGetSalesReport(result);
+            return Channel.EndGetSalesReport(result);
         }
 
         private System.IAsyncResult OnBeginGetSalesReport(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -2457,19 +2458,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public string PrintSalesReport(decimal UserID, System.DateTime start, System.DateTime end)
         {
-            return base.Channel.PrintSalesReport(UserID, start, end);
+            return Channel.PrintSalesReport(UserID, start, end);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginPrintSalesReport(decimal UserID, System.DateTime start, System.DateTime end, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginPrintSalesReport(UserID, start, end, callback, asyncState);
+            return Channel.BeginPrintSalesReport(UserID, start, end, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public string EndPrintSalesReport(System.IAsyncResult result)
         {
-            return base.Channel.EndPrintSalesReport(result);
+            return Channel.EndPrintSalesReport(result);
         }
 
         private System.IAsyncResult OnBeginPrintSalesReport(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -2523,19 +2524,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public bool ReopenCheck(decimal CheckID)
         {
-            return base.Channel.ReopenCheck(CheckID);
+            return Channel.ReopenCheck(CheckID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginReopenCheck(decimal CheckID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginReopenCheck(CheckID, callback, asyncState);
+            return Channel.BeginReopenCheck(CheckID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndReopenCheck(System.IAsyncResult result)
         {
-            return base.Channel.EndReopenCheck(result);
+            return Channel.EndReopenCheck(result);
         }
 
         private System.IAsyncResult OnBeginReopenCheck(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -2585,19 +2586,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public string DeleteCheck(Staunch.POS.Classes.DBCheck CheckToDelete)
         {
-            return base.Channel.DeleteCheck(CheckToDelete);
+            return Channel.DeleteCheck(CheckToDelete);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginDeleteCheck(Staunch.POS.Classes.DBCheck CheckToDelete, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginDeleteCheck(CheckToDelete, callback, asyncState);
+            return Channel.BeginDeleteCheck(CheckToDelete, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public string EndDeleteCheck(System.IAsyncResult result)
         {
-            return base.Channel.EndDeleteCheck(result);
+            return Channel.EndDeleteCheck(result);
         }
 
         private System.IAsyncResult OnBeginDeleteCheck(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -2647,19 +2648,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public bool RemoveOrderFromClosedCheck(decimal OrderID, decimal CheckID)
         {
-            return base.Channel.RemoveOrderFromClosedCheck(OrderID, CheckID);
+            return Channel.RemoveOrderFromClosedCheck(OrderID, CheckID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginRemoveOrderFromClosedCheck(decimal OrderID, decimal CheckID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginRemoveOrderFromClosedCheck(OrderID, CheckID, callback, asyncState);
+            return Channel.BeginRemoveOrderFromClosedCheck(OrderID, CheckID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndRemoveOrderFromClosedCheck(System.IAsyncResult result)
         {
-            return base.Channel.EndRemoveOrderFromClosedCheck(result);
+            return Channel.EndRemoveOrderFromClosedCheck(result);
         }
 
         private System.IAsyncResult OnBeginRemoveOrderFromClosedCheck(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -2711,19 +2712,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public bool MoveCheck(decimal CheckID, decimal NewTableID)
         {
-            return base.Channel.MoveCheck(CheckID, NewTableID);
+            return Channel.MoveCheck(CheckID, NewTableID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginMoveCheck(decimal CheckID, decimal NewTableID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginMoveCheck(CheckID, NewTableID, callback, asyncState);
+            return Channel.BeginMoveCheck(CheckID, NewTableID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndMoveCheck(System.IAsyncResult result)
         {
-            return base.Channel.EndMoveCheck(result);
+            return Channel.EndMoveCheck(result);
         }
 
         private System.IAsyncResult OnBeginMoveCheck(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -2775,19 +2776,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public void ExportReports(System.DateTime start, System.DateTime end)
         {
-            base.Channel.ExportReports(start, end);
+            Channel.ExportReports(start, end);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginExportReports(System.DateTime start, System.DateTime end, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginExportReports(start, end, callback, asyncState);
+            return Channel.BeginExportReports(start, end, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public void EndExportReports(System.IAsyncResult result)
         {
-            base.Channel.EndExportReports(result);
+            Channel.EndExportReports(result);
         }
 
         private System.IAsyncResult OnBeginExportReports(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -2838,19 +2839,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public bool UpdateTakeoutCheck(Staunch.POS.Classes.DBCheck check, decimal UserID)
         {
-            return base.Channel.UpdateTakeoutCheck(check, UserID);
+            return Channel.UpdateTakeoutCheck(check, UserID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginUpdateTakeoutCheck(Staunch.POS.Classes.DBCheck check, decimal UserID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginUpdateTakeoutCheck(check, UserID, callback, asyncState);
+            return Channel.BeginUpdateTakeoutCheck(check, UserID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndUpdateTakeoutCheck(System.IAsyncResult result)
         {
-            return base.Channel.EndUpdateTakeoutCheck(result);
+            return Channel.EndUpdateTakeoutCheck(result);
         }
 
         private System.IAsyncResult OnBeginUpdateTakeoutCheck(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -2902,19 +2903,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public string UpdateCheckDiscounts(System.Collections.Generic.List<Staunch.POS.Classes.OrderDiscount> discounts, bool taxable)
         {
-            return base.Channel.UpdateCheckDiscounts(discounts, taxable);
+            return Channel.UpdateCheckDiscounts(discounts, taxable);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginUpdateCheckDiscounts(System.Collections.Generic.List<Staunch.POS.Classes.OrderDiscount> discounts, bool taxable, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginUpdateCheckDiscounts(discounts, taxable, callback, asyncState);
+            return Channel.BeginUpdateCheckDiscounts(discounts, taxable, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public string EndUpdateCheckDiscounts(System.IAsyncResult result)
         {
-            return base.Channel.EndUpdateCheckDiscounts(result);
+            return Channel.EndUpdateCheckDiscounts(result);
         }
 
         private System.IAsyncResult OnBeginUpdateCheckDiscounts(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -2966,19 +2967,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public string Checkout(decimal checkId, System.Collections.Generic.List<decimal> guestIds, decimal tableId)
         {
-            return base.Channel.Checkout(checkId, guestIds, tableId);
+            return Channel.Checkout(checkId, guestIds, tableId);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginCheckout(decimal checkId, System.Collections.Generic.List<decimal> guestIds, decimal tableId, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginCheckout(checkId, guestIds, tableId, callback, asyncState);
+            return Channel.BeginCheckout(checkId, guestIds, tableId, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public string EndCheckout(System.IAsyncResult result)
         {
-            return base.Channel.EndCheckout(result);
+            return Channel.EndCheckout(result);
         }
 
         private System.IAsyncResult OnBeginCheckout(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -3032,19 +3033,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public System.Collections.Generic.List<System.Collections.Generic.List<string>> GetReportForDates(System.DateTime start, System.DateTime end)
         {
-            return base.Channel.GetReportForDates(start, end);
+            return Channel.GetReportForDates(start, end);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetReportForDates(System.DateTime start, System.DateTime end, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetReportForDates(start, end, callback, asyncState);
+            return Channel.BeginGetReportForDates(start, end, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.Collections.Generic.List<System.Collections.Generic.List<string>> EndGetReportForDates(System.IAsyncResult result)
         {
-            return base.Channel.EndGetReportForDates(result);
+            return Channel.EndGetReportForDates(result);
         }
 
         private System.IAsyncResult OnBeginGetReportForDates(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -3096,19 +3097,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public string RemoveTax(decimal CheckID)
         {
-            return base.Channel.RemoveTax(CheckID);
+            return Channel.RemoveTax(CheckID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginRemoveTax(decimal CheckID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginRemoveTax(CheckID, callback, asyncState);
+            return Channel.BeginRemoveTax(CheckID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public string EndRemoveTax(System.IAsyncResult result)
         {
-            return base.Channel.EndRemoveTax(result);
+            return Channel.EndRemoveTax(result);
         }
 
         private System.IAsyncResult OnBeginRemoveTax(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -3158,19 +3159,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public System.Collections.Generic.List<decimal> CreateLSEChecks(System.Collections.Generic.List<Staunch.POS.Classes.DBCheck> CheckList, decimal UserID)
         {
-            return base.Channel.CreateLSEChecks(CheckList, UserID);
+            return Channel.CreateLSEChecks(CheckList, UserID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginCreateLSEChecks(System.Collections.Generic.List<Staunch.POS.Classes.DBCheck> CheckList, decimal UserID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginCreateLSEChecks(CheckList, UserID, callback, asyncState);
+            return Channel.BeginCreateLSEChecks(CheckList, UserID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.Collections.Generic.List<decimal> EndCreateLSEChecks(System.IAsyncResult result)
         {
-            return base.Channel.EndCreateLSEChecks(result);
+            return Channel.EndCreateLSEChecks(result);
         }
 
         private System.IAsyncResult OnBeginCreateLSEChecks(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -3222,19 +3223,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public bool AddLSEPayment(decimal CheckID, string PaymentOption, decimal Amount, decimal UserID)
         {
-            return base.Channel.AddLSEPayment(CheckID, PaymentOption, Amount, UserID);
+            return Channel.AddLSEPayment(CheckID, PaymentOption, Amount, UserID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginAddLSEPayment(decimal CheckID, string PaymentOption, decimal Amount, decimal UserID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginAddLSEPayment(CheckID, PaymentOption, Amount, UserID, callback, asyncState);
+            return Channel.BeginAddLSEPayment(CheckID, PaymentOption, Amount, UserID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndAddLSEPayment(System.IAsyncResult result)
         {
-            return base.Channel.EndAddLSEPayment(result);
+            return Channel.EndAddLSEPayment(result);
         }
 
         private System.IAsyncResult OnBeginAddLSEPayment(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -3290,19 +3291,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public System.Collections.Generic.List<System.Collections.Generic.List<string>> GetLSEReportForDates(System.DateTime start, System.DateTime end)
         {
-            return base.Channel.GetLSEReportForDates(start, end);
+            return Channel.GetLSEReportForDates(start, end);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetLSEReportForDates(System.DateTime start, System.DateTime end, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetLSEReportForDates(start, end, callback, asyncState);
+            return Channel.BeginGetLSEReportForDates(start, end, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.Collections.Generic.List<System.Collections.Generic.List<string>> EndGetLSEReportForDates(System.IAsyncResult result)
         {
-            return base.Channel.EndGetLSEReportForDates(result);
+            return Channel.EndGetLSEReportForDates(result);
         }
 
         private System.IAsyncResult OnBeginGetLSEReportForDates(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -3354,19 +3355,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public System.Collections.Generic.List<Staunch.POS.Classes.DBCheck> GetLSEChecksWithPayments(System.DateTime start, System.DateTime end)
         {
-            return base.Channel.GetLSEChecksWithPayments(start, end);
+            return Channel.GetLSEChecksWithPayments(start, end);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetLSEChecksWithPayments(System.DateTime start, System.DateTime end, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetLSEChecksWithPayments(start, end, callback, asyncState);
+            return Channel.BeginGetLSEChecksWithPayments(start, end, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.Collections.Generic.List<Staunch.POS.Classes.DBCheck> EndGetLSEChecksWithPayments(System.IAsyncResult result)
         {
-            return base.Channel.EndGetLSEChecksWithPayments(result);
+            return Channel.EndGetLSEChecksWithPayments(result);
         }
 
         private System.IAsyncResult OnBeginGetLSEChecksWithPayments(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -3418,19 +3419,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public string UpdateCheckOrderItem(Staunch.POS.Classes.GuestItem order)
         {
-            return base.Channel.UpdateCheckOrderItem(order);
+            return Channel.UpdateCheckOrderItem(order);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginUpdateCheckOrderItem(Staunch.POS.Classes.GuestItem order, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginUpdateCheckOrderItem(order, callback, asyncState);
+            return Channel.BeginUpdateCheckOrderItem(order, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public string EndUpdateCheckOrderItem(System.IAsyncResult result)
         {
-            return base.Channel.EndUpdateCheckOrderItem(result);
+            return Channel.EndUpdateCheckOrderItem(result);
         }
 
         private System.IAsyncResult OnBeginUpdateCheckOrderItem(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -3480,19 +3481,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public string InsertVoid(decimal checkID, string user, string manager, string reason)
         {
-            return base.Channel.InsertVoid(checkID, user, manager, reason);
+            return Channel.InsertVoid(checkID, user, manager, reason);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginInsertVoid(decimal checkID, string user, string manager, string reason, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginInsertVoid(checkID, user, manager, reason, callback, asyncState);
+            return Channel.BeginInsertVoid(checkID, user, manager, reason, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public string EndInsertVoid(System.IAsyncResult result)
         {
-            return base.Channel.EndInsertVoid(result);
+            return Channel.EndInsertVoid(result);
         }
 
         private System.IAsyncResult OnBeginInsertVoid(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -3548,19 +3549,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public System.Collections.Generic.List<string> GetVoidsForDates(System.DateTime start, System.DateTime end)
         {
-            return base.Channel.GetVoidsForDates(start, end);
+            return Channel.GetVoidsForDates(start, end);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginGetVoidsForDates(System.DateTime start, System.DateTime end, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginGetVoidsForDates(start, end, callback, asyncState);
+            return Channel.BeginGetVoidsForDates(start, end, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.Collections.Generic.List<string> EndGetVoidsForDates(System.IAsyncResult result)
         {
-            return base.Channel.EndGetVoidsForDates(result);
+            return Channel.EndGetVoidsForDates(result);
         }
 
         private System.IAsyncResult OnBeginGetVoidsForDates(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -3612,19 +3613,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public string AddCreditPayment(decimal CheckID, string PaymentOption, decimal Amount, decimal UserID)
         {
-            return base.Channel.AddCreditPayment(CheckID, PaymentOption, Amount, UserID);
+            return Channel.AddCreditPayment(CheckID, PaymentOption, Amount, UserID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginAddCreditPayment(decimal CheckID, string PaymentOption, decimal Amount, decimal UserID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginAddCreditPayment(CheckID, PaymentOption, Amount, UserID, callback, asyncState);
+            return Channel.BeginAddCreditPayment(CheckID, PaymentOption, Amount, UserID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public string EndAddCreditPayment(System.IAsyncResult result)
         {
-            return base.Channel.EndAddCreditPayment(result);
+            return Channel.EndAddCreditPayment(result);
         }
 
         private System.IAsyncResult OnBeginAddCreditPayment(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -3680,19 +3681,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public void PrintCateringReceipt(int CateringID)
         {
-            base.Channel.PrintCateringReceipt(CateringID);
+            Channel.PrintCateringReceipt(CateringID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginPrintCateringReceipt(int CateringID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginPrintCateringReceipt(CateringID, callback, asyncState);
+            return Channel.BeginPrintCateringReceipt(CateringID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public void EndPrintCateringReceipt(System.IAsyncResult result)
         {
-            base.Channel.EndPrintCateringReceipt(result);
+            Channel.EndPrintCateringReceipt(result);
         }
 
         private System.IAsyncResult OnBeginPrintCateringReceipt(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -3741,19 +3742,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public bool ClearDiscounts(decimal CheckID)
         {
-            return base.Channel.ClearDiscounts(CheckID);
+            return Channel.ClearDiscounts(CheckID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginClearDiscounts(decimal CheckID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginClearDiscounts(CheckID, callback, asyncState);
+            return Channel.BeginClearDiscounts(CheckID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndClearDiscounts(System.IAsyncResult result)
         {
-            return base.Channel.EndClearDiscounts(result);
+            return Channel.EndClearDiscounts(result);
         }
 
         private System.IAsyncResult OnBeginClearDiscounts(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -3803,19 +3804,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public bool AddCateringPayment(decimal CheckID, string PaymentOption, decimal Amount, decimal UserID)
         {
-            return base.Channel.AddCateringPayment(CheckID, PaymentOption, Amount, UserID);
+            return Channel.AddCateringPayment(CheckID, PaymentOption, Amount, UserID);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginAddCateringPayment(decimal CheckID, string PaymentOption, decimal Amount, decimal UserID, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginAddCateringPayment(CheckID, PaymentOption, Amount, UserID, callback, asyncState);
+            return Channel.BeginAddCateringPayment(CheckID, PaymentOption, Amount, UserID, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public bool EndAddCateringPayment(System.IAsyncResult result)
         {
-            return base.Channel.EndAddCateringPayment(result);
+            return Channel.EndAddCateringPayment(result);
         }
 
         private System.IAsyncResult OnBeginAddCateringPayment(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -3871,19 +3872,19 @@ namespace Zipline2.ConnectedServices.CheckHostReference
 
         public Staunch.POS.Classes.GuestItem PriceOrder(Staunch.POS.Classes.GuestItem item)
         {
-            return base.Channel.PriceOrder(item);
+            return Channel.PriceOrder(item);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public System.IAsyncResult BeginPriceOrder(Staunch.POS.Classes.GuestItem item, System.AsyncCallback callback, object asyncState)
         {
-            return base.Channel.BeginPriceOrder(item, callback, asyncState);
+            return Channel.BeginPriceOrder(item, callback, asyncState);
         }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public Staunch.POS.Classes.GuestItem EndPriceOrder(System.IAsyncResult result)
         {
-            return base.Channel.EndPriceOrder(result);
+            return Channel.EndPriceOrder(result);
         }
 
         private System.IAsyncResult OnBeginPriceOrder(object[] inValues, System.AsyncCallback callback, object asyncState)
@@ -3930,6 +3931,876 @@ namespace Zipline2.ConnectedServices.CheckHostReference
             base.InvokeAsync(this.onBeginPriceOrderDelegate, new object[] {
                     item}, this.onEndPriceOrderDelegate, this.onPriceOrderCompletedDelegate, userState);
         }
+
+        public string CreateChecks(List<DBCheck> CheckList, decimal UserID, bool forTakeout)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<DBCheck> GetOpenChecks(decimal TableID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool HasOpenChecks(decimal TableID)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
+
+
+
+        private class CheckHostChannel : ChannelBase<ICheckHost>, ICheckHost
+        {
+
+            public CheckHostChannel(System.ServiceModel.ClientBase<ICheckHost> client) : base(client)
+            {
+
+            }
+
+            public IAsyncResult BeginCreateChecks(List<DBCheck> CheckList, decimal UserID, bool forTakeout, AsyncCallback callback, object asyncState)
+            {
+                object[] args = new object[3];
+                args[0] = CheckList;
+                args[1] = UserID;
+                args[2] = forTakeout;
+                return (IAsyncResult)base.BeginInvoke("CreateChecks", args, callback, asyncState);
+            }
+
+            public string EndCreateChecks(IAsyncResult result)
+            {
+                object[] args = new object[0];
+                return (string)base.EndInvoke("CreateChecks", args, result);
+            }
+
+           
+            public IAsyncResult BeginGetOpenChecks(decimal TableID, AsyncCallback callback, object asyncState)
+            {
+                object[] args = new object[1];
+                args[0] = TableID;
+                return (IAsyncResult)base.BeginInvoke("GetOpenChecks", args, callback, asyncState);
+            }
+
+            public List<DBCheck> EndGetOpenChecks(IAsyncResult result)
+            {
+                object[] args = new object[0];
+                return (List<DBCheck>)base.EndInvoke("GetOpenChecks", args, result);
+            }
+
+            public IAsyncResult BeginHasOpenChecks(decimal TableID, AsyncCallback callback, object asyncState)
+            {
+                object[] args = new object[1];
+                args[0] = TableID;
+
+                return (IAsyncResult)base.BeginInvoke("HasOpenChecks", args, callback, asyncState);
+            }
+
+            public bool EndHasOpenChecks(IAsyncResult result)
+            {
+                object[] args = new object[0];
+                return (bool)base.EndInvoke("HasOpenChecks", args, result);
+            }
+
+            public IAsyncResult BeginPriceOrder(GuestItem item, AsyncCallback callback, object asyncState)
+            {
+                object[] args = new object[1];
+                args[0] = item;
+
+                return (IAsyncResult)base.BeginInvoke("PriceOrder", args, callback, asyncState);
+            }
+
+            public GuestItem EndPriceOrder(IAsyncResult result)
+            {
+                object[] args = new object[0];
+                return (GuestItem)base.EndInvoke("PriceOrder", args, result);
+            }
+
+            //***********************************************************************************************************
+            #region Not Implemented
+            public bool AddCateringPayment(decimal CheckID, string PaymentOption, decimal Amount, decimal UserID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public string AddCreditPayment(decimal CheckID, string PaymentOption, decimal Amount, decimal UserID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool AddGratuity(decimal CheckID, decimal Amount, decimal UserID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool AddLSEPayment(decimal CheckID, string PaymentOption, decimal Amount, decimal UserID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool AddPayment(decimal CheckID, string PaymentOption, decimal Amount, decimal UserID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginAddCateringPayment(decimal CheckID, string PaymentOption, decimal Amount, decimal UserID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginAddCreditPayment(decimal CheckID, string PaymentOption, decimal Amount, decimal UserID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginAddGratuity(decimal CheckID, decimal Amount, decimal UserID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginAddLSEPayment(decimal CheckID, string PaymentOption, decimal Amount, decimal UserID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginAddPayment(decimal CheckID, string PaymentOption, decimal Amount, decimal UserID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginCheckout(decimal checkId, List<decimal> guestIds, decimal tableId, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginClearCheck(decimal CheckID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginClearDiscounts(decimal CheckID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginCombineChecks(decimal CheckID1, decimal CheckID2, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+
+            public IAsyncResult BeginCreateLSEChecks(List<DBCheck> CheckList, decimal UserID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginDeleteCheck(DBCheck CheckToDelete, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginExportReports(DateTime start, DateTime end, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetCashDrawerPort(decimal ActionID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetCheck(decimal CheckID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetCheckCount(decimal OrderID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetChecksForOrder(decimal OrderID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetChecksWithPayments(DateTime start, DateTime end, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetDiscountsFor(DateTime Start, DateTime End, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetGratuityFor(DateTime Start, DateTime End, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetGratuityForToday(AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetGrossSalesFor(DateTime Start, DateTime End, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetGrossSalesForToday(AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetLSEChecksWithPayments(DateTime start, DateTime end, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetLSEReportForDates(DateTime start, DateTime end, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+
+            public IAsyncResult BeginGetReportForDates(DateTime start, DateTime end, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetSalesReport(DateTime start, DateTime end, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetTaxFor(DateTime Start, DateTime End, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetTaxForToday(AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginGetVoidsForDates(DateTime start, DateTime end, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+
+            public IAsyncResult BeginInsertVoid(decimal checkID, string user, string manager, string reason, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginMoveCheck(decimal CheckID, decimal NewTableID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginMoveItems(Dictionary<decimal, List<decimal>> Items, decimal newCheckID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginOpenDrawer(decimal actionID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginPing(AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+
+            public IAsyncResult BeginPrintCateringReceipt(int CateringID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginPrintCheckforMoble(List<decimal> CheckIDs, decimal UserID, bool isReceipt, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginPrintCheckforRegister(List<decimal> CheckIDs, decimal UserID, bool isReceipt, int copies, decimal actionID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginPrintSalesReport(decimal UserID, DateTime start, DateTime end, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginPrintZReport(decimal UserID, DateTime start, DateTime end, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginremoveOrderFromCheck(decimal OrderID, decimal CheckID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginRemoveOrderFromClosedCheck(decimal OrderID, decimal CheckID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginRemoveTax(decimal CheckID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginReopenCheck(decimal CheckID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginSplitItem(decimal OrderID, List<decimal> CheckIDs, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginUpdateCheckDiscounts(List<OrderDiscount> discounts, bool taxable, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginUpdateCheckNotes(DBNotes Notes, decimal CheckID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginUpdateCheckOrderItem(GuestItem order, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginUpdateChecks(List<DBCheck> Checks, decimal UserID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginUpdateOrderNotes(DBNotes Notes, decimal OrderID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IAsyncResult BeginUpdateTakeoutCheck(DBCheck check, decimal UserID, AsyncCallback callback, object asyncState)
+            {
+                throw new NotImplementedException();
+            }
+
+            public string Checkout(decimal checkId, List<decimal> guestIds, decimal tableId)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool ClearCheck(decimal CheckID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool ClearDiscounts(decimal CheckID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool CombineChecks(decimal CheckID1, decimal CheckID2)
+            {
+                throw new NotImplementedException();
+            }
+
+
+            public List<decimal> CreateLSEChecks(List<DBCheck> CheckList, decimal UserID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public string DeleteCheck(DBCheck CheckToDelete)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndAddCateringPayment(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public string EndAddCreditPayment(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndAddGratuity(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndAddLSEPayment(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndAddPayment(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public string EndCheckout(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndClearCheck(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndClearDiscounts(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndCombineChecks(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+
+
+            public List<decimal> EndCreateLSEChecks(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public string EndDeleteCheck(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void EndExportReports(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public string EndGetCashDrawerPort(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public DBCheck EndGetCheck(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public int EndGetCheckCount(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<decimal> EndGetChecksForOrder(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<DBCheck> EndGetChecksWithPayments(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public decimal EndGetDiscountsFor(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public decimal EndGetGratuityFor(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public decimal EndGetGratuityForToday(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public Dictionary<string, decimal> EndGetGrossSalesFor(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public Dictionary<string, decimal> EndGetGrossSalesForToday(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<DBCheck> EndGetLSEChecksWithPayments(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<List<string>> EndGetLSEReportForDates(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+
+            public List<List<string>> EndGetReportForDates(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public Dictionary<string, decimal> EndGetSalesReport(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public decimal EndGetTaxFor(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public decimal EndGetTaxForToday(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<string> EndGetVoidsForDates(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+
+            public string EndInsertVoid(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndMoveCheck(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndMoveItems(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public string EndOpenDrawer(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public int EndPing(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+
+            public void EndPrintCateringReceipt(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndPrintCheckforMoble(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndPrintCheckforRegister(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public string EndPrintSalesReport(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public string EndPrintZReport(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndremoveOrderFromCheck(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndRemoveOrderFromClosedCheck(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public string EndRemoveTax(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndReopenCheck(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndSplitItem(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public string EndUpdateCheckDiscounts(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void EndUpdateCheckNotes(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public string EndUpdateCheckOrderItem(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndUpdateChecks(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void EndUpdateOrderNotes(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool EndUpdateTakeoutCheck(IAsyncResult result)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void ExportReports(DateTime start, DateTime end)
+            {
+                throw new NotImplementedException();
+            }
+
+            public string GetCashDrawerPort(decimal ActionID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public DBCheck GetCheck(decimal CheckID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public int GetCheckCount(decimal OrderID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<decimal> GetChecksForOrder(decimal OrderID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<DBCheck> GetChecksWithPayments(DateTime start, DateTime end)
+            {
+                throw new NotImplementedException();
+            }
+
+            public decimal GetDiscountsFor(DateTime Start, DateTime End)
+            {
+                throw new NotImplementedException();
+            }
+
+            public decimal GetGratuityFor(DateTime Start, DateTime End)
+            {
+                throw new NotImplementedException();
+            }
+
+            public decimal GetGratuityForToday()
+            {
+                throw new NotImplementedException();
+            }
+
+            public Dictionary<string, decimal> GetGrossSalesFor(DateTime Start, DateTime End)
+            {
+                throw new NotImplementedException();
+            }
+
+            public Dictionary<string, decimal> GetGrossSalesForToday()
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<DBCheck> GetLSEChecksWithPayments(DateTime start, DateTime end)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<List<string>> GetLSEReportForDates(DateTime start, DateTime end)
+            {
+                throw new NotImplementedException();
+            }
+
+
+
+            public List<List<string>> GetReportForDates(DateTime start, DateTime end)
+            {
+                throw new NotImplementedException();
+            }
+
+            public Dictionary<string, decimal> GetSalesReport(DateTime start, DateTime end)
+            {
+                throw new NotImplementedException();
+            }
+
+            public decimal GetTaxFor(DateTime Start, DateTime End)
+            {
+                throw new NotImplementedException();
+            }
+
+            public decimal GetTaxForToday()
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<string> GetVoidsForDates(DateTime start, DateTime end)
+            {
+                throw new NotImplementedException();
+            }
+
+
+            public string InsertVoid(decimal checkID, string user, string manager, string reason)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool MoveCheck(decimal CheckID, decimal NewTableID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool MoveItems(Dictionary<decimal, List<decimal>> Items, decimal newCheckID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public string OpenDrawer(decimal actionID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public int Ping()
+            {
+                throw new NotImplementedException();
+            }
+
+
+            public void PrintCateringReceipt(int CateringID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool PrintCheckforMoble(List<decimal> CheckIDs, decimal UserID, bool isReceipt)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool PrintCheckforRegister(List<decimal> CheckIDs, decimal UserID, bool isReceipt, int copies, decimal actionID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public string PrintSalesReport(decimal UserID, DateTime start, DateTime end)
+            {
+                throw new NotImplementedException();
+            }
+
+            public string PrintZReport(decimal UserID, DateTime start, DateTime end)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool removeOrderFromCheck(decimal OrderID, decimal CheckID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool RemoveOrderFromClosedCheck(decimal OrderID, decimal CheckID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public string RemoveTax(decimal CheckID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool ReopenCheck(decimal CheckID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool SplitItem(decimal OrderID, List<decimal> CheckIDs)
+            {
+                throw new NotImplementedException();
+            }
+
+            public string UpdateCheckDiscounts(List<OrderDiscount> discounts, bool taxable)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void UpdateCheckNotes(DBNotes Notes, decimal CheckID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public string UpdateCheckOrderItem(GuestItem order)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool UpdateChecks(List<DBCheck> Checks, decimal UserID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public void UpdateOrderNotes(DBNotes Notes, decimal OrderID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool UpdateTakeoutCheck(DBCheck check, decimal UserID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public string CreateChecks(List<DBCheck> CheckList, decimal UserID, bool forTakeout)
+            {
+                throw new NotImplementedException();
+            }
+
+            public GuestItem PriceOrder(GuestItem item)
+            {
+                throw new NotImplementedException();
+            }
+
+            public List<DBCheck> GetOpenChecks(decimal TableID)
+            {
+                throw new NotImplementedException();
+            }
+
+            public bool HasOpenChecks(decimal TableID)
+            {
+                throw new NotImplementedException();
+            }
+            #endregion
+        }
     }
 }
