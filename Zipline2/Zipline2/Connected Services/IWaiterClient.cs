@@ -8,6 +8,6 @@ namespace Zipline2.ConnectedServices
 {
     public interface IWaiterClient
     {
-        IPosService GetWaiterClient(string endpointAddress);
+        IPosService GetWaiterClient(string endpointAddress, TimeSpan timeoutTimeSpan);
     }
 }

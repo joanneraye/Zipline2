@@ -17,12 +17,12 @@ namespace Zipline2.Android.Services
 {
     public class WaiterClient : IWaiterClient
     {
-        public IPosService GetWaiterClient(string endpointAddress)
+        public IPosService GetWaiterClient(string endpointAddress, TimeSpan timeoutTimeSpan)
         {
             PosServiceClientAndroid waiterClient = new PosServiceClientAndroid(
                          new BasicHttpBinding(),
                          new EndpointAddress(endpointAddress));
-            waiterClient.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 15);
+            waiterClient.Endpoint.Binding.SendTimeout = timeoutTimeSpan;
             return waiterClient;
         }
     }

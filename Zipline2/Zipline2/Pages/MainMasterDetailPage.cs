@@ -27,7 +27,7 @@ namespace Zipline2.Pages
             base.OnAppearing();
             if (!Users.Instance.IsUserLoggedIn)
             {
-                if (WcfServicesProxy.Instance.ServiceCallConfig == WcfServicesProxy.ServiceCallConfigType.AllServiceCallsOff)
+                if (WcfServicesProxy.Instance.ServerConnectionProblem)
                 {
                     DisplayFatalAlert();
                 }

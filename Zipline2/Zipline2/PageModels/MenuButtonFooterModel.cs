@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Zipline2.BusinessLogic;
+using Zipline2.Models;
 using Zipline2.Pages;
 
 namespace Zipline2.PageModels
@@ -16,6 +18,7 @@ namespace Zipline2.PageModels
         {
             DrinksCommand = new Command(OnDrinksButtonClick);
             PizzaCommand = new Command(OnPizzaButtonClick);
+            SaladsCommand = new Command(OnSaladsButtonClick);
             OrderPageCommand = new Command(OnOrderPage);
             TablesCommand = new Command(OnTablesPage);
             AddToOrderCommand = new Command(OnAddToOrder);
@@ -41,6 +44,7 @@ namespace Zipline2.PageModels
         public DrinksPageModel ThisDrinksPageModel { get; set; }
         public OrderPageModel ThisOrderPageModel { get; set; }
         public ICommand DrinksCommand { get; set; }
+        public ICommand SaladsCommand { get; set; }
         public ICommand PizzaCommand { get; set; }
         public ICommand AddToOrderCommand { get; set; }
         public ICommand TablesCommand { get; set; }
@@ -136,6 +140,10 @@ namespace Zipline2.PageModels
 
         void OnTablesPage()
         {
+            if (OrderManager.Instance.OrderInProgress.OrderItems.Count == 0)
+            {
+                Tables.AllTables[OrderManager.Instance.CurrentTableIndex].IsOccupied = false;
+            }
             var currentMainPage = Application.Current.MainPage as MasterDetailPage;
             currentMainPage.Detail = new NavigationPage(new TablesPage());
             Application.Current.MainPage = currentMainPage;
@@ -148,6 +156,7 @@ namespace Zipline2.PageModels
 
         void OnSendOrder()
         {
+           
             ThisOrderPageModel.OnSendOrder();
         }
 
@@ -168,6 +177,14 @@ namespace Zipline2.PageModels
             Application.Current.MainPage = currentMainPage;
         }
 
-        
+        void OnSaladsButtonClick()
+        {
+            var currentMainPage = Application.Current.MainPage as MasterDetailPage;
+            currentMainPage.Detail = new NavigationPage(new SaladsPage());
+            Application.Current.MainPage = currentMainPage;
+        }
+
+
+
     }
 }

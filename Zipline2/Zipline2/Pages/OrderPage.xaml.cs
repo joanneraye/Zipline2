@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Zipline2.BusinessLogic;
+using Zipline2.Models;
 using Zipline2.PageModels;
 
 namespace Zipline2.Pages
@@ -37,7 +38,14 @@ namespace Zipline2.Pages
         }
         void HandleNavigateToTablesPage(object sender, EventArgs e)
         {
-            DisplayAlert("NOTE:", "During this phase of testing, no orders are being sent to the server or kitchen.", "OK");
+            if (OrderManager.Instance.OrderInProgress.OrderItems.Count == 0)
+            {
+                Tables.AllTables[OrderManager.Instance.CurrentTableIndex].IsOccupied = false;
+            }
+            else
+            {
+                DisplayAlert("NOTE:", "During this phase of testing, no orders are being sent to the server or kitchen.", "OK");
+            }
             var currentMainPage = (Application.Current.MainPage as MasterDetailPage);
             currentMainPage.Detail = new NavigationPage(new TablesPage());
             Application.Current.MainPage = currentMainPage;

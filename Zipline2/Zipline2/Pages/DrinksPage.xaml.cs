@@ -44,7 +44,9 @@ namespace Zipline2.Pages
 
         void HandleNavigateToOrderPage(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new OrderPage());
+            var currentMainPage = Application.Current.MainPage as MasterDetailPage;
+            currentMainPage.Detail = new NavigationPage(new OrderPage());
+            Application.Current.MainPage = currentMainPage;
         }
 
     }

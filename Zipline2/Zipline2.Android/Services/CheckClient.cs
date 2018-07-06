@@ -17,12 +17,12 @@ namespace Zipline2.Android.Services
 {
     public class CheckClient : ICheckClient
     {
-        public ICheckHost GetCheckClient(string endpointAddress)
+        public ICheckHost GetCheckClient(string endpointAddress, TimeSpan timeoutTimeSpan)
         {
             CheckHostClientAndroid checkClient = new CheckHostClientAndroid(
                          new BasicHttpBinding(),
                          new EndpointAddress(endpointAddress));
-            checkClient.Endpoint.Binding.SendTimeout = new TimeSpan(0, 10, 0);
+            checkClient.Endpoint.Binding.SendTimeout = timeoutTimeSpan;
             return checkClient;
         }
     }

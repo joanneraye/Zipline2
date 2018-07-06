@@ -13,12 +13,12 @@ namespace Zipline2.iOS.Services
 {
     public class WaiterClient : IWaiterClient
     {
-        public IPosService GetWaiterClient(string endpointAddress)
+        public IPosService GetWaiterClient(string endpointAddress, TimeSpan timeSpan)
         {
             PosServiceClientIos WaiterClient = new PosServiceClientIos(
                new BasicHttpBinding(),
                new EndpointAddress(endpointAddress));
-            WaiterClient.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 15);
+            WaiterClient.Endpoint.Binding.SendTimeout = timeSpan;
             return WaiterClient;
         }
     }

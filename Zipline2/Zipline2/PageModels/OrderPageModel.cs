@@ -59,7 +59,7 @@ namespace Zipline2.PageModels
             OnNavigateToTablesPage();
         }
 
-        void OnNavigateToTablesPage()
+        public void OnNavigateToTablesPage()
         {
             NavigateToTablesPage?.Invoke(this, EventArgs.Empty);
         }

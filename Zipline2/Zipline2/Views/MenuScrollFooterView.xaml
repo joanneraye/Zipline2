@@ -45,7 +45,7 @@
                     <Button Text="{Binding AddToOrderButtonText}"
                                     Command="{Binding AddToOrderCommand}"
                                     Style="{StaticResource footerScrollMenuBlueButtons}"
-                                     WidthRequest="90">
+                                     WidthRequest="84">
                         <Button.Triggers>
                             <DataTrigger TargetType="Button" 
                                  Binding="{Binding DisplayAddToOrderButton}"
@@ -57,7 +57,7 @@
                     <Button Text="Order Summary"
                             Command="{Binding OrderPageCommand}"
                             Style="{StaticResource footerScrollMenuBlueButtons}"
-                            WidthRequest="80">
+                            WidthRequest="78">
                         <Button.Triggers>
                             <DataTrigger TargetType="Button" 
                                  Binding="{Binding IsOrderPageDisplayed}"
@@ -70,7 +70,7 @@
                             Command="{Binding SendOrderCommand}"
                             Style="{StaticResource footerScrollMenuBlueButtons}"
                             IsVisible="False"
-                            WidthRequest="80">
+                            WidthRequest="78">
                     <Button.Triggers>
                         <DataTrigger TargetType="Button" 
                                  Binding="{Binding IsOrderPageDisplayed}"
@@ -89,7 +89,7 @@
                             Command="{Binding EditOrderCommand}"
                             Style="{StaticResource footerScrollMenuBlueButtons}"
                             IsVisible="False"
-                            WidthRequest="82">
+                            WidthRequest="78">
                     <Button.Triggers>
                         <DataTrigger TargetType="Button" 
                                  Binding="{Binding IsOrderPageDisplayed}"
@@ -102,6 +102,7 @@
             <ScrollView Orientation="Horizontal">
                 <StackLayout Orientation="Horizontal">
                     <Button Text="Salads"
+                        Command="{Binding SaladsCommand}"
                         Style="{StaticResource footerScrollMenu}"/>
                 <Button Text="Calzone"
                         Style="{StaticResource footerScrollMenu}"/>

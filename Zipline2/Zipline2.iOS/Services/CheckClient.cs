@@ -14,12 +14,12 @@ namespace Zipline2.iOS.Services
 {
     public class CheckClient : ICheckClient
     {
-        public ICheckHost GetCheckClient(string endpointAddress)
+        public ICheckHost GetCheckClient(string endpointAddress, TimeSpan timeSpan)
         {
             CheckHostClient checkClient = new CheckHostClient(
                             new BasicHttpBinding(),
                             new EndpointAddress(endpointAddress));
-            checkClient.Endpoint.Binding.SendTimeout = new TimeSpan(0, 10, 0);
+            checkClient.Endpoint.Binding.SendTimeout = timeSpan;
             return checkClient;
         }
     }

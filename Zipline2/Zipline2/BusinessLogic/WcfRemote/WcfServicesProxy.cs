@@ -22,6 +22,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
             UpdateServicesNoSend
 
         }
+
+        public bool ServerConnectionProblem = false;
         public ServiceCallConfigType ServiceCallConfig;
         private string endpointIpAddressPart1;
         private const string waiterIpAddressPart2 = "/WP7Waiter/POServiceHost.svc";
@@ -112,8 +114,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
                 catch (Exception ex)
                 {
-                    var errorMessage = ex;
-                    throw;
+                    ServiceCallConfig = ServiceCallConfigType.AllServiceCallsOff;
+                    ServerConnectionProblem = true;
                 }
             }
         }
@@ -121,13 +123,27 @@ namespace Zipline2.BusinessLogic.WcfRemote
        
         private void CreateWaiterClient()
         {
-           
-            waiterClient = DependencyService.Get<IWaiterClient>().GetWaiterClient(endpointIpAddressPart1 + waiterIpAddressPart2);
+          
+            waiterClient = DependencyService.Get<IWaiterClient>().GetWaiterClient(endpointIpAddressPart1 + waiterIpAddressPart2, new TimeSpan(0, 0, 10));
 
-            //if (waiterClient.Ping(0) == 10)
-            //{
-            //    WaiterClientConnected = true;
-            //}
+            int pingResult = 0;
+            try
+            {
+                pingResult = waiterClient.Ping(0);
+            }
+
+            catch (Exception ex)
+            {
+                ServiceCallConfig = ServiceCallConfigType.AllServiceCallsOff;
+                ServerConnectionProblem = true;
+
+            }
+            
+            if (pingResult == 10)
+            {
+                waiterClient = DependencyService.Get<IWaiterClient>().GetWaiterClient(endpointIpAddressPart1 + waiterIpAddressPart2, new TimeSpan(0, 10, 0));
+            }
+           
             //waiterClient = new PosServiceClient(
             //             new BasicHttpBinding(),
             //             new EndpointAddress(endpointIpAddressPart1 + waiterIpAddressPart2));
@@ -138,8 +154,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
         private void CreateCheckClient()
         {
            
-            checkClient = DependencyService.Get<ICheckClient>().GetCheckClient(endpointIpAddressPart1 + waiterIpAddressPart2);
-        
+            checkClient = DependencyService.Get<ICheckClient>().GetCheckClient(endpointIpAddressPart1 + checkIpAddressPart2, new TimeSpan(0, 10, 0));
+
             //The following won't work and don't know why.
             //if (checkClient.Ping() == 9001)
             //{
@@ -213,20 +229,20 @@ namespace Zipline2.BusinessLogic.WcfRemote
         }
 
 
-        public bool GetMenu()
+        public void GetMenu()
         {
             if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
             {
-                return false;
+                return;
             }
             try
             {
                 DataBaseDictionaries.MenuDictionary = waiterClient.GetMenu();
-                return true;
+              
             }
             catch (Exception ex)
             {
-                return false;
+                throw;
             }
         }
 

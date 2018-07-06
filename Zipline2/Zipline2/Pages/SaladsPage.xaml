@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:Zipline2.Converters"
+             xmlns:local="clr-namespace:Zipline2.Pages"
+             x:Class="Zipline2.Pages.SaladsPage">
+    <!--<ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:SelectedItemColorConverter x:Key="selectBackgroundConverter"/>
+            <Style x:Key="SaladSelectionButtons" TargetType="Button">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="BorderColor" Value="White" />
+                <Setter Property="BorderRadius" Value="1" />
+                <Setter Property="BorderWidth" Value="1" />
+            </Style>
+            <Style x:Key="SaladSelectionLabels" TargetType="Label">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+            </Style>
+            <Style x:Key="PlusIcon" TargetType="iconize:IconImage">
+                <Setter Property="Icon" Value="fa-plus" />
+                <Setter Property="IconSize" Value="30" />
+                <Setter Property="IconColor" Value="LightBlue" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>-->
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Welcome to Xamarin.Forms!"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
+</local:BasePage>
