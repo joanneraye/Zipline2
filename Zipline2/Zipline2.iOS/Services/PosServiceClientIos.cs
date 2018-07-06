@@ -1098,6 +1098,12 @@ namespace Zipline2.iOS.Services
             return Channel.EndGetUser(result);
         }
 
+        public int Ping(int Delay)
+        {
+            return Channel.Ping(Delay);
+        }
+
+
 
         #endregion
 
@@ -1152,20 +1158,13 @@ namespace Zipline2.iOS.Services
             }
 
 
-            public int Ping(int Delay)
-            {
-                throw new NotImplementedException();
-            }
-
+          
             public IAsyncResult BeginPing(int Delay, AsyncCallback callback, object asyncState)
             {
                 throw new NotImplementedException();
             }
 
-            public int EndPing(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
+           
 
             public List<DBModGroup> GetRequiredMods(decimal ItemID)
             {
@@ -1553,6 +1552,11 @@ namespace Zipline2.iOS.Services
             {
                 throw new NotImplementedException();
             }
+
+        public int EndPing(IAsyncResult result)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
 
@@ -1773,6 +1777,14 @@ namespace Zipline2.iOS.Services
                 return (DBUser)base.EndInvoke("GetUser", args, result);
             }
 
+
+            public int Ping(int Delay)
+            {
+
+                object[] args = new object[1];
+                args[0] = Delay;
+                return (int)base.Invoke("Ping", args);
+            }
 
 
 
@@ -2080,11 +2092,6 @@ namespace Zipline2.iOS.Services
             }
 
             public bool EndLogout(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public int Ping(int Delay)
             {
                 throw new NotImplementedException();
             }

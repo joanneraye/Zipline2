@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Threading.Tasks;
 using Xamarin.Forms;
+using Zipline2.BusinessLogic.WcfRemote;
 using Zipline2.Models;
 
 namespace Zipline2.Pages
@@ -26,8 +27,21 @@ namespace Zipline2.Pages
             base.OnAppearing();
             if (!Users.Instance.IsUserLoggedIn)
             {
-                Navigation.PushModalAsync(new LoginPage());
+                if (WcfServicesProxy.Instance.ServiceCallConfig == WcfServicesProxy.ServiceCallConfigType.AllServiceCallsOff)
+                {
+                    DisplayFatalAlert();
+                }
+                else
+                {
+                    Navigation.PushModalAsync(new LoginPage());
+                }
+               
             }
+        }
+
+        async private Task DisplayFatalAlert()
+        {
+            await DisplayAlert("Fatal Error", "Cannot connect to server.  If you are not at Satchel's, you must be at Satchel's to test.  If you are at Satchel's, please let Joanne know there is a server connection issue.", "OK");
         }
     }
 }

@@ -21,7 +21,10 @@ namespace Zipline2.Pages
             InitializeComponent();
             BindingContext = orderPageModel;
             Footer.FooterPageModel.IsOrderPageDisplayed = true;
+            Footer.FooterPageModel.DisplayAddToOrderButton = false;
+            Footer.FooterPageModel.ThisOrderPageModel = orderPageModel;
             string pizzaTitle = "TBL " + OrderManager.Instance.CurrentTableName + " Order";
+            this.ToolbarItems.Clear();
             this.ToolbarItems.Add(new ToolbarItem { Text = pizzaTitle, Priority = 0 });
            
         }
@@ -29,7 +32,7 @@ namespace Zipline2.Pages
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            orderPageModel.NavigateToToppingsPage += HandleNavigateToTablesPage;
+            orderPageModel.NavigateToTablesPage += HandleNavigateToTablesPage;
 
         }
         void HandleNavigateToTablesPage(object sender, EventArgs e)
@@ -43,7 +46,7 @@ namespace Zipline2.Pages
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            orderPageModel.NavigateToToppingsPage -= HandleNavigateToTablesPage;
+            orderPageModel.NavigateToTablesPage -= HandleNavigateToTablesPage;
         }
     }
 }

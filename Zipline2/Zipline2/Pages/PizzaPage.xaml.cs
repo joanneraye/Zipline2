@@ -26,10 +26,11 @@ namespace Zipline2.Pages
       
             InitializeComponent();
             string pizzaTitle = "TBL " + OrderManager.Instance.CurrentTableName + " Pizza";
+            this.ToolbarItems.Clear();
             this.ToolbarItems.Add(new ToolbarItem { Text = pizzaTitle, Priority = 0 });
-            //this.ToolbarItems.Add(new ToolbarItem { Text = "Total $5.00", Priority = 1 });
             BindingContext = pizzaPageModel;
             Footer.FooterPageModel.IsPizzaPageDisplayed = true;
+            Footer.FooterPageModel.DisplayAddToOrderButton = false;
         }
         #endregion
 

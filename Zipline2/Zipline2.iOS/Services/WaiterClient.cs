@@ -18,7 +18,7 @@ namespace Zipline2.iOS.Services
             PosServiceClientIos WaiterClient = new PosServiceClientIos(
                new BasicHttpBinding(),
                new EndpointAddress(endpointAddress));
-            WaiterClient.Endpoint.Binding.SendTimeout = new TimeSpan(0, 30, 0);
+            WaiterClient.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 15);
             return WaiterClient;
         }
     }

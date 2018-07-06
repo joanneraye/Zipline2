@@ -18,6 +18,7 @@ namespace Zipline2.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : BasePage
     {
+      
         private const string YES = "Yup";
         private const string NO = "No Way Jose";
         LoginPageModel LoginPageModel;
@@ -42,8 +43,6 @@ namespace Zipline2.Pages
             PinEnteredByUser.Focus();
             LoginPageModel = new LoginPageModel();
             BindingContext = LoginPageModel;
-            
-            
         }
 
         //private void OnLiveServerClick()

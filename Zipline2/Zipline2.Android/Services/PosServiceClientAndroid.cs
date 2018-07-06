@@ -1098,6 +1098,11 @@ namespace Zipline2.Android.Services
             return Channel.EndGetUser(result);
         }
 
+        public int Ping(int Delay)
+        {
+            return Channel.Ping(Delay);
+        }
+
 
         #endregion
 
@@ -1152,11 +1157,7 @@ namespace Zipline2.Android.Services
             }
 
 
-            public int Ping(int Delay)
-            {
-                throw new NotImplementedException();
-            }
-
+          
             public IAsyncResult BeginPing(int Delay, AsyncCallback callback, object asyncState)
             {
                 throw new NotImplementedException();
@@ -1793,6 +1794,13 @@ namespace Zipline2.Android.Services
                 return (Guest_DB)base.EndInvoke("PriceOrder", args, result);
             }
 
+            public int Ping(int Delay)
+            {
+
+                object[] args = new object[1];
+                args[0] = Delay;
+                return (int)base.Invoke("Ping", args);
+            }
 
 
 
@@ -2101,11 +2109,6 @@ namespace Zipline2.Android.Services
             }
 
             public bool EndLogout(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public int Ping(int Delay)
             {
                 throw new NotImplementedException();
             }

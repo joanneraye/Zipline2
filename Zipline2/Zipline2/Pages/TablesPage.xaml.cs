@@ -28,12 +28,14 @@ namespace Zipline2.Pages
             TablesPageModel = new TablesPageModel();
             InitializeComponent();
             BindingContext = TablesPageModel;
+            this.ToolbarItems.Clear();
+            this.ToolbarItems.Add(new ToolbarItem { Text = "Tables     ", Priority = 2 });
 
             //var itemTemplate = TableList.ItemTemplate;
             //var tablesGrid = itemTemplate???;
             //var tablesGrid = TableList.ItemTemplate..FindByName<Grid>("TablesGrid");
             //var rowdefs = tablesGrid.RowDefinitions;
-            
+
             //double heightOfRows = 0.0;
             //foreach (var row in rowdefs)
             //{

@@ -15,7 +15,7 @@
                      Padding="10, 10"
                      Orientation="Vertical"
                      VerticalOptions="FillAndExpand">
-            <Button Text="Takeout" 
+            <!--<Button Text="Takeout" 
                         x:Name="TakeoutButton"
                         TextColor="Black"
                         BackgroundColor="Pink"
@@ -27,7 +27,7 @@
                         BorderWidth="1"
                     Margin="10,0,10,10"
                         HorizontalOptions="Center"
-                        Clicked="TakeoutButtonClicked"/>
+                        Clicked="TakeoutButtonClicked"/>-->
             <ListView ItemsSource="{Binding DisplayTables}"
                       x:Name="TableList"
                       BackgroundColor="Black"

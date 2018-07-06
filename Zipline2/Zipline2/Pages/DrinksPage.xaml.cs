@@ -15,13 +15,37 @@ namespace Zipline2.Pages
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class DrinksPage : BasePage
 	{
+
+        private DrinksPageModel thisDrinksPageModel; 
         public DrinksPage ()
 		{
 			InitializeComponent ();
-            BindingContext = new DrinksPageModel();
+            thisDrinksPageModel = new DrinksPageModel();
+            BindingContext = thisDrinksPageModel;
             Footer.FooterPageModel.IsDrinkPageDisplayed = true;
+            Footer.FooterPageModel.DisplayAddToOrderButton = true;
+            Footer.FooterPageModel.AddToOrderButtonText = "Add Drinks To Order";
+            Footer.FooterPageModel.ThisDrinksPageModel = thisDrinksPageModel;
             string drinkTitle = "TBL " + OrderManager.Instance.CurrentTableName + " Drinks";
             this.ToolbarItems.Add(new ToolbarItem { Text = drinkTitle });
         }
-	}
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            thisDrinksPageModel.NavigateToOrderPage += HandleNavigateToOrderPage;
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            thisDrinksPageModel.NavigateToOrderPage -= HandleNavigateToOrderPage;
+        }
+
+        void HandleNavigateToOrderPage(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new OrderPage());
+        }
+
+    }
 }

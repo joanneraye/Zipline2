@@ -31,7 +31,7 @@ namespace Zipline2.Pages
             BindingContext = ToppingsPageModel;
             ToppingsPageModel.ToppingFooterPageModel = ToppingFooter.ToppingFooterPageModel;
             ToppingsListView.ItemSelected += ToppingsListView_ItemSelected;
-
+            this.ToolbarItems.Clear();
             string pizzaTitle = currentPizza.ItemName + " Toppings";
             this.ToolbarItems.Add(new ToolbarItem { Text = pizzaTitle, Priority = 0 });
             //this.ToolbarItems.Add(new ToolbarItem { Text = string.Format("{0:C}", currentPizza.PricePerItem), Priority = 1 });

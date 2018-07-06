@@ -22,7 +22,7 @@ namespace Zipline2.Android.Services
             PosServiceClientAndroid waiterClient = new PosServiceClientAndroid(
                          new BasicHttpBinding(),
                          new EndpointAddress(endpointAddress));
-            waiterClient.Endpoint.Binding.SendTimeout = new TimeSpan(0, 10, 0);
+            waiterClient.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 15);
             return waiterClient;
         }
     }

@@ -343,7 +343,7 @@
                     BorderWidth="2"
                     BackgroundColor="LightBlue"
                     TextColor="Black"/>-->
-            <views:MenuScrollFooterView VerticalOptions="EndAndExpand" x:Name="Footer"/>
+            <views:MenuScrollFooterView VerticalOptions="EndAndExpand"  HorizontalOptions="FillAndExpand" x:Name="Footer"/>
         </StackLayout>
     </ContentPage.Content>
 </local:BasePage>

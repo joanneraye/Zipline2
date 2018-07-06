@@ -17,6 +17,10 @@ namespace Zipline2.PageModels
             DrinksCommand = new Command(OnDrinksButtonClick);
             PizzaCommand = new Command(OnPizzaButtonClick);
             OrderPageCommand = new Command(OnOrderPage);
+            TablesCommand = new Command(OnTablesPage);
+            AddToOrderCommand = new Command(OnAddToOrder);
+            SendOrderCommand = new Command(OnSendOrder);
+            AddToOrderButtonText = "Add To Order";
         }
         public static MenuButtonFooterModel Instance
         {
@@ -33,11 +37,42 @@ namespace Zipline2.PageModels
             }
         }
         #endregion
+
+        public DrinksPageModel ThisDrinksPageModel { get; set; }
+        public OrderPageModel ThisOrderPageModel { get; set; }
         public ICommand DrinksCommand { get; set; }
         public ICommand PizzaCommand { get; set; }
-
+        public ICommand AddToOrderCommand { get; set; }
+        public ICommand TablesCommand { get; set; }
         public ICommand OrderPageCommand { get; set; }
+        public ICommand SendOrderCommand { get; set; }
+        private string addToOrderButtonText;
+        public string AddToOrderButtonText
+        {
+            get
+            {
+                return addToOrderButtonText;
+            }
+            set
+            {
+              
+                SetProperty(ref addToOrderButtonText, value);
+            }
+        }
+        private bool displayAddToOrderButton;
+        public bool DisplayAddToOrderButton
+        {
+            get
+            {
+                return displayAddToOrderButton;
+            }
+            set
+            {
+               
+                SetProperty(ref displayAddToOrderButton, value);
 
+            }
+        }
         private bool isOrderPageDisplayed;
         public bool IsOrderPageDisplayed
         {
@@ -99,6 +134,24 @@ namespace Zipline2.PageModels
             Application.Current.MainPage = currentMainPage;
         }
 
+        void OnTablesPage()
+        {
+            var currentMainPage = Application.Current.MainPage as MasterDetailPage;
+            currentMainPage.Detail = new NavigationPage(new TablesPage());
+            Application.Current.MainPage = currentMainPage;
+        }
+
+        void OnAddToOrder()
+        {
+            ThisDrinksPageModel.OnAddDrinks();
+        }
+
+        void OnSendOrder()
+        {
+            ThisOrderPageModel.OnSendOrder();
+        }
+
+
         void OnDrinksButtonClick()
         {
             //TODO: This was copied and modified from TablesPage.HandleNavigateToPizzaPage.
@@ -114,5 +167,7 @@ namespace Zipline2.PageModels
             currentMainPage.Detail = new NavigationPage(new PizzaPage());
             Application.Current.MainPage = currentMainPage;
         }
+
+        
     }
 }

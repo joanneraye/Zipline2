@@ -12,22 +12,52 @@
                 <Setter Property="BorderRadius" Value="3" />
                 <Setter Property="BorderWidth" Value="3" />
                 <Setter Property="BackgroundColor" Value="Black" />
-                <Setter Property="HorizontalOptions" Value="Center" />
-                <Setter Property="FontSize" Value="Small" />
+                <Setter Property="HorizontalOptions" Value="Start" />
+                <Setter Property="HeightRequest" Value="35" />
+                <Setter Property="WidthRequest" Value="80" />
+                <Setter Property="FontSize" Value="9" />
+            </Style>
+            <Style x:Key="footerScrollMenuBlueButtons" TargetType="Button">
+                <!--<Setter Property="Margin" Value="2, 2, 2, 2" />-->
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="BorderColor" Value="White" />
+                <Setter Property="BorderRadius" Value="2" />
+                <Setter Property="BorderWidth" Value="2" />
+                <Setter Property="BackgroundColor" Value="LightBlue" />
+                <Setter Property="HorizontalOptions" Value="Start" />
+                <Setter Property="HeightRequest" Value="45" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="Margin" Value="2" />
+                <Setter Property="FontSize" Value="8" />
             </Style>
         </ResourceDictionary>
     </ContentView.Resources>
     <ContentView.Content>
         <StackLayout Orientation="Vertical"
                      Margin="0,5,0,0">
-            <ScrollView Orientation="Horizontal">
-            <StackLayout Orientation="Horizontal"
-                            BackgroundColor="Black">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center"
+                            BackgroundColor="Black" Spacing="2">
+                    <Button Text="Tables"
+                                    Command="{Binding TablesCommand}"
+                                    Style="{StaticResource footerScrollMenuBlueButtons}"
+                                    WidthRequest="62">
+                    </Button>
+                    <Button Text="{Binding AddToOrderButtonText}"
+                                    Command="{Binding AddToOrderCommand}"
+                                    Style="{StaticResource footerScrollMenuBlueButtons}"
+                                     WidthRequest="90">
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" 
+                                 Binding="{Binding DisplayAddToOrderButton}"
+                                 Value="False">
+                            <Setter Property="IsVisible" Value="False" />
+                            </DataTrigger>
+                    </Button.Triggers>
+                </Button>
                     <Button Text="Order Summary"
                             Command="{Binding OrderPageCommand}"
-                            Style="{StaticResource footerScrollMenu}"
-                            TextColor="Black"
-                            BackgroundColor="LightBlue">
+                            Style="{StaticResource footerScrollMenuBlueButtons}"
+                            WidthRequest="80">
                         <Button.Triggers>
                             <DataTrigger TargetType="Button" 
                                  Binding="{Binding IsOrderPageDisplayed}"
@@ -36,6 +66,41 @@
                             </DataTrigger>
                         </Button.Triggers>
                     </Button>
+                <Button Text="Send Order"
+                            Command="{Binding SendOrderCommand}"
+                            Style="{StaticResource footerScrollMenuBlueButtons}"
+                            IsVisible="False"
+                            WidthRequest="80">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" 
+                                 Binding="{Binding IsOrderPageDisplayed}"
+                                 Value="True">
+                            <Setter Property="IsVisible" Value="True" />
+                        </DataTrigger>
+
+                        <!--<DataTrigger TargetType="Button" 
+                                Binding="{Binding CurrentOrder.AllItemsSent, Mode=TwoWay}"
+                            Value="True">
+                            <Setter Property="IsVisible" Value="False" />
+                        </DataTrigger>-->
+                    </Button.Triggers>
+                </Button>
+                <Button Text="Edit Order"
+                            Command="{Binding EditOrderCommand}"
+                            Style="{StaticResource footerScrollMenuBlueButtons}"
+                            IsVisible="False"
+                            WidthRequest="82">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" 
+                                 Binding="{Binding IsOrderPageDisplayed}"
+                                 Value="True">
+                            <Setter Property="IsVisible" Value="True" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+            </StackLayout>
+            <ScrollView Orientation="Horizontal">
+                <StackLayout Orientation="Horizontal">
                     <Button Text="Salads"
                         Style="{StaticResource footerScrollMenu}"/>
                 <Button Text="Calzone"

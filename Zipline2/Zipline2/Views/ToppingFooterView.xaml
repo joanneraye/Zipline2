@@ -55,6 +55,7 @@
                         Command="{Binding LiteToppingCommand}"
                         Style="{StaticResource footerToppingMenu}"
                              TextColor="White"
+                            WidthRequest="60"
                             BackgroundColor="Black">
                         <Button.Triggers>
                             <DataTrigger TargetType="Button" 
@@ -68,6 +69,7 @@
                         Command="{Binding ExtraToppingCommand}"
                         Style="{StaticResource footerToppingMenu}"
                              TextColor="White"
+                            WidthRequest="70"
                             BackgroundColor="Black">
                         <Button.Triggers>
                             <DataTrigger TargetType="Button" 

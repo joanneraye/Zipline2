@@ -4023,6 +4023,13 @@ namespace Zipline2.Android.Services
                 return (GuestItem)base.EndInvoke("PriceOrder", args, result);
             }
 
+            public int Ping()
+            {
+                var whatIsThis = base.Invoke("Ping", null);
+                return (int)base.Invoke("Ping", null);
+            }
+
+
             //***********************************************************************************************************
             #region Not Implemented
             public bool AddCateringPayment(decimal CheckID, string PaymentOption, decimal Amount, decimal UserID)
@@ -4703,11 +4710,7 @@ namespace Zipline2.Android.Services
                 throw new NotImplementedException();
             }
 
-            public int Ping()
-            {
-                throw new NotImplementedException();
-            }
-
+          
 
             public void PrintCateringReceipt(int CateringID)
             {

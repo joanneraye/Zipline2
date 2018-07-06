@@ -187,7 +187,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Text="Add Drinks to Order"
+            <!--<Button Text="Add Drinks to Order"
                     Margin="0,5,0,0"
                     HorizontalOptions="FillAndExpand"
                     HeightRequest="40"
@@ -196,8 +196,8 @@
                     BorderWidth="2"
                     BackgroundColor="LightBlue"
                     Command="{Binding AddDrinksCommand}"
-                    TextColor="Black"/>
-            <views:MenuScrollFooterView VerticalOptions="EndAndExpand" x:Name="Footer"/>
+                    TextColor="Black"/>-->
+            <views:MenuScrollFooterView VerticalOptions="EndAndExpand" HorizontalOptions="FillAndExpand" x:Name="Footer"/>
         </StackLayout>
     </ContentPage.Content>
 </local:BasePage>

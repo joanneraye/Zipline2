@@ -13,7 +13,7 @@ namespace Zipline2.PageModels
     public class OrderPageModel : BasePageModel
     {
         public ICommand SendOrderCommand { get; set; }
-        public event EventHandler NavigateToToppingsPage;
+        public event EventHandler NavigateToTablesPage;
         private List<OrderDisplayItem> displayOrder;
         public List<OrderDisplayItem> DisplayOrder
         {
@@ -51,9 +51,7 @@ namespace Zipline2.PageModels
             }
         }
 
-       
-
-        private void OnSendOrder()
+        public void OnSendOrder()
         {
             //TODO:  Don't actually send order until ready to work on:
             OrderManager.Instance.SendOrder();
@@ -63,7 +61,7 @@ namespace Zipline2.PageModels
 
         void OnNavigateToTablesPage()
         {
-            NavigateToToppingsPage?.Invoke(this, EventArgs.Empty);
+            NavigateToTablesPage?.Invoke(this, EventArgs.Empty);
         }
     }
 }

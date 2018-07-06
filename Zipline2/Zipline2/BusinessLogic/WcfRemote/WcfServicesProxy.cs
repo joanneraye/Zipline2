@@ -15,17 +15,18 @@ namespace Zipline2.BusinessLogic.WcfRemote
     
     public class WcfServicesProxy
     {
-        private enum ServiceCallConfigType
+        public enum ServiceCallConfigType
         {
             AllServiceCallsOn,
             AllServiceCallsOff,
             UpdateServicesNoSend
 
         }
-        private ServiceCallConfigType serviceCallConfig;
+        public ServiceCallConfigType ServiceCallConfig;
         private string endpointIpAddressPart1;
         private const string waiterIpAddressPart2 = "/WP7Waiter/POServiceHost.svc";
         private const string checkIpAddressPart2 = "/CheckHost/CheckHost.svc";
+
 
         #region Singleton
         private static WcfServicesProxy instance = null;
@@ -88,18 +89,20 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         private WcfServicesProxy()
         {
-            serviceCallConfig = ServiceCallConfigType.UpdateServicesNoSend;
+            ServiceCallConfig = ServiceCallConfigType.UpdateServicesNoSend;
+
             endpointIpAddressPart1 = "http://192.168.1.26";      //Dev environment
 
             // endpointIpAddressPart1 = "http://192.168.1.21";   //Live server
             // endpointIpAddressPart1 = "http://192.168.1.122";   //Backup server
+            //endpointIpAddressPart1 = "http://192.168.1";      //BAD
 
             if (Users.Instance.LoggedInUser != null)
             {
                 UserIdDecimal = Users.Instance.LoggedInUser.UserId;
             }
 
-            if (serviceCallConfig != ServiceCallConfigType.AllServiceCallsOff)
+            if (ServiceCallConfig != ServiceCallConfigType.AllServiceCallsOff)
             {
                 try
                 {
@@ -118,7 +121,13 @@ namespace Zipline2.BusinessLogic.WcfRemote
        
         private void CreateWaiterClient()
         {
+           
             waiterClient = DependencyService.Get<IWaiterClient>().GetWaiterClient(endpointIpAddressPart1 + waiterIpAddressPart2);
+
+            //if (waiterClient.Ping(0) == 10)
+            //{
+            //    WaiterClientConnected = true;
+            //}
             //waiterClient = new PosServiceClient(
             //             new BasicHttpBinding(),
             //             new EndpointAddress(endpointIpAddressPart1 + waiterIpAddressPart2));
@@ -128,7 +137,14 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         private void CreateCheckClient()
         {
+           
             checkClient = DependencyService.Get<ICheckClient>().GetCheckClient(endpointIpAddressPart1 + waiterIpAddressPart2);
+        
+            //The following won't work and don't know why.
+            //if (checkClient.Ping() == 9001)
+            //{
+            //    CheckClientConnected = true;
+            //}
             //checkClient = new CheckHostClient(
             //            new BasicHttpBinding(),
             //            new EndpointAddress(endpointIpAddressPart1 + checkIpAddressPart2));
@@ -139,7 +155,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         public List<DBModGroup> GetToppings()
         {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+            if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
             {
                 return new List<DBModGroup>();
             }
@@ -150,8 +166,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         public void UpdateTable(DBTable currentTable)
         {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||
-                serviceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
+            if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||
+                ServiceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
             {
                 return;
             }
@@ -161,7 +177,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         public DBTable GetTable(int tableNum)
         {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+            if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
             {
                 return new DBTable();
             }
@@ -179,7 +195,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         public void GetTables()
         {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+            if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
             {
                 return;
             }
@@ -197,20 +213,20 @@ namespace Zipline2.BusinessLogic.WcfRemote
         }
 
 
-        public void GetMenu()
+        public bool GetMenu()
         {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+            if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
             {
-                return;
+                return false;
             }
             try
             {
                 DataBaseDictionaries.MenuDictionary = waiterClient.GetMenu();
+                return true;
             }
             catch (Exception ex)
             {
-                var errormessage = ex;
-                throw;
+                return false;
             }
         }
 
@@ -218,7 +234,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         public decimal GetNextGuestId()
         {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+            if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
             {
                 return 0;
             }
@@ -232,8 +248,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         public void UpdateOrder(Order orderToUpdate)
         {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||
-                serviceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
+            if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||
+                ServiceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
             {
                 return;
             }
@@ -248,7 +264,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         private List<decimal> GetGuestIds(decimal tableId)
         {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+            if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
             {
                 return new List<decimal>() { 0 };
             }
@@ -269,7 +285,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         public List<DBTable> GetTableInfo()
         {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+            if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
             {
                 return new List<DBTable>();
             }
@@ -279,8 +295,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         //public Task PrepareAndSendOrder(Order orderToSend)
         //{
-        //    if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||
-        //        serviceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
+        //    if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||
+        //        ServiceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
         //    {
         //        return;
         //    }
@@ -340,7 +356,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         public DBUser GetUser(string pin)
         {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+            if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
             {
                 return new DBUser();
             }
@@ -350,8 +366,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         public void SendOrders(List<decimal> orderIds, decimal userId)
         {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||
-                serviceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
+            if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||
+                ServiceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
             {
                 return;
             }
@@ -360,7 +376,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         //public List<DBCheck> GetOpenChecks(decimal tableId)
         //{
-        //    if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+        //    if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
         //    {
         //        return new List<DBCheck>();
         //    }
@@ -369,8 +385,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         public void CreateCheck(DBCheck dbCheck)
         {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||
-                serviceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
+            if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||
+                ServiceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
             {
                 return;
             }
@@ -393,7 +409,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         internal DBTable ConvertOrderToDbTable(Order orderToSend, bool sendOrderToKitchen = false)
         {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+            if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
             {
                 return new DBTable();
             }
@@ -473,12 +489,12 @@ namespace Zipline2.BusinessLogic.WcfRemote
         #region Async Methods
         async public void UpdateOrderAsync(Order orderToUpdate)
         {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+            if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
             {
                 return;
             }
 
-            if (serviceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
+            if (ServiceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
             {
                 if (DataBaseDictionaries.DbTablesDictionary.ContainsKey(orderToUpdate.TableId))
                 {
@@ -496,8 +512,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         async public Task PrepareAndSendOrderAsync(Order orderToSend)
         {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||
-                serviceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
+            if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||
+                ServiceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
             { 
                 if (Tables.AllTables.Count > orderToSend.TableIndexInAllTables)
                 {
@@ -555,8 +571,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
         
         async public Task UpdateTableAsync(DBTable currentTable)
         {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||
-                serviceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
+            if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||
+                ServiceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
             {
                 return;
             }
@@ -571,7 +587,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         async public Task GetTablesAsync()
         {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+            if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
             {
                 return;
             }
@@ -599,7 +615,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         async public Task<DBTable> GetTableAsync(int tableNum)
         {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+            if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
             {
                 return new DBTable();
             }
@@ -612,7 +628,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         async public Task<List<DBModGroup>> GetToppingsAsync()
         {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+            if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
             {
                 return new List<DBModGroup>();
             }
@@ -630,7 +646,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         async public Task GetMenuAsync()
         {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+            if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
             {
                 return;
             }                       
@@ -652,7 +668,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         async public Task<decimal> GetNextGuestIdAsync()
         {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+            if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
             {
                 return 0;
             }
@@ -671,8 +687,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         async public void SendOrdersAsync(List<decimal> orderIds, decimal userId)
         {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||
-                serviceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
+            if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||
+                ServiceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
             {
                 return;
             }
@@ -686,7 +702,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         async private Task<List<decimal>> GetGuestIdsAsync(decimal tableId)
         {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+            if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
             {
                 return new List<decimal>() { 0 };
             }
@@ -707,8 +723,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         async public Task CreateCheckAsync(DBCheck dbCheck)
         {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||
-                serviceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
+            if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||
+                ServiceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
             {
                 return;
             }
@@ -733,7 +749,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         async public Task<List<DBCheck>> GetOpenChecksAsync(decimal tableId)
         {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+            if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
             {
                 return new List<DBCheck>();
             }
@@ -755,7 +771,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         async public Task<List<DBTable>> GetTablesForSectionAsync(decimal sectionID)
         {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+            if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
             {
                 return new List<DBTable>();
             }
@@ -768,7 +784,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         async public Task<bool> HasOpenChecksAsync(decimal tableId)
         {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+            if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
             {
                 return false;
             }
@@ -782,7 +798,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         async public Task<List<DBTable>> GetTableInfoAsync()
         {
-            if (serviceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+            if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
             {
                 return new List<DBTable>();
             }

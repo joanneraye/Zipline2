@@ -4024,6 +4024,12 @@ namespace Zipline2.iOS.Services
                 return (GuestItem)base.EndInvoke("PriceOrder", args, result);
             }
 
+            public int Ping()
+            {
+                return Convert.ToInt32(base.Invoke("Ping", null));
+            }
+
+
             //***********************************************************************************************************
             #region Not Implemented
             public bool AddCateringPayment(decimal CheckID, string PaymentOption, decimal Amount, decimal UserID)
@@ -4704,11 +4710,7 @@ namespace Zipline2.iOS.Services
                 throw new NotImplementedException();
             }
 
-            public int Ping()
-            {
-                throw new NotImplementedException();
-            }
-
+           
 
             public void PrintCateringReceipt(int CateringID)
             {

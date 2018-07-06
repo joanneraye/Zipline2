@@ -33,20 +33,8 @@ namespace Zipline2.iOS
 
             Plugin.Iconize.Iconize.With(new Plugin.Iconize.Fonts.FontAwesomeModule());
             FormsPlugin.Iconize.iOS.IconControls.Init();
-            
-            //TODO:  All WcfServicesProxy calls must be modified to include different waiterclient.
-            //PosServiceClientIos WaiterClient = new PosServiceClientIos( 
-            //    new BasicHttpBinding(),
-            //    new EndpointAddress("http://192.168.1.26/WP7Waiter/POServiceHost.svc"));
-            //WaiterClient.Endpoint.Binding.SendTimeout = new TimeSpan(0, 30, 0);
 
-            ////simple wcf test
-            //var table = WaiterClient.GetTable(1);
-
-            ////Load menu, toppings, tables.
-            ////LoadMenu();
-            ////LoadToppings();
-            //LoadTables();
+            UINavigationBar.Appearance.BarTintColor = UIColor.Black;
 
             LoadApplication(new App());
 

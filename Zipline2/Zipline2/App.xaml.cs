@@ -45,9 +45,19 @@ namespace Zipline2
           
             //These do not need to process on a different thread because they must be processed
             //before the UI can be displayed.
-            LoadMenuFromServer();
-            LoadToppingsFromServer();
-            LoadTablesFromServer();
+            if (LoadMenuFromServer())
+            {
+                LoadToppingsFromServer();
+                LoadTablesFromServer();
+                
+            }
+            else
+            {
+                //problem reaching server
+                WcfServicesProxy.Instance.ServiceCallConfig = WcfServicesProxy.ServiceCallConfigType.AllServiceCallsOff;
+            }
+
+           
 
             LoadDrinks();
 
@@ -61,9 +71,9 @@ namespace Zipline2
             //}
         }
 
-        private void LoadMenuFromServer()
+        private bool LoadMenuFromServer()
         {
-            WcfServicesProxy.Instance.GetMenu();
+            return WcfServicesProxy.Instance.GetMenu();
         }
 
 

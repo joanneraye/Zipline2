@@ -184,7 +184,10 @@ namespace Zipline2.PageModels
             //Cannot display tables page without tables data from server so no point in 
             //calling async?  Plus cannot await because this is a constructor.
             List<DBTable> tables = WcfServicesProxy.Instance.GetTableInfo();
-
+            if (tables.Count == 0)
+            {
+                return;
+            }
             foreach (var table in tables)
             {
                 bool hasUnsentItems = false;

@@ -208,6 +208,8 @@ namespace Zipline2.PageModels
         public ICommand DrinksSelectedCommand { get; set; }
         public ICommand AddDrinksCommand { get; set; }
 
+        public event EventHandler NavigateToOrderPage;
+
         private Dictionary<DrinkCategory, List<DrinkDisplayItem>> drinkDisplayDictionary;
         public Dictionary<DrinkCategory, List<DrinkDisplayItem>> DrinkDisplayDictionary
         {
@@ -337,7 +339,7 @@ namespace Zipline2.PageModels
             currentDrinkCategorySelected = newDrinkCategory;
         }
 
-        private void OnAddDrinks()
+        public void OnAddDrinks()
         {
             var drinksToAddToOrder = new List<Drink>();
             //Need to check entire Display dictionary (DrinkDisplayDictionary) for
@@ -366,15 +368,20 @@ namespace Zipline2.PageModels
             }
         
             OrderManager.Instance.AddDrinksToOrder(drinksToAddToOrder);
-            LoadPizzaPage();
+            LoadSummaryPage();
         }
 
-        private void LoadPizzaPage()
+        private void LoadSummaryPage()
         {
-            var currentMainPage = (Application.Current.MainPage as MasterDetailPage);
-            currentMainPage.Detail = new NavigationPage(new PizzaPage());
-            Application.Current.MainPage = currentMainPage;
+            NavigateToOrderPage?.Invoke(this, EventArgs.Empty);
         }
+
+        //private void LoadPizzaPage()
+        //{
+        //    var currentMainPage = (Application.Current.MainPage as MasterDetailPage);
+        //    currentMainPage.Detail = new NavigationPage(new PizzaPage());
+        //    Application.Current.MainPage = currentMainPage;
+        //}
 
         private void LoadPreviousDrinkSelections(DrinkCategory categoryDisplayed)
         {

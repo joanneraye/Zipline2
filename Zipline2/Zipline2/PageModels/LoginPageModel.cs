@@ -47,9 +47,10 @@ namespace Zipline2.PageModels
 
         public LoginPageModel()
         {
-            if (DataBaseDictionaries.MenuDictionary.Count > 0 &&
-                DataBaseDictionaries.DbTablesDictionary.Count > 0 &&
-                DataBaseDictionaries.PizzaToppingsDictionary.Count > 0)
+           
+            if (DataBaseDictionaries.MenuDictionary?.Count > 0 &&
+                DataBaseDictionaries.DbTablesDictionary?.Count > 0 &&
+                DataBaseDictionaries.PizzaToppingsDictionary?.Count > 0)
             {
                 TestingNote = "Note to Joanne:  Server data seems to have been loaded.";
             }
