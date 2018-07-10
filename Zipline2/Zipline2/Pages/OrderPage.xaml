@@ -30,7 +30,7 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="3*"/>
                                 </Grid.ColumnDefinitions>
-                                <StackLayout Grid.Column="0" Spacing="0" >
+                                <StackLayout Grid.Column="0" Grid.ColumnSpan="4" Spacing="0" >
                                     <Label Grid.ColumnSpan="1" Margin="0"
                                             Text="{Binding OrderItem.ItemName}"
                                                FontSize="Micro"
@@ -40,11 +40,9 @@
                                       TextColor="White"
                                        FontSize="Micro"
                                       Text="{Binding Toppings}"/>
-                                </StackLayout>
-                                    
-                           
+                                </StackLayout>                           
                                 <Label Grid.Column="1"
-                                       Text="{Binding OrderItem.PricePerItem, StringFormat='{0:C}'}"
+                                       Text="{Binding OrderItem.PricePerItemIncludingToppings, StringFormat='{0:C}'}"
                                        TextColor="White"
                                         FontSize="Micro"
                                        HorizontalOptions="End" />
@@ -55,7 +53,7 @@
                                        HorizontalOptions="End" />
                                 <Label Grid.Column="3"
                                         FontSize="Micro"
-                                       Text="{Binding OrderItem.Total, StringFormat='{0:C}'}"
+                                       Text="{Binding OrderItem.TotalPricePerItemTimesCount, StringFormat='{0:C}'}"
                                        TextColor="White"
                                        HorizontalOptions="End" />
                             </Grid>

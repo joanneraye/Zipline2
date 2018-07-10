@@ -290,7 +290,7 @@ namespace Zipline2.PageModels
                 ItemCount = 1
             };
            
-            OrderManager.Instance.AddItemPizzaInProgress(pizza);
+            OrderManager.Instance.AddItemInProgress(pizza);
             DisplayToppingsPage();
         }
 
@@ -361,7 +361,7 @@ namespace Zipline2.PageModels
             //        break;
             //}
 
-            OrderManager.Instance.AddItemPizzaInProgress(newPizza);
+            OrderManager.Instance.AddItemInProgress(newPizza);
 
             DisplayToppingsPage();
         }
@@ -376,7 +376,7 @@ namespace Zipline2.PageModels
                 ItemCount = 1
             };
           
-            OrderManager.Instance.AddItemPizzaInProgress(newPizza);
+            OrderManager.Instance.AddItemInProgress(newPizza);
 
             DisplayToppingsPage();
         }
@@ -391,7 +391,7 @@ namespace Zipline2.PageModels
                 ItemCount = 1
             };
 
-            OrderManager.Instance.AddItemPizzaInProgress(newPizza);
+            OrderManager.Instance.AddItemInProgress(newPizza);
           
             DisplayToppingsPage();
         }
@@ -425,7 +425,7 @@ namespace Zipline2.PageModels
             var orderManager = OrderManager.Instance;
             OrderManager.Instance.MarkCurrentTableOccupied(true);
             var currentPizza = orderManager.GetCurrentPizza();
-            MenuHeaderModel.Instance.ItemTotal = currentPizza.PricePerItem;
+            MenuHeaderModel.Instance.ItemTotal = currentPizza.PricePerItemIncludingToppings;
 
             OnNavigateToToppingsPage(currentPizza);
         }

@@ -184,10 +184,10 @@ namespace Zipline2.PageModels
             //Cannot display tables page without tables data from server so no point in 
             //calling async?  Plus cannot await because this is a constructor.
             List<DBTable> tables = WcfServicesProxy.Instance.GetTableInfo();
-            if (tables.Count == 0)
-            {
-                return;
-            }
+            //if (tables.Count == 0)
+            //{
+            //    return;
+            //}
             foreach (var table in tables)
             {
                 bool hasUnsentItems = false;
@@ -252,28 +252,31 @@ namespace Zipline2.PageModels
             //GetTableAsync doesn't work...?
             //var dbTable = await WcfServicesProxy.Instance.GetTableAsync((int)tableSelected.TableId);
             var dbTable = WcfServicesProxy.Instance.GetTable((int)tableSelected.TableId);
-
-            tableSelected.DatabaseTable = dbTable;
-            Tables.AllTables[tableSelected.IndexInAllTables] = tableSelected;
-            if (dbTable.Guests.Count > 0)
+           
+                tableSelected.DatabaseTable = dbTable;
+                Tables.AllTables[tableSelected.IndexInAllTables] = tableSelected;
+            if (dbTable.Guests != null)
             {
-                List<GuestItem> guestItems = new List<GuestItem>();
-                foreach (var guest in dbTable.Guests)
+                if (dbTable.Guests.Count > 0)
                 {
-                    guestItems.AddRange(guest.Items);
-                }
-                if (guestItems.Count > 0)
-                {
-                    Order openOrder = DataConversion.ConvertDbGuestsToOrder(guestItems, tableSelected.TableId, tableSelected.IndexInAllTables);
-                    OrderManager.Instance.OrderInProgress = openOrder;
-                    if (!openOrder.AllItemsSent)
+                    List<GuestItem> guestItems = new List<GuestItem>();
+                    foreach (var guest in dbTable.Guests)
                     {
-                        tableSelected.HasUnsentOrder = true;
+                        guestItems.AddRange(guest.Items);
                     }
-                    //used just during testing so that orders can be looked at without sending to server.
-                    Tables.AllTables[tableSelected.IndexInAllTables].OpenOrder = openOrder;
-                    DisplayOrderPage();
-                    return;
+                    if (guestItems.Count > 0)
+                    {
+                        Order openOrder = DataConversion.ConvertDbGuestsToOrder(guestItems, tableSelected.TableId, tableSelected.IndexInAllTables);
+                        OrderManager.Instance.OrderInProgress = openOrder;
+                        if (!openOrder.AllItemsSent)
+                        {
+                            tableSelected.HasUnsentOrder = true;
+                        }
+                        //used just during testing so that orders can be looked at without sending to server.
+                        Tables.AllTables[tableSelected.IndexInAllTables].OpenOrder = openOrder;
+                        DisplayOrderPage();
+                        return;
+                    }
                 }
             }
 

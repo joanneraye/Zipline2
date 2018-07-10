@@ -80,6 +80,10 @@ namespace Zipline2.Pages
         }
         void HandleNavigateToDrinksPage(object sender, EventArgs e)
         {
+            if (WcfServicesProxy.Instance.ServiceCallConfig == WcfServicesProxy.ServiceCallConfigType.AllServiceCallsOff)
+            {
+                DisplayAlert("Warning", "All connections to server are off.  Testing order building only.", "OK");
+            }
             var currentMainPage = (Application.Current.MainPage as MasterDetailPage);
             currentMainPage.Detail = new NavigationPage(new DrinksPage());
             Application.Current.MainPage = currentMainPage;
@@ -87,6 +91,10 @@ namespace Zipline2.Pages
 
         void HandleNavigateToOrderPage(object sender, EventArgs e)
         {
+            if (WcfServicesProxy.Instance.ServiceCallConfig == WcfServicesProxy.ServiceCallConfigType.AllServiceCallsOff)
+            {
+                DisplayAlert("Warning", "All connections to server are off.  Testing order building only.", "OK");
+            }
             var currentMainPage = (Application.Current.MainPage as MasterDetailPage);
             currentMainPage.Detail = new NavigationPage(new OrderPage());
             Application.Current.MainPage = currentMainPage;

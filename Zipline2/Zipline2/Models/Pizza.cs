@@ -15,7 +15,7 @@ namespace Zipline2.Models
     public class Pizza : OrderItem
     {
         #region Properties
-        public Toppings Toppings { get; set; }
+        public PizzaToppings Toppings { get; set; }
         public MajorOrMama MajorMamaInfo { get; set; }
         private PizzaType pizzaType;
         public PizzaType PizzaType
@@ -29,7 +29,7 @@ namespace Zipline2.Models
                 pizzaType = value;
                 if (Toppings == null)
                 {
-                    Toppings = new Toppings(pizzaType);
+                    Toppings = new PizzaToppings(pizzaType);
                 }
                 else
                 {
@@ -46,7 +46,8 @@ namespace Zipline2.Models
         #region Constructor
         public Pizza()
         {
-            Toppings = new Toppings(PizzaType);
+            MessagingCenter.Subscribe<Toppings>(this, "ToppingsTotalUpdated",
+             (sender) => { this.PopulatePricePerItem(); });
         }
 
 
@@ -56,21 +57,21 @@ namespace Zipline2.Models
 
         #region Methods
 
-        public override void CompleteOrderItem()
-        {
-            //TODO:  Are these already done?
-            //MajorMamaInfo = pizzaGuiData.MajorOrMama;
-            //Crust = pizzaGuiData.PizzaCrustType;
-            //Size = pizzaGuiData.PizzaSize;
-            //PizzaType = pizzaGuiData.PizzaType;
+        //public override void CompleteOrderItem()
+        //{
+        //    //TODO:  Are these already done?
+        //    //MajorMamaInfo = pizzaGuiData.MajorOrMama;
+        //    //Crust = pizzaGuiData.PizzaCrustType;
+        //    //Size = pizzaGuiData.PizzaSize;
+        //    //PizzaType = pizzaGuiData.PizzaType;
            
-            PopulateBasePrice();
-            MessagingCenter.Subscribe<Toppings>(this, "ToppingsTotalUpdated",
-              (sender) => { this.PopulatePricePerItem(); });
-        }
-        public void PopulateBasePrice()
+        //    PopulateBasePrice();
+        //    MessagingCenter.Subscribe<Toppings>(this, "ToppingsTotalUpdated",
+        //      (sender) => { this.PopulatePricePerItem(); });
+        //}
+        public override void PopulateBasePrice()
         {
-            BasePrice = Prices.GetPizzaBasePrice(PizzaType);
+            BasePriceNoToppings = Prices.GetPizzaBasePrice(PizzaType);
         }
         public override void PopulateDisplayName()
         {
@@ -83,7 +84,7 @@ namespace Zipline2.Models
 
         public override void PopulatePricePerItem()
         {
-            PricePerItem = BasePrice + 
+            PricePerItemIncludingToppings = BasePriceNoToppings + 
                 Toppings.ToppingsTotal;
         }
 

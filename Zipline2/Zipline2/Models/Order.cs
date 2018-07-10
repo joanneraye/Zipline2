@@ -74,7 +74,7 @@ namespace Zipline2.Models
             SubTotal = 0;
             foreach (var orderItem in OrderItems)
             {
-                SubTotal += orderItem.Total;
+                SubTotal += orderItem.TotalPricePerItemTimesCount;
             }
             Tax = HelperMethods.GetTaxAmount(SubTotal);
             Total = SubTotal + Tax;
@@ -104,6 +104,10 @@ namespace Zipline2.Models
                     OrderItems.Add(item);
                 }
 
+                //Check for lunch special.
+
+
+
                 UpdateOrderTotals();
             }
         }
@@ -125,7 +129,7 @@ namespace Zipline2.Models
                         drinkToAdd.DrinkSize == drinkAlreadyOnOrder.DrinkSize)
                     {
                         orderItem.ItemCount++;
-                        orderItem.UpdateItemTotal();
+                        //orderItem.UpdateItemTotal();
                         return true;
                     }
                 }

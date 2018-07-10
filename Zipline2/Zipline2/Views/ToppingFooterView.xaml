@@ -14,7 +14,7 @@
                 <Setter Property="BackgroundColor" Value="Black" />
                 <Setter Property="HorizontalOptions" Value="FillAndExpand" />
                 <Setter Property="FontSize" Value="Micro" />
-                <Setter Property="WidthRequest" Value="55" />
+                <Setter Property="WidthRequest" Value="50" />
             </Style>
         </ResourceDictionary>
     </ContentView.Resources>
@@ -55,7 +55,7 @@
                         Command="{Binding LiteToppingCommand}"
                         Style="{StaticResource footerToppingMenu}"
                              TextColor="White"
-                            WidthRequest="60"
+                            WidthRequest="55"
                             BackgroundColor="Black">
                         <Button.Triggers>
                             <DataTrigger TargetType="Button" 
@@ -69,7 +69,7 @@
                         Command="{Binding ExtraToppingCommand}"
                         Style="{StaticResource footerToppingMenu}"
                              TextColor="White"
-                            WidthRequest="70"
+                            WidthRequest="65"
                             BackgroundColor="Black">
                         <Button.Triggers>
                             <DataTrigger TargetType="Button" 

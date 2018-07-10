@@ -32,15 +32,15 @@ namespace Zipline2.Models
             throw new NotImplementedException();
         }
 
-        public override void CompleteOrderItem()
-        {
-            throw new NotImplementedException();
-        }
 
         public override List<GuestModifier> CreateMods()
         {
             return new List<GuestModifier>();
         }
 
+        public override void PopulateBasePrice()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

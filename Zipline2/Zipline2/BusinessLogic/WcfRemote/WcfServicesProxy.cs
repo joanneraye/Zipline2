@@ -91,7 +91,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         private WcfServicesProxy()
         {
-            ServiceCallConfig = ServiceCallConfigType.UpdateServicesNoSend;
+            ServiceCallConfig = ServiceCallConfigType.AllServiceCallsOff;
 
             endpointIpAddressPart1 = "http://192.168.1.26";      //Dev environment
 
@@ -169,7 +169,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         #region Regular methods (synchronous)
 
-        public List<DBModGroup> GetToppings()
+        public List<DBModGroup> GetPizzaToppings()
         {
             if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
             {
@@ -177,6 +177,17 @@ namespace Zipline2.BusinessLogic.WcfRemote
             }
 
             return WaiterClient.GetAllMods(57M, 0M);
+
+        }
+
+        public List<DBModGroup> GetSaladToppings()
+        {
+            if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+            {
+                return new List<DBModGroup>();
+            }
+
+            return WaiterClient.GetAllMods(50M, 0M);
 
         }
 

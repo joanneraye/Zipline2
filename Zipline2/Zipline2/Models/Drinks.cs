@@ -240,7 +240,6 @@ namespace Zipline2.Models
                 Drink thisDrink = new Drink(drinks.Key)
                 {
                     ItemName = drinks.Value,
-                    ItemCount = 0,
                     DrinkCategory = DrinkCategory.SoftDrink,
                     DrinkSize = DrinkSize.JustOneSize,
                     DbItemId = Drinks.GetDbItemId(drinks.Key)
@@ -301,8 +300,7 @@ namespace Zipline2.Models
             {
                 Drink thisDrink = new Drink(drinks.Key)
                 {
-                    ItemCount = 0,
-                    DrinkCategory = DrinkCategory.DraftBeer
+                   DrinkCategory = DrinkCategory.DraftBeer
                 };
                 if (drinks.Key == DrinkType.Beer12Oz)
                 {
@@ -321,11 +319,10 @@ namespace Zipline2.Models
                     Drink pitcherDrink = new Drink(drinks.Key)
                     {
                         ItemName = drinks.Value + " - Pitcher",
-                        ItemCount = 0,
                         DrinkCategory = DrinkCategory.DraftBeer,
                         DrinkSize = DrinkSize.Pitcher
                     };
-                    pitcherDrink.PricePerItem *= 3;
+                    pitcherDrink.PricePerItemIncludingToppings *= 3;
                     PopulateDbInfo(ref pitcherDrink);
                     DraftBeers.Add(pitcherDrink);
                 }
@@ -341,7 +338,6 @@ namespace Zipline2.Models
                 Drink thisDrink = new Drink(drinks.Key)
                 {
                     ItemName = drinks.Value,
-                    ItemCount = 0,
                     DrinkCategory = DrinkCategory.BottledBeer,
                     DrinkSize = DrinkSize.JustOneSize
                 };
@@ -356,7 +352,6 @@ namespace Zipline2.Models
             {
                 Drink thisDrink = new Drink(drinks.Key)
                 {  
-                    ItemCount = 0,
                     DrinkCategory = DrinkCategory.RedWine
                 };
                 if (drinks.Key == DrinkType.LeeseFitchCab ||
@@ -370,11 +365,10 @@ namespace Zipline2.Models
                     Drink bottleDrink = new Drink(drinks.Key)
                     {
                         ItemName = drinks.Value + " - Bottle",
-                        ItemCount = 0,
                         DrinkCategory = DrinkCategory.RedWine
                     };
                     bottleDrink.DrinkSize = DrinkSize.Bottle;
-                    bottleDrink.PricePerItem *= 3;
+                    bottleDrink.PricePerItemIncludingToppings *= 3;
                     PopulateDbInfo(ref bottleDrink);
                     RedWines.Add(bottleDrink);
                 }
@@ -394,7 +388,6 @@ namespace Zipline2.Models
             {
                 Drink thisDrink = new Drink(drinks.Key)
                 {
-                    ItemCount = 0,
                     DrinkCategory = DrinkCategory.WhiteWine
                 };
                 if (drinks.Key == DrinkType.DouglasGreenSb)
@@ -414,11 +407,10 @@ namespace Zipline2.Models
                     Drink bottleDrink = new Drink(drinks.Key)
                     {
                         ItemName = drinks.Value + " - Bottle",
-                        ItemCount = 0,
                         DrinkCategory = DrinkCategory.WhiteWine,
                         DrinkSize = DrinkSize.Bottle
                     };
-                    bottleDrink.PricePerItem *= 3;
+                    bottleDrink.PricePerItemIncludingToppings *= 3;
                     PopulateDbInfo(ref bottleDrink);
                     WhiteWines.Add(bottleDrink);
                 }
@@ -432,7 +424,6 @@ namespace Zipline2.Models
                 Drink thisDrink = new Drink(drinks.Key)
                 {
                     ItemName = drinks.Value,
-                    ItemCount = 0,
                     DrinkCategory = DrinkCategory.HouseWine,
                     DrinkSize = DrinkSize.JustOneSize
                 };
@@ -448,7 +439,6 @@ namespace Zipline2.Models
                 Drink thisDrink = new Drink(drinks.Key)
                 {
                     ItemName = drinks.Value,
-                    ItemCount = 0,
                     DrinkCategory = DrinkCategory.HotDrink,
                     DrinkSize = DrinkSize.JustOneSize
                 };

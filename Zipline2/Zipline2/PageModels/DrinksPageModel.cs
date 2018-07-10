@@ -341,7 +341,7 @@ namespace Zipline2.PageModels
 
         public void OnAddDrinks()
         {
-            var drinksToAddToOrder = new List<Drink>();
+            var drinksToAddToOrder = new List<OrderItem>();
             //Need to check entire Display dictionary (DrinkDisplayDictionary) for
             //any items added.
             foreach (var drinkDisplayList in DrinkDisplayDictionary.Values)
@@ -367,7 +367,7 @@ namespace Zipline2.PageModels
                 }
             }
         
-            OrderManager.Instance.AddDrinksToOrder(drinksToAddToOrder);
+            OrderManager.Instance.AddItemsToOrder(drinksToAddToOrder);
             LoadSummaryPage();
         }
 

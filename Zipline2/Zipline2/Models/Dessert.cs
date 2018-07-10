@@ -15,17 +15,18 @@ namespace Zipline2.Models
             
         }
 
-        public override void CompleteOrderItem()
-        {
-            throw new NotImplementedException();
-        }
-
+       
         public override List<GuestModifier> CreateMods()
         {
             return new List<GuestModifier>();
         }
 
         public override Tuple<string, decimal> GetMenuDbItemKeys()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void PopulateBasePrice()
         {
             throw new NotImplementedException();
         }

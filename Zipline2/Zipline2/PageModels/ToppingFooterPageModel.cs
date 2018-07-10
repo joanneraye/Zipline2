@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Zipline2.BusinessLogic.Enums;
 using Zipline2.Pages;
 
 namespace Zipline2.PageModels
@@ -115,6 +116,31 @@ namespace Zipline2.PageModels
         {
             ExtraToppingSelected = !ExtraToppingSelected;
         }
-      
+
+        public ToppingModifierType GetToppingModifierType()
+        {
+            if (NoToppingSelected)
+            {
+                return ToppingModifierType.NoTopping;
+            }
+            else if (OnSideToppingSelected)
+            {
+                return ToppingModifierType.ToppingOnSide;
+            }
+            else if (LiteToppingSelected)
+            {
+                return ToppingModifierType.LightTopping;
+            }
+            else if (ExtraToppingSelected)
+            {
+                return ToppingModifierType.ExtraTopping;
+            }
+            else
+            {
+                return ToppingModifierType.None;
+            }
+        }
+
+
     }
 }

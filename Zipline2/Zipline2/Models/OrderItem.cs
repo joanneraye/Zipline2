@@ -40,11 +40,12 @@ namespace Zipline2.Models
             set
             {
                 SetProperty(ref itemCount, value);
+                UpdateItemTotal();
             }
         }
         private decimal pricePerItem;
         [Column("itemprice")]
-        public decimal PricePerItem
+        public decimal PricePerItemIncludingToppings
         {
             get
             {
@@ -58,21 +59,24 @@ namespace Zipline2.Models
                     OnPricePerItemUpdated(value);
                 }
                 SetProperty(ref pricePerItem, value);
+                UpdateItemTotal();
             }
         }
 
-        private decimal total;
+        private decimal totalPricePerItemTimesCount;
+        
         [Column("itemtotal")]
-        public decimal Total
+        public decimal TotalPricePerItemTimesCount
         {
             get
             {
-                return total;
+                return totalPricePerItemTimesCount;
             }
             set
             {
-                SetProperty(ref total, value);
+                SetProperty(ref totalPricePerItemTimesCount, value);
             }
+           
         }
 
         /// <summary>
@@ -80,7 +84,7 @@ namespace Zipline2.Models
         /// or extras.  The PricePerItem may be calculated starting 
         /// with the BasePrice and making modifications to it.
         /// </summary>
-        public decimal BasePrice { get; set; }
+        public decimal BasePriceNoToppings { get; set; }
 
         public decimal DbItemId { get; set; }
 
@@ -107,36 +111,46 @@ namespace Zipline2.Models
         /// </summary>
         public OrderItem()
         {
-            ItemCount = 1;
         }
         #endregion
 
         #region Methods
         /// <summary>
-        /// Because this is virtual, this method will be used by the 
-        /// derived classes unless the derrived class overrides this
-        /// implementation.
+        /// Should not need to be changed by derived classes.
         /// </summary>
-        public virtual void UpdateItemTotal()
+        public void UpdateItemTotal()
         {
-            Total = PricePerItem * ItemCount;
+            TotalPricePerItemTimesCount = PricePerItemIncludingToppings * ItemCount;
         }
 
         /// <summary>
-        /// A derived class must be able to complete a partially populated class object.
+        /// Do any extra calculations or populate any extra fields 
+        /// particular to this orderitem.  Such as a base price for pizza or salad 
+        /// (which drinks doesn't have for example).
         /// </summary>
-        public abstract void CompleteOrderItem();
+        //p/*ublic abstract void CompleteOrderItem();*/
 
         /// <summary>
-        /// A derived class must populate its display name.
+        /// Populate the ItemName field as it will be displayed on screen.
         /// </summary>
         public abstract void PopulateDisplayName();
 
         /// <summary>
-        /// A derived class must populate its price.
+        /// Populate the PricePerItemIncludeToppings field.
         /// </summary>
         public abstract void PopulatePricePerItem();
 
+        /// <summary>
+        /// Populate the BasePriceNoToppings field.
+        /// </summary>
+        public abstract void PopulateBasePrice();
+
+        /// <summary>
+        /// An OrderDisplayItem is used to populate the Order Summary Page.
+        /// It consists of the OrderItem and string called Toppings that
+        /// will include the format of any toppings or notes.
+        /// </summary>
+        /// <returns></returns>
         public virtual OrderDisplayItem PopulateOrderDisplayItem()
         {
             return new OrderDisplayItem
@@ -162,7 +176,7 @@ namespace Zipline2.Models
             var guestItem = new GuestItem()
             {
                 Availability = dbItem.Availability,
-                BasePrice = PricePerItem,
+                BasePrice = PricePerItemIncludingToppings,
                 CanBeHalf = dbItem.CanBeHalf,
                 Description = dbItem.Description,
                 HasAllMods = dbItem.HasAllMods,

@@ -237,7 +237,7 @@ namespace Zipline2.PageModels
                 "Crispy Cook", "Kid Cook", "Light Cook", "Regular Cook"
             };
 
-            var toppingsList = App.AllToppings.Values.ToList();
+            var toppingsList = App.PizzaToppings.Values.ToList();
             ToppingSelectionsList = new ObservableCollection<ToppingDisplayItem>();
             int toppingSelectionIndex = 0;
             for (int i = 0; i < toppingsList.Count; i++)
@@ -323,8 +323,8 @@ namespace Zipline2.PageModels
                 thisSelection.ListItemIsSelected = !thisSelection.ListItemIsSelected;  //toggle topping selection.
             }
                
-            thisSelection.ListTopping.ToppingModifier = ToppingModifierType.None;
-            
+            thisSelection.ListTopping.ToppingModifier = ToppingFooterPageModel.GetToppingModifierType();
+
             if (thisSelection.ListTopping.ToppingName == ToppingName.HalfMajor)
             {
                 ProcessHalfMajorToppingSelection(thisSelection);
@@ -336,24 +336,11 @@ namespace Zipline2.PageModels
                     thisSelection.ListTopping.Count = 1;
                 }
                 thisSelection.ListTopping.Count++;
-                thisSelection.ListTopping.ToppingModifier = ToppingModifierType.ExtraTopping;
-            }
-            else if (ToppingFooterPageModel.LiteToppingSelected)
-            {
-                thisSelection.ListTopping.ToppingModifier = ToppingModifierType.LightTopping;
-                
-            }
+            }          
             else if (ToppingFooterPageModel.NoToppingSelected)
             {
-                thisSelection.ListTopping.ToppingModifier = ToppingModifierType.NoTopping;
                 thisPizza.Toppings.RemoveTopping(thisSelection.ListTopping.ToppingName);
             }
-            else if (ToppingFooterPageModel.OnSideToppingSelected)
-            {
-                thisSelection.ListTopping.ToppingModifier = ToppingModifierType.ToppingOnSide;
-                
-            }
-
             
             if  (thisSelection.ListItemIsSelected)
             {
@@ -362,7 +349,7 @@ namespace Zipline2.PageModels
                     ThisPizza.Toppings.IsToppingAlreadyAdded(thisSelection.ListTopping.ToppingName))
                 {
                     ThisPizza.Toppings.UpdateToppingsTotal();
-                    ThisPizza.UpdateItemTotal();
+                    //ThisPizza.UpdateItemTotal();
                     thisSelection.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
                     thisSelection.ButtonWSelected = true;
                 }
@@ -370,7 +357,7 @@ namespace Zipline2.PageModels
                 {
                     thisSelection.ListTopping.SequenceSelected = ThisPizza.Toppings.CurrentToppings.Count + 1;
                     ThisPizza.Toppings.AddTopping(thisSelection.ListTopping);
-                    ThisPizza.UpdateItemTotal();
+                    //ThisPizza.UpdateItemTotal();
                     thisSelection.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
                     thisSelection.ButtonWSelected = true;
                 }
@@ -385,7 +372,7 @@ namespace Zipline2.PageModels
                 thisSelection.ListTopping.ToppingModifier = ToppingModifierType.None;
                 thisSelection.ListTopping.Count = 0;
                 ThisPizza.Toppings.RemoveTopping(thisSelection.ListTopping.ToppingName);
-                ThisPizza.UpdateItemTotal();
+                //ThisPizza.UpdateItemTotal();
                 thisSelection.SelectionColor = Xamarin.Forms.Color.Black;
                 thisSelection.ButtonASelected = false;
                 thisSelection.ButtonBSelected = false;
@@ -510,7 +497,7 @@ namespace Zipline2.PageModels
                     thisItemSelected.ListTopping.SequenceSelected = thisPizza.Toppings.CurrentToppings.Count + 1;
                     thisPizza.Toppings.AddTopping(thisItemSelected.ListTopping);
                 }
-                thisPizza.UpdateItemTotal();
+                //thisPizza.UpdateItemTotal();
                 ChangeButtonSelection(thisItemSelected, wholeOrHalf);
             }
         }
@@ -591,7 +578,7 @@ namespace Zipline2.PageModels
 
         private void OnAddPizzaToOrder()
         {
-            OrderManager.Instance.AddPizzaInProgressToOrder();
+            OrderManager.Instance.AddItemInProgressToOrder();
             OnNavigateToPizzaPage();
         }
 

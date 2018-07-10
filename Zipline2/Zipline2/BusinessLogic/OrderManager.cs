@@ -40,7 +40,7 @@ namespace Zipline2.BusinessLogic
         #region Public Properties
 
        
-        public OrderItem OrderItemPizzaInProgress { get; set; }
+        public OrderItem OrderItemInProgress { get; set; }
         public Order OrderInProgress { get; set; }
         /// <summary>
         /// Stores the index of the Table in the list of all tables
@@ -106,19 +106,18 @@ namespace Zipline2.BusinessLogic
         /// OrderInProgress.
         /// </summary>
         /// <param name="guiData"></param>
-        public void AddItemPizzaInProgress(OrderItem partialPizzaItem)
+        public void AddItemInProgress(OrderItem partialItemNoToppingMods)
         {
-            OrderItemPizzaInProgress = OrderItemFactory.GetOrderItem(partialPizzaItem);
-           
-            OrderItemPizzaInProgress.UpdateItemTotal();
+            OrderItemInProgress = OrderItemFactory.GetBaseOrderItem(partialItemNoToppingMods);
         }
 
        
-        public void AddDrinksToOrder(List<Drink> drinksToAdd)
+
+        public void AddItemsToOrder(List<OrderItem> itemsToAdd)
         { 
-             foreach (var drink in drinksToAdd)
+             foreach (var item in itemsToAdd)
              {
-                OrderManager.Instance.OrderInProgress.AddItemToOrder(drink);
+                OrderManager.Instance.OrderInProgress.AddItemToOrder(item);
              }
             OrderManager.Instance.OrderInProgress.UpdateOrderOnServer();
         }
@@ -149,9 +148,9 @@ namespace Zipline2.BusinessLogic
         //creating a Pizza object.
         public Pizza GetCurrentPizza()
         {
-            if (OrderItemPizzaInProgress != null && OrderItemPizzaInProgress is Pizza)
+            if (OrderItemInProgress != null && OrderItemInProgress is Pizza)
             {
-                return OrderItemPizzaInProgress as Pizza;
+                return OrderItemInProgress as Pizza;
             }
             return null;
         }
@@ -159,11 +158,12 @@ namespace Zipline2.BusinessLogic
         /// <summary>
         /// The OrderItem has been completed and is added to the order.
         /// </summary>
-        public void AddPizzaInProgressToOrder()
+        public void AddItemInProgressToOrder()
         {
-            OrderInProgress.AddItemToOrder(OrderItemPizzaInProgress);
+            //Go ahead and add item to order so we can see the price change....
+            OrderInProgress.AddItemToOrder(OrderItemInProgress);
             OrderInProgress.UpdateOrderOnServer();
-            OrderItemPizzaInProgress = null;
+            OrderItemInProgress = null;
         }
 
         

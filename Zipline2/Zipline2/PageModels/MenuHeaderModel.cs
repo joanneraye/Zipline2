@@ -56,7 +56,7 @@ namespace Zipline2.PageModels
                 //The order item has not been added to the order yet.  We will 
                 //add whatever this item total is to the current order total
                 //for our current order total.
-                if (OrderManager.Instance.OrderItemPizzaInProgress != null)
+                if (OrderManager.Instance.OrderItemInProgress != null)
                 {
                     var subTotal = OrderManager.Instance.OrderInProgress.Total + itemTotal;
                     OrderTotal = subTotal + HelperMethods.GetTaxAmount(subTotal);

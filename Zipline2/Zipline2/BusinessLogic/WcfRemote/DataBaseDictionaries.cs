@@ -25,6 +25,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         public static Dictionary<decimal, DBModifier> PizzaToppingsDictionary { get; set; }
 
+        public static Dictionary<decimal, DBModifier> SaladToppingsDictionary { get; set; }
+
         public static Dictionary<decimal, DBTable> DbTablesDictionary { get; set; }
 
         private static Dictionary<ToppingName, decimal> toppingDbIdDictionary;

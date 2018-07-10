@@ -104,7 +104,9 @@ namespace Zipline2.BusinessLogic
         private static Dictionary<ToppingName, string> DisplayToppingNameDictionary = new Dictionary<ToppingName, string>
         {
              { ToppingName.Unknown, "Unknown" },
+              { ToppingName.Almonds, "Almonds" },
             { ToppingName.Anchovies, "Anchovies" },
+             { ToppingName.Apples, "Apples" },
             { ToppingName.Artichokes, "Artichokes" },
             { ToppingName.Bacon, "Bacon" },
             { ToppingName.BananaPeppers, "Banana Peppers" },
@@ -113,28 +115,32 @@ namespace Zipline2.BusinessLogic
             { ToppingName.BlackOlives, "Black Olives" },
             { ToppingName.Broccoli, "Broccoli" },
                { ToppingName.ButterOk, "Butter OK" },
-   
             { ToppingName.Carrots, "Carrots" },
-          
             { ToppingName.Cheese, "Cheese" },
             { ToppingName.CrispyCook, "Crispy Cook" },
+             { ToppingName.Cucumbers, "Cucumbers" },
                      { ToppingName.CutInto12, "Cut Into 12" },
             { ToppingName.DAIYA, "DAIYA" },
               { ToppingName.Deep, "Satch-Pan" },
+               { ToppingName.DressingOnSide, "Dressing On Side" },
             { ToppingName.ExtraCheese, "Extra Cheese" },
+            { ToppingName.ExtraDressingOnSide, "Extra Dressing On Side" },
             { ToppingName.ExtraMozarellaCalzone, "Extra Mozarella (Calzone)" },
             { ToppingName.ExtraPSauceOP, "Extra Pizza Sauce On Pie" },
             { ToppingName.ExtraPSauceOS, "Extra Pizza Sauce On Side" },
             { ToppingName.ExtraRicottaCalzone, "Extra Ricotta (Calzone)" },
             { ToppingName.Feta, "Feta" },
+            { ToppingName.FiftyCentsUpcharge, "0.50 Cents Upcharge" },
             { ToppingName.Garlic, "Garlic" },
             { ToppingName.GlutenFreeIndyOnly, "GLUTEN FREE INDY ONLY" },
             { ToppingName.GreenOlives, "Green Olives" },
             { ToppingName.GreenPeppers, "Green Peppers" },
             { ToppingName.HalfMajor, "Half Major" },
+             { ToppingName.Ham, "Ham" },
             { ToppingName.Jalapenos, "Jalapenos" },
              { ToppingName.Joiner, "JOINER" },
               { ToppingName.KidCook, "Kid Cook" },
+               { ToppingName.Lettuce, "Lettuce" },
             { ToppingName.LightCook, "Light Cook" },
              { ToppingName.LightMozarella, "Light Mozarella" },
             { ToppingName.LightRicotta, "Light Ricotta" },
@@ -144,11 +150,15 @@ namespace Zipline2.BusinessLogic
             { ToppingName.NoButter, "No Butter" },
              { ToppingName.NoCheese, "No Cheese" },
                { ToppingName.NoCut, "No Cut" },
+                { ToppingName.NoDressing, "No Dressing" },
                  { ToppingName.NoMozarella, "No Mozarella" },
+                  { ToppingName.NoNutsNoSeeds, "No Nuts, No Seeds" },
+                   { ToppingName.NoNutsSeedsOk, "No Nuts, Seeks OK" },
                   { ToppingName.NoRicotta, "No Ricotta" },
             { ToppingName.NoSauce, "No Sauce" },
             { ToppingName.Onion, "Onion" },
              { ToppingName.OutFirst, "Out First" },
+              { ToppingName.PecansWalnuts, "Pecans/Walnuts" },
             { ToppingName.PestoTopping, "Pesto Topping" },
             { ToppingName.Pepperoni, "Pepperoni" },
             { ToppingName.Pineapple, "Pineapple" },
@@ -171,6 +181,22 @@ namespace Zipline2.BusinessLogic
             { ToppingName.Tomatoes, "Tomatoes" },
             { ToppingName.Zucchini, "Zucchini" },
         };
+
+        public static Dictionary<SaladSize, string> DisplaySaladNameDictionary = new Dictionary<SaladSize, string>
+        {
+            { SaladSize.LunchSpecial, "Lunch Special Salad" },
+            { SaladSize.Small, "Small Salad" },
+            { SaladSize.Large, "Large Salad" }
+        };
+
+        public static string GetSaladDisplayName(SaladSize sizeOfSalad)
+        {
+            if (DisplaySaladNameDictionary.ContainsKey(sizeOfSalad))
+            {
+                return DisplaySaladNameDictionary[sizeOfSalad];
+            }
+            return "Not in Dictionary Yet";
+        }
 
         public static string GetPizzaDisplayName(PizzaType displayDictionaryKey)
         {

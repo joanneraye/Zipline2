@@ -53,7 +53,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
             newdrink.WasSentToKitchen = oldGuestItem.OrderSent;
             newdrink.DbOrderId = (int)oldGuestItem.OrderID;
             newdrink.ItemCount = 1;
-            newdrink.UpdateItemTotal();
+            //newdrink.UpdateItemTotal();
             return newdrink;
         }
 
@@ -178,7 +178,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
             pizza.WasSentToKitchen = dbGuestItem.OrderSent;
             pizza.DbOrderId = (int)dbGuestItem.OrderID;
             pizza.ItemCount = 1;
-            pizza.UpdateItemTotal();
+            //pizza.UpdateItemTotal();
            
             return pizza;
         }
@@ -197,9 +197,9 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 if (DataBaseDictionaries.DbIdToppingDictionary.ContainsKey(mod.ID))
                 {
                     var ToppingName = DataBaseDictionaries.DbIdToppingDictionary[mod.ID];
-                    if (App.AllToppings.ContainsKey(ToppingName))
+                    if (App.PizzaToppings.ContainsKey(ToppingName))
                     {
-                        newTopping = App.AllToppings[ToppingName].GetClone();
+                        newTopping = App.PizzaToppings[ToppingName].GetClone();
                     }
                     else
                     {
@@ -310,7 +310,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
             }
             
             pizza.Toppings.UpdateToppingsTotal();
-            pizza.UpdateItemTotal();
+           // pizza.UpdateItemTotal();
         }
 
         

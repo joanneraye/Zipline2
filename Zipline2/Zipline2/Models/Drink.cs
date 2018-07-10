@@ -17,9 +17,7 @@ namespace Zipline2.Models
         {
             return (Drink)MemberwiseClone();
         }
-        //public bool CanBeBothSizes { get; set; }
-        //public bool OnlyGlassOrPint { get; set; }
-        //public bool OnlyBottleOrPitcher { get; set; }
+    
 
          public Drink() 
          {
@@ -30,17 +28,16 @@ namespace Zipline2.Models
         {
             DrinkType = drinkType;
             DbItemId = Drinks.GetDbItemId(drinkType);
-            PopulatePricePerItem();
         }
 
 
-        public override void CompleteOrderItem()
-       {
-            if (ItemCount > 0 && OrderManager.Instance.OrderInProgress.OrderItems.Count <= 0)
-            {
-                OrderManager.Instance.MarkCurrentTableUnsentOrder(true);
-            }
-        }
+       // public override void CompleteOrderItem()
+       //{
+       //     if (ItemCount > 0 && OrderManager.Instance.OrderInProgress.OrderItems.Count <= 0)
+       //     {
+       //         OrderManager.Instance.MarkCurrentTableUnsentOrder(true);
+       //     }
+       // }
 
        
         //public Drink(CustomerSelection guiData)
@@ -58,9 +55,17 @@ namespace Zipline2.Models
             //Done when drink created according to drink category.
         }
 
+
+        
         public override void PopulatePricePerItem()
         {
-            PricePerItem = Prices.DrinkTypeDictionary[DrinkType];
+            PricePerItemIncludingToppings = Prices.GetDrinkPrice(DrinkType);
+
+            //TODO:  What is this about???
+            //if (ItemCount > 0 && OrderManager.Instance.OrderInProgress.OrderItems.Count <= 0)
+            //{
+            //    OrderManager.Instance.MarkCurrentTableUnsentOrder(true);
+            //}
         }
 
         public override Tuple<string, decimal> GetMenuDbItemKeys()
@@ -94,6 +99,9 @@ namespace Zipline2.Models
             return new List<GuestModifier>();
         }
 
-
+        public override void PopulateBasePrice()
+        {
+            BasePriceNoToppings = Prices.GetDrinkPrice(DrinkType);
+        }
     }
 }

@@ -36,8 +36,43 @@ namespace Zipline2.BusinessLogic
             }
         }
 
-        
-        public static Dictionary<DrinkType, decimal> DrinkTypeDictionary = new Dictionary<DrinkType, decimal>
+        private static Dictionary<SaladSize, decimal> SaladPriceDictionary = new Dictionary<SaladSize, decimal>
+        {
+            { SaladSize.LunchSpecial, 4.00M },
+            { SaladSize.Small, 8M },
+            { SaladSize.Large, 14M }
+        };
+
+        public static decimal GetSaladPrice(SaladSize saladSize)
+        {
+            if (SaladPriceDictionary.ContainsKey(saladSize))
+            {
+                return SaladPriceDictionary[saladSize];
+            }
+            else
+            {
+                return 0M;
+            }
+        }
+
+        public static decimal GetSaladToppingPrice(SaladSize sizeOfSalad)
+        {
+            switch (sizeOfSalad)
+            {
+                case SaladSize.Large:
+                    return 3.50M;
+                case SaladSize.Small:
+                    return 2.00M;
+                case SaladSize.LunchSpecial:
+                    return 1.50M;
+                default:
+                    return 0;
+            }
+        }
+
+
+
+        private static Dictionary<DrinkType, decimal> DrinkTypeDictionary = new Dictionary<DrinkType, decimal>
         {
             { DrinkType.Water, 0M },
             { DrinkType.WaterWithLemon, 0M },
@@ -97,7 +132,7 @@ namespace Zipline2.BusinessLogic
              { DrinkType.CorkageFee, 8.00M }
         };
 
-        public static Dictionary<PizzaType, decimal> BasePriceDictionary = new Dictionary<PizzaType, decimal>
+        private static Dictionary<PizzaType, decimal> BasePriceDictionary = new Dictionary<PizzaType, decimal>
         {
             { PizzaType.ThinSlice, 3.00M },
             { PizzaType.PanSlice, 3.50M },
@@ -122,6 +157,18 @@ namespace Zipline2.BusinessLogic
             else
             {
                 return 0M;
+            }
+        }
+
+        public static decimal[] GetPizzaToppingsPrices(PizzaType typeOfPizza)
+        {
+            if (ToppingsPriceDictionary.ContainsKey(typeOfPizza))
+            {
+                return ToppingsPriceDictionary[typeOfPizza];
+            }
+            else
+            {
+                return new decimal[] { 0M };
             }
         }
 
@@ -169,7 +216,7 @@ namespace Zipline2.BusinessLogic
            3.00M, 6.00M, 9.00M, 11.00M, 14.00M, 17.00M, 3.00M
         };
 
-        public static Dictionary<PizzaType, decimal[]> ToppingsPriceDictionary = new Dictionary<PizzaType, decimal[]>
+        private static Dictionary<PizzaType, decimal[]> ToppingsPriceDictionary = new Dictionary<PizzaType, decimal[]>
         {
             { PizzaType.ThinSlice, PizzaSliceToppingsPrices },
             { PizzaType.PanSlice, PizzaSliceToppingsPrices },
