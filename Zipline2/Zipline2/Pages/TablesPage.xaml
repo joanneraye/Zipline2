@@ -53,9 +53,16 @@
                                     <ColumnDefinition Width="3*"/>
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0" 
-                                       BackgroundColor="{Binding InsideTableColor}" 
+                                       BackgroundColor="Blue" 
                                        Text=" "
                                        Margin="5, 10, 5, 10">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                  Binding="{Binding InsideTable.IsOccupied, Mode=TwoWay}"
+                                                            Value="False">
+                                            <Setter Property="BackgroundColor" Value="Orange" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
                                 </Label>
 
                                 <Button Grid.Column="1"
@@ -77,16 +84,16 @@
                                     </Button.Triggers>
                                 </Button>
                                 <Label Grid.Column="2" 
-                                       BackgroundColor="{Binding OutsideTableColor}"
+                                       BackgroundColor="Blue"
                                        Text=" "
                                        Margin="5, 10, 5, 10">
-                                    <!--<Label.Triggers>
-                                        <DataTrigger TargetType="Label" 
-                                                            Binding="{Binding OutsideTable.HasUnsentOrder, Mode=TwoWay}"
-                                                            Value="True">
-                                            <Setter Property="Text" Value="UNSENT ORDER" />
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                  Binding="{Binding OutsideTable.IsOccupied, Mode=TwoWay}"
+                                                            Value="False">
+                                            <Setter Property="BackgroundColor" Value="Orange" />
                                         </DataTrigger>
-                                    </Label.Triggers>-->
+                                    </Label.Triggers>
                                 </Label>
                                 <Button Grid.Column="3" Text="{Binding OutsideTableName}" 
                                         TextColor="White"

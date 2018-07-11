@@ -90,7 +90,22 @@ namespace Zipline2.Models
 
         public ToppingWholeHalf ToppingWholeHalf { get; set; }
 
-        public int Count { get; set; }
+        private int count;
+        public int Count
+        {
+            get
+            {
+                return count;
+            }
+            set
+            {
+                if (value != Count && ToppingModifier == ToppingModifierType.ExtraTopping)
+                {
+                    ToppingDisplayName = DisplayNames.GetToppingDisplayName(ToppingName) + " " + value + "X";
+                }
+                count = value;
+            }
+        }
 
         public int SequenceSelected { get; set; }
 

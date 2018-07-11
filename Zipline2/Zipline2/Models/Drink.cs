@@ -28,6 +28,7 @@ namespace Zipline2.Models
         {
             DrinkType = drinkType;
             DbItemId = Drinks.GetDbItemId(drinkType);
+            PopulatePricePerItem();
         }
 
 

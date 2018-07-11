@@ -29,7 +29,7 @@ namespace Zipline2.Models
                 }
                 else if (topping.SpecialPricingType == SpecialPricingType.DefaultOneTopping)
                 {
-                    toppingsTotal += SaladToppingPrice;
+                    toppingsTotal += (SaladToppingPrice * topping.Count);
                 }
             }
             return toppingsTotal;

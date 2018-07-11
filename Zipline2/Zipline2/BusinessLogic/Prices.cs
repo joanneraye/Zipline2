@@ -24,6 +24,11 @@ namespace Zipline2.BusinessLogic
         //}
 
         //public static Dictionary<string, decimal> PricesFromJsonFile;
+
+        public static decimal GetLunchSpecialDiscount()
+        {
+            return 0.50M;
+        }
         public static decimal GetDrinkPrice(DrinkType drinkType)
         {
             if (DrinkTypeDictionary.ContainsKey(drinkType))

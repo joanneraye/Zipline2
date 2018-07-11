@@ -23,13 +23,12 @@ namespace Zipline2.Models
             {
                 return toppingsTotal;
             }
-            private set
+            set
             {
                 toppingsTotal = value;
                 MessagingCenter.Send<Toppings>(this, "ToppingsTotalUpdated");
             }
         }
-
         
 
         #endregion
@@ -57,11 +56,14 @@ namespace Zipline2.Models
         /// topping prices can be different.  Or when the topping has been added
         /// but is changed to half of the pizza.
         /// </summary>
-        public void UpdateToppingsTotal()
+        public virtual void UpdateToppingsTotal()
         {
             ToppingsTotal = GetCurrentToppingsCost();
+            if (ToppingsTotal < 0)
+            {
+                ToppingsTotal = 0;
+            }
         }
-
         
             
         public bool CurrentToppingsHas(ToppingName toppingName)

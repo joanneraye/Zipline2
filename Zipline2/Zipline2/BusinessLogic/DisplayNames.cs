@@ -168,6 +168,7 @@ namespace Zipline2.BusinessLogic
             { ToppingName.RoastedRedPepper, "RRP" },
                { ToppingName.SaladWithOrder, "Salad With Order" },
             { ToppingName.Sausage, "Sausage" },
+            { ToppingName.Seeds, "Seeds" },
              { ToppingName.SliceCutInHalfSamePlate, "Slice cut in half Same Plate" },
             { ToppingName.SliceCutInHalfSepPlate, "Slice cut in half Separate Plate" },
             { ToppingName.Spinach, "Spinach" },

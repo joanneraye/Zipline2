@@ -16,6 +16,24 @@ namespace Zipline2.Models
     {
         #region Properties
         public PizzaToppings Toppings { get; set; }
+        private bool getsLunchSpecialDiscount;
+        public bool GetsLunchSpecialDiscount
+        {
+            get
+            {
+                return getsLunchSpecialDiscount;
+            }
+            set
+            { 
+                if (value != getsLunchSpecialDiscount)
+                {
+                    ChangeLunchSpecialDiscount(value);
+                }
+                getsLunchSpecialDiscount = value;
+           
+            }
+        }
+
         public MajorOrMama MajorMamaInfo { get; set; }
         private PizzaType pizzaType;
         public PizzaType PizzaType
@@ -29,7 +47,7 @@ namespace Zipline2.Models
                 pizzaType = value;
                 if (Toppings == null)
                 {
-                    Toppings = new PizzaToppings(pizzaType);
+                    Toppings = new PizzaToppings(pizzaType, this);
                 }
                 else
                 {
@@ -473,6 +491,26 @@ namespace Zipline2.Models
             }
 
             return mods;
+        }
+
+        private void ChangeLunchSpecialDiscount(bool giveDiscount)
+        {
+            if (giveDiscount)
+            {
+                if (Toppings.ToppingsTotal > 0)
+                {
+                    decimal lunchDiscount = Prices.GetLunchSpecialDiscount();
+                    ItemName = "Lunch Special Pizza Slice";
+                    Toppings.ToppingsTotal -= lunchDiscount;
+                    Toppings.ToppingsDiscount = lunchDiscount;
+                }
+            }
+            else
+            {
+                ItemName = DisplayNames.GetPizzaDisplayName(PizzaType);
+                Toppings.ToppingsDiscount = 0M;
+                Toppings.UpdateToppingsTotal();
+            }
         }
 
         #endregion

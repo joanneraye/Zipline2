@@ -54,6 +54,24 @@ namespace Zipline2.Models
             return displayItem;
         }
 
+        public override GuestItem CreateGuestItem(DBItem dbItem, decimal orderId)
+        {
+            GuestItem guestItem = base.CreateGuestItem(dbItem, orderId);
+            switch (SizeOfSalad)
+            {
+                case SaladSize.LunchSpecial:
+                    guestItem.SelectSizeID = 14;
+                    break;
+                case SaladSize.Small:
+                    guestItem.SelectSizeID = 7;
+                    break;
+                case SaladSize.Large:
+                    guestItem.SelectSizeID = 8;
+                    break;
+            }
+            return guestItem;
+        }
+
         public override List<GuestModifier> CreateMods()
         {
             //Turn topping modifications into mods for the server.

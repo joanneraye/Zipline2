@@ -61,9 +61,9 @@ namespace Zipline2.BusinessLogic
                     break;
                 //case 2:
                 //    break;
-                //case 3:
-                //    //Create Salad
-                //    break;
+                case 3:
+                    thisOrderItem = DataConversion.GetSalad(oldGuestItem);
+                    break;
                 case 4:
                     thisOrderItem = DataConversion.GetDrink(oldGuestItem);
                     break;

@@ -121,6 +121,37 @@ namespace Zipline2.BusinessLogic.WcfRemote
             return newGuestMod;
         }
 
+        public static Salad GetSalad(GuestItem dbGuestItem)
+        {
+            var sizeOfSalad = SaladSize.None;
+            switch (dbGuestItem.SelectSizeID)
+            {
+                case 7:
+                    sizeOfSalad = SaladSize.Small;
+                    break;
+                case 8:
+                    sizeOfSalad = SaladSize.Large;
+                    break;
+                case 14:
+                    sizeOfSalad = SaladSize.LunchSpecial;
+                    break;
+            }
+            var salad = new Salad(sizeOfSalad);
+            if (dbGuestItem.Mods.Count > 0)
+            {
+                GetSaladToppings(dbGuestItem, ref salad);
+            }
+            salad.PopulateBasePrice();
+            salad.PopulateDisplayName();
+            salad.PopulatePricePerItem();
+            salad.DbItemId = dbGuestItem.ID;
+            salad.WasSentToKitchen = dbGuestItem.OrderSent;
+            salad.DbOrderId = (int)dbGuestItem.OrderID;
+            salad.ItemCount = 1;
+            return salad;
+
+        }
+
         public static Pizza GetPizza(GuestItem dbGuestItem)
         {
             var pizza = new Pizza();
@@ -183,11 +214,59 @@ namespace Zipline2.BusinessLogic.WcfRemote
             return pizza;
         }
 
+        private static void GetSaladToppings(GuestItem oldGuestItem, ref Salad salad)
+        {
+            foreach (GuestModifier mod in oldGuestItem.Mods)
+            {
+                Topping newTopping = new Topping(ToppingName.Unknown);
+                if (DataBaseDictionaries.DbIdToppingDictionary.ContainsKey(mod.ID))
+                {
+                    var ToppingName = DataBaseDictionaries.DbIdToppingDictionary[mod.ID];
+                    if (App.SaladToppings.ContainsKey(ToppingName))
+                    {
+                        newTopping = App.SaladToppings[ToppingName].GetClone();
+                    }
+                    else
+                    {
+                        Console.WriteLine("***Debug JOANNE***TOPPINGS DICTIONARY DOES NOT CONTAIN: " + ToppingName);
+                        continue;
+                    }
+                   
+                    if (mod.State == "Lite")
+                    {
+                        newTopping.ToppingModifier = ToppingModifierType.LightTopping;
+                    }
+                    else if (mod.State == "" || (mod.State == "Plus" && mod.Count > 1))
+                    {
+                        newTopping.ToppingModifier = ToppingModifierType.ExtraTopping;
+                        newTopping.Count = (int)mod.Count;
+                    }
+                    else if (mod.State == "Side")
+                    {
+                        newTopping.ToppingModifier = ToppingModifierType.ToppingOnSide;
+                    }
+
+
+                    if (mod.State == "No")
+                    {
+                        newTopping.ToppingModifier = ToppingModifierType.NoTopping;
+                        //TODO:  ??  At present, default toppings aren't included with salads.
+                        //pizza.Toppings.RemoveTopping(newTopping.ToppingName);                      
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("***Debug JOANNE***TOPPINGS DICTIONARY Salad ITEM NOT FOUND: " + mod.Name + mod.ID);
+                }
+               
+                salad.Toppings.AddTopping(newTopping, false);
+            }
+
+            salad.Toppings.UpdateToppingsTotal();
+        }
+
         private static void GetPizzaToppings(GuestItem oldGuestItem, ref Pizza pizza)
         {
-           
-            //TODO:  Not yet accounting for mod.State
-          
             foreach (GuestModifier mod in oldGuestItem.Mods)
             {
                 bool addThisModAsTopping = true;
@@ -310,7 +389,6 @@ namespace Zipline2.BusinessLogic.WcfRemote
             }
             
             pizza.Toppings.UpdateToppingsTotal();
-           // pizza.UpdateItemTotal();
         }
 
         
@@ -331,7 +409,6 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 IsTakeout = false,
                 AllItemsSent = true
             };
-
             foreach (var guestItem in guestItems)
             {
                 var openOrderItem = OrderItemFactory.GetOrderItem(guestItem);

@@ -9,10 +9,44 @@ namespace Zipline2.Models
     public class PizzaToppings : Toppings
     {
         public PizzaType PizzaTypeForPricing { get; set; }
-
-        public PizzaToppings(PizzaType pizzaTypeForPricing)
+        private decimal toppingsDiscount;
+        public decimal ToppingsDiscount
         {
+            get
+            {
+                return toppingsDiscount;
+            }
+            set
+            {
+                toppingsDiscount = value;
+                if (value > 0)
+                {
+                    ThisPizza.ItemName = "Lunch Special Slice";
+                }
+                else
+                {
+                    ThisPizza.ItemName = DisplayNames.GetPizzaDisplayName(PizzaType.PanSlice);
+                }
+            }
+        }
+
+        private Pizza ThisPizza { get; set; }
+
+
+        public PizzaToppings(PizzaType pizzaTypeForPricing, Pizza thisPizza)
+        {
+            ThisPizza = thisPizza;
             PizzaTypeForPricing = pizzaTypeForPricing;
+        }
+
+        public override void UpdateToppingsTotal()
+        {
+            base.UpdateToppingsTotal();
+            ToppingsTotal -= ToppingsDiscount;
+            if (ToppingsTotal < 0)
+            {
+                ToppingsTotal = 0;
+            }
         }
 
         protected override decimal GetCurrentToppingsCost()
@@ -26,15 +60,25 @@ namespace Zipline2.Models
             var lastToppingPriceIndex = thisPizzaToppingPrices.Length - 2;
             var additionalToppingCostIndex = thisPizzaToppingPrices.Length - 1;
             var numberOfExtraWholeToppings = wholeToppingIndex - lastToppingPriceIndex;
-            var pricePerAdditionalTopping = thisPizzaToppingPrices[additionalToppingCostIndex];
-            if (wholeToppingCount <= 0)
+            if (numberOfExtraWholeToppings < 0)
             {
-                // Whole topping count is <= 0, so topping cost will be zero or a negative number.
-                toppingCost = wholeToppingCount * pricePerAdditionalTopping;
-                toppingCost += specialExtraCost;
-                return toppingCost;
+                numberOfExtraWholeToppings = 0;
             }
-            else if (numberOfExtraWholeToppings > 0)
+            var pricePerAdditionalTopping = thisPizzaToppingPrices[additionalToppingCostIndex];
+            
+            switch (toppingCountForPrice)
+            {
+                case 0M:
+                case -1M:
+                case -.5M:
+                    return ((toppingCountForPrice * pricePerAdditionalTopping) + specialExtraCost);
+                case .5M:
+                    return ((pricePerAdditionalTopping / 2) + specialExtraCost);
+            }
+
+            //Topping count is >= 1:
+            //First calculate whole toppings cost:
+            if (numberOfExtraWholeToppings > 0)
             {
                 var additionalToppingCost = numberOfExtraWholeToppings * pricePerAdditionalTopping;
                 toppingCost = thisPizzaToppingPrices[lastToppingPriceIndex] + additionalToppingCost;
@@ -42,10 +86,10 @@ namespace Zipline2.Models
             else
             {
                 toppingCost = thisPizzaToppingPrices[wholeToppingIndex];
-
             }
-
-            if ((toppingCountForPrice % 1) > 0)      //Includes 1/2 a topping
+                 
+            //Next add partial topping if it exists:
+            if ((toppingCountForPrice % 1) > 0)       
             {
                 int roundUpToppingCount = Convert.ToInt32(Math.Ceiling(toppingCountForPrice));
                 int nextHigherToppingIndex = roundUpToppingCount - 1;
@@ -114,6 +158,7 @@ namespace Zipline2.Models
                         }
                         break;
                 }
+               
                 toppingCountForPricing += (thisToppingCount * topping.Count);
             }
             return toppingCountForPricing;

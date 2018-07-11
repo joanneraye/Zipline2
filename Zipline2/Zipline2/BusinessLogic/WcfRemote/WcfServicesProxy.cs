@@ -91,7 +91,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         private WcfServicesProxy()
         {
-            ServiceCallConfig = ServiceCallConfigType.AllServiceCallsOff;
+            ServiceCallConfig = ServiceCallConfigType.UpdateServicesNoSend;
 
             endpointIpAddressPart1 = "http://192.168.1.26";      //Dev environment
 

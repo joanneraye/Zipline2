@@ -20,8 +20,8 @@ namespace Zipline2.PageModels
         public class TableSelection : BasePageModel
         {
             private TablesPageModel parentTablesPageModel;
-            private Color outsideTableColor;
-            private Color insideTableColor;
+            //private Color outsideTableColor;
+            //private Color insideTableColor;
             private string insideTableName;
             public string InsideTableName
             {
@@ -34,6 +34,8 @@ namespace Zipline2.PageModels
                     SetProperty(ref insideTableName, value);
                 }
             }
+
+            
             private Table insideTable;
             public Table InsideTable
             {
@@ -44,13 +46,16 @@ namespace Zipline2.PageModels
                 set
                 {
                     SetProperty(ref insideTable, value);
-                    if (insideTable.HasUnsentOrder)
+                    if (insideTable != null)
                     {
-                        insideTableName = insideTable.TableName + " UNSENT ORDER ITEM";
-                    }
-                    else
-                    {
-                        insideTableName = insideTable.TableName;
+                        if (insideTable.HasUnsentOrder)
+                        {
+                            insideTableName = insideTable.TableName + " UNSENT";
+                        }
+                        else
+                        {
+                            insideTableName = insideTable.TableName;
+                        }
                     }
                 }
             }
@@ -66,6 +71,8 @@ namespace Zipline2.PageModels
                     SetProperty(ref outsideTableName, value);
                 }
             }
+
+           
             private Table outsideTable;
             public Table OutsideTable
             {
@@ -76,39 +83,44 @@ namespace Zipline2.PageModels
                 set
                 {
                     SetProperty(ref outsideTable, value);
-                    if (outsideTable.HasUnsentOrder)
+                    if (outsideTable != null)
                     {
-                        outsideTableName = outsideTable.TableName + " UNSENT ORDER ITEM";
-                    }
-                    else
-                    {
-                        outsideTableName = outsideTable.TableName;
-                    }
+                        if (outsideTable.HasUnsentOrder)
+                        {
+                            outsideTableName = value.TableName + " UNSENT";
+                        }
+                        else
+                        {
+                            outsideTableName = value.TableName;
+                        }
+                    }     
                 }
             }
-            public int SelectionIndex;
-            public Color OutsideTableColor
-            {
-                get
-                {
-                    return outsideTableColor;
-                }
-                set
-                {
-                    SetProperty(ref outsideTableColor, value);
-                }
-            }
-            public Color InsideTableColor
-            {
-                get
-                {
-                    return insideTableColor;
-                }
-                set
-                {
-                    SetProperty(ref insideTableColor, value);
-                }
-            }
+
+            public int SelectionIndex { get; set; }
+            public int IndexInAllTables { get; set; }
+            //public Color OutsideTableColor
+            //{
+            //    get
+            //    {
+            //        return outsideTableColor;
+            //    }
+            //    set
+            //    {
+            //        SetProperty(ref outsideTableColor, value);
+            //    }
+            //}
+            //public Color InsideTableColor
+            //{
+            //    get
+            //    {
+            //        return insideTableColor;
+            //    }
+            //    set
+            //    {
+            //        SetProperty(ref insideTableColor, value);
+            //    }
+            //}
 
             #region Command Variables
             public System.Windows.Input.ICommand InsideTableCommand { get; set; }
@@ -127,7 +139,7 @@ namespace Zipline2.PageModels
             {
                 TableSelection thisRow = parentTablesPageModel.DisplayTables[SelectionIndex];
                 Table tableSelected = thisRow.InsideTable;
-                InsideTableColor = Color.Orange;
+                thisRow.InsideTable.IsOccupied = true;
                 parentTablesPageModel.ProcessSelectedTable(tableSelected);
                
             }
@@ -135,7 +147,7 @@ namespace Zipline2.PageModels
             {
                 TableSelection thisRow = parentTablesPageModel.DisplayTables[SelectionIndex];
                 Table tableSelected = thisRow.OutsideTable;
-                OutsideTableColor = Color.Orange;
+                thisRow.OutsideTable.IsOccupied = true;
                 parentTablesPageModel.ProcessSelectedTable(tableSelected);
             }
         }
@@ -178,6 +190,12 @@ namespace Zipline2.PageModels
         #region Constructor
         public TablesPageModel()
         {
+            var orderManager = OrderManager.Instance;
+
+            if (orderManager.OrderInProgress != null &&orderManager.OrderInProgress.OrderItems.Count > 0)
+            {
+                Tables.AllTables[orderManager.CurrentTableIndex].OpenOrder = OrderManager.Instance.OrderInProgress;
+            }
             //First populate list of tables with whether table is occupied and has unsent orders.
             //(Then build the page with that data in LoadTablesForDisplay method.)
 
@@ -260,9 +278,14 @@ namespace Zipline2.PageModels
                 if (dbTable.Guests.Count > 0)
                 {
                     List<GuestItem> guestItems = new List<GuestItem>();
+                    List<GuestItem> comboGuestItems = new List<GuestItem>();
                     foreach (var guest in dbTable.Guests)
                     {
                         guestItems.AddRange(guest.Items);
+                        foreach (var comboItem in guest.ComboItems)
+                        {
+                            guestItems.AddRange(comboItem.ComboGuestItems);
+                        }
                     }
                     if (guestItems.Count > 0)
                     {
@@ -314,40 +337,45 @@ namespace Zipline2.PageModels
 
         private void PopulateRowWithInsideTable(ref TableSelection thisRow, int indexInAllTables)
         {
+            //Next 2 statements must be in that order because when table is valued (2nd statement), if there is an
+            //unsent order the name of the table is changed to show "unsent".  If the name is set (1st statement) after that,
+            //rather than before, it will wipe this out.  
             thisRow.InsideTable = Tables.AllTables[indexInAllTables];
-            thisRow.InsideTableName = Tables.AllTables[indexInAllTables].TableName;
-            if (thisRow.InsideTable.HasUnsentOrder)
-            {
-                thisRow.InsideTableName += " UNSENT ORDER ITEM";
-            }
+            //if (thisRow.InsideTable.HasUnsentOrder)
+            //{
+            //    thisRow.InsideTableName += " UNSENT";
+            //}
 
-            if (thisRow.InsideTable.IsOccupied)
-            {
-                thisRow.InsideTableColor = Color.Orange;
-            }
-            else
-            {
-                thisRow.InsideTableColor = Color.Blue;
-            }
+            //if (thisRow.InsideTable.IsOccupied)
+            //{
+            //    thisRow.InsideTableColor = Color.Orange;
+            //}
+            //else
+            //{
+            //    thisRow.InsideTableColor = Color.Blue;
+            //}
         }
 
 
         private void PopulateRowWithOutsideTable(ref TableSelection thisRow, int indexInAllTables)
         {
+            //Next 2 statements must be in that order because when table is valued (2nd statement), if there is an
+            //unsent order the name of the table is changed to show "unsent".  If the name is set (1st statement) after that,
+            //rather than before, it will wipe this out.  
             thisRow.OutsideTableName = Tables.AllTables[indexInAllTables].TableName;
             thisRow.OutsideTable = Tables.AllTables[indexInAllTables];
-            if (thisRow.OutsideTable.HasUnsentOrder)
-            {
-                thisRow.OutsideTableName += " UNSENT ORDER ITEM";
-            }
-            if (thisRow.OutsideTable.IsOccupied)
-            {
-                thisRow.OutsideTableColor = Color.Orange;
-            }
-            else
-            {
-                thisRow.OutsideTableColor = Color.Blue;
-            }
+            //if (thisRow.OutsideTable.HasUnsentOrder)
+            //{
+            //    thisRow.OutsideTableName += " UNSENT";
+            //}
+            //if (thisRow.OutsideTable.IsOccupied)
+            //{
+            //    thisRow.OutsideTableColor = Color.Orange;
+            //}
+            //else
+            //{
+            //    thisRow.OutsideTableColor = Color.Blue;
+            //}
         }
         public void LoadTablesForDisplay()
         {
@@ -373,7 +401,6 @@ namespace Zipline2.PageModels
                 PopulateRowWithInsideTable(ref displayTableRow, insideTableIndex);
                 displayTableRow.OutsideTable = new Table();
                 displayTableRow.OutsideTableName = string.Empty;
-                displayTableRow.OutsideTableColor = Color.Black;
                 displayTableRow.SelectionIndex = insideTableIndex;
                 DisplayTables.Add(displayTableRow);
                 insideTableIndex++;
@@ -385,7 +412,6 @@ namespace Zipline2.PageModels
                 PopulateRowWithOutsideTable(ref displayTableRow, outsideTableIndex);
                 displayTableRow.InsideTable = new Table();
                 displayTableRow.InsideTableName = string.Empty;
-                displayTableRow.InsideTableColor = Color.Black;
                 displayTableRow.SelectionIndex = currentRowIndex;
                 DisplayTables.Add(displayTableRow);
                 outsideTableIndex++;

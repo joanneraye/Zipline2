@@ -18,7 +18,8 @@ namespace Zipline2.Models
     [Table("order")]
     public class Order : BasePageModel
     {
-      
+        private int SpecialSaladCount;
+        private int SliceCount;
         public int OrderNumberId { get; set; }
 
         private List<OrderItem> orderItems;
@@ -64,6 +65,8 @@ namespace Zipline2.Models
         public Order(decimal tableId, int tableIndex)
         {
             OrderItems = new List<OrderItem>();
+            SliceCount = 0;
+            SpecialSaladCount = 0;
             IsTakeout = false;
             TableId = tableId;
             TableIndexInAllTables = tableIndex;
@@ -72,8 +75,38 @@ namespace Zipline2.Models
         private void UpdateOrderTotals()
         {
             SubTotal = 0;
+            int lunchSpecialCount = 0;
+            if (SliceCount > 0 && SpecialSaladCount > 0)
+            {
+                if (SliceCount == SpecialSaladCount)
+                {
+                    lunchSpecialCount = SliceCount;
+                }
+                else
+                {
+                    lunchSpecialCount = Math.Min(SliceCount, SpecialSaladCount);
+                }
+            }
+
             foreach (var orderItem in OrderItems)
             {
+                if (orderItem is Pizza)
+                {
+                    Pizza thisPizza = (Pizza)orderItem;
+                    if (thisPizza.PizzaType == PizzaType.ThinSlice && lunchSpecialCount > 0)
+                    {
+                        if (thisPizza.Toppings.ToppingsTotal > 0)
+                        {
+                            thisPizza.GetsLunchSpecialDiscount = true;
+                            lunchSpecialCount -= 1;
+                        }
+                    }
+                    else
+                    {
+                        thisPizza.GetsLunchSpecialDiscount = false;
+                    }
+                }
+               
                 SubTotal += orderItem.TotalPricePerItemTimesCount;
             }
             Tax = HelperMethods.GetTaxAmount(SubTotal);
@@ -105,7 +138,22 @@ namespace Zipline2.Models
                 }
 
                 //Check for lunch special.
-
+                if (item is Pizza)
+                {
+                    Pizza thisPizza = (Pizza)item;
+                    if (thisPizza.PizzaType == PizzaType.ThinSlice)
+                    {
+                        SliceCount++;
+                    }
+                }
+                else if (item is Salad)
+                {
+                    Salad thisSalad = (Salad)item;
+                    if (thisSalad.SizeOfSalad == SaladSize.LunchSpecial)
+                    {
+                        SpecialSaladCount++;
+                    }
+                }
 
 
                 UpdateOrderTotals();

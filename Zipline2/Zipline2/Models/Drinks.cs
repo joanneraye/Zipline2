@@ -243,6 +243,7 @@ namespace Zipline2.Models
                     DrinkCategory = DrinkCategory.SoftDrink,
                     DrinkSize = DrinkSize.JustOneSize,
                     DbItemId = Drinks.GetDbItemId(drinks.Key)
+                    
                 };
 
                 PopulateDbInfo(ref thisDrink);                               
