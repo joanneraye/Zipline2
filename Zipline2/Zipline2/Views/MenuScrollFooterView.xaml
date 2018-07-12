@@ -103,7 +103,15 @@
                 <StackLayout Orientation="Horizontal">
                     <Button Text="Salads"
                         Command="{Binding SaladsCommand}"
-                        Style="{StaticResource footerScrollMenu}"/>
+                        Style="{StaticResource footerScrollMenu}">
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" 
+                                 Binding="{Binding IsSaladPageDisplayed}"
+                                 Value="True">
+                                <Setter Property="IsVisible" Value="False" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                     </Button>
                     <Button Text="Pizza"
                         Command="{Binding PizzaCommand}"
                         Style="{StaticResource footerScrollMenu}">

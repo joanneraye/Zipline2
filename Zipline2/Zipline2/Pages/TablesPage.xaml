@@ -59,7 +59,7 @@
                                     <Label.Triggers>
                                         <DataTrigger TargetType="Label"
                                                   Binding="{Binding InsideTable.IsOccupied, Mode=TwoWay}"
-                                                            Value="False">
+                                                            Value="True">
                                             <Setter Property="BackgroundColor" Value="Orange" />
                                         </DataTrigger>
                                     </Label.Triggers>

@@ -22,6 +22,7 @@ namespace Zipline2.Pages
             InitializeComponent();
             thisPageModel = new SaladsPageModel();
             BindingContext = thisPageModel;
+            Footer.FooterPageModel.IsSaladPageDisplayed = true;
             string saladTitle = "TBL " + BusinessLogic.OrderManager.Instance.CurrentTableName + " Salads";
             this.ToolbarItems.Add(new ToolbarItem { Text = saladTitle });
         }

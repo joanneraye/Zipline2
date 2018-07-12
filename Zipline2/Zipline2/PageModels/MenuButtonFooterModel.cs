@@ -91,6 +91,27 @@ namespace Zipline2.PageModels
                 {
                     IsPizzaPageDisplayed = false;
                     IsDrinkPageDisplayed = false;
+                    IsSaladPageDisplayed = false;
+                }
+            }
+        }
+
+        private bool isSaladPageDisplayed;
+        public bool IsSaladPageDisplayed
+        {
+            get
+            {
+                return isSaladPageDisplayed;
+            }
+            set
+            {
+                SetProperty(ref isSaladPageDisplayed, value);
+                if (isSaladPageDisplayed)
+                {
+                    IsPizzaPageDisplayed = false;
+                    IsDrinkPageDisplayed = false;
+                    IsOrderPageDisplayed = false;
+                    DisplayAddToOrderButton = false;
                 }
             }
         }
@@ -109,6 +130,7 @@ namespace Zipline2.PageModels
                 {
                     IsPizzaPageDisplayed = false;
                     IsOrderPageDisplayed = false;
+                    IsSaladPageDisplayed = false;
                 }
             }
         }
@@ -127,6 +149,7 @@ namespace Zipline2.PageModels
                 {
                     IsDrinkPageDisplayed = false;
                     IsOrderPageDisplayed = false;
+                    IsSaladPageDisplayed = false;
                 }
             }
         }

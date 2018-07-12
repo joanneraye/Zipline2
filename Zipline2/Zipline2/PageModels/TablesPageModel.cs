@@ -219,6 +219,7 @@ namespace Zipline2.PageModels
                 {
                     Console.WriteLine("***Debug JOANNE***TABLE NOT FOUND FOR TABLE ID: " + table.ID);
                 }
+                var thisTable = Tables.AllTables[indexInAllTables];
                 foreach (var guest in table.Guests)
                 {
                     if (guest.Items.Count > 0 || guest.ComboItems.Count > 0)
@@ -231,17 +232,32 @@ namespace Zipline2.PageModels
                                 hasUnsentItems = true;
                             }
                         }
+                       
                     }
-                }
+                    else
+                    {
+                        //no items from server so use local table saved if one exists.
+                        if (thisTable.OpenOrder != null)
+                        {
+                            if (thisTable.OpenOrder.OrderItems.Count > 0)
+                            {
+                                tableOccupied = true;
+                            }
+                            if (!thisTable.OpenOrder.AllItemsSent)
+                            {
+                                hasUnsentItems = true;
+                            }
+                        }
+                    }
+                    if (tableOccupied)
+                    {
+                        Tables.AllTables[indexInAllTables].IsOccupied = tableOccupied;
+                    }
 
-                if (tableOccupied)
-                {
-                    Tables.AllTables[indexInAllTables].IsOccupied = tableOccupied;
-                }
-
-                if (hasUnsentItems)
-                {
-                    Tables.AllTables[indexInAllTables].HasUnsentOrder = hasUnsentItems;
+                    if (hasUnsentItems)
+                    {
+                        Tables.AllTables[indexInAllTables].HasUnsentOrder = hasUnsentItems;
+                    }
                 }
             }
             LoadTablesForDisplay();

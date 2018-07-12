@@ -35,7 +35,7 @@ namespace Zipline2.Models
 
         public override Tuple<string, decimal> GetMenuDbItemKeys()
         {
-            throw new NotImplementedException();
+            return Tuple.Create<string, decimal>("Salads", 50);
         }
 
         public override OrderDisplayItem PopulateOrderDisplayItem()
