@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using Zipline2.BusinessLogic.Enums;
 
-namespace Zipline2.BusinessLogic
+namespace Zipline2.Data
    
 {
     public static class Prices
@@ -80,8 +80,6 @@ namespace Zipline2.BusinessLogic
         private static Dictionary<DrinkType, decimal> DrinkTypeDictionary = new Dictionary<DrinkType, decimal>
         {
             { DrinkType.Water, 0M },
-            { DrinkType.WaterWithLemon, 0M },
-            { DrinkType.WaterNoIce, 0M },
             { DrinkType.LolaCola, 3.00M },
             { DrinkType.StevieZ, 3.00M },
             { DrinkType.LennieLemonLime, 3.00M },
@@ -137,14 +135,12 @@ namespace Zipline2.BusinessLogic
              { DrinkType.CorkageFee, 8.00M }
         };
 
-        private static Dictionary<PizzaType, decimal> BasePriceDictionary = new Dictionary<PizzaType, decimal>
+        private static Dictionary<PizzaType, decimal> PizzaBasePriceDictionary = new Dictionary<PizzaType, decimal>
         {
             { PizzaType.ThinSlice, 3.00M },
             { PizzaType.PanSlice, 3.50M },
             { PizzaType.Medium, 13.00M },
             { PizzaType.Large, 17.00M },
-            { PizzaType.Calzone,  9.00M},
-            { PizzaType.CalzoneSteakAndCheese, 13.00M },
             { PizzaType.SatchPan, 21.00M },
             { PizzaType.Mfp, 16.00M },
             { PizzaType.Indy, 6.00M },
@@ -153,11 +149,33 @@ namespace Zipline2.BusinessLogic
             { PizzaType.PestoWhiteLarge, 20.00M }
         };
 
+        private static Dictionary<CalzoneType, decimal> CalzoneBasePriceDictionary = new Dictionary<CalzoneType, decimal>
+        {
+            { CalzoneType.RicottaMozarella, 9.00M  },
+             { CalzoneType.HotRope, 13.50M  },
+              { CalzoneType.PBJ, 13.50M  },
+            { CalzoneType.SteakAndCheese, 13.00M  },
+             { CalzoneType.Major, 17.00M }
+
+        };
+
         public static decimal GetPizzaBasePrice(PizzaType typeOfPizza)
         {
-            if (BasePriceDictionary.ContainsKey(typeOfPizza))
+            if (PizzaBasePriceDictionary.ContainsKey(typeOfPizza))
             {
-                return BasePriceDictionary[typeOfPizza];
+                return PizzaBasePriceDictionary[typeOfPizza];
+            }
+            else
+            {
+                return 0M;
+            }
+        }
+
+        public static decimal GetCalzoneBasePrice(CalzoneType typeOfCalzone)
+        {
+            if (CalzoneBasePriceDictionary.ContainsKey(typeOfCalzone))
+            {
+                return CalzoneBasePriceDictionary[typeOfCalzone];
             }
             else
             {
@@ -196,6 +214,11 @@ namespace Zipline2.BusinessLogic
            1.50M, 3.00M, 4.50M, 6.00M, 7.50M, 8.00M, 1.50M
         };
 
+        public static decimal[] GetCalzoneToppingPrices()
+        {
+            return GetCalzoneToppingPrices();
+        }
+
         public static readonly decimal[] PizzaSatchPanToppingsPrices = new decimal[]
         {
            3.00M, 6.00M, 9.00M, 12.00M, 15.00M, 18.00M, 3.00M
@@ -227,7 +250,6 @@ namespace Zipline2.BusinessLogic
             { PizzaType.PanSlice, PizzaSliceToppingsPrices },
             { PizzaType.Medium, PizzaMediumToppingsPrices },
             { PizzaType.Large, PizzaLargeToppingsPrices },
-            { PizzaType.Calzone, CalzoneToppingsPrices },
             { PizzaType.SatchPan, PizzaSatchPanToppingsPrices },
             { PizzaType.PestoWhitePan, PizzaSatchPanToppingsPrices },
             { PizzaType.Indy, PizzaIndyToppingsPrices },

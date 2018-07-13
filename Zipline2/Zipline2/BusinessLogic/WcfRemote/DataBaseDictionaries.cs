@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Zipline2.BusinessLogic.Enums;
+using Zipline2.Data;
 using Zipline2.Models;
 
 namespace Zipline2.BusinessLogic.WcfRemote
@@ -245,6 +246,80 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 if (!tableIdAllTablesIndexDictionary.ContainsKey(table.TableId))
                 {
                     tableIdAllTablesIndexDictionary.Add(table.TableId, table.IndexInAllTables);
+                }
+            }
+        }
+
+        async private static void LoadToppingsFromServerAsync()
+        {
+            PizzaToppingsDictionary = new Dictionary<decimal, DBModifier>();
+            List<DBModGroup> modgroups = await WcfServicesProxy.Instance.GetPizzaToppingsAsync();
+            foreach (var modgroup in modgroups)
+            {
+                foreach (var mod in modgroup.SelectionList)
+                {
+                    if (!DataBaseDictionaries.PizzaToppingsDictionary.ContainsKey(mod.ID))
+                    {
+                        DataBaseDictionaries.PizzaToppingsDictionary.Add(mod.ID, mod);
+                        if (!DataBaseDictionaries.DbIdToppingDictionary.ContainsKey(mod.ID) && mod.ID != 50 && mod.ID != 51)
+                        {
+                            Console.WriteLine("***Debug JOANNE***TOPPINGS DICTIONARY ITEM NOT FOUND: " + mod.Name + mod.ID);
+                        }
+                    }
+                }
+            }
+
+            DataBaseDictionaries.SaladToppingsDictionary = new Dictionary<decimal, DBModifier>();
+            List<DBModGroup> modgroups2 = await WcfServicesProxy.Instance.GetSaladToppingsAsync();
+            foreach (var modgroup in modgroups2)
+            {
+                foreach (var mod in modgroup.SelectionList)
+                {
+                    if (!DataBaseDictionaries.SaladToppingsDictionary.ContainsKey(mod.ID))
+                    {
+                        DataBaseDictionaries.SaladToppingsDictionary.Add(mod.ID, mod);
+                        //if (!DataBaseDictionaries.DbIdToppingDictionary.ContainsKey(mod.ID) && mod.ID != 50 && mod.ID != 51)
+                        //{
+                        //    Console.WriteLine("***Debug JOANNE***TOPPINGS DICTIONARY ITEM NOT FOUND: " + mod.Name + mod.ID);
+                        //}
+                    }
+                }
+            }
+        }
+
+        public static void LoadToppingsFromServer()
+        {
+            DataBaseDictionaries.PizzaToppingsDictionary = new Dictionary<decimal, DBModifier>();
+            List<DBModGroup> modgroups = WcfServicesProxy.Instance.GetPizzaToppings();
+            foreach (var modgroup in modgroups)
+            {
+                foreach (var mod in modgroup.SelectionList)
+                {
+                    if (!DataBaseDictionaries.PizzaToppingsDictionary.ContainsKey(mod.ID))
+                    {
+                        DataBaseDictionaries.PizzaToppingsDictionary.Add(mod.ID, mod);
+                        if (!DataBaseDictionaries.DbIdToppingDictionary.ContainsKey(mod.ID) && mod.ID != 50 && mod.ID != 51)
+                        {
+                            Console.WriteLine("***Debug JOANNE***TOPPINGS DICTIONARY ITEM NOT FOUND: " + mod.Name + mod.ID);
+                        }
+                    }
+                }
+            }
+
+            DataBaseDictionaries.SaladToppingsDictionary = new Dictionary<decimal, DBModifier>();
+            List<DBModGroup> modgroups2 = WcfServicesProxy.Instance.GetSaladToppings();
+            foreach (var modgroup in modgroups2)
+            {
+                foreach (var mod in modgroup.SelectionList)
+                {
+                    if (!DataBaseDictionaries.SaladToppingsDictionary.ContainsKey(mod.ID))
+                    {
+                        DataBaseDictionaries.SaladToppingsDictionary.Add(mod.ID, mod);
+                        //if (!DataBaseDictionaries.DbIdToppingDictionary.ContainsKey(mod.ID) && mod.ID != 50 && mod.ID != 51)
+                        //{
+                        //    Console.WriteLine("***Debug JOANNE***TOPPINGS DICTIONARY ITEM NOT FOUND: " + mod.Name + mod.ID);
+                        //}
+                    }
                 }
             }
         }

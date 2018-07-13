@@ -8,8 +8,6 @@ namespace Zipline2.BusinessLogic.Enums
     {
         None,
         Water,
-        WaterWithLemon,
-        WaterNoIce,
         LolaCola,
         StevieZ,
         LennieLemonLime,

@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Zipline2.BusinessLogic.WcfRemote;
 using Staunch.POS.Classes;
+using Zipline2.Data;
 
 namespace Zipline2.PageModels
 {
@@ -220,11 +221,14 @@ namespace Zipline2.PageModels
                     Console.WriteLine("***Debug JOANNE***TABLE NOT FOUND FOR TABLE ID: " + table.ID);
                 }
                 var thisTable = Tables.AllTables[indexInAllTables];
+                if (!table.IsClear)
+                {
+                    tableOccupied = true;
+                }
                 foreach (var guest in table.Guests)
                 {
                     if (guest.Items.Count > 0 || guest.ComboItems.Count > 0)
                     {
-                        tableOccupied = true;
                         foreach (var item in guest.Items)
                         {
                             if (!item.OrderSent)
@@ -232,32 +236,41 @@ namespace Zipline2.PageModels
                                 hasUnsentItems = true;
                             }
                         }
-                       
-                    }
-                    else
-                    {
-                        //no items from server so use local table saved if one exists.
-                        if (thisTable.OpenOrder != null)
+                        if (!hasUnsentItems)
                         {
-                            if (thisTable.OpenOrder.OrderItems.Count > 0)
+                            foreach (var comboitem in guest.ComboItems)
                             {
-                                tableOccupied = true;
-                            }
-                            if (!thisTable.OpenOrder.AllItemsSent)
-                            {
-                                hasUnsentItems = true;
+                                foreach (var guestitem in comboitem.ComboGuestItems)
+                                    if (!guestitem.OrderSent)
+                                    {
+                                        hasUnsentItems = true;
+                                    }
                             }
                         }
                     }
-                    if (tableOccupied)
+                    //no items from server so use local table saved if one exists.
+                    else if (thisTable.OpenOrder != null)
                     {
-                        Tables.AllTables[indexInAllTables].IsOccupied = tableOccupied;
+                        if (thisTable.OpenOrder.OrderItems.Count > 0)
+                        {
+                            tableOccupied = true;
+                        }
+                        if (!thisTable.OpenOrder.AllItemsSent)
+                        {
+                            hasUnsentItems = true;
+                        }
                     }
+                }
 
-                    if (hasUnsentItems)
-                    {
-                        Tables.AllTables[indexInAllTables].HasUnsentOrder = hasUnsentItems;
-                    }
+
+                if (tableOccupied)
+                {
+                    Tables.AllTables[indexInAllTables].IsOccupied = tableOccupied;
+                }
+
+                if (hasUnsentItems)
+                {
+                    Tables.AllTables[indexInAllTables].HasUnsentOrder = hasUnsentItems;
                 }
             }
             LoadTablesForDisplay();

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using Zipline2.BusinessLogic;
 using Zipline2.BusinessLogic.Enums;
+using Zipline2.Data;
 
 namespace Zipline2.Models
 {
@@ -27,7 +28,7 @@ namespace Zipline2.Models
         public Drink(DrinkType drinkType)
         {
             DrinkType = drinkType;
-            DbItemId = Drinks.GetDbItemId(drinkType);
+            DbItemId = MenuDrinks.GetDbItemId(drinkType);
             PopulatePricePerItem();
         }
 
@@ -71,7 +72,7 @@ namespace Zipline2.Models
 
         public override Tuple<string, decimal> GetMenuDbItemKeys()
         {
-            return Tuple.Create<string, decimal>("Beverages", Drinks.GetDbItemId(DrinkType));
+            return Tuple.Create<string, decimal>("Beverages", MenuDrinks.GetDbItemId(DrinkType));
         }
 
         public override GuestItem CreateGuestItem(DBItem dbItem, decimal orderId)

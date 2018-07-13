@@ -4,7 +4,7 @@ using System.Text;
 using SQLite;
 using Staunch.POS.Classes;
 using Xamarin.Forms;
-using Zipline2.BusinessLogic;
+using Zipline2.Data;
 using Zipline2.BusinessLogic.Enums;
 using Zipline2.BusinessLogic.WcfRemote;
 using Zipline2.PageModels;
@@ -172,57 +172,57 @@ namespace Zipline2.Models
       
 
         //The PizzaType is used for pricing and so is combination of crust, size, base, etc.
-        public static PizzaType GetPizzaType(PizzaSize size, PizzaCrust crust, PizzaBase pizzaBase = PizzaBase.Regular)
-        {
-            switch (pizzaBase)
-            {
-                case PizzaBase.Regular:
-                    break;
-                case PizzaBase.Pesto:
-                case PizzaBase.White:
-                    if (crust == PizzaCrust.SatchPan)
-                    {
-                        return PizzaType.PestoWhitePan;
-                    }
-                    else if (size == PizzaSize.Medium)
-                    {
-                        return PizzaType.PestoWhiteMedium;
-                    }
-                    else if (size == PizzaSize.Large)
-                    {
-                        return PizzaType.PestoWhiteLarge;
-                    }
-                    break;
-            }
-            switch (size)
-            {
-                case PizzaSize.Indy:
-                    return PizzaType.Indy;
-                case PizzaSize.Slice:
-                    if (crust == PizzaCrust.RegularThin)
-                    {
-                        return PizzaType.ThinSlice;
-                    }
-                    else
-                    {
-                        return PizzaType.PanSlice;
-                    }
-                case PizzaSize.Medium:
-                    return PizzaType.Medium;
-                case PizzaSize.Large:
-                    return PizzaType.Large;
-            }
-            switch (crust)
-            {
-                case PizzaCrust.Calzone:
-                    return PizzaType.Calzone;
-                case PizzaCrust.Mfp:
-                    return PizzaType.Mfp;
-                case PizzaCrust.SatchPan:
-                    return PizzaType.SatchPan;
-            }
-            return PizzaType.None;
-        }
+        //public static PizzaType GetPizzaType(PizzaSize size, PizzaCrust crust, PizzaBase pizzaBase = PizzaBase.Regular)
+        //{
+        //    switch (pizzaBase)
+        //    {
+        //        case PizzaBase.Regular:
+        //            break;
+        //        case PizzaBase.Pesto:
+        //        case PizzaBase.White:
+        //            if (crust == PizzaCrust.SatchPan)
+        //            {
+        //                return PizzaType.PestoWhitePan;
+        //            }
+        //            else if (size == PizzaSize.Medium)
+        //            {
+        //                return PizzaType.PestoWhiteMedium;
+        //            }
+        //            else if (size == PizzaSize.Large)
+        //            {
+        //                return PizzaType.PestoWhiteLarge;
+        //            }
+        //            break;
+        //    }
+        //    switch (size)
+        //    {
+        //        case PizzaSize.Indy:
+        //            return PizzaType.Indy;
+        //        case PizzaSize.Slice:
+        //            if (crust == PizzaCrust.RegularThin)
+        //            {
+        //                return PizzaType.ThinSlice;
+        //            }
+        //            else
+        //            {
+        //                return PizzaType.PanSlice;
+        //            }
+        //        case PizzaSize.Medium:
+        //            return PizzaType.Medium;
+        //        case PizzaSize.Large:
+        //            return PizzaType.Large;
+        //    }
+        //    switch (crust)
+        //    {
+        //        case PizzaCrust.Calzone:
+        //            return PizzaType.Calzone;
+        //        case PizzaCrust.Mfp:
+        //            return PizzaType.Mfp;
+        //        case PizzaCrust.SatchPan:
+        //            return PizzaType.SatchPan;
+        //    }
+        //    return PizzaType.None;
+        //}
 
         public override Tuple<string, decimal> GetMenuDbItemKeys()
         {

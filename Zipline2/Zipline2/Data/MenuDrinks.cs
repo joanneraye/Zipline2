@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Zipline2.BusinessLogic;
+using Zipline2.Data;
 using Zipline2.BusinessLogic.Enums;
 
 namespace Zipline2.Models
 {
-    public static class Drinks
+    public static class MenuDrinks
     {
         public static List<Drink> SoftDrinks { get; set; }
         public static List<Drink> DraftBeers { get; set; }
@@ -58,8 +58,6 @@ namespace Zipline2.Models
             drinkTypeDbIdDictionary = new Dictionary<DrinkType, decimal>()
             {
                  { DrinkType.Water, 1 },
-                { DrinkType.WaterWithLemon, 1 },
-                { DrinkType.WaterNoIce, 1 },
                 { DrinkType.LolaCola, 4 },
                 { DrinkType.StevieZ, 5 },
                 { DrinkType.LennieLemonLime, 6 },
@@ -242,7 +240,7 @@ namespace Zipline2.Models
                     ItemName = drinks.Value,
                     DrinkCategory = DrinkCategory.SoftDrink,
                     DrinkSize = DrinkSize.JustOneSize,
-                    DbItemId = Drinks.GetDbItemId(drinks.Key)
+                    DbItemId = MenuDrinks.GetDbItemId(drinks.Key)
                     
                 };
 

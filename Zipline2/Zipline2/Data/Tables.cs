@@ -2,8 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Zipline2.Models;
 
-namespace Zipline2.Models
+namespace Zipline2.Data
 {
     public static class Tables
     {

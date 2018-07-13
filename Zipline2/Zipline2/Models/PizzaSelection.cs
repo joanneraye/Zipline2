@@ -11,9 +11,9 @@ namespace Zipline2.Models
     //an object of this class in order to communicate with the business logic.
     public class PizzaSelection : CustomerSelection
     {
-        public PizzaSize PizzaSize { get; set; }
+        //public PizzaSize PizzaSize { get; set; }
 
-        public PizzaCrust PizzaCrustType { get; set; }
+        //public PizzaCrust PizzaCrustType { get; set; }
 
         public PizzaType PizzaType { get; private set; }
 

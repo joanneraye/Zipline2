@@ -9,6 +9,7 @@ using System.Linq;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Zipline2.Views;
+using Zipline2.Data;
 
 namespace Zipline2.PageModels
 {
@@ -237,7 +238,7 @@ namespace Zipline2.PageModels
                 "Crispy Cook", "Kid Cook", "Light Cook", "Regular Cook"
             };
 
-            var toppingsList = App.PizzaToppings.Values.ToList();
+            var toppingsList = MenuFood.PizzaToppings.Values.ToList();
             ToppingSelectionsList = new ObservableCollection<ToppingDisplayItem>();
             int toppingSelectionIndex = 0;
             for (int i = 0; i < toppingsList.Count; i++)

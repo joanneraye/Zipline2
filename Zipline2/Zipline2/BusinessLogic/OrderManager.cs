@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Zipline2.BusinessLogic.Enums;
 using Zipline2.BusinessLogic.WcfRemote;
+using Zipline2.Data;
 using Zipline2.Models;
 using Zipline2.PageModels;
 using Zipline2.Pages;

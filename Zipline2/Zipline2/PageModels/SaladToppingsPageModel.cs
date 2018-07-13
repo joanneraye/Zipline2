@@ -7,6 +7,7 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using Zipline2.BusinessLogic;
 using Zipline2.BusinessLogic.Enums;
+using Zipline2.Data;
 using Zipline2.Models;
 
 namespace Zipline2.PageModels
@@ -98,7 +99,7 @@ namespace Zipline2.PageModels
 
         private void LoadSaladDisplayItems()
         {
-            var toppingsList = App.SaladToppings.Values.ToList();
+            var toppingsList = MenuFood.SaladToppings.Values.ToList();
             SaladToppingSelectionsList = new ObservableCollection<SaladToppingDisplayItem>();
             int toppingSelectionIndex = 0;
             for (int i = 0; i < toppingsList.Count; i++)

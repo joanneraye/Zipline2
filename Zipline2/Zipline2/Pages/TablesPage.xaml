@@ -90,7 +90,7 @@
                                     <Label.Triggers>
                                         <DataTrigger TargetType="Label"
                                                   Binding="{Binding OutsideTable.IsOccupied, Mode=TwoWay}"
-                                                            Value="False">
+                                                            Value="True">
                                             <Setter Property="BackgroundColor" Value="Orange" />
                                         </DataTrigger>
                                     </Label.Triggers>

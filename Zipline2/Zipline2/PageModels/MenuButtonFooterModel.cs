@@ -4,6 +4,7 @@ using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Zipline2.BusinessLogic;
+using Zipline2.Data;
 using Zipline2.Models;
 using Zipline2.Pages;
 
@@ -19,6 +20,7 @@ namespace Zipline2.PageModels
             DrinksCommand = new Command(OnDrinksButtonClick);
             PizzaCommand = new Command(OnPizzaButtonClick);
             SaladsCommand = new Command(OnSaladsButtonClick);
+            CalzonesCommand = new Command(OnCalzonesButtonClick);
             OrderPageCommand = new Command(OnOrderPage);
             TablesCommand = new Command(OnTablesPage);
             AddToOrderCommand = new Command(OnAddToOrder);
@@ -45,6 +47,7 @@ namespace Zipline2.PageModels
         public OrderPageModel ThisOrderPageModel { get; set; }
         public ICommand DrinksCommand { get; set; }
         public ICommand SaladsCommand { get; set; }
+        public ICommand CalzonesCommand { get; set; }
         public ICommand PizzaCommand { get; set; }
         public ICommand AddToOrderCommand { get; set; }
         public ICommand TablesCommand { get; set; }
@@ -92,6 +95,7 @@ namespace Zipline2.PageModels
                     IsPizzaPageDisplayed = false;
                     IsDrinkPageDisplayed = false;
                     IsSaladPageDisplayed = false;
+                    IsCalzonePageDisplayed = false;
                 }
             }
         }
@@ -112,6 +116,7 @@ namespace Zipline2.PageModels
                     IsDrinkPageDisplayed = false;
                     IsOrderPageDisplayed = false;
                     DisplayAddToOrderButton = false;
+                    IsCalzonePageDisplayed = false;
                 }
             }
         }
@@ -131,6 +136,7 @@ namespace Zipline2.PageModels
                     IsPizzaPageDisplayed = false;
                     IsOrderPageDisplayed = false;
                     IsSaladPageDisplayed = false;
+                    IsCalzonePageDisplayed = false;
                 }
             }
         }
@@ -150,6 +156,27 @@ namespace Zipline2.PageModels
                     IsDrinkPageDisplayed = false;
                     IsOrderPageDisplayed = false;
                     IsSaladPageDisplayed = false;
+                    IsCalzonePageDisplayed = false;
+                }
+            }
+        }
+
+        private bool isCalzonePageDisplayed;
+        public bool IsCalzonePageDisplayed
+        {
+            get
+            {
+                return isCalzonePageDisplayed;
+            }
+            set
+            {
+                SetProperty(ref isCalzonePageDisplayed, value);
+                if (isCalzonePageDisplayed)
+                {
+                    IsDrinkPageDisplayed = false;
+                    IsOrderPageDisplayed = false;
+                    IsSaladPageDisplayed = false;
+                    IsPizzaPageDisplayed = false;
                 }
             }
         }
@@ -197,6 +224,13 @@ namespace Zipline2.PageModels
         {
             var currentMainPage = Application.Current.MainPage as MasterDetailPage;
             currentMainPage.Detail = new NavigationPage(new PizzaPage());
+            Application.Current.MainPage = currentMainPage;
+        }
+
+        void OnCalzonesButtonClick()
+        {
+            var currentMainPage = Application.Current.MainPage as MasterDetailPage;
+            currentMainPage.Detail = new NavigationPage(new CalzonePage());
             Application.Current.MainPage = currentMainPage;
         }
 

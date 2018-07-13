@@ -9,11 +9,12 @@ using Staunch.POS.Classes;
 using Xamarin.Forms;
 using Zipline2.ConnectedServices.PosServiceReference;
 using Zipline2.ConnectedServices.CheckHostReference;
+using Zipline2.Data;
 
 namespace Zipline2.BusinessLogic.WcfRemote
 {
     
-    public class WcfServicesProxy
+    public class WcfServicesProxy : IGetWcfData, IUpdateWcfData
     {
         public enum ServiceCallConfigType
         {
@@ -82,6 +83,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
             }
         }
 
+        
+
         //public Dictionary<decimal, DBItem> MenuItemsPizza { get; private set; }
         //public Dictionary<decimal, DBItem> MenuItemsCalzone { get; private set; }
         //public Dictionary<decimal, DBItem> MenuItemsSalads { get; private set; }
@@ -95,7 +98,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
             endpointIpAddressPart1 = "http://192.168.1.26";      //Dev environment
 
-            // endpointIpAddressPart1 = "http://192.168.1.21";   //Live server
+             //endpointIpAddressPart1 = "http://192.168.1.21";   //Live server
             // endpointIpAddressPart1 = "http://192.168.1.122";   //Backup server
             //endpointIpAddressPart1 = "http://192.168.1";      //BAD
 
@@ -169,6 +172,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         #region Regular methods (synchronous)
 
+        //GET METHODS
         public List<DBModGroup> GetPizzaToppings()
         {
             if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
@@ -289,7 +293,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         //Since called from method already awaited, so this sync method is called since need to wait on result.
 
-        private List<decimal> GetGuestIds(decimal tableId)
+        public List<decimal> GetGuestIds(decimal tableId)
         {
             if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
             {
@@ -514,7 +518,39 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
 
         #region Async Methods
-        async public void UpdateOrderAsync(Order orderToUpdate)
+
+        async public Task<List<DBModGroup>> GetSaladToppingsAsync()
+        {
+            if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+            {
+                return new List<DBModGroup>();
+            }
+           
+            return await Task.Factory.FromAsync(
+               WaiterClient.BeginGetAllMods,
+               WaiterClient.EndGetAllMods,
+               50M, 0M,
+               TaskCreationOptions.None);
+
+        }
+
+
+        async public Task<DBUser> GetUserAsync(string pin)
+        {
+            if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+            {
+                return new DBUser();
+            }
+           
+            return await Task.Factory.FromAsync(
+              WaiterClient.BeginGetUser,
+              WaiterClient.EndGetUser,
+              pin,
+              TaskCreationOptions.None);
+        }
+
+
+        async public Task UpdateOrderAsync(Order orderToUpdate)
         {
             if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
             {
@@ -605,8 +641,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
             }
             List<DBTable> tablesToUpdate = new List<DBTable> { currentTable };
             await Task.Factory.FromAsync(
-                waiterClient.BeginUpdateTables,
-                waiterClient.EndUpdateTables,
+                WaiterClient.BeginUpdateTables,
+                WaiterClient.EndUpdateTables,
                 tablesToUpdate,
                 (decimal)Users.Instance.LoggedInUser.UserId,
                 TaskCreationOptions.None);
@@ -620,8 +656,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
             }
             DataBaseDictionaries.DbTablesDictionary = new Dictionary<decimal, DBTable>();
             List<DBTable> tablesSection1 = await Task.Factory.FromAsync(
-                   waiterClient.BeginGetTablesForSection,
-                   waiterClient.EndGetTablesForSection,
+                   WaiterClient.BeginGetTablesForSection,
+                   WaiterClient.EndGetTablesForSection,
                    1M,
                    TaskCreationOptions.None);
             foreach (var item1 in tablesSection1)
@@ -629,8 +665,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 DataBaseDictionaries.DbTablesDictionary.Add(item1.ID, item1);
             }
             List<DBTable> tablesSection2 = await Task.Factory.FromAsync(
-                    waiterClient.BeginGetTablesForSection,
-                    waiterClient.EndGetTablesForSection,
+                    WaiterClient.BeginGetTablesForSection,
+                    WaiterClient.EndGetTablesForSection,
                     2M,
                     TaskCreationOptions.None);
 
@@ -647,13 +683,13 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 return new DBTable();
             }
             return await Task.Factory.FromAsync(
-                    waiterClient.BeginGetTable,
-                    waiterClient.EndGetTable,
+                    WaiterClient.BeginGetTable,
+                    WaiterClient.EndGetTable,
                     tableNum,
                     TaskCreationOptions.None);
         }
 
-        async public Task<List<DBModGroup>> GetToppingsAsync()
+        async public Task<List<DBModGroup>> GetPizzaToppingsAsync()
         {
             if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
             {
@@ -661,8 +697,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
             }
            
             return await Task.Factory.FromAsync(
-                waiterClient.BeginGetAllMods,
-                waiterClient.EndGetAllMods,
+                WaiterClient.BeginGetAllMods,
+                WaiterClient.EndGetAllMods,
                 (decimal)57,
                 (decimal)0,
                 TaskCreationOptions.None);
@@ -681,8 +717,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
             try                           
             {
                 DataBaseDictionaries.MenuDictionary = await Task.Factory.FromAsync(
-                    waiterClient.BeginGetMenu,
-                    waiterClient.EndGetMenu,
+                    WaiterClient.BeginGetMenu,
+                    WaiterClient.EndGetMenu,
                     null,
                     TaskCreationOptions.None);
             }
@@ -700,8 +736,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 return 0;
             }
             List<decimal> ids = await Task.Factory.FromAsync(
-                waiterClient.BeginGetNextGuestIDs,
-                waiterClient.EndGetNextGuestIDs,
+                WaiterClient.BeginGetNextGuestIDs,
+                WaiterClient.EndGetNextGuestIDs,
                 1,
                 UserIdDecimal,
                 TaskCreationOptions.None);
@@ -720,14 +756,14 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 return;
             }
             await Task.Factory.FromAsync(
-                waiterClient.BeginSendOrders,
-                waiterClient.EndSendOrders,
+                WaiterClient.BeginSendOrders,
+                WaiterClient.EndSendOrders,
                 orderIds,
                 userId,
                 TaskCreationOptions.None);
         }
 
-        async private Task<List<decimal>> GetGuestIdsAsync(decimal tableId)
+        async public Task<List<decimal>> GetGuestIdsAsync(decimal tableId)
         {
             if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
             {
@@ -762,8 +798,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
             try
             {
                 var result = await Task.Factory.FromAsync(
-                    checkClient.BeginCreateChecks,
-                    checkClient.EndCreateChecks,
+                    CheckClient.BeginCreateChecks,
+                    CheckClient.EndCreateChecks,
                     dbChecks, UserIdDecimal, false,
                     TaskCreationOptions.None);
             }
@@ -781,8 +817,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 return new List<DBCheck>();
             }
             return await Task.Factory.FromAsync(
-                checkClient.BeginGetOpenChecks,
-                checkClient.EndGetOpenChecks,
+                CheckClient.BeginGetOpenChecks,
+                CheckClient.EndGetOpenChecks,
                 tableId,
                 TaskCreationOptions.None);
         }
@@ -803,8 +839,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 return new List<DBTable>();
             }
             return await Task.Factory.FromAsync(
-                waiterClient.BeginGetTablesForSection,
-                waiterClient.EndGetTablesForSection,
+                WaiterClient.BeginGetTablesForSection,
+                WaiterClient.EndGetTablesForSection,
                 sectionID,
                 TaskCreationOptions.None);
         }
@@ -816,8 +852,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 return false;
             }
             return await Task.Factory.FromAsync(
-                checkClient.BeginHasOpenChecks,
-                checkClient.EndHasOpenChecks,
+                CheckClient.BeginHasOpenChecks,
+                CheckClient.EndHasOpenChecks,
                 tableId,
                 TaskCreationOptions.None);
 
@@ -830,8 +866,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 return new List<DBTable>();
             }
             return await Task.Factory.FromAsync(
-              waiterClient.BeginGetTableSummary,
-              waiterClient.EndGetTableSummary,
+              WaiterClient.BeginGetTableSummary,
+              WaiterClient.EndGetTableSummary,
               null,
               TaskCreationOptions.None);
         }

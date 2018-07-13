@@ -13,7 +13,7 @@ namespace Zipline2.Models
     {
         #region Constants and Private Variables
        
-        private bool isOccupied;
+       
         private bool isTakeOut;
        
         #endregion
@@ -31,8 +31,19 @@ namespace Zipline2.Models
         [Column("isinside")]
         public bool IsInside { get; set; }
 
+        private bool isOccupied;
         [Column("isoccupied")]
-        public bool IsOccupied { get; set; }
+        public bool IsOccupied
+        {
+            get
+            {
+                return isOccupied;
+            }
+            set
+            {
+                SetProperty(ref isOccupied, value);
+            }
+        }
 
         private bool hasUnsentOrder;
         public bool HasUnsentOrder

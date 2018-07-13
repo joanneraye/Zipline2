@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Zipline2.BusinessLogic.Enums;
+using Zipline2.Data;
 using Zipline2.Models;
 
 namespace Zipline2.BusinessLogic.WcfRemote
@@ -47,7 +48,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
                     break;
             }
 
-            Drink drink =  Drinks.GetDrinkFromMenu(oldGuestItem.ID, drinkSize);
+            Drink drink =  MenuDrinks.GetDrinkFromMenu(oldGuestItem.ID, drinkSize);
             var newdrink = drink.GetClone();
             newdrink.DbItemId = oldGuestItem.ID;
             newdrink.WasSentToKitchen = oldGuestItem.OrderSent;
@@ -182,17 +183,17 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 case 61:
                     pizza.PizzaType = PizzaType.SatchPan;
                     break;
-                case 51:
-                    pizza.PizzaType = PizzaType.Calzone;
-                    break;
-                case 54:
-                    pizza.PizzaType = PizzaType.CalzoneSteakAndCheese;
-                    break;
-                case 56:
-                    pizza.PizzaType = PizzaType.Calzone;
-                    pizza.MajorMamaInfo = MajorOrMama.Major;
-                    pizza.Toppings.AddMajorToppings();
-                    break;
+                //case 51:
+                //    pizza.PizzaType = PizzaType.Calzone;
+                //    break;
+                //case 54:
+                //    pizza.PizzaType = PizzaType.CalzoneSteakAndCheese;
+                //    break;
+                //case 56:
+                //    pizza.PizzaType = PizzaType.Calzone;
+                //    pizza.MajorMamaInfo = MajorOrMama.Major;
+                //    pizza.Toppings.AddMajorToppings();
+                //    break;
                 default:
                     Console.WriteLine("***Debug JOANNE***PIZZA TYPE FROM SERVER NOT FOUND FOR GuestItem ID " + dbGuestItem.ID + " & SizeID: " + dbGuestItem.SelectSizeID);
                     break;
@@ -222,9 +223,9 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 if (DataBaseDictionaries.DbIdToppingDictionary.ContainsKey(mod.ID))
                 {
                     var ToppingName = DataBaseDictionaries.DbIdToppingDictionary[mod.ID];
-                    if (App.SaladToppings.ContainsKey(ToppingName))
+                    if (MenuFood.SaladToppings.ContainsKey(ToppingName))
                     {
-                        newTopping = App.SaladToppings[ToppingName].GetClone();
+                        newTopping = MenuFood.SaladToppings[ToppingName].GetClone();
                     }
                     else
                     {
@@ -276,9 +277,9 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 if (DataBaseDictionaries.DbIdToppingDictionary.ContainsKey(mod.ID))
                 {
                     var ToppingName = DataBaseDictionaries.DbIdToppingDictionary[mod.ID];
-                    if (App.PizzaToppings.ContainsKey(ToppingName))
+                    if (MenuFood.PizzaToppings.ContainsKey(ToppingName))
                     {
-                        newTopping = App.PizzaToppings[ToppingName].GetClone();
+                        newTopping = MenuFood.PizzaToppings[ToppingName].GetClone();
                     }
                     else
                     {

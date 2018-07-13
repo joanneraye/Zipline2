@@ -2,18 +2,27 @@
 using System.Collections.Generic;
 using Zipline2.BusinessLogic.Enums;
 
-namespace Zipline2.BusinessLogic
+namespace Zipline2.Data
 {
     public static class DisplayNames
     {
+        public static Dictionary<CalzoneType, string> DisplayCalzoneNameDictionary = new Dictionary<CalzoneType, string>
+        {
+            { CalzoneType.RicottaMozarella, "Calzone Mozzarella Ricotta" },
+             { CalzoneType.HotRope, "Calzone Hot Rope" },
+              { CalzoneType.PBJ, "Calzone PB&J" },
+            { CalzoneType.SteakAndCheese, "Calzone Steak and Cheese" },
+             { CalzoneType.Major, "Calzone Major" }
+
+        };
         public static Dictionary<PizzaType, string> DisplayPizzaNameDictionary = new Dictionary<PizzaType, string>
         {
-            { PizzaType.ThinSlice, "Pizza Slice" },
+            { PizzaType.ThinSlice, "Cheese Slice" },
             { PizzaType.PanSlice, "Satch-Pan Slice" },
-            { PizzaType.Medium, "Medium Pizza" },
-            { PizzaType.Large, "Large Pizza" },
-            { PizzaType.Calzone, "Calzone" },
-            { PizzaType.CalzoneSteakAndCheese, "Calzone - Steak and Cheese" },
+            { PizzaType.Medium, "Medium Cheese" },
+            { PizzaType.Large, "Large Cheese" },
+            //{ PizzaType.Calzone, "Calzone" },
+            //{ PizzaType.CalzoneSteakAndCheese, "Calzone - Steak and Cheese" },
             { PizzaType.SatchPan, "Satch-Pan" },
             { PizzaType.Mfp, "Millet Flax Pizza" },
             { PizzaType.Indy, "Indy Pizza" },
@@ -24,8 +33,6 @@ namespace Zipline2.BusinessLogic
         public static Dictionary<DrinkType, string> DisplaySoftDrinkNameDictionary = new Dictionary<DrinkType, string>
         {
             { DrinkType.Water, "Water" },
-            { DrinkType.WaterWithLemon, "Water with Lemon" },
-            { DrinkType.WaterNoIce, "Water No Ice" },
             { DrinkType.LolaCola, "Lola Cola" },
             { DrinkType.StevieZ, "Stevie Z-Cal" },
             { DrinkType.LennieLemonLime, "Lennie Lemon Lime" },
@@ -204,6 +211,15 @@ namespace Zipline2.BusinessLogic
             if (DisplayPizzaNameDictionary.ContainsKey(displayDictionaryKey))
             {
                 return DisplayPizzaNameDictionary[displayDictionaryKey];
+            }
+            return "Not in Dictionary Yet";
+        }
+
+        public static string GetCalzoneDisplayName(CalzoneType displayDictionaryKey)
+        {
+            if (DisplayCalzoneNameDictionary.ContainsKey(displayDictionaryKey))
+            {
+                return DisplayCalzoneNameDictionary[displayDictionaryKey];
             }
             return "Not in Dictionary Yet";
         }

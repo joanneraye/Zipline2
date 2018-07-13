@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:Zipline2.Converters"
+             xmlns:views="clr-namespace:Zipline2.Views"
+             xmlns:local="clr-namespace:Zipline2.Pages"
+             xmlns:iconize="clr-namespace:FormsPlugin.Iconize;assembly=FormsPlugin.Iconize"
+             x:Class="Zipline2.Pages.CalzonePage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="CalzoneSelectionButtons" TargetType="Button">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontSize" Value="Medium" />
+                <Setter Property="BackgroundColor" Value="Orange" />
+                <Setter Property="BorderColor" Value="White" />
+                <Setter Property="BorderRadius" Value="1" />
+                <Setter Property="BorderWidth" Value="1" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout Padding="10,10" Orientation="Vertical" HorizontalOptions="Center" Spacing="10">
+
+            <Button Text="Calzone (Ricotta Mozarella)"
+                        Command="{Binding AddCalzoneCommand}"
+                        Style="{StaticResource CalzoneSelectionButtons}" />
+            <Button Text="Calzone Hot Rope"
+                        Command="{Binding AddCalzoneHotRopeCommand}"
+                        Style="{StaticResource CalzoneSelectionButtons}" />
+            <Button Text="Calzone PBJ"
+                        Command="{Binding AddCalzonePBJCommand}"
+                        Style="{StaticResource CalzoneSelectionButtons}" />
+            <Button Text="Calzone Steak And Cheese"
+                        Command="{Binding AddCalzoneSteakAndCheeseCommand}"
+                        Style="{StaticResource CalzoneSelectionButtons}" />
+            <Button Text="Calzone MAJOR"
+                        Command="{Binding AddCalzoneMajorCommand}"
+                        Style="{StaticResource CalzoneSelectionButtons}" />
+            <views:MenuScrollFooterView VerticalOptions="EndAndExpand"  HorizontalOptions="FillAndExpand" x:Name="Footer"/>
+        </StackLayout>
+    </ContentPage.Content>
+</local:BasePage>

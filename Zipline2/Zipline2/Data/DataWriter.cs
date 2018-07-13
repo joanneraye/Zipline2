@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Zipline2.BusinessLogic;
 using Zipline2.BusinessLogic.Enums;
+using Zipline2.Data;
 
 namespace Zipline2.DataReadWrite
 {

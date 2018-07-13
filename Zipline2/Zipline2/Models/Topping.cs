@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Zipline2.BusinessLogic;
+using Zipline2.Data;
 using Zipline2.BusinessLogic.Enums;
 using Zipline2.PageModels;
 

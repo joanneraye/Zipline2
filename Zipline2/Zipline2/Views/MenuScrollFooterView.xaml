@@ -135,7 +135,16 @@
                         </Button.Triggers>
                     </Button>
                     <Button Text="Calzone"
-                        Style="{StaticResource footerScrollMenu}"/>
+                        Command="{Binding CalzoneCommand}"
+                        Style="{StaticResource footerScrollMenu}">
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" 
+                                         Binding="{Binding IsCalzonePageDisplayed}"
+                                         Value="True">
+                            <Setter Property="IsVisible" Value="False" />
+                             </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
                     <Button Text="Specials"
                         Style="{StaticResource footerScrollMenu}"/>
                 <Button Text="Dessert"
