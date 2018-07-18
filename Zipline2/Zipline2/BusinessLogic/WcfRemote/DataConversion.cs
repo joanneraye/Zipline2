@@ -68,6 +68,11 @@ namespace Zipline2.BusinessLogic.WcfRemote
             return mods;
         }
 
+        internal static List<OrderItem> GetLunchSpecial(GuestComboItem guestComboItem)
+        {
+            throw new NotImplementedException();
+        }
+
         public static GuestModifier GetNoMod(Topping topping)
         {
             GuestModifier newGuestMod = GetMod(topping);
@@ -164,7 +169,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
                     if (dbGuestItem.SelectSizeID == 10) pizza.PizzaType = PizzaType.Indy;
                     if (dbGuestItem.SelectSizeID == 11) pizza.PizzaType = PizzaType.Medium;
                     if (dbGuestItem.SelectSizeID == 12) pizza.PizzaType = PizzaType.Large;
-                    if (dbGuestItem.SelectSizeID == 90) pizza.PizzaType = PizzaType.ThinSlice;
+                    if (dbGuestItem.SelectSizeID == 90) pizza.PizzaType = PizzaType.LunchSpecialSlice;
 
                     break;
                 case 59:
@@ -403,7 +408,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
             };
         }
 
-        internal static Order ConvertDbGuestsToOrder(List<GuestItem> guestItems, decimal tableId, int tableIndex)
+        internal static Order ConvertDbGuestsToOrder(List<GuestItem> guestItems, List<GuestComboItem> guestComboItems, decimal tableId, int tableIndex)
         {
             var openOrder = new Order(tableId, tableIndex)
             {
@@ -412,7 +417,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
             };
             foreach (var guestItem in guestItems)
             {
-                var openOrderItem = OrderItemFactory.GetOrderItem(guestItem);
+                var openOrderItem = GetOrderItem(guestItem);
                 if (!openOrderItem.WasSentToKitchen)
                 {
                     openOrder.AllItemsSent = false;
@@ -420,13 +425,90 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 openOrder.AddItemToOrder(openOrderItem);
             }
 
-            if (guestItems.Count > 1)
+            foreach (var guestComboItem in guestComboItems)
             {
-                openOrder.GuestIds[0] = guestItems[0].ID;
+                var lunchSpecialItems = GetLunchSpecialOrderItems(guestComboItem);
+                if (lunchSpecialItems != null)
+                {
+                    foreach (var lunchSpecialItem in lunchSpecialItems)
+                    {
+                        if (!lunchSpecialItem.WasSentToKitchen)
+                        {
+                            openOrder.AllItemsSent = false;
+                        }
+                        openOrder.AddItemToOrder(lunchSpecialItem);
+                    }
+                }
+
+                if (guestItems.Count > 1)
+                {
+                    openOrder.GuestIds[0] = guestItems[0].ID;
+                }
+               
                 openOrder.GuestIds[1] = guestItems[1].ID;
             }
 
             return openOrder;
+        }
+
+        public static OrderItem GetOrderItem(GuestItem oldGuestItem)
+        {
+            OrderItem thisOrderItem = new Drink();
+            switch (oldGuestItem.SuperCategoryID)
+            {
+                case 1:
+                    thisOrderItem = GetPizza(oldGuestItem);
+                    break;
+                //case 2:
+                //    break;
+                case 3:
+                    thisOrderItem = GetSalad(oldGuestItem);
+                    break;
+                case 4:
+                    thisOrderItem = GetDrink(oldGuestItem);
+                    break;
+                    //case 5:
+                    //    //Create Dessert
+                    //    break;
+                    //TODO:  Others????
+            }
+
+            return thisOrderItem;
+        }
+
+        public static List<OrderItem> GetLunchSpecialOrderItems(GuestComboItem guestComboItem)
+        {
+            bool foundSalad = false;
+            bool foundSlice = false;
+            var orderItems = new List<OrderItem>();
+            OrderItem lunchSpecialPizza = new Pizza();
+            OrderItem lunchSpecialSalad = new Salad(SaladSize.LunchSpecial);
+            OrderItem slice = new Pizza() { PizzaType = PizzaType.LunchSpecialSlice };
+            foreach (var item in guestComboItem.ComboGuestItems)
+            {
+                Guid id = Guid.NewGuid();
+                if (item.ID == 57M)
+                {
+                    foundSlice = true;
+                    lunchSpecialPizza = GetPizza(item);
+                    lunchSpecialPizza.PartOfCombo = true;
+                    lunchSpecialPizza.ComboId = id;
+                }
+                else if (item.ID == 50M)
+                {
+                    foundSalad = true;
+                    lunchSpecialSalad = GetSalad(item);
+                    lunchSpecialSalad.PartOfCombo = true;
+                    lunchSpecialPizza.ComboId = id;
+                }
+            }
+            if (foundSlice && foundSalad)
+            {
+                orderItems.Add(lunchSpecialPizza);
+                orderItems.Add(lunchSpecialSalad);
+                return orderItems;
+            }
+            return null;
         }
     }
 }

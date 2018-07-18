@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Zipline2.Data;
+using Zipline2.Models;
 using Zipline2.BusinessLogic.Enums;
 
-namespace Zipline2.Models
+namespace Zipline2.Data
 {
     public static class MenuDrinks
     {
@@ -310,14 +310,14 @@ namespace Zipline2.Models
                 }
                 else
                 {
-                    thisDrink.ItemName = drinks.Value + " - Pint";
+                    thisDrink.ItemName = drinks.Value + " - PINT";
                     thisDrink.DrinkSize = DrinkSize.Pint;
                     PopulateDbInfo(ref thisDrink);
                     DraftBeers.Add(thisDrink);
                     
                     Drink pitcherDrink = new Drink(drinks.Key)
                     {
-                        ItemName = drinks.Value + " - Pitcher",
+                        ItemName = drinks.Value + " - PITCHER",
                         DrinkCategory = DrinkCategory.DraftBeer,
                         DrinkSize = DrinkSize.Pitcher
                     };
@@ -356,14 +356,14 @@ namespace Zipline2.Models
                 if (drinks.Key == DrinkType.LeeseFitchCab ||
                     drinks.Key == DrinkType.AlverdiSangiovese)
                 {
-                    thisDrink.ItemName = drinks.Value +" - Glass";
+                    thisDrink.ItemName = drinks.Value +" - GLASS";
                     thisDrink.DrinkSize = DrinkSize.Glass;
                     PopulateDbInfo(ref thisDrink);
                     RedWines.Add(thisDrink);
 
                     Drink bottleDrink = new Drink(drinks.Key)
                     {
-                        ItemName = drinks.Value + " - Bottle",
+                        ItemName = drinks.Value + " - BOTTLE",
                         DrinkCategory = DrinkCategory.RedWine
                     };
                     bottleDrink.DrinkSize = DrinkSize.Bottle;
@@ -373,7 +373,7 @@ namespace Zipline2.Models
                 }
                 else
                 {
-                    thisDrink.ItemName = drinks.Value + " - Bottle";
+                    thisDrink.ItemName = drinks.Value + " - BOTTLE";
                     thisDrink.DrinkSize = DrinkSize.Bottle;
                     PopulateDbInfo(ref thisDrink);
                     RedWines.Add(thisDrink);
@@ -391,21 +391,21 @@ namespace Zipline2.Models
                 };
                 if (drinks.Key == DrinkType.DouglasGreenSb)
                 {
-                    thisDrink.ItemName = drinks.Value + " - Bottle";
+                    thisDrink.ItemName = drinks.Value + " - BOTTLE";
                     thisDrink.DrinkSize = DrinkSize.Bottle;
                     PopulateDbInfo(ref thisDrink);
                     WhiteWines.Add(thisDrink);
                 }
                 else
                 {
-                    thisDrink.ItemName = drinks.Value + " - Glass";
+                    thisDrink.ItemName = drinks.Value + " - GLASS";
                     thisDrink.DrinkSize = DrinkSize.Glass;
                     PopulateDbInfo(ref thisDrink);
                     WhiteWines.Add(thisDrink);
 
                     Drink bottleDrink = new Drink(drinks.Key)
                     {
-                        ItemName = drinks.Value + " - Bottle",
+                        ItemName = drinks.Value + " - BOTTLE",
                         DrinkCategory = DrinkCategory.WhiteWine,
                         DrinkSize = DrinkSize.Bottle
                     };

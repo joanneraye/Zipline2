@@ -20,7 +20,7 @@ namespace Zipline2.PageModels
             DrinksCommand = new Command(OnDrinksButtonClick);
             PizzaCommand = new Command(OnPizzaButtonClick);
             SaladsCommand = new Command(OnSaladsButtonClick);
-            CalzonesCommand = new Command(OnCalzonesButtonClick);
+            CalzoneCommand = new Command(OnCalzonesButtonClick);
             OrderPageCommand = new Command(OnOrderPage);
             TablesCommand = new Command(OnTablesPage);
             AddToOrderCommand = new Command(OnAddToOrder);
@@ -47,7 +47,7 @@ namespace Zipline2.PageModels
         public OrderPageModel ThisOrderPageModel { get; set; }
         public ICommand DrinksCommand { get; set; }
         public ICommand SaladsCommand { get; set; }
-        public ICommand CalzonesCommand { get; set; }
+        public ICommand CalzoneCommand { get; set; }
         public ICommand PizzaCommand { get; set; }
         public ICommand AddToOrderCommand { get; set; }
         public ICommand TablesCommand { get; set; }
@@ -227,7 +227,7 @@ namespace Zipline2.PageModels
             Application.Current.MainPage = currentMainPage;
         }
 
-        void OnCalzonesButtonClick()
+        public void OnCalzonesButtonClick()
         {
             var currentMainPage = Application.Current.MainPage as MasterDetailPage;
             currentMainPage.Detail = new NavigationPage(new CalzonePage());

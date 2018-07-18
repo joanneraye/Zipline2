@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Zipline2.BusinessLogic;
 using Zipline2.BusinessLogic.Enums;
@@ -75,30 +76,29 @@ namespace Zipline2.Models
         private void UpdateOrderTotals()
         {
             SubTotal = 0;
-            int lunchSpecialCount = 0;
-            if (SliceCount > 0 && SpecialSaladCount > 0)
-            {
-                if (SliceCount == SpecialSaladCount)
-                {
-                    lunchSpecialCount = SliceCount;
-                }
-                else
-                {
-                    lunchSpecialCount = Math.Min(SliceCount, SpecialSaladCount);
-                }
-            }
+            //int lunchSpecialCount = 0;
+            //if (SliceCount > 0 && SpecialSaladCount > 0)
+            //{
+            //    if (SliceCount == SpecialSaladCount)
+            //    {
+            //        lunchSpecialCount = SliceCount;
+            //    }
+            //    else
+            //    {
+            //        lunchSpecialCount = Math.Min(SliceCount, SpecialSaladCount);
+            //    }
+            //}
 
             foreach (var orderItem in OrderItems)
             {
-                if (orderItem is Pizza)
+                if (orderItem.PartOfCombo && orderItem is Pizza)
                 {
                     Pizza thisPizza = (Pizza)orderItem;
-                    if (thisPizza.PizzaType == PizzaType.ThinSlice && lunchSpecialCount > 0)
+                    if (thisPizza.PizzaType == PizzaType.LunchSpecialSlice)
                     {
                         if (thisPizza.Toppings.ToppingsTotal > 0)
                         {
                             thisPizza.GetsLunchSpecialDiscount = true;
-                            lunchSpecialCount -= 1;
                         }
                     }
                     else
@@ -138,31 +138,31 @@ namespace Zipline2.Models
                 }
 
                 //Check for lunch special.
-                if (item is Pizza)
-                {
-                    Pizza thisPizza = (Pizza)item;
-                    if (thisPizza.PizzaType == PizzaType.ThinSlice)
-                    {
-                        SliceCount++;
-                    }
-                }
-                else if (item is Salad)
-                {
-                    Salad thisSalad = (Salad)item;
-                    if (thisSalad.SizeOfSalad == SaladSize.LunchSpecial)
-                    {
-                        SpecialSaladCount++;
-                    }
-                }
+                //if (item is Pizza)
+                //{
+                //    Pizza thisPizza = (Pizza)item;
+                //    if (thisPizza.PizzaType == PizzaType.ThinSlice)
+                //    {
+                //        //SliceCount++;
+                //    }
+                //}
+                //else if (item is Salad)
+                //{
+                //    Salad thisSalad = (Salad)item;
+                //    if (thisSalad.SizeOfSalad == SaladSize.LunchSpecial)
+                //    {
+                //        //SpecialSaladCount++;
+                //    }
+                //}
 
 
                 UpdateOrderTotals();
             }
         }
 
-        public void UpdateOrderOnServer()
+        public async Task UpdateOrderOnServerAsync()
         {
-            WcfServicesProxy.Instance.UpdateOrderAsync(this);
+            await WcfServicesProxy.Instance.UpdateOrderAsync(this);
             //WcfServicesProxy.Instance.UpdateOrderSync(this);
         }
 

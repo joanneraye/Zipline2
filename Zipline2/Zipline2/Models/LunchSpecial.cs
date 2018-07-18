@@ -14,7 +14,7 @@ namespace Zipline2.Models
 
         public override string ToString()
         {
-            return "Lunch Special (slice and salad)";
+            return "Lunch Special (slice & salad)";
         }
        
         public override void PopulateDisplayName()

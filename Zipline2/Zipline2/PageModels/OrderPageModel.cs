@@ -45,16 +45,38 @@ namespace Zipline2.PageModels
             CurrentOrder = OrderManager.Instance.OrderInProgress;
             SendOrderCommand = new Command(OnSendOrder);
             DisplayOrder = new List<OrderDisplayItem>();
+            var lunchSpecialDisplayItem = new OrderDisplayItem();
+            var lunchSpecialItems = new List<OrderItem>();
+            Guid firstGuid = Guid.Empty;
             foreach (var orderitem in CurrentOrder.OrderItems)
             {
-                DisplayOrder.Add(orderitem.PopulateOrderDisplayItem());
+                var displayItem = orderitem.PopulateOrderDisplayItem();
+
+                //TODO:  ???   Logic assumes that lunch special items are sequential.
+                if (orderitem.PartOfCombo)
+                {
+                    if (firstGuid == Guid.Empty)
+                    {
+                        firstGuid = orderitem.ComboId;
+
+                        displayItem.CustomHeader = "LUNCH SPECIAL:";
+                        displayItem.UseCustomHeader = true;
+                    }
+                    else
+                    {
+                        firstGuid = Guid.Empty;
+                    }
+                }
+                
+                DisplayOrder.Add(displayItem);
+
             }
         }
 
-        public void OnSendOrder()
+        public async void OnSendOrder()
         {
             //TODO:  Don't actually send order until ready to work on:
-            OrderManager.Instance.SendOrder();
+            await OrderManager.Instance.SendOrderAsync();
 
             OnNavigateToTablesPage();
         }

@@ -33,6 +33,45 @@ namespace Zipline2.PageModels
             }
         }
 
+        private string customHeader;
+        public string CustomHeader
+        {
+            get
+            {
+                return customHeader;
+            }
+            set
+            {
+                SetProperty(ref customHeader, value);
+            }
+        }
+
+        private bool useCustomHeader;
+        public bool UseCustomHeader
+        {
+            get
+            {
+                return useCustomHeader;
+            }
+            set
+            {
+                SetProperty(ref useCustomHeader, value);
+            }
+        }
+
+        private bool hasToppings;
+        public bool HasToppings
+        {
+            get
+            {
+                return hasToppings;
+            }
+            set
+            {
+                SetProperty(ref hasToppings, value);
+            }
+        }
+
     }
 
 

@@ -17,8 +17,8 @@ namespace Zipline2.Pages
 		{
             InitializeComponent ();
             BackgroundColor = Color.Black;
-            BindingContext = new MasterPageModel();
-            
-		}
+            BindingContext = new MasterPageModel();          
+
+        }
 	}
 }

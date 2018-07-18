@@ -24,13 +24,13 @@ namespace Zipline2.Models
                 return getsLunchSpecialDiscount;
             }
             set
-            { 
+            {
                 if (value != getsLunchSpecialDiscount)
                 {
                     ChangeLunchSpecialDiscount(value);
                 }
                 getsLunchSpecialDiscount = value;
-           
+
             }
         }
 
@@ -55,6 +55,7 @@ namespace Zipline2.Models
                 }
             }
         }
+
         //public PizzaCrust Crust { get; set; }
         //public PizzaSize Size { get; set; }
         public PizzaBase Base { get; set; }
@@ -333,7 +334,7 @@ namespace Zipline2.Models
             {
                 if (i > 0 && Toppings.CurrentToppings[i].ToppingWholeHalf == ToppingWholeHalf.Whole)
                 {
-                    toppingsString.Append("\n");
+                    toppingsString.Append(", ");
                 }
                 if (Toppings.CurrentToppings[i].ToppingWholeHalf == ToppingWholeHalf.HalfA)
                 {
@@ -343,12 +344,12 @@ namespace Zipline2.Models
                         {
                             toppingsString.Append("\n");
                         }
-                        toppingsString.Append("    HALF A: \n");
+                        toppingsString.Append("HALF A: \n   ");
                         halfATitlePrinted = true;
                     }
                     else
                     {
-                        toppingsString.Append("\n");
+                        toppingsString.Append("\n   ");
                     }
                     
 
@@ -361,17 +362,21 @@ namespace Zipline2.Models
                         {
                             toppingsString.Append("\n");
                         }
-                        toppingsString.Append("    HALF B: \n");
+                        toppingsString.Append("HALF B: \n   ");
                         halfBTitlePrinted = true;
                     }
                     else
                     {
-                        toppingsString.Append("\n");
+                        toppingsString.Append("\n   ");
                     }
                 }
                 toppingsString.Append(Toppings.CurrentToppings[i].ToppingDisplayName);            
             }
-            orderDisplayItem.Toppings = toppingsString.ToString();
+            if (toppingsString.Length != 0)
+            {
+                orderDisplayItem.Toppings = toppingsString.ToString();
+                orderDisplayItem.HasToppings = true;
+            }
             return orderDisplayItem;
         }
 

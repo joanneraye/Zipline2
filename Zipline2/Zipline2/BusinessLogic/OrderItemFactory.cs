@@ -51,30 +51,9 @@ namespace Zipline2.BusinessLogic
            
         //}
 
-        public static OrderItem GetOrderItem(GuestItem oldGuestItem)
-        {
-            OrderItem thisOrderItem = new Drink();
-            switch (oldGuestItem.SuperCategoryID)
-            {
-                case 1:
-                    thisOrderItem = DataConversion.GetPizza(oldGuestItem);
-                    break;
-                //case 2:
-                //    break;
-                case 3:
-                    thisOrderItem = DataConversion.GetSalad(oldGuestItem);
-                    break;
-                case 4:
-                    thisOrderItem = DataConversion.GetDrink(oldGuestItem);
-                    break;
-                    //case 5:
-                    //    //Create Dessert
-                    //    break;
-                    //TODO:  Others????
-            }
+        
 
-            return thisOrderItem;
-        }
+        
 
 
         //private static OrderItem CreatePizza(OrderItem partialDataItem)

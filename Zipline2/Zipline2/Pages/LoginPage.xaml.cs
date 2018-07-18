@@ -80,7 +80,8 @@ namespace Zipline2.Pages
         async void OnLoginButtonClicked(object sender, EventArgs e)
         {
             LoginButton.IsEnabled = false;
-            if (IsValidUser(PinEnteredByUser.Text)) 
+            var isValid = await IsValidUserAsync(PinEnteredByUser.Text);
+            if (isValid) 
             {
                 Users.IsUserLoggedIn = true;
                 await Navigation.PopModalAsync();
@@ -95,9 +96,18 @@ namespace Zipline2.Pages
             }
         }
 
-        private bool IsValidUser(string pin)
+        private async Task<bool> IsValidUserAsync(string pin)
         {
-            DBUser user = WcfServicesProxy.Instance.GetUser(pin);
+            //DBUser user = WcfServicesProxy.Instance.GetUser(pin);
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+            
+
+            DBUser user = await WcfServicesProxy.Instance.GetUserAsync(pin);
+
+            watch.Stop();
+            var timeSoFar = watch.Elapsed;
+            Console.WriteLine("JR got user, time " + timeSoFar.ToString());
+
             if (user.ID != -1 && user.ID != 0 && user.Name != null)
             {
                 //Users.Instance.LoggedInUser = new Zipline2.Models.User("Employee", false, "1111");
@@ -119,29 +129,29 @@ namespace Zipline2.Pages
 
         }
 
-        async void OnChangePinButtonClicked(object sender, EventArgs e)
-        {
-            if (IsValidUser(PinEnteredByUser.Text))
-            {
-                Users.IsUserLoggedIn = true;
-                var isYes = await DisplayAlert("Hi!", "Are you " +
-                    Users.GetUserName(Users.LoggedInUser.UserPin) + "?", YES, NO);
-                if (isYes)
-                {
-                    PinEnteredByUser.Text = "";
-                    await Navigation.PushAsync(new AddUserPage());
-                }
-                else
-                {
-                    PinEnteredByUser.Text = "";
-                    await DisplayAlert("Could you have used the wrong PIN?", "Try signing in again.", "OK");
-                }
-            }
-            else
-            {
-                await DisplayAlert("Oops", "Sorry that PIN is not in our system as belonging to anyone.", "OK");
-                PinEnteredByUser.Text = "";
-            }
-        }
+        //async void OnChangePinButtonClicked(object sender, EventArgs e)
+        //{
+        //    if (IsValidUser(PinEnteredByUser.Text))
+        //    {
+        //        Users.IsUserLoggedIn = true;
+        //        var isYes = await DisplayAlert("Hi!", "Are you " +
+        //            Users.GetUserName(Users.LoggedInUser.UserPin) + "?", YES, NO);
+        //        if (isYes)
+        //        {
+        //            PinEnteredByUser.Text = "";
+        //            await Navigation.PushAsync(new AddUserPage());
+        //        }
+        //        else
+        //        {
+        //            PinEnteredByUser.Text = "";
+        //            await DisplayAlert("Could you have used the wrong PIN?", "Try signing in again.", "OK");
+        //        }
+        //    }
+        //    else
+        //    {
+        //        await DisplayAlert("Oops", "Sorry that PIN is not in our system as belonging to anyone.", "OK");
+        //        PinEnteredByUser.Text = "";
+        //    }
+        //}
     }
 }

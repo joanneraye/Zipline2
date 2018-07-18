@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Zipline2.BusinessLogic.Enums;
 using Zipline2.BusinessLogic.WcfRemote;
 using Zipline2.Data;
@@ -114,13 +115,13 @@ namespace Zipline2.BusinessLogic
 
        
 
-        public void AddItemsToOrder(List<OrderItem> itemsToAdd)
+        public async Task AddItemsToOrderAsync(List<OrderItem> itemsToAdd)
         { 
              foreach (var item in itemsToAdd)
              {
                 OrderManager.Instance.OrderInProgress.AddItemToOrder(item);
              }
-            OrderManager.Instance.OrderInProgress.UpdateOrderOnServer();
+            await OrderManager.Instance.OrderInProgress.UpdateOrderOnServerAsync();
         }
 
         public void InitializeOrderInProgress()
@@ -128,10 +129,10 @@ namespace Zipline2.BusinessLogic
             OrderInProgress = new Order(CurrentTableId, CurrentTableIndex);
         }
 
-        public void SendOrder()
+        public async Task SendOrderAsync()
         {
             //WcfServicesProxy.Instance.SendOrderSync(OrderInProgress);
-            WcfServicesProxy.Instance.PrepareAndSendOrderAsync(OrderInProgress);
+            await WcfServicesProxy.Instance.PrepareAndSendOrderAsync(OrderInProgress);
             MarkCurrentTableUnsentOrder(false);
             foreach (var item in OrderInProgress.OrderItems)
             {
@@ -159,11 +160,11 @@ namespace Zipline2.BusinessLogic
         /// <summary>
         /// The OrderItem has been completed and is added to the order.
         /// </summary>
-        public void AddItemInProgressToOrder()
+        public async void AddItemInProgressToOrder()
         {
             //Go ahead and add item to order so we can see the price change....
             OrderInProgress.AddItemToOrder(OrderItemInProgress);
-            OrderInProgress.UpdateOrderOnServer();
+            await OrderInProgress.UpdateOrderOnServerAsync();
             OrderItemInProgress = null;
         }
 

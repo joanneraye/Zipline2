@@ -24,6 +24,10 @@ namespace Zipline2.Models
 
         [MaxLength(100), Column("itemname")]
         public string ItemName { get; set; }
+
+        public bool PartOfCombo { get; set; }
+
+        public Guid ComboId { get; set; }
         
         /// <summary>
         /// The item count is not the number of the general item (such

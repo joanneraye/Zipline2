@@ -6,6 +6,7 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using Zipline2.BusinessLogic;
 using Zipline2.BusinessLogic.Enums;
+using Zipline2.Data;
 using Zipline2.Models;
 using Zipline2.Pages;
 
@@ -339,7 +340,7 @@ namespace Zipline2.PageModels
             currentDrinkCategorySelected = newDrinkCategory;
         }
 
-        public void OnAddDrinks()
+        public async void OnAddDrinks()
         {
             var drinksToAddToOrder = new List<OrderItem>();
             //Need to check entire Display dictionary (DrinkDisplayDictionary) for
@@ -367,7 +368,7 @@ namespace Zipline2.PageModels
                 }
             }
         
-            OrderManager.Instance.AddItemsToOrder(drinksToAddToOrder);
+            await OrderManager.Instance.AddItemsToOrderAsync(drinksToAddToOrder);
             LoadSummaryPage();
         }
 

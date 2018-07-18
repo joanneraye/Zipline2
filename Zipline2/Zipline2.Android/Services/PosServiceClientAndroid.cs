@@ -576,7 +576,17 @@ namespace Zipline2.Android.Services
             return Channel.GetTablesForSection(sectionID);
         }
 
-        
+        public IAsyncResult BeginGetTablesForSection(decimal sectionID, AsyncCallback callback, object asyncState)
+        {
+            return Channel.BeginGetTablesForSection(sectionID, callback, asyncState);
+        }
+
+        public List<DBTable> EndGetTablesForSection(IAsyncResult result)
+        {
+            return Channel.EndGetTablesForSection(result);
+        }
+
+
         public System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<Staunch.POS.Classes.DBItem>> GetMenu()
         {
             return Channel.GetMenu();
@@ -1305,15 +1315,7 @@ namespace Zipline2.Android.Services
                 throw new NotImplementedException();
             }
 
-            public IAsyncResult BeginGetTablesForSection(decimal sectionID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<DBTable> EndGetTablesForSection(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
+           
 
             public bool ChangeItemSize(decimal orderID, decimal newSizeID)
             {
@@ -1555,7 +1557,7 @@ namespace Zipline2.Android.Services
                 throw new NotImplementedException();
             }
         #endregion
-
+        //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
         private class PosServiceChannel : ChannelBase<IPosService>, IPosService
         {
@@ -1587,28 +1589,42 @@ namespace Zipline2.Android.Services
             }
 
 
-            public System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<Staunch.POS.Classes.DBItem>> GetMenu()
+            public System.Collections.Generic.Dictionary<string,List<DBItem>> GetMenu()
             {
-
-                return (System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<Staunch.POS.Classes.DBItem>>)base.Invoke("GetMenu", null);
+                object[] args = new object[0];
+                return (Dictionary<string, List<DBItem>>)base.Invoke("GetMenu", args);
             }
 
             public IAsyncResult BeginGetMenu(AsyncCallback callback, object asyncState)
             {
-                return (IAsyncResult)base.BeginInvoke("GetMenu", null, callback, asyncState);
+                object[] args = new object[0];
+                return (IAsyncResult)base.BeginInvoke("GetMenu", args, callback, asyncState);
             }
 
             public Dictionary<string, List<DBItem>> EndGetMenu(IAsyncResult result)
             {
-                return (Dictionary<string, List<DBItem>>)base.EndInvoke("GetMenu", null, result);
+                object[] args = new object[0];
+                return (Dictionary<string, List<DBItem>>)base.EndInvoke("GetMenu", args, result);
             }
-
 
             public List<DBTable> GetTablesForSection(decimal sectionID)
             {
                 object[] args = new object[1];
                 args[0] = sectionID;
                 return (List<DBTable>)base.Invoke("GetTablesForSection", args);
+            }
+
+            public IAsyncResult BeginGetTablesForSection(decimal sectionID, AsyncCallback callback, object asyncState)
+            {
+                object[] args = new object[1];
+                args[0] = sectionID;
+                return (IAsyncResult)base.BeginInvoke("GetTablesForSection", args, callback, asyncState);
+            }
+
+            public List<DBTable> EndGetTablesForSection(IAsyncResult result)
+            {
+                object[] args = new object[0];
+                return (List<DBTable>)base.EndInvoke("GetMenu", args, result);
             }
 
             public System.Collections.Generic.List<Staunch.POS.Classes.DBModGroup> GetAllMods(decimal itemId, decimal sizeId)
@@ -1645,7 +1661,8 @@ namespace Zipline2.Android.Services
 
             public List<DBTable> EndGetTableSummary(IAsyncResult result)
             {
-                return (List<DBTable>)base.EndInvoke("GetTableSummary", null, result);
+                object[] args = new object[0];
+                return (List<DBTable>)base.EndInvoke("GetTableSummary", args, result);
             }
 
 
@@ -1683,7 +1700,8 @@ namespace Zipline2.Android.Services
 
             public List<DBTable> EndGetTableInfo(IAsyncResult result)
             {
-                return (List<DBTable>)base.EndInvoke("GetTableInfo", null, result);
+                object[] args = new object[0];
+                return (List<DBTable>)base.EndInvoke("GetTableInfo", args, result);
             }
 
             public void UpdateTables(List<DBTable> updatedTables, decimal userID)
@@ -2333,17 +2351,7 @@ namespace Zipline2.Android.Services
             public List<DBItem> EndGetSpecialItems(IAsyncResult result)
             {
                 throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginGetTablesForSection(decimal sectionID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<DBTable> EndGetTablesForSection(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
+            }           
 
             public bool ChangeItemSize(decimal orderID, decimal newSizeID)
             {

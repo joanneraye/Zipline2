@@ -25,11 +25,7 @@
     </ContentPage.Resources>
     
     <ContentPage.Content>
-        <StackLayout Padding="10,10" Orientation="Vertical" HorizontalOptions="Center" Spacing="10">
-          
-                <Button Text="Lunch Special"
-                        Command="{Binding AddLunchSpecialSaladCommand}"
-                        Style="{StaticResource SaladSelectionButtons}" />
+        <StackLayout Padding="10,10" Orientation="Vertical" HorizontalOptions="Center" Spacing="10">               
                 <Button Text="Small Salad"
                         Command="{Binding AddSmallSaladCommand}"
                         Style="{StaticResource SaladSelectionButtons}"
@@ -38,8 +34,11 @@
                         Command="{Binding AddLargeSaladCommand}"
                         Style="{StaticResource SaladSelectionButtons}"
                          />
+                <Button Text="Lunch Special"
+                        Command="{Binding AddLunchSpecialSaladCommand}"
+                        Style="{StaticResource SaladSelectionButtons}" />
 
-                <!--<iconize:IconImage Grid.Row ="0"
+            <!--<iconize:IconImage Grid.Row ="0"
                            Grid.Column="1"
                            Style="{StaticResource PlusIcon}">
                     <iconize:IconImage.GestureRecognizers>

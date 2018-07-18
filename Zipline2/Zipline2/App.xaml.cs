@@ -29,72 +29,65 @@ namespace Zipline2
             //Users.Instance.AddNewUser(joanne);
             //Users.Instance.AddNewUser(satch);
             //Users.Instance.AddNewUser(jim);
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+            //The following 4 statements take about a half a second (total).
             Zipline2.Data.Tables.LoadInitialTableData();
             Zipline2.Data.MenuFood.LoadInitialPizzaToppings();
             Zipline2.Data.MenuFood.LoadInitialSaladToppings();
+            Zipline2.Data.MenuDrinks.CreateAllDrinks();
+            Task.Run(() => WcfServicesProxy.Instance.GetMenu());
+            //watch.Stop();
+            //Console.WriteLine("Time to load data from memory is " + watch.ElapsedMilliseconds.ToString());
+            //Moved to OnAppearing method TablesPage.
+            //if (WcfServicesProxy.Instance.ServiceCallConfig != WcfServicesProxy.ServiceCallConfigType.AllServiceCallsOff)
+            //{
+            //    LoadMenuFromServer();
+            //   //LoadMenuFromServerAsync();
 
-            //These do not need to process on a different thread because they must be processed
-            //before the UI can be displayed.
-            if (WcfServicesProxy.Instance.ServiceCallConfig != WcfServicesProxy.ServiceCallConfigType.AllServiceCallsOff)
-            {
-                LoadMenuFromServer();
-               //LoadMenuFromServerAsync();
+            //    DataBaseDictionaries.LoadToppingsFromServer();
 
-                DataBaseDictionaries.LoadToppingsFromServer();
-                //LoadToppingsFromServerAsync();
-
-                LoadTablesFromServer();
-                //LoadTablesFromServerAsync();
-            }
-           
-
-            LoadDrinks();
-
-            //TODO:  When and how to close services?
+            //    LoadTablesFromServer();
+            //    //LoadTablesFromServerAsync();
+            //}
 
             MainPage = new MainMasterDetailPage();
-            //var assembly = typeof(App).GetType().Assembly;
-            //foreach (var res in assembly.GetManifestResourceNames())
-            //{
-            //    System.Diagnostics.Debug.WriteLine("Found resource: " + res);
-            //}
         }
 
-        private void LoadMenuFromServer()
-        {
-            WcfServicesProxy.Instance.GetMenu();
-        }
+        //private void LoadMenuFromServer()
+        //{
+        //    WcfServicesProxy.Instance.GetMenu();
+        //}
 
 
-        private void LoadTablesFromServer()
-        {
-            WcfServicesProxy.Instance.GetTables();
-        }
+        //private void LoadTablesFromServer()
+        //{
+        //    WcfServicesProxy.Instance.GetTables();
+        //}
 
-        async private void LoadTablesFromServerAsync()
-        {
-            await WcfServicesProxy.Instance.GetTablesAsync();
-        }
+        //async private void LoadTablesFromServerAsync()
+        //{
+        //    await WcfServicesProxy.Instance.GetTablesAsync();
+        //}
 
-        async private void LoadMenuFromServerAsync()
-        {
-            await WcfServicesProxy.Instance.GetMenuAsync();
-        }
+        //async private void LoadMenuFromServerAsync()
+        //{
+        //    await WcfServicesProxy.Instance.GetMenuAsync();
+        //}
 
         
 
-        private void LoadDrinks()
-        {
-            MenuDrinks.CreateAllDrinks();
-        }
+        //private void LoadDrinks()
+        //{
+        //    MenuDrinks.CreateAllDrinks();
+        //}
 
         
-        public void LoadMenuPizzaPage()
-        {
-            var currentMainPage = (Current.MainPage as MasterDetailPage);
-            currentMainPage.Detail = new NavigationPage(new PizzaPage());
-            Application.Current.MainPage = currentMainPage;
-        }
+        //public void LoadMenuPizzaPage()
+        //{
+        //    var currentMainPage = (Current.MainPage as MasterDetailPage);
+        //    currentMainPage.Detail = new NavigationPage(new PizzaPage());
+        //    Application.Current.MainPage = currentMainPage;
+        //}
 
         protected override void OnStart()
         {

@@ -14,7 +14,7 @@ namespace Zipline2.Data
         //       current data.  Can make another program for this file to be edited
         //       by the restaurant to change pricing.
 
-        
+
 
         //public static void ReadPricesFromJsonFile()
         //{
@@ -44,6 +44,7 @@ namespace Zipline2.Data
         private static Dictionary<SaladSize, decimal> SaladPriceDictionary = new Dictionary<SaladSize, decimal>
         {
             { SaladSize.LunchSpecial, 4.00M },
+            { SaladSize.LunchSize, 4.00M },
             { SaladSize.Small, 8M },
             { SaladSize.Large, 14M }
         };
@@ -138,6 +139,7 @@ namespace Zipline2.Data
         private static Dictionary<PizzaType, decimal> PizzaBasePriceDictionary = new Dictionary<PizzaType, decimal>
         {
             { PizzaType.ThinSlice, 3.00M },
+            { PizzaType.LunchSpecialSlice, 3.00M },
             { PizzaType.PanSlice, 3.50M },
             { PizzaType.Medium, 13.00M },
             { PizzaType.Large, 17.00M },

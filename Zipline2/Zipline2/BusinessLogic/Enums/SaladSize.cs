@@ -8,6 +8,7 @@ namespace Zipline2.BusinessLogic.Enums
     {
         None,
         LunchSpecial,
+        LunchSize,
         Small,
         Large
     }

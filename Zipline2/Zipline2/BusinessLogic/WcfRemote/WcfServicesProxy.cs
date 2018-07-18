@@ -277,14 +277,14 @@ namespace Zipline2.BusinessLogic.WcfRemote
             return 0;
         }
 
-        public void UpdateOrder(Order orderToUpdate)
+        public async void UpdateOrder(Order orderToUpdate)
         {
             if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||
                 ServiceCallConfig == ServiceCallConfigType.UpdateServicesNoSend)
             {
                 return;
             }
-            DBTable dbTableCurrent = ConvertOrderToDbTable(orderToUpdate, false);
+            DBTable dbTableCurrent = await ConvertOrderToDbTableAsync(orderToUpdate, false);
 
             //Update the database table with built DBTable in order to obtain new OrderID.
             //await UpdateTableAsync(dbTableCurrent);
@@ -445,7 +445,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 return new DBTable();
             }
             List<decimal> guestIds = GetGuestIds(orderToSend.TableId);
-            //decimal guestId = await GetGuestIdAsync(orderToUpdate.TableId);
+            //List<decimal> guestIds = await GetGuestIdsAsync(orderToSend.TableId);
 
             //Get stored DBTable.
             DBTable newTable = DataBaseDictionaries.DbTablesDictionary[orderToSend.TableId];
@@ -518,6 +518,80 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
 
         #region Async Methods
+        internal async Task<DBTable> ConvertOrderToDbTableAsync(Order orderToSend, bool sendOrderToKitchen = false)
+        {
+            if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff)
+            {
+                return new DBTable();
+            }
+            List<decimal> guestIds = await GetGuestIdsAsync(orderToSend.TableId);
+
+            //Get stored DBTable.
+            DBTable newTable = DataBaseDictionaries.DbTablesDictionary[orderToSend.TableId];
+            if (newTable.Guests.Count == 0)
+            {
+                bool first = true;
+                foreach (decimal id in guestIds)
+                {
+                    Staunch.POS.Classes.Guest_DB guest = new Staunch.POS.Classes.Guest_DB();
+                    guest.ID = id;
+                    guest.CheckedOut = false;
+                    guest.Items = new List<GuestItem>();
+                    guest.ComboItems = new List<GuestComboItem>();
+                    guest.TableID = orderToSend.TableId;
+
+                    if (first)
+                    {
+                        guest.IsWhole = true;
+                        first = false;
+                    }
+
+                    newTable.Guests.Add(guest);
+                }
+            }
+
+            if (DataBaseDictionaries.MenuDictionary != null &&
+                DataBaseDictionaries.MenuDictionary.Count > 0)
+            {
+                //Create DBItems for Guest_DB object.
+                foreach (var orderItem in orderToSend.OrderItems)
+                {
+                    var keysTuple = orderItem.GetMenuDbItemKeys();
+                    var dbItem = new DBItem();
+                    bool menuItemFound = false;
+
+                    //Use the item from the Database Dictionary.                    
+                    foreach (var menuItem in DataBaseDictionaries.MenuDictionary[keysTuple.Item1])
+                    {
+                        if (menuItem.ID == keysTuple.Item2)
+                        {
+                            dbItem = menuItem;
+                            menuItemFound = true;
+                            break;
+                        }
+                    }
+                    if (orderItem.DbOrderId <= 0)
+                    {
+                        orderItem.DbOrderId = -1;
+                    }
+                    if (menuItemFound)
+                    {
+                        GuestItem guestItem = orderItem.CreateGuestItem(dbItem, orderItem.DbOrderId);
+                        guestItem.Mods = orderItem.CreateMods();
+                        guestItem.OrderSent = sendOrderToKitchen;
+                        newTable.Guests[0].Items.Add(guestItem);
+                        //Pricing check - TODO:  Take out for production??
+                        //Had to comment out in testing because wouldn't process - says mismatch with service but can't find problem.
+                        //GuestItem databaseGuestItem = checkClient.PriceOrder(guestItem);
+                        //if (databaseGuestItem.Price != guestItem.Price)
+                        //{
+                        //    Console.WriteLine("JOANNE LOG:  price differs for " + guestItem.ShortName);
+                        //}
+                    }
+                }
+            }
+            return newTable;
+        }
 
         async public Task<List<DBModGroup>> GetSaladToppingsAsync()
         {
@@ -566,10 +640,9 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 }
             }
             //decimal guestId = await GetGuestIdAsync(orderToUpdate.TableId);
-            DBTable dbTableCurrent = ConvertOrderToDbTable(orderToUpdate, false);
+            DBTable dbTableCurrent = await ConvertOrderToDbTableAsync(orderToUpdate, false);
 
             //Update the database table with built DBTable in order to obtain new OrderID.
-            //await UpdateTableAsync(dbTableCurrent);
             await UpdateTableAsync(dbTableCurrent);
         }
 
@@ -584,7 +657,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 }
                 return;
             }
-            DBTable dbTableCurrent = ConvertOrderToDbTable(orderToSend, true);
+            DBTable dbTableCurrent = await ConvertOrderToDbTableAsync(orderToSend, true);
 
             //Update the database table with built DBTable in order to obtain new OrderID.
             //await UpdateTableAsync(dbTableCurrent);
@@ -660,6 +733,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
                    WaiterClient.EndGetTablesForSection,
                    1M,
                    TaskCreationOptions.None);
+
+          
             foreach (var item1 in tablesSection1)
             {
                 DataBaseDictionaries.DbTablesDictionary.Add(item1.ID, item1);
@@ -779,11 +854,16 @@ namespace Zipline2.BusinessLogic.WcfRemote
             else
             {
                 guestIds = waiterClient.GetNextGuestIDs((2), UserIdDecimal);
+                await Task.Factory.FromAsync(
+                    WaiterClient.BeginGetNextGuestIDs,
+                    WaiterClient.EndGetNextGuestIDs,
+                    2, UserIdDecimal,
+                    TaskCreationOptions.None);
             }
             return guestIds;
-
         }
 
+       
         async public Task CreateCheckAsync(DBCheck dbCheck)
         {
             if (ServiceCallConfig == ServiceCallConfigType.AllServiceCallsOff ||

@@ -9,11 +9,13 @@
         </ResourceDictionary>
     </ContentPage.Resources>   
     <ContentPage.Content>
-      
         <StackLayout BackgroundColor="Black" 
                      Padding="10, 10"
                      Orientation="Vertical"
                      VerticalOptions="FillAndExpand">
+            <ActivityIndicator Color="White"
+                           IsRunning="{Binding IsBusy}"
+                           IsVisible="{Binding IsBusy}" />
             <!--<Button Text="Takeout" 
                         x:Name="TakeoutButton"
                         TextColor="Black"
@@ -28,9 +30,12 @@
                         HorizontalOptions="Center"
                         Clicked="TakeoutButtonClicked"/>-->
             <ListView ItemsSource="{Binding DisplayTables}"
+                      ItemSelected="OnItemSelected"
                       x:Name="TableList"
                       BackgroundColor="Black"
                       RowHeight="45"
+                      IsPullToRefreshEnabled="True"
+                      Refreshing="OnRefreshing"
                       SeparatorVisibility="Default">
                 <!--In order to make space between ListView rows,
                      should take whatever the Grid's RowDefinition Height ends up
@@ -80,7 +85,13 @@
                                                         Binding="{Binding InsideTable.HasUnsentOrder, Mode=TwoWay}"
                                                             Value="True">
                                             <Setter Property="TextColor" Value="Red" />
+                                            <Setter Property="Text" Value="{Binding InsideTableNameUnsent}" />
                                         </DataTrigger>
+                                        <DataTrigger TargetType="Button"
+                                                        Binding="{Binding InsideTable.InsideTableClicked, Mode=TwoWay}"
+                                                            Value="True">
+                                            <Setter Property="IsEnabled" Value="False" />
+                                        </DataTrigger>                                      
                                     </Button.Triggers>
                                 </Button>
                                 <Label Grid.Column="2" 
@@ -109,6 +120,12 @@
                                                         Binding="{Binding OutsideTable.HasUnsentOrder, Mode=TwoWay}"
                                                             Value="True">
                                             <Setter Property="TextColor" Value="Red" />
+                                            <Setter Property="Text" Value="{Binding OutsideTableNameUnsent}" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Button"
+                                                        Binding="{Binding InsideTable.OutsideTableClicked, Mode=TwoWay}"
+                                                            Value="True">
+                                            <Setter Property="IsEnabled" Value="False" />
                                         </DataTrigger>
                                     </Button.Triggers>
                                 </Button>

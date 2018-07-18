@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:Zipline2.Pages;assembly=Zipline2.Pages"
+             xmlns:local="clr-namespace:Zipline2.Pages"
              xmlns:views="clr-namespace:Zipline2.Views"
              xmlns:converters="clr-namespace:Zipline2.Converters"
              x:Class="Zipline2.Pages.OrderPage">
@@ -30,32 +30,113 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="3*"/>
                                 </Grid.ColumnDefinitions>
-                                <StackLayout Grid.Column="0" Grid.ColumnSpan="4" Spacing="0" >
-                                    <Label Grid.ColumnSpan="1" Margin="0"
+                                <StackLayout Grid.Column="0" Grid.ColumnSpan="1" Spacing="0" >
+                                    <Label Text="{Binding CustomHeader}"
+                                           Margin="0,5,0,0"
+                                           TextColor="White"
+                                           VerticalTextAlignment="End"
+                                           VerticalOptions="End"
+                                           FontSize="Micro"
+                                           IsVisible="False">
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label"
+                                                 Binding="{Binding UseCustomHeader}"
+                                                         Value="True">
+                                                <Setter Property="IsVisible" Value="True" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                    <Label Margin="0" Grid.ColumnSpan="1"
                                             Text="{Binding OrderItem.ItemName}"
+                                           VerticalTextAlignment="End"
+                                           VerticalOptions="End"
                                                FontSize="Micro"
-                                               TextColor="{Binding OrderItem.WasSentToKitchen, 
-                                                Converter={StaticResource sentToKitchenTextConverter}}"/>
-                                    <Label Grid.ColumnSpan="4" Margin="5,0,0,3"
+                                               TextColor="Green">
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label"
+                                                 Binding="{Binding OrderItem.WasSentToKitchen}"
+                                                         Value="false">
+                                                <Setter Property="TextColor" Value="Red" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                    <Label Margin="0" Grid.ColumnSpan="4"
                                       TextColor="White"
                                        FontSize="Micro"
-                                      Text="{Binding Toppings}"/>
-                                </StackLayout>                           
-                                <Label Grid.Column="1"
+                                           IsVisible="False"
+                                      Text="{Binding Toppings}">
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label"
+                                                 Binding="{Binding HasToppings}"
+                                                         Value="True">
+                                                <Setter Property="IsVisible" Value="True" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                </StackLayout>
+                                <StackLayout Grid.Column="1">
+                                <Label 
+                                    Text=" "
+                                           Margin="0"
+                                           TextColor="White"
+                                           FontSize="Micro"
+                                           IsVisible="False">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                 Binding="{Binding UseCustomHeader}"
+                                                         Value="True">
+                                            <Setter Property="IsVisible" Value="True" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <Label 
                                        Text="{Binding OrderItem.PricePerItemIncludingToppings, StringFormat='{0:C}'}"
                                        TextColor="White"
                                         FontSize="Micro"
                                        HorizontalOptions="End" />
-                                <Label Grid.Column="2"
+                                </StackLayout>
+                                <StackLayout  Grid.Column="2">
+                                <Label 
+                                    Text=" "
+                                           Margin="0"
+                                           TextColor="White"
+                                           FontSize="Micro"
+                                           IsVisible="False">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                 Binding="{Binding UseCustomHeader}"
+                                                         Value="True">
+                                            <Setter Property="IsVisible" Value="True" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <Label
                                        Text="{Binding OrderItem.ItemCount, StringFormat='{0}'}"
                                        TextColor="White"
                                         FontSize="Micro"
                                        HorizontalOptions="End" />
-                                <Label Grid.Column="3"
+                                </StackLayout>
+                                <StackLayout Grid.Column="3">
+                                    <Label 
+                                    Text=" "
+                                           Margin="0"
+                                           TextColor="White"
+                                           FontSize="Micro"
+                                           IsVisible="False">
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label"
+                                                 Binding="{Binding UseCustomHeader}"
+                                                         Value="True">
+                                                <Setter Property="IsVisible" Value="True" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                    <Label 
                                         FontSize="Micro"
                                        Text="{Binding OrderItem.TotalPricePerItemTimesCount, StringFormat='{0:C}'}"
                                        TextColor="White"
                                        HorizontalOptions="End" />
+                                </StackLayout>
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
@@ -135,5 +216,14 @@
         </StackLayout>
     </ContentPage.Content>
 </local:BasePage>
+
+
+
+
+
+
+
+<!--TextColor="{Binding OrderItem.WasSentToKitchen, 
+                                                Converter={StaticResource sentToKitchenTextConverter}}"/>-->
 
 

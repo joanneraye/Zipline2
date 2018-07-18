@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Zipline2.BusinessLogic.WcfRemote;
 using Staunch.POS.Classes;
 using Zipline2.Data;
+using System.Threading;
 
 namespace Zipline2.PageModels
 {
@@ -37,6 +38,15 @@ namespace Zipline2.PageModels
             }
 
             
+            public string InsideTableNameUnsent
+            {
+                get
+                {
+                    return insideTableName + " UNSENT";
+                }
+            }
+
+
             private Table insideTable;
             public Table InsideTable
             {
@@ -47,17 +57,32 @@ namespace Zipline2.PageModels
                 set
                 {
                     SetProperty(ref insideTable, value);
-                    if (insideTable != null)
-                    {
-                        if (insideTable.HasUnsentOrder)
-                        {
-                            insideTableName = insideTable.TableName + " UNSENT";
-                        }
-                        else
-                        {
-                            insideTableName = insideTable.TableName;
-                        }
-                    }
+                }
+            }
+
+            private bool insideTableClicked;
+            public bool InsideTableClicked
+            {
+                get
+                {
+                    return insideTableClicked;
+                }
+                set
+                {
+                    SetProperty(ref insideTableClicked, value);
+                }
+            }
+
+            private bool outsideTableClicked;
+            public bool  OutsideTableClicked
+            {
+                get
+                {
+                    return outsideTableClicked;
+                }
+                set
+                {
+                    SetProperty(ref outsideTableClicked, value);
                 }
             }
             private string outsideTableName;
@@ -73,7 +98,15 @@ namespace Zipline2.PageModels
                 }
             }
 
-           
+            public string OutsideTableNameUnsent
+            {
+                get
+                {
+                    return outsideTableName + " UNSENT";
+                }
+            }
+
+
             private Table outsideTable;
             public Table OutsideTable
             {
@@ -84,17 +117,6 @@ namespace Zipline2.PageModels
                 set
                 {
                     SetProperty(ref outsideTable, value);
-                    if (outsideTable != null)
-                    {
-                        if (outsideTable.HasUnsentOrder)
-                        {
-                            outsideTableName = value.TableName + " UNSENT";
-                        }
-                        else
-                        {
-                            outsideTableName = value.TableName;
-                        }
-                    }     
                 }
             }
 
@@ -136,20 +158,22 @@ namespace Zipline2.PageModels
             }
 
             
-            private void OnInsideButtonClicked()
+            private async void OnInsideButtonClicked()
             {
+                InsideTableClicked = true;
                 TableSelection thisRow = parentTablesPageModel.DisplayTables[SelectionIndex];
                 Table tableSelected = thisRow.InsideTable;
-                thisRow.InsideTable.IsOccupied = true;
-                parentTablesPageModel.ProcessSelectedTable(tableSelected);
+                await parentTablesPageModel.ProcessSelectedTableAsync(tableSelected);
+                InsideTableClicked = false;
                
             }
-            private void OnOutsideButtonClicked()
+            private async void OnOutsideButtonClicked()
             {
+                OutsideTableClicked = true;
                 TableSelection thisRow = parentTablesPageModel.DisplayTables[SelectionIndex];
                 Table tableSelected = thisRow.OutsideTable;
-                thisRow.OutsideTable.IsOccupied = true;
-                parentTablesPageModel.ProcessSelectedTable(tableSelected);
+                await parentTablesPageModel.ProcessSelectedTableAsync(tableSelected);
+                OutsideTableClicked = false;
             }
         }
         //******************************NOTE IMBEDDED CLASS above ************************
@@ -160,7 +184,7 @@ namespace Zipline2.PageModels
 
         #region Properties     
         public event EventHandler NavigateToDrinksPage;
-        public event EventHandler NavigateToOrderPage;
+        public event EventHandler NavigateToOrderPage;        
         public string UserName
         {
             get
@@ -184,6 +208,19 @@ namespace Zipline2.PageModels
                 SetProperty(ref displayTables, value);
             }
         }
+
+        private bool isBusy;
+        public bool IsBusy
+        {
+            get
+            {
+                return isBusy;
+            }
+            set
+            {
+                SetProperty(ref isBusy, value);
+            }
+        }
        
         #endregion
        
@@ -191,22 +228,20 @@ namespace Zipline2.PageModels
         #region Constructor
         public TablesPageModel()
         {
+            LoadTablesForDisplay();
+        }
+
+        public async void LoadTableData()
+        {
             var orderManager = OrderManager.Instance;
 
-            if (orderManager.OrderInProgress != null &&orderManager.OrderInProgress.OrderItems.Count > 0)
+            if (orderManager.OrderInProgress != null && orderManager.OrderInProgress.OrderItems.Count > 0)
             {
                 Tables.AllTables[orderManager.CurrentTableIndex].OpenOrder = OrderManager.Instance.OrderInProgress;
             }
-            //First populate list of tables with whether table is occupied and has unsent orders.
-            //(Then build the page with that data in LoadTablesForDisplay method.)
+            
 
-            //Cannot display tables page without tables data from server so no point in 
-            //calling async?  Plus cannot await because this is a constructor.
-            List<DBTable> tables = WcfServicesProxy.Instance.GetTableInfo();
-            //if (tables.Count == 0)
-            //{
-            //    return;
-            //}
+            List<DBTable> tables = await WcfServicesProxy.Instance.GetTableInfoAsync();
             foreach (var table in tables)
             {
                 bool hasUnsentItems = false;
@@ -220,6 +255,7 @@ namespace Zipline2.PageModels
                 {
                     Console.WriteLine("***Debug JOANNE***TABLE NOT FOUND FOR TABLE ID: " + table.ID);
                 }
+
                 var thisTable = Tables.AllTables[indexInAllTables];
                 if (!table.IsClear)
                 {
@@ -266,14 +302,13 @@ namespace Zipline2.PageModels
                 if (tableOccupied)
                 {
                     Tables.AllTables[indexInAllTables].IsOccupied = tableOccupied;
-                }
 
-                if (hasUnsentItems)
-                {
-                    Tables.AllTables[indexInAllTables].HasUnsentOrder = hasUnsentItems;
+                    if (hasUnsentItems)
+                    {
+                        Tables.AllTables[indexInAllTables].HasUnsentOrder = hasUnsentItems;
+                    }
                 }
             }
-            LoadTablesForDisplay();
         }
         #endregion
 
@@ -290,15 +325,22 @@ namespace Zipline2.PageModels
             return await WcfServicesProxy.Instance.HasOpenChecksAsync(tableId);
         }
         
-        private void ProcessSelectedTable(Table tableSelected)
+        private async Task ProcessSelectedTableAsync(Table tableSelected)
         {
+            //TODO:  If there was an error loading these, then this will be an infinite loop.
+            //At some point need to display on Tables Page that there is a fatal error.
+            while (DataBaseDictionaries.MenuDictionary == null)
+            {
+                Thread.Sleep(500);
+            }
+
             tableSelected.IsOccupied = true;
             //Change what the app's current table is.
             OrderManager.Instance.UpdateCurrentTable(tableSelected);
 
             //GetTableAsync doesn't work...?
-            //var dbTable = await WcfServicesProxy.Instance.GetTableAsync((int)tableSelected.TableId);
-            var dbTable = WcfServicesProxy.Instance.GetTable((int)tableSelected.TableId);
+            var dbTable = await WcfServicesProxy.Instance.GetTableAsync((int)tableSelected.TableId);
+            //var dbTable = WcfServicesProxy.Instance.GetTable((int)tableSelected.TableId);
            
                 tableSelected.DatabaseTable = dbTable;
                 Tables.AllTables[tableSelected.IndexInAllTables] = tableSelected;
@@ -307,18 +349,15 @@ namespace Zipline2.PageModels
                 if (dbTable.Guests.Count > 0)
                 {
                     List<GuestItem> guestItems = new List<GuestItem>();
-                    List<GuestItem> comboGuestItems = new List<GuestItem>();
+                    List<GuestComboItem> comboGuestItems = new List<GuestComboItem>();
                     foreach (var guest in dbTable.Guests)
                     {
                         guestItems.AddRange(guest.Items);
-                        foreach (var comboItem in guest.ComboItems)
-                        {
-                            guestItems.AddRange(comboItem.ComboGuestItems);
-                        }
+                        comboGuestItems.AddRange(guest.ComboItems);
                     }
                     if (guestItems.Count > 0)
                     {
-                        Order openOrder = DataConversion.ConvertDbGuestsToOrder(guestItems, tableSelected.TableId, tableSelected.IndexInAllTables);
+                        Order openOrder = DataConversion.ConvertDbGuestsToOrder(guestItems, comboGuestItems, tableSelected.TableId, tableSelected.IndexInAllTables);
                         OrderManager.Instance.OrderInProgress = openOrder;
                         if (!openOrder.AllItemsSent)
                         {
@@ -368,7 +407,8 @@ namespace Zipline2.PageModels
         {
             //Next 2 statements must be in that order because when table is valued (2nd statement), if there is an
             //unsent order the name of the table is changed to show "unsent".  If the name is set (1st statement) after that,
-            //rather than before, it will wipe this out.  
+            //rather than before, it will wipe this out. 
+            thisRow.InsideTableName = Tables.AllTables[indexInAllTables].TableName;
             thisRow.InsideTable = Tables.AllTables[indexInAllTables];
             //if (thisRow.InsideTable.HasUnsentOrder)
             //{

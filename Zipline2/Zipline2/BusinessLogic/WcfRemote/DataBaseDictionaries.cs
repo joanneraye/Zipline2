@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Zipline2.BusinessLogic.Enums;
 using Zipline2.Data;
 using Zipline2.Models;
@@ -250,7 +251,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
             }
         }
 
-        async private static void LoadToppingsFromServerAsync()
+        async public static Task LoadToppingsFromServerAsync()
         {
             PizzaToppingsDictionary = new Dictionary<decimal, DBModifier>();
             List<DBModGroup> modgroups = await WcfServicesProxy.Instance.GetPizzaToppingsAsync();
@@ -290,7 +291,9 @@ namespace Zipline2.BusinessLogic.WcfRemote
         public static void LoadToppingsFromServer()
         {
             DataBaseDictionaries.PizzaToppingsDictionary = new Dictionary<decimal, DBModifier>();
+
             List<DBModGroup> modgroups = WcfServicesProxy.Instance.GetPizzaToppings();
+
             foreach (var modgroup in modgroups)
             {
                 foreach (var mod in modgroup.SelectionList)

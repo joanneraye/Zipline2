@@ -9,6 +9,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Zipline2.BusinessLogic;
 using Zipline2.BusinessLogic.WcfRemote;
+using Zipline2.Data;
 using Zipline2.Models;
 using Zipline2.PageModels;
 
@@ -20,11 +21,13 @@ namespace Zipline2.Pages
         #region Private Variables
         private int NumTablesSeated { get; set; }
         private TablesPageModel TablesPageModel;
+        private bool FirstTimeLoadMenu;
         #endregion
 
         #region Constructor
         public TablesPage()
         {
+            FirstTimeLoadMenu = true;
             TablesPageModel = new TablesPageModel();
             InitializeComponent();
             BindingContext = TablesPageModel;
@@ -63,8 +66,18 @@ namespace Zipline2.Pages
         {
         }
 
-        public void TakeoutButtonClicked(object sender, EventArgs e)
+
+
+        private async Task OnRefreshing(object sender, EventArgs e)
         {
+            try
+            {
+                await Task.Run(() => DataLoader.LoadTableDataAsync());
+            }
+            finally
+            {
+                ((ListView)sender).IsRefreshing = false;
+            }
         }
 
         protected override bool OnBackButtonPressed()
@@ -72,12 +85,44 @@ namespace Zipline2.Pages
             return true;
         }
 
-        protected override void OnAppearing()
+        protected async override void OnAppearing()
         {
             base.OnAppearing();
-            TablesPageModel.NavigateToDrinksPage += HandleNavigateToDrinksPage;
-            TablesPageModel.NavigateToOrderPage += HandleNavigateToOrderPage;
+            if (WcfServicesProxy.Instance.ServiceCallConfig != WcfServicesProxy.ServiceCallConfigType.AllServiceCallsOff)
+            {
+                TablesPageModel.NavigateToDrinksPage += HandleNavigateToDrinksPage;
+                TablesPageModel.NavigateToOrderPage += HandleNavigateToOrderPage;
+                TableList.IsEnabled = false;
+                TableList.IsRefreshing = true;
+                
+                if (FirstTimeLoadMenu)
+                {
+                    await DataBaseDictionaries.LoadToppingsFromServerAsync();
+                    //var toppingsTask = DataBaseDictionaries.LoadToppingsFromServerAsync();
+                    //var menuTask = WcfServicesProxy.Instance.GetMenuAsync();
+                    //await Task.WhenAll(toppingsTask, menuTask);
+                    FirstTimeLoadMenu = false;
+                }
+
+                var tablesServerTaskSuccess = await DataLoader.LoadTableDataAsync();
+                if (tablesServerTaskSuccess)
+                {
+                    TableList.IsRefreshing = false;
+                    TableList.IsEnabled = true;
+                }
+                
+                //Don't know how to get an exception from the above await.....
+                //if (exception != null)
+                //{
+                //    await DisplayAlert("Warning!", "Loading data from server encountered the exception: " + exception.InnerException.Message, "OK");
+                //}
+            }
         }
+
+        private void OnItemSelected()
+        {
+        }
+
         void HandleNavigateToDrinksPage(object sender, EventArgs e)
         {
             if (WcfServicesProxy.Instance.ServiceCallConfig == WcfServicesProxy.ServiceCallConfigType.AllServiceCallsOff)
@@ -112,7 +157,10 @@ namespace Zipline2.Pages
             base.OnDisappearing();
             TablesPageModel.NavigateToDrinksPage -= HandleNavigateToDrinksPage;
             TablesPageModel.NavigateToOrderPage -= HandleNavigateToOrderPage;
+
         }
+
+        
         #endregion
     }
 }
