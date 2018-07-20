@@ -13,33 +13,14 @@ using Zipline2.Data;
 
 namespace Zipline2.PageModels
 {
-    public class ToppingsPageModel : BasePageModel
+    public class PizzaToppingsPageModel : BasePageModel
     {
         //******************************NOTE IMBEDDED CLASS************************
         public class ToppingDisplayItem : BasePageModel
         {
-            #region Private Variables
-            private ToppingsPageModel parentToppingsPageModel;
-            private bool areWholeHalfColumnsVisible;
-            private bool listItemIsSelected;
-            private Color selectionColor;
-            #endregion
-
+            #region Whole Side A Side B fields/properties:
             
-            #region Command Variables
-            public System.Windows.Input.ICommand AButtonCommand { get; set; }
-            public System.Windows.Input.ICommand BButtonCommand { get; set; }
-            public System.Windows.Input.ICommand WButtonCommand { get; set; }
-            public ICommand ToppingSelectedCommand { get; set; }
-            #endregion
-
-            #region Properties
-            public Topping ListTopping { get; set; }
-
-           
-
-            public int SelectionIndex;
-
+            private bool areWholeHalfColumnsVisible;
             public bool AreWholeHalfColumnsVisible
             {
                 get
@@ -49,33 +30,6 @@ namespace Zipline2.PageModels
                 set
                 {
                     SetProperty(ref areWholeHalfColumnsVisible, value);
-                }
-            }
-
-            public bool ListItemIsSelected
-            {
-                get
-                {
-                    return listItemIsSelected;
-                }
-                set
-                {
-                    SetProperty(ref listItemIsSelected, value);
-                }
-            }
-
-            //NOTE:  Could not get this to populate based on ListItemIsSelected above
-            //and using converter like I did with ButtonASelected, etc.  Maybe it is because
-            //tapping the item is not connected to a Command in the ViewModel?
-            public Color SelectionColor
-            {
-                get
-                {
-                    return selectionColor;
-                }
-                set
-                {
-                    SetProperty(ref selectionColor, value);
                 }
             }
             private bool buttonWVisible;
@@ -128,11 +82,56 @@ namespace Zipline2.PageModels
                     SetProperty(ref buttonWSelected, value);
                 }
             }
+
+            public System.Windows.Input.ICommand AButtonCommand { get; set; }
+            public System.Windows.Input.ICommand BButtonCommand { get; set; }
+            public System.Windows.Input.ICommand WButtonCommand { get; set; }
+
+            #endregion
+
+            private PizzaToppingsPageModel parentToppingsPageModel;
+            private bool listItemIsSelected;
+            private Color selectionColor;
+         
+            public ICommand ToppingSelectedCommand { get; set; }
+
+            #region Properties
+            public Topping ListTopping { get; set; }
+
+            public int SelectionIndex;
+
           
+            public bool ListItemIsSelected
+            {
+                get
+                {
+                    return listItemIsSelected;
+                }
+                set
+                {
+                    SetProperty(ref listItemIsSelected, value);
+                }
+            }
+
+            //NOTE:  Could not get this to populate based on ListItemIsSelected above
+            //and using converter like I did with ButtonASelected, etc.  Maybe it is because
+            //tapping the item is not connected to a Command in the ViewModel?
+            public Color SelectionColor
+            {
+                get
+                {
+                    return selectionColor;
+                }
+                set
+                {
+                    SetProperty(ref selectionColor, value);
+                }
+            }
+           
             #endregion
 
             #region Constructor
-            public ToppingDisplayItem(ToppingsPageModel referenceToParentClass)
+            public ToppingDisplayItem(PizzaToppingsPageModel referenceToParentClass)
             {
                 parentToppingsPageModel = referenceToParentClass;
                 areWholeHalfColumnsVisible = true;
@@ -224,7 +223,7 @@ namespace Zipline2.PageModels
         #endregion
 
         #region Constructor
-        public ToppingsPageModel(Pizza currentPizza)
+        public PizzaToppingsPageModel(Pizza currentPizza)
         { 
             ThisPizza = currentPizza;
             string pizzaName = ThisPizza.ItemName;
@@ -248,7 +247,18 @@ namespace Zipline2.PageModels
                     continue;
                 }
                 var toppingSelection = new ToppingDisplayItem(this);
-                toppingSelection.ListTopping = toppingsList[i];
+
+                Topping newTopping = toppingsList[i];
+
+                //Initialize variable items in Topping object:
+                newTopping.ToppingDisplayName = DisplayNames.GetToppingDisplayName(newTopping.ToppingName);
+                newTopping.ToppingModifier = ToppingModifierType.None;
+                newTopping.ToppingWholeHalf = ToppingWholeHalf.Whole;
+                newTopping.SequenceSelected = 0;
+                newTopping.Count = 1;
+
+                toppingSelection.ListTopping = newTopping;
+
                 toppingSelection.SelectionIndex = toppingSelectionIndex;
                 toppingSelectionIndex++;
                 toppingSelection.ListItemIsSelected = false;
@@ -579,6 +589,7 @@ namespace Zipline2.PageModels
 
         private void OnAddPizzaToOrder()
         {
+            OrderManager.Instance.UpdateItemInProgress(ThisPizza);
             OrderManager.Instance.AddItemInProgressToOrder();
             OnNavigateToPizzaPage();
         }

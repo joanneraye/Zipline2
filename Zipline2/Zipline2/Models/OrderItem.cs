@@ -160,6 +160,7 @@ namespace Zipline2.Models
             return new OrderDisplayItem
             {
                 OrderItem = this,
+                OrderitemDisplayName = ItemName,
                 Toppings = string.Empty
             };
         }

@@ -72,7 +72,7 @@ namespace Zipline2.Pages
         {
             try
             {
-                await Task.Run(() => DataLoader.LoadTableDataAsync());
+                await Task.Run(() => DataBaseDictionaries.LoadTableDataAsync());
             }
             finally
             {
@@ -95,16 +95,17 @@ namespace Zipline2.Pages
                 TableList.IsEnabled = false;
                 TableList.IsRefreshing = true;
                 
-                if (FirstTimeLoadMenu)
-                {
-                    await DataBaseDictionaries.LoadToppingsFromServerAsync();
-                    //var toppingsTask = DataBaseDictionaries.LoadToppingsFromServerAsync();
-                    //var menuTask = WcfServicesProxy.Instance.GetMenuAsync();
-                    //await Task.WhenAll(toppingsTask, menuTask);
-                    FirstTimeLoadMenu = false;
-                }
+                //Moved to app.xaml.cs
+                //if (FirstTimeLoadMenu)
+                //{
+                //    await DataLoader.LoadToppingsFromFileOrServer();
+                //    //var toppingsTask = DataBaseDictionaries.LoadToppingsFromServerAsync();
+                //    //var menuTask = WcfServicesProxy.Instance.GetMenuAsync();
+                //    //await Task.WhenAll(toppingsTask, menuTask);
+                //    FirstTimeLoadMenu = false;
+                //}
 
-                var tablesServerTaskSuccess = await DataLoader.LoadTableDataAsync();
+                var tablesServerTaskSuccess = await DataBaseDictionaries.LoadTableDataAsync();
                 if (tablesServerTaskSuccess)
                 {
                     TableList.IsRefreshing = false;

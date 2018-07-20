@@ -21,7 +21,6 @@ namespace Zipline2.Pages
 		{
             SaladToppingsPageModel = new SaladToppingsPageModel(thisSalad);
             BindingContext = SaladToppingsPageModel;
-
             InitializeComponent();
             SaladToppingsPageModel.ToppingFooterPageModel = ToppingFooter.ToppingFooterPageModel;
             SaladToppingsListView.ItemSelected += SaladToppingsListView_ItemSelected;
@@ -40,8 +39,7 @@ namespace Zipline2.Pages
 
         private void SaladToppingsListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var letslookate = e;
-            return;
+            SaladToppingsListView.SelectedItem = null;
         }
 
         protected override void OnAppearing()

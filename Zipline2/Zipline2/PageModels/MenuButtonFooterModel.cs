@@ -25,6 +25,7 @@ namespace Zipline2.PageModels
             TablesCommand = new Command(OnTablesPage);
             AddToOrderCommand = new Command(OnAddToOrder);
             SendOrderCommand = new Command(OnSendOrder);
+            EditOrderCommand = new Command(OnEditOrder);
             AddToOrderButtonText = "Add To Order";
         }
         public static MenuButtonFooterModel Instance
@@ -53,6 +54,8 @@ namespace Zipline2.PageModels
         public ICommand TablesCommand { get; set; }
         public ICommand OrderPageCommand { get; set; }
         public ICommand SendOrderCommand { get; set; }
+
+        public ICommand EditOrderCommand { get; set; }
         private string addToOrderButtonText;
         public string AddToOrderButtonText
         {
@@ -239,6 +242,11 @@ namespace Zipline2.PageModels
             var currentMainPage = Application.Current.MainPage as MasterDetailPage;
             currentMainPage.Detail = new NavigationPage(new SaladsPage());
             Application.Current.MainPage = currentMainPage;
+        }
+
+        void OnEditOrder()
+        {
+
         }
 
 

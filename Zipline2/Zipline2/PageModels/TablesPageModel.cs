@@ -239,9 +239,11 @@ namespace Zipline2.PageModels
             {
                 Tables.AllTables[orderManager.CurrentTableIndex].OpenOrder = OrderManager.Instance.OrderInProgress;
             }
-            
-
+       
+            var watch = System.Diagnostics.Stopwatch.StartNew();
             List<DBTable> tables = await WcfServicesProxy.Instance.GetTableInfoAsync();
+            watch.Stop();
+
             foreach (var table in tables)
             {
                 bool hasUnsentItems = false;
@@ -327,50 +329,57 @@ namespace Zipline2.PageModels
         
         private async Task ProcessSelectedTableAsync(Table tableSelected)
         {
-            //TODO:  If there was an error loading these, then this will be an infinite loop.
-            //At some point need to display on Tables Page that there is a fatal error.
-            while (DataBaseDictionaries.MenuDictionary == null)
-            {
-                Thread.Sleep(500);
-            }
-
             tableSelected.IsOccupied = true;
             //Change what the app's current table is.
             OrderManager.Instance.UpdateCurrentTable(tableSelected);
 
-            //GetTableAsync doesn't work...?
+            var watch = System.Diagnostics.Stopwatch.StartNew();
             var dbTable = await WcfServicesProxy.Instance.GetTableAsync((int)tableSelected.TableId);
+            watch.Reset();
+
             //var dbTable = WcfServicesProxy.Instance.GetTable((int)tableSelected.TableId);
            
-                tableSelected.DatabaseTable = dbTable;
-                Tables.AllTables[tableSelected.IndexInAllTables] = tableSelected;
+            tableSelected.DatabaseTable = dbTable;
+            Tables.AllTables[tableSelected.IndexInAllTables] = tableSelected;
             if (dbTable.Guests != null)
             {
                 if (dbTable.Guests.Count > 0)
                 {
                     List<GuestItem> guestItems = new List<GuestItem>();
                     List<GuestComboItem> comboGuestItems = new List<GuestComboItem>();
-                    foreach (var guest in dbTable.Guests)
+
+                    decimal[] guestIds = new decimal[2];
+                    for (int i = 0; i < dbTable.Guests.Count; i++)
                     {
-                        guestItems.AddRange(guest.Items);
-                        comboGuestItems.AddRange(guest.ComboItems);
+                        if (i <= 1)
+                        {
+                            guestIds[i] = dbTable.Guests[i].ID;
+                        }
+                        guestItems.AddRange(dbTable.Guests[i].Items);
+                        comboGuestItems.AddRange(dbTable.Guests[i].ComboItems);
                     }
-                    if (guestItems.Count > 0)
+                   
+                    Order openOrder = null;
+                    if (guestItems.Count > 0 || comboGuestItems.Count > 0)
                     {
-                        Order openOrder = DataConversion.ConvertDbGuestsToOrder(guestItems, comboGuestItems, tableSelected.TableId, tableSelected.IndexInAllTables);
+                        openOrder = DataConversion.ConvertDbGuestsToOrder(guestIds, guestItems, comboGuestItems, tableSelected.TableId, tableSelected.IndexInAllTables);
                         OrderManager.Instance.OrderInProgress = openOrder;
                         if (!openOrder.AllItemsSent)
                         {
                             tableSelected.HasUnsentOrder = true;
                         }
-                        //used just during testing so that orders can be looked at without sending to server.
+                    }
+
+                    //used just during testing so that orders can be looked at without sending to server
+                    if (openOrder != null)
+                    {
                         Tables.AllTables[tableSelected.IndexInAllTables].OpenOrder = openOrder;
                         DisplayOrderPage();
                         return;
                     }
                 }
             }
-
+            watch.Stop();
             //used just during testing so that orders can be looked at without sending to server.
             //Only if no orders on server, see if OpenOrders for this table on this phone...
             var orderForThisTable = Tables.AllTables[tableSelected.IndexInAllTables].OpenOrder;

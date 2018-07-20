@@ -45,7 +45,7 @@ namespace Zipline2.Pages
         }
         async void HandleNavigateToToppingsPage(object sender, ToppingsPageEventArgs e)
         {
-            await Navigation.PushAsync(new ToppingsPage(e.CurrentPizza));
+            await Navigation.PushAsync(new PizzaToppingsPage(e.CurrentPizza));
         }
 
         //void HandleNavigateToPizzaPage(object sender, EventArgs e)

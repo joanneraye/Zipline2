@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms;
 using Zipline2.BusinessLogic;
 using Zipline2.BusinessLogic.Enums;
 using Zipline2.Data;
@@ -13,10 +14,13 @@ namespace Zipline2.Models
         public SaladSize SaladSizeForPricing { get; set; }
         public decimal SaladToppingPrice { get; set; }
 
-        public SaladToppings(SaladSize saladSizeForPricing)
+        public Salad ThisSalad { get; set; }
+
+        public SaladToppings(SaladSize saladSizeForPricing, Salad thisSalad)
         {
             SaladSizeForPricing = saladSizeForPricing;
             SaladToppingPrice = Prices.GetSaladToppingPrice(saladSizeForPricing);
+            ThisSalad = thisSalad;
         }
 
         protected override decimal GetCurrentToppingsCost()
@@ -34,6 +38,12 @@ namespace Zipline2.Models
                 }
             }
             return toppingsTotal;
+        }
+        public override void UpdateToppingsTotal()
+        {
+            base.UpdateToppingsTotal();
+            ThisSalad.PopulatePricePerItem();
+            //MessagingCenter.Send<SaladToppings>(this, "SaladToppingsTotalUpdated");
         }
     }
       

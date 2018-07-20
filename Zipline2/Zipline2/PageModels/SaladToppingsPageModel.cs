@@ -87,6 +87,8 @@ namespace Zipline2.PageModels
 
         private void OnAddSaladToOrder()
         {
+
+            OrderManager.Instance.UpdateItemInProgress(CurrentSalad);
             OrderManager.Instance.AddItemInProgressToOrder();
             OnNavigateToPizzaPage();
         }
@@ -109,7 +111,17 @@ namespace Zipline2.PageModels
                     continue;
                 }
                 var toppingSelection = new SaladToppingDisplayItem(this);
-                toppingSelection.SaladTopping = toppingsList[i];
+
+                Topping newTopping = toppingsList[i];
+                //Initialize variable items in Topping object:
+                newTopping.ToppingDisplayName = DisplayNames.GetToppingDisplayName(newTopping.ToppingName);
+                newTopping.ToppingModifier = ToppingModifierType.None;
+                newTopping.ToppingWholeHalf = ToppingWholeHalf.Whole;
+                newTopping.SequenceSelected = 0;
+                newTopping.Count = 1;
+
+                toppingSelection.SaladTopping = newTopping;
+
                 toppingSelection.SaladSelectionIndex = toppingSelectionIndex;
                 toppingSelectionIndex++;
                 toppingSelection.SaladToppingIsSelected = false;

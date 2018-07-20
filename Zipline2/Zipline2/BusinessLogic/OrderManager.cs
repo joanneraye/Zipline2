@@ -110,10 +110,19 @@ namespace Zipline2.BusinessLogic
         /// <param name="guiData"></param>
         public void AddItemInProgress(OrderItem partialItemNoToppingMods)
         {
-            OrderItemInProgress = OrderItemFactory.GetBaseOrderItem(partialItemNoToppingMods);
+            partialItemNoToppingMods.PopulateDisplayName();
+            partialItemNoToppingMods.PopulateBasePrice();
+            partialItemNoToppingMods.PopulatePricePerItem();
+            OrderItemInProgress = partialItemNoToppingMods;
+
         }
 
-       
+        public void UpdateItemInProgress(OrderItem itemWithToppings)
+        {
+            OrderItemInProgress = itemWithToppings;
+        }
+
+
 
         public async Task AddItemsToOrderAsync(List<OrderItem> itemsToAdd)
         { 

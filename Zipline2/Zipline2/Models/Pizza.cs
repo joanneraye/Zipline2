@@ -65,8 +65,8 @@ namespace Zipline2.Models
         #region Constructor
         public Pizza()
         {
-            MessagingCenter.Subscribe<Toppings>(this, "ToppingsTotalUpdated",
-             (sender) => { this.PopulatePricePerItem(); });
+            //MessagingCenter.Subscribe<PizzaToppings>(this, "PizzaToppingsTotalUpdated",
+            // (sender) => { this.PopulatePricePerItem(); });
         }
 
 
@@ -332,9 +332,17 @@ namespace Zipline2.Models
             bool halfBTitlePrinted = false;
             for (int i = 0; i < Toppings.CurrentToppings.Count; i++)
             {
-                if (i > 0 && Toppings.CurrentToppings[i].ToppingWholeHalf == ToppingWholeHalf.Whole)
+                if (PizzaType == PizzaType.LunchSpecialSlice)
                 {
-                    toppingsString.Append(", ");
+                    toppingsString.Append("   ");
+                }
+                if (i == 0)
+                {
+                    toppingsString.Append("   ");
+                }
+                else if (i > 0 && Toppings.CurrentToppings[i].ToppingWholeHalf == ToppingWholeHalf.Whole)
+                {
+                    toppingsString.Append("\n   ");
                 }
                 if (Toppings.CurrentToppings[i].ToppingWholeHalf == ToppingWholeHalf.HalfA)
                 {
@@ -342,14 +350,14 @@ namespace Zipline2.Models
                     {
                         if (wholeToppingsList.Count > 0)
                         {
-                            toppingsString.Append("\n");
+                            toppingsString.Append("\n   ");
                         }
-                        toppingsString.Append("HALF A: \n   ");
+                        toppingsString.Append("HALF A: \n      ");
                         halfATitlePrinted = true;
                     }
                     else
                     {
-                        toppingsString.Append("\n   ");
+                        toppingsString.Append("\n      ");
                     }
                     
 
@@ -360,14 +368,14 @@ namespace Zipline2.Models
                     {
                         if (wholeToppingsList.Count > 0 || halfAToppings.Count > 0)
                         {
-                            toppingsString.Append("\n");
+                            toppingsString.Append("\n   ");
                         }
-                        toppingsString.Append("HALF B: \n   ");
+                        toppingsString.Append("HALF B: \n      ");
                         halfBTitlePrinted = true;
                     }
                     else
                     {
-                        toppingsString.Append("\n   ");
+                        toppingsString.Append("\n      ");
                     }
                 }
                 toppingsString.Append(Toppings.CurrentToppings[i].ToppingDisplayName);            
@@ -506,8 +514,8 @@ namespace Zipline2.Models
                 {
                     decimal lunchDiscount = Prices.GetLunchSpecialDiscount();
                     ItemName = "Lunch Special Pizza Slice";
-                    Toppings.ToppingsTotal -= lunchDiscount;
                     Toppings.ToppingsDiscount = lunchDiscount;
+                    Toppings.UpdateToppingsTotal();
                 }
             }
             else

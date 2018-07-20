@@ -19,8 +19,6 @@ namespace Zipline2.Models
     [Table("order")]
     public class Order : BasePageModel
     {
-        private int SpecialSaladCount;
-        private int SliceCount;
         public int OrderNumberId { get; set; }
 
         private List<OrderItem> orderItems;
@@ -66,8 +64,6 @@ namespace Zipline2.Models
         public Order(decimal tableId, int tableIndex)
         {
             OrderItems = new List<OrderItem>();
-            SliceCount = 0;
-            SpecialSaladCount = 0;
             IsTakeout = false;
             TableId = tableId;
             TableIndexInAllTables = tableIndex;
@@ -131,6 +127,8 @@ namespace Zipline2.Models
                         addItemToOrder = false;
                     }
                 }
+
+
 
                 if (addItemToOrder)
                 {

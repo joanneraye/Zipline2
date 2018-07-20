@@ -14,7 +14,7 @@
                 <Setter Property="BackgroundColor" Value="Black" />
                 <Setter Property="HorizontalOptions" Value="FillAndExpand" />
                 <Setter Property="FontSize" Value="Micro" />
-                <Setter Property="WidthRequest" Value="50" />
+                <Setter Property="Margin" Value="0" />
             </Style>
         </ResourceDictionary>
     </ContentView.Resources>
@@ -24,11 +24,13 @@
            
             <StackLayout Orientation="Horizontal"
                          HorizontalOptions="Center"
-                            BackgroundColor="Black">
+                         BackgroundColor="Black"
+                         Spacing="0">
                     <Button Text="NO"
                             Command="{Binding NoToppingCommand}"
                             Style="{StaticResource footerToppingMenu}"
                             TextColor="White"
+                             WidthRequest="48"
                             BackgroundColor="Black">
                         <Button.Triggers>
                             <DataTrigger TargetType="Button" 
@@ -42,6 +44,7 @@
                         Command="{Binding OnSideToppingCommand}"
                         Style="{StaticResource footerToppingMenu}"
                              TextColor="White"
+                            WidthRequest="53"
                             BackgroundColor="Black">
                         <Button.Triggers>
                             <DataTrigger TargetType="Button" 
@@ -55,7 +58,7 @@
                         Command="{Binding LiteToppingCommand}"
                         Style="{StaticResource footerToppingMenu}"
                              TextColor="White"
-                            WidthRequest="55"
+                            WidthRequest="58"
                             BackgroundColor="Black">
                         <Button.Triggers>
                             <DataTrigger TargetType="Button" 
@@ -69,7 +72,7 @@
                         Command="{Binding ExtraToppingCommand}"
                         Style="{StaticResource footerToppingMenu}"
                              TextColor="White"
-                            WidthRequest="65"
+                            WidthRequest="80"
                             BackgroundColor="Black">
                         <Button.Triggers>
                             <DataTrigger TargetType="Button" 

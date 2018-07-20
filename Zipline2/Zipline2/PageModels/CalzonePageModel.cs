@@ -19,7 +19,7 @@ namespace Zipline2.PageModels
         public ICommand AddCalzoneSteakAndCheeseCommand { get; set; }
         public ICommand AddCalzoneMajorCommand { get; set; }
 
-        public event EventHandler<SaladToppingsPageEventArgs> NavigateToSaladToppingsPage;
+        public event EventHandler<CalzoneToppingsPageEventArgs> NavigateToCalzoneToppingsPage;
 
         public CalzonePageModel()
         {
@@ -77,16 +77,16 @@ namespace Zipline2.PageModels
 
         private void AddCalzoneToOrder(Calzone thisCalzone)
         {
-            //thisSalad.ItemCount = 1;
-            //OrderManager.Instance.AddItemInProgress(thisSalad);
-            //DisplaySaladToppingsPage(thisSalad);
+            thisCalzone.ItemCount = 1;
+            OrderManager.Instance.AddItemInProgress(thisCalzone);
+            DisplayCalzoneToppingsPage(thisCalzone);
         }
 
-        //private void DisplaySaladToppingsPage(Salad thisSalad)
-        //{
-        //    MenuHeaderModel.Instance.ItemTotal = thisSalad.PricePerItemIncludingToppings;
-        //    NavigateToSaladToppingsPage?.Invoke(this, new SaladToppingsPageEventArgs(thisSalad));
-        //}
+        private void DisplayCalzoneToppingsPage(Calzone thisCalzone)
+        {
+            MenuHeaderModel.Instance.ItemTotal = thisCalzone.PricePerItemIncludingToppings;
+            NavigateToCalzoneToppingsPage?.Invoke(this, new CalzoneToppingsPageEventArgs(thisCalzone));
+        }
 
     }
 }

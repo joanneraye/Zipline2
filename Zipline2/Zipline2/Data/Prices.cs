@@ -249,6 +249,7 @@ namespace Zipline2.Data
         private static Dictionary<PizzaType, decimal[]> ToppingsPriceDictionary = new Dictionary<PizzaType, decimal[]>
         {
             { PizzaType.ThinSlice, PizzaSliceToppingsPrices },
+            { PizzaType.LunchSpecialSlice, PizzaSliceToppingsPrices },
             { PizzaType.PanSlice, PizzaSliceToppingsPrices },
             { PizzaType.Medium, PizzaMediumToppingsPrices },
             { PizzaType.Large, PizzaLargeToppingsPrices },

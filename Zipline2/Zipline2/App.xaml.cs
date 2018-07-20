@@ -29,13 +29,18 @@ namespace Zipline2
             //Users.Instance.AddNewUser(joanne);
             //Users.Instance.AddNewUser(satch);
             //Users.Instance.AddNewUser(jim);
-            var watch = System.Diagnostics.Stopwatch.StartNew();
+            //var watch = System.Diagnostics.Stopwatch.StartNew();
             //The following 4 statements take about a half a second (total).
             Zipline2.Data.Tables.LoadInitialTableData();
             Zipline2.Data.MenuFood.LoadInitialPizzaToppings();
             Zipline2.Data.MenuFood.LoadInitialSaladToppings();
             Zipline2.Data.MenuDrinks.CreateAllDrinks();
-            Task.Run(() => WcfServicesProxy.Instance.GetMenu());
+
+            DataLoader.LoadMenuFromFileOrServer();
+            DataLoader.LoadToppingsFromFileOrServer();
+            
+            
+            //Task.Run(() => WcfServicesProxy.Instance.GetMenu());
             //watch.Stop();
             //Console.WriteLine("Time to load data from memory is " + watch.ElapsedMilliseconds.ToString());
             //Moved to OnAppearing method TablesPage.

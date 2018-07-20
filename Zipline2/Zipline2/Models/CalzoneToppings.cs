@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Zipline2.Data;
 using Zipline2.BusinessLogic.Enums;
+using Xamarin.Forms;
 
 namespace Zipline2.Models
 {
@@ -25,6 +26,8 @@ namespace Zipline2.Models
             {
                 ToppingsTotal = 0;
             }
+            ThisCalzone.PopulatePricePerItem();
+            //MessagingCenter.Send<CalzoneToppings>(this, "CalzoneToppingsTotalUpdated");
         }
 
         protected override decimal GetCurrentToppingsCost()

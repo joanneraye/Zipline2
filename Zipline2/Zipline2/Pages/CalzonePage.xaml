@@ -11,7 +11,7 @@
             <Style x:Key="CalzoneSelectionButtons" TargetType="Button">
                 <Setter Property="TextColor" Value="Black" />
                 <Setter Property="FontSize" Value="Micro" />
-                <Setter Property="HeightRequest" Value="35" />
+                <Setter Property="HeightRequest" Value="40" />
                 <Setter Property="BackgroundColor" Value="Orange" />
                 <Setter Property="BorderColor" Value="White" />
                 <Setter Property="BorderRadius" Value="1" />
@@ -21,7 +21,7 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <StackLayout Padding="10,10" Orientation="Vertical" HorizontalOptions="Center" Spacing="10">
+        <StackLayout Padding="10,10" Orientation="Vertical" HorizontalOptions="Center" Spacing="5">
 
             <Button Text="Calzone (Ricotta &amp; Mozarella)"
                         Command="{Binding AddCalzoneCommand}"

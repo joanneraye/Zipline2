@@ -25,8 +25,7 @@ namespace Zipline2.Models
             }
             set
             {
-                toppingsTotal = value;
-                MessagingCenter.Send<Toppings>(this, "ToppingsTotalUpdated");
+                toppingsTotal = value;                
             }
         }
         
@@ -58,11 +57,20 @@ namespace Zipline2.Models
         /// </summary>
         public virtual void UpdateToppingsTotal()
         {
-            ToppingsTotal = GetCurrentToppingsCost();
-            if (ToppingsTotal < 0)
+            try
             {
-                ToppingsTotal = 0;
+                ToppingsTotal = GetCurrentToppingsCost();
+                if (ToppingsTotal < 0)
+                {
+                    ToppingsTotal = 0;
+                }
             }
+            catch (Exception ex)
+            {
+                var whatsthis = ex.InnerException;
+                throw;
+            }
+           
         }
         
             
@@ -80,7 +88,7 @@ namespace Zipline2.Models
 
         public void AddTopping(Topping toppingToAdd, bool calculateTotal = true)
         {
-            CurrentToppings.Add(toppingToAdd);
+            CurrentToppings.Add(toppingToAdd.GetClone());
             if (calculateTotal)
             {
                 UpdateToppingsTotal();

@@ -125,7 +125,7 @@ namespace Zipline2.Models
             Count = 1;
             ForPizza = true;
             ForSalad = false;
-            ForCalzone = false;
+            ForCalzone = true;
             ForTakeout = false;
             if (toppingWholeHalf != ToppingWholeHalf.Whole)
             {

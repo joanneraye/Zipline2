@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:Zipline2.Pages;assembly=Zipline2.Pages"
              xmlns:views="clr-namespace:Zipline2.Views"
              xmlns:converters="clr-namespace:Zipline2.Converters"
-             x:Class="Zipline2.Pages.ToppingsPage">
+             x:Class="Zipline2.Pages.PizzaToppingsPage">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:SelectedItemColorConverter x:Key="selectedItemBackgroundConverter"/>
@@ -81,10 +81,11 @@
                      WidthRequest="50"
                      Color="White"/>
             <ListView ItemsSource="{Binding ToppingSelectionsList, Mode=TwoWay}"
-                      SelectedItem="{Binding ToppingDisplayItem}"
                       CachingStrategy="RecycleElementAndDataTemplate"
                       x:Name="ToppingsListView"
                       SeparatorVisibility="None"
+                      Margin="0"
+                      HasUnevenRows="True"
                       BackgroundColor="Black">
                 <ListView.ItemTemplate>
                 <DataTemplate>

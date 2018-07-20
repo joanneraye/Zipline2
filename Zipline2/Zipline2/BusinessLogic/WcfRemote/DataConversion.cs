@@ -220,6 +220,47 @@ namespace Zipline2.BusinessLogic.WcfRemote
             return pizza;
         }
 
+        public static Calzone GetCalzone(GuestItem dbGuestItem)
+        {
+            var calzone = new Calzone();
+            switch (dbGuestItem.ID)
+            {
+                case 51:
+                    calzone.CalzoneType = CalzoneType.RicottaMozarella;
+                    break;
+                case 52:
+                    calzone.CalzoneType = CalzoneType.HotRope;
+                    break;
+                case 53:
+                    calzone.CalzoneType = CalzoneType.PBJ;
+                    break;
+                case 54:
+                    calzone.CalzoneType = CalzoneType.SteakAndCheese;
+                    break;
+                case 56:
+                    calzone.CalzoneType = CalzoneType.Major;
+                    calzone.MajorMamaInfo = MajorOrMama.Major;
+                    calzone.Toppings.AddMajorToppings();
+                    break;
+                default:
+                    Console.WriteLine("***Debug JOANNE***calzone TYPE FROM SERVER NOT FOUND FOR GuestItem ID " + dbGuestItem.ID);
+                    break;
+
+            }
+            if (dbGuestItem.Mods.Count > 0)
+            {
+                GetCalzoneToppings(dbGuestItem, ref calzone);
+            }
+            calzone.PopulateBasePrice();
+            calzone.PopulateDisplayName();
+            calzone.PopulatePricePerItem();
+            calzone.DbItemId = dbGuestItem.ID;
+            calzone.WasSentToKitchen = dbGuestItem.OrderSent;
+            calzone.DbOrderId = (int)dbGuestItem.OrderID;
+            calzone.ItemCount = 1;
+            return calzone;
+        }
+
         private static void GetSaladToppings(GuestItem oldGuestItem, ref Salad salad)
         {
             foreach (GuestModifier mod in oldGuestItem.Mods)
@@ -242,7 +283,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
                     {
                         newTopping.ToppingModifier = ToppingModifierType.LightTopping;
                     }
-                    else if (mod.State == "" || (mod.State == "Plus" && mod.Count > 1))
+                    else if (mod.State == "" || (mod.State == "Plus" && mod.Count > 0))
                     {
                         newTopping.ToppingModifier = ToppingModifierType.ExtraTopping;
                         newTopping.Count = (int)mod.Count;
@@ -339,26 +380,25 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
                     if (mod.State == "No")
                     {
+                        newTopping.ToppingModifier = ToppingModifierType.NoTopping;
+                        addThisModAsTopping = true;
+
                         if (pizza.MajorMamaInfo == MajorOrMama.Major)
                         {
                             if (wholeOrHalf == ToppingWholeHalf.Whole)
                             {
                                 pizza.Toppings.RemoveTopping(newTopping.ToppingName);
-                                addThisModAsTopping = false;
                             }
                             else
                             {
                                 pizza.Toppings.ChangeToppingToHalf(newTopping.ToppingName, halfOpposite);
-                                addThisModAsTopping = false;
                             }
                         }
                         else 
                         {
-                            newTopping.ToppingModifier = ToppingModifierType.NoTopping;
                             //Try to remove topping just in case it is there, but will probably
                             //be something like no cheese.
                             pizza.Toppings.RemoveTopping(newTopping.ToppingName);
-                            addThisModAsTopping = true;
                         }
                     }
                 }
@@ -396,8 +436,80 @@ namespace Zipline2.BusinessLogic.WcfRemote
             
             pizza.Toppings.UpdateToppingsTotal();
         }
+        private static void GetCalzoneToppings(GuestItem oldGuestItem, ref Calzone calzone)
+        {
+            foreach (GuestModifier mod in oldGuestItem.Mods)
+            {
+                bool addThisModAsTopping = true;
+                Topping newTopping = new Topping(ToppingName.Unknown);
+                if (DataBaseDictionaries.DbIdToppingDictionary.ContainsKey(mod.ID))
+                {
+                    var ToppingName = DataBaseDictionaries.DbIdToppingDictionary[mod.ID];
+                    if (MenuFood.PizzaToppings.ContainsKey(ToppingName))
+                    {
+                        newTopping = MenuFood.PizzaToppings[ToppingName].GetClone();
+                    }
+                    else
+                    {
+                        addThisModAsTopping = false;
+                        Console.WriteLine("***Debug JOANNE***TOPPINGS DICTIONARY DOES NOT CONTAIN: " + ToppingName);
+                        continue;
+                    }
+                   
+                    if (mod.State == "Lite")
+                    {
+                        newTopping.ToppingModifier = ToppingModifierType.LightTopping;
+                    }
+                    else if (mod.State == "" || (mod.State == "Plus" && mod.Count > 1))
+                    {
+                        newTopping.ToppingModifier = ToppingModifierType.ExtraTopping;
+                        newTopping.Count = (int)mod.Count;
+                    }
+                    else if (mod.State == "Plus" && mod.Name.ToUpper() == "NO CHEESE")
+                    {
+                        newTopping.ToppingModifier = ToppingModifierType.NoTopping;
+                        addThisModAsTopping = true;
+                    }
+                    else if (mod.State == "Side")
+                    {
+                        newTopping.ToppingModifier = ToppingModifierType.ToppingOnSide;
+                    }
 
-        
+                    if (mod.State == "No")
+                    {
+                        if (calzone.MajorMamaInfo == MajorOrMama.Major)
+                        {
+                            newTopping.ToppingModifier = ToppingModifierType.NoTopping;
+                            calzone.Toppings.RemoveTopping(newTopping.ToppingName);
+                            addThisModAsTopping = true;
+                        }
+                        else
+                        {
+                            newTopping.ToppingModifier = ToppingModifierType.NoTopping;
+                            //Try to remove topping just in case it is there, but will probably
+                            //be something like no cheese.
+                            calzone.Toppings.RemoveTopping(newTopping.ToppingName);
+                            addThisModAsTopping = true;
+                        }
+                    }
+                }
+                else
+                {
+                    addThisModAsTopping = false;
+                    Console.WriteLine("***Debug JOANNE***TOPPINGS DICTIONARY ITEM NOT FOUND: " + mod.Name + mod.ID);
+                }
+
+             
+                if (addThisModAsTopping)
+                {
+                    calzone.Toppings.AddTopping(newTopping, false);
+                }
+            }
+
+            calzone.Toppings.UpdateToppingsTotal();
+        }
+
+
         public static Table ConvertDbTableToTable(DBTable dbTable)
         {
             return new Table
@@ -408,12 +520,13 @@ namespace Zipline2.BusinessLogic.WcfRemote
             };
         }
 
-        internal static Order ConvertDbGuestsToOrder(List<GuestItem> guestItems, List<GuestComboItem> guestComboItems, decimal tableId, int tableIndex)
+        internal static Order ConvertDbGuestsToOrder(decimal[] guestIds, List<GuestItem> guestItems, List<GuestComboItem> guestComboItems, decimal tableId, int tableIndex)
         {
             var openOrder = new Order(tableId, tableIndex)
             {
                 IsTakeout = false,
-                AllItemsSent = true
+                AllItemsSent = true,
+                GuestIds = guestIds
             };
             foreach (var guestItem in guestItems)
             {
@@ -438,14 +551,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
                         }
                         openOrder.AddItemToOrder(lunchSpecialItem);
                     }
-                }
-
-                if (guestItems.Count > 1)
-                {
-                    openOrder.GuestIds[0] = guestItems[0].ID;
-                }
-               
-                openOrder.GuestIds[1] = guestItems[1].ID;
+                }                
             }
 
             return openOrder;
@@ -459,8 +565,9 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 case 1:
                     thisOrderItem = GetPizza(oldGuestItem);
                     break;
-                //case 2:
-                //    break;
+                case 2:
+                    thisOrderItem = GetCalzone(oldGuestItem);
+                    break;
                 case 3:
                     thisOrderItem = GetSalad(oldGuestItem);
                     break;
@@ -470,7 +577,9 @@ namespace Zipline2.BusinessLogic.WcfRemote
                     //case 5:
                     //    //Create Dessert
                     //    break;
-                    //TODO:  Others????
+                    //case 6:  Merch
+                    //case 7:  Sides
+                    //case 8:  Variable??
             }
 
             return thisOrderItem;

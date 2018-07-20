@@ -19,6 +19,18 @@ namespace Zipline2.PageModels
                 SetProperty(ref orderItem, value);
             }
         }
+        private string orderItemDisplayName;
+        public string OrderitemDisplayName
+        {
+            get
+            {
+                return orderItemDisplayName;
+            }
+            set
+            {
+                SetProperty(ref orderItemDisplayName, value);
+            }
+        }
 
         private string toppings;
         public string Toppings

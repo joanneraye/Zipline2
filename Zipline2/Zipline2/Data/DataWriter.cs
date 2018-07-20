@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Staunch.POS.Classes;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,9 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Zipline2.BusinessLogic;
 using Zipline2.BusinessLogic.Enums;
+using Zipline2.BusinessLogic.WcfRemote;
 using Zipline2.Data;
 
-namespace Zipline2.DataReadWrite
+namespace Zipline2.Data
 {
     class DataWriter
     {
@@ -17,10 +19,13 @@ namespace Zipline2.DataReadWrite
         #region Singleton
         private static DataWriter instance = null;
         private static readonly object padlock = new object();
+        string WriteFilePath { get; set; }
         private DataWriter()
         {
-            CreateMenu();
-            WriteMenuToJsonFile("menu.json");
+            WriteFilePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+
+            //CreateMenu();
+            //WriteMenuToJsonFile("menu.json");
         }
         public static DataWriter Instance
         {
@@ -37,7 +42,7 @@ namespace Zipline2.DataReadWrite
             }
         }
         #endregion
-      
+        
         public void CreateMenu()
         {
             Menu = new List<MenuRecord>();
@@ -76,10 +81,12 @@ namespace Zipline2.DataReadWrite
             }
         }
 
+        
+
         public void WriteMenuToJsonFile(string fileName)
         {
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            var pathWithFileName = Path.Combine(path, fileName);
+            
+            var pathWithFileName = Path.Combine(WriteFilePath, fileName);
             File.WriteAllText(pathWithFileName, JsonConvert.SerializeObject(Menu));            
         }
 

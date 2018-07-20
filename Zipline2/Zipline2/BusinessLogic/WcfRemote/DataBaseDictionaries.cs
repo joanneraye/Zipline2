@@ -178,21 +178,27 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 { ToppingName.Carrots, 40 },
                  { ToppingName.Cheese, 105 },
                    { ToppingName.CrispyCook, 53 },
+                { ToppingName.Cucumbers, 54 },
                  { ToppingName.Deep, 90 },
                 { ToppingName.DAIYA, 61 },
+                { ToppingName.DressingOnSide, 64 },
                 { ToppingName.ExtraCheese, 11 },
+                { ToppingName.ExtraDressingOnSide, 65 },
                 { ToppingName.ExtraMozarellaCalzone, 149 },
                 { ToppingName.ExtraPSauceOP, 16 },
                 { ToppingName.ExtraPSauceOS, 1 },
                 { ToppingName.ExtraRicottaCalzone, 148 },
                 { ToppingName.Feta, 15 },
+                { ToppingName.FiftyCentsUpcharge, 102 },
                 { ToppingName.Garlic, 47 },
+                { ToppingName.GlutenFreeIndyOnly, 155 },
                 { ToppingName.GreenOlives, 26 },
                 { ToppingName.GreenPeppers, 13 },
                  { ToppingName.Lettuce, 9 },
                 { ToppingName.HalfMajor, 151 },
                 { ToppingName.Ham, 14 },
                 { ToppingName.Jalapenos, 38 },
+                  { ToppingName.Joiner, 100 },
                   { ToppingName.KidCook, 110 },
                  { ToppingName.LightCook, 52  },
                  { ToppingName.LightSauce, 94 },
@@ -202,11 +208,17 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 { ToppingName.Meatballs, 20 },
                 { ToppingName.Mushrooms, 132 },
                 { ToppingName.NoButter, 76 },
-                { ToppingName.NoSauce, 93 },
-                 { ToppingName.NoRicotta, 108 },
-                { ToppingName.NoMozarella, 109 },
                 { ToppingName.NoCheese, 103 },
+                   { ToppingName.NoCut, 124 },
+                { ToppingName.NoDressing, 99 },
+                 { ToppingName.NoMozarella, 109 },
+                { ToppingName.NoNutsNoSeeds, 146 },
+                 { ToppingName.NoNutsSeedsOk, 135 },
+                 { ToppingName.NoRicotta, 108 },
+                  { ToppingName.NoSauce, 93 },
                 { ToppingName.Onion, 44 },
+                   { ToppingName.OutFirst, 96 },
+                 { ToppingName.PecansWalnuts, 139 },
                 { ToppingName.PestoTopping, 67 },
                 { ToppingName.Pepperoni, 12 },
                 { ToppingName.Pineapple, 39 },
@@ -215,6 +227,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 { ToppingName.RicottaCalzone, 82 },
                 { ToppingName.RoastedRedPepper, 29 },
                     { ToppingName.SaladWithOrder, 107 },
+                     { ToppingName.Seeds, 55 },
                 { ToppingName.SliceCutInHalfSamePlate, 97 },
                 { ToppingName.SliceCutInHalfSepPlate, 98 },
                 { ToppingName.TakeoutBring2Table, 126 },
@@ -227,15 +240,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 { ToppingName.TempehBBQ, 37 },
                 { ToppingName.TempehOriginal, 36 },
                 { ToppingName.Tomatoes, 28 },
+                 { ToppingName.WithOrder, 70 },
                 { ToppingName.Zucchini, 33 },
-              
-               
-                { ToppingName.Joiner, 100 },
-                { ToppingName.NoCut, 124 },
-                { ToppingName.OutFirst, 96 },
-                
-               
-                { ToppingName.GlutenFreeIndyOnly, 155 }
             };
         }
 
@@ -251,6 +257,94 @@ namespace Zipline2.BusinessLogic.WcfRemote
             }
         }
 
+        public static async Task<bool> LoadTableDataAsync()
+        {
+            DbTablesDictionary = new Dictionary<decimal, DBTable>();
+
+            var orderManager = OrderManager.Instance;
+
+            if (orderManager.OrderInProgress != null && orderManager.OrderInProgress.OrderItems.Count > 0)
+            {
+                Tables.AllTables[orderManager.CurrentTableIndex].OpenOrder = OrderManager.Instance.OrderInProgress;
+            }
+
+            DbTablesDictionary = new Dictionary<decimal, DBTable>();
+            List<DBTable> tables = new List<DBTable>();
+
+            //TODO:  Need to catch exceptions from the following await.  I can do a try catch, but 
+            //how do I pass the error back in the Task?
+            tables = await WcfServicesProxy.Instance.GetTableInfoAsync();
+
+            foreach (var table in tables)
+            {
+                DbTablesDictionary.Add(table.ID, table);
+                bool hasUnsentItems = false;
+                bool tableOccupied = false;
+                int indexInAllTables = 0;
+                if (DataBaseDictionaries.TableIdAllTablesIndexDictionary.ContainsKey(table.ID))
+                {
+                    indexInAllTables = DataBaseDictionaries.TableIdAllTablesIndexDictionary[table.ID];
+                }
+                else
+                {
+                    Console.WriteLine("***Debug JOANNE***TABLE NOT FOUND FOR TABLE ID: " + table.ID);
+                }
+                var thisTable = Tables.AllTables[indexInAllTables];
+                if (!table.IsClear)
+                {
+                    tableOccupied = true;
+                }
+                foreach (var guest in table.Guests)
+                {
+                    if (guest.Items.Count > 0 || guest.ComboItems.Count > 0)
+                    {
+                        foreach (var item in guest.Items)
+                        {
+                            if (!item.OrderSent)
+                            {
+                                hasUnsentItems = true;
+                            }
+                        }
+                        if (!hasUnsentItems)
+                        {
+                            foreach (var comboitem in guest.ComboItems)
+                            {
+                                foreach (var guestitem in comboitem.ComboGuestItems)
+                                    if (!guestitem.OrderSent)
+                                    {
+                                        hasUnsentItems = true;
+                                    }
+                            }
+                        }
+                    }
+                    //no items from server so use local table saved if one exists.
+                    else if (thisTable.OpenOrder != null)
+                    {
+                        if (thisTable.OpenOrder.OrderItems.Count > 0)
+                        {
+                            tableOccupied = true;
+                        }
+                        if (!thisTable.OpenOrder.AllItemsSent)
+                        {
+                            hasUnsentItems = true;
+                        }
+                    }
+                }
+
+
+                if (tableOccupied)
+                {
+                    Tables.AllTables[indexInAllTables].IsOccupied = tableOccupied;
+
+                    if (hasUnsentItems)
+                    {
+                        Tables.AllTables[indexInAllTables].HasUnsentOrder = hasUnsentItems;
+                    }
+                }
+            }
+            return true;
+        }
+
         async public static Task LoadToppingsFromServerAsync()
         {
             PizzaToppingsDictionary = new Dictionary<decimal, DBModifier>();
@@ -259,10 +353,10 @@ namespace Zipline2.BusinessLogic.WcfRemote
             {
                 foreach (var mod in modgroup.SelectionList)
                 {
-                    if (!DataBaseDictionaries.PizzaToppingsDictionary.ContainsKey(mod.ID))
+                    if (!PizzaToppingsDictionary.ContainsKey(mod.ID))
                     {
-                        DataBaseDictionaries.PizzaToppingsDictionary.Add(mod.ID, mod);
-                        if (!DataBaseDictionaries.DbIdToppingDictionary.ContainsKey(mod.ID) && mod.ID != 50 && mod.ID != 51)
+                        PizzaToppingsDictionary.Add(mod.ID, mod);
+                        if (!DbIdToppingDictionary.ContainsKey(mod.ID) && mod.ID != 50 && mod.ID != 51)
                         {
                             Console.WriteLine("***Debug JOANNE***TOPPINGS DICTIONARY ITEM NOT FOUND: " + mod.Name + mod.ID);
                         }
@@ -270,15 +364,15 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 }
             }
 
-            DataBaseDictionaries.SaladToppingsDictionary = new Dictionary<decimal, DBModifier>();
+            SaladToppingsDictionary = new Dictionary<decimal, DBModifier>();
             List<DBModGroup> modgroups2 = await WcfServicesProxy.Instance.GetSaladToppingsAsync();
             foreach (var modgroup in modgroups2)
             {
                 foreach (var mod in modgroup.SelectionList)
                 {
-                    if (!DataBaseDictionaries.SaladToppingsDictionary.ContainsKey(mod.ID))
+                    if (!SaladToppingsDictionary.ContainsKey(mod.ID))
                     {
-                        DataBaseDictionaries.SaladToppingsDictionary.Add(mod.ID, mod);
+                        SaladToppingsDictionary.Add(mod.ID, mod);
                         //if (!DataBaseDictionaries.DbIdToppingDictionary.ContainsKey(mod.ID) && mod.ID != 50 && mod.ID != 51)
                         //{
                         //    Console.WriteLine("***Debug JOANNE***TOPPINGS DICTIONARY ITEM NOT FOUND: " + mod.Name + mod.ID);
@@ -288,9 +382,10 @@ namespace Zipline2.BusinessLogic.WcfRemote
             }
         }
 
-        public static void LoadToppingsFromServer()
+        
+        public static void LoadPizzaToppingsFromServer()
         {
-            DataBaseDictionaries.PizzaToppingsDictionary = new Dictionary<decimal, DBModifier>();
+            PizzaToppingsDictionary = new Dictionary<decimal, DBModifier>();
 
             List<DBModGroup> modgroups = WcfServicesProxy.Instance.GetPizzaToppings();
 
@@ -298,26 +393,29 @@ namespace Zipline2.BusinessLogic.WcfRemote
             {
                 foreach (var mod in modgroup.SelectionList)
                 {
-                    if (!DataBaseDictionaries.PizzaToppingsDictionary.ContainsKey(mod.ID))
+                    if (!PizzaToppingsDictionary.ContainsKey(mod.ID))
                     {
-                        DataBaseDictionaries.PizzaToppingsDictionary.Add(mod.ID, mod);
-                        if (!DataBaseDictionaries.DbIdToppingDictionary.ContainsKey(mod.ID) && mod.ID != 50 && mod.ID != 51)
+                        PizzaToppingsDictionary.Add(mod.ID, mod);
+                        if (!DbIdToppingDictionary.ContainsKey(mod.ID) && mod.ID != 50 && mod.ID != 51)
                         {
                             Console.WriteLine("***Debug JOANNE***TOPPINGS DICTIONARY ITEM NOT FOUND: " + mod.Name + mod.ID);
                         }
                     }
                 }
             }
+        }
 
-            DataBaseDictionaries.SaladToppingsDictionary = new Dictionary<decimal, DBModifier>();
+        public static void LoadSaladToppingsFromServer()
+        {
+            SaladToppingsDictionary = new Dictionary<decimal, DBModifier>();
             List<DBModGroup> modgroups2 = WcfServicesProxy.Instance.GetSaladToppings();
             foreach (var modgroup in modgroups2)
             {
                 foreach (var mod in modgroup.SelectionList)
                 {
-                    if (!DataBaseDictionaries.SaladToppingsDictionary.ContainsKey(mod.ID))
+                    if (!SaladToppingsDictionary.ContainsKey(mod.ID))
                     {
-                        DataBaseDictionaries.SaladToppingsDictionary.Add(mod.ID, mod);
+                        SaladToppingsDictionary.Add(mod.ID, mod);
                         //if (!DataBaseDictionaries.DbIdToppingDictionary.ContainsKey(mod.ID) && mod.ID != 50 && mod.ID != 51)
                         //{
                         //    Console.WriteLine("***Debug JOANNE***TOPPINGS DICTIONARY ITEM NOT FOUND: " + mod.Name + mod.ID);

@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Text;
 using Zipline2.Data;
 using Zipline2.BusinessLogic.Enums;
+using Xamarin.Forms;
 
 namespace Zipline2.Models
 {
     public class PizzaToppings : Toppings
     {
+        
         public PizzaType PizzaTypeForPricing { get; set; }
         private decimal toppingsDiscount;
         public decimal ToppingsDiscount
@@ -47,6 +49,8 @@ namespace Zipline2.Models
             {
                 ToppingsTotal = 0;
             }
+            ThisPizza.PopulatePricePerItem();
+            //MessagingCenter.Send<PizzaToppings>(this, "PizzaToppingsTotalUpdated");
         }
 
         protected override decimal GetCurrentToppingsCost()

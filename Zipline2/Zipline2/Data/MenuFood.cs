@@ -20,6 +20,7 @@ namespace Zipline2.Data
                 return pizzaToppings;
             }
         }
+     
 
         private static Dictionary<ToppingName, Topping> saladToppings;
         public static Dictionary<ToppingName, Topping> SaladToppings
@@ -33,6 +34,7 @@ namespace Zipline2.Data
                 return saladToppings;
             }
         }
+
         public static void LoadInitialPizzaToppings()
         {
             pizzaToppings = new Dictionary<ToppingName, Topping>();
@@ -48,7 +50,7 @@ namespace Zipline2.Data
             pizzaToppings.Add(ToppingName.Cheese, new Topping(ToppingName.Cheese));
             pizzaToppings.Add(ToppingName.CrispyCook, new Topping(ToppingName.CrispyCook) { SpecialPricingType = SpecialPricingType.Free, ForCalzone = false, ForPizza = false });
             pizzaToppings.Add(ToppingName.DAIYA, new Topping(ToppingName.DAIYA) { SpecialPricingType = SpecialPricingType.DoubleTopping });
-            pizzaToppings.Add(ToppingName.Deep, new Topping(ToppingName.Deep) { SpecialPricingType = SpecialPricingType.SpecialLogic });
+            pizzaToppings.Add(ToppingName.Deep, new Topping(ToppingName.Deep) { SpecialPricingType = SpecialPricingType.SpecialLogic, ForCalzone = false });
             pizzaToppings.Add(ToppingName.ExtraCheese, new Topping(ToppingName.ExtraCheese));
             pizzaToppings.Add(ToppingName.ExtraMozarellaCalzone, new Topping(ToppingName.ExtraMozarellaCalzone) { ForCalzone = true, ForPizza = false });
             pizzaToppings.Add(ToppingName.ExtraPSauceOS, new Topping(ToppingName.ExtraPSauceOS));
@@ -56,12 +58,12 @@ namespace Zipline2.Data
             pizzaToppings.Add(ToppingName.ExtraRicottaCalzone, new Topping(ToppingName.ExtraRicottaCalzone) { ForCalzone = true, ForPizza = false });
             pizzaToppings.Add(ToppingName.Feta, new Topping(ToppingName.Feta));
             pizzaToppings.Add(ToppingName.Garlic, new Topping(ToppingName.Garlic));
-            pizzaToppings.Add(ToppingName.GlutenFreeIndyOnly, new Topping(ToppingName.GlutenFreeIndyOnly) { SpecialPricingType = SpecialPricingType.Free });
+            pizzaToppings.Add(ToppingName.GlutenFreeIndyOnly, new Topping(ToppingName.GlutenFreeIndyOnly) { SpecialPricingType = SpecialPricingType.Free, ForCalzone = false });
             pizzaToppings.Add(ToppingName.GreenOlives, new Topping(ToppingName.GreenOlives));
             pizzaToppings.Add(ToppingName.GreenPeppers, new Topping(ToppingName.GreenPeppers));
-            pizzaToppings.Add(ToppingName.HalfMajor, new Topping(ToppingName.HalfMajor) { SpecialPricingType = SpecialPricingType.SpecialLogic });
-            pizzaToppings.Add(ToppingName.Jalapenos, new Topping(ToppingName.Jalapenos));
+            pizzaToppings.Add(ToppingName.HalfMajor, new Topping(ToppingName.HalfMajor) { SpecialPricingType = SpecialPricingType.SpecialLogic, ForCalzone = false });
             pizzaToppings.Add(ToppingName.Ham, new Topping(ToppingName.Ham) { ForCalzone = true, ForPizza = true });
+            pizzaToppings.Add(ToppingName.Jalapenos, new Topping(ToppingName.Jalapenos));
             pizzaToppings.Add(ToppingName.KidCook, new Topping(ToppingName.KidCook) { SpecialPricingType = SpecialPricingType.Free, ForCalzone = false, ForPizza = false });
             pizzaToppings.Add(ToppingName.LightCook, new Topping(ToppingName.LightCook) { SpecialPricingType = SpecialPricingType.Free, ForCalzone = false, ForPizza = false });
             pizzaToppings.Add(ToppingName.LightSauce, new Topping(ToppingName.LightSauce) { SpecialPricingType = SpecialPricingType.Free });

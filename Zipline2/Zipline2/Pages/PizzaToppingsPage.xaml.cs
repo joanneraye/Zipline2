@@ -5,18 +5,18 @@ using Xamarin.Forms.Xaml;
 using Zipline2.PageModels;
 using Zipline2.Models;
 using Zipline2.BusinessLogic.Enums;
-using static Zipline2.PageModels.ToppingsPageModel;
+using static Zipline2.PageModels.PizzaToppingsPageModel;
 using Zipline2.BusinessLogic;
 using System.Windows.Input;
 
 namespace Zipline2.Pages
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ToppingsPage : BasePage
+	public partial class PizzaToppingsPage : BasePage
 	{
      
         #region Private Variables
-        private ToppingsPageModel ToppingsPageModel;
+        private PizzaToppingsPageModel ToppingsPageModel;
         private int CarouselSelectedPosition { get; set; }
         private ToppingsOtherPage ToppingsOtherPage { get; set; }
 
@@ -24,9 +24,9 @@ namespace Zipline2.Pages
         #endregion
 
         #region Constructor
-        public ToppingsPage (Pizza currentPizza)
+        public PizzaToppingsPage (Pizza currentPizza)
 		{
-            ToppingsPageModel = new ToppingsPageModel(currentPizza);
+            ToppingsPageModel = new PizzaToppingsPageModel(currentPizza);
             InitializeComponent();
             BindingContext = ToppingsPageModel;
             ToppingsPageModel.ToppingFooterPageModel = ToppingFooter.ToppingFooterPageModel;
@@ -46,35 +46,7 @@ namespace Zipline2.Pages
 
         private void ToppingsListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            return;
-            //if (e.SelectedItem != null)
-            //{
-            //    ToppingDisplayItem thisSelection = e.SelectedItem as ToppingDisplayItem;
-            //    if (thisSelection.ListTopping.ToppingName == ToppingName.HalfMajor)
-            //    {
-            //        ProcessHalfMajorToppingSelection(thisSelection);
-            //    }
-            //    else
-            //    {
-            //        thisSelection.ListItemIsSelected = !thisSelection.ListItemIsSelected;
-            //        if (thisSelection.ListItemIsSelected)
-            //        {
-            //            thisSelection.ListTopping.SequenceSelected = ToppingsPageModel.ThisPizza.Toppings.CurrentToppings.Count + 1;
-            //            ToppingsPageModel.ThisPizza.Toppings.AddTopping(thisSelection.ListTopping);
-            //            thisSelection.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
-            //            thisSelection.ButtonWSelected = true;
-            //        }
-            //        else
-            //        {
-            //            thisSelection.ListTopping.SequenceSelected = 0;
-            //            ToppingsPageModel.ThisPizza.Toppings.RemoveTopping(thisSelection.ListTopping.ToppingName);
-            //            thisSelection.SelectionColor = Xamarin.Forms.Color.Black;
-            //            thisSelection.ButtonASelected = false;
-            //            thisSelection.ButtonBSelected = false;
-            //            thisSelection.ButtonWSelected = false;
-            //        }
-            //    }
-            //}
+            ToppingsListView.SelectedItem = null;
         }
         #endregion
 

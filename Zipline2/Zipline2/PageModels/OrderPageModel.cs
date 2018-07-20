@@ -55,6 +55,7 @@ namespace Zipline2.PageModels
                 //TODO:  ???   Logic assumes that lunch special items are sequential.
                 if (orderitem.PartOfCombo)
                 {
+                    displayItem.OrderitemDisplayName = "   " + orderitem.ItemName;
                     if (firstGuid == Guid.Empty)
                     {
                         firstGuid = orderitem.ComboId;

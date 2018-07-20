@@ -1592,18 +1592,20 @@ namespace Zipline2.iOS.Services
 
             public System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<Staunch.POS.Classes.DBItem>> GetMenu()
             {
-
-                return (System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<Staunch.POS.Classes.DBItem>>)base.Invoke("GetMenu", null);
+                object[] args = new object[0];
+                return (System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<Staunch.POS.Classes.DBItem>>)base.Invoke("GetMenu", args);
             }
 
             public IAsyncResult BeginGetMenu(AsyncCallback callback, object asyncState)
             {
-                return (IAsyncResult)base.BeginInvoke("GetMenu", null, callback, asyncState);
+                object[] args = new object[0];
+                return (IAsyncResult)base.BeginInvoke("GetMenu", args, callback, asyncState);
             }
 
             public Dictionary<string, List<DBItem>> EndGetMenu(IAsyncResult result)
             {
-                return (Dictionary<string, List<DBItem>>)base.EndInvoke("GetMenu", null, result);
+                object[] args = new object[0];
+                return (Dictionary<string, List<DBItem>>)base.EndInvoke("GetMenu", args, result);
             }
 
 
@@ -1612,6 +1614,19 @@ namespace Zipline2.iOS.Services
                 object[] args = new object[1];
                 args[0] = sectionID;
                 return (List<DBTable>)base.Invoke("GetTablesForSection", args);
+            }
+
+            public IAsyncResult BeginGetTablesForSection(decimal sectionID, AsyncCallback callback, object asyncState)
+            {
+                object[] args = new object[1];
+                args[0] = sectionID;
+                return (IAsyncResult)base.BeginInvoke("GetTablesForSection", args, callback, asyncState);
+            }
+
+            public List<DBTable> EndGetTablesForSection(IAsyncResult result)
+            {
+                object[] args = new object[0];
+                return (List<DBTable>)base.EndInvoke("GetMenu", args, result);
             }
 
             public System.Collections.Generic.List<Staunch.POS.Classes.DBModGroup> GetAllMods(decimal itemId, decimal sizeId)
@@ -1638,17 +1653,20 @@ namespace Zipline2.iOS.Services
 
             public List<DBTable> GetTableSummary()
             {
-                return (List<DBTable>)base.Invoke("GetTableSummary", null);
+                object[] args = new object[0];
+                return (List<DBTable>)base.Invoke("GetTableSummary", args);
             }
 
             public IAsyncResult BeginGetTableSummary(AsyncCallback callback, object asyncState)
             {
-                return (IAsyncResult)base.BeginInvoke("GetTableSummary", null, callback, asyncState);
+                object[] args = new object[0];
+                return (IAsyncResult)base.BeginInvoke("GetTableSummary", args, callback, asyncState);
             }
 
             public List<DBTable> EndGetTableSummary(IAsyncResult result)
             {
-                return (List<DBTable>)base.EndInvoke("GetTableSummary", null, result);
+                object[] args = new object[0];
+                return (List<DBTable>)base.EndInvoke("GetTableSummary", args, result);
             }
 
 
@@ -1676,17 +1694,20 @@ namespace Zipline2.iOS.Services
 
             public List<DBTable> GetTableInfo()
             {
+                object[] args = new object[0];
                 return (List<DBTable>)base.Invoke("GetTableInfo", null);
             }
 
             public IAsyncResult BeginGetTableInfo(AsyncCallback callback, object asyncState)
             {
-                return (IAsyncResult)base.BeginInvoke("GetTableInfo", null, callback, asyncState);
+                object[] args = new object[0];
+                return (IAsyncResult)base.BeginInvoke("GetTableInfo", args, callback, asyncState);
             }
 
             public List<DBTable> EndGetTableInfo(IAsyncResult result)
             {
-                return (List<DBTable>)base.EndInvoke("GetTableInfo", null, result);
+                object[] args = new object[0];
+                return (List<DBTable>)base.EndInvoke("GetTableInfo", args, result);
             }
 
             public void UpdateTables(List<DBTable> updatedTables, decimal userID)
@@ -1743,6 +1764,8 @@ namespace Zipline2.iOS.Services
                 return (List<decimal>)base.Invoke("GetNextGuestIDs", args);
             }
 
+
+
             public IAsyncResult BeginGetNextGuestIDs(int num, decimal userID, AsyncCallback callback, object asyncState)
             {
                 object[] args = new object[2];
@@ -1786,6 +1809,25 @@ namespace Zipline2.iOS.Services
                 return (int)base.Invoke("Ping", args);
             }
 
+            public Guest_DB PriceOrder(Guest_DB guest)
+            {
+                object[] args = new object[1];
+                args[0] = guest;
+                return (Guest_DB)base.Invoke("PriceOrder", args);
+            }
+
+            public IAsyncResult BeginPriceOrder(Guest_DB guest, AsyncCallback callback, object asyncState)
+            {
+                object[] args = new object[1];
+                args[0] = guest;
+                return (IAsyncResult)base.BeginInvoke("PriceOrder", args, callback, asyncState);
+            }
+
+            public Guest_DB EndPriceOrder(IAsyncResult result)
+            {
+                object[] args = new object[0];
+                return (Guest_DB)base.EndInvoke("PriceOrder", args, result);
+            }
 
 
             #region TODO: Implement following....
@@ -2318,16 +2360,6 @@ namespace Zipline2.iOS.Services
                 throw new NotImplementedException();
             }
 
-            public IAsyncResult BeginGetTablesForSection(decimal sectionID, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public List<DBTable> EndGetTablesForSection(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
             public bool ChangeItemSize(decimal orderID, decimal newSizeID)
             {
                 throw new NotImplementedException();
@@ -2386,21 +2418,6 @@ namespace Zipline2.iOS.Services
             }
 
             public TakeoutOrder EndSubmitLSETakeout(IAsyncResult result)
-            {
-                throw new NotImplementedException();
-            }
-
-            public Guest_DB PriceOrder(Guest_DB guest)
-            {
-                throw new NotImplementedException();
-            }
-
-            public IAsyncResult BeginPriceOrder(Guest_DB guest, AsyncCallback callback, object asyncState)
-            {
-                throw new NotImplementedException();
-            }
-
-            public Guest_DB EndPriceOrder(IAsyncResult result)
             {
                 throw new NotImplementedException();
             }

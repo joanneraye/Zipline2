@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Zipline2.DataReadWrite
+namespace Zipline2.Data
 {
     class MenuRecord
     {

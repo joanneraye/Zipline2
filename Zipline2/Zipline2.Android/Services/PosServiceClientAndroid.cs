@@ -1651,12 +1651,14 @@ namespace Zipline2.Android.Services
 
             public List<DBTable> GetTableSummary()
             {
-                return (List<DBTable>)base.Invoke("GetTableSummary", null);
+                object[] args = new object[0];
+                return (List<DBTable>)base.Invoke("GetTableSummary", args);
             }
 
             public IAsyncResult BeginGetTableSummary(AsyncCallback callback, object asyncState)
             {
-                return (IAsyncResult)base.BeginInvoke("GetTableSummary", null, callback, asyncState);
+                object[] args = new object[0];
+                return (IAsyncResult)base.BeginInvoke("GetTableSummary", args, callback, asyncState);
             }
 
             public List<DBTable> EndGetTableSummary(IAsyncResult result)
@@ -1690,12 +1692,14 @@ namespace Zipline2.Android.Services
 
             public List<DBTable> GetTableInfo()
             {
-                return (List<DBTable>)base.Invoke("GetTableInfo", null);
+                object[] args = new object[0];
+                return (List<DBTable>)base.Invoke("GetTableInfo", args);
             }
 
             public IAsyncResult BeginGetTableInfo(AsyncCallback callback, object asyncState)
             {
-                return (IAsyncResult)base.BeginInvoke("GetTableInfo", null, callback, asyncState);
+                object[] args = new object[0];
+                return (IAsyncResult)base.BeginInvoke("GetTableInfo", args, callback, asyncState);
             }
 
             public List<DBTable> EndGetTableInfo(IAsyncResult result)

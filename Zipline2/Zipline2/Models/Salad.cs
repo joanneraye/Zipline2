@@ -18,9 +18,9 @@ namespace Zipline2.Models
         public Salad(SaladSize sizeOfSalad)
         {
             SizeOfSalad = sizeOfSalad;
-            Toppings = new SaladToppings(SizeOfSalad);
-            MessagingCenter.Subscribe<Toppings>(this, "ToppingsTotalUpdated",
-             (sender) => { this.PopulatePricePerItem(); });
+            Toppings = new SaladToppings(SizeOfSalad, this);
+            //MessagingCenter.Subscribe<SaladToppings>(this, "SaladToppingsTotalUpdated",
+            // (sender) => { this.PopulatePricePerItem(); });
         }
 
         public override void PopulateDisplayName()
@@ -40,17 +40,31 @@ namespace Zipline2.Models
 
         public override OrderDisplayItem PopulateOrderDisplayItem()
         {
+           
             OrderDisplayItem displayItem = base.PopulateOrderDisplayItem();
             var toppingsString = new StringBuilder();
             for (int i = 0; i < Toppings.CurrentToppings.Count; i++)
             {
-                if (i != 0)
+                if (SizeOfSalad == SaladSize.LunchSpecial)
                 {
-                    toppingsString.Append(", ");
+                    toppingsString.Append("   ");
+                }
+                if (i == 0)
+                {
+                    toppingsString.Append("   ");
+                }
+                else
+                {
+                    toppingsString.Append("\n   ");
                 }
                 toppingsString.Append(Toppings.CurrentToppings[i].ToppingDisplayName);
             }
-            displayItem.Toppings = toppingsString.ToString();
+            if (toppingsString.Length != 0)
+            {
+                displayItem.Toppings = toppingsString.ToString();
+                displayItem.HasToppings = true;
+            }
+                
             return displayItem;
         }
 

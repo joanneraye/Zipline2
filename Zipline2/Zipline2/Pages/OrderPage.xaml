@@ -47,7 +47,7 @@
                                         </Label.Triggers>
                                     </Label>
                                     <Label Margin="0" Grid.ColumnSpan="1"
-                                            Text="{Binding OrderItem.ItemName}"
+                                            Text="{Binding OrderitemDisplayName}"
                                            VerticalTextAlignment="End"
                                            VerticalOptions="End"
                                                FontSize="Micro"
@@ -60,19 +60,21 @@
                                             </DataTrigger>
                                         </Label.Triggers>
                                     </Label>
-                                    <Label Margin="0" Grid.ColumnSpan="4"
-                                      TextColor="White"
-                                       FontSize="Micro"
-                                           IsVisible="False"
-                                      Text="{Binding Toppings}">
-                                        <Label.Triggers>
-                                            <DataTrigger TargetType="Label"
-                                                 Binding="{Binding HasToppings}"
-                                                         Value="True">
-                                                <Setter Property="IsVisible" Value="True" />
-                                            </DataTrigger>
-                                        </Label.Triggers>
-                                    </Label>
+                                    <StackLayout Grid.ColumnSpan="4">
+                                        <Label Margin="0"
+                                          TextColor="White"
+                                           FontSize="Micro"
+                                               IsVisible="False"
+                                          Text="{Binding Toppings}">
+                                            <Label.Triggers>
+                                                <DataTrigger TargetType="Label"
+                                                     Binding="{Binding HasToppings}"
+                                                             Value="True">
+                                                    <Setter Property="IsVisible" Value="True" />
+                                                </DataTrigger>
+                                            </Label.Triggers>
+                                        </Label>
+                                    </StackLayout>
                                 </StackLayout>
                                 <StackLayout Grid.Column="1">
                                 <Label 
@@ -152,39 +154,42 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="3*"/>
-                                <ColumnDefinition Width="3*"/>
-                                <ColumnDefinition Width="3*"/>
                                 <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0"
                                     Grid.ColumnSpan="2"
+                                  HorizontalTextAlignment="Center"
                                     Grid.Row="0"
                                     Text="SUBTOTAL"
                                     TextColor="LightBlue"/>
-                            <Label Grid.Column="2"
+                            <Label Grid.Column="1"                                   
                                    Grid.ColumnSpan="2"
+                                   HorizontalTextAlignment="Center"
                                    Grid.Row="0"
                                     TextColor="LightBlue"
                                     Text="{Binding SubTotal, StringFormat='{0:C}'}" />
                             <Label Grid.Column="0"
                                     Grid.ColumnSpan="2"
+                                  HorizontalTextAlignment="Center"
                                     Grid.Row="1"
                                     Text="TAX"
                                     TextColor="LightBlue"/>
-                            <Label Grid.Column="2"
+                            <Label Grid.Column="1"
                                    Grid.ColumnSpan="2"
+                                   HorizontalTextAlignment="Center"
                                    Grid.Row="1"
                                     TextColor="LightBlue"
                                     Text="{Binding Tax, StringFormat='{0:C}'}" />
                             <Label Grid.Column="0"
                                     Grid.ColumnSpan="2"
+                                   HorizontalTextAlignment="Center"
                                     Grid.Row="2"
                                     Text="TOTAL"
                                     TextColor="LightBlue"/>
-                            <Label Grid.Column="2"
+                            <Label Grid.Column="1"
                                    Grid.ColumnSpan="2"
+                                   HorizontalTextAlignment="Center"
                                    Grid.Row="2"
                                     TextColor="LightBlue"
                                     Text="{Binding Total, StringFormat='{0:C}'}" />
