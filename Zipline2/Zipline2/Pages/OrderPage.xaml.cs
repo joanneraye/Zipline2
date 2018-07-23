@@ -42,6 +42,7 @@ namespace Zipline2.Pages
             if (OrderManager.Instance.OrderInProgress.OrderItems.Count == 0)
             {
                 Tables.AllTables[OrderManager.Instance.CurrentTableIndex].IsOccupied = false;
+                Tables.AllTables[OrderManager.Instance.CurrentTableIndex].HasUnsentOrder = false;
             }
             else
             {

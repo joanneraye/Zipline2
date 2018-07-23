@@ -88,10 +88,10 @@ namespace Zipline2.Pages
         protected async override void OnAppearing()
         {
             base.OnAppearing();
+            TablesPageModel.NavigateToDrinksPage += HandleNavigateToDrinksPage;
+            TablesPageModel.NavigateToOrderPage += HandleNavigateToOrderPage;
             if (WcfServicesProxy.Instance.ServiceCallConfig != WcfServicesProxy.ServiceCallConfigType.AllServiceCallsOff)
             {
-                TablesPageModel.NavigateToDrinksPage += HandleNavigateToDrinksPage;
-                TablesPageModel.NavigateToOrderPage += HandleNavigateToOrderPage;
                 TableList.IsEnabled = false;
                 TableList.IsRefreshing = true;
                 
@@ -128,7 +128,7 @@ namespace Zipline2.Pages
         {
             if (WcfServicesProxy.Instance.ServiceCallConfig == WcfServicesProxy.ServiceCallConfigType.AllServiceCallsOff)
             {
-                DisplayAlert("Warning", "All connections to server are off.  Testing order building only.", "OK");
+                DisplayAlert("Warning", "All connections to server are off.  You may test creating orders only.", "OK");
             }
             var currentMainPage = (Application.Current.MainPage as MasterDetailPage);
             currentMainPage.Detail = new NavigationPage(new DrinksPage());
@@ -139,7 +139,7 @@ namespace Zipline2.Pages
         {
             if (WcfServicesProxy.Instance.ServiceCallConfig == WcfServicesProxy.ServiceCallConfigType.AllServiceCallsOff)
             {
-                DisplayAlert("Warning", "All connections to server are off.  Testing order building only.", "OK");
+                DisplayAlert("Warning", "All connections to server are off.   You may test creating orders only.", "OK");
             }
             var currentMainPage = (Application.Current.MainPage as MasterDetailPage);
             currentMainPage.Detail = new NavigationPage(new OrderPage());

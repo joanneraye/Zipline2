@@ -157,7 +157,7 @@ namespace Zipline2.Data
              { CalzoneType.HotRope, 13.50M  },
               { CalzoneType.PBJ, 13.50M  },
             { CalzoneType.SteakAndCheese, 13.00M  },
-             { CalzoneType.Major, 17.00M }
+             { CalzoneType.Major, 9.00M }
 
         };
 
@@ -216,10 +216,10 @@ namespace Zipline2.Data
            1.50M, 3.00M, 4.50M, 6.00M, 7.50M, 8.00M, 1.50M
         };
 
-        public static decimal[] GetCalzoneToppingPrices()
+        public static readonly decimal[] GetCalzoneToppingPrices = new decimal[]
         {
-            return GetCalzoneToppingPrices();
-        }
+           1.50M, 3.00M, 4.50M, 6.00M, 7.50M, 8.00M, 1.50M
+        };       
 
         public static readonly decimal[] PizzaSatchPanToppingsPrices = new decimal[]
         {

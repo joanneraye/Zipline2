@@ -72,12 +72,9 @@
                                   ColumnSpacing="0"
                                   RowSpacing="0">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="25"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="3.5*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                                 <Button Grid.Column="0"
@@ -98,6 +95,13 @@
                                        VerticalOptions="CenterAndExpand"
                                        TextColor="White"
                                        FontSize="Small">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                     Binding="{Binding ListItemIsSelected}"
+                                                             Value="True">
+                                            <Setter Property="BackgroundColor" Value="CornflowerBlue" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
                                     <Label.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding ToppingSelectedCommand}"/>
                                     </Label.GestureRecognizers>

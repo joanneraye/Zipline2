@@ -196,6 +196,7 @@ namespace Zipline2.PageModels
             if (OrderManager.Instance.OrderInProgress.OrderItems.Count == 0)
             {
                 Tables.AllTables[OrderManager.Instance.CurrentTableIndex].IsOccupied = false;
+                Tables.AllTables[OrderManager.Instance.CurrentTableIndex].HasUnsentOrder = false;
             }
             var currentMainPage = Application.Current.MainPage as MasterDetailPage;
             currentMainPage.Detail = new NavigationPage(new TablesPage());

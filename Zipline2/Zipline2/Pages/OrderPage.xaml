@@ -146,12 +146,12 @@
 
                 <ListView.FooterTemplate>
                     <DataTemplate>
-                        <Grid Margin="0,0,0,0"
+                        <Grid Padding="10"
                               RowSpacing="0">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="30"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>

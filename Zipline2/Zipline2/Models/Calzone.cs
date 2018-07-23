@@ -6,6 +6,7 @@ using Xamarin.Forms;
 using Zipline2.BusinessLogic.Enums;
 using Zipline2.BusinessLogic.WcfRemote;
 using Zipline2.Data;
+using Zipline2.PageModels;
 
 namespace Zipline2.Models
 {
@@ -158,6 +159,32 @@ namespace Zipline2.Models
         {
             PricePerItemIncludingToppings = BasePriceNoToppings +
                 Toppings.ToppingsTotal;
+        }
+
+        public override OrderDisplayItem PopulateOrderDisplayItem()
+        {
+            var orderDisplayItem = base.PopulateOrderDisplayItem();
+            var toppingsString = new StringBuilder();
+           
+            for (int i = 0; i < Toppings.CurrentToppings.Count; i++)
+            {
+                if (i == 0)
+                {
+                    toppingsString.Append("   ");
+                }
+                else
+                {
+                    toppingsString.Append("\n   ");
+                }
+               
+                toppingsString.Append(Toppings.CurrentToppings[i].ToppingDisplayName);
+            }
+            if (toppingsString.Length != 0)
+            {
+                orderDisplayItem.Toppings = toppingsString.ToString();
+                orderDisplayItem.HasToppings = true;
+            }
+            return orderDisplayItem;
         }
     }
 }

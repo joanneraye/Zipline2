@@ -290,16 +290,20 @@ namespace Zipline2.BusinessLogic.WcfRemote
                     Console.WriteLine("***Debug JOANNE***TABLE NOT FOUND FOR TABLE ID: " + table.ID);
                 }
                 var thisTable = Tables.AllTables[indexInAllTables];
-                if (!table.IsClear)
-                {
-                    tableOccupied = true;
-                }
+
+                //The following is not accurate on server:
+                //if (!table.IsClear)
+                //{
+                //    tableOccupied = true;
+                //}
+
                 foreach (var guest in table.Guests)
                 {
                     if (guest.Items.Count > 0 || guest.ComboItems.Count > 0)
                     {
                         foreach (var item in guest.Items)
                         {
+                            tableOccupied = true;
                             if (!item.OrderSent)
                             {
                                 hasUnsentItems = true;
@@ -309,6 +313,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
                         {
                             foreach (var comboitem in guest.ComboItems)
                             {
+                                tableOccupied = true;
                                 foreach (var guestitem in comboitem.ComboGuestItems)
                                     if (!guestitem.OrderSent)
                                     {

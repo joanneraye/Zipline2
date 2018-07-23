@@ -115,7 +115,6 @@ namespace Zipline2.Models
         private decimal GetPizzaToppingCountForPricing(ref decimal specialExtraCost, PizzaType pizzaType)
         {
             decimal toppingCountForPricing = 0M;
-            //TODO:  Still have to handle half and whole toppings
             foreach (var topping in CurrentToppings)
             {
                 decimal thisToppingCount = 0M;

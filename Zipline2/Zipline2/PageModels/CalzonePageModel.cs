@@ -70,7 +70,8 @@ namespace Zipline2.PageModels
         {
             Calzone calzoneSelected = new Calzone()
             {
-                CalzoneType = CalzoneType.Major
+                CalzoneType = CalzoneType.Major,
+                MajorMamaInfo = MajorOrMama.Major
             };
             AddCalzoneToOrder(calzoneSelected);
         }

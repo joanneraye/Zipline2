@@ -231,7 +231,8 @@ namespace Zipline2.PageModels
             LoadTablesForDisplay();
         }
 
-        public async void LoadTableData()
+        //Not used because gets server data synchronously.
+        public void LoadTableData()
         {
             var orderManager = OrderManager.Instance;
 
@@ -241,7 +242,7 @@ namespace Zipline2.PageModels
             }
        
             var watch = System.Diagnostics.Stopwatch.StartNew();
-            List<DBTable> tables = await WcfServicesProxy.Instance.GetTableInfoAsync();
+            List<DBTable> tables = WcfServicesProxy.Instance.GetTableInfo();
             watch.Stop();
 
             foreach (var table in tables)
@@ -259,16 +260,14 @@ namespace Zipline2.PageModels
                 }
 
                 var thisTable = Tables.AllTables[indexInAllTables];
-                if (!table.IsClear)
-                {
-                    tableOccupied = true;
-                }
+              
                 foreach (var guest in table.Guests)
                 {
                     if (guest.Items.Count > 0 || guest.ComboItems.Count > 0)
                     {
                         foreach (var item in guest.Items)
                         {
+                            tableOccupied = true;
                             if (!item.OrderSent)
                             {
                                 hasUnsentItems = true;
@@ -278,6 +277,7 @@ namespace Zipline2.PageModels
                         {
                             foreach (var comboitem in guest.ComboItems)
                             {
+                                tableOccupied = true;
                                 foreach (var guestitem in comboitem.ComboGuestItems)
                                     if (!guestitem.OrderSent)
                                     {
@@ -340,9 +340,10 @@ namespace Zipline2.PageModels
             //var dbTable = WcfServicesProxy.Instance.GetTable((int)tableSelected.TableId);
            
             tableSelected.DatabaseTable = dbTable;
-            Tables.AllTables[tableSelected.IndexInAllTables] = tableSelected;
+           
             if (dbTable.Guests != null)
             {
+                Tables.AllTables[tableSelected.IndexInAllTables] = tableSelected;
                 if (dbTable.Guests.Count > 0)
                 {
                     List<GuestItem> guestItems = new List<GuestItem>();
