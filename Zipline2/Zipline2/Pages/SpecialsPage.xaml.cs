@@ -6,25 +6,23 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using Zipline2.Models;
-using Zipline2.MyEventArgs;
 using Zipline2.PageModels;
+using Zipline2.MyEventArgs;
 
 namespace Zipline2.Pages
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class SaladsPage : BasePage
+	public partial class SpecialsPage : BasePage
 	{
-
-        SaladsPageModel thisPageModel;
-		public SaladsPage ()
+        private SpecialsPageModel thisPageModel;
+		public SpecialsPage ()
 		{
-            InitializeComponent();
-            thisPageModel = new SaladsPageModel();
+            thisPageModel = new SpecialsPageModel();
+			InitializeComponent ();
             BindingContext = thisPageModel;
-            Footer.FooterPageModel.IsSaladPageDisplayed = true;
-            string saladTitle = "TBL " + BusinessLogic.OrderManager.Instance.CurrentTableName + " Salads";
-            this.ToolbarItems.Add(new ToolbarItem { Text = saladTitle });
+            Footer.FooterPageModel.IsSpecialsPageDisplayed = true;
+            string specialsTitle = "TBL " + BusinessLogic.OrderManager.Instance.CurrentTableName + " Specials";
+            this.ToolbarItems.Add(new ToolbarItem { Text = specialsTitle });
         }
 
         protected override void OnAppearing()

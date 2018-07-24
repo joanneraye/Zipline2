@@ -96,9 +96,9 @@ namespace Zipline2.BusinessLogic.WcfRemote
         {
             ServiceCallConfig = ServiceCallConfigType.UpdateServicesNoSend;
 
-            //endpointIpAddressPart1 = "http://192.168.1.26";      //Dev environment
+            endpointIpAddressPart1 = "http://192.168.1.26";      //Dev environment
 
-             endpointIpAddressPart1 = "http://192.168.1.21";   //Live server
+            // endpointIpAddressPart1 = "http://192.168.1.21";   //Live server
             // endpointIpAddressPart1 = "http://192.168.1.122";   //Backup server
             //endpointIpAddressPart1 = "http://192.168.1";      //BAD
 
@@ -579,6 +579,14 @@ namespace Zipline2.BusinessLogic.WcfRemote
                         GuestItem guestItem = orderItem.CreateGuestItem(dbItem, orderItem.DbOrderId);
                         guestItem.Mods = orderItem.CreateMods();
                         guestItem.OrderSent = sendOrderToKitchen;
+                        if (orderItem.PartOfCombo)
+                        {
+                            if (newTable.Guests[0].ComboItems == null)
+                            {
+                                newTable.Guests[0].ComboItems = new List<GuestComboItem>();
+                            }
+                            //TODO:  Create GuestComboItem which contains ComboGuestItems - will add guestItem there.
+                        }
                         newTable.Guests[0].Items.Add(guestItem);
                         //Pricing check - TODO:  Take out for production??
                         //Had to comment out in testing because wouldn't process - says mismatch with service but can't find problem.

@@ -21,6 +21,7 @@ namespace Zipline2.PageModels
             PizzaCommand = new Command(OnPizzaButtonClick);
             SaladsCommand = new Command(OnSaladsButtonClick);
             CalzoneCommand = new Command(OnCalzonesButtonClick);
+            SpecialsCommand = new Command(OnSpecialsButtonClick);
             OrderPageCommand = new Command(OnOrderPage);
             TablesCommand = new Command(OnTablesPage);
             AddToOrderCommand = new Command(OnAddToOrder);
@@ -50,6 +51,7 @@ namespace Zipline2.PageModels
         public ICommand SaladsCommand { get; set; }
         public ICommand CalzoneCommand { get; set; }
         public ICommand PizzaCommand { get; set; }
+        public ICommand SpecialsCommand { get; set; }
         public ICommand AddToOrderCommand { get; set; }
         public ICommand TablesCommand { get; set; }
         public ICommand OrderPageCommand { get; set; }
@@ -99,6 +101,7 @@ namespace Zipline2.PageModels
                     IsDrinkPageDisplayed = false;
                     IsSaladPageDisplayed = false;
                     IsCalzonePageDisplayed = false;
+                    IsSpecialsPageDisplayed = false;
                 }
             }
         }
@@ -120,6 +123,7 @@ namespace Zipline2.PageModels
                     IsOrderPageDisplayed = false;
                     DisplayAddToOrderButton = false;
                     IsCalzonePageDisplayed = false;
+                    IsSpecialsPageDisplayed = false;
                 }
             }
         }
@@ -140,6 +144,7 @@ namespace Zipline2.PageModels
                     IsOrderPageDisplayed = false;
                     IsSaladPageDisplayed = false;
                     IsCalzonePageDisplayed = false;
+                    IsSpecialsPageDisplayed = false;
                 }
             }
         }
@@ -160,6 +165,7 @@ namespace Zipline2.PageModels
                     IsOrderPageDisplayed = false;
                     IsSaladPageDisplayed = false;
                     IsCalzonePageDisplayed = false;
+                    IsSpecialsPageDisplayed = false;
                 }
             }
         }
@@ -180,6 +186,29 @@ namespace Zipline2.PageModels
                     IsOrderPageDisplayed = false;
                     IsSaladPageDisplayed = false;
                     IsPizzaPageDisplayed = false;
+                    IsSpecialsPageDisplayed = false;
+                }
+            }
+        }
+
+        private bool isSpecialsPageDisplayed;
+        public bool IsSpecialsPageDisplayed
+        {
+            get
+            {
+                return isSpecialsPageDisplayed;
+            }
+            set
+            {
+                SetProperty(ref isSpecialsPageDisplayed, value);
+                if (isSpecialsPageDisplayed)
+                {
+                    IsDrinkPageDisplayed = false;
+                    IsOrderPageDisplayed = false;
+                    IsSaladPageDisplayed = false;
+                    IsPizzaPageDisplayed = false;
+                    IsCalzonePageDisplayed = false;
+                    DisplayAddToOrderButton = false;
                 }
             }
         }
@@ -217,8 +246,6 @@ namespace Zipline2.PageModels
 
         void OnDrinksButtonClick()
         {
-            //TODO: This was copied and modified from TablesPage.HandleNavigateToPizzaPage.
-            //Can we make this a helper method???
             var currentMainPage = Application.Current.MainPage as MasterDetailPage;
             currentMainPage.Detail = new NavigationPage(new DrinksPage());
             Application.Current.MainPage = currentMainPage;
@@ -235,6 +262,13 @@ namespace Zipline2.PageModels
         {
             var currentMainPage = Application.Current.MainPage as MasterDetailPage;
             currentMainPage.Detail = new NavigationPage(new CalzonePage());
+            Application.Current.MainPage = currentMainPage;
+        }
+
+        public void OnSpecialsButtonClick()
+        {
+            var currentMainPage = Application.Current.MainPage as MasterDetailPage;
+            currentMainPage.Detail = new NavigationPage(new SpecialsPage());
             Application.Current.MainPage = currentMainPage;
         }
 

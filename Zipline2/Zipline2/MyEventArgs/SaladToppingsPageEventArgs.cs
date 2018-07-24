@@ -15,6 +15,7 @@ namespace Zipline2.MyEventArgs
                 return currentSalad;
             }
         }
+
         public SaladToppingsPageEventArgs(Salad thisSalad)
         {
             currentSalad = thisSalad;

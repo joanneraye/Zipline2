@@ -44,6 +44,9 @@ namespace Zipline2.BusinessLogic
        
         public OrderItem OrderItemInProgress { get; set; }
         public Order OrderInProgress { get; set; }
+
+        public OrderItem[] SpecialOrderItemsInProgress { get; set; }
+
         /// <summary>
         /// Stores the index of the Table in the list of all tables
         /// for this order.
@@ -114,12 +117,44 @@ namespace Zipline2.BusinessLogic
             partialItemNoToppingMods.PopulateBasePrice();
             partialItemNoToppingMods.PopulatePricePerItem();
             OrderItemInProgress = partialItemNoToppingMods;
+            SpecialOrderItemsInProgress = null;
+        }
 
+        public void AddSpecialItemsInProgress(OrderItem[] specialItems)
+        {
+            foreach (var item in specialItems)
+            {
+                item.PopulateDisplayName();
+                item.PopulateBasePrice();
+                item.PopulatePricePerItem();
+            }
+            SpecialOrderItemsInProgress = specialItems;
+            OrderItemInProgress = null;
+        }
+
+        public void UpdateSpecialItemInProgress(OrderItem specialItem)
+        {
+            if (specialItem is Pizza)
+            {
+                SpecialOrderItemsInProgress[1] = specialItem;
+            }
+            else if (specialItem is Salad)
+            {
+                SpecialOrderItemsInProgress[0] = specialItem;
+            }
         }
 
         public void UpdateItemInProgress(OrderItem itemWithToppings)
         {
-            OrderItemInProgress = itemWithToppings;
+            if (itemWithToppings.PartOfCombo)
+            {
+                UpdateSpecialItemInProgress(itemWithToppings);
+            }
+            else
+            {
+                OrderItemInProgress = itemWithToppings;
+            }
+            
         }
 
 
@@ -172,9 +207,36 @@ namespace Zipline2.BusinessLogic
         public async void AddItemInProgressToOrder()
         {
             //Go ahead and add item to order so we can see the price change....
-            OrderInProgress.AddItemToOrder(OrderItemInProgress);
-            await OrderInProgress.UpdateOrderOnServerAsync();
-            OrderItemInProgress = null;
+            if (OrderItemInProgress != null)
+            {
+                OrderInProgress.AddItemToOrder(OrderItemInProgress);
+                await OrderInProgress.UpdateOrderOnServerAsync();
+                OrderItemInProgress = null;
+            }
+        }
+
+        public async void AddSpeciaItemsToOrder()
+        {
+            if (SpecialOrderItemsInProgress != null)
+            {
+                OrderInProgress.AddItemToOrder(SpecialOrderItemsInProgress[0]);
+                OrderInProgress.AddItemToOrder(SpecialOrderItemsInProgress[1]);
+                await OrderInProgress.UpdateOrderOnServerAsync();
+                SpecialOrderItemsInProgress = null;
+            }
+        }
+
+        public Pizza GetSpecialSliceWithSalad(Guid saladComboId)
+        {
+            Pizza thisPizza = new Pizza();
+            if (SpecialOrderItemsInProgress[1] is Pizza)
+            {
+                 thisPizza = SpecialOrderItemsInProgress[1] as Pizza;
+                 return thisPizza;
+            }
+                   
+            thisPizza.PartOfCombo = false;
+            return thisPizza;
         }
 
         

@@ -161,7 +161,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
         public static Pizza GetPizza(GuestItem dbGuestItem)
         {
             var pizza = new Pizza();
-            pizza.Base = PizzaBase.Regular;
+            
             switch (dbGuestItem.ID)
             {
                 case 57:

@@ -26,6 +26,7 @@ namespace Zipline2.Pages
         #region Constructor
         public PizzaToppingsPage (Pizza currentPizza)
 		{
+           
             ToppingsPageModel = new PizzaToppingsPageModel(currentPizza);
             InitializeComponent();
             BindingContext = ToppingsPageModel;
@@ -34,7 +35,6 @@ namespace Zipline2.Pages
             this.ToolbarItems.Clear();
             string pizzaTitle = currentPizza.ItemName + " Toppings";
             this.ToolbarItems.Add(new ToolbarItem { Text = pizzaTitle, Priority = 0 });
-            //this.ToolbarItems.Add(new ToolbarItem { Text = string.Format("{0:C}", currentPizza.PricePerItem), Priority = 1 });
           
             if (currentPizza.MajorMamaInfo == MajorOrMama.Major)
             {

@@ -94,7 +94,7 @@
                                   ColumnSpacing="0"
                                   RowSpacing="0">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="25"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="3.5*"/>
@@ -155,7 +155,7 @@
                 </ListView.ItemTemplate>
             </ListView>
             <views:ToppingFooterView VerticalOptions="EndAndExpand" x:Name="ToppingFooter"/>
-            <Button Text="Add Pizza to Order"
+            <Button Text="{Binding AddToOrderText}"
                     Command="{Binding AddPizzaToOrderCommand}"
                     HorizontalOptions="FillAndExpand"
                     HeightRequest="40"

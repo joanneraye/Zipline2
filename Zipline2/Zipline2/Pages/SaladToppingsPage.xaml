@@ -65,15 +65,46 @@
                 </ListView.ItemTemplate>
             </ListView>
             <views:ToppingFooterView VerticalOptions="EndAndExpand" x:Name="ToppingFooter"/>
-            <Button Text="Add Salad to Order"
-                    Command="{Binding AddSaladToOrderCommand}"
+            <StackLayout Orientation="Horizontal">
+                <Button Text="{Binding AddButtonText}"
+                    Command="{Binding AddToOrderCommand}"
                     HorizontalOptions="FillAndExpand"
-                    HeightRequest="40"
+                    HeightRequest="30"
+                    FontSize="Micro"
                     BorderColor="White"
                     BorderRadius="2"
                     BorderWidth="2"
                     BackgroundColor="LightBlue"
-                    TextColor="Black"/>
+                    TextColor="Black">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" 
+                               Binding="{Binding CurrentSalad.PartOfCombo}"
+                               Value="True">
+                            <Setter Property="IsVisible" Value="False" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+                <Button Text="Continue to Pizza Toppings"
+                    Command="{Binding NextPageCommand}"
+                    HorizontalOptions="FillAndExpand"
+                    HeightRequest="35"
+                    FontSize="Micro"
+                    IsVisible="False"
+                    BorderColor="White"
+                    BorderRadius="2"
+                    BorderWidth="2"
+                    BackgroundColor="LightBlue"
+                    TextColor="Black">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" 
+                               Binding="{Binding CurrentSalad.PartOfCombo}"
+                               Value="True">
+                            <Setter Property="IsVisible" Value="True" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+            </StackLayout>
+           
         </StackLayout>
     </ContentPage.Content>
 </local:BasePage>

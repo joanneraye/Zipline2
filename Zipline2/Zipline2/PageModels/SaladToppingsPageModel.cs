@@ -59,11 +59,40 @@ namespace Zipline2.PageModels
             }
         }
 
-        public ICommand AddSaladToOrderCommand { get; set; }
+        //*************************end of SaladToppingDisplayItem class****************************
 
-        public Salad CurrentSalad { get; set; }
+        //private string addButtonText;
+        public string AddButtonText { get; set; }
+        //{
+        //    get
+        //    {
+        //        return addButtonText;
+        //    }
+        //    set
+        //    {
+        //        SetProperty(ref addButtonText, value);
+        //    }
+        //}
+
+        public ICommand NextPageCommand { get; set; }
+        public ICommand AddToOrderCommand { get; set; }
+
+        private Salad currentSalad;
+
+        public Salad CurrentSalad
+        {
+            get
+            {
+                return currentSalad;
+            }
+            set
+            {
+                SetProperty(ref currentSalad, value);
+            }
+        }
 
         public event EventHandler NavigateToPizzaPage;
+        public event EventHandler NavigateToPizzaToppingsPage;
         public ToppingFooterPageModel ToppingFooterPageModel { get; set; }
 
         private ObservableCollection<SaladToppingDisplayItem> saladToppingSelectionsList;
@@ -81,21 +110,55 @@ namespace Zipline2.PageModels
         public SaladToppingsPageModel(Salad currentSalad)
         {
             CurrentSalad = currentSalad;
+            //if (CurrentSalad.PartOfCombo)
+            //{
+            //    AddButtonText = "Add Lunch Special To Order";
+            //}
+            //else
+            //{
+            //    AddButtonText = "Add Salad To Order";
+            //}
+            //If don't need the above can hard code the AddButtonText...
+            AddButtonText = "Add Salad To Order";
             LoadSaladDisplayItems();
-            AddSaladToOrderCommand = new Command(OnAddSaladToOrder);
+            NextPageCommand = new Command(OnNextPage);
+            AddToOrderCommand = new Command(OnAddToOrder);
         }
 
-        private void OnAddSaladToOrder()
+        private void OnAddToOrder()
         {
-
-            OrderManager.Instance.UpdateItemInProgress(CurrentSalad);
-            OrderManager.Instance.AddItemInProgressToOrder();
+            //If the salad is part of a combo, will go on to pizza toppings page.
+            //If the salad is by itself, will be adding the salad to the order.
+            if (CurrentSalad.PartOfCombo)
+            {
+                OrderManager.Instance.UpdateSpecialItemInProgress(CurrentSalad);
+                OrderManager.Instance.AddSpeciaItemsToOrder();
+            }
+            else
+            {
+                OrderManager.Instance.UpdateItemInProgress(CurrentSalad);
+                OrderManager.Instance.AddItemInProgressToOrder();
+                
+            }
             OnNavigateToPizzaPage();
+
+        }
+
+        private void OnNextPage()
+        {
+            OrderManager.Instance.UpdateSpecialItemInProgress(CurrentSalad);
+            OnNavigateToPizzaToppingsPage();
         }
 
         private void OnNavigateToPizzaPage()
         {
             NavigateToPizzaPage?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void OnNavigateToPizzaToppingsPage()
+        {
+           
+            NavigateToPizzaToppingsPage?.Invoke(this, EventArgs.Empty);
         }
 
 

@@ -146,8 +146,17 @@
                         </Button.Triggers>
                     </Button>
                     <Button Text="Specials"
-                        Style="{StaticResource footerScrollMenu}"/>
-                <Button Text="Dessert"
+                             Command="{Binding SpecialsCommand}"
+                        Style="{StaticResource footerScrollMenu}">
+                        <Button.Triggers>
+                        <DataTrigger TargetType="Button" 
+                                         Binding="{Binding IsSpecialsPageDisplayed}"
+                                         Value="True">
+                            <Setter Property="IsVisible" Value="False" />
+                        </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    <Button Text="Dessert"
                             Style="{StaticResource footerScrollMenu}"/>
             </StackLayout>
         </ScrollView>

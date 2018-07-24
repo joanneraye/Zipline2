@@ -65,8 +65,7 @@ namespace Zipline2.Models
         #region Constructor
         public Pizza()
         {
-            //MessagingCenter.Subscribe<PizzaToppings>(this, "PizzaToppingsTotalUpdated",
-            // (sender) => { this.PopulatePricePerItem(); });
+            Base = PizzaBase.Regular;
         }
 
 
