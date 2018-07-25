@@ -331,10 +331,7 @@ namespace Zipline2.Models
             bool halfBTitlePrinted = false;
             for (int i = 0; i < Toppings.CurrentToppings.Count; i++)
             {
-                if (PizzaType == PizzaType.LunchSpecialSlice)
-                {
-                    toppingsString.Append("   ");
-                }
+                
                 if (i == 0)
                 {
                     toppingsString.Append("   ");
@@ -342,6 +339,10 @@ namespace Zipline2.Models
                 else if (i > 0 && Toppings.CurrentToppings[i].ToppingWholeHalf == ToppingWholeHalf.Whole)
                 {
                     toppingsString.Append("\n   ");
+                }
+                if (PizzaType == PizzaType.LunchSpecialSlice)
+                {
+                    toppingsString.Append("   ");
                 }
                 if (Toppings.CurrentToppings[i].ToppingWholeHalf == ToppingWholeHalf.HalfA)
                 {

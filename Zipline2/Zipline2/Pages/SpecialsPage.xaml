@@ -24,6 +24,10 @@
                         Command="{Binding AddLunchSpecialCommand}"
                         Style="{StaticResource SpecialSelectionButtons}"
                        />
+            <Button Text="Lunch Special Major"
+                        Command="{Binding AddSpecialMajorCommand}"
+                        Style="{StaticResource SpecialSelectionButtons}"
+                         />
             <Button Text="Special Size Salad"
                         Command="{Binding AddSpecialSaladCommand}"
                         Style="{StaticResource SpecialSelectionButtons}"

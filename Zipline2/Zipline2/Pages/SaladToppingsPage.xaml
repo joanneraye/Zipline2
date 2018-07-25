@@ -69,7 +69,7 @@
                 <Button Text="{Binding AddButtonText}"
                     Command="{Binding AddToOrderCommand}"
                     HorizontalOptions="FillAndExpand"
-                    HeightRequest="30"
+                    HeightRequest="35"
                     FontSize="Micro"
                     BorderColor="White"
                     BorderRadius="2"

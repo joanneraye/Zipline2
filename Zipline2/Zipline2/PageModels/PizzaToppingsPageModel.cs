@@ -260,27 +260,54 @@ namespace Zipline2.PageModels
                     }
                     var toppingSelection = new ToppingDisplayItem(this);
 
-                    Topping newTopping = toppingsList[i];
+                    Topping newTopping = null;
+                    bool toppingOnThisPizza = false;
+                    if (ThisPizza != null && ThisPizza.Toppings != null)
+                    {
+                        foreach (var topping in ThisPizza.Toppings.CurrentToppings)
+                        {
+                            if (topping.ToppingName == toppingsList[i].ToppingName)
+                            {
+                                toppingOnThisPizza = true;
+                                toppingSelection.ListTopping = topping;
+                                if (topping.ToppingWholeHalf == ToppingWholeHalf.HalfA)
+                                {
+                                        toppingSelection.ButtonASelected = true;
+                                }
+                                else if (topping.ToppingWholeHalf == ToppingWholeHalf.HalfB)
+                                {
+                                    toppingSelection.ButtonBSelected = true;
+                                }
+                                toppingSelection.ListItemIsSelected = true;
+                                toppingSelection.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
+                                break;
+                            }
+                        }
+                    }
+                    if (!toppingOnThisPizza)
+                    {
+                        newTopping = toppingsList[i];
 
-                    //Initialize variable items in Topping object:
-                    newTopping.ToppingDisplayName = DisplayNames.GetToppingDisplayName(newTopping.ToppingName);
-                    newTopping.ToppingModifier = ToppingModifierType.None;
-                    newTopping.ToppingWholeHalf = ToppingWholeHalf.Whole;
-                    newTopping.SequenceSelected = 0;
-                    newTopping.Count = 1;
-
-                    toppingSelection.ListTopping = newTopping;
+                        //Initialize variable items in Topping object:
+                        newTopping.ToppingDisplayName = DisplayNames.GetToppingDisplayName(newTopping.ToppingName);
+                        newTopping.ToppingModifier = ToppingModifierType.None;
+                        newTopping.ToppingWholeHalf = ToppingWholeHalf.Whole;
+                        newTopping.SequenceSelected = 0;
+                        newTopping.Count = 1;
+                        toppingSelection.ListTopping = newTopping;
+                        toppingSelection.ListItemIsSelected = false;
+                        toppingSelection.SelectionColor = Xamarin.Forms.Color.Black;
+                    }
 
                     toppingSelection.SelectionIndex = toppingSelectionIndex;
-                    toppingSelectionIndex++;
-                    toppingSelection.ListItemIsSelected = false;
-                    toppingSelection.SelectionColor = Xamarin.Forms.Color.Black;
+                    toppingSelectionIndex++;  
+                   
                     toppingSelection.ButtonWVisible = true;
-                    toppingSelection.AreWholeHalfColumnsVisible = true;
                     if (toppingsList[i].ToppingName == ToppingName.HalfMajor)
                     {
                         toppingSelection.ButtonWVisible = false;
                     }
+
                     ToppingSelectionsList.Add(toppingSelection);
 
                     //If the pizza type is a slice, don't display whole/halfa/halfb options.
@@ -294,9 +321,9 @@ namespace Zipline2.PageModels
                     }
                 }
 
-                if (ThisPizza != null)
+                if (ThisPizza != null && ThisPizza.Toppings != null)
                 {
-                    if (ThisPizza.MajorMamaInfo == MajorOrMama.Major)
+                    if (ThisPizza.MajorMamaInfo == MajorOrMama.Major && ThisPizza.Toppings.CurrentToppings.Count == 0)
                     {
                         SelectMajorToppings();
                         ThisPizza.Toppings.AddMajorToppings();
@@ -328,17 +355,22 @@ namespace Zipline2.PageModels
                 {
                     toppingselection.ListItemIsSelected = true;
                     toppingselection.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
-                    if (toppingWholeHalf == ToppingWholeHalf.Whole)
+                    if (ThisPizza.PizzaType != PizzaType.LunchSpecialSlice &&
+                        ThisPizza.PizzaType != PizzaType.ThinSlice &&
+                        ThisPizza.PizzaType != PizzaType.PanSlice)
                     {
-                        toppingselection.ButtonWSelected = true;
-                    }
-                    else if (toppingWholeHalf == ToppingWholeHalf.HalfA)
-                    {
-                        toppingselection.ButtonASelected = true;
-                    }
-                    else if (toppingWholeHalf == ToppingWholeHalf.HalfB)
-                    {
-                        toppingselection.ButtonBSelected = true;
+                        if (toppingWholeHalf == ToppingWholeHalf.Whole)
+                        {
+                            toppingselection.ButtonWSelected = true;
+                        }
+                        else if (toppingWholeHalf == ToppingWholeHalf.HalfA)
+                        {
+                            toppingselection.ButtonASelected = true;
+                        }
+                        else if (toppingWholeHalf == ToppingWholeHalf.HalfB)
+                        {
+                            toppingselection.ButtonBSelected = true;
+                        }
                     }
                 }
             }

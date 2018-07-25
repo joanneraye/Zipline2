@@ -131,6 +131,7 @@ namespace Zipline2.PageModels
             //If the salad is by itself, will be adding the salad to the order.
             if (CurrentSalad.PartOfCombo)
             {
+                //NOTE - THIS IS NOT USED CURRENTLY SINCE THIS BUTTON IS HIDDEN.
                 OrderManager.Instance.UpdateSpecialItemInProgress(CurrentSalad);
                 OrderManager.Instance.AddSpeciaItemsToOrder();
             }

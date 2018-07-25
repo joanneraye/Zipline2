@@ -23,7 +23,14 @@ namespace Zipline2.Models
                 toppingsDiscount = value;
                 if (value > 0)
                 {
-                    ThisPizza.ItemName = "Lunch Special Slice";
+                    if (ThisPizza.MajorMamaInfo == MajorOrMama.Major)
+                    {
+                        ThisPizza.ItemName = "Special Slice MAJOR";
+                    }
+                    else
+                    {
+                        ThisPizza.ItemName = "Special Slice";
+                    }
                 }
                 else
                 {

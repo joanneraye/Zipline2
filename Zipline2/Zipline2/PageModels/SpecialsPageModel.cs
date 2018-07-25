@@ -16,13 +16,16 @@ namespace Zipline2.PageModels
         public ICommand AddLunchSpecialCommand { get; set; }
         public ICommand AddSpecialSaladCommand { get; set; }
 
+        public ICommand AddSpecialMajorCommand { get; set; }
+
         public event EventHandler<SaladToppingsPageEventArgs> NavigateToSaladToppingsPage;
 
         public SpecialsPageModel()
         {
             AddLunchSpecialCommand = new Command(OnAddLunchSpecial);
             AddSpecialSaladCommand = new Command(OnAddSpecialSalad);
-           
+            AddSpecialMajorCommand = new Command(OnAddSpecialMajor);
+
         }
       
         public void OnAddLunchSpecial()
@@ -43,6 +46,33 @@ namespace Zipline2.PageModels
                 DbItemId = 57M,
                 ItemCount = 1,
                 PartOfCombo = true,
+                ComboId = id
+            };
+            orderItems[1] = pizzaSpecial;
+            OrderManager.Instance.AddSpecialItemsInProgress(orderItems);
+            DisplaySaladToppingsPage(saladSpecial);
+        }
+
+        public void OnAddSpecialMajor()
+        {
+            OrderItem[] orderItems = new OrderItem[2];
+            Guid id = Guid.NewGuid();
+            Salad saladSpecial = new Salad(SaladSize.LunchSpecial)
+            {
+                DbItemId = 50M,
+                ItemCount = 1,
+                PartOfCombo = true,
+                ComboId = id
+            };
+            orderItems[0] = saladSpecial;
+
+            Pizza pizzaSpecial = new Pizza()
+            {
+                PizzaType = PizzaType.LunchSpecialSlice,
+                DbItemId = 57M,
+                ItemCount = 1,
+                PartOfCombo = true,
+                MajorMamaInfo = MajorOrMama.Major,
                 ComboId = id
             };
             orderItems[1] = pizzaSpecial;

@@ -193,7 +193,8 @@ namespace Zipline2.Data
 
         public static Dictionary<SaladSize, string> DisplaySaladNameDictionary = new Dictionary<SaladSize, string>
         {
-            { SaladSize.LunchSpecial, "Lunch Special Salad" },
+            { SaladSize.LunchSpecial, "Special Salad" },
+            { SaladSize.LunchSize, "Special Salad (without slice)" },
             { SaladSize.Small, "Small Salad" },
             { SaladSize.Large, "Large Salad" }
         };
