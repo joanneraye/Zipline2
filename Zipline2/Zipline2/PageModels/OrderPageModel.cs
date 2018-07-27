@@ -48,9 +48,11 @@ namespace Zipline2.PageModels
             var lunchSpecialDisplayItem = new OrderDisplayItem();
             var lunchSpecialItems = new List<OrderItem>();
             Guid firstGuid = Guid.Empty;
+            int orderItemIndex = 0;
             foreach (var orderitem in CurrentOrder.OrderItems)
             {
                 var displayItem = orderitem.PopulateOrderDisplayItem();
+                displayItem.ItemIndex = orderItemIndex;
 
                 //TODO:  ???   Logic assumes that lunch special items are sequential.
                 if (orderitem.PartOfCombo)
@@ -70,7 +72,7 @@ namespace Zipline2.PageModels
                 }
                 
                 DisplayOrder.Add(displayItem);
-
+                orderItemIndex++;
             }
         }
 

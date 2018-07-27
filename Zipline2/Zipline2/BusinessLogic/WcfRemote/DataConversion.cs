@@ -608,13 +608,13 @@ namespace Zipline2.BusinessLogic.WcfRemote
                     foundSalad = true;
                     lunchSpecialSalad = GetSalad(item);
                     lunchSpecialSalad.PartOfCombo = true;
-                    lunchSpecialPizza.ComboId = id;
+                    lunchSpecialSalad.ComboId = id;
                 }
             }
             if (foundSlice && foundSalad)
             {
-                orderItems.Add(lunchSpecialPizza);
                 orderItems.Add(lunchSpecialSalad);
+                orderItems.Add(lunchSpecialPizza);
                 return orderItems;
             }
             return null;

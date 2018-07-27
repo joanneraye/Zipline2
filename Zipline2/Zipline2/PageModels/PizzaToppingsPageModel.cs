@@ -238,7 +238,6 @@ namespace Zipline2.PageModels
                     AddToOrderText = "Add Pizza To Order";
                 }
                 ThisPizza = currentPizza;
-                string pizzaName = ThisPizza.ItemName;
                 AddPizzaToOrderCommand = new Command(OnAddPizzaToOrder);
                 BaseSelections = new string[]
                 {
@@ -260,15 +259,14 @@ namespace Zipline2.PageModels
                     }
                     var toppingSelection = new ToppingDisplayItem(this);
 
-                    Topping newTopping = null;
-                    bool toppingOnThisPizza = false;
+                    bool toppingisAlreadyOnThisPizza = false;
                     if (ThisPizza != null && ThisPizza.Toppings != null)
                     {
                         foreach (var topping in ThisPizza.Toppings.CurrentToppings)
                         {
                             if (topping.ToppingName == toppingsList[i].ToppingName)
                             {
-                                toppingOnThisPizza = true;
+                                toppingisAlreadyOnThisPizza = true;
                                 toppingSelection.ListTopping = topping;
                                 if (topping.ToppingWholeHalf == ToppingWholeHalf.HalfA)
                                 {
@@ -284,9 +282,9 @@ namespace Zipline2.PageModels
                             }
                         }
                     }
-                    if (!toppingOnThisPizza)
+                    if (!toppingisAlreadyOnThisPizza)
                     {
-                        newTopping = toppingsList[i];
+                        Topping newTopping = toppingsList[i];
 
                         //Initialize variable items in Topping object:
                         newTopping.ToppingDisplayName = DisplayNames.GetToppingDisplayName(newTopping.ToppingName);
@@ -313,9 +311,10 @@ namespace Zipline2.PageModels
                     //If the pizza type is a slice, don't display whole/halfa/halfb options.
 
                     toppingSelection.AreWholeHalfColumnsVisible = true;
-                    if (pizzaName.Equals(DisplayNames.GetPizzaDisplayName(PizzaType.ThinSlice)) ||
-                        pizzaName.Equals(DisplayNames.GetPizzaDisplayName(PizzaType.LunchSpecialSlice)) ||
-                        pizzaName.Equals(DisplayNames.GetPizzaDisplayName(PizzaType.PanSlice)))
+
+                    if (ThisPizza.PizzaType == PizzaType.ThinSlice ||
+                        ThisPizza.PizzaType == PizzaType.LunchSpecialSlice ||
+                        ThisPizza.PizzaType == PizzaType.PanSlice)
                     {
                         toppingSelection.AreWholeHalfColumnsVisible = false;
                     }
@@ -542,16 +541,18 @@ namespace Zipline2.PageModels
                 //The topping may already have been added, but is being changed to half.
                 //If the topping has not already been added, will need to add it (for half).
                 bool toppingAlreadyAdded = false;
-                foreach (var topping in thisPizza.Toppings.CurrentToppings)
+                foreach (Topping topping in thisPizza.Toppings.CurrentToppings)
                 {
                     if (topping.ToppingName == thisItemSelected.ListTopping.ToppingName)
                     {
                         toppingAlreadyAdded = true;
+                        
                         break;
                     }
                 }
                 if (toppingAlreadyAdded)
                 {
+                    thisPizza.Toppings.ChangeToppingToHalf(thisItemSelected.ListTopping.ToppingName, wholeOrHalf);
                     //TODO:  This may not be needed if done automatically????
                     thisPizza.Toppings.UpdateToppingsTotal();
                 }

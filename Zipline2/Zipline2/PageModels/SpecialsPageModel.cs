@@ -49,7 +49,7 @@ namespace Zipline2.PageModels
                 ComboId = id
             };
             orderItems[1] = pizzaSpecial;
-            OrderManager.Instance.AddSpecialItemsInProgress(orderItems);
+            OrderManager.Instance.AddNewSpecialItemsInProgress(orderItems);
             DisplaySaladToppingsPage(saladSpecial);
         }
 
@@ -76,7 +76,7 @@ namespace Zipline2.PageModels
                 ComboId = id
             };
             orderItems[1] = pizzaSpecial;
-            OrderManager.Instance.AddSpecialItemsInProgress(orderItems);
+            OrderManager.Instance.AddNewSpecialItemsInProgress(orderItems);
             DisplaySaladToppingsPage(saladSpecial);
         }
 
@@ -91,12 +91,12 @@ namespace Zipline2.PageModels
         private void AddSaladToOrder(Salad thisSalad)
         {
             thisSalad.ItemCount = 1;
-            OrderManager.Instance.AddItemInProgress(thisSalad);
+            OrderManager.Instance.AddNewItemInProgress(thisSalad);
         }
         private void AddPizzaToOrder(Pizza thisPizza)
         {
             thisPizza.ItemCount = 1;
-            OrderManager.Instance.AddItemInProgress(thisPizza);
+            OrderManager.Instance.AddNewItemInProgress(thisPizza);
         }
 
         private void DisplaySaladToppingsPage(Salad specialSalad)

@@ -25,6 +25,9 @@ namespace Zipline2.PageModels
         private bool majorSatchPanSelected;
         private bool majorMfpSelected;
 
+        private bool isEditingPizza = false;
+        private Pizza ThisPizza;
+
         public bool CheeseSliceSelected
         {
             get
@@ -177,9 +180,63 @@ namespace Zipline2.PageModels
             AddSatchPanCommand = new Command(OnAddSatchPan);
             PizzaSelectionCommand = new Command<PizzaType>(OnCheeseSelected);
             MajorPizzaSelectionCommand = new Command<PizzaType>(OnMajorSelected);
-            //AddPizzaToOrderCommand = new Command(OnAddPizzaToOrder);
             CheeseSliceSelected = true;
             MajorSliceSelected = true;
+            if (OrderManager.Instance.OrderItemInProgressLoadedForEdit
+                && OrderManager.Instance.OrderItemInProgress is Pizza)
+            {
+                ThisPizza = (Pizza)OrderManager.Instance.OrderItemInProgress;
+                isEditingPizza = true;
+                CheeseSliceSelected = false;
+                MajorSliceSelected = false;
+                LoadPizzaToEdit(ThisPizza);
+            }
+        }
+
+        void LoadPizzaToEdit(Pizza thisPizza)
+        {
+            if (thisPizza.MajorMamaInfo == MajorOrMama.Major)
+            {
+                switch (thisPizza.PizzaType)
+                {
+                    case PizzaType.ThinSlice:
+                        MajorSliceSelected = true;
+                        break;
+                    case PizzaType.PanSlice:
+                        MajorSatchPanSelected = true;
+                        break;
+                    case PizzaType.Medium:
+                        MajorMediumSelected = true;
+                        break;
+                    case PizzaType.Large:
+                        MajorLargeSelected = true;
+                        break;
+                    case PizzaType.Indy:
+                        MajorIndySelected = true;
+                        break;
+                }
+            }
+            else
+            {
+                switch (thisPizza.PizzaType)
+                {
+                    case PizzaType.ThinSlice:
+                        CheeseSliceSelected = true;
+                        break;
+                    case PizzaType.PanSlice:
+                        PanSliceSelected = true;
+                        break;
+                    case PizzaType.Medium:
+                        MediumSelected = true;
+                        break;
+                    case PizzaType.Large:
+                        LargeSelected = true;
+                        break;
+                    case PizzaType.Indy:
+                        IndySelected = true;
+                        break;
+                }
+            }
         }
 
         private void OnCheeseSelected(PizzaType pizzaType)
@@ -279,18 +336,19 @@ namespace Zipline2.PageModels
             }
         }
         private void OnAddCheese()
-        {
-            PizzaType pizzaType = GetPizzaSelected();
-
-            var pizza = new Pizza()
+        { 
+            PizzaType selectedPizzaType = GetPizzaTypeSelected();
+            if (!isEditingPizza)
             {
-                MajorMamaInfo = MajorOrMama.Neither,
-                PizzaType = pizzaType,
-                Base = PizzaBase.Regular,
-                ItemCount = 1
-            };
+                ThisPizza = new Pizza()
+                {
+                    ItemCount = 1
+                };
+
+            }
+            ThisPizza.PizzaType = selectedPizzaType;
            
-            OrderManager.Instance.AddItemInProgress(pizza);
+            OrderManager.Instance.AddNewItemInProgress(ThisPizza);
             DisplayToppingsPage();
         }
 
@@ -325,77 +383,56 @@ namespace Zipline2.PageModels
         }
         private void OnAddMajor()
         {
-            var pizzaType = GetMajorSizeSelected();
-            Pizza newPizza = new Pizza()
+            var selectedPizzaType = GetMajorSizeSelected();
+            if (!isEditingPizza)
             {
-                MajorMamaInfo = MajorOrMama.Major,
-                ItemCount = 1,
-                PizzaType = pizzaType
-            };
+                ThisPizza = new Pizza()
+                {
+                    ItemCount = 1
+                };
+            }
+            ThisPizza.PizzaType = selectedPizzaType;
+            ThisPizza.MajorMamaInfo = MajorOrMama.Major;
             
-            //switch (pizzaType)
-            //{
-            //    case PizzaType.Indy:
-            //        newPizza.Size = PizzaSize.Indy;
-            //        newPizza.Crust = PizzaCrust.RegularThin;
-            //        break;
-            //    case PizzaType.Large:
-            //        newPizza.Size = PizzaSize.Large;
-            //        newPizza.Crust = PizzaCrust.RegularThin;
-            //        break;
-            //    case PizzaType.Medium:
-            //        newPizza.Size = PizzaSize.Medium;
-            //        newPizza.Crust = PizzaCrust.RegularThin;
-            //        break;
-            //    case PizzaType.Mfp:
-            //        newPizza.Size = PizzaSize.OneSize;
-            //        newPizza.Crust = PizzaCrust.Mfp;
-            //        break;
-            //    case PizzaType.SatchPan:
-            //        newPizza.Size = PizzaSize.OneSize;
-            //        newPizza.Crust = PizzaCrust.SatchPan;
-            //        break;
-            //    case PizzaType.ThinSlice:
-            //        newPizza.Size = PizzaSize.Slice;
-            //        newPizza.Crust = PizzaCrust.RegularThin;
-            //        break;
-            //}
-
-            OrderManager.Instance.AddItemInProgress(newPizza);
+            OrderManager.Instance.AddNewItemInProgress(ThisPizza);
 
             DisplayToppingsPage();
         }
 
         private void OnAddMfp()
         {
-            Pizza newPizza = new Pizza()
+            if (!isEditingPizza)
             {
-                MajorMamaInfo = MajorOrMama.Neither,
-                //Size = PizzaSize.OneSize,
-                PizzaType = PizzaType.Mfp,
-                ItemCount = 1
-            };
-          
-            OrderManager.Instance.AddItemInProgress(newPizza);
+                ThisPizza = new Pizza()
+                {
+                    ItemCount = 1
+                };
+
+            }
+            ThisPizza.PizzaType = PizzaType.Mfp;
+
+            OrderManager.Instance.AddNewItemInProgress(ThisPizza);
 
             DisplayToppingsPage();
         }
 
         private void OnAddSatchPan()
         {
-            Pizza newPizza = new Pizza()
+            if (!isEditingPizza)
             {
-                MajorMamaInfo = MajorOrMama.Neither,
-                //Size = PizzaSize.OneSize,
-                PizzaType = PizzaType.SatchPan,
-                ItemCount = 1
-            };
+                ThisPizza = new Pizza()
+                {
+                    ItemCount = 1
+                };
+            }
 
-            OrderManager.Instance.AddItemInProgress(newPizza);
+            ThisPizza.PizzaType = PizzaType.SatchPan;
+
+            OrderManager.Instance.AddNewItemInProgress(ThisPizza);
           
             DisplayToppingsPage();
         }
-        private PizzaType GetPizzaSelected()
+        private PizzaType GetPizzaTypeSelected()
         {
             PizzaType pizzaTypeSelected = PizzaType.None;
             if (CheeseSliceSelected)
@@ -424,15 +461,13 @@ namespace Zipline2.PageModels
         {
             var orderManager = OrderManager.Instance;
             OrderManager.Instance.MarkCurrentTableOccupied(true);
-            var currentPizza = orderManager.GetCurrentPizza();
-            MenuHeaderModel.Instance.ItemTotal = currentPizza.PricePerItemIncludingToppings;
-
-            OnNavigateToToppingsPage(currentPizza);
+            MenuHeaderModel.Instance.ItemTotal = ThisPizza.PricePerItemIncludingToppings;
+            OnNavigateToToppingsPage();
         }
 
-        void OnNavigateToToppingsPage(Pizza currentPizza)
+        void OnNavigateToToppingsPage()
         {
-            NavigateToToppingsPage?.Invoke(this, new ToppingsPageEventArgs(currentPizza));
+            NavigateToToppingsPage?.Invoke(this, new ToppingsPageEventArgs(ThisPizza));
         }
     }
 }

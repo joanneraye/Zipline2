@@ -83,6 +83,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
             }
         }
 
+        public string ServerType { get; private set; }
+       
         
 
         //public Dictionary<decimal, DBItem> MenuItemsPizza { get; private set; }
@@ -97,8 +99,10 @@ namespace Zipline2.BusinessLogic.WcfRemote
             ServiceCallConfig = ServiceCallConfigType.UpdateServicesNoSend;
 
             endpointIpAddressPart1 = "http://192.168.1.26";      //Dev environment
+            ServerType = "**Fake developer server**";
 
             // endpointIpAddressPart1 = "http://192.168.1.21";   //Live server
+            //serverType = "**Satchel's Server**";
             // endpointIpAddressPart1 = "http://192.168.1.122";   //Backup server
             //endpointIpAddressPart1 = "http://192.168.1";      //BAD
 

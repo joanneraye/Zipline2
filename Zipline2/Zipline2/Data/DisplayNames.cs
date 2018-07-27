@@ -21,7 +21,7 @@ namespace Zipline2.Data
             { PizzaType.PanSlice, "Satch-Pan Slice" },
             { PizzaType.Medium, "Medium Cheese" },
             { PizzaType.Large, "Large Cheese" },
-            { PizzaType.LunchSpecialSlice, "Lunch Special Slice" },
+            { PizzaType.LunchSpecialSlice, "Special Slice" },
             //{ PizzaType.Calzone, "Calzone" },
             //{ PizzaType.CalzoneSteakAndCheese, "Calzone - Steak and Cheese" },
             { PizzaType.SatchPan, "Satch-Pan" },

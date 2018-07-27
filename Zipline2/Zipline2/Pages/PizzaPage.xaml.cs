@@ -32,6 +32,7 @@ namespace Zipline2.Pages
             Footer.FooterPageModel.IsPizzaPageDisplayed = true;
             Footer.FooterPageModel.DisplayAddToOrderButton = false;
         }
+       
         #endregion
 
         #region Methods

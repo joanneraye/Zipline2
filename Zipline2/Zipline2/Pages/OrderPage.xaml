@@ -14,15 +14,16 @@
         <StackLayout Padding ="10,5,10,10">
             <ListView ItemsSource="{Binding DisplayOrder}"
                       Footer="{Binding CurrentOrder}"
+                      ItemSelected="OnItemSelected"
                       HasUnevenRows="True"
                       Margin="0"
                       BackgroundColor="Black">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Grid RowSpacing="0">
+                            <Grid RowSpacing="0"                                  >
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="6*"/>
@@ -30,7 +31,7 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="3*"/>
                                 </Grid.ColumnDefinitions>
-                                <StackLayout Grid.Column="0" Grid.ColumnSpan="1" Spacing="0" >
+                                <StackLayout Grid.Column="0" Grid.ColumnSpan="1" Spacing="0">
                                     <Label Text="{Binding CustomHeader}"
                                            Margin="0,5,0,0"
                                            TextColor="White"
@@ -43,13 +44,14 @@
                                                  Binding="{Binding UseCustomHeader}"
                                                          Value="True">
                                                 <Setter Property="IsVisible" Value="True" />
-                                            </DataTrigger>
+                                            </DataTrigger>                                           
                                         </Label.Triggers>
                                     </Label>
                                     <Label Margin="0" Grid.ColumnSpan="1"
                                             Text="{Binding OrderitemDisplayName}"
                                            VerticalTextAlignment="End"
                                            VerticalOptions="End"
+                                           BackgroundColor="Black"
                                                FontSize="Micro"
                                                TextColor="Green">
                                         <Label.Triggers>
@@ -58,12 +60,18 @@
                                                          Value="false">
                                                 <Setter Property="TextColor" Value="Red" />
                                             </DataTrigger>
+                                            <DataTrigger TargetType="Label"
+                                                 Binding="{Binding ItemIsSelected}"
+                                                         Value="True">
+                                                <Setter Property="BackgroundColor" Value="Orange" />
+                                            </DataTrigger>
                                         </Label.Triggers>
                                     </Label>
                                     <StackLayout Grid.ColumnSpan="4">
                                         <Label Margin="0"
                                           TextColor="White"
                                            FontSize="Micro"
+                                               BackgroundColor="Black"
                                                IsVisible="False"
                                           Text="{Binding Toppings}">
                                             <Label.Triggers>
@@ -71,6 +79,11 @@
                                                      Binding="{Binding HasToppings}"
                                                              Value="True">
                                                     <Setter Property="IsVisible" Value="True" />
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="Label"
+                                                 Binding="{Binding ItemIsSelected}"
+                                                         Value="True">
+                                                    <Setter Property="BackgroundColor" Value="Orange" />
                                                 </DataTrigger>
                                             </Label.Triggers>
                                         </Label>

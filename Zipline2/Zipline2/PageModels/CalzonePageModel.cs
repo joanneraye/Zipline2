@@ -79,7 +79,7 @@ namespace Zipline2.PageModels
         private void AddCalzoneToOrder(Calzone thisCalzone)
         {
             thisCalzone.ItemCount = 1;
-            OrderManager.Instance.AddItemInProgress(thisCalzone);
+            OrderManager.Instance.AddNewItemInProgress(thisCalzone);
             DisplayCalzoneToppingsPage(thisCalzone);
         }
 

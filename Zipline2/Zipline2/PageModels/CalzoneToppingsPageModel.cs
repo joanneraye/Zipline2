@@ -136,19 +136,38 @@ namespace Zipline2.PageModels
                     continue;
                 }
                 var toppingSelection = new CalzoneToppingDisplayItem(this);
-                Topping newTopping = toppingsList[i];
 
-                //Initialize variable items in Topping object:
-                newTopping.ToppingDisplayName = DisplayNames.GetToppingDisplayName(newTopping.ToppingName);
-                newTopping.ToppingModifier = ToppingModifierType.None;
-                newTopping.ToppingWholeHalf = ToppingWholeHalf.Whole;
-                newTopping.SequenceSelected = 0;
-                newTopping.Count = 1;
+                bool toppingIsAlreadyOnThisCalzone = false;
+                if (ThisCalzone != null && ThisCalzone.Toppings != null)
+                {
+                    foreach (var topping in ThisCalzone.Toppings.CurrentToppings)
+                    {
+                        if (topping.ToppingName == toppingsList[i].ToppingName)
+                        {
+                            toppingIsAlreadyOnThisCalzone = true;
+                            toppingSelection.ListTopping = topping;
+                            toppingSelection.ListItemIsSelected = true;
+                            break;
+                        }
+                    }
+                }
 
-                toppingSelection.ListTopping = newTopping;
+                if (!toppingIsAlreadyOnThisCalzone)
+                {
+                    Topping newTopping = toppingsList[i];
+
+                    //Initialize variable items in Topping object:
+                    newTopping.ToppingDisplayName = DisplayNames.GetToppingDisplayName(newTopping.ToppingName);
+                    newTopping.ToppingModifier = ToppingModifierType.None;
+                    newTopping.ToppingWholeHalf = ToppingWholeHalf.Whole;
+                    newTopping.SequenceSelected = 0;
+                    newTopping.Count = 1;
+                    toppingSelection.ListTopping = newTopping;
+                    toppingSelection.ListItemIsSelected = false;
+                }
+
                 toppingSelection.SelectionIndex = toppingSelectionIndex;
                 toppingSelectionIndex++;
-                toppingSelection.ListItemIsSelected = false;
                
                 ToppingSelectionsList.Add(toppingSelection);
             }

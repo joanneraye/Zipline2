@@ -25,7 +25,7 @@
                 <Setter Property="BorderWidth" Value="2" />
                 <Setter Property="BackgroundColor" Value="LightBlue" />
                 <Setter Property="HorizontalOptions" Value="Start" />
-                <Setter Property="HeightRequest" Value="45" />
+                <Setter Property="HeightRequest" Value="80" />
                 <Setter Property="FontAttributes" Value="Bold" />
                 <Setter Property="Margin" Value="2" />
                 <Setter Property="FontSize" Value="8" />
@@ -40,7 +40,7 @@
                     <Button Text="Tables"
                                     Command="{Binding TablesCommand}"
                                     Style="{StaticResource footerScrollMenuBlueButtons}"
-                                    WidthRequest="62">
+                                    WidthRequest="50">
                     </Button>
                     <Button Text="{Binding AddToOrderButtonText}"
                                     Command="{Binding AddToOrderCommand}"
@@ -70,7 +70,7 @@
                             Command="{Binding SendOrderCommand}"
                             Style="{StaticResource footerScrollMenuBlueButtons}"
                             IsVisible="False"
-                            WidthRequest="78">
+                            WidthRequest="50">
                     <Button.Triggers>
                         <DataTrigger TargetType="Button" 
                                  Binding="{Binding IsOrderPageDisplayed}"
@@ -85,11 +85,24 @@
                         </DataTrigger>-->
                     </Button.Triggers>
                 </Button>
-                <Button Text="Edit Order"
-                            Command="{Binding EditOrderCommand}"
+                <Button Text="Edit Order Item"
+                            Command="{Binding EditOrderItemCommand}"
                             Style="{StaticResource footerScrollMenuBlueButtons}"
                             IsVisible="False"
-                            WidthRequest="78">
+                            WidthRequest="50">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" 
+                                 Binding="{Binding IsOrderPageDisplayed}"
+                                 Value="True">
+                            <Setter Property="IsVisible" Value="True" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+                <Button Text="Delete Order Item"
+                            Command="{Binding DeleteOrderItemCommand}"
+                            Style="{StaticResource footerScrollMenuBlueButtons}"
+                            IsVisible="False"
+                            WidthRequest="50">
                     <Button.Triggers>
                         <DataTrigger TargetType="Button" 
                                  Binding="{Binding IsOrderPageDisplayed}"

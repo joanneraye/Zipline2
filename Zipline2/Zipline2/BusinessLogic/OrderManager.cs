@@ -43,6 +43,8 @@ namespace Zipline2.BusinessLogic
 
        
         public OrderItem OrderItemInProgress { get; set; }
+
+        public bool OrderItemInProgressLoadedForEdit { get; set; }
         public Order OrderInProgress { get; set; }
 
         public OrderItem[] SpecialOrderItemsInProgress { get; set; }
@@ -111,7 +113,7 @@ namespace Zipline2.BusinessLogic
         /// OrderInProgress.
         /// </summary>
         /// <param name="guiData"></param>
-        public void AddItemInProgress(OrderItem partialItemNoToppingMods)
+        public void AddNewItemInProgress(OrderItem partialItemNoToppingMods)
         {
             partialItemNoToppingMods.PopulateDisplayName();
             partialItemNoToppingMods.PopulateBasePrice();
@@ -120,7 +122,7 @@ namespace Zipline2.BusinessLogic
             SpecialOrderItemsInProgress = null;
         }
 
-        public void AddSpecialItemsInProgress(OrderItem[] specialItems)
+        public void AddNewSpecialItemsInProgress(OrderItem[] specialItems)
         {
             foreach (var item in specialItems)
             {
@@ -163,6 +165,14 @@ namespace Zipline2.BusinessLogic
         { 
              foreach (var item in itemsToAdd)
              {
+                if (item.EditingExistingItem)
+                {
+                    
+                }
+                else
+                {
+                    OrderManager.Instance.OrderInProgress.UpdateOrderItem(item);
+                }
                 OrderManager.Instance.OrderInProgress.AddItemToOrder(item);
              }
             await OrderManager.Instance.OrderInProgress.UpdateOrderOnServerAsync();

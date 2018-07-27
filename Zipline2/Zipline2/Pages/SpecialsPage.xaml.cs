@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Zipline2.PageModels;
 using Zipline2.MyEventArgs;
+using Zipline2.BusinessLogic;
 
 namespace Zipline2.Pages
 {

@@ -84,6 +84,21 @@ namespace Zipline2.PageModels
             }
         }
 
+        public int ItemIndex { get; set; }
+
+        private bool itemIsSelected;
+        public bool ItemIsSelected
+        {
+            get
+            {
+                return itemIsSelected;
+            }
+            set
+            {
+                SetProperty(ref itemIsSelected, value);
+            }
+        }
+
     }
 
 

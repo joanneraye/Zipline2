@@ -39,6 +39,7 @@
     <Compile Remove="PageModels\CarouselViewModel.cs" />
     <Compile Remove="PageModels\MainPageModel.cs" />
     <Compile Remove="PageModels\MasterMainPageModel.cs" />
+    <Compile Remove="PageModels\MenuButtonsModel.cs" />
     <Compile Remove="PageModels\PizzaBasePageModel.cs" />
     <Compile Remove="PageModels\ToppingSelection.cs" />
     <Compile Remove="Pages\MainPage.xaml.cs" />
@@ -49,6 +50,7 @@
     <Compile Remove="Pages\MasterPageItem.cs" />
     <Compile Remove="Pages\OldTablesPage.xaml.cs" />
     <Compile Remove="Pages\PizzaBasePage.xaml.cs" />
+    <Compile Remove="Views\MenuButtonFooterViewOLD.xaml.cs" />
     <Compile Remove="Views\MenuHeaderView - OLD.xaml.cs" />
     <Compile Remove="Views\MyCarouselViewControl.xaml.cs" />
   </ItemGroup>
@@ -60,6 +62,7 @@
     <EmbeddedResource Remove="Pages\MasterDetailPage1Master.xaml" />
     <EmbeddedResource Remove="Pages\OldTablesPage.xaml" />
     <EmbeddedResource Remove="Pages\PizzaBasePage.xaml" />
+    <EmbeddedResource Remove="Views\MenuButtonFooterViewOLD.xaml" />
     <EmbeddedResource Remove="Views\MenuHeaderView - OLD.xaml" />
     <EmbeddedResource Remove="Views\MyCarouselViewControl.xaml" />
   </ItemGroup>
@@ -125,15 +128,15 @@
     <Compile Update="Views\MenuScrollFooterView.xaml.cs">
       <DependentUpon>MenuScrollFooterView.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\MenuButtonFooterViewOLD.xaml.cs">
-      <DependentUpon>MenuButtonFooterViewOLD.xaml</DependentUpon>
-    </Compile>
     <Compile Update="Views\MenuHeaderView.xaml.cs">
       <DependentUpon>MenuHeaderView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="PageModels\DessertPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Pages\CalzonePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -173,9 +176,6 @@
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\MenuButtonFooterViewOLD.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\MenuHeaderView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>

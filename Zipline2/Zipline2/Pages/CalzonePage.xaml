@@ -26,12 +26,12 @@
             <Button Text="Calzone (Ricotta &amp; Mozarella)"
                         Command="{Binding AddCalzoneCommand}"
                         Style="{StaticResource CalzoneSelectionButtons}" />
-            <Button Text="Calzone Hot Rope"
+            <!--<Button Text="Calzone Hot Rope"
                         Command="{Binding AddCalzoneHotRopeCommand}"
                         Style="{StaticResource CalzoneSelectionButtons}" />
             <Button Text="Calzone PB&amp;J"
                         Command="{Binding AddCalzonePBJCommand}"
-                        Style="{StaticResource CalzoneSelectionButtons}" />
+                        Style="{StaticResource CalzoneSelectionButtons}" />-->
             <Button Text="Calzone Steak And Cheese"
                         Command="{Binding AddCalzoneSteakAndCheeseCommand}"
                         Style="{StaticResource CalzoneSelectionButtons}" />

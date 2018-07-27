@@ -160,12 +160,15 @@ namespace Zipline2.Models
                     PizzaType = PizzaType.PestoWhiteLarge;
                 }
             }
+            PopulateDisplayName();
 
             //Base price and toppings price will change due to the base change.
             if (updateTotals)
-            {
+            {          
                 PopulateBasePrice();
                 Toppings.UpdateToppingsTotal();
+                PopulatePricePerItem();
+                
             }
         }
 
@@ -362,7 +365,7 @@ namespace Zipline2.Models
                     
 
                 }
-                else if (Toppings.CurrentToppings[i].ToppingWholeHalf == ToppingWholeHalf.HalfB && !halfBTitlePrinted)
+                else if (Toppings.CurrentToppings[i].ToppingWholeHalf == ToppingWholeHalf.HalfB)
                 {
                     if (!halfBTitlePrinted)
                     {
@@ -524,6 +527,15 @@ namespace Zipline2.Models
                 Toppings.ToppingsDiscount = 0M;
                 Toppings.UpdateToppingsTotal();
             }
+        }
+
+        public void ChangePizzaType(PizzaType newType)
+        {
+            PizzaType = newType;
+            PopulateDisplayName();
+            PopulateBasePrice();
+            Toppings.UpdateToppingsTotal();
+            PopulatePricePerItem();
         }
 
         #endregion

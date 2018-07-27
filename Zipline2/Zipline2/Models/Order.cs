@@ -28,7 +28,7 @@ namespace Zipline2.Models
             {
                 return orderItems;
             }
-            set
+            private set
             {
                 SetProperty(ref orderItems, value);
             }
@@ -113,49 +113,64 @@ namespace Zipline2.Models
 
         //When a new OrderItem is added, subtotal, tax, and total are 
         //automatically updated.
-        public void AddItemToOrder(OrderItem item)
+        public void AddItemToOrder(OrderItem newOrderItem)
         {
             bool addItemToOrder = true;
-            if (item != null)
+            if (newOrderItem != null)
             {
-                if (item is Drink)
+                if (newOrderItem.EditingExistingItem)
                 {
-                    Drink drinkToAdd = (Drink)item;
-                    var beforeOrderItems = OrderItems;
-                    if (UpdateDrinkIfAlreadyOnOrder(drinkToAdd))
+                    UpdateOrderItem(newOrderItem);
+                }
+                else
+                {
+                    if (newOrderItem is Drink)
                     {
-                        addItemToOrder = false;
+                        Drink drinkToAdd = (Drink)newOrderItem;
+                        if (UpdateDrinkIfAlreadyOnOrder(drinkToAdd))
+                        {
+                            addItemToOrder = false;
+                        }
+                    }
+
+                    if (addItemToOrder)
+                    {
+                        //From now on these items are flagged to be edited so won't be added again.
+                        newOrderItem.EditingExistingItem = true;
+                        newOrderItem.OrderItemNumber = OrderItems.Count + 1;
+                        OrderItems.Add(newOrderItem);
+                    }
+                }
+                UpdateOrderTotals();
+            }
+        }
+
+        public void UpdateOrderItem(OrderItem existingOrderItem)
+        {
+            if (existingOrderItem != null)
+            {
+                //TODO:  Not sure yet how handling editing of drinks....
+                //if (existingOrderItem is Drink)
+                //{
+                //    Drink drinkToAdd = (Drink)existingOrderItem;
+                //    if (!UpdateDrinkIfAlreadyOnOrder(drinkToAdd))
+                //    {
+                //        existingOrderItem.EditingExistingItem = true;
+                //        OrderItems.Add(existingOrderItem);
+                //    }
+                //}
+
+                for (int i = 0; i < OrderItems.Count; i++)
+                {
+                    if (OrderItems[i].OrderItemNumber == existingOrderItem.OrderItemNumber)
+                    {
+                        OrderItems[i] = existingOrderItem;
                     }
                 }
 
-
-
-                if (addItemToOrder)
-                {
-                    OrderItems.Add(item);
-                }
-
-                //Check for lunch special.
-                //if (item is Pizza)
-                //{
-                //    Pizza thisPizza = (Pizza)item;
-                //    if (thisPizza.PizzaType == PizzaType.ThinSlice)
-                //    {
-                //        //SliceCount++;
-                //    }
-                //}
-                //else if (item is Salad)
-                //{
-                //    Salad thisSalad = (Salad)item;
-                //    if (thisSalad.SizeOfSalad == SaladSize.LunchSpecial)
-                //    {
-                //        //SpecialSaladCount++;
-                //    }
-                //}
-
-
                 UpdateOrderTotals();
             }
+
         }
 
         public async Task UpdateOrderOnServerAsync()

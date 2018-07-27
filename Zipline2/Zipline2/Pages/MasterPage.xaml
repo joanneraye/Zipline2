@@ -18,6 +18,7 @@
             </Grid>
             <StackLayout Margin="10,10,10,0" Grid.Row="1" Spacing="10">
                 <local:NavigationItem Text="{Binding MenuLoggedOnText}" Icon="{Binding MenuLoggedOnIconName}" />
+                <local:NavigationItem Text="{Binding ServerInfo}" Icon="fa-desktop" />
                 <ContentView HeightRequest="1" BackgroundColor="Gray" />
                 <local:NavigationItem Text="Tables" Icon="fa-table" Command="{Binding NavigationCommand}" CommandParameter="1" />
                 <local:NavigationItem Text="Menu/Pizza" Icon="fa-pie-chart" Command="{Binding NavigationCommand}" CommandParameter="5" />

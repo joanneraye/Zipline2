@@ -26,7 +26,8 @@ namespace Zipline2.PageModels
             TablesCommand = new Command(OnTablesPage);
             AddToOrderCommand = new Command(OnAddToOrder);
             SendOrderCommand = new Command(OnSendOrder);
-            EditOrderCommand = new Command(OnEditOrder);
+            EditOrderItemCommand = new Command(OnEditOrderItem);
+            DeleteOrderItemCommand = new Command(OnDeleteOrderItem);
             AddToOrderButtonText = "Add To Order";
         }
         public static MenuButtonFooterModel Instance
@@ -57,7 +58,8 @@ namespace Zipline2.PageModels
         public ICommand OrderPageCommand { get; set; }
         public ICommand SendOrderCommand { get; set; }
 
-        public ICommand EditOrderCommand { get; set; }
+        public ICommand EditOrderItemCommand { get; set; }
+        public ICommand DeleteOrderItemCommand { get; set; }
         private string addToOrderButtonText;
         public string AddToOrderButtonText
         {
@@ -279,12 +281,14 @@ namespace Zipline2.PageModels
             Application.Current.MainPage = currentMainPage;
         }
 
-        void OnEditOrder()
+        void OnEditOrderItem()
         {
-
+            MessagingCenter.Send(this, "EditOrderItem");
         }
 
-
-
+        void OnDeleteOrderItem()
+        {
+            MessagingCenter.Send(this, "DeleteOrderItem");
+        }
     }
 }

@@ -22,12 +22,16 @@ namespace Zipline2.Models
         //Must correspond to an order on the Order table (foreign key)
         public int OrderNumberId { get; set; }
 
+        public int OrderItemNumber { get; set; }
+
         [MaxLength(100), Column("itemname")]
         public string ItemName { get; set; }
 
         public bool PartOfCombo { get; set; }
 
         public Guid ComboId { get; set; }
+
+        public bool EditingExistingItem;
         
         /// <summary>
         /// The item count is not the number of the general item (such

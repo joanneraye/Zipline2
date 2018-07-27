@@ -242,8 +242,7 @@ namespace Zipline2.PageModels
             List<Drink> drinksForDisplay = MenuDrinks.GetDrinksList(drinkCategory);
             var tempDisplayItems = new List<DrinkDisplayItem>();
             for (int i = 0; i < drinksForDisplay.Count; i++)
-            {
-                
+            {  
                 tempDisplayItems.Add(new DrinkDisplayItem()
                 {
                     Drink = drinksForDisplay[i],

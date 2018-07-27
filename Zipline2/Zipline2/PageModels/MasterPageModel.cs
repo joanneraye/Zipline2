@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Zipline2.BusinessLogic.WcfRemote;
 using Zipline2.Models;
 using Zipline2.Pages;
 
@@ -38,14 +39,18 @@ namespace Zipline2.PageModels
             }
         }
 
+        public string ServerInfo { get; set; }
+
         public MasterPageModel()
         {
             MenuLoggedOnIconName = "fa-question-circle";
+            ServerInfo = WcfServicesProxy.Instance.ServerType;
             MessagingCenter.Subscribe<Users, string>(this, "UserLoggedIn",
                   (sender, arg) => 
                   {
                       MenuLoggedOnText = "Logged In As: " + arg;
                       MenuLoggedOnIconName = "fa-smile-o";
+                      MessagingCenter.Unsubscribe<string>(this, "UserLoggedIn");
                   });
 
             NavigationCommand = new Command<string>(NavigateToPage);

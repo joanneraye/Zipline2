@@ -119,7 +119,9 @@ namespace Zipline2.PageModels
             //    AddButtonText = "Add Salad To Order";
             //}
             //If don't need the above can hard code the AddButtonText...
+            //Currently the add button text is hidden if part of a special.
             AddButtonText = "Add Salad To Order";
+
             LoadSaladDisplayItems();
             NextPageCommand = new Command(OnNextPage);
             AddToOrderCommand = new Command(OnAddToOrder);
@@ -176,22 +178,37 @@ namespace Zipline2.PageModels
                 }
                 var toppingSelection = new SaladToppingDisplayItem(this);
 
-                Topping newTopping = toppingsList[i];
-                //Initialize variable items in Topping object:
-                newTopping.ToppingDisplayName = DisplayNames.GetToppingDisplayName(newTopping.ToppingName);
-                newTopping.ToppingModifier = ToppingModifierType.None;
-                newTopping.ToppingWholeHalf = ToppingWholeHalf.Whole;
-                newTopping.SequenceSelected = 0;
-                newTopping.Count = 1;
-
-                toppingSelection.SaladTopping = newTopping;
+                bool toppingAlreadyOnSalad = false;
+                if (CurrentSalad != null && CurrentSalad.Toppings != null)
+                {
+                    foreach (var topping in CurrentSalad.Toppings.CurrentToppings)
+                    {
+                        if (topping.ToppingName == toppingsList[i].ToppingName)
+                        {
+                            toppingAlreadyOnSalad = true;
+                            toppingSelection.SaladTopping = topping;
+                            toppingSelection.SaladToppingIsSelected = true;
+                            break;
+                        }
+                    }
+                }
+                if (!toppingAlreadyOnSalad)
+                {
+                    Topping newTopping = toppingsList[i];
+                    //Initialize variable items in Topping object:
+                    newTopping.ToppingDisplayName = DisplayNames.GetToppingDisplayName(newTopping.ToppingName);
+                    newTopping.ToppingModifier = ToppingModifierType.None;
+                    newTopping.ToppingWholeHalf = ToppingWholeHalf.Whole;
+                    newTopping.SequenceSelected = 0;
+                    newTopping.Count = 1;
+                    toppingSelection.SaladTopping = newTopping;
+                    toppingSelection.SaladToppingIsSelected = false;
+                }
 
                 toppingSelection.SaladSelectionIndex = toppingSelectionIndex;
-                toppingSelectionIndex++;
-                toppingSelection.SaladToppingIsSelected = false;
+                toppingSelectionIndex++;               
 
                 SaladToppingSelectionsList.Add(toppingSelection);
-
             }
         }
 

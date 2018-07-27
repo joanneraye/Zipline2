@@ -333,15 +333,6 @@
                 </iconize:IconImage>
 
             </Grid>
-            <!--<Button Text="Add Pizza to Order"
-                    Command="{Binding AddPizzaToOrderCommand}"
-                    HorizontalOptions="FillAndExpand"
-                    HeightRequest="40"
-                    BorderColor="White"
-                    BorderRadius="2"
-                    BorderWidth="2"
-                    BackgroundColor="LightBlue"
-                    TextColor="Black"/>-->
             <views:MenuScrollFooterView VerticalOptions="EndAndExpand"  HorizontalOptions="FillAndExpand" x:Name="Footer"/>
         </StackLayout>
     </ContentPage.Content>

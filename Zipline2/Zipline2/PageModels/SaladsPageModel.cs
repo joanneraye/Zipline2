@@ -48,7 +48,7 @@ namespace Zipline2.PageModels
         private void AddSaladToOrder(Salad thisSalad)
         {
             thisSalad.ItemCount = 1;
-            OrderManager.Instance.AddItemInProgress(thisSalad);
+            OrderManager.Instance.AddNewItemInProgress(thisSalad);
             DisplaySaladToppingsPage(thisSalad);
         }
 
