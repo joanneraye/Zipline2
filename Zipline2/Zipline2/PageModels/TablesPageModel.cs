@@ -37,16 +37,6 @@ namespace Zipline2.PageModels
                 }
             }
 
-            
-            public string InsideTableNameUnsent
-            {
-                get
-                {
-                    return insideTableName + " UNSENT";
-                }
-            }
-
-
             private Table insideTable;
             public Table InsideTable
             {
@@ -97,15 +87,7 @@ namespace Zipline2.PageModels
                     SetProperty(ref outsideTableName, value);
                 }
             }
-
-            public string OutsideTableNameUnsent
-            {
-                get
-                {
-                    return outsideTableName + " UNSENT";
-                }
-            }
-
+        
 
             private Table outsideTable;
             public Table OutsideTable

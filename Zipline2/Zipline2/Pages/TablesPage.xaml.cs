@@ -120,8 +120,12 @@ namespace Zipline2.Pages
             }
         }
 
-        private void OnItemSelected()
+        private void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
+            if (sender is ListView)
+            {
+                ((ListView)sender).SelectedItem = null;
+            }
         }
 
         void HandleNavigateToDrinksPage(object sender, EventArgs e)

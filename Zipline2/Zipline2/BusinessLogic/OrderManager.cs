@@ -249,7 +249,21 @@ namespace Zipline2.BusinessLogic
             return thisPizza;
         }
 
-        
+        public void DeleteItemFromOrderInProgress(int orderItemNumber)
+        {
+            OrderInProgress.DeleteOrderItem(orderItemNumber);
+        }
+
+        public void DeleteSpecialItemsFromOrderInProgress(int[] itemNumbers)
+        {
+            if (itemNumbers.Length > 1)
+            {
+                OrderInProgress.DeleteOrderItem(itemNumbers[0]);
+                OrderInProgress.DeleteOrderItem(itemNumbers[1]);
+            }
+            
+        }
+
         #endregion
     }
 }

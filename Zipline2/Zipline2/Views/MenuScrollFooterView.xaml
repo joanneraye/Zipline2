@@ -9,45 +9,45 @@
                 <!--<Setter Property="Margin" Value="2, 2, 2, 2" />-->
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="BorderColor" Value="White" />
-                <Setter Property="BorderRadius" Value="3" />
-                <Setter Property="BorderWidth" Value="3" />
+                <Setter Property="BorderRadius" Value="2" />
+                <Setter Property="BorderWidth" Value="2" />
                 <Setter Property="BackgroundColor" Value="Black" />
                 <Setter Property="HorizontalOptions" Value="Start" />
                 <Setter Property="HeightRequest" Value="35" />
                 <Setter Property="WidthRequest" Value="80" />
-                <Setter Property="FontSize" Value="9" />
+                <Setter Property="FontSize" Value="10" />
             </Style>
             <Style x:Key="footerScrollMenuBlueButtons" TargetType="Button">
                 <!--<Setter Property="Margin" Value="2, 2, 2, 2" />-->
                 <Setter Property="TextColor" Value="Black" />
                 <Setter Property="BorderColor" Value="White" />
                 <Setter Property="BorderRadius" Value="2" />
-                <Setter Property="BorderWidth" Value="2" />
+                <Setter Property="BorderWidth" Value="1" />
                 <Setter Property="BackgroundColor" Value="LightBlue" />
                 <Setter Property="HorizontalOptions" Value="Start" />
-                <Setter Property="HeightRequest" Value="80" />
+                <Setter Property="HeightRequest" Value="35" />
                 <Setter Property="FontAttributes" Value="Bold" />
-                <Setter Property="Margin" Value="2" />
-                <Setter Property="FontSize" Value="8" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="FontSize" Value="10" />
             </Style>
         </ResourceDictionary>
     </ContentView.Resources>
     <ContentView.Content>
         <StackLayout Orientation="Vertical"
-                     Margin="0,2,0,0">
-                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand"
-                            BackgroundColor="Black" Spacing="2">
-                    <Button Text="Tables"
+                     Margin="0,0,0,0" Spacing="1">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand"
+                            BackgroundColor="Black" Margin="0,0,0,0" Spacing="1">
+                <Button Text="Tables"
                                     Command="{Binding TablesCommand}"
                                     Style="{StaticResource footerScrollMenuBlueButtons}"
-                                    WidthRequest="50">
-                    </Button>
-                    <Button Text="{Binding AddToOrderButtonText}"
+                                    WidthRequest="60">
+                </Button>            
+                    <Button Text="Add DRKS"
                                     Command="{Binding AddToOrderCommand}"
                                     Style="{StaticResource footerScrollMenuBlueButtons}"
-                                     WidthRequest="91">
+                                     WidthRequest="65" FontSize="10">
                         <Button.Triggers>
-                            <DataTrigger TargetType="Button" 
+                        <DataTrigger TargetType="Button" 
                                  Binding="{Binding DisplayAddToOrderButton}"
                                  Value="False">
                             <Setter Property="IsVisible" Value="False" />
@@ -57,7 +57,7 @@
                     <Button Text="Order Summary"
                             Command="{Binding OrderPageCommand}"
                             Style="{StaticResource footerScrollMenuBlueButtons}"
-                            WidthRequest="78">
+                            WidthRequest="110">
                         <Button.Triggers>
                             <DataTrigger TargetType="Button" 
                                  Binding="{Binding IsOrderPageDisplayed}"
@@ -70,7 +70,7 @@
                             Command="{Binding SendOrderCommand}"
                             Style="{StaticResource footerScrollMenuBlueButtons}"
                             IsVisible="False"
-                            WidthRequest="50">
+                            WidthRequest="85">
                     <Button.Triggers>
                         <DataTrigger TargetType="Button" 
                                  Binding="{Binding IsOrderPageDisplayed}"
@@ -85,11 +85,15 @@
                         </DataTrigger>-->
                     </Button.Triggers>
                 </Button>
+               
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand"
+                            BackgroundColor="Black" Spacing="1">
                 <Button Text="Edit Order Item"
                             Command="{Binding EditOrderItemCommand}"
                             Style="{StaticResource footerScrollMenuBlueButtons}"
                             IsVisible="False"
-                            WidthRequest="50">
+                            WidthRequest="110">
                     <Button.Triggers>
                         <DataTrigger TargetType="Button" 
                                  Binding="{Binding IsOrderPageDisplayed}"
@@ -102,7 +106,7 @@
                             Command="{Binding DeleteOrderItemCommand}"
                             Style="{StaticResource footerScrollMenuBlueButtons}"
                             IsVisible="False"
-                            WidthRequest="50">
+                            WidthRequest="120">
                     <Button.Triggers>
                         <DataTrigger TargetType="Button" 
                                  Binding="{Binding IsOrderPageDisplayed}"
@@ -113,7 +117,7 @@
                 </Button>
             </StackLayout>
             <ScrollView Orientation="Horizontal">
-                <StackLayout Orientation="Horizontal">
+                <StackLayout Orientation="Horizontal" Spacing="1">
                     <Button Text="Salads"
                         Command="{Binding SaladsCommand}"
                         Style="{StaticResource footerScrollMenu}">

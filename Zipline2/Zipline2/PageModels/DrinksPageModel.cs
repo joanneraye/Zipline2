@@ -147,7 +147,7 @@ namespace Zipline2.PageModels
             }
             set
             {
-                SetProperty(ref draftBeerSelected, value);              
+                SetProperty(ref draftBeerSelected, value);  
             }
         }
         public bool BottledBeerSelected
@@ -210,6 +210,7 @@ namespace Zipline2.PageModels
         public ICommand AddDrinksCommand { get; set; }
 
         public event EventHandler NavigateToOrderPage;
+        public event EventHandler ScrollToTopOfList;
 
         private Dictionary<DrinkCategory, List<DrinkDisplayItem>> drinkDisplayDictionary;
         public Dictionary<DrinkCategory, List<DrinkDisplayItem>> DrinkDisplayDictionary
@@ -251,15 +252,17 @@ namespace Zipline2.PageModels
             }
             //Display category for this page
             DrinkDisplayItems = new ObservableCollection<DrinkDisplayItem>(tempDisplayItems);
-           
+          
             //Save this category so we don't have to recreate if come here again.
             DrinkDisplayDictionary.Add(drinkCategory, tempDisplayItems);
+            
         }
 
        
 
         public void OnDrinksSelected(DrinkCategory newDrinkCategory)
         {
+            ScrollToTopOfList?.Invoke(this, EventArgs.Empty);
             //Load new drinks onto page.
             if (!DrinkDisplayDictionary.ContainsKey(newDrinkCategory))
             {

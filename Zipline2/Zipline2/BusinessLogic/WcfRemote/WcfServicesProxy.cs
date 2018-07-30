@@ -99,10 +99,10 @@ namespace Zipline2.BusinessLogic.WcfRemote
             ServiceCallConfig = ServiceCallConfigType.UpdateServicesNoSend;
 
             endpointIpAddressPart1 = "http://192.168.1.26";      //Dev environment
-            ServerType = "**Fake developer server**";
+            ServerType = "**Using developer server**";
 
             // endpointIpAddressPart1 = "http://192.168.1.21";   //Live server
-            //serverType = "**Satchel's Server**";
+            //serverType = "**Using Satchel's Server**";
             // endpointIpAddressPart1 = "http://192.168.1.122";   //Backup server
             //endpointIpAddressPart1 = "http://192.168.1";      //BAD
 

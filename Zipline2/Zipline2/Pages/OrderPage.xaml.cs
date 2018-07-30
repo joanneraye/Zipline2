@@ -136,9 +136,34 @@ namespace Zipline2.Pages
             }
         }
 
-        void OnDeleteOrderItem()
-        {
+        async void OnDeleteOrderItem()
+        { 
+            if (saveSpecialItems[0] == null && saveSelectedItem == null)
+            {
+                await DisplayAlert("Warning", "Please select an item to delete before clicking the delete button.", "OK");
+                return;
+            }
+            OrderManager.Instance.OrderItemInProgressLoadedForEdit = true;
 
+            if (itemSelectedForEditIsSpecial)
+            {
+               if (saveSpecialItems.Length > 1)
+                {
+                    int[] orderItemNumbers = new int[]
+                    {
+                        saveSpecialItems[0].OrderItemNumber,
+                        saveSpecialItems[1].OrderItemNumber
+                    };
+
+                    OrderManager.Instance.DeleteSpecialItemsFromOrderInProgress(orderItemNumbers);
+                }
+            }
+            else
+            {
+                OrderManager.Instance.DeleteItemFromOrderInProgress(saveSelectedItem.OrderItemNumber);
+            }
+
+            orderPageModel.LoadOrderPageData();
         }
 
         void NavigateToPizzaPage()

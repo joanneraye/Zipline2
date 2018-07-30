@@ -53,14 +53,14 @@
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="4*"/>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="4*"/>
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0" 
                                        BackgroundColor="Blue" 
                                        Text=" "
-                                       Margin="5, 10, 5, 10">
+                                       Margin="5, 10, 0, 10">
                                     <Label.Triggers>
                                         <DataTrigger TargetType="Label"
                                                   Binding="{Binding InsideTable.IsOccupied, Mode=TwoWay}"
@@ -75,7 +75,7 @@
                                         TextColor="White" 
                                         BackgroundColor="Black"
                                         BorderColor="White"
-                                        FontSize="8" 
+                                        FontSize="12" 
                                         FontAttributes="Bold"
                                         BorderRadius="1"
                                         BorderWidth="1"
@@ -84,8 +84,7 @@
                                         <DataTrigger TargetType="Button"
                                                         Binding="{Binding InsideTable.HasUnsentOrder, Mode=TwoWay}"
                                                             Value="True">
-                                            <Setter Property="TextColor" Value="Red" />
-                                            <Setter Property="Text" Value="{Binding InsideTableNameUnsent}" />
+                                            <Setter Property="TextColor" Value="Red" />                                         
                                         </DataTrigger>
                                         <DataTrigger TargetType="Button"
                                                         Binding="{Binding InsideTable.InsideTableClicked, Mode=TwoWay}"
@@ -97,7 +96,7 @@
                                 <Label Grid.Column="2" 
                                        BackgroundColor="Blue"
                                        Text=" "
-                                       Margin="5, 10, 5, 10">
+                                       Margin="5, 10, 0, 10">
                                     <Label.Triggers>
                                         <DataTrigger TargetType="Label"
                                                   Binding="{Binding OutsideTable.IsOccupied, Mode=TwoWay}"
@@ -108,7 +107,7 @@
                                 </Label>
                                 <Button Grid.Column="3" Text="{Binding OutsideTableName}" 
                                         TextColor="White"
-                                        FontSize="8"
+                                        FontSize="12"
                                         BackgroundColor="Black" 
                                          FontAttributes="Bold"
                                         BorderColor="White"
@@ -120,7 +119,6 @@
                                                         Binding="{Binding OutsideTable.HasUnsentOrder, Mode=TwoWay}"
                                                             Value="True">
                                             <Setter Property="TextColor" Value="Red" />
-                                            <Setter Property="Text" Value="{Binding OutsideTableNameUnsent}" />
                                         </DataTrigger>
                                         <DataTrigger TargetType="Button"
                                                         Binding="{Binding InsideTable.OutsideTableClicked, Mode=TwoWay}"

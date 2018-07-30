@@ -1,6 +1,7 @@
 ﻿using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -238,6 +239,14 @@ namespace Zipline2.Models
             }
             OrderItems = newOrderItemList;
         }
-        
+
+        internal void DeleteOrderItem(int orderItemNumber)
+        {
+            var itemToRemove = OrderItems.SingleOrDefault(o => o.OrderItemNumber == orderItemNumber);
+            if (itemToRemove != null)
+            {
+                OrderItems.Remove(itemToRemove);
+            }
+        }
     }
 }

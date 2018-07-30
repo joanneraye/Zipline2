@@ -44,6 +44,11 @@ namespace Zipline2.PageModels
         {
             CurrentOrder = OrderManager.Instance.OrderInProgress;
             SendOrderCommand = new Command(OnSendOrder);
+            LoadOrderPageData();
+        }
+
+        public void LoadOrderPageData()
+        {
             DisplayOrder = new List<OrderDisplayItem>();
             var lunchSpecialDisplayItem = new OrderDisplayItem();
             var lunchSpecialItems = new List<OrderItem>();
@@ -70,7 +75,7 @@ namespace Zipline2.PageModels
                         firstGuid = Guid.Empty;
                     }
                 }
-                
+
                 DisplayOrder.Add(displayItem);
                 orderItemIndex++;
             }

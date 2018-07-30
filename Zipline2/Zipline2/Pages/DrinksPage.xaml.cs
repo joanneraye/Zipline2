@@ -24,7 +24,7 @@ namespace Zipline2.Pages
             BindingContext = thisDrinksPageModel;
             Footer.FooterPageModel.IsDrinkPageDisplayed = true;
             Footer.FooterPageModel.DisplayAddToOrderButton = true;
-            Footer.FooterPageModel.AddToOrderButtonText = "Add Drinks To Order";
+            Footer.FooterPageModel.AddToOrderButtonText = "Add Drinks";
             Footer.FooterPageModel.ThisDrinksPageModel = thisDrinksPageModel;
             string drinkTitle = "TBL " + OrderManager.Instance.CurrentTableName + " Drinks";
             this.ToolbarItems.Add(new ToolbarItem { Text = drinkTitle });
@@ -34,12 +34,20 @@ namespace Zipline2.Pages
         {
             base.OnAppearing();
             thisDrinksPageModel.NavigateToOrderPage += HandleNavigateToOrderPage;
+            thisDrinksPageModel.ScrollToTopOfList += HandleScrollToTopOfList;
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
             thisDrinksPageModel.NavigateToOrderPage -= HandleNavigateToOrderPage;
+        }
+
+        private void HandleScrollToTopOfList(object sender, EventArgs e)
+        {
+            //TODO:  Following doesn't work
+            DrinksListView.ScrollTo(thisDrinksPageModel.DrinkDisplayItems[0], ScrollToPosition.MakeVisible, false);
+            DrinksListView.ScrollTo(null, ScrollToPosition.Start, false);
         }
 
         void HandleNavigateToOrderPage(object sender, EventArgs e)
