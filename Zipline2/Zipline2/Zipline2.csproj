@@ -134,7 +134,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="PageModels\DessertPage.xaml">
+    <EmbeddedResource Update="Pages\DessertPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\CalzonePage.xaml">

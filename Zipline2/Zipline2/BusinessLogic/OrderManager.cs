@@ -165,14 +165,6 @@ namespace Zipline2.BusinessLogic
         { 
              foreach (var item in itemsToAdd)
              {
-                if (item.EditingExistingItem)
-                {
-                    
-                }
-                else
-                {
-                    OrderManager.Instance.OrderInProgress.UpdateOrderItem(item);
-                }
                 OrderManager.Instance.OrderInProgress.AddItemToOrder(item);
              }
             await OrderManager.Instance.OrderInProgress.UpdateOrderOnServerAsync();

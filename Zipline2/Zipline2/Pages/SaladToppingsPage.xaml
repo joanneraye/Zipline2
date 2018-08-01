@@ -87,7 +87,7 @@
                 <Button Text="Continue to Pizza Toppings"
                     Command="{Binding NextPageCommand}"
                     HorizontalOptions="FillAndExpand"
-                    HeightRequest="35"
+                    HeightRequest="40"
                     FontSize="Micro"
                     IsVisible="False"
                     BorderColor="White"

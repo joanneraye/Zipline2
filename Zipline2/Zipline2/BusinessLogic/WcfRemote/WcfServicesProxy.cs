@@ -528,80 +528,91 @@ namespace Zipline2.BusinessLogic.WcfRemote
             {
                 return new DBTable();
             }
-            List<decimal> guestIds = await GetGuestIdsAsync(orderToSend.TableId);
-
             //Get stored DBTable.
             DBTable newTable = DataBaseDictionaries.DbTablesDictionary[orderToSend.TableId];
-            if (newTable.Guests.Count == 0)
+
+            try
             {
-                bool first = true;
-                foreach (decimal id in guestIds)
+                List<decimal> guestIds = await GetGuestIdsAsync(orderToSend.TableId);
+
+                
+                if (newTable.Guests.Count == 0)
                 {
-                    Staunch.POS.Classes.Guest_DB guest = new Staunch.POS.Classes.Guest_DB();
-                    guest.ID = id;
-                    guest.CheckedOut = false;
-                    guest.Items = new List<GuestItem>();
-                    guest.ComboItems = new List<GuestComboItem>();
-                    guest.TableID = orderToSend.TableId;
-
-                    if (first)
+                    bool first = true;
+                    foreach (decimal id in guestIds)
                     {
-                        guest.IsWhole = true;
-                        first = false;
-                    }
+                        Staunch.POS.Classes.Guest_DB guest = new Staunch.POS.Classes.Guest_DB();
+                        guest.ID = id;
+                        guest.CheckedOut = false;
+                        guest.Items = new List<GuestItem>();
+                        guest.ComboItems = new List<GuestComboItem>();
+                        guest.TableID = orderToSend.TableId;
 
-                    newTable.Guests.Add(guest);
-                }
-            }
-
-            if (DataBaseDictionaries.MenuDictionary != null &&
-                DataBaseDictionaries.MenuDictionary.Count > 0)
-            {
-                //Create DBItems for Guest_DB object.
-                foreach (var orderItem in orderToSend.OrderItems)
-                {
-                    var keysTuple = orderItem.GetMenuDbItemKeys();
-                    var dbItem = new DBItem();
-                    bool menuItemFound = false;
-
-                    //Use the item from the Database Dictionary.                    
-                    foreach (var menuItem in DataBaseDictionaries.MenuDictionary[keysTuple.Item1])
-                    {
-                        if (menuItem.ID == keysTuple.Item2)
+                        if (first)
                         {
-                            dbItem = menuItem;
-                            menuItemFound = true;
-                            break;
+                            guest.IsWhole = true;
+                            first = false;
                         }
+
+                        newTable.Guests.Add(guest);
                     }
-                    if (orderItem.DbOrderId <= 0)
+                }
+
+                if (DataBaseDictionaries.MenuDictionary != null &&
+                    DataBaseDictionaries.MenuDictionary.Count > 0)
+                {
+                    //Create DBItems for Guest_DB object.
+                    foreach (var orderItem in orderToSend.OrderItems)
                     {
-                        orderItem.DbOrderId = -1;
-                    }
-                    if (menuItemFound)
-                    {
-                        GuestItem guestItem = orderItem.CreateGuestItem(dbItem, orderItem.DbOrderId);
-                        guestItem.Mods = orderItem.CreateMods();
-                        guestItem.OrderSent = sendOrderToKitchen;
-                        if (orderItem.PartOfCombo)
+                        var keysTuple = orderItem.GetMenuDbItemKeys();
+                        var dbItem = new DBItem();
+                        bool menuItemFound = false;
+
+                        //Use the item from the Database Dictionary.                    
+                        foreach (var menuItem in DataBaseDictionaries.MenuDictionary[keysTuple.Item1])
                         {
-                            if (newTable.Guests[0].ComboItems == null)
+                            if (menuItem.ID == keysTuple.Item2)
                             {
-                                newTable.Guests[0].ComboItems = new List<GuestComboItem>();
+                                dbItem = menuItem;
+                                menuItemFound = true;
+                                break;
                             }
-                            //TODO:  Create GuestComboItem which contains ComboGuestItems - will add guestItem there.
                         }
-                        newTable.Guests[0].Items.Add(guestItem);
-                        //Pricing check - TODO:  Take out for production??
-                        //Had to comment out in testing because wouldn't process - says mismatch with service but can't find problem.
-                        //GuestItem databaseGuestItem = checkClient.PriceOrder(guestItem);
-                        //if (databaseGuestItem.Price != guestItem.Price)
-                        //{
-                        //    Console.WriteLine("JOANNE LOG:  price differs for " + guestItem.ShortName);
-                        //}
+                        if (orderItem.DbOrderId <= 0)
+                        {
+                            orderItem.DbOrderId = -1;
+                        }
+                        if (menuItemFound)
+                        {
+                            GuestItem guestItem = orderItem.CreateGuestItem(dbItem, orderItem.DbOrderId);
+                            guestItem.Mods = orderItem.CreateMods();
+                            guestItem.OrderSent = sendOrderToKitchen;
+                            if (orderItem.PartOfCombo)
+                            {
+                                if (newTable.Guests[0].ComboItems == null)
+                                {
+                                    newTable.Guests[0].ComboItems = new List<GuestComboItem>();
+                                }
+                                //TODO:  Create GuestComboItem which contains ComboGuestItems - will add guestItem there.
+                            }
+                            newTable.Guests[0].Items.Add(guestItem);
+                            //Pricing check - TODO:  Take out for production??
+                            //Had to comment out in testing because wouldn't process - says mismatch with service but can't find problem.
+                            //GuestItem databaseGuestItem = checkClient.PriceOrder(guestItem);
+                            //if (databaseGuestItem.Price != guestItem.Price)
+                            //{
+                            //    Console.WriteLine("JOANNE LOG:  price differs for " + guestItem.ShortName);
+                            //}
+                        }
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                var whatisthis = ex.InnerException;
+                throw;
+            }
+          
             return newTable;
         }
 

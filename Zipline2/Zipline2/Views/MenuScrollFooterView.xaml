@@ -40,12 +40,12 @@
                 <Button Text="Tables"
                                     Command="{Binding TablesCommand}"
                                     Style="{StaticResource footerScrollMenuBlueButtons}"
-                                    WidthRequest="60">
-                </Button>            
-                    <Button Text="Add DRKS"
+                                    WidthRequest="70">
+                </Button>
+                <Button Text="{Binding AddToOrderButtonText}"
                                     Command="{Binding AddToOrderCommand}"
                                     Style="{StaticResource footerScrollMenuBlueButtons}"
-                                     WidthRequest="65" FontSize="10">
+                                     WidthRequest="120" FontSize="10">
                         <Button.Triggers>
                         <DataTrigger TargetType="Button" 
                                  Binding="{Binding DisplayAddToOrderButton}"
@@ -57,7 +57,7 @@
                     <Button Text="Order Summary"
                             Command="{Binding OrderPageCommand}"
                             Style="{StaticResource footerScrollMenuBlueButtons}"
-                            WidthRequest="110">
+                            WidthRequest="140">
                         <Button.Triggers>
                             <DataTrigger TargetType="Button" 
                                  Binding="{Binding IsOrderPageDisplayed}"
@@ -70,7 +70,7 @@
                             Command="{Binding SendOrderCommand}"
                             Style="{StaticResource footerScrollMenuBlueButtons}"
                             IsVisible="False"
-                            WidthRequest="85">
+                            WidthRequest="130">
                     <Button.Triggers>
                         <DataTrigger TargetType="Button" 
                                  Binding="{Binding IsOrderPageDisplayed}"
@@ -93,7 +93,7 @@
                             Command="{Binding EditOrderItemCommand}"
                             Style="{StaticResource footerScrollMenuBlueButtons}"
                             IsVisible="False"
-                            WidthRequest="110">
+                            WidthRequest="140">
                     <Button.Triggers>
                         <DataTrigger TargetType="Button" 
                                  Binding="{Binding IsOrderPageDisplayed}"
@@ -106,7 +106,7 @@
                             Command="{Binding DeleteOrderItemCommand}"
                             Style="{StaticResource footerScrollMenuBlueButtons}"
                             IsVisible="False"
-                            WidthRequest="120">
+                            WidthRequest="155">
                     <Button.Triggers>
                         <DataTrigger TargetType="Button" 
                                  Binding="{Binding IsOrderPageDisplayed}"
@@ -153,7 +153,8 @@
                     </Button>
                     <Button Text="Calzone"
                         Command="{Binding CalzoneCommand}"
-                        Style="{StaticResource footerScrollMenu}">
+                        Style="{StaticResource footerScrollMenu}"
+                             WidthRequest="85">
                         <Button.Triggers>
                             <DataTrigger TargetType="Button" 
                                          Binding="{Binding IsCalzonePageDisplayed}"
@@ -164,7 +165,8 @@
                     </Button>
                     <Button Text="Specials"
                              Command="{Binding SpecialsCommand}"
-                        Style="{StaticResource footerScrollMenu}">
+                        Style="{StaticResource footerScrollMenu}"
+                            WidthRequest="85">
                         <Button.Triggers>
                         <DataTrigger TargetType="Button" 
                                          Binding="{Binding IsSpecialsPageDisplayed}"
@@ -174,7 +176,8 @@
                         </Button.Triggers>
                     </Button>
                     <Button Text="Dessert"
-                            Style="{StaticResource footerScrollMenu}"/>
+                            Style="{StaticResource footerScrollMenu}"
+                             Command="{Binding DessertCommand}"/>
             </StackLayout>
         </ScrollView>
         </StackLayout>

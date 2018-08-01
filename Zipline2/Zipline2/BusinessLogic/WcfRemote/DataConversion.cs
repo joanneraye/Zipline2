@@ -26,6 +26,17 @@ namespace Zipline2.BusinessLogic.WcfRemote
         //    //return openOrder;
         //}
 
+        public static Dessert GetDessert(GuestItem oldGuestItem)
+        {
+            Dessert newDessert = MenuFood.GetDessertFromMenu(oldGuestItem.ID);
+            newDessert.EditingExistingItem = false;
+            newDessert.DbItemId = oldGuestItem.ID;
+            newDessert.WasSentToKitchen = oldGuestItem.OrderSent;
+            newDessert.DbOrderId = (int)oldGuestItem.OrderID;
+            newDessert.ItemCount = 1;
+            return newDessert;
+        }
+
         public static Drink GetDrink(GuestItem oldGuestItem)
         {
             DrinkSize drinkSize = DrinkSize.JustOneSize;
@@ -54,7 +65,6 @@ namespace Zipline2.BusinessLogic.WcfRemote
             newdrink.WasSentToKitchen = oldGuestItem.OrderSent;
             newdrink.DbOrderId = (int)oldGuestItem.OrderID;
             newdrink.ItemCount = 1;
-            //newdrink.UpdateItemTotal();
             return newdrink;
         }
 
@@ -574,9 +584,10 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 case 4:
                     thisOrderItem = GetDrink(oldGuestItem);
                     break;
-                    //case 5:
-                    //    //Create Dessert
-                    //    break;
+                case 5:
+                    thisOrderItem = GetDessert(oldGuestItem);
+                    break;
+                  
                     //case 6:  Merch
                     //case 7:  Sides
                     //case 8:  Variable??

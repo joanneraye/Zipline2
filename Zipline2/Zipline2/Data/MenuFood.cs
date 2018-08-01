@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Zipline2.BusinessLogic.Enums;
+using Zipline2.BusinessLogic.WcfRemote;
 using Zipline2.Models;
 
 namespace Zipline2.Data
@@ -32,6 +33,110 @@ namespace Zipline2.Data
                     LoadInitialSaladToppings();
                 }
                 return saladToppings;
+            }
+        }
+
+        private static Dictionary<DessertType, Dessert> dessertDictionary;
+        public static Dictionary<DessertType, Dessert> DessertDictionary
+        {
+            get
+            {
+                if (dessertDictionary == null)
+                {
+                    CreateDessertDictionary();
+                }
+                return dessertDictionary;
+            }
+        }
+
+        private static Dictionary<DessertType, Dessert> cookieDictionary;
+        public static Dictionary<DessertType, Dessert> CookieDictionary
+        {
+            get
+            {
+                if (cookieDictionary == null)
+                {
+                    CreateCookieDictionary();
+                }
+                return cookieDictionary;
+            }
+        }
+
+        private static Dictionary<decimal, DessertType> dbIdDessertTypeDictionary;
+        public static Dictionary<decimal, DessertType> DbIdDessertTypeDictionary
+        {
+            get
+            {
+                if (dbIdDessertTypeDictionary == null)
+                {
+                    CreateDbIdDessertTypeDictionary();
+                }
+                return dbIdDessertTypeDictionary;
+            }
+        }
+
+        private static Dictionary<DessertType, decimal> dessertTypeDbIdDictionary;
+        public static Dictionary<DessertType, decimal> DessertTypeDbIdDictionary
+        {
+            get
+            {
+                if (dessertTypeDbIdDictionary == null)
+                {
+                    CreateDessertTypeDbIdDictionary();
+                }
+                return dessertTypeDbIdDictionary;
+            }
+        }
+
+        private static Dictionary<decimal, Dessert> dbIdDessertDictionary;
+        public static Dictionary<decimal, Dessert> DbIdDessertDictionary
+        {
+            get
+            {
+                if (dbIdDessertDictionary == null)
+                {
+                    dbIdDessertDictionary = new Dictionary<decimal, Dessert>();
+                }
+                return dbIdDessertDictionary;
+            }
+        }
+
+        public static void CreateDesserts()
+        {
+            foreach (var cookie in CookieDictionary)
+            {
+                var dbId = DessertTypeDbIdDictionary[cookie.Key];
+                DbIdDessertDictionary.Add(dbId, cookie.Value);
+            }
+
+            foreach (var dessert in DessertDictionary)
+            {
+                var dbId =DessertTypeDbIdDictionary[dessert.Key];
+               DbIdDessertDictionary.Add(dbId, dessert.Value);
+            }
+        }
+
+    
+        internal static Dessert GetDessertFromMenu(decimal id)
+        {
+            if (DbIdDessertDictionary.ContainsKey(id))
+            {
+                return DbIdDessertDictionary[id];
+            }
+            //TODO:  Display error if drink is not in dictionary!
+            return new Dessert();
+        }
+
+        public static void PopulateDbInfo(ref Dessert thisDessert)
+        {
+            thisDessert.DbItemId = GetDbItemId(thisDessert.DessertType);
+            if (dbIdDessertDictionary.ContainsKey(thisDessert.DbItemId))
+            {
+                dbIdDessertDictionary[thisDessert.DbItemId] = thisDessert;
+            }
+            else
+            {
+                dbIdDessertDictionary.Add(thisDessert.DbItemId, thisDessert);
             }
         }
 
@@ -94,6 +199,115 @@ namespace Zipline2.Data
             pizzaToppings.Add(ToppingName.Tomatoes, new Topping(ToppingName.Tomatoes));
             pizzaToppings.Add(ToppingName.Zucchini, new Topping(ToppingName.Zucchini));
         }
+
+        private static void CreateCookieDictionary()
+        {
+            cookieDictionary = new Dictionary<DessertType, Dessert>();
+            DessertType[] cookieTypes = new DessertType[]
+            {
+                DessertType.SnickerDoodleCookie,
+                DessertType.ChocolateChipCookie,
+                DessertType.PeanutButterCookie,
+                DessertType.OatmealRaisinCookie,
+                DessertType.MexicanWeddingCookie,
+                DessertType.PumpkinSpiceCookie,
+                DessertType.VeganPumpkinSpiceCookie
+            };
+            foreach (var cookieType in cookieTypes)
+            {
+                Dessert newDessert = new Dessert(cookieType);
+                cookieDictionary.Add(cookieType, newDessert);
+            }
+        }
+
+
+        private static void CreateDessertDictionary()
+        {
+            dessertDictionary = new Dictionary<DessertType, Dessert>();
+            DessertType[] dessertTypes = new DessertType[]
+           {
+                DessertType.ChocolateCake,
+                DessertType.Brownie,
+                DessertType.Bonbon,
+                DessertType.VanillaCannoli,
+                DessertType.ChocolateCannoli,
+                DessertType.HalfAndHalfCannoli,
+                DessertType.AppleCrumbCheesecake,
+                DessertType.WholeCake,
+                DessertType.AnyCookie,
+                DessertType.VeganDessert,
+                DessertType.ThreeDollarDessert
+           };
+         
+            foreach (var dessertType in dessertTypes)
+            {
+                Dessert newDessert = new Dessert(dessertType);
+                dessertDictionary.Add(dessertType, newDessert);
+            }
+        }
+
+        public static decimal GetDbItemId(DessertType dessertType)
+        {
+            if (DessertTypeDbIdDictionary.ContainsKey(dessertType))
+            {
+                return DessertTypeDbIdDictionary[dessertType];
+            }
+            return 0;
+        }
+
+        private static void CreateDbIdDessertTypeDictionary()
+        {
+            dbIdDessertTypeDictionary = new Dictionary<decimal, DessertType>()
+            {
+                 {191, DessertType.AnyCookie },
+                 {167, DessertType.AppleCrumbCheesecake},
+                 {70, DessertType.Bonbon },
+                 {64, DessertType.Brownie },
+                 {62, DessertType.ChocolateCake },
+                 {72, DessertType.ChocolateCannoli },
+                { 65, DessertType.ChocolateChipCookie },
+                { 73, DessertType.HalfAndHalfCannoli  },
+                 {165, DessertType.MexicanWeddingCookie },
+                 {69, DessertType.OatmealRaisinCookie },
+                {66, DessertType.PeanutButterCookie },
+                { 201, DessertType.PumpkinSpiceCookie },
+                { 63, DessertType.SnickerDoodleCookie },
+                { 213,  DessertType.ThreeDollarDessert },
+                { 71, DessertType.VanillaCannoli },
+                { 192, DessertType.VeganDessert },
+                   { 202, DessertType.VeganPumpkinSpiceCookie },
+                      { 169, DessertType.WholeCake }
+            };
+        }
+
+        private static void CreateDessertTypeDbIdDictionary()
+        {
+            dessertTypeDbIdDictionary = new Dictionary<DessertType, decimal>()
+            {
+                 {DessertType.AnyCookie, 191 },
+                 {DessertType.AppleCrumbCheesecake, 167 },
+                 {DessertType.Bonbon, 70 },
+                 {DessertType.Brownie, 64 },
+                 {DessertType.ChocolateCake, 62 },
+                 {DessertType.ChocolateCannoli, 72 },
+                { DessertType.ChocolateChipCookie, 65 },
+                { DessertType.HalfAndHalfCannoli, 73 },
+                 {DessertType.MexicanWeddingCookie, 165 },
+                 {DessertType.OatmealRaisinCookie, 69 },
+                {DessertType.PeanutButterCookie, 66 },
+                { DessertType.PumpkinSpiceCookie, 201 },
+                { DessertType.SnickerDoodleCookie, 63 },
+                { DessertType.ThreeDollarDessert, 213 },
+                { DessertType.VanillaCannoli, 71 },
+                { DessertType.VeganDessert, 192 },
+                   { DessertType.VeganPumpkinSpiceCookie, 202 },
+                      { DessertType.WholeCake, 169 }
+            };
+        }
+
+
+
+
 
         public static void LoadInitialSaladToppings()
         {

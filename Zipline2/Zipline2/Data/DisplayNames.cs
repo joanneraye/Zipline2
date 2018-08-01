@@ -199,6 +199,28 @@ namespace Zipline2.Data
             { SaladSize.Large, "Large Salad" }
         };
 
+        public static Dictionary<DessertType, string> DisplayDessertNameDictionary = new Dictionary<DessertType, string>
+        {
+            { DessertType.AnyCookie, "Cookie" },
+            { DessertType.AppleCrumbCheesecake, "Apple Crumb Cheesecake" },
+            { DessertType.Bonbon, "Bon-bon" },
+            { DessertType.Brownie, "Brownie" },
+            { DessertType.ChocolateCake, "Chocolate Cake" },
+            { DessertType.ChocolateCannoli, "Chocolate Cannoli" },
+            { DessertType.ChocolateChipCookie, "Chocolate Chip Cookie" },
+            { DessertType.HalfAndHalfCannoli, "Half & Half Cannoli" },
+            { DessertType.MexicanWeddingCookie, "Mexican Wedding Cookie" },
+            { DessertType.OatmealRaisinCookie, "Oatmeal Raisin Cookie" },
+            { DessertType.PeanutButterCookie, "Peanut Butter Cookie" },
+            { DessertType.PumpkinSpiceCookie, "Pumpkin Spice Cookie" },
+              { DessertType.SnickerDoodleCookie, "Snicker Doodle Cookie" },
+               { DessertType.ThreeDollarDessert, "$3 Dollar Dessert" },
+                { DessertType.VanillaCannoli, "Vanilla Cannoli" },
+                 { DessertType.VeganDessert, "Vegan Dessert" },
+                  { DessertType.VeganPumpkinSpiceCookie, "Vegan Pumpkin Spice Cookie" },
+                    { DessertType.WholeCake, "Whole Cake" }
+        };
+
         public static string GetSaladDisplayName(SaladSize sizeOfSalad)
         {
             if (DisplaySaladNameDictionary.ContainsKey(sizeOfSalad))
@@ -293,6 +315,15 @@ namespace Zipline2.Data
             if (DisplayHotDrinkNameDictionary.ContainsKey(hotDrinksName))
             {
                 return DisplayHotDrinkNameDictionary[hotDrinksName];
+            }
+            return "Not in Dictionary Yet";
+        }
+
+        public static string GetDessertDisplayName(DessertType dessertType)
+        {
+            if (DisplayDessertNameDictionary.ContainsKey(dessertType))
+            {
+                return DisplayDessertNameDictionary[dessertType];
             }
             return "Not in Dictionary Yet";
         }

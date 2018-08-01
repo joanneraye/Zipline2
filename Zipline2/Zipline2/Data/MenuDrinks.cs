@@ -28,6 +28,7 @@ namespace Zipline2.Data
             }
         }
 
+       
         private static Dictionary<decimal, DrinkType> dbIdDrinkTypeDictionary;
         private static Dictionary<decimal, DrinkType> DbIdDrinkTypeDictionary
         {
@@ -53,6 +54,8 @@ namespace Zipline2.Data
                 return dbIdDrinkDictionary;
             }
         }
+
+        
         private static void CreateDrinkTypeDbIdDictionary()
         {
             drinkTypeDbIdDictionary = new Dictionary<DrinkType, decimal>()
@@ -114,11 +117,7 @@ namespace Zipline2.Data
             };
         }
 
-        private static void CreateDbIdDrinkDictionary()
-        {
-
-        }
-
+       
         private static void CreateDbIdDrinkTypeDictionary()
         {
             dbIdDrinkTypeDictionary = new Dictionary<decimal, DrinkType>()

@@ -14,7 +14,15 @@ namespace Zipline2.BusinessLogic.Enums
         HalfAndHalfCannoli,
         AppleCrumbCheesecake,
         WholeCake,
-        Cookie,
-        VeganDessert
+        AnyCookie,
+        VeganDessert,
+        ThreeDollarDessert,
+        SnickerDoodleCookie,
+        ChocolateChipCookie,
+        PeanutButterCookie,
+        OatmealRaisinCookie,
+        MexicanWeddingCookie,
+        PumpkinSpiceCookie,
+        VeganPumpkinSpiceCookie
     }
 }

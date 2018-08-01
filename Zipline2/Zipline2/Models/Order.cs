@@ -73,19 +73,7 @@ namespace Zipline2.Models
         private void UpdateOrderTotals()
         {
             SubTotal = 0;
-            //int lunchSpecialCount = 0;
-            //if (SliceCount > 0 && SpecialSaladCount > 0)
-            //{
-            //    if (SliceCount == SpecialSaladCount)
-            //    {
-            //        lunchSpecialCount = SliceCount;
-            //    }
-            //    else
-            //    {
-            //        lunchSpecialCount = Math.Min(SliceCount, SpecialSaladCount);
-            //    }
-            //}
-
+            
             foreach (var orderItem in OrderItems)
             {
                 if (orderItem.PartOfCombo && orderItem is Pizza)
@@ -133,6 +121,14 @@ namespace Zipline2.Models
                             addItemToOrder = false;
                         }
                     }
+                    else if (newOrderItem is Dessert)
+                    {
+                        Dessert dessertToAdd = (Dessert)newOrderItem;
+                        if (UpdateDessertIfAlreadyOnOrder(dessertToAdd))
+                        {
+                            addItemToOrder = false;
+                        }
+                    }
 
                     if (addItemToOrder)
                     {
@@ -176,7 +172,16 @@ namespace Zipline2.Models
 
         public async Task UpdateOrderOnServerAsync()
         {
-            await WcfServicesProxy.Instance.UpdateOrderAsync(this);
+            try
+            {
+                await WcfServicesProxy.Instance.UpdateOrderAsync(this);
+            }
+            catch (Exception ex)
+            {
+                var whatisthis = ex.InnerException;
+                throw;
+            }
+         
             //WcfServicesProxy.Instance.UpdateOrderSync(this);
         }
 
@@ -200,7 +205,25 @@ namespace Zipline2.Models
             return false;
         }
 
-       
+        public bool UpdateDessertIfAlreadyOnOrder(Dessert dessertToAdd)
+        {
+            foreach (var orderItem in OrderItems)
+            {
+                if (orderItem is Dessert)
+                {
+                    Dessert drinkAlreadyOnOrder = (Dessert)orderItem;
+                    if (dessertToAdd.DessertType == drinkAlreadyOnOrder.DessertType)
+                    {
+                        orderItem.ItemCount++;
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+
         public void CombineLikeItems()
         {
             //For now just combining drink like items - not sure which other ones

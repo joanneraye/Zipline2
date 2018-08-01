@@ -98,8 +98,5 @@ namespace Zipline2.PageModels
                 SetProperty(ref itemIsSelected, value);
             }
         }
-
     }
-
-
 }

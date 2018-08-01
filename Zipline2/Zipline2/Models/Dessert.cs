@@ -4,18 +4,28 @@ using System.Text;
 using Staunch.POS.Classes;
 using Zipline2.BusinessLogic.Enums;
 using Zipline2.PageModels;
+using Zipline2.Data;
 
 namespace Zipline2.Models
 {
     public class Dessert : OrderItem
     {
-        DessertType DessertType; 
-        public Dessert(CustomerSelection guiData)
+        public DessertType DessertType; 
+        public Dessert()
         {
             
         }
 
-       
+        public Dessert(DessertType dessertType)
+        {
+            DessertType = dessertType;
+            DbItemId = MenuFood.GetDbItemId(dessertType);
+            ItemName = DisplayNames.GetDessertDisplayName(dessertType);
+            PopulateBasePrice();
+            PopulatePricePerItem();
+        }
+
+
         public override List<GuestModifier> CreateMods()
         {
             return new List<GuestModifier>();
@@ -23,27 +33,34 @@ namespace Zipline2.Models
 
         public override Tuple<string, decimal> GetMenuDbItemKeys()
         {
-            throw new NotImplementedException();
+            return Tuple.Create<string, decimal>("Dessert", MenuFood.GetDbItemId(DessertType));
         }
 
         public override void PopulateBasePrice()
         {
-            throw new NotImplementedException();
+            BasePriceNoToppings = Prices.GetDessertPrice(DessertType);
         }
 
+        internal Dessert GetClone()
+        {
+            return (Dessert)MemberwiseClone();
+        }
+
+      
         public override void PopulateDisplayName()
         {
-           //ItemName = DisplayNames.Get????PopulateDisplayName...
+            ItemName = DisplayNames.GetDessertDisplayName(DessertType);
         }
 
         public override OrderDisplayItem PopulateOrderDisplayItem()
         {
-            throw new NotImplementedException();
+            return base.PopulateOrderDisplayItem();
         }
 
         public override void PopulatePricePerItem()
         {
-            //BasePrice = Prices.GetDessertPrice(DessertType);
+            PricePerItemIncludingToppings = Prices.GetDessertPrice(DessertType);
         }
+
     }
 }

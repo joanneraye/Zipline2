@@ -27,7 +27,7 @@
     <ContentPage.Content>
         <StackLayout Spacing="0"
                      Padding="10,0,10,5">
-            <ScrollView Orientation="Horizontal">
+            <ScrollView Orientation="Horizontal" x:Name="MenuScrollView">
                 <StackLayout Orientation="Horizontal"
                              BackgroundColor="Black"
                              Margin="0">
@@ -86,6 +86,7 @@
 
             <ListView ItemsSource="{Binding DrinkDisplayItems, Mode=TwoWay}"
                       CachingStrategy="RecycleElement"
+                      ItemSelected="OnDrinkRowSelected"
                       x:Name="DrinksListView"
                       BackgroundColor="Black"
                       SeparatorVisibility="None">

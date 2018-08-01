@@ -61,6 +61,41 @@ namespace Zipline2.Data
             }
         }
 
+        private static Dictionary<DessertType, decimal> DessertPriceDictionary = new Dictionary<DessertType, decimal>
+        { 
+
+          { DessertType.AnyCookie, 2.00M },
+            { DessertType.AppleCrumbCheesecake, 3.00M },
+            { DessertType.Bonbon, 1.00M},
+            { DessertType.Brownie, 2.50M },
+            { DessertType.ChocolateCake, 4.00M },
+            { DessertType.ChocolateCannoli, 3.00M },
+            { DessertType.ChocolateChipCookie, 2.00M },
+            { DessertType.HalfAndHalfCannoli, 3.00M },
+            { DessertType.MexicanWeddingCookie, 2.00M },
+            { DessertType.OatmealRaisinCookie, 2.00M },
+            { DessertType.PeanutButterCookie, 2.00M },
+            { DessertType.PumpkinSpiceCookie, 3.00M },
+              { DessertType.SnickerDoodleCookie, 2.00M },
+               { DessertType.ThreeDollarDessert, 3.00M },
+                { DessertType.VanillaCannoli, 3.00M },
+                 { DessertType.VeganDessert, 2.00M },
+                  { DessertType.VeganPumpkinSpiceCookie, 3.00M },
+                    { DessertType.WholeCake, 40.00M }
+        };
+
+        public static decimal GetDessertPrice(DessertType dessertType)
+        {
+            if (DessertPriceDictionary.ContainsKey(dessertType))
+            {
+                return DessertPriceDictionary[dessertType];
+            }
+            else
+            {
+                return 0M;
+            }
+        }
+
         public static decimal GetSaladToppingPrice(SaladSize sizeOfSalad)
         {
             switch (sizeOfSalad)

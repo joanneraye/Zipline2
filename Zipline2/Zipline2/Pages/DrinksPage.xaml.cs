@@ -7,6 +7,8 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Zipline2.BusinessLogic;
+using Zipline2.Models;
+using Zipline2.MyEventArgs;
 using Zipline2.PageModels;
 using static Zipline2.PageModels.DrinksPageModel;
 
@@ -16,11 +18,21 @@ namespace Zipline2.Pages
 	public partial class DrinksPage : BasePage
 	{
 
-        private DrinksPageModel thisDrinksPageModel; 
-        public DrinksPage ()
+        private DrinksPageModel thisDrinksPageModel;
+        private bool isEditingDrink;
+        public DrinksPage (Drink drinkForEdit = null)
 		{
 			InitializeComponent ();
-            thisDrinksPageModel = new DrinksPageModel();
+            if (drinkForEdit == null)
+            {
+                thisDrinksPageModel = new DrinksPageModel();
+            }
+            else
+            {
+                isEditingDrink = true;
+                thisDrinksPageModel = new DrinksPageModel(drinkForEdit);
+            }
+          
             BindingContext = thisDrinksPageModel;
             Footer.FooterPageModel.IsDrinkPageDisplayed = true;
             Footer.FooterPageModel.DisplayAddToOrderButton = true;
@@ -28,13 +40,61 @@ namespace Zipline2.Pages
             Footer.FooterPageModel.ThisDrinksPageModel = thisDrinksPageModel;
             string drinkTitle = "TBL " + OrderManager.Instance.CurrentTableName + " Drinks";
             this.ToolbarItems.Add(new ToolbarItem { Text = drinkTitle });
+            thisDrinksPageModel.ScrollToTopOfList += HandleScrollToTopOfList;
+            MenuScrollView.Scrolled += MenuScrollView_Scrolled;
         }
 
+        private void MenuScrollView_Scrolled(object sender, ScrolledEventArgs e)
+        {
+            if (e.ScrollX > 500)
+            {
+                thisDrinksPageModel.OnDrinksSelected(BusinessLogic.Enums.DrinkCategory.HouseWine);
+            }
+            else if (e.ScrollX > 425)
+            {
+                thisDrinksPageModel.OnDrinksSelected(BusinessLogic.Enums.DrinkCategory.HotDrink);
+            }
+            else if (e.ScrollX > 350)
+            {
+                thisDrinksPageModel.OnDrinksSelected(BusinessLogic.Enums.DrinkCategory.RedWine);
+            }
+            else if (e.ScrollX > 250)
+            {
+                thisDrinksPageModel.OnDrinksSelected(BusinessLogic.Enums.DrinkCategory.WhiteWine);
+            }
+            else if (e.ScrollX > 150)
+            {
+                thisDrinksPageModel.OnDrinksSelected(BusinessLogic.Enums.DrinkCategory.BottledBeer);
+            }
+           
+            else if (e.ScrollX > 50)
+            {
+                thisDrinksPageModel.OnDrinksSelected(BusinessLogic.Enums.DrinkCategory.DraftBeer);
+            }
+            else
+            {
+                thisDrinksPageModel.OnDrinksSelected(BusinessLogic.Enums.DrinkCategory.SoftDrink);
+            }
+        }
+
+           
         protected override void OnAppearing()
         {
             base.OnAppearing();
             thisDrinksPageModel.NavigateToOrderPage += HandleNavigateToOrderPage;
-            thisDrinksPageModel.ScrollToTopOfList += HandleScrollToTopOfList;
+            if (isEditingDrink)
+            {
+                HandleScrollToItem();
+            }
+        }
+
+        private void OnDrinkRowSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            var selectedObject = e.SelectedItem;
+            if (sender is ListView)
+            {
+                ((ListView)sender).SelectedItem = null;
+            }
         }
 
         protected override void OnDisappearing()
@@ -45,9 +105,17 @@ namespace Zipline2.Pages
 
         private void HandleScrollToTopOfList(object sender, EventArgs e)
         {
-            //TODO:  Following doesn't work
             DrinksListView.ScrollTo(thisDrinksPageModel.DrinkDisplayItems[0], ScrollToPosition.MakeVisible, false);
             DrinksListView.ScrollTo(null, ScrollToPosition.Start, false);
+        }
+
+       
+        async private void HandleScrollToItem()
+        {
+            //Wait so that list renders.
+            await Task.Delay(500);
+            DrinkDisplayItem scrollToThisItem = thisDrinksPageModel.DrinkDisplayItems[thisDrinksPageModel.DrinkForEditIndex];
+            DrinksListView.ScrollTo(scrollToThisItem, ScrollToPosition.MakeVisible, false);
         }
 
         void HandleNavigateToOrderPage(object sender, EventArgs e)

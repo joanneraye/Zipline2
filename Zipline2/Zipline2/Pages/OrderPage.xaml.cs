@@ -71,6 +71,10 @@ namespace Zipline2.Pages
                 }
 
                 selectedItem.ItemIsSelected = !selectedItem.ItemIsSelected;  //toggle
+                if (!selectedItem.ItemIsSelected)
+                {
+                    return;
+                }
                 bool newValueItemIsSelected = selectedItem.ItemIsSelected;
                
                 if (selectedItem.OrderItem.PartOfCombo)
@@ -102,8 +106,14 @@ namespace Zipline2.Pages
             }
         }
 
-        void OnEditOrderItem()
+        async void OnEditOrderItem()
         {
+            if (saveSpecialItems[0] == null && saveSelectedItem == null)
+            {
+                await DisplayAlert("Warning", "Please select an item to edit before clicking the edit button.", "OK");
+                return;
+            }
+
             OrderManager.Instance.OrderItemInProgressLoadedForEdit = true;
 
             if (itemSelectedForEditIsSpecial)
@@ -117,22 +127,26 @@ namespace Zipline2.Pages
             {
                 OrderManager.Instance.OrderItemInProgress = saveSelectedItem;
             }
-            
-            if (saveSelectedItem is Pizza)
+
+            var selectedItemForEdit = saveSelectedItem;
+            saveSelectedItem = null;
+            saveSpecialItems = new OrderItem[2];
+
+            if (selectedItemForEdit is Pizza)
             {
                 NavigateToPizzaPage();
             }
-            else if (saveSelectedItem is Salad)
+            else if (selectedItemForEdit is Salad)
             {
-                NavigateToSaladToppingsPage((Salad)saveSelectedItem);
+                NavigateToSaladToppingsPage((Salad)selectedItemForEdit);
             }
-            else if (saveSelectedItem is Drink)
+            else if (selectedItemForEdit is Drink)
             {
-                NavigateToDrinksPage();
+                NavigateToDrinksPage((Drink)selectedItemForEdit);
             }
-            else if (saveSelectedItem is Calzone)
+            else if (selectedItemForEdit is Calzone)
             {
-                NavigateToCalzoneToppingsPage((Calzone)saveSelectedItem);
+                NavigateToCalzoneToppingsPage((Calzone)selectedItemForEdit);
             }
         }
 
@@ -163,6 +177,8 @@ namespace Zipline2.Pages
                 OrderManager.Instance.DeleteItemFromOrderInProgress(saveSelectedItem.OrderItemNumber);
             }
 
+            saveSelectedItem = null;
+            saveSpecialItems = new OrderItem[2];
             orderPageModel.LoadOrderPageData();
         }
 
@@ -186,10 +202,10 @@ namespace Zipline2.Pages
             Application.Current.MainPage = currentMainPage;
         }
 
-        void NavigateToDrinksPage()
+        void NavigateToDrinksPage(Drink drinkForEdit)
         {
             var currentMainPage = Application.Current.MainPage as MasterDetailPage;
-            currentMainPage.Detail = new NavigationPage(new DrinksPage());
+            currentMainPage.Detail = new NavigationPage(new DrinksPage(drinkForEdit));
             Application.Current.MainPage = currentMainPage;
         }
 

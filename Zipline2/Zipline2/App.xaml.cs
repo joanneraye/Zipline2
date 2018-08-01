@@ -35,6 +35,7 @@ namespace Zipline2
             Zipline2.Data.MenuFood.LoadInitialPizzaToppings();
             Zipline2.Data.MenuFood.LoadInitialSaladToppings();
             Zipline2.Data.MenuDrinks.CreateAllDrinks();
+            MenuFood.CreateDesserts();
 
             DataLoader.LoadMenuFromFileOrServer();
             DataLoader.LoadToppingsFromFileOrServer();

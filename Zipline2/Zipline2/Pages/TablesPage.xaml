@@ -10,7 +10,7 @@
     </ContentPage.Resources>   
     <ContentPage.Content>
         <StackLayout BackgroundColor="Black" 
-                     Padding="10, 10"
+                     Padding="10,0,10,0"
                      Orientation="Vertical"
                      VerticalOptions="FillAndExpand">
             <ActivityIndicator Color="White"
@@ -43,6 +43,17 @@
                      have not yet figured out how to do that since I cannot
                      get at the Grid (doesn't recognize TablesGrid, I assume
                      because it is in the DataTemplate).  -->
+                <ListView.Header>
+                    <StackLayout>
+                        <Button Text="Takeout"
+                            HorizontalOptions="Center"
+                                WidthRequest="150"
+                                HeightRequest="40"
+                                Margin="5,0,5,5"
+                                BackgroundColor="PaleGreen"
+                                TextColor ="Black"/>
+                    </StackLayout>
+                </ListView.Header>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell x:Name="ListViewCellTables">

@@ -8,6 +8,7 @@ using Zipline2.BusinessLogic;
 using Zipline2.BusinessLogic.Enums;
 using Zipline2.Data;
 using Zipline2.Models;
+using Zipline2.MyEventArgs;
 using Zipline2.Pages;
 
 namespace Zipline2.PageModels
@@ -114,6 +115,10 @@ namespace Zipline2.PageModels
         private bool redWineSelected;
         private bool hotDrinksSelected;
         private bool houseWineSelected;
+        public bool IsDrinkSelectedForEdit { get; set; }
+        public int DrinkForEditIndex { get; set; }
+
+        private DrinkType drinkSelectedForEditDrinkType { get; set; }
         private DrinkCategory currentDrinkCategorySelected;
         private ObservableCollection<DrinkDisplayItem> drinkDisplayItems;
         public ObservableCollection<DrinkDisplayItem> DrinkDisplayItems
@@ -211,7 +216,6 @@ namespace Zipline2.PageModels
 
         public event EventHandler NavigateToOrderPage;
         public event EventHandler ScrollToTopOfList;
-
         private Dictionary<DrinkCategory, List<DrinkDisplayItem>> drinkDisplayDictionary;
         public Dictionary<DrinkCategory, List<DrinkDisplayItem>> DrinkDisplayDictionary
         {
@@ -226,15 +230,25 @@ namespace Zipline2.PageModels
         }
 
         public Dictionary<Tuple<DrinkType, DrinkSize>, Drink> DrinksOnTempOrderDictionary { get; set; } 
-        public DrinksPageModel()
+        public DrinksPageModel(Drink drinkForEdit = null)
         {
+            IsDrinkSelectedForEdit = false;
             DrinkDisplayItems = new ObservableCollection<DrinkDisplayItem>();
             DrinksSelectedCommand = new Command<DrinkCategory>(OnDrinksSelected);
             AddDrinksCommand = new Command(OnAddDrinks);
             DrinkDisplayDictionary = new Dictionary<DrinkCategory, List<DrinkDisplayItem>>();
             DrinksOnTempOrderDictionary = new Dictionary<Tuple<DrinkType, DrinkSize>, Drink>();
-            SoftDrinksSelected = true;
-            OnDrinksSelected(DrinkCategory.SoftDrink);
+            if (drinkForEdit == null)
+            {
+                SoftDrinksSelected = true;
+                OnDrinksSelected(DrinkCategory.SoftDrink);
+            }
+            else
+            {
+                IsDrinkSelectedForEdit = true;
+                drinkSelectedForEditDrinkType = drinkForEdit.DrinkType;
+                OnDrinksSelected(drinkForEdit.DrinkCategory);
+            }
         }
 
 
@@ -262,17 +276,32 @@ namespace Zipline2.PageModels
 
         public void OnDrinksSelected(DrinkCategory newDrinkCategory)
         {
-            ScrollToTopOfList?.Invoke(this, EventArgs.Empty);
+            if (IsDrinkSelectedForEdit)
+            {
+                List<Drink> drinksForDisplay = MenuDrinks.GetDrinksList(newDrinkCategory);
+                for (int i = 0; i < drinksForDisplay.Count; i++)
+                {
+                    if (drinksForDisplay[i].DrinkType == drinkSelectedForEditDrinkType)
+                    {
+                        DrinkForEditIndex = i;
+                        break;
+                    }
+                }
+            }           
+            else
+            {
+                ScrollToTopOfList?.Invoke(this, EventArgs.Empty);
+            }
             //Load new drinks onto page.
             if (!DrinkDisplayDictionary.ContainsKey(newDrinkCategory))
             {
                 LoadDrinkCategoryForDisplay(newDrinkCategory);
             }
+
             DrinkDisplayItems = new ObservableCollection<DrinkDisplayItem>(DrinkDisplayDictionary[newDrinkCategory]);
             //In case we've already added drinks to this order and are returning to that
             //drink category, we want to show what was added previously.
             LoadPreviousDrinkSelections(newDrinkCategory);
-           
             switch (newDrinkCategory)
             {
                 case DrinkCategory.SoftDrink:
@@ -391,6 +420,7 @@ namespace Zipline2.PageModels
             //Get drink Order items and load to current screen category.
             //Will load to DrinkDisplayDictionary with key of categoryDisplayed.
             var currentOrder = OrderManager.Instance.OrderInProgress;
+          
             foreach (var orderItem in currentOrder.OrderItems)
             {
                 if (orderItem is Drink)
@@ -427,6 +457,11 @@ namespace Zipline2.PageModels
                             {
                                 drinkDisplayItem.Drink.ItemCount = drinkAlreadyOnTempOrder.ItemCount;
                             }
+
+                            //if (saveDrinkTypeToScrollTo == drinkDisplayItem.Drink.DrinkType)
+                            //{
+                            //    drinkDisplayIndexToScrollTo = drinkDisplayItem.DrinkDisplayItemIndex;
+                            //}
                         } 
                     }
                 }

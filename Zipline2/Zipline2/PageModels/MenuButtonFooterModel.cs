@@ -22,6 +22,7 @@ namespace Zipline2.PageModels
             SaladsCommand = new Command(OnSaladsButtonClick);
             CalzoneCommand = new Command(OnCalzonesButtonClick);
             SpecialsCommand = new Command(OnSpecialsButtonClick);
+            DessertCommand = new Command(OnDessertButtonClick);
             OrderPageCommand = new Command(OnOrderPage);
             TablesCommand = new Command(OnTablesPage);
             AddToOrderCommand = new Command(OnAddToOrder);
@@ -48,11 +49,14 @@ namespace Zipline2.PageModels
 
         public DrinksPageModel ThisDrinksPageModel { get; set; }
         public OrderPageModel ThisOrderPageModel { get; set; }
+
+        public DessertPageModel ThisDessertPageModel { get; set; }
         public ICommand DrinksCommand { get; set; }
         public ICommand SaladsCommand { get; set; }
         public ICommand CalzoneCommand { get; set; }
         public ICommand PizzaCommand { get; set; }
         public ICommand SpecialsCommand { get; set; }
+        public ICommand DessertCommand { get; set; }
         public ICommand AddToOrderCommand { get; set; }
         public ICommand TablesCommand { get; set; }
         public ICommand OrderPageCommand { get; set; }
@@ -104,6 +108,7 @@ namespace Zipline2.PageModels
                     IsSaladPageDisplayed = false;
                     IsCalzonePageDisplayed = false;
                     IsSpecialsPageDisplayed = false;
+                    IsDessertPageDisplayed = false;
                 }
             }
         }
@@ -126,6 +131,7 @@ namespace Zipline2.PageModels
                     DisplayAddToOrderButton = false;
                     IsCalzonePageDisplayed = false;
                     IsSpecialsPageDisplayed = false;
+                    IsDessertPageDisplayed = false;
                 }
             }
         }
@@ -147,6 +153,7 @@ namespace Zipline2.PageModels
                     IsSaladPageDisplayed = false;
                     IsCalzonePageDisplayed = false;
                     IsSpecialsPageDisplayed = false;
+                    IsDessertPageDisplayed = false;
                 }
             }
         }
@@ -168,6 +175,7 @@ namespace Zipline2.PageModels
                     IsSaladPageDisplayed = false;
                     IsCalzonePageDisplayed = false;
                     IsSpecialsPageDisplayed = false;
+                    IsDessertPageDisplayed = false;
                 }
             }
         }
@@ -189,6 +197,7 @@ namespace Zipline2.PageModels
                     IsSaladPageDisplayed = false;
                     IsPizzaPageDisplayed = false;
                     IsSpecialsPageDisplayed = false;
+                    IsDessertPageDisplayed = false;
                 }
             }
         }
@@ -210,6 +219,30 @@ namespace Zipline2.PageModels
                     IsSaladPageDisplayed = false;
                     IsPizzaPageDisplayed = false;
                     IsCalzonePageDisplayed = false;
+                    IsDessertPageDisplayed = false;
+                    DisplayAddToOrderButton = false;
+                }
+            }
+        }
+
+        private bool isDessertPageDisplayed;
+        public bool IsDessertPageDisplayed
+        {
+            get
+            {
+                return isDessertPageDisplayed;
+            }
+            set
+            {
+                SetProperty(ref isDessertPageDisplayed, value);
+                if (isDessertPageDisplayed)
+                {
+                    IsDrinkPageDisplayed = false;
+                    IsOrderPageDisplayed = false;
+                    IsSaladPageDisplayed = false;
+                    IsPizzaPageDisplayed = false;
+                    IsCalzonePageDisplayed = false;
+                    IsSpecialsPageDisplayed = false;
                     DisplayAddToOrderButton = false;
                 }
             }
@@ -236,7 +269,15 @@ namespace Zipline2.PageModels
 
         void OnAddToOrder()
         {
-            ThisDrinksPageModel.OnAddDrinks();
+            if (IsDrinkPageDisplayed)
+            {
+                ThisDrinksPageModel.OnAddDrinks();
+            }
+            else if (IsDessertPageDisplayed)
+            {
+                ThisDessertPageModel.OnAddDesserts();
+            }
+          
         }
 
         void OnSendOrder()
@@ -271,6 +312,13 @@ namespace Zipline2.PageModels
         {
             var currentMainPage = Application.Current.MainPage as MasterDetailPage;
             currentMainPage.Detail = new NavigationPage(new SpecialsPage());
+            Application.Current.MainPage = currentMainPage;
+        }
+
+        public void OnDessertButtonClick()
+        {
+            var currentMainPage = Application.Current.MainPage as MasterDetailPage;
+            currentMainPage.Detail = new NavigationPage(new DessertPage());
             Application.Current.MainPage = currentMainPage;
         }
 

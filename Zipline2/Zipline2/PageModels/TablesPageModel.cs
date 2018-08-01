@@ -315,10 +315,7 @@ namespace Zipline2.PageModels
             //Change what the app's current table is.
             OrderManager.Instance.UpdateCurrentTable(tableSelected);
 
-            var watch = System.Diagnostics.Stopwatch.StartNew();
             var dbTable = await WcfServicesProxy.Instance.GetTableAsync((int)tableSelected.TableId);
-            watch.Reset();
-
             //var dbTable = WcfServicesProxy.Instance.GetTable((int)tableSelected.TableId);
            
             tableSelected.DatabaseTable = dbTable;
@@ -362,7 +359,7 @@ namespace Zipline2.PageModels
                     }
                 }
             }
-            watch.Stop();
+
             //used just during testing so that orders can be looked at without sending to server.
             //Only if no orders on server, see if OpenOrders for this table on this phone...
             var orderForThisTable = Tables.AllTables[tableSelected.IndexInAllTables].OpenOrder;
