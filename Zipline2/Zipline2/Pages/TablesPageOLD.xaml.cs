@@ -16,7 +16,7 @@ using Zipline2.PageModels;
 namespace Zipline2.Pages
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class TablesPage : ContentPage
+	public partial class TablesPageOld : ContentPage
 	{
         #region Private Variables
         private int NumTablesSeated { get; set; }
@@ -25,19 +25,11 @@ namespace Zipline2.Pages
         #endregion
 
         #region Constructor
-        public TablesPage()
+        public TablesPageOld()
         {
             FirstTimeLoadMenu = true;
-
-            //InitializeComponent();
-            //TablesPageModel = new TablesPageModel(new DataTemplate[] { takeoutRowTemplate, dividerTemplate, blankTemplate });
-
-            TablesPageModel = new TablesPageModel();              
+            //TablesPageModel = new TablesPageModel();
             InitializeComponent();
-
-            //TablesPageModel.HeaderTemplateSelector.TablePageTakeoutRowTemplate = takeoutRowTemplate;
-            //TablesPageModel.HeaderTemplateSelector.TablePageDividerTemplate = dividerTemplate;
-            //TablesPageModel.HeaderTemplateSelector.TablePageBlankTemplate = blankTemplate;
             BindingContext = TablesPageModel;
             this.ToolbarItems.Clear();
             this.ToolbarItems.Add(new ToolbarItem { Text = "Tables     ", Priority = 2 });
@@ -100,8 +92,8 @@ namespace Zipline2.Pages
             TablesPageModel.NavigateToOrderPage += HandleNavigateToOrderPage;
             if (WcfServicesProxy.Instance.ServiceCallConfig != WcfServicesProxy.ServiceCallConfigType.AllServiceCallsOff)
             {
-                //TableList.IsEnabled = false;
-                //TableList.IsRefreshing = true;
+                TableList.IsEnabled = false;
+                TableList.IsRefreshing = true;
                 
                 //Moved to app.xaml.cs
                 //if (FirstTimeLoadMenu)
@@ -116,8 +108,8 @@ namespace Zipline2.Pages
                 var tablesServerTaskSuccess = await DataBaseDictionaries.LoadTableDataAsync();
                 if (tablesServerTaskSuccess)
                 {
-                    //TableList.IsRefreshing = false;
-                    //TableList.IsEnabled = true;
+                    TableList.IsRefreshing = false;
+                    TableList.IsEnabled = true;
                 }
                 
                 //Don't know how to get an exception from the above await.....

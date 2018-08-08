@@ -29,7 +29,6 @@ namespace Zipline2.BusinessLogic.WcfRemote
         public static Dessert GetDessert(GuestItem oldGuestItem)
         {
             Dessert newDessert = MenuFood.GetDessertFromMenu(oldGuestItem.ID);
-            newDessert.EditingExistingItem = false;
             newDessert.DbItemId = oldGuestItem.ID;
             newDessert.WasSentToKitchen = oldGuestItem.OrderSent;
             newDessert.DbOrderId = (int)oldGuestItem.OrderID;

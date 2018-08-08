@@ -10,7 +10,8 @@ namespace Zipline2.Models
 {
     public class Dessert : OrderItem
     {
-        public DessertType DessertType; 
+        public DessertType DessertType;
+        public bool IsCookie;
         public Dessert()
         {
             

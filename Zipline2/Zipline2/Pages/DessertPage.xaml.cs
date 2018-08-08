@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Zipline2.BusinessLogic;
+using Zipline2.Models;
 using Zipline2.PageModels;
 
 namespace Zipline2.Pages
@@ -15,11 +16,20 @@ namespace Zipline2.Pages
 	public partial class DessertPage : BasePage
 	{
         private DessertPageModel ThisDessertPageModel;
+        private bool isEditingDrink;
 
-		public DessertPage ()
+        public DessertPage(Dessert dessertForEdit = null)
 		{
-            ThisDessertPageModel = new DessertPageModel();
-            InitializeComponent ();
+            if (dessertForEdit == null)
+            {
+                ThisDessertPageModel = new DessertPageModel();
+            }
+            else
+            {
+                isEditingDrink = true;
+                ThisDessertPageModel = new DessertPageModel(dessertForEdit);
+            }
+            InitializeComponent();
             BindingContext = ThisDessertPageModel;
             Footer.FooterPageModel.IsDessertPageDisplayed = true;
             Footer.FooterPageModel.DisplayAddToOrderButton = true;

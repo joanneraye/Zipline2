@@ -30,8 +30,6 @@ namespace Zipline2.Models
         public bool PartOfCombo { get; set; }
 
         public Guid ComboId { get; set; }
-
-        public bool EditingExistingItem;
         
         /// <summary>
         /// The item count is not the number of the general item (such

@@ -331,6 +331,7 @@ namespace Zipline2.PageModels
 
         void OnEditOrderItem()
         {
+            OrderManager.Instance.OrderInProgress.EditingExistingOrder = true;
             MessagingCenter.Send(this, "EditOrderItem");
         }
 

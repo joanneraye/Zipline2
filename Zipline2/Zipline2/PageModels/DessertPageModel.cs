@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Zipline2.BusinessLogic;
+using Zipline2.BusinessLogic.Enums;
 using Zipline2.Data;
 using Zipline2.Models;
 
@@ -111,20 +112,33 @@ namespace Zipline2.PageModels
 
         public ICommand CookiesSelectedCommand { get; set; }
         public ICommand AddDessertsCommand { get; set; }
-
+        public bool IsDessertSelectedForEdit { get; set; }
+        private DessertType dessertSelectedForEditDessertType;
+        public Dictionary<DessertType, Dessert> DessertsOnTempOrderDictionary { get; set; }
         public event EventHandler NavigateToOrderPage;
 
-        public DessertPageModel()
+        public DessertPageModel(Dessert dessertForEdit = null)
         {
             DessertDisplayItems = new ObservableCollection<DessertDisplayItem>();
             DessertsSelectedCommand = new Command(OnDessertsSelected);
             CookiesSelectedCommand = new Command(OnCookiesSelected);
             AddDessertsCommand = new Command(OnAddDesserts);
-            DessertsSelected = true;
-            LoadDrinkCategoryForDisplay(false);
+            DessertsOnTempOrderDictionary = new Dictionary<DessertType, Dessert>();
+            if (dessertForEdit == null)
+            {
+                LoadDessertCategoryForDisplay(false);
+                LoadPreviousDessertSelections(false);
+            }
+            else
+            {
+                IsDessertSelectedForEdit = true;
+                dessertSelectedForEditDessertType = dessertForEdit.DessertType;
+                LoadDessertCategoryForDisplay(dessertForEdit.IsCookie);
+                LoadPreviousDessertSelections(dessertForEdit.IsCookie);
+            }
         }
 
-        private void LoadDrinkCategoryForDisplay(bool cookies)
+        private void LoadDessertCategoryForDisplay(bool cookies)
         {
             List<Dessert> dessertsForDisplay = new List<Dessert>();
             string dessertDictionaryKey;
@@ -133,17 +147,18 @@ namespace Zipline2.PageModels
                 dessertDictionaryKey = "Cookies";
                 foreach (var cookieDessert in MenuFood.CookieDictionary.Values)
                 {
-                    dessertsForDisplay.Add(cookieDessert);
+                    dessertsForDisplay.Add(cookieDessert.GetClone());
                 }
-                
+                CookiesSelected = true;
             }
             else
             {
                 dessertDictionaryKey = "Desserts";
                 foreach (var dessert in MenuFood.DessertDictionary.Values)
                 {
-                    dessertsForDisplay.Add(dessert);
+                    dessertsForDisplay.Add(dessert.GetClone());
                 }
+                DessertsSelected = true;
             }
             if (DessertDisplayDictionary == null)
             {
@@ -158,17 +173,23 @@ namespace Zipline2.PageModels
                 {
                     tempDisplayItems.Add(new DessertDisplayItem()
                     {
-                        Dessert = dessertsForDisplay[i],
+                        Dessert = dessertsForDisplay[i].GetClone(),
                         DessertDisplayItemIndex = i
                     });
+                   
+                    //Use below if decide to scroll to the dessert item being edited.
+                    //if (dessertsForDisplay[i].DessertType == dessertSelectedForEditDessertType)
+                    //{
+                    //    DessertForEditIndex = i;
+                    //    break;
+                    //}
                 }
 
                 DessertDisplayDictionary.Add(dessertDictionaryKey, tempDisplayItems);
             }
 
             tempDisplayItems = DessertDisplayDictionary[dessertDictionaryKey];            
-            DessertDisplayItems = new ObservableCollection<DessertDisplayItem>(tempDisplayItems);
-           
+            DessertDisplayItems = new ObservableCollection<DessertDisplayItem>(tempDisplayItems);            
         }
 
         public async void OnAddDesserts()
@@ -218,14 +239,70 @@ namespace Zipline2.PageModels
         {
             CookiesSelected = true;
             DessertsSelected = false;
-            LoadDrinkCategoryForDisplay(true);
+            LoadDessertCategoryForDisplay(true);
         }
 
         private void OnDessertsSelected()
         {
             CookiesSelected = false;
             DessertsSelected = true;
-            LoadDrinkCategoryForDisplay(false);
+            LoadDessertCategoryForDisplay(false);
+        }
+
+        private void LoadPreviousDessertSelections(bool cookies)
+        {
+            //Get dessert Order items and load to current screen category.
+            //Will load to DrinkDisplayDictionary with ke of categoryDisplayed.
+            var currentOrder = OrderManager.Instance.OrderInProgress;
+
+            foreach (var orderItem in currentOrder.OrderItems)
+            {
+                if (orderItem is Dessert)
+                {
+                    var dessertAlreadyOnTempOrder = (Dessert)orderItem;
+
+                    //Save items to Dictionary that is on the current order.
+                    if (DessertsOnTempOrderDictionary.ContainsKey(dessertAlreadyOnTempOrder.DessertType))
+                    {
+                        DessertsOnTempOrderDictionary[dessertAlreadyOnTempOrder.DessertType] = dessertAlreadyOnTempOrder;
+                    }
+                    else
+                    {
+                        DessertsOnTempOrderDictionary.Add(dessertAlreadyOnTempOrder.DessertType, dessertAlreadyOnTempOrder);
+                    }
+
+                    //if drink on current order is in category displayed, then we'll want 
+                    //to show what the order already has.
+                    if (dessertAlreadyOnTempOrder.IsCookie == cookies)
+                    {
+                        string dictionaryKey;
+                        if (cookies)
+                        {
+                            dictionaryKey = "Cookies";
+                        }
+                        else
+                        {
+                            dictionaryKey = "Desserts";
+                        }
+                            
+                        if (!DessertDisplayDictionary.ContainsKey(dictionaryKey))
+                        {
+                            LoadDessertCategoryForDisplay(cookies);
+                        }
+
+                        //Populate current drink items displayed with item count of 
+                        //drinks already on the order.  
+                        var dessertsDisplayed = DessertDisplayDictionary[dictionaryKey];
+                        foreach (var dessertDisplayItem in dessertsDisplayed)
+                        {
+                            if (dessertDisplayItem.Dessert.DessertType == dessertAlreadyOnTempOrder.DessertType)
+                            {
+                                dessertDisplayItem.Dessert.ItemCount = dessertAlreadyOnTempOrder.ItemCount;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

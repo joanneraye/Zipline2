@@ -260,7 +260,7 @@ namespace Zipline2.PageModels
             {  
                 tempDisplayItems.Add(new DrinkDisplayItem()
                 {
-                    Drink = drinksForDisplay[i],
+                    Drink = drinksForDisplay[i].GetClone(),
                     DrinkDisplayItemIndex = i
                 });                
             }

@@ -28,6 +28,19 @@ namespace Zipline2.Models
         [Column("indexinalltables")]
         public int IndexInAllTables { get; set; }
 
+        private string tablePageButtonText;
+        public string TablePageButtonText
+        {
+            get
+            {
+                return tablePageButtonText;
+            }
+            set
+            {
+                SetProperty(ref tablePageButtonText, value);
+            }
+        }
+
         [Column("isinside")]
         public bool IsInside { get; set; }
 

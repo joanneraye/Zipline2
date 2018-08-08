@@ -22,151 +22,127 @@ namespace Zipline2.PageModels
         public class TableSelection : BasePageModel
         {
             private TablesPageModel parentTablesPageModel;
-            //private Color outsideTableColor;
-            //private Color insideTableColor;
-            private string insideTableName;
-            public string InsideTableName
+            private Table[] tablePageRow;
+            public Table[] TablePageRow
             {
                 get
                 {
-                    return insideTableName;
+                    return tablePageRow;
                 }
                 set
                 {
-                    SetProperty(ref insideTableName, value);
+                    SetProperty(ref tablePageRow, value);
                 }
             }
-
-            private Table insideTable;
-            public Table InsideTable
+                       
+            private bool col1TableClicked;
+            public bool Col1TableClicked
             {
                 get
                 {
-                    return insideTable;
+                    return col1TableClicked;
                 }
                 set
                 {
-                    SetProperty(ref insideTable, value);
+                    SetProperty(ref col1TableClicked, value);
                 }
             }
-
-            private bool insideTableClicked;
-            public bool InsideTableClicked
+            private bool col2TableClicked;
+            public bool Col2TableClicked
             {
                 get
                 {
-                    return insideTableClicked;
+                    return col2TableClicked;
                 }
                 set
                 {
-                    SetProperty(ref insideTableClicked, value);
+                    SetProperty(ref col2TableClicked, value);
                 }
             }
-
-            private bool outsideTableClicked;
-            public bool  OutsideTableClicked
+            private bool col3TableClicked;
+            public bool Col3TableClicked
             {
                 get
                 {
-                    return outsideTableClicked;
+                    return col3TableClicked;
                 }
                 set
                 {
-                    SetProperty(ref outsideTableClicked, value);
+                    SetProperty(ref col3TableClicked, value);
                 }
             }
-            private string outsideTableName;
-            public string OutsideTableName
+            private bool col4TableClicked;
+            public bool Col4TableClicked
             {
                 get
                 {
-                    return outsideTableName;
+                    return col4TableClicked;
                 }
                 set
                 {
-                    SetProperty(ref outsideTableName, value);
+                    SetProperty(ref col4TableClicked, value);
                 }
-            }
-        
-
-            private Table outsideTable;
-            public Table OutsideTable
-            {
-                get
-                {
-                    return outsideTable;
-                }
-                set
-                {
-                    SetProperty(ref outsideTable, value);
-                }
-            }
-
-            public int SelectionIndex { get; set; }
-            public int IndexInAllTables { get; set; }
-            //public Color OutsideTableColor
-            //{
-            //    get
-            //    {
-            //        return outsideTableColor;
-            //    }
-            //    set
-            //    {
-            //        SetProperty(ref outsideTableColor, value);
-            //    }
-            //}
-            //public Color InsideTableColor
-            //{
-            //    get
-            //    {
-            //        return insideTableColor;
-            //    }
-            //    set
-            //    {
-            //        SetProperty(ref insideTableColor, value);
-            //    }
-            //}
-
-            #region Command Variables
-            public System.Windows.Input.ICommand InsideTableCommand { get; set; }
-            public System.Windows.Input.ICommand OutsideTableCommand { get; set; }
-            #endregion
-
-            public TableSelection(TablesPageModel referenceToParentClass)
-            {
-                parentTablesPageModel = referenceToParentClass;
-                InsideTableCommand = new Xamarin.Forms.Command(OnInsideButtonClicked);
-                OutsideTableCommand = new Xamarin.Forms.Command(OnOutsideButtonClicked);
             }
 
             
-            private async void OnInsideButtonClicked()
-            {
-                InsideTableClicked = true;
-                TableSelection thisRow = parentTablesPageModel.DisplayTables[SelectionIndex];
-                Table tableSelected = thisRow.InsideTable;
-                await parentTablesPageModel.ProcessSelectedTableAsync(tableSelected);
-                InsideTableClicked = false;
-               
+
+            public int SelectionIndex { get; set; }
+           
+            #region Command Variables
+            public ICommand TableCommand { get; set; }
+           
+
+            #endregion
+
+            public TableSelection(TablesPageModel referenceToParentClass)
+            {;
+                parentTablesPageModel = referenceToParentClass;
+                TablePageRow = new Table[4];
+                TableCommand = new Command<int>(OnTableClicked);
+             
+                                   
             }
-            private async void OnOutsideButtonClicked()
+
+          
+            private async void OnTableClicked(int columnIndex)
             {
-                OutsideTableClicked = true;
-                TableSelection thisRow = parentTablesPageModel.DisplayTables[SelectionIndex];
-                Table tableSelected = thisRow.OutsideTable;
-                await parentTablesPageModel.ProcessSelectedTableAsync(tableSelected);
-                OutsideTableClicked = false;
+                //TableSelection thisRow = parentTablesPageModel.DisplayTables[SelectionIndex];
+                //Table tableSelected = TablePageRow[columnIndex];   
+                //await parentTablesPageModel.ProcessSelectedTableAsync(tableSelected);
             }
         }
         //******************************NOTE IMBEDDED CLASS above ************************
+
+        public class TableGroup : ObservableCollection<TableSelection>
+        {
+           
+            public string GroupHeaderText { get; set; }
+
+            public enum GroupHeaderSelector
+            {
+                BlankHeader,
+                DividerHeader,
+                TakeoutRow
+            }
+
+            public GroupHeaderSelector HeaderType { get; set; }
+            
+        }
+
+        //******************************NOTE IMBEDDED CLASS above ************************
+       
+
         #region Private Variables
-        private ObservableCollection<TableSelection> displayTables;
+
         private string userName;
         #endregion
 
         #region Properties     
         public event EventHandler NavigateToDrinksPage;
-        public event EventHandler NavigateToOrderPage;        
+        public event EventHandler NavigateToOrderPage;
+        public ICommand TakeoutCommand { get; set; }
+        public ICommand MoveTableCommand { get; set; }
+        public ICommand PrintTicketCommand { get; set; }
         public string UserName
         {
             get
@@ -178,18 +154,74 @@ namespace Zipline2.PageModels
                 SetProperty(ref userName, value);
             }
         }
-        public ObservableCollection<TableSelection> DisplayTables
+        
+        //private ObservableCollection<TableSelection> displayTablesGroup1;
+        //public ObservableCollection<TableSelection> DisplayTablesGroup1
+        //{
+        //    get
+        //    {
+        //        return displayTablesGroup1;
+        //    }
+
+        //    set
+        //    {
+        //        SetProperty(ref displayTablesGroup1, value);
+        //    }
+        //}
+        //private ObservableCollection<TableSelection> displayTablesGroup2;
+        //public ObservableCollection<TableSelection> DisplayTablesGroup2
+        //{
+        //    get
+        //    {
+        //        return displayTablesGroup2;
+        //    }
+
+        //    set
+        //    {
+        //        SetProperty(ref displayTablesGroup2, value);
+        //    }
+        //}
+
+        //private ObservableCollection<TableSelection> displayTablesGroup3;
+        //public ObservableCollection<TableSelection> DisplayTablesGroup3
+        //{
+        //    get
+        //    {
+        //        return displayTablesGroup3;
+        //    }
+
+        //    set
+        //    {
+        //        SetProperty(ref displayTablesGroup3, value);
+        //    }
+        //}
+
+        private ObservableCollection<TableGroup> tableGroups;
+        public ObservableCollection<TableGroup> TableGroups
         {
             get
             {
-                return displayTables;
+                return tableGroups;
             }
 
             set
             {
-                SetProperty(ref displayTables, value);
+                SetProperty(ref tableGroups, value);
             }
         }
+
+        //private TablesPageHeaderTemplateSelector headerTemplateSelector;
+        //public TablesPageHeaderTemplateSelector HeaderTemplateSelector
+        //{
+        //    get
+        //    {
+        //        return headerTemplateSelector;
+        //    }
+        //    set
+        //    {
+        //        SetProperty(ref headerTemplateSelector, value);
+        //    }
+        //}
 
         private bool isBusy;
         public bool IsBusy
@@ -203,15 +235,43 @@ namespace Zipline2.PageModels
                 SetProperty(ref isBusy, value);
             }
         }
-       
+
         #endregion
-       
+
 
         #region Constructor
+        //public TablesPageModel(DataTemplate[] templates)
+        //{
+        //    TakeoutCommand = new Command(OnTakeoutClicked);
+        //    MoveTableCommand = new Command(OnMoveTableClicked);
+        //    PrintTicketCommand = new Command(OnPrintTicketClicked);
+        //    LoadTablesForDisplay();
+        //   // HeaderTemplateSelector = new TablesPageHeaderTemplateSelector(templates);
+        //}
+
         public TablesPageModel()
         {
+            TakeoutCommand = new Command(OnTakeoutClicked);
+            MoveTableCommand = new Command(OnMoveTableClicked);
+            PrintTicketCommand = new Command(OnPrintTicketClicked);
             LoadTablesForDisplay();
         }
+
+        private void OnPrintTicketClicked(object obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnMoveTableClicked(object obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnTakeoutClicked(object obj)
+        {
+            throw new NotImplementedException();
+        }
+
 
         //Not used because gets server data synchronously.
         public void LoadTableData()
@@ -223,9 +283,7 @@ namespace Zipline2.PageModels
                 Tables.AllTables[orderManager.CurrentTableIndex].OpenOrder = OrderManager.Instance.OrderInProgress;
             }
        
-            var watch = System.Diagnostics.Stopwatch.StartNew();
             List<DBTable> tables = WcfServicesProxy.Instance.GetTableInfo();
-            watch.Stop();
 
             foreach (var table in tables)
             {
@@ -297,13 +355,7 @@ namespace Zipline2.PageModels
         #endregion
 
         #region Methods
-
-        //async public Task<List<DBTable>> GetTablesAsync()
-        //{
-            
-        //    return await WcfServicesProxy.Instance.GetTableInfoFromServerAsync();
-        //}
-
+       
         async public Task<bool> TableHasOpenChecks(decimal tableId)
         {
             return await WcfServicesProxy.Instance.HasOpenChecksAsync(tableId);
@@ -312,6 +364,7 @@ namespace Zipline2.PageModels
         private async Task ProcessSelectedTableAsync(Table tableSelected)
         {
             tableSelected.IsOccupied = true;
+
             //Change what the app's current table is.
             OrderManager.Instance.UpdateCurrentTable(tableSelected);
 
@@ -391,91 +444,73 @@ namespace Zipline2.PageModels
             //}
               
         }
-
-        private void PopulateRowWithInsideTable(ref TableSelection thisRow, int indexInAllTables)
-        {
-            //Next 2 statements must be in that order because when table is valued (2nd statement), if there is an
-            //unsent order the name of the table is changed to show "unsent".  If the name is set (1st statement) after that,
-            //rather than before, it will wipe this out. 
-            thisRow.InsideTableName = Tables.AllTables[indexInAllTables].TableName;
-            thisRow.InsideTable = Tables.AllTables[indexInAllTables];
-            //if (thisRow.InsideTable.HasUnsentOrder)
-            //{
-            //    thisRow.InsideTableName += " UNSENT";
-            //}
-
-            //if (thisRow.InsideTable.IsOccupied)
-            //{
-            //    thisRow.InsideTableColor = Color.Orange;
-            //}
-            //else
-            //{
-            //    thisRow.InsideTableColor = Color.Blue;
-            //}
-        }
-
-
-        private void PopulateRowWithOutsideTable(ref TableSelection thisRow, int indexInAllTables)
-        {
-            //Next 2 statements must be in that order because when table is valued (2nd statement), if there is an
-            //unsent order the name of the table is changed to show "unsent".  If the name is set (1st statement) after that,
-            //rather than before, it will wipe this out.  
-            thisRow.OutsideTableName = Tables.AllTables[indexInAllTables].TableName;
-            thisRow.OutsideTable = Tables.AllTables[indexInAllTables];
-            //if (thisRow.OutsideTable.HasUnsentOrder)
-            //{
-            //    thisRow.OutsideTableName += " UNSENT";
-            //}
-            //if (thisRow.OutsideTable.IsOccupied)
-            //{
-            //    thisRow.OutsideTableColor = Color.Orange;
-            //}
-            //else
-            //{
-            //    thisRow.OutsideTableColor = Color.Blue;
-            //}
-        }
+     
         public void LoadTablesForDisplay()
         {
-            DisplayTables = new ObservableCollection<TableSelection>();
-            decimal halfOfTableCount = Tables.AllTables.Count / 2;
-            int outsideTableIndex = Convert.ToInt32(Math.Ceiling(halfOfTableCount));
-            int insideTableIndex = 0;
+            TableGroups = new ObservableCollection<TableGroup>();
+            TableGroup group1 = new TableGroup();
+            group1.GroupHeaderText = "Group 1";
+            group1.HeaderType = TableGroup.GroupHeaderSelector.BlankHeader;
+            TableGroups.Add(group1);
+            //DisplayTablesGroup1 = new ObservableCollection<TableSelection>();
+            TableSelection tableRow = null;
+            for (int i = 0; i < 16; i++)
+            {
+                int rowIndex = i % 4;
+                if (rowIndex == 0)
+                {
+                    tableRow = new TableSelection(this);
+                }
 
-            while (Tables.AllTables[insideTableIndex].IsInside &&
-                     outsideTableIndex < Tables.AllTables.Count)            //Create all full rows
-            {
-                var displayTableRow = new TableSelection(this);
-                PopulateRowWithInsideTable(ref displayTableRow, insideTableIndex);
-                PopulateRowWithOutsideTable(ref displayTableRow, outsideTableIndex);
-                displayTableRow.SelectionIndex = insideTableIndex;
-                DisplayTables.Add(displayTableRow);
-                outsideTableIndex++;
-                insideTableIndex++;
+                tableRow.TablePageRow[rowIndex] = Tables.AllTables[i];
+
+                if (rowIndex == 3)
+                {
+                    group1.Add(tableRow);
+                }
             }
-            while (Tables.AllTables[insideTableIndex].IsInside)
+
+            TableGroup group2 = new TableGroup();
+            group2.GroupHeaderText = "Group 2";
+            group2.HeaderType = TableGroup.GroupHeaderSelector.TakeoutRow;
+            TableGroups.Add(group2);
+            for (int j = 16; j < 24; j++)
             {
-                var displayTableRow = new TableSelection(this);
-                PopulateRowWithInsideTable(ref displayTableRow, insideTableIndex);
-                displayTableRow.OutsideTable = new Table();
-                displayTableRow.OutsideTableName = string.Empty;
-                displayTableRow.SelectionIndex = insideTableIndex;
-                DisplayTables.Add(displayTableRow);
-                insideTableIndex++;
+                int rowIndex2 = j % 4;
+                if (rowIndex2 == 0)
+                {
+                    tableRow = new TableSelection(this);
+                }
+
+                tableRow.TablePageRow[rowIndex2] = Tables.AllTables[j];
+
+                if (rowIndex2 == 3)
+                {
+                    group2.Add(tableRow);
+                }
             }
-            int currentRowIndex = insideTableIndex;
-            while (outsideTableIndex < Tables.AllTables.Count)
+
+            TableGroup group3 = new TableGroup();
+            group3.GroupHeaderText = "Group 3";
+            group3.HeaderType = TableGroup.GroupHeaderSelector.DividerHeader;
+            TableGroups.Add(group3);
+            for (int k = 24; k < Tables.AllTables.Count; k++)
             {
-                var displayTableRow = new TableSelection(this);
-                PopulateRowWithOutsideTable(ref displayTableRow, outsideTableIndex);
-                displayTableRow.InsideTable = new Table();
-                displayTableRow.InsideTableName = string.Empty;
-                displayTableRow.SelectionIndex = currentRowIndex;
-                DisplayTables.Add(displayTableRow);
-                outsideTableIndex++;
-                currentRowIndex++;
+                int rowIndex3 = k % 4;
+                if (rowIndex3 == 0)
+                {
+                    tableRow = new TableSelection(this);
+                }
+
+                tableRow.TablePageRow[rowIndex3] = Tables.AllTables[k];
+
+                if (rowIndex3 == 3)
+                {
+                    group3.Add(tableRow);
+                }
             }
         }
+
         void DisplayDrinksPage()
         {
             OnNavigateToDrinksPage();

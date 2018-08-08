@@ -111,6 +111,9 @@
     <Compile Update="Pages\TablesPage.xaml.cs">
       <DependentUpon>TablesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Pages\TablesPageOLD.xaml.cs">
+      <DependentUpon>TablesPageOLD.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Pages\CalzoneToppingsPage.xaml.cs">
       <DependentUpon>CalzoneToppingsPage.xaml</DependentUpon>
     </Compile>

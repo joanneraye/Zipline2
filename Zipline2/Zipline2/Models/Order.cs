@@ -41,7 +41,7 @@ namespace Zipline2.Models
        
         public decimal Total { get; set; }
 
-     
+        public bool EditingExistingOrder;
         public bool IsTakeout { get; set; }
 
         private bool allItemsSent;
@@ -107,36 +107,27 @@ namespace Zipline2.Models
             bool addItemToOrder = true;
             if (newOrderItem != null)
             {
-                if (newOrderItem.EditingExistingItem)
+                if (newOrderItem is Drink)
                 {
-                    UpdateOrderItem(newOrderItem);
+                    Drink drinkToAdd = (Drink)newOrderItem;
+                    if (UpdateDrinkIfAlreadyOnOrder(drinkToAdd))
+                    {
+                        addItemToOrder = false;
+                    }
                 }
-                else
+                else if (newOrderItem is Dessert)
                 {
-                    if (newOrderItem is Drink)
+                    Dessert dessertToAdd = (Dessert)newOrderItem;
+                    if (UpdateDessertIfAlreadyOnOrder(dessertToAdd))
                     {
-                        Drink drinkToAdd = (Drink)newOrderItem;
-                        if (UpdateDrinkIfAlreadyOnOrder(drinkToAdd))
-                        {
-                            addItemToOrder = false;
-                        }
+                        addItemToOrder = false;
                     }
-                    else if (newOrderItem is Dessert)
-                    {
-                        Dessert dessertToAdd = (Dessert)newOrderItem;
-                        if (UpdateDessertIfAlreadyOnOrder(dessertToAdd))
-                        {
-                            addItemToOrder = false;
-                        }
-                    }
+                }
 
-                    if (addItemToOrder)
-                    {
-                        //From now on these items are flagged to be edited so won't be added again.
-                        newOrderItem.EditingExistingItem = true;
-                        newOrderItem.OrderItemNumber = OrderItems.Count + 1;
-                        OrderItems.Add(newOrderItem);
-                    }
+                if (addItemToOrder)
+                {
+                    newOrderItem.OrderItemNumber = OrderItems.Count + 1;
+                    OrderItems.Add(newOrderItem);
                 }
                 UpdateOrderTotals();
             }
@@ -195,8 +186,15 @@ namespace Zipline2.Models
                     if (drinkToAdd.DrinkType == drinkAlreadyOnOrder.DrinkType &&
                         drinkToAdd.DrinkSize == drinkAlreadyOnOrder.DrinkSize)
                     {
-                        orderItem.ItemCount++;
-                        //orderItem.UpdateItemTotal();
+                        if (EditingExistingOrder)
+                        {
+                            orderItem.ItemCount = drinkToAdd.ItemCount;
+                        }
+                        else
+                        {
+                            orderItem.ItemCount++;
+                        }
+                        
                         return true;
                     }
                 }
@@ -211,10 +209,17 @@ namespace Zipline2.Models
             {
                 if (orderItem is Dessert)
                 {
-                    Dessert drinkAlreadyOnOrder = (Dessert)orderItem;
-                    if (dessertToAdd.DessertType == drinkAlreadyOnOrder.DessertType)
+                    Dessert dessertAlreadyOnOrder = (Dessert)orderItem;
+                    if (dessertToAdd.DessertType == dessertAlreadyOnOrder.DessertType)
                     {
-                        orderItem.ItemCount++;
+                        if (EditingExistingOrder)
+                        {
+                            orderItem.ItemCount = dessertToAdd.ItemCount;
+                        }
+                        else
+                        {
+                            orderItem.ItemCount++;
+                        }
                         return true;
                     }
                 }

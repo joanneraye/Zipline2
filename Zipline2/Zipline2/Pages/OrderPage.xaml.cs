@@ -148,6 +148,10 @@ namespace Zipline2.Pages
             {
                 NavigateToCalzoneToppingsPage((Calzone)selectedItemForEdit);
             }
+            else if (selectedItemForEdit is Dessert)
+            {
+                NavigateToDessertPage((Dessert)selectedItemForEdit);
+            }
         }
 
         async void OnDeleteOrderItem()
@@ -209,7 +213,14 @@ namespace Zipline2.Pages
             Application.Current.MainPage = currentMainPage;
         }
 
-       
+        void NavigateToDessertPage(Dessert dessertForEdit)
+        {
+            var currentMainPage = Application.Current.MainPage as MasterDetailPage;
+            currentMainPage.Detail = new NavigationPage(new DessertPage(dessertForEdit));
+            Application.Current.MainPage = currentMainPage;
+        }
+
+
         void HandleNavigateToTablesPage(object sender, EventArgs e)
         {
             if (OrderManager.Instance.OrderInProgress.OrderItems.Count == 0)
