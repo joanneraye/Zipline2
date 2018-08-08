@@ -34,7 +34,6 @@ namespace Zipline2.Pages
 
             TablesPageModel = new TablesPageModel();              
             InitializeComponent();
-
             //TablesPageModel.HeaderTemplateSelector.TablePageTakeoutRowTemplate = takeoutRowTemplate;
             //TablesPageModel.HeaderTemplateSelector.TablePageDividerTemplate = dividerTemplate;
             //TablesPageModel.HeaderTemplateSelector.TablePageBlankTemplate = blankTemplate;
@@ -98,6 +97,7 @@ namespace Zipline2.Pages
             base.OnAppearing();
             TablesPageModel.NavigateToDrinksPage += HandleNavigateToDrinksPage;
             TablesPageModel.NavigateToOrderPage += HandleNavigateToOrderPage;
+            TablesPageModel.DisplayMoveTableDialog += DoMoveTableDialog;
             if (WcfServicesProxy.Instance.ServiceCallConfig != WcfServicesProxy.ServiceCallConfigType.AllServiceCallsOff)
             {
                 //TableList.IsEnabled = false;
@@ -130,10 +130,17 @@ namespace Zipline2.Pages
 
         private void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
+
+            TableButtonsListView.IsEnabled = false;
             if (sender is ListView)
             {
                 ((ListView)sender).SelectedItem = null;
             }
+        }
+
+        void DoMoveTableDialog(object sender, EventArgs e)
+        {
+            DisplayAlert("Not yet...", "Sorry this button has not been coded yet.", "OK");
         }
 
         void HandleNavigateToDrinksPage(object sender, EventArgs e)
@@ -170,7 +177,7 @@ namespace Zipline2.Pages
             base.OnDisappearing();
             TablesPageModel.NavigateToDrinksPage -= HandleNavigateToDrinksPage;
             TablesPageModel.NavigateToOrderPage -= HandleNavigateToOrderPage;
-
+            TablesPageModel.DisplayMoveTableDialog -= DoMoveTableDialog;
         }
 
         

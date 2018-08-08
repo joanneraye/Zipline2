@@ -22,72 +22,73 @@ namespace Zipline2.PageModels
         public class TableSelection : BasePageModel
         {
             private TablesPageModel parentTablesPageModel;
-            private Table[] tablePageRow;
-            public Table[] TablePageRow
+           
+            private Table[] pageTableRow;
+            public Table[] PageRowTables
             {
                 get
                 {
-                    return tablePageRow;
+                    return pageTableRow;
                 }
                 set
                 {
-                    SetProperty(ref tablePageRow, value);
+                    SetProperty(ref pageTableRow, value);
                 }
             }
                        
-            private bool col1TableClicked;
-            public bool Col1TableClicked
-            {
-                get
-                {
-                    return col1TableClicked;
-                }
-                set
-                {
-                    SetProperty(ref col1TableClicked, value);
-                }
-            }
-            private bool col2TableClicked;
-            public bool Col2TableClicked
-            {
-                get
-                {
-                    return col2TableClicked;
-                }
-                set
-                {
-                    SetProperty(ref col2TableClicked, value);
-                }
-            }
-            private bool col3TableClicked;
-            public bool Col3TableClicked
-            {
-                get
-                {
-                    return col3TableClicked;
-                }
-                set
-                {
-                    SetProperty(ref col3TableClicked, value);
-                }
-            }
-            private bool col4TableClicked;
-            public bool Col4TableClicked
-            {
-                get
-                {
-                    return col4TableClicked;
-                }
-                set
-                {
-                    SetProperty(ref col4TableClicked, value);
-                }
-            }
+            //private bool col1TableClicked;
+            //public bool Col1TableClicked
+            //{
+            //    get
+            //    {
+            //        return col1TableClicked;
+            //    }
+            //    set
+            //    {
+            //        SetProperty(ref col1TableClicked, value);
+            //    }
+            //}
+            //private bool col2TableClicked;
+            //public bool Col2TableClicked
+            //{
+            //    get
+            //    {
+            //        return col2TableClicked;
+            //    }
+            //    set
+            //    {
+            //        SetProperty(ref col2TableClicked, value);
+            //    }
+            //}
+            //private bool col3TableClicked;
+            //public bool Col3TableClicked
+            //{
+            //    get
+            //    {
+            //        return col3TableClicked;
+            //    }
+            //    set
+            //    {
+            //        SetProperty(ref col3TableClicked, value);
+            //    }
+            //}
+            //private bool col4TableClicked;
+            //public bool Col4TableClicked
+            //{
+            //    get
+            //    {
+            //        return col4TableClicked;
+            //    }
+            //    set
+            //    {
+            //        SetProperty(ref col4TableClicked, value);
+            //    }
+            //}
 
-            
 
-            public int SelectionIndex { get; set; }
-           
+            public int GroupNumber { get; set; }
+            public int RowIndex { get; set; }
+
             #region Command Variables
             public ICommand TableCommand { get; set; }
            
@@ -95,20 +96,32 @@ namespace Zipline2.PageModels
             #endregion
 
             public TableSelection(TablesPageModel referenceToParentClass)
-            {;
+            {
                 parentTablesPageModel = referenceToParentClass;
-                TablePageRow = new Table[4];
-                TableCommand = new Command<int>(OnTableClicked);
-             
-                                   
+                PageRowTables = new Table[4];
+                TableCommand = new Command<string>(OnTableClicked);
             }
 
           
-            private async void OnTableClicked(int columnIndex)
+            private async void OnTableClicked(string columnIndexObject)
             {
-                //TableSelection thisRow = parentTablesPageModel.DisplayTables[SelectionIndex];
-                //Table tableSelected = TablePageRow[columnIndex];   
-                //await parentTablesPageModel.ProcessSelectedTableAsync(tableSelected);
+                int columnIndex = int.Parse(columnIndexObject);
+               
+                if (GroupNumber == 1)
+                {
+                    TableSelection thisRow = parentTablesPageModel.DisplayTablesGroup1[RowIndex];
+                }
+                else if (GroupNumber == 2)
+                {
+                    TableSelection thisRow = parentTablesPageModel.DisplayTablesGroup2[RowIndex];
+                }
+                else if (GroupNumber == 3)
+                {
+                    TableSelection thisRow = parentTablesPageModel.DisplayTablesGroup3[RowIndex];
+                }
+
+                Table tableSelected = PageRowTables[columnIndex];
+                await parentTablesPageModel.ProcessSelectedTableAsync(tableSelected);
             }
         }
         //******************************NOTE IMBEDDED CLASS above ************************
@@ -116,7 +129,7 @@ namespace Zipline2.PageModels
         public class TableGroup : ObservableCollection<TableSelection>
         {
            
-            public string GroupHeaderText { get; set; }
+            private TablesPageModel parentClass { get; set; }
 
             public enum GroupHeaderSelector
             {
@@ -126,7 +139,34 @@ namespace Zipline2.PageModels
             }
 
             public GroupHeaderSelector HeaderType { get; set; }
-            
+
+            public ICommand TakeoutCommand { get; set; }
+            public ICommand MoveTableCommand { get; set; }
+            public ICommand PrintTicketCommand { get; set; }
+
+            public TableGroup(TablesPageModel tablesPageModel)
+            {
+                TakeoutCommand = new Command(OnTakeoutClicked);
+                MoveTableCommand = new Command(OnMoveTableClicked);
+                PrintTicketCommand = new Command(OnPrintTicketClicked);
+                parentClass = tablesPageModel;
+            }
+
+            private void OnPrintTicketClicked()
+            {
+                parentClass.OnPrintTicketClicked();
+            }
+
+            private void OnMoveTableClicked()
+            {
+                parentClass.OnMoveTableClicked();
+            }
+
+            private void OnTakeoutClicked(object obj)
+            {
+                parentClass.OnTakeoutClicked();
+            }
+
         }
 
         //******************************NOTE IMBEDDED CLASS above ************************
@@ -140,9 +180,8 @@ namespace Zipline2.PageModels
         #region Properties     
         public event EventHandler NavigateToDrinksPage;
         public event EventHandler NavigateToOrderPage;
-        public ICommand TakeoutCommand { get; set; }
-        public ICommand MoveTableCommand { get; set; }
-        public ICommand PrintTicketCommand { get; set; }
+        public event EventHandler DisplayMoveTableDialog;
+        
         public string UserName
         {
             get
@@ -154,47 +193,47 @@ namespace Zipline2.PageModels
                 SetProperty(ref userName, value);
             }
         }
-        
-        //private ObservableCollection<TableSelection> displayTablesGroup1;
-        //public ObservableCollection<TableSelection> DisplayTablesGroup1
-        //{
-        //    get
-        //    {
-        //        return displayTablesGroup1;
-        //    }
 
-        //    set
-        //    {
-        //        SetProperty(ref displayTablesGroup1, value);
-        //    }
-        //}
-        //private ObservableCollection<TableSelection> displayTablesGroup2;
-        //public ObservableCollection<TableSelection> DisplayTablesGroup2
-        //{
-        //    get
-        //    {
-        //        return displayTablesGroup2;
-        //    }
+        private TableGroup displayTablesGroup1;
+        public TableGroup DisplayTablesGroup1
+        {
+            get
+            {
+                return displayTablesGroup1;
+            }
 
-        //    set
-        //    {
-        //        SetProperty(ref displayTablesGroup2, value);
-        //    }
-        //}
+            set
+            {
+                SetProperty(ref displayTablesGroup1, value);
+            }
+        }
+        private TableGroup displayTablesGroup2;
+        public TableGroup DisplayTablesGroup2
+        {
+            get
+            {
+                return displayTablesGroup2;
+            }
 
-        //private ObservableCollection<TableSelection> displayTablesGroup3;
-        //public ObservableCollection<TableSelection> DisplayTablesGroup3
-        //{
-        //    get
-        //    {
-        //        return displayTablesGroup3;
-        //    }
+            set
+            {
+                SetProperty(ref displayTablesGroup2, value);
+            }
+        }
 
-        //    set
-        //    {
-        //        SetProperty(ref displayTablesGroup3, value);
-        //    }
-        //}
+        private TableGroup displayTablesGroup3;
+        public TableGroup DisplayTablesGroup3
+        {
+            get
+            {
+                return displayTablesGroup3;
+            }
+
+            set
+            {
+                SetProperty(ref displayTablesGroup3, value);
+            }
+        }
 
         private ObservableCollection<TableGroup> tableGroups;
         public ObservableCollection<TableGroup> TableGroups
@@ -240,37 +279,13 @@ namespace Zipline2.PageModels
 
 
         #region Constructor
-        //public TablesPageModel(DataTemplate[] templates)
-        //{
-        //    TakeoutCommand = new Command(OnTakeoutClicked);
-        //    MoveTableCommand = new Command(OnMoveTableClicked);
-        //    PrintTicketCommand = new Command(OnPrintTicketClicked);
-        //    LoadTablesForDisplay();
-        //   // HeaderTemplateSelector = new TablesPageHeaderTemplateSelector(templates);
-        //}
-
+       
         public TablesPageModel()
         {
-            TakeoutCommand = new Command(OnTakeoutClicked);
-            MoveTableCommand = new Command(OnMoveTableClicked);
-            PrintTicketCommand = new Command(OnPrintTicketClicked);
             LoadTablesForDisplay();
         }
 
-        private void OnPrintTicketClicked(object obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnMoveTableClicked(object obj)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void OnTakeoutClicked(object obj)
-        {
-            throw new NotImplementedException();
-        }
+       
 
 
         //Not used because gets server data synchronously.
@@ -448,67 +463,100 @@ namespace Zipline2.PageModels
         public void LoadTablesForDisplay()
         {
             TableGroups = new ObservableCollection<TableGroup>();
-            TableGroup group1 = new TableGroup();
-            group1.GroupHeaderText = "Group 1";
-            group1.HeaderType = TableGroup.GroupHeaderSelector.BlankHeader;
-            TableGroups.Add(group1);
-            //DisplayTablesGroup1 = new ObservableCollection<TableSelection>();
+            DisplayTablesGroup1 = new TableGroup(this)
+            {
+                HeaderType = TableGroup.GroupHeaderSelector.BlankHeader
+            };
+            TableGroups.Add(DisplayTablesGroup1);
             TableSelection tableRow = null;
+            int group1RowIndex = 0;
             for (int i = 0; i < 16; i++)
             {
-                int rowIndex = i % 4;
-                if (rowIndex == 0)
+                int columnIndex = i % 4;
+                if (columnIndex == 0)
                 {
                     tableRow = new TableSelection(this);
                 }
 
-                tableRow.TablePageRow[rowIndex] = Tables.AllTables[i];
+                tableRow.PageRowTables[columnIndex] = Tables.AllTables[i];
+                tableRow.GroupNumber = 1;
+                tableRow.RowIndex = group1RowIndex;
 
-                if (rowIndex == 3)
+                if (columnIndex == 3)
                 {
-                    group1.Add(tableRow);
+                    DisplayTablesGroup1.Add(tableRow);
+                    group1RowIndex++;
                 }
             }
 
-            TableGroup group2 = new TableGroup();
-            group2.GroupHeaderText = "Group 2";
-            group2.HeaderType = TableGroup.GroupHeaderSelector.TakeoutRow;
-            TableGroups.Add(group2);
+            DisplayTablesGroup2 = new TableGroup(this)
+            {
+                HeaderType = TableGroup.GroupHeaderSelector.TakeoutRow
+            };
+            TableGroups.Add(DisplayTablesGroup2);
+
+            int group2RowIndex = 0;
             for (int j = 16; j < 24; j++)
             {
-                int rowIndex2 = j % 4;
-                if (rowIndex2 == 0)
+                int columnIndex2 = j % 4;
+                if (columnIndex2 == 0)
                 {
                     tableRow = new TableSelection(this);
                 }
 
-                tableRow.TablePageRow[rowIndex2] = Tables.AllTables[j];
+                tableRow.PageRowTables[columnIndex2] = Tables.AllTables[j];
+                tableRow.GroupNumber = 2;
+                tableRow.RowIndex = group2RowIndex;
 
-                if (rowIndex2 == 3)
+                if (columnIndex2 == 3)
                 {
-                    group2.Add(tableRow);
+                    DisplayTablesGroup2.Add(tableRow);
+                    group2RowIndex++;
                 }
             }
 
-            TableGroup group3 = new TableGroup();
-            group3.GroupHeaderText = "Group 3";
-            group3.HeaderType = TableGroup.GroupHeaderSelector.DividerHeader;
-            TableGroups.Add(group3);
+            DisplayTablesGroup3 = new TableGroup(this)
+            {
+                HeaderType = TableGroup.GroupHeaderSelector.DividerHeader
+            };
+            TableGroups.Add(DisplayTablesGroup3);
+
+            int group3RowIndex = 0;
             for (int k = 24; k < Tables.AllTables.Count; k++)
             {
-                int rowIndex3 = k % 4;
-                if (rowIndex3 == 0)
+                int columnIndex3 = k % 4;
+                if (columnIndex3 == 0)
                 {
                     tableRow = new TableSelection(this);
                 }
 
-                tableRow.TablePageRow[rowIndex3] = Tables.AllTables[k];
+                tableRow.PageRowTables[columnIndex3] = Tables.AllTables[k];
+                tableRow.GroupNumber = 3;
+                tableRow.RowIndex = group3RowIndex;
 
-                if (rowIndex3 == 3)
+                if (columnIndex3 == 3)
                 {
-                    group3.Add(tableRow);
+                    DisplayTablesGroup3.Add(tableRow);
+                    group3RowIndex++;
                 }
             }
+        }
+
+        public void OnPrintTicketClicked()
+        {
+            //Not sure what happens here...see current WindowsPhone App code.   for now display not implemented...
+            DisplayMoveTableDialog?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void OnMoveTableClicked()
+        {
+            DisplayMoveTableDialog?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void OnTakeoutClicked()
+        {
+            //Loads List of Takeout orders....  for now display not implemented...
+            DisplayMoveTableDialog?.Invoke(this, EventArgs.Empty);
         }
 
         void DisplayDrinksPage()
