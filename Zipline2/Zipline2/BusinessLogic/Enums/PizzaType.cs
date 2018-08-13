@@ -9,8 +9,9 @@ namespace Zipline2.BusinessLogic.Enums
     {
         None,
         ThinSlice,
-        LunchSpecialSlice,
         PanSlice,
+        LunchSpecialSlice,
+        LunchSpecialPanSlice,
         Indy,
         Medium,
         Large,

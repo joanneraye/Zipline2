@@ -100,9 +100,6 @@ namespace Zipline2.Pages
             TablesPageModel.DisplayMoveTableDialog += DoMoveTableDialog;
             if (WcfServicesProxy.Instance.ServiceCallConfig != WcfServicesProxy.ServiceCallConfigType.AllServiceCallsOff)
             {
-                TableButtonsListView.IsEnabled = false;
-                TableButtonsListView.IsRefreshing = true;
-
                 //Moved to app.xaml.cs
                 //if (FirstTimeLoadMenu)
                 //{
@@ -112,14 +109,13 @@ namespace Zipline2.Pages
                 //    //await Task.WhenAll(toppingsTask, menuTask);
                 //    FirstTimeLoadMenu = false;
                 //}
-
+                TablesPageModel.IsBusy = true;
                 var tablesServerTaskSuccess = await DataBaseDictionaries.LoadTableDataAsync();
                 if (tablesServerTaskSuccess)
                 {
-                    TableButtonsListView.IsRefreshing = false;
-                    TableButtonsListView.IsEnabled = true;
+                    TablesPageModel.IsBusy = false;
                 }
-                
+
                 //Don't know how to get an exception from the above await.....
                 //if (exception != null)
                 //{

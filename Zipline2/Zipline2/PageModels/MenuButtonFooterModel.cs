@@ -20,7 +20,6 @@ namespace Zipline2.PageModels
             DrinksCommand = new Command(OnDrinksButtonClick);
             PizzaCommand = new Command(OnPizzaButtonClick);
             SaladsCommand = new Command(OnSaladsButtonClick);
-            CalzoneCommand = new Command(OnCalzonesButtonClick);
             SpecialsCommand = new Command(OnSpecialsButtonClick);
             DessertCommand = new Command(OnDessertButtonClick);
             OrderPageCommand = new Command(OnOrderPage);
@@ -53,7 +52,6 @@ namespace Zipline2.PageModels
         public DessertPageModel ThisDessertPageModel { get; set; }
         public ICommand DrinksCommand { get; set; }
         public ICommand SaladsCommand { get; set; }
-        public ICommand CalzoneCommand { get; set; }
         public ICommand PizzaCommand { get; set; }
         public ICommand SpecialsCommand { get; set; }
         public ICommand DessertCommand { get; set; }
@@ -106,8 +104,6 @@ namespace Zipline2.PageModels
                     IsPizzaPageDisplayed = false;
                     IsDrinkPageDisplayed = false;
                     IsSaladPageDisplayed = false;
-                    IsCalzonePageDisplayed = false;
-                    IsSpecialsPageDisplayed = false;
                     IsDessertPageDisplayed = false;
                 }
             }
@@ -129,8 +125,6 @@ namespace Zipline2.PageModels
                     IsDrinkPageDisplayed = false;
                     IsOrderPageDisplayed = false;
                     DisplayAddToOrderButton = false;
-                    IsCalzonePageDisplayed = false;
-                    IsSpecialsPageDisplayed = false;
                     IsDessertPageDisplayed = false;
                 }
             }
@@ -151,8 +145,6 @@ namespace Zipline2.PageModels
                     IsPizzaPageDisplayed = false;
                     IsOrderPageDisplayed = false;
                     IsSaladPageDisplayed = false;
-                    IsCalzonePageDisplayed = false;
-                    IsSpecialsPageDisplayed = false;
                     IsDessertPageDisplayed = false;
                 }
             }
@@ -173,57 +165,11 @@ namespace Zipline2.PageModels
                     IsDrinkPageDisplayed = false;
                     IsOrderPageDisplayed = false;
                     IsSaladPageDisplayed = false;
-                    IsCalzonePageDisplayed = false;
-                    IsSpecialsPageDisplayed = false;
                     IsDessertPageDisplayed = false;
                 }
             }
         }
-
-        private bool isCalzonePageDisplayed;
-        public bool IsCalzonePageDisplayed
-        {
-            get
-            {
-                return isCalzonePageDisplayed;
-            }
-            set
-            {
-                SetProperty(ref isCalzonePageDisplayed, value);
-                if (isCalzonePageDisplayed)
-                {
-                    IsDrinkPageDisplayed = false;
-                    IsOrderPageDisplayed = false;
-                    IsSaladPageDisplayed = false;
-                    IsPizzaPageDisplayed = false;
-                    IsSpecialsPageDisplayed = false;
-                    IsDessertPageDisplayed = false;
-                }
-            }
-        }
-
-        private bool isSpecialsPageDisplayed;
-        public bool IsSpecialsPageDisplayed
-        {
-            get
-            {
-                return isSpecialsPageDisplayed;
-            }
-            set
-            {
-                SetProperty(ref isSpecialsPageDisplayed, value);
-                if (isSpecialsPageDisplayed)
-                {
-                    IsDrinkPageDisplayed = false;
-                    IsOrderPageDisplayed = false;
-                    IsSaladPageDisplayed = false;
-                    IsPizzaPageDisplayed = false;
-                    IsCalzonePageDisplayed = false;
-                    IsDessertPageDisplayed = false;
-                    DisplayAddToOrderButton = false;
-                }
-            }
-        }
+       
 
         private bool isDessertPageDisplayed;
         public bool IsDessertPageDisplayed
@@ -241,8 +187,6 @@ namespace Zipline2.PageModels
                     IsOrderPageDisplayed = false;
                     IsSaladPageDisplayed = false;
                     IsPizzaPageDisplayed = false;
-                    IsCalzonePageDisplayed = false;
-                    IsSpecialsPageDisplayed = false;
                     DisplayAddToOrderButton = false;
                 }
             }
@@ -301,12 +245,6 @@ namespace Zipline2.PageModels
             Application.Current.MainPage = currentMainPage;
         }
 
-        public void OnCalzonesButtonClick()
-        {
-            var currentMainPage = Application.Current.MainPage as MasterDetailPage;
-            currentMainPage.Detail = new NavigationPage(new PizzaPage());
-            Application.Current.MainPage = currentMainPage;
-        }
 
         public void OnSpecialsButtonClick()
         {
@@ -325,7 +263,7 @@ namespace Zipline2.PageModels
         void OnSaladsButtonClick()
         {
             var currentMainPage = Application.Current.MainPage as MasterDetailPage;
-            currentMainPage.Detail = new NavigationPage(new SaladsPage());
+            currentMainPage.Detail = new NavigationPage(new SaladsLunchSpecialPage());
             Application.Current.MainPage = currentMainPage;
         }
 

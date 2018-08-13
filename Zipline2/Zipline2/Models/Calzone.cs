@@ -164,6 +164,29 @@ namespace Zipline2.Models
             }
         }
 
+        public void ChangeCalzoneToSteakAndCheese()
+        {
+            if (CalzoneType == CalzoneType.SteakAndCheese)
+            {
+                CalzoneType = CalzoneType.RicottaMozarella;
+            }
+            PopulateBasePrice();
+            PopulateDisplayName();
+            Toppings.UpdateToppingsTotal();
+        }
+
+        public void ChangeCalzoneFromSteakToRegular()
+        {
+            if (CalzoneType == CalzoneType.RicottaMozarella)
+            {
+                CalzoneType = CalzoneType.SteakAndCheese;
+            }
+            PopulateBasePrice();
+            PopulateDisplayName();
+            Toppings.UpdateToppingsTotal();
+        }
+
+
         public override void PopulatePricePerItem()
         {
             PricePerItemIncludingToppings = BasePriceNoToppings +

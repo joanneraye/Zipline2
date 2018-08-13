@@ -20,6 +20,8 @@ namespace Zipline2.Pages
         private int CarouselSelectedPosition { get; set; }
         private ToppingsOtherPage ToppingsOtherPage { get; set; }
 
+        private Pizza ThisPizza { get; set; }
+
        
         #endregion
 
@@ -28,6 +30,7 @@ namespace Zipline2.Pages
 		{
            
             ToppingsPageModel = new PizzaToppingsPageModel(currentPizza);
+            ThisPizza = currentPizza;
             InitializeComponent();
             BindingContext = ToppingsPageModel;
             ToppingsPageModel.ToppingFooterPageModel = ToppingFooter.ToppingFooterPageModel;
@@ -232,7 +235,7 @@ namespace Zipline2.Pages
                 //ToppingsPageModel.ThisPizza.UpdateItemTotal();
             }
             ToppingsPageModel.NavigateToPizzaPage += HandleNavigateToPizzaPage;
-
+            ToppingsPageModel.ChangeHeadingPizzaName += ChangePizzaHeading;
         }
        
         void HandleNavigateToPizzaPage(object sender, EventArgs e)
@@ -242,11 +245,19 @@ namespace Zipline2.Pages
             Application.Current.MainPage = currentMainPage;
         }
 
+        public void ChangePizzaHeading(object sender, EventArgs e)
+        {
+            this.ToolbarItems.Clear();
+            string pizzaTitle = ThisPizza.ItemName + " Toppings";
+            this.ToolbarItems.Add(new ToolbarItem { Text = pizzaTitle, Priority = 0 });
+        }
+
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
             ToppingsListView.ItemSelected -= ToppingsListView_ItemSelected;
             ToppingsPageModel.NavigateToPizzaPage -= HandleNavigateToPizzaPage;
+            ToppingsPageModel.ChangeHeadingPizzaName -= ChangePizzaHeading;
         }
         #endregion
     }

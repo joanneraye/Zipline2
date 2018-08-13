@@ -430,8 +430,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
                     pizza.ChangePizzaBase(PizzaBase.White, false);
                     addThisModAsTopping = false;
                 }
-                else if (DataBaseDictionaries.ToppingDbIdDictionary.ContainsKey(ToppingName.Deep) && 
-                          mod.ID == DataBaseDictionaries.ToppingDbIdDictionary[ToppingName.Deep])
+                else if (DataBaseDictionaries.ToppingDbIdDictionary.ContainsKey(ToppingName.SatchPan) && 
+                          mod.ID == DataBaseDictionaries.ToppingDbIdDictionary[ToppingName.SatchPan])
                 {
                     pizza.ChangePizzaToDeep();
                     addThisModAsTopping = false;
@@ -597,6 +597,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
 
         public static List<OrderItem> GetLunchSpecialOrderItems(GuestComboItem guestComboItem)
         {
+            //TODO:  What if Lunch Special with deep topping???
             bool foundSalad = false;
             bool foundSlice = false;
             var orderItems = new List<OrderItem>();

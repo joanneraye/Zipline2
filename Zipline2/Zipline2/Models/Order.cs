@@ -79,7 +79,8 @@ namespace Zipline2.Models
                 if (orderItem.PartOfCombo && orderItem is Pizza)
                 {
                     Pizza thisPizza = (Pizza)orderItem;
-                    if (thisPizza.PizzaType == PizzaType.LunchSpecialSlice)
+                    if (thisPizza.PizzaType == PizzaType.LunchSpecialSlice ||
+                        thisPizza.PizzaType == PizzaType.LunchSpecialPanSlice)
                     {
                         if (thisPizza.Toppings.ToppingsTotal > 0)
                         {

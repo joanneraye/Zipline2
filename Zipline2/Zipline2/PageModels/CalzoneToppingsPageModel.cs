@@ -111,6 +111,7 @@ namespace Zipline2.PageModels
         public ICommand AddCalzoneToOrderCommand { get; set; }
 
         public event EventHandler NavigateToPizzaPage;
+        public event EventHandler ChangeHeadingCalzoneName;
 
         #endregion
 
@@ -237,8 +238,8 @@ namespace Zipline2.PageModels
                 {
                     if (thisSelection.ListTopping.ToppingName == ToppingName.SteakNCheeseCalzone)
                     {
-                        ThisCalzone.CalzoneType = CalzoneType.SteakAndCheese;
-                        ThisCalzone.PopulateDisplayName();
+                        ThisCalzone.ChangeCalzoneToSteakAndCheese();
+                        OnChangeHeadingCalzoneName();
                     }                   
                     if (ToppingFooterPageModel.ExtraToppingSelected &&
                         thisSelection.ListTopping.Count > 1 &&
@@ -257,8 +258,8 @@ namespace Zipline2.PageModels
                 {
                     if (thisSelection.ListTopping.ToppingName == ToppingName.SteakNCheeseCalzone)
                     {
-                        ThisCalzone.CalzoneType = CalzoneType.RicottaMozarella;
-                        ThisCalzone.PopulateDisplayName();
+                        ThisCalzone.ChangeCalzoneFromSteakToRegular();
+                        OnChangeHeadingCalzoneName();
                     }
                     thisSelection.ListTopping.SequenceSelected = 0;
                     thisSelection.ListTopping.ToppingModifier = ToppingModifierType.None;
@@ -273,17 +274,6 @@ namespace Zipline2.PageModels
                 ToppingFooterPageModel.NoToppingSelected = false;
                 ToppingFooterPageModel.OnSideToppingSelected = false;
             }
-
-            
-
-            //Can't remember why I might need this....
-            //if (thisSelection.ListTopping.ToppingName == ToppingName.Cheese)
-            //{
-            //    if (App.AllToppings.ContainsKey(ToppingName.NoCheese))
-            //    {
-            //        thisPizza.Toppings.AddTopping(App.AllToppings[ToppingName.NoCheese]);
-            //    }
-            //}
         }
 
         private void ProcessMajorToppingSelection(CalzoneToppingDisplayItem majorSelection)
@@ -338,6 +328,14 @@ namespace Zipline2.PageModels
         private void OnNavigateToPizzaPage()
         {
             NavigateToPizzaPage?.Invoke(this, EventArgs.Empty);
+        }
+
+
+        //Right now changes to Steak and Cheese.  Will have to create custom event args if
+        //which to change to anything else.
+        private void OnChangeHeadingCalzoneName()
+        {
+            ChangeHeadingCalzoneName?.Invoke(this, EventArgs.Empty);
         }
        
         #endregion

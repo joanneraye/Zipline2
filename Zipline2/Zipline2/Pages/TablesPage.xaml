@@ -145,10 +145,8 @@
             </DataTemplate>
             <DataTemplate x:Key="tablePageTakeoutRowTemplate" x:Name="takeoutRowTemplate">
                 <ViewCell Height="100">
-                    <StackLayout Orientation="Vertical" HeightRequest="150">
-                        <BoxView HeightRequest="1" Margin="0,4,0,2" 
-                     WidthRequest="50"
-                     Color="White"/>
+                    <StackLayout Orientation="Vertical" HeightRequest="150" BackgroundColor="Black">
+                        <BoxView HeightRequest="1" Margin="0,4,0,2" WidthRequest="50" Color="White"/>
                     <StackLayout Orientation="Horizontal" HorizontalOptions="Center"
                                 Margin="0"
                                 HeightRequest="150">
@@ -201,7 +199,7 @@
             </DataTemplate>
             <DataTemplate x:Key="tablePageDividerTemplate" x:Name="dividerTemplate">
                 <ViewCell Height="9">
-                    <StackLayout Padding="0" Margin="0" HeightRequest="9">
+                    <StackLayout Padding="0" Margin="0" HeightRequest="9" BackgroundColor="Black">
                         <BoxView HeightRequest="1" Margin="0,4,0,4"
                      WidthRequest="50"
                      Color="White"/>
@@ -210,12 +208,12 @@
             </DataTemplate>
             <DataTemplate x:Key="tablePageBlankTemplate" x:Name="blankTemplate" >
                 <ViewCell Height="0">
-                    <StackLayout Padding="0" Margin="0" HeightRequest="1">
-                        <Label TextColor="Black" Margin="0" />
-                        <BoxView HeightRequest="0" Margin="0"
-                     WidthRequest="1"
-                     Color="Black"/>
+                    <StackLayout Padding="0" Margin="0" HeightRequest="0" BackgroundColor="Black">
+
                     </StackLayout>
+                    <!--<StackLayout Padding="0" Margin="0" HeightRequest="0" BackgroundColor="Black">
+                        <Label Text="TOP HEADER" />
+                    </StackLayout>-->
                 </ViewCell>
             </DataTemplate>
             <local:TablesPageHeaderTemplateSelector x:Key="tableHeaderTemplateSelector"
@@ -239,7 +237,8 @@
             <ListView ItemsSource="{Binding TableGroups}"
                       ItemSelected="OnItemSelected"
                       ItemTemplate="{StaticResource TablePageRowTemplate}"
-                      GroupHeaderTemplate="{StaticResource tableHeaderTemplateSelector}"
+                      GroupHeaderTemplate="{StaticResource tableHeaderTemplateSelector}" 
+                      SeparatorColor="Black"
                       Margin="0"
                       x:Name="TableButtonsListView"
                       HasUnevenRows="True"
@@ -248,7 +247,7 @@
                       RowHeight="100"
                       IsPullToRefreshEnabled="True"
                       Refreshing="OnRefreshing"
-                      SeparatorVisibility="Default">              
+                      SeparatorVisibility="None">              
             </ListView>
         </StackLayout>
     </ContentPage.Content>

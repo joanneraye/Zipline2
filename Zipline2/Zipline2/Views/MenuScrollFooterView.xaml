@@ -13,8 +13,8 @@
                 <Setter Property="BorderWidth" Value="2" />
                 <Setter Property="BackgroundColor" Value="Black" />
                 <Setter Property="HorizontalOptions" Value="Start" />
-                <Setter Property="HeightRequest" Value="55" />
-                <Setter Property="WidthRequest" Value="80" />
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="WidthRequest" Value="100" />
                 <Setter Property="FontSize" Value="10" />
             </Style>
             <Style x:Key="footerScrollMenuBlueButtons" TargetType="Button">
@@ -25,7 +25,7 @@
                 <Setter Property="BorderWidth" Value="1" />
                 <Setter Property="BackgroundColor" Value="LightBlue" />
                 <Setter Property="HorizontalOptions" Value="Start" />
-                <Setter Property="HeightRequest" Value="35" />
+                <Setter Property="HeightRequest" Value="45" />
                 <Setter Property="FontAttributes" Value="Bold" />
                 <Setter Property="Margin" Value="0" />
                 <Setter Property="FontSize" Value="10" />
@@ -120,7 +120,7 @@
                 <StackLayout Orientation="Horizontal" Spacing="2" HorizontalOptions="CenterAndExpand">
                     <Button Text="Salads"
                         Command="{Binding SaladsCommand}"
-                        Style="{StaticResource footerScrollMenu}">
+                        Style="{StaticResource footerScrollMenu}" WidthRequest="125">
                         <Button.Triggers>
                             <DataTrigger TargetType="Button" 
                                  Binding="{Binding IsSaladPageDisplayed}"
@@ -129,10 +129,9 @@
                             </DataTrigger>
                         </Button.Triggers>
                      </Button>
-                    <Button Text="Pizza/Calzone"
+                    <Button Text="Pizza"
                         Command="{Binding PizzaCommand}"
-                        Style="{StaticResource footerScrollMenu}"
-                            WidthRequest="100">
+                        Style="{StaticResource footerScrollMenu}">
                         <Button.Triggers>
                             <DataTrigger TargetType="Button" 
                                  Binding="{Binding IsPizzaPageDisplayed}"
@@ -152,19 +151,7 @@
                             </DataTrigger>
                         </Button.Triggers>
                     </Button>
-                    <!--<Button Text="Calzone"
-                        Command="{Binding CalzoneCommand}"
-                        Style="{StaticResource footerScrollMenu}"
-                             WidthRequest="85">
-                        <Button.Triggers>
-                            <DataTrigger TargetType="Button" 
-                                         Binding="{Binding IsCalzonePageDisplayed}"
-                                         Value="True">
-                            <Setter Property="IsVisible" Value="False" />
-                             </DataTrigger>
-                        </Button.Triggers>
-                    </Button>-->
-                    <Button Text="Specials"
+                    <!--<Button Text="Specials"
                              Command="{Binding SpecialsCommand}"
                         Style="{StaticResource footerScrollMenu}"
                             WidthRequest="85">
@@ -175,8 +162,8 @@
                             <Setter Property="IsVisible" Value="False" />
                         </DataTrigger>
                         </Button.Triggers>
-                    </Button>
-                    <Button Text="Dessert"
+                    </Button>-->
+                    <Button Text="Desserts"
                             Style="{StaticResource footerScrollMenu}"
                              Command="{Binding DessertCommand}"/>
             </StackLayout>

@@ -113,6 +113,9 @@
     <Compile Update="Pages\PizzaPage.xaml.cs">
       <DependentUpon>PizzaPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Pages\SaladsLunchSpecialPage.xaml.cs">
+      <DependentUpon>SaladsLunchSpecialPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Pages\TablesPage.xaml.cs">
       <DependentUpon>TablesPage.xaml</DependentUpon>
     </Compile>
@@ -160,7 +163,7 @@
     <EmbeddedResource Update="Pages\PizzaPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\SaladsPage.xaml">
+    <EmbeddedResource Update="Pages\SaladsLunchSpecialPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\SaladToppingsPage.xaml">

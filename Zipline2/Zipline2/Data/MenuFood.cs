@@ -150,7 +150,8 @@ namespace Zipline2.Data
         {
             pizzaToppings = new Dictionary<ToppingName, Topping>();
 
-            pizzaToppings.Add(ToppingName.SteakNCheeseCalzone, new Topping(ToppingName.SteakNCheeseCalzone) { ForCalzone = true, ForPizza = false });
+            pizzaToppings.Add(ToppingName.SatchPan, new Topping(ToppingName.SatchPan) { ForCalzone = false, SpecialPricingType = SpecialPricingType.Free });
+            pizzaToppings.Add(ToppingName.SteakNCheeseCalzone, new Topping(ToppingName.SteakNCheeseCalzone) { ForCalzone = true, ForPizza = false, SpecialPricingType = SpecialPricingType.Free });
             pizzaToppings.Add(ToppingName.Major, new Topping(ToppingName.Major) { SpecialPricingType = SpecialPricingType.Free });
             pizzaToppings.Add(ToppingName.Anchovies, new Topping(ToppingName.Anchovies));
             pizzaToppings.Add(ToppingName.Artichokes, new Topping(ToppingName.Artichokes));

@@ -176,6 +176,7 @@ namespace Zipline2.Data
             { PizzaType.ThinSlice, 3.00M },
             { PizzaType.LunchSpecialSlice, 3.00M },
             { PizzaType.PanSlice, 3.50M },
+            { PizzaType.LunchSpecialPanSlice, 3.50M },
             { PizzaType.Medium, 13.00M },
             { PizzaType.Large, 17.00M },
             { PizzaType.SatchPan, 21.00M },
@@ -284,6 +285,7 @@ namespace Zipline2.Data
         {
             { PizzaType.ThinSlice, PizzaSliceToppingsPrices },
             { PizzaType.LunchSpecialSlice, PizzaSliceToppingsPrices },
+             { PizzaType.LunchSpecialPanSlice, PizzaSliceToppingsPrices },
             { PizzaType.PanSlice, PizzaSliceToppingsPrices },
             { PizzaType.Medium, PizzaMediumToppingsPrices },
             { PizzaType.Large, PizzaLargeToppingsPrices },

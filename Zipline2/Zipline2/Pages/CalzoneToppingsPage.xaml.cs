@@ -38,7 +38,6 @@ namespace Zipline2.Pages
 
             if (thisCalzone.MajorMamaInfo == MajorOrMama.Major)
             {
-                //TODO:  Combine the two following?
                 ToppingsPageModel.SelectMajorToppings();
                 ToppingsPageModel.ThisCalzone.Toppings.AddMajorToppings();
             }
@@ -117,6 +116,7 @@ namespace Zipline2.Pages
                 ToppingsPageModel.ThisCalzone.Toppings.AddToppings(ToppingsOtherPage.SelectedOtherToppings);
             }
             ToppingsPageModel.NavigateToPizzaPage += HandleNavigateToPizzaPage;
+            ToppingsPageModel.ChangeHeadingCalzoneName += ChangeCalzoneHeading;
 
         }
        
@@ -127,12 +127,20 @@ namespace Zipline2.Pages
             Application.Current.MainPage = currentMainPage;
         }
 
+        public void ChangeCalzoneHeading(object sender, EventArgs e)
+        {
+            this.ToolbarItems.Clear();
+            string calzoneTitle = ThisCalzone.ItemName + " Toppings";
+            this.ToolbarItems.Add(new ToolbarItem { Text = calzoneTitle, Priority = 0 });
+        }
+
         protected override void OnDisappearing()
         {
             try
             {
                 base.OnDisappearing();
                 ToppingsPageModel.NavigateToPizzaPage -= HandleNavigateToPizzaPage;
+                ToppingsPageModel.ChangeHeadingCalzoneName -= ChangeCalzoneHeading;
             }
             catch (Exception ex)
             {

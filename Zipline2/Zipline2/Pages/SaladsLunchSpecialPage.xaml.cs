@@ -13,14 +13,14 @@ using Zipline2.PageModels;
 namespace Zipline2.Pages
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class SaladsPage : BasePage
+	public partial class SaladsLunchSpecialPage : BasePage
 	{
 
-        SaladsPageModel thisPageModel;
-		public SaladsPage ()
+        SaladsLunchSpecialPageModel thisPageModel;
+		public SaladsLunchSpecialPage()
 		{
             InitializeComponent();
-            thisPageModel = new SaladsPageModel();
+            thisPageModel = new SaladsLunchSpecialPageModel();
             BindingContext = thisPageModel;
             Footer.FooterPageModel.IsSaladPageDisplayed = true;
             string saladTitle = "TBL " + BusinessLogic.OrderManager.Instance.CurrentTableName + " Salads";

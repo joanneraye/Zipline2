@@ -221,6 +221,7 @@ namespace Zipline2.PageModels
         public string AddToOrderText { get; set; }
 
         public event EventHandler NavigateToPizzaPage;
+        public event EventHandler ChangeHeadingPizzaName;
 
         #endregion
 
@@ -259,6 +260,12 @@ namespace Zipline2.PageModels
                     }
                     if (ThisPizza.PizzaType != PizzaType.Indy &&
                         toppingsList[i].ForIndyOnly)
+                    {
+                        continue;
+                    }
+                    if (ThisPizza.PizzaType != PizzaType.ThinSlice &&
+                        ThisPizza.PizzaType != PizzaType.LunchSpecialPanSlice &&
+                       toppingsList[i].ForSliceOnly)
                     {
                         continue;
                     }
@@ -319,6 +326,7 @@ namespace Zipline2.PageModels
 
                     if (ThisPizza.PizzaType == PizzaType.ThinSlice ||
                         ThisPizza.PizzaType == PizzaType.LunchSpecialSlice ||
+                        ThisPizza.PizzaType == PizzaType.LunchSpecialPanSlice ||
                         ThisPizza.PizzaType == PizzaType.PanSlice)
                     {
                         toppingSelection.AreWholeHalfColumnsVisible = false;
@@ -360,6 +368,7 @@ namespace Zipline2.PageModels
                     toppingselection.ListItemIsSelected = true;
                     toppingselection.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
                     if (ThisPizza.PizzaType != PizzaType.LunchSpecialSlice &&
+                        ThisPizza.PizzaType != PizzaType.LunchSpecialPanSlice &&
                         ThisPizza.PizzaType != PizzaType.ThinSlice &&
                         ThisPizza.PizzaType != PizzaType.PanSlice)
                     {
@@ -384,13 +393,14 @@ namespace Zipline2.PageModels
         {
             //Can't change ListView directly - must change underlying data.  Get this data by the index.
             ToppingDisplayItem thisSelection = ToppingSelectionsList[selectionIndex];
-            if (!ToppingFooterPageModel.ExtraToppingSelected || 
+            if (!ToppingFooterPageModel.ExtraToppingSelected ||
                 (ToppingFooterPageModel.ExtraToppingSelected && !thisSelection.ListItemIsSelected))
             {
                 thisSelection.ListItemIsSelected = !thisSelection.ListItemIsSelected;  //toggle topping selection.
             }
-               
+
             thisSelection.ListTopping.ToppingModifier = ToppingFooterPageModel.GetToppingModifierType();
+            
             if (thisSelection.ListTopping.ToppingName == ToppingName.Major)
             {
                 ProcessMajorToppingSelection(thisSelection);
@@ -417,7 +427,12 @@ namespace Zipline2.PageModels
 
                 if (thisSelection.ListItemIsSelected)
                 {
-                    if (ToppingFooterPageModel.ExtraToppingSelected &&
+                    if (thisSelection.ListTopping.ToppingName == ToppingName.SatchPan)
+                    {
+                        ThisPizza.ChangePizzaToDeep();
+                        OnChangeHeadingPizzaName();
+                    }
+                    else if (ToppingFooterPageModel.ExtraToppingSelected &&
                         thisSelection.ListTopping.Count > 1 &&
                         ThisPizza.Toppings.IsToppingAlreadyAdded(thisSelection.ListTopping.ToppingName))
                     {
@@ -438,11 +453,16 @@ namespace Zipline2.PageModels
                 }
                 else
                 {
+                    if (thisSelection.ListTopping.ToppingName == ToppingName.SatchPan &&
+                        ThisPizza.PizzaType == PizzaType.PanSlice)
+                    {
+                        ThisPizza.ChangePizzaSliceFromPanToThin();
+                        OnChangeHeadingPizzaName();
+                    }
                     thisSelection.ListTopping.SequenceSelected = 0;
                     thisSelection.ListTopping.ToppingModifier = ToppingModifierType.None;
                     thisSelection.ListTopping.Count = 0;
                     ThisPizza.Toppings.RemoveTopping(thisSelection.ListTopping.ToppingName);
-                    //ThisPizza.UpdateItemTotal();
                     thisSelection.SelectionColor = Xamarin.Forms.Color.Black;
                     thisSelection.ButtonASelected = false;
                     thisSelection.ButtonBSelected = false;
@@ -722,7 +742,12 @@ namespace Zipline2.PageModels
         {
             NavigateToPizzaPage?.Invoke(this, EventArgs.Empty);
         }
-        
+
+        private void OnChangeHeadingPizzaName()
+        {
+            ChangeHeadingPizzaName?.Invoke(this, EventArgs.Empty);
+        }
+
         public List<Topping> GetToppingsSelected()
         {
             return SelectedItems.Where(

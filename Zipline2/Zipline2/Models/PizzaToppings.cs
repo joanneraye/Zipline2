@@ -29,7 +29,14 @@ namespace Zipline2.Models
                     }
                     else
                     {
-                        ThisPizza.ItemName = "Special Slice";
+                        if (ThisPizza.PizzaType == PizzaType.LunchSpecialSlice)
+                        {
+                            ThisPizza.ItemName = "Special Slice";
+                        }
+                        else
+                        {
+                            ThisPizza.ItemName = "Spec. SatchPan Slice";
+                        }
                     }
                 }
                 else

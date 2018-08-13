@@ -106,12 +106,31 @@ namespace Zipline2.Models
                 Toppings.ToppingsTotal;
         }
 
+        public void ChangePizzaSliceFromPanToThin()
+        {
+            switch (PizzaType)
+            {
+                case PizzaType.PanSlice:
+                    PizzaType = PizzaType.ThinSlice;
+                    break;
+                case PizzaType.LunchSpecialPanSlice:
+                    PizzaType = PizzaType.LunchSpecialSlice;
+                    break;
+            }
+            PopulateBasePrice();
+            PopulateDisplayName();
+            Toppings.UpdateToppingsTotal();
+        }
+
         public void ChangePizzaToDeep()
         {
             switch (PizzaType)
             {
                 case PizzaType.ThinSlice:
                     PizzaType = PizzaType.PanSlice;
+                    break;
+                case PizzaType.LunchSpecialSlice:
+                    PizzaType = PizzaType.LunchSpecialPanSlice;
                     break;
                 case PizzaType.Large:
                 case PizzaType.Medium:
@@ -123,6 +142,7 @@ namespace Zipline2.Models
                     break;
             }
             PopulateBasePrice();
+            PopulateDisplayName();
             Toppings.UpdateToppingsTotal();
         }
 
@@ -308,7 +328,8 @@ namespace Zipline2.Models
 
             foreach (var topping in Toppings.CurrentToppings)
             {
-                if (topping.ToppingName == ToppingName.Major)
+                if (topping.ToppingName == ToppingName.Major ||
+                    topping.ToppingName == ToppingName.SatchPan)
                 {
                     continue;
                 }

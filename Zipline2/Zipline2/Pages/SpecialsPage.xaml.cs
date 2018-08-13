@@ -21,7 +21,7 @@ namespace Zipline2.Pages
             thisPageModel = new SpecialsPageModel();
 			InitializeComponent ();
             BindingContext = thisPageModel;
-            Footer.FooterPageModel.IsSpecialsPageDisplayed = true;
+            //Footer.FooterPageModel.IsSpecialsPageDisplayed = true;
             string specialsTitle = "TBL " + BusinessLogic.OrderManager.Instance.CurrentTableName + " Specials";
             this.ToolbarItems.Add(new ToolbarItem { Text = specialsTitle });
         }

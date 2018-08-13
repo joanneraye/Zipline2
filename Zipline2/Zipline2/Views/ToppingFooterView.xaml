@@ -54,11 +54,11 @@
                             </DataTrigger>
                         </Button.Triggers>
                     </Button>
-                    <Button Text="Lite"
+                    <Button Text="Light"
                         Command="{Binding LiteToppingCommand}"
                         Style="{StaticResource footerToppingMenu}"
                              TextColor="White"
-                            WidthRequest="58"
+                            WidthRequest="80"
                             BackgroundColor="Black">
                         <Button.Triggers>
                             <DataTrigger TargetType="Button" 
