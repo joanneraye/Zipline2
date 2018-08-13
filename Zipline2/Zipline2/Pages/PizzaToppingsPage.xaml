@@ -115,6 +115,13 @@
                                     <Label.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding ToppingSelectedCommand}"/>
                                     </Label.GestureRecognizers>
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                     Binding="{Binding ListItemIsSelected, Mode=TwoWay}"
+                                                             Value="True">
+                                            <Setter Property="BackgroundColor" Value="CornflowerBlue" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
                                 </Label>
                                 <Button Grid.Column="1"
                                         x:Name="ButtonW"

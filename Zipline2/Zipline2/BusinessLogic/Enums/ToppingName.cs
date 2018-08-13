@@ -83,6 +83,7 @@ namespace Zipline2.BusinessLogic.Enums
         SliceCutInHalfSepPlate,
         Spinach,
         Steak,
+        SteakNCheeseCalzone,
         SteakWithOnion,
         SundriedTomatoes,
         TakeoutBring2Table,

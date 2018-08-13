@@ -107,6 +107,7 @@ namespace Zipline2.Models
             bool addItemToOrder = true;
             if (newOrderItem != null)
             {
+                AllItemsSent = false;
                 if (newOrderItem is Drink)
                 {
                     Drink drinkToAdd = (Drink)newOrderItem;
@@ -129,6 +130,7 @@ namespace Zipline2.Models
                     newOrderItem.OrderItemNumber = OrderItems.Count + 1;
                     OrderItems.Add(newOrderItem);
                 }
+               
                 UpdateOrderTotals();
             }
         }

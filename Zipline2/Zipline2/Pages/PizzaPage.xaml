@@ -10,27 +10,26 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:SelectedItemColorConverter x:Key="selectBackgroundConverter"/>
-            <Style x:Key="PizzaSelectionButtons" TargetType="Button">
-                <Setter Property="TextColor" Value="White" />
-                <Setter Property="BorderColor" Value="White" />
-                <Setter Property="BorderRadius" Value="1" />
-                <Setter Property="BorderWidth" Value="1" />
+            <Style x:Key="PizzaSelectionButtons" TargetType="Frame">
+                <Setter Property="CornerRadius" Value="55" />
+                <Setter Property="WidthRequest" Value="110" />
+                <Setter Property="HeightRequest" Value="110" />
+                <Setter Property="BackgroundColor" Value="Orange" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="0" />
             </Style>
+           
             <Style x:Key="PizzaSelectionLabels" TargetType="Label">
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="BackgroundColor" Value="Transparent" />
-                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
-                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
-            </Style>
-            <!--<Style x:Key="PizzaFlexButton" TargetType="flex:FlexButton">
-                <Setter Property="ForegroundColor" Value="White" />
-                <Setter Property="BackgroundColor" Value="Black" />
-            </Style>-->
-            <Style x:Key="PlusIcon" TargetType="iconize:IconImage">
-                <Setter Property="Icon" Value="fa-plus" />
-                <Setter Property="IconSize" Value="30" />
-                <Setter Property="IconColor" Value="LightBlue" />
-            </Style>
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="FontSize" Value="30" />
+                <!--<Setter Property="FontAttributes" Value="Bold" />-->
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+            </Style>                 
         </ResourceDictionary>
     </ContentPage.Resources>
    <ContentPage.Content>
@@ -38,7 +37,122 @@
                      VerticalOptions="FillAndExpand"
                      Padding="10,10">
             <views:MenuHeaderView x:Name="ToppingsHeader" />
-                <Grid x:Name="PizzaGrid"
+            <Grid x:Name="PizzaGrid"
+                      ColumnSpacing="10"
+                  RowSpacing="8"
+                      HorizontalOptions="CenterAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="110"/>
+                    <RowDefinition Height="110"/>
+                    <RowDefinition Height="110"/>
+                    <RowDefinition Height="110"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110" />
+                    <ColumnDefinition Width="110" />
+                    <ColumnDefinition Width="110" />
+                </Grid.ColumnDefinitions>
+                <Frame Grid.Column="0" Grid.Row="0" Padding="0"
+                                       Style="{StaticResource PizzaSelectionButtons}" >
+                    <Frame.Content>
+                        <Label Text="SL"
+                                        Style="{StaticResource PizzaSelectionLabels}">
+                        </Label>
+                    </Frame.Content>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer  Command="{Binding PizzaSelectionCommand}"
+                                              CommandParameter="{x:Static enums:PizzaType.ThinSlice}"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <Frame Grid.Column="1" Grid.Row="0" Padding="0"
+                                       Style="{StaticResource PizzaSelectionButtons}" >
+                    <Frame.Content>
+                        <Label Text="SATCH PAN SL"
+                                        Style="{StaticResource PizzaSelectionLabels}"
+                               FontSize="22">
+                        </Label>
+                    </Frame.Content>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer    Command="{Binding PizzaSelectionCommand}"
+                                              CommandParameter="{x:Static enums:PizzaType.PanSlice}"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <Frame Grid.Column="2" Grid.Row="0" Padding="0"
+                                       Style="{StaticResource PizzaSelectionButtons}" >
+                    <Frame.Content>
+                        <Label Text="MED"
+                                        Style="{StaticResource PizzaSelectionLabels}">
+                        </Label>
+                    </Frame.Content>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer      Command="{Binding PizzaSelectionCommand}"
+                         CommandParameter="{x:Static enums:PizzaType.Medium}"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <Frame Grid.Column="0" Grid.Row="1" Padding="0"
+                                       Style="{StaticResource PizzaSelectionButtons}" >
+                    <Frame.Content>
+                        <Label Text="LG"
+                                        Style="{StaticResource PizzaSelectionLabels}">
+                        </Label>
+                    </Frame.Content>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer      Command="{Binding PizzaSelectionCommand}"
+                         CommandParameter="{x:Static enums:PizzaType.Large}"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <Frame Grid.Column="1" Grid.Row="1" Padding="0"
+                                       Style="{StaticResource PizzaSelectionButtons}" >
+                    <Frame.Content>
+                        <Label Text="INDY"
+                                        Style="{StaticResource PizzaSelectionLabels}">
+                        </Label>
+                    </Frame.Content>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer     Command="{Binding PizzaSelectionCommand}"
+                         CommandParameter="{x:Static enums:PizzaType.Indy}"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <Frame Grid.Column="2" Grid.Row="1" Padding="0"
+                                       Style="{StaticResource PizzaSelectionButtons}" >
+                    <Frame.Content>
+                        <Label Text="MFP"
+                                        Style="{StaticResource PizzaSelectionLabels}">
+                        </Label>
+                    </Frame.Content>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer      Command="{Binding AddMfpCommand}"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <Frame Grid.Column="1" Grid.Row="2" Padding="0"
+                                       Style="{StaticResource PizzaSelectionButtons}" >
+                    <Frame.Content>
+                        <Label Text="SATCH PAN"
+                                        Style="{StaticResource PizzaSelectionLabels}"
+                               FontSize="22">
+                        </Label>
+                    </Frame.Content>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer      Command="{Binding AddSatchPanCommand}"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <Frame Grid.Column="1" Grid.Row="3"  Padding="0"
+                                       Style="{StaticResource PizzaSelectionButtons}"
+                       BackgroundColor="LightYellow">
+                    <Frame.Content>
+                        <Label Text="CALZONE"
+                                        Style="{StaticResource PizzaSelectionLabels}"
+                                TextColor="Black" FontSize="16" >
+                        </Label>
+                    </Frame.Content>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer      Command="{Binding AddCalzoneCommand}"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+            </Grid>
+
+            <!--OLD CODE-->
+                <!--<Grid x:Name="PizzaGrid"
                       ColumnSpacing="8"
                       HorizontalOptions="StartAndExpand">
                     <Grid.RowDefinitions>
@@ -56,7 +170,7 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                    <!--*************************************CHEESE-->
+                    --><!--*************************************CHEESE--><!--
                     <Label Grid.Row ="0"
                            Grid.Column="0"
                            Grid.ColumnSpan="2"
@@ -73,7 +187,7 @@
                         <TapGestureRecognizer Command="{Binding AddCheeseCommand}" />
                     </iconize:IconImage.GestureRecognizers>
                     </iconize:IconImage>
-                <!--*************************************CHEESE SLICE-->
+                --><!--*************************************CHEESE SLICE--><!--
                 <Button Grid.Column="1"
                          Grid.Row="0"
                          Style="{StaticResource PizzaSelectionButtons}" 
@@ -92,7 +206,7 @@
                                               CommandParameter="{x:Static enums:PizzaType.ThinSlice}"/>
                     </Label.GestureRecognizers>
                 </Label>
-                <!--*************************************PAN SLICE-->
+                --><!--*************************************PAN SLICE--><!--
                 <Button Grid.Column="2"
                          Grid.Row="0"
                          Style="{StaticResource PizzaSelectionButtons}" 
@@ -111,7 +225,7 @@
                                               CommandParameter="{x:Static enums:PizzaType.PanSlice}"/>
                     </Label.GestureRecognizers>
                 </Label>
-                <!--*************************************CHEESE MEDIUM-->
+                --><!--*************************************CHEESE MEDIUM--><!--
                 <Button Grid.Column="0"
                          Grid.Row="1"
                          Style="{StaticResource PizzaSelectionButtons}" 
@@ -130,7 +244,7 @@
                                               CommandParameter="{x:Static enums:PizzaType.Medium}"/>
                     </Label.GestureRecognizers>
                 </Label>
-                <!--*************************************CHEESE LARGE-->
+                --><!--*************************************CHEESE LARGE--><!--
                 <Button Grid.Column="1"
                          Grid.Row="1"
                          Style="{StaticResource PizzaSelectionButtons}" 
@@ -149,7 +263,7 @@
                                               CommandParameter="{x:Static enums:PizzaType.Large}"/>
                     </Label.GestureRecognizers>
                 </Label>
-                <!--*************************************CHEESE INDY-->
+                --><!--*************************************CHEESE INDY--><!--
                 <Button Grid.Column="2"
                          Grid.Row="1"
                          Style="{StaticResource PizzaSelectionButtons}" 
@@ -169,7 +283,7 @@
                     </Label.GestureRecognizers>
                 </Label>
 
-                <!--*************************************MAJOR-->
+                --><!--*************************************MAJOR--><!--
                 <Label Grid.Row ="2"
                            Grid.Column="0"
                            Grid.ColumnSpan="2"
@@ -185,7 +299,7 @@
                         <TapGestureRecognizer Command="{Binding AddMajorCommand}" />
                     </iconize:IconImage.GestureRecognizers>
                 </iconize:IconImage>
-                <!--*************************************MAJOR SLICE-->
+                --><!--*************************************MAJOR SLICE--><!--
                 <Button Grid.Column="0"
                          Grid.Row="3"
                          Style="{StaticResource PizzaSelectionButtons}" 
@@ -204,7 +318,7 @@
                                               CommandParameter="{x:Static enums:PizzaType.ThinSlice}"/>
                     </Label.GestureRecognizers>
                 </Label>
-                <!--*************************************MAJOR MEDIUM-->
+                --><!--*************************************MAJOR MEDIUM--><!--
                 <Button Grid.Column="1"
                          Grid.Row="3"
                          Style="{StaticResource PizzaSelectionButtons}" 
@@ -223,7 +337,7 @@
                                               CommandParameter="{x:Static enums:PizzaType.Medium}"/>
                     </Label.GestureRecognizers>
                 </Label>
-                <!--*************************************MAJOR LARGE-->
+                --><!--*************************************MAJOR LARGE--><!--
                 <Button Grid.Column="2"
                          Grid.Row="3"
                          Style="{StaticResource PizzaSelectionButtons}" 
@@ -242,7 +356,7 @@
                                               CommandParameter="{x:Static enums:PizzaType.Large}"/>
                     </Label.GestureRecognizers>
                 </Label>
-                <!--*************************************MAJOR INDY-->
+                --><!--*************************************MAJOR INDY--><!--
                 <Button Grid.Column="0"
                          Grid.Row="4"
                          Style="{StaticResource PizzaSelectionButtons}" 
@@ -261,7 +375,7 @@
                                               CommandParameter="{x:Static enums:PizzaType.Indy}"/>
                     </Label.GestureRecognizers>
                 </Label>
-                <!--*************************************MAJOR MFP-->
+                --><!--*************************************MAJOR MFP--><!--
                 <Button Grid.Column="1"
                          Grid.Row="4"
                          Style="{StaticResource PizzaSelectionButtons}" 
@@ -280,7 +394,7 @@
                                               CommandParameter="{x:Static enums:PizzaType.Mfp}"/>
                     </Label.GestureRecognizers>
                 </Label>
-                <!--*************************************MAJOR PAN-->
+                --><!--*************************************MAJOR PAN--><!--
                 <Button Grid.Column="2"
                          Grid.Row="4"
                          Style="{StaticResource PizzaSelectionButtons}" 
@@ -299,7 +413,7 @@
                                               CommandParameter="{x:Static enums:PizzaType.SatchPan}"/>
                     </Label.GestureRecognizers>
                 </Label>
-                <!--*************************************MFP-->
+                --><!--*************************************MFP--><!--
                 <Label Grid.Row ="5"
                                Grid.Column="0"
                                Grid.ColumnSpan="4"
@@ -315,7 +429,7 @@
                         <TapGestureRecognizer Command="{Binding AddMfpCommand}" />
                     </iconize:IconImage.GestureRecognizers>
                 </iconize:IconImage>
-                <!--*************************************SATCH PAN-->
+                --><!--*************************************SATCH PAN--><!--
                 <Label Grid.Row ="6"
                            Grid.Column="0"
                            Grid.ColumnSpan="3"
@@ -332,7 +446,7 @@
                     </iconize:IconImage.GestureRecognizers>
                 </iconize:IconImage>
 
-            </Grid>
+            </Grid>-->
             <views:MenuScrollFooterView VerticalOptions="EndAndExpand"  HorizontalOptions="FillAndExpand" x:Name="Footer"/>
         </StackLayout>
     </ContentPage.Content>

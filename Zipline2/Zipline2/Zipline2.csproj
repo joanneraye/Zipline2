@@ -36,12 +36,14 @@
     <Compile Remove="Models\PizzaThinLarge.cs" />
     <Compile Remove="Models\PizzaThinMedium.cs" />
     <Compile Remove="Models\PizzaThinSlice.cs" />
+    <Compile Remove="PageModels\CalzonePageModel.cs" />
     <Compile Remove="PageModels\CarouselViewModel.cs" />
     <Compile Remove="PageModels\MainPageModel.cs" />
     <Compile Remove="PageModels\MasterMainPageModel.cs" />
     <Compile Remove="PageModels\MenuButtonsModel.cs" />
     <Compile Remove="PageModels\PizzaBasePageModel.cs" />
     <Compile Remove="PageModels\ToppingSelection.cs" />
+    <Compile Remove="Pages\CalzonePage.xaml.cs" />
     <Compile Remove="Pages\MainPage.xaml.cs" />
     <Compile Remove="Pages\MasterDetailPage1.xaml.cs" />
     <Compile Remove="Pages\MasterDetailPage1Detail.xaml.cs" />
@@ -50,18 +52,21 @@
     <Compile Remove="Pages\MasterPageItem.cs" />
     <Compile Remove="Pages\OldTablesPage.xaml.cs" />
     <Compile Remove="Pages\PizzaBasePage.xaml.cs" />
+    <Compile Remove="Pages\TablesPageOLD.xaml.cs" />
     <Compile Remove="Views\MenuButtonFooterViewOLD.xaml.cs" />
     <Compile Remove="Views\MenuHeaderView - OLD.xaml.cs" />
     <Compile Remove="Views\MyCarouselViewControl.xaml.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="Pages\CalzonePage.xaml" />
     <EmbeddedResource Remove="Pages\MainPage.xaml" />
     <EmbeddedResource Remove="Pages\MasterDetailPage1.xaml" />
     <EmbeddedResource Remove="Pages\MasterDetailPage1Detail.xaml" />
     <EmbeddedResource Remove="Pages\MasterDetailPage1Master.xaml" />
     <EmbeddedResource Remove="Pages\OldTablesPage.xaml" />
     <EmbeddedResource Remove="Pages\PizzaBasePage.xaml" />
+    <EmbeddedResource Remove="Pages\TablesPageOLD.xaml" />
     <EmbeddedResource Remove="Views\MenuButtonFooterViewOLD.xaml" />
     <EmbeddedResource Remove="Views\MenuHeaderView - OLD.xaml" />
     <EmbeddedResource Remove="Views\MyCarouselViewControl.xaml" />
@@ -111,9 +116,6 @@
     <Compile Update="Pages\TablesPage.xaml.cs">
       <DependentUpon>TablesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Pages\TablesPageOLD.xaml.cs">
-      <DependentUpon>TablesPageOLD.xaml</DependentUpon>
-    </Compile>
     <Compile Update="Pages\CalzoneToppingsPage.xaml.cs">
       <DependentUpon>CalzoneToppingsPage.xaml</DependentUpon>
     </Compile>
@@ -138,9 +140,6 @@
 
   <ItemGroup>
     <EmbeddedResource Update="Pages\DessertPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Pages\CalzonePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\DrinksPage.xaml">

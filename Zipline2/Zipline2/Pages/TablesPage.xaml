@@ -211,7 +211,7 @@
             <DataTemplate x:Key="tablePageBlankTemplate" x:Name="blankTemplate" >
                 <ViewCell Height="0">
                     <StackLayout Padding="0" Margin="0" HeightRequest="1">
-                        <Label Text="This should be blank" TextColor="Red" Margin="0" />
+                        <Label TextColor="Black" Margin="0" />
                         <BoxView HeightRequest="0" Margin="0"
                      WidthRequest="1"
                      Color="Black"/>
@@ -250,27 +250,6 @@
                       Refreshing="OnRefreshing"
                       SeparatorVisibility="Default">              
             </ListView>
-          
-            <!--<ListView ItemsSource="{Binding DisplayTablesGroup2}"
-                      ItemSelected="OnItemSelected"
-                      ItemTemplate="{StaticResource TablePageRowTemplate}"
-                      Margin="0"
-                      BackgroundColor="Black"
-                      RowHeight="100"
-                      IsPullToRefreshEnabled="True"
-                      Refreshing="OnRefreshing"
-                      SeparatorVisibility="Default">
-            </ListView>
-            <ListView ItemsSource="{Binding DisplayTablesGroup3}"
-                      ItemSelected="OnItemSelected"
-                      ItemTemplate="{StaticResource TablePageRowTemplate}"
-                      Margin="0"
-                      BackgroundColor="Black"
-                      RowHeight="100"
-                      IsPullToRefreshEnabled="True"
-                      Refreshing="OnRefreshing"
-                      SeparatorVisibility="Default">
-            </ListView>-->
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

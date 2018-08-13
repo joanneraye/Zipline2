@@ -41,7 +41,7 @@ namespace Zipline2.Pages
 
         async private Task DisplayFatalAlert()
         {
-            await DisplayAlert("Fatal Error", "Cannot connect to server.  If you are not at Satchel's, you can test creating orders only.  If you are at Satchel's, please let Joanne know there is a server connection issue.", "OK");
+            await DisplayAlert("Server Error", "Cannot connect to server.  If you are not at Satchel's, you can test creating orders only.  If you are at Satchel's, please let Joanne know there is a server connection issue.", "OK");
         }
     }
 }

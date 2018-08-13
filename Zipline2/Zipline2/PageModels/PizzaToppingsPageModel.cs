@@ -257,6 +257,11 @@ namespace Zipline2.PageModels
                     {
                         continue;
                     }
+                    if (ThisPizza.PizzaType != PizzaType.Indy &&
+                        toppingsList[i].ForIndyOnly)
+                    {
+                        continue;
+                    }
                     var toppingSelection = new ToppingDisplayItem(this);
 
                     bool toppingisAlreadyOnThisPizza = false;
@@ -386,67 +391,72 @@ namespace Zipline2.PageModels
             }
                
             thisSelection.ListTopping.ToppingModifier = ToppingFooterPageModel.GetToppingModifierType();
-
-            if (thisSelection.ListTopping.ToppingName == ToppingName.HalfMajor)
+            if (thisSelection.ListTopping.ToppingName == ToppingName.Major)
             {
-                ProcessHalfMajorToppingSelection(thisSelection);
+                ProcessMajorToppingSelection(thisSelection);
+               
             }
-            else if (ToppingFooterPageModel.ExtraToppingSelected)
+            //else if (thisSelection.ListTopping.ToppingName == ToppingName.HalfMajor)
+            //{
+            //    ProcessHalfMajorToppingSelection(thisSelection);
+            //}
+            else
             {
-                if (thisSelection.ListTopping.Count == 0)
+                if (ToppingFooterPageModel.ExtraToppingSelected)
                 {
-                    thisSelection.ListTopping.Count = 1;
+                    if (thisSelection.ListTopping.Count == 0)
+                    {
+                        thisSelection.ListTopping.Count = 1;
+                    }
+                    thisSelection.ListTopping.Count++;
                 }
-                thisSelection.ListTopping.Count++;
-            }          
-            else if (ToppingFooterPageModel.NoToppingSelected)
-            {
-                thisPizza.Toppings.RemoveTopping(thisSelection.ListTopping.ToppingName);
-            }
-            
-            if  (thisSelection.ListItemIsSelected)
-            {
-                if (ToppingFooterPageModel.ExtraToppingSelected &&
-                    thisSelection.ListTopping.Count > 1 &&
-                    ThisPizza.Toppings.IsToppingAlreadyAdded(thisSelection.ListTopping.ToppingName))
+                else if (ToppingFooterPageModel.NoToppingSelected)
                 {
-                    ThisPizza.Toppings.UpdateToppingsTotal();
-                    //ThisPizza.UpdateItemTotal();
-                    thisSelection.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
-                    thisSelection.ButtonWSelected = true;
+                    thisPizza.Toppings.RemoveTopping(thisSelection.ListTopping.ToppingName);
+                }
+
+                if (thisSelection.ListItemIsSelected)
+                {
+                    if (ToppingFooterPageModel.ExtraToppingSelected &&
+                        thisSelection.ListTopping.Count > 1 &&
+                        ThisPizza.Toppings.IsToppingAlreadyAdded(thisSelection.ListTopping.ToppingName))
+                    {
+                        ThisPizza.Toppings.UpdateToppingsTotal();
+                        //ThisPizza.UpdateItemTotal();
+                        thisSelection.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
+                        thisSelection.ButtonWSelected = true;
+                    }
+                    else
+                    {
+                        thisSelection.ListTopping.SequenceSelected = ThisPizza.Toppings.CurrentToppings.Count + 1;
+                        ThisPizza.Toppings.AddTopping(thisSelection.ListTopping);
+                        //ThisPizza.UpdateItemTotal();
+                        thisSelection.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
+                        thisSelection.ButtonWSelected = true;
+                    }
+
                 }
                 else
                 {
-                    thisSelection.ListTopping.SequenceSelected = ThisPizza.Toppings.CurrentToppings.Count + 1;
-                    ThisPizza.Toppings.AddTopping(thisSelection.ListTopping);
+                    thisSelection.ListTopping.SequenceSelected = 0;
+                    thisSelection.ListTopping.ToppingModifier = ToppingModifierType.None;
+                    thisSelection.ListTopping.Count = 0;
+                    ThisPizza.Toppings.RemoveTopping(thisSelection.ListTopping.ToppingName);
                     //ThisPizza.UpdateItemTotal();
-                    thisSelection.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
-                    thisSelection.ButtonWSelected = true;
+                    thisSelection.SelectionColor = Xamarin.Forms.Color.Black;
+                    thisSelection.ButtonASelected = false;
+                    thisSelection.ButtonBSelected = false;
+                    thisSelection.ButtonWSelected = false;
                 }
-               
-            }
-            else
-            {
-                thisSelection.ListTopping.SequenceSelected = 0;
-                thisSelection.ButtonWSelected = true;
-                thisSelection.ButtonASelected = false;
-                thisSelection.ButtonBSelected = false;
-                thisSelection.ListTopping.ToppingModifier = ToppingModifierType.None;
-                thisSelection.ListTopping.Count = 0;
-                ThisPizza.Toppings.RemoveTopping(thisSelection.ListTopping.ToppingName);
-                //ThisPizza.UpdateItemTotal();
-                thisSelection.SelectionColor = Xamarin.Forms.Color.Black;
-                thisSelection.ButtonASelected = false;
-                thisSelection.ButtonBSelected = false;
-                thisSelection.ButtonWSelected = false;
-            }
 
-            //Modifier buttons only work if selected before the topping is selected.  At this point,
-            //all should be reset back to black/unselected.
-            ToppingFooterPageModel.ExtraToppingSelected = false;
-            ToppingFooterPageModel.LiteToppingSelected = false;
-            ToppingFooterPageModel.NoToppingSelected = false;
-            ToppingFooterPageModel.OnSideToppingSelected = false;
+                //Modifier buttons only work if selected before the topping is selected.  At this point,
+                //all should be reset back to black/unselected.
+                ToppingFooterPageModel.ExtraToppingSelected = false;
+                ToppingFooterPageModel.LiteToppingSelected = false;
+                ToppingFooterPageModel.NoToppingSelected = false;
+                ToppingFooterPageModel.OnSideToppingSelected = false;
+
+            }
 
             //Can't remember why I might need this....
             //if (thisSelection.ListTopping.ToppingName == ToppingName.Cheese)
@@ -466,10 +476,76 @@ namespace Zipline2.PageModels
             //}
         }
 
+
+        private void ProcessMajorToppingSelection(ToppingDisplayItem majorSelection)
+        {
+            if (majorSelection.ListItemIsSelected)
+            {
+                majorSelection.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
+                if (majorSelection.ButtonASelected || majorSelection.ButtonBSelected)
+                {
+                    ProcessHalfMajorSelectionOfSide(majorSelection);
+                }
+                else
+                {
+                    majorSelection.ButtonWSelected = true;
+                    ThisPizza.MajorMamaInfo = MajorOrMama.Major;
+                    ThisPizza.PopulateDisplayName();  //Updates to show MAJOR
+                    SelectMajorToppings();
+                    ThisPizza.Toppings.AddMajorToppings();
+                }
+            }
+            else
+            {
+                majorSelection.SelectionColor = Xamarin.Forms.Color.Black;
+                majorSelection.ButtonWSelected = false;
+                majorSelection.ButtonASelected = false;
+                majorSelection.ButtonBSelected = false;
+                ThisPizza.MajorMamaInfo = MajorOrMama.Neither;
+                ThisPizza.PopulateDisplayName();  //Updates to remove MAJOR
+                ThisPizza.Toppings.RemoveToppings(new List<ToppingName>
+                {
+                    ToppingName.Mushrooms,
+                    ToppingName.BlackOlives,
+                    ToppingName.GreenPeppers,
+                    ToppingName.Onion,
+                    ToppingName.Pepperoni,
+                    ToppingName.Sausage
+                });
+
+                foreach (var toppingSelection in ToppingSelectionsList)
+                {
+                    if (toppingSelection.ListTopping.ToppingName == ToppingName.Mushrooms ||
+                        toppingSelection.ListTopping.ToppingName == ToppingName.GreenPeppers ||
+                        toppingSelection.ListTopping.ToppingName == ToppingName.Onion ||
+                        toppingSelection.ListTopping.ToppingName == ToppingName.Pepperoni ||
+                        toppingSelection.ListTopping.ToppingName == ToppingName.Sausage ||
+                        toppingSelection.ListTopping.ToppingName == ToppingName.BlackOlives)
+                    {
+                        toppingSelection.ButtonWSelected = false;
+                        toppingSelection.ButtonASelected = false;
+                        toppingSelection.ButtonBSelected = false;
+                        toppingSelection.ListItemIsSelected = false;
+                        toppingSelection.SelectionColor = Xamarin.Forms.Color.Black;
+                    }
+                }
+               
+            }
+        }
+
+
         //For selection or deselection of the Half Major topping.
         private void ProcessHalfMajorToppingSelection(ToppingDisplayItem halfMajorSelection)
         {
-            if (halfMajorSelection.ListItemIsSelected)   //If selected, toggle to unselect...
+            if (halfMajorSelection.ListItemIsSelected)  
+            {
+                SelectMajorToppings(halfMajorSelection.ListTopping.ToppingWholeHalf);
+                ThisPizza.Toppings.AddMajorToppingsToHalf(ToppingWholeHalf.HalfA);
+
+                halfMajorSelection.ListItemIsSelected = true;
+                halfMajorSelection.ButtonASelected = true;
+            }
+            else
             {
                 ThisPizza.Toppings.RemoveToppings(new List<ToppingName>
                 {
@@ -500,16 +576,8 @@ namespace Zipline2.PageModels
                 halfMajorSelection.ButtonWSelected = false;
                 halfMajorSelection.ButtonASelected = false;
                 halfMajorSelection.ButtonBSelected = false;
-            }
-            else
-            {
-                SelectMajorToppings(halfMajorSelection.ListTopping.ToppingWholeHalf);
-                ThisPizza.Toppings.AddMajorToppingsToHalf(ToppingWholeHalf.HalfA);
 
-                halfMajorSelection.ListItemIsSelected = true;
-                halfMajorSelection.ButtonASelected = true;
             }
-            halfMajorSelection.ListItemIsSelected = !halfMajorSelection.ListItemIsSelected;
         }
 
         /// <summary>
@@ -526,57 +594,59 @@ namespace Zipline2.PageModels
             var thisItemSelected = ToppingSelectionsList[indexOfSelection];
             thisItemSelected.ListTopping.ToppingWholeHalf = wholeOrHalf; 
 
-            if (thisItemSelected.ListTopping.ToppingName == ToppingName.HalfMajor)
+           
+            if (!thisItemSelected.ListItemIsSelected)  //toggle selection
             {
-                ProcessHalfMajorSelectionOfSide(thisItemSelected);
+                thisItemSelected.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
+                thisItemSelected.ListItemIsSelected = true;
+            }
+
+           
+
+            //The topping may already have been added, but is being changed to half.
+            //If the topping has not already been added, will need to add it (for half).
+            bool toppingAlreadyAdded = false;
+            foreach (Topping topping in thisPizza.Toppings.CurrentToppings)
+            {
+                if (topping.ToppingName == thisItemSelected.ListTopping.ToppingName)
+                {
+                    toppingAlreadyAdded = true;
+                        
+                    break;
+                }
+            }
+            if (toppingAlreadyAdded)
+            {
+                if (thisItemSelected.ListTopping.ToppingName == ToppingName.Major)
+                {
+                    thisPizza.Toppings.ChangeMajorToppingsHalf(thisItemSelected.ListTopping.ToppingWholeHalf);
+                }
+                else
+                {
+                    thisPizza.Toppings.ChangeToppingToHalf(thisItemSelected.ListTopping.ToppingName, wholeOrHalf);
+                }                
             }
             else
             {
-                if (!thisItemSelected.ListItemIsSelected)
+                if (thisItemSelected.ListTopping.ToppingName == ToppingName.Major)
                 {
-                    thisItemSelected.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
-                    thisItemSelected.ListItemIsSelected = true;
-                }
-
-                //The topping may already have been added, but is being changed to half.
-                //If the topping has not already been added, will need to add it (for half).
-                bool toppingAlreadyAdded = false;
-                foreach (Topping topping in thisPizza.Toppings.CurrentToppings)
-                {
-                    if (topping.ToppingName == thisItemSelected.ListTopping.ToppingName)
-                    {
-                        toppingAlreadyAdded = true;
-                        
-                        break;
-                    }
-                }
-                if (toppingAlreadyAdded)
-                {
-                    thisPizza.Toppings.ChangeToppingToHalf(thisItemSelected.ListTopping.ToppingName, wholeOrHalf);
-                    //TODO:  This may not be needed if done automatically????
-                    thisPizza.Toppings.UpdateToppingsTotal();
+                    ProcessHalfMajorSelectionOfSide(thisItemSelected);
                 }
                 else
                 {
                     thisItemSelected.ListTopping.SequenceSelected = thisPizza.Toppings.CurrentToppings.Count + 1;
                     thisPizza.Toppings.AddTopping(thisItemSelected.ListTopping);
                 }
-                //thisPizza.UpdateItemTotal();
-                ChangeButtonSelection(thisItemSelected, wholeOrHalf);
+              
             }
+           
+            ChangeButtonSelection(thisItemSelected, wholeOrHalf);
         }
 
+       
         private void ProcessHalfMajorSelectionOfSide(ToppingDisplayItem thisItemSelected)
         {
-            if (thisItemSelected.ListTopping.ToppingWholeHalf == ToppingWholeHalf.Whole)
-            {
-                thisItemSelected.ButtonWSelected = false;
-                thisItemSelected.ButtonASelected = false;
-                thisItemSelected.ButtonBSelected = false;
-                thisItemSelected.ButtonWVisible = false;
-                return;
-            }
-            if (!thisItemSelected.ListItemIsSelected)
+            if (thisItemSelected.ListItemIsSelected)
             {
                 thisItemSelected.ListItemIsSelected = true;
                 thisItemSelected.SelectionColor = Color.CornflowerBlue;
@@ -584,17 +654,9 @@ namespace Zipline2.PageModels
             }
 
             thisPizza.Toppings.AddMajorToppings();
-            switch (thisItemSelected.ListTopping.ToppingWholeHalf)
-            {
-                case ToppingWholeHalf.HalfA:
-                    thisPizza.Toppings.ChangeMajorToppingsHalf(ToppingWholeHalf.HalfA);
-
-                    break;
-                case ToppingWholeHalf.HalfB:
-                    thisPizza.Toppings.ChangeMajorToppingsHalf(ToppingWholeHalf.HalfB);
-                    break;
-            }
+            thisPizza.Toppings.ChangeMajorToppingsHalf(thisItemSelected.ListTopping.ToppingWholeHalf);
             ChangeButtonSelection(thisItemSelected, thisItemSelected.ListTopping.ToppingWholeHalf);
+
             //find all major toppings in ToppingSelectionsList and call ChangeButtonSelection on them.
             foreach (var toppingSelection in ToppingSelectionsList)
             {

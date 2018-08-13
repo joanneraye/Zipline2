@@ -124,7 +124,15 @@ namespace Zipline2.Models
         {
             if (CalzoneType == CalzoneType.RicottaMozarella)
             {
-                return Tuple.Create<string, decimal>("Calzone", 51);
+                if (MajorMamaInfo == MajorOrMama.Major)
+                {
+                    return Tuple.Create<string, decimal>("Calzone", 56);
+                }
+                else
+                {
+                    return Tuple.Create<string, decimal>("Calzone", 51);
+                }
+                
             }
             else if (CalzoneType == CalzoneType.HotRope)
             {
@@ -138,10 +146,7 @@ namespace Zipline2.Models
             {
                 return Tuple.Create<string, decimal>("Calzone", 54);
             }
-            else if (CalzoneType == CalzoneType.Major)
-            {
-                return Tuple.Create<string, decimal>("Calzone", 56);
-            }
+          
             return Tuple.Create<string, decimal>("Calzone", 51);
         }
 
@@ -153,6 +158,10 @@ namespace Zipline2.Models
         public override void PopulateDisplayName()
         {
             ItemName = DisplayNames.GetCalzoneDisplayName(CalzoneType);
+            if (MajorMamaInfo == MajorOrMama.Major)
+            {
+                ItemName += " - MAJOR";
+            }
         }
 
         public override void PopulatePricePerItem()
@@ -168,6 +177,11 @@ namespace Zipline2.Models
            
             for (int i = 0; i < Toppings.CurrentToppings.Count; i++)
             {
+                if (Toppings.CurrentToppings[i].ToppingName == ToppingName.SteakNCheeseCalzone ||
+                    Toppings.CurrentToppings[i].ToppingName == ToppingName.Major)
+                {
+                    continue;
+                }
                 if (i == 0)
                 {
                     toppingsString.Append("   ");
@@ -179,6 +193,7 @@ namespace Zipline2.Models
                
                 toppingsString.Append(Toppings.CurrentToppings[i].ToppingDisplayName);
             }
+
             if (toppingsString.Length != 0)
             {
                 orderDisplayItem.Toppings = toppingsString.ToString();

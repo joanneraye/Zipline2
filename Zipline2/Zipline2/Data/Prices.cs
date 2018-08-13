@@ -191,8 +191,7 @@ namespace Zipline2.Data
             { CalzoneType.RicottaMozarella, 9.00M  },
              { CalzoneType.HotRope, 13.50M  },
               { CalzoneType.PBJ, 13.50M  },
-            { CalzoneType.SteakAndCheese, 13.00M  },
-             { CalzoneType.Major, 9.00M }
+            { CalzoneType.SteakAndCheese, 13.00M  }
 
         };
 

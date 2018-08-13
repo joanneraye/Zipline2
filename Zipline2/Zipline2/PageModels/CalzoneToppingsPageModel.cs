@@ -110,7 +110,7 @@ namespace Zipline2.PageModels
 
         public ICommand AddCalzoneToOrderCommand { get; set; }
 
-        public event EventHandler NavigateToCalzonePage;
+        public event EventHandler NavigateToPizzaPage;
 
         #endregion
 
@@ -211,51 +211,70 @@ namespace Zipline2.PageModels
             {
                 thisSelection.ListItemIsSelected = !thisSelection.ListItemIsSelected;  //toggle topping selection.
             }
-               
-            thisSelection.ListTopping.ToppingModifier = ToppingFooterPageModel.GetToppingModifierType();
 
-            if (ToppingFooterPageModel.ExtraToppingSelected)
+            if (thisSelection.ListTopping.ToppingName == ToppingName.Major)
             {
-                if (thisSelection.ListTopping.Count == 0)
-                {
-                    thisSelection.ListTopping.Count = 1;
-                }
-                thisSelection.ListTopping.Count++;
-            }          
-            else if (ToppingFooterPageModel.NoToppingSelected)
-            {
-                ThisCalzone.Toppings.RemoveTopping(thisSelection.ListTopping.ToppingName);
-            }
-            
-            if  (thisSelection.ListItemIsSelected)
-            {
-                if (ToppingFooterPageModel.ExtraToppingSelected &&
-                    thisSelection.ListTopping.Count > 1 &&
-                    ThisCalzone.Toppings.IsToppingAlreadyAdded(thisSelection.ListTopping.ToppingName))
-                {
-                    ThisCalzone.Toppings.UpdateToppingsTotal();
-                }
-                else
-                {
-                    thisSelection.ListTopping.SequenceSelected = ThisCalzone.Toppings.CurrentToppings.Count + 1;
-                    ThisCalzone.Toppings.AddTopping(thisSelection.ListTopping);
-                }
-               
+                ProcessMajorToppingSelection(thisSelection);
             }
             else
             {
-                thisSelection.ListTopping.SequenceSelected = 0;
-                thisSelection.ListTopping.ToppingModifier = ToppingModifierType.None;
-                thisSelection.ListTopping.Count = 0;
-                ThisCalzone.Toppings.RemoveTopping(thisSelection.ListTopping.ToppingName);
+                thisSelection.ListTopping.ToppingModifier = ToppingFooterPageModel.GetToppingModifierType();
+
+                if (ToppingFooterPageModel.ExtraToppingSelected)
+                {
+                    if (thisSelection.ListTopping.Count == 0)
+                    {
+                        thisSelection.ListTopping.Count = 1;
+                    }
+                    thisSelection.ListTopping.Count++;
+                }
+                else if (ToppingFooterPageModel.NoToppingSelected)
+                {
+                    ThisCalzone.Toppings.RemoveTopping(thisSelection.ListTopping.ToppingName);
+                }
+
+                if (thisSelection.ListItemIsSelected)
+                {
+                    if (thisSelection.ListTopping.ToppingName == ToppingName.SteakNCheeseCalzone)
+                    {
+                        ThisCalzone.CalzoneType = CalzoneType.SteakAndCheese;
+                        ThisCalzone.PopulateDisplayName();
+                    }                   
+                    if (ToppingFooterPageModel.ExtraToppingSelected &&
+                        thisSelection.ListTopping.Count > 1 &&
+                        ThisCalzone.Toppings.IsToppingAlreadyAdded(thisSelection.ListTopping.ToppingName))
+                    {
+                        ThisCalzone.Toppings.UpdateToppingsTotal();
+                    }
+                    else
+                    {
+                        thisSelection.ListTopping.SequenceSelected = ThisCalzone.Toppings.CurrentToppings.Count + 1;
+                        ThisCalzone.Toppings.AddTopping(thisSelection.ListTopping);
+                    }
+
+                }
+                else
+                {
+                    if (thisSelection.ListTopping.ToppingName == ToppingName.SteakNCheeseCalzone)
+                    {
+                        ThisCalzone.CalzoneType = CalzoneType.RicottaMozarella;
+                        ThisCalzone.PopulateDisplayName();
+                    }
+                    thisSelection.ListTopping.SequenceSelected = 0;
+                    thisSelection.ListTopping.ToppingModifier = ToppingModifierType.None;
+                    thisSelection.ListTopping.Count = 0;
+                    ThisCalzone.Toppings.RemoveTopping(thisSelection.ListTopping.ToppingName);
+                }
+
+                //Modifier buttons only work if selected before the topping is selected.  At this point,
+                //all should be reset back to black/unselected.
+                ToppingFooterPageModel.ExtraToppingSelected = false;
+                ToppingFooterPageModel.LiteToppingSelected = false;
+                ToppingFooterPageModel.NoToppingSelected = false;
+                ToppingFooterPageModel.OnSideToppingSelected = false;
             }
 
-            //Modifier buttons only work if selected before the topping is selected.  At this point,
-            //all should be reset back to black/unselected.
-            ToppingFooterPageModel.ExtraToppingSelected = false;
-            ToppingFooterPageModel.LiteToppingSelected = false;
-            ToppingFooterPageModel.NoToppingSelected = false;
-            ToppingFooterPageModel.OnSideToppingSelected = false;
+            
 
             //Can't remember why I might need this....
             //if (thisSelection.ListTopping.ToppingName == ToppingName.Cheese)
@@ -267,19 +286,58 @@ namespace Zipline2.PageModels
             //}
         }
 
-       
+        private void ProcessMajorToppingSelection(CalzoneToppingDisplayItem majorSelection)
+        {
+            if (majorSelection.ListItemIsSelected)
+            {
+                ThisCalzone.MajorMamaInfo = MajorOrMama.Major;
+                ThisCalzone.PopulateDisplayName();  //Updates to show MAJOR
+                SelectMajorToppings();
+                ThisCalzone.Toppings.AddMajorToppings();
+            }
+            else
+            {
+                ThisCalzone.CalzoneType = CalzoneType.RicottaMozarella;
+                ThisCalzone.MajorMamaInfo = MajorOrMama.Neither;
+                ThisCalzone.PopulateDisplayName();  //Updates to remove MAJOR
+                ThisCalzone.Toppings.RemoveToppings(new List<ToppingName>
+                {
+                    ToppingName.Mushrooms,
+                    ToppingName.BlackOlives,
+                    ToppingName.GreenPeppers,
+                    ToppingName.Onion,
+                    ToppingName.Pepperoni,
+                    ToppingName.Sausage
+                });
 
-       
+                foreach (var toppingSelection in ToppingSelectionsList)
+                {
+                    if (toppingSelection.ListTopping.ToppingName == ToppingName.Mushrooms ||
+                        toppingSelection.ListTopping.ToppingName == ToppingName.GreenPeppers ||
+                        toppingSelection.ListTopping.ToppingName == ToppingName.Onion ||
+                        toppingSelection.ListTopping.ToppingName == ToppingName.Pepperoni ||
+                        toppingSelection.ListTopping.ToppingName == ToppingName.Sausage ||
+                        toppingSelection.ListTopping.ToppingName == ToppingName.BlackOlives)
+                    {
+                      
+                        toppingSelection.ListItemIsSelected = false;
+                    }
+                }
+
+            }
+        }
+
+
         private void OnAddCalzoneToOrder()
         {
             OrderManager.Instance.UpdateItemInProgress(ThisCalzone);
             OrderManager.Instance.AddItemInProgressToOrder();
-            OnNavigateToCalzonePage();
+            OnNavigateToPizzaPage();
         }
 
-        private void OnNavigateToCalzonePage()
+        private void OnNavigateToPizzaPage()
         {
-            NavigateToCalzonePage?.Invoke(this, EventArgs.Empty);
+            NavigateToPizzaPage?.Invoke(this, EventArgs.Empty);
         }
        
         #endregion

@@ -116,14 +116,14 @@ namespace Zipline2.Pages
             {
                 ToppingsPageModel.ThisCalzone.Toppings.AddToppings(ToppingsOtherPage.SelectedOtherToppings);
             }
-            ToppingsPageModel.NavigateToCalzonePage += HandleNavigateToCalzonePage;
+            ToppingsPageModel.NavigateToPizzaPage += HandleNavigateToPizzaPage;
 
         }
        
-        public void HandleNavigateToCalzonePage(object sender, EventArgs e)
+        public void HandleNavigateToPizzaPage(object sender, EventArgs e)
         {
             var currentMainPage = (Application.Current.MainPage as MasterDetailPage);
-            currentMainPage.Detail = new NavigationPage(new CalzonePage());
+            currentMainPage.Detail = new NavigationPage(new PizzaPage());
             Application.Current.MainPage = currentMainPage;
         }
 
@@ -132,7 +132,7 @@ namespace Zipline2.Pages
             try
             {
                 base.OnDisappearing();
-                ToppingsPageModel.NavigateToCalzonePage -= HandleNavigateToCalzonePage;
+                ToppingsPageModel.NavigateToPizzaPage -= HandleNavigateToPizzaPage;
             }
             catch (Exception ex)
             {

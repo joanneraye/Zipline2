@@ -304,7 +304,7 @@ namespace Zipline2.PageModels
         public void OnCalzonesButtonClick()
         {
             var currentMainPage = Application.Current.MainPage as MasterDetailPage;
-            currentMainPage.Detail = new NavigationPage(new CalzonePage());
+            currentMainPage.Detail = new NavigationPage(new PizzaPage());
             Application.Current.MainPage = currentMainPage;
         }
 

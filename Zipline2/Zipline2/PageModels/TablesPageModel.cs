@@ -433,6 +433,10 @@ namespace Zipline2.PageModels
             var orderForThisTable = Tables.AllTables[tableSelected.IndexInAllTables].OpenOrder;
             if (orderForThisTable != null)
             {
+                if (!orderForThisTable.AllItemsSent)
+                {
+                    tableSelected.HasUnsentOrder = true;
+                }
                 OrderManager.Instance.OrderInProgress = orderForThisTable;
                 DisplayOrderPage();
             }

@@ -10,7 +10,6 @@ namespace Zipline2.BusinessLogic.Enums
         RicottaMozarella,
         SteakAndCheese,
         HotRope,
-        PBJ,
-        Major
+        PBJ
     }
 }

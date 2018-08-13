@@ -15,6 +15,8 @@ namespace Zipline2.Models
         public bool ForSalad { get; set; }
         public bool ForTakeout { get; set; }
 
+        public bool ForIndyOnly { get; set; }
+
         public bool ForCalzone { get; set; }
 
         //Foreign key with OrderItem table - can include toppings for salad or pizza

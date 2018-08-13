@@ -308,6 +308,10 @@ namespace Zipline2.Models
 
             foreach (var topping in Toppings.CurrentToppings)
             {
+                if (topping.ToppingName == ToppingName.Major)
+                {
+                    continue;
+                }
                 if (topping.ToppingWholeHalf == ToppingWholeHalf.Whole)
                 {
                     wholeToppingsList.Add(topping);

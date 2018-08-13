@@ -41,12 +41,17 @@ namespace Zipline2.Pages
         {
             base.OnAppearing();
             pizzaPageModel.NavigateToToppingsPage += HandleNavigateToToppingsPage;
-            //pizzaPageModel.NavigateToPizzaPage += HandleNavigateToPizzaPage;
+            pizzaPageModel.NavigateToCalzoneToppingsPage += HandleNavigateToCalzoneToppingsPage;
 
         }
         async void HandleNavigateToToppingsPage(object sender, ToppingsPageEventArgs e)
         {
             await Navigation.PushAsync(new PizzaToppingsPage(e.CurrentPizza));
+        }
+
+        async void HandleNavigateToCalzoneToppingsPage(object sender, CalzoneToppingsPageEventArgs e)
+        {
+            await Navigation.PushAsync(new CalzoneToppingsPage(e.CurrentCalzone));
         }
 
         //void HandleNavigateToPizzaPage(object sender, EventArgs e)
@@ -61,6 +66,7 @@ namespace Zipline2.Pages
         {
             base.OnDisappearing();
             pizzaPageModel.NavigateToToppingsPage -= HandleNavigateToToppingsPage;
+            pizzaPageModel.NavigateToCalzoneToppingsPage -= HandleNavigateToCalzoneToppingsPage;
         }
         #endregion
     }

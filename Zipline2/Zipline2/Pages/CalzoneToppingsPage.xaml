@@ -82,7 +82,7 @@
                                         Command="{Binding ToppingSelectedCommand}">
                                     <Button.Triggers>
                                         <DataTrigger TargetType="Button"
-                                                     Binding="{Binding ListItemIsSelected}"
+                                                     Binding="{Binding ListItemIsSelected, Mode=TwoWay}"
                                                              Value="True">
                                             <Setter Property="BackgroundColor" Value="CornflowerBlue" />
                                         </DataTrigger>
@@ -97,7 +97,7 @@
                                        FontSize="Small">
                                     <Label.Triggers>
                                         <DataTrigger TargetType="Label"
-                                                     Binding="{Binding ListItemIsSelected}"
+                                                     Binding="{Binding ListItemIsSelected, Mode=TwoWay}"
                                                              Value="True">
                                             <Setter Property="BackgroundColor" Value="CornflowerBlue" />
                                         </DataTrigger>

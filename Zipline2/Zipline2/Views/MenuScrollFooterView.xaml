@@ -13,7 +13,7 @@
                 <Setter Property="BorderWidth" Value="2" />
                 <Setter Property="BackgroundColor" Value="Black" />
                 <Setter Property="HorizontalOptions" Value="Start" />
-                <Setter Property="HeightRequest" Value="35" />
+                <Setter Property="HeightRequest" Value="55" />
                 <Setter Property="WidthRequest" Value="80" />
                 <Setter Property="FontSize" Value="10" />
             </Style>
@@ -117,7 +117,7 @@
                 </Button>
             </StackLayout>
             <ScrollView Orientation="Horizontal">
-                <StackLayout Orientation="Horizontal" Spacing="1">
+                <StackLayout Orientation="Horizontal" Spacing="2" HorizontalOptions="CenterAndExpand">
                     <Button Text="Salads"
                         Command="{Binding SaladsCommand}"
                         Style="{StaticResource footerScrollMenu}">
@@ -129,9 +129,10 @@
                             </DataTrigger>
                         </Button.Triggers>
                      </Button>
-                    <Button Text="Pizza"
+                    <Button Text="Pizza/Calzone"
                         Command="{Binding PizzaCommand}"
-                        Style="{StaticResource footerScrollMenu}">
+                        Style="{StaticResource footerScrollMenu}"
+                            WidthRequest="100">
                         <Button.Triggers>
                             <DataTrigger TargetType="Button" 
                                  Binding="{Binding IsPizzaPageDisplayed}"
@@ -151,7 +152,7 @@
                             </DataTrigger>
                         </Button.Triggers>
                     </Button>
-                    <Button Text="Calzone"
+                    <!--<Button Text="Calzone"
                         Command="{Binding CalzoneCommand}"
                         Style="{StaticResource footerScrollMenu}"
                              WidthRequest="85">
@@ -162,7 +163,7 @@
                             <Setter Property="IsVisible" Value="False" />
                              </DataTrigger>
                         </Button.Triggers>
-                    </Button>
+                    </Button>-->
                     <Button Text="Specials"
                              Command="{Binding SpecialsCommand}"
                         Style="{StaticResource footerScrollMenu}"

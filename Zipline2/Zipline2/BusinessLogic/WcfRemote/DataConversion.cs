@@ -247,7 +247,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
                     calzone.CalzoneType = CalzoneType.SteakAndCheese;
                     break;
                 case 56:
-                    calzone.CalzoneType = CalzoneType.Major;
+                    calzone.CalzoneType = CalzoneType.RicottaMozarella;
                     calzone.MajorMamaInfo = MajorOrMama.Major;
                     calzone.Toppings.AddMajorToppings();
                     break;

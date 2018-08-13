@@ -11,8 +11,7 @@ namespace Zipline2.Data
             { CalzoneType.RicottaMozarella, "Calzone Mozzarella Ricotta" },
              { CalzoneType.HotRope, "Calzone Hot Rope" },
               { CalzoneType.PBJ, "Calzone PB&J" },
-            { CalzoneType.SteakAndCheese, "Calzone Steak and Cheese" },
-             { CalzoneType.Major, "Calzone Major" }
+            { CalzoneType.SteakAndCheese, "Calzone Steak and Cheese" }
 
         };
         public static Dictionary<PizzaType, string> DisplayPizzaNameDictionary = new Dictionary<PizzaType, string>
@@ -129,7 +128,6 @@ namespace Zipline2.Data
              { ToppingName.Cucumbers, "Cucumbers" },
                      { ToppingName.CutInto12, "Cut Into 12" },
             { ToppingName.DAIYA, "DAIYA" },
-              { ToppingName.Deep, "Satch-Pan" },
                { ToppingName.DressingOnSide, "Dressing On Side" },
             { ToppingName.ExtraCheese, "Extra Cheese" },
             { ToppingName.ExtraDressingOnSide, "Extra Dressing On Side" },
@@ -153,6 +151,7 @@ namespace Zipline2.Data
              { ToppingName.LightMozarella, "Light Mozarella" },
             { ToppingName.LightRicotta, "Light Ricotta" },
             { ToppingName.LightSauce, "Light Sauce" },
+            { ToppingName.Major, "MAJOR" },
             { ToppingName.Meatballs, "Meatballs" },
             { ToppingName.Mushrooms, "Mushrooms" },
             { ToppingName.NoButter, "No Butter" },
@@ -181,6 +180,7 @@ namespace Zipline2.Data
             { ToppingName.SliceCutInHalfSepPlate, "Slice cut in half Separate Plate" },
             { ToppingName.Spinach, "Spinach" },
             { ToppingName.Steak, "Steak" },
+                  { ToppingName.SteakNCheeseCalzone, "Steak N Cheese Calzone" },
             { ToppingName.SundriedTomatoes, "Sun-dried Tomatoes" },
              { ToppingName.TakeoutBring2Table, "Takeout Bring To Table" },
             { ToppingName.TakeoutKeepInKitch, "Takeout Keep In Kitchen" },

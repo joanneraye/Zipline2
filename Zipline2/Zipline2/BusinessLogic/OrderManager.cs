@@ -165,9 +165,9 @@ namespace Zipline2.BusinessLogic
         { 
              foreach (var item in itemsToAdd)
              {
-                OrderManager.Instance.OrderInProgress.AddItemToOrder(item);
+                OrderInProgress.AddItemToOrder(item);
              }
-            await OrderManager.Instance.OrderInProgress.UpdateOrderOnServerAsync();
+            await OrderInProgress.UpdateOrderOnServerAsync();
         }
 
         public void InitializeOrderInProgress()
@@ -208,6 +208,7 @@ namespace Zipline2.BusinessLogic
         /// </summary>
         public async void AddItemInProgressToOrder()
         {
+            MarkCurrentTableUnsentOrder(true);
             //Go ahead and add item to order so we can see the price change....
             if (OrderItemInProgress != null)
             {
@@ -219,6 +220,7 @@ namespace Zipline2.BusinessLogic
 
         public async void AddSpeciaItemsToOrder()
         {
+            MarkCurrentTableUnsentOrder(true);
             if (SpecialOrderItemsInProgress != null)
             {
                 OrderInProgress.AddItemToOrder(SpecialOrderItemsInProgress[0]);
