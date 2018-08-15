@@ -11,17 +11,36 @@
         <ResourceDictionary>
             <converters:SelectedDrinkColorConverter x:Key="drinksTextColorConverter"/>
             <Style x:Key="DrinkSelectionButtons" TargetType="Button">
-                <!--<Setter Property="Margin" Value="0, 10" />-->
+                <Setter Property="Margin" Value="0, 10" />
                 <Setter Property="BackgroundColor" Value="Black" />
                 <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="HeightRequest" Value="100" />
                 <Setter Property="VerticalOptions" Value="Start" />
                 <Setter Property="FontSize" Value="Small" />
             </Style>
-            <!--<Style x:Key="PlusInCircleIcon" TargetType="iconize:IconImage">
-                <Setter Property="Icon" Value="fa-plus-circle" />
-                <Setter Property="IconSize" Value="25" />
-                <Setter Property="IconColor" Value="LightBlue" />
-            </Style>-->
+            <Style x:Key="DrinkSelectionFrameButton" TargetType="Frame">
+                <Setter Property="CornerRadius" Value="63" />
+                <Setter Property="WidthRequest" Value="126" />
+                <Setter Property="HeightRequest" Value="126" />
+                <Setter Property="BackgroundColor" Value="Orange" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="FillAndExpand" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="0" />
+            </Style>
+
+            <Style x:Key="DrinkSelectionLabels" TargetType="Label">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+            </Style>
+
+           
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -31,42 +50,42 @@
                 <StackLayout Orientation="Horizontal"
                              BackgroundColor="Black"
                              Margin="0">
-                    <Button Text="Soft Drinks"
+                    <Button Text="Soda"
                             TextColor="{Binding SoftDrinksSelected,
                                 Mode=TwoWay, 
                                 Converter={StaticResource drinksTextColorConverter}}"
                             Command="{Binding DrinksSelectedCommand}"
                             CommandParameter="{x:Static enums:DrinkCategory.SoftDrink}"
                             Style="{StaticResource DrinkSelectionButtons}"/>
-                    <Button Text="Draft Beer"
+                    <Button Text="Draft"
                             TextColor="{Binding DraftBeerSelected,
                                 Mode=TwoWay, 
                                 Converter={StaticResource drinksTextColorConverter}}"
                             Command="{Binding DrinksSelectedCommand}"
                             CommandParameter="{x:Static enums:DrinkCategory.DraftBeer}"
                             Style="{StaticResource DrinkSelectionButtons}"/>
-                    <Button Text="Bottled Beer"
+                    <Button Text="Cans Beer"
                             TextColor="{Binding BottledBeerSelected,
                                 Mode=TwoWay, 
                                 Converter={StaticResource drinksTextColorConverter}}"
                             Command="{Binding DrinksSelectedCommand}"
                             CommandParameter="{x:Static enums:DrinkCategory.BottledBeer}"
                             Style="{StaticResource DrinkSelectionButtons}"/>
-                    <Button Text="White Wine"
-                            TextColor="{Binding WhiteWineSelected,
+                    <Button Text="Wine Glass"
+                            TextColor="{Binding GlassWineSelected,
                                 Mode=TwoWay, 
                                 Converter={StaticResource drinksTextColorConverter}}"
                             Command="{Binding DrinksSelectedCommand}"
-                            CommandParameter="{x:Static enums:DrinkCategory.WhiteWine}"
+                            CommandParameter="{x:Static enums:DrinkCategory.GlassWine}"
                             Style="{StaticResource DrinkSelectionButtons}"/>
-                    <Button Text="Red Wine"
-                            TextColor="{Binding RedWineSelected,
+                    <Button Text="Wine Bottle"
+                            TextColor="{Binding BottleWineSelected,
                                 Mode=TwoWay, 
                                 Converter={StaticResource drinksTextColorConverter}}"
                             Command="{Binding DrinksSelectedCommand}"
-                            CommandParameter="{x:Static enums:DrinkCategory.RedWine}"
+                            CommandParameter="{x:Static enums:DrinkCategory.BottleWine}"
                             Style="{StaticResource DrinkSelectionButtons}"/>
-                    <Button Text="Hot Drinks"
+                    <!--<Button Text="Hot Drinks"
                             TextColor="{Binding HotDrinksSelected,
                                 Mode=TwoWay, 
                                 Converter={StaticResource drinksTextColorConverter}}"
@@ -79,12 +98,148 @@
                                 Converter={StaticResource drinksTextColorConverter}}"
                             Command="{Binding DrinksSelectedCommand}"
                             CommandParameter="{x:Static enums:DrinkCategory.HouseWine}"
-                            Style="{StaticResource DrinkSelectionButtons}"/>
-                   
+                            Style="{StaticResource DrinkSelectionButtons}"/>-->
+
                 </StackLayout>
             </ScrollView>
-
             <ListView ItemsSource="{Binding DrinkDisplayItems, Mode=TwoWay}"
+                      CachingStrategy="RecycleElement"
+                      ItemSelected="OnDrinkRowSelected"
+                      RowHeight="131"
+                      x:Name="DrinksListView"
+                      BackgroundColor="Black"
+                      SeparatorVisibility="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell Height="134">
+                            <Grid HorizontalOptions="Center">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="126"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="126"/>
+                                    <ColumnDefinition Width="126"/>
+                                    <ColumnDefinition Width="126"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Frame Grid.Column="0" Style="{StaticResource DrinkSelectionFrameButton}" BackgroundColor="{Binding CircleColors[0], Mode=TwoWay}" >
+                                    <Frame.Content>
+                                        <AbsoluteLayout>
+                                            <Button AbsoluteLayout.LayoutBounds="18,-15,AutoSize,AutoSize" 
+                                                    Text="+"
+                                                    TextColor="Black" 
+                                                    BackgroundColor="Transparent" 
+                                                     Command="{Binding PlusButtonCommand}"
+                                                        CommandParameter="0"
+                                                    FontSize="30" ></Button>
+                                            <Label  AbsoluteLayout.LayoutBounds="8,45,AutoSize,AutoSize" 
+                                                    Text="{Binding RowDrinks[0].ItemCount, Mode=TwoWay}" 
+                                                    Style="{StaticResource DrinkSelectionLabels}" 
+                                                    TextColor="Blue" >
+                                                <Label.Triggers>
+                                                    <DataTrigger TargetType="Label"
+                                                     Binding="{Binding HideButtons[0], Mode=TwoWay}"
+                                                             Value="True">
+                                                        <Setter Property="TextColor" Value="Black" />
+                                                    </DataTrigger>
+                                                </Label.Triggers>
+                                            </Label>
+                                            <Label  AbsoluteLayout.LayoutBounds="25,45,AutoSize,AutoSize"  
+                                                    Text="{Binding RowDrinks[0].ShortName, Mode=TwoWay}"
+                                                Style="{StaticResource DrinkSelectionLabels}" TextColor="Black" >
+                                            </Label>
+                                            <Button AbsoluteLayout.LayoutBounds="18,36,AutoSize,AutoSize" 
+                                                    Text="_"
+                                                    TextColor="Black" 
+                                                    BackgroundColor="Transparent"
+                                                          Command="{Binding MinusButtonCommand}"
+                                                        CommandParameter="0"
+                                                    FontSize="35" ></Button>
+                                        </AbsoluteLayout>
+                                    </Frame.Content>
+                                    <Frame.Triggers>
+                                        <DataTrigger TargetType="Frame"
+                                                      Binding="{Binding BackgroundColor, Mode=TwoWay}"
+                                                             Value="Black">
+                                            <Setter Property="IsVisible" Value="False" />
+                                        </DataTrigger>
+                                    </Frame.Triggers>
+                                </Frame>
+                                <Frame Grid.Column="1" Style="{StaticResource DrinkSelectionFrameButton}" BackgroundColor="{Binding CircleColors[1], Mode=TwoWay}" >
+                                    <Frame.Content>
+                                        <AbsoluteLayout>
+                                            <Button AbsoluteLayout.LayoutBounds="18,-15,AutoSize,AutoSize" 
+                                                    Text="+"
+                                                    TextColor="Black" 
+                                                    BackgroundColor="Transparent" 
+                                                     Command="{Binding PlusButtonCommand}"
+                                                        CommandParameter="1"
+                                                    FontSize="30" ></Button>
+                                            <Label  AbsoluteLayout.LayoutBounds="8,45,AutoSize,AutoSize" 
+                                                    Text="{Binding RowDrinks[1].ItemCount, Mode=TwoWay}" 
+                                                Style="{StaticResource DrinkSelectionLabels}" TextColor="Blue" >
+                                                <Label.Triggers>
+                                                    <DataTrigger TargetType="Label"
+                                                     Binding="{Binding HideButtons[1], Mode=TwoWay}"
+                                                             Value="True">
+                                                        <Setter Property="TextColor" Value="Black" />
+                                                    </DataTrigger>
+                                                </Label.Triggers>
+                                            </Label>
+                                            <Label  AbsoluteLayout.LayoutBounds="25,45,AutoSize,AutoSize"  Text="{Binding RowDrinks[1].ShortName, Mode=TwoWay}"
+                                                Style="{StaticResource DrinkSelectionLabels}" TextColor="Black" >
+                                            </Label>
+                                            <Button AbsoluteLayout.LayoutBounds="18,36,AutoSize,AutoSize" 
+                                                    Text="_"
+                                                    TextColor="Black" 
+                                                    BackgroundColor="Transparent"
+                                                          Command="{Binding MinusButtonCommand}"
+                                                        CommandParameter="1"
+                                                    FontSize="35" ></Button>
+                                        </AbsoluteLayout>
+                                    </Frame.Content>
+                                </Frame>
+                                <Frame Grid.Column="2" Style="{StaticResource DrinkSelectionFrameButton}" BackgroundColor="{Binding CircleColors[2], Mode=TwoWay}" >
+                                    <Frame.Content>
+                                        <AbsoluteLayout>
+                                            <Button AbsoluteLayout.LayoutBounds="18,-15,AutoSize,AutoSize"
+                                                    Text="+" 
+                                                    TextColor="Black" 
+                                                    BackgroundColor="Transparent" 
+                                                     Command="{Binding PlusButtonCommand}"
+                                                        CommandParameter="2"
+                                                    FontSize="30" ></Button>
+                                            <Label  AbsoluteLayout.LayoutBounds="8,45,AutoSize,AutoSize"  
+                                                    Text="{Binding RowDrinks[2].ItemCount, Mode=TwoWay}"  
+                                                Style="{StaticResource DrinkSelectionLabels}" TextColor="Blue" >
+                                                <Label.Triggers>
+                                                    <DataTrigger TargetType="Label"
+                                                     Binding="{Binding HideButtons[2], Mode=TwoWay}"
+                                                             Value="True">
+                                                        <Setter Property="TextColor" Value="Black" />
+                                                    </DataTrigger>
+                                                </Label.Triggers>
+                                            </Label>
+                                            <Label  AbsoluteLayout.LayoutBounds="25,45,AutoSize,AutoSize"  Text="{Binding RowDrinks[2].ShortName, Mode=TwoWay}"
+                                                Style="{StaticResource DrinkSelectionLabels}" TextColor="Black" >
+                                            </Label>
+                                            <Button AbsoluteLayout.LayoutBounds="18,36,AutoSize,AutoSize" 
+                                                    Text="_"
+                                                    TextColor="Black"
+                                                    BackgroundColor="Transparent" 
+                                                          Command="{Binding MinusButtonCommand}"
+                                                        CommandParameter="2"
+                                                    FontSize="35" ></Button>
+                                        </AbsoluteLayout>
+                                    </Frame.Content>
+                                </Frame>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <!--<ListView ItemsSource="{Binding DrinkDisplayItems, Mode=TwoWay}"
                       CachingStrategy="RecycleElement"
                       ItemSelected="OnDrinkRowSelected"
                       x:Name="DrinksListView"
@@ -113,7 +268,7 @@
                                        FontSize="Small"
                                        HorizontalOptions="Start"
                                        VerticalOptions="Center">
-                                    <!--<Label.Triggers>
+                                    --><!--<Label.Triggers>
                                         <DataTrigger TargetType="Label" 
                                                         Binding="{Binding Drink.DrinkSize, Mode=TwoWay}"
                                                         Value="Pitcher">
@@ -124,9 +279,9 @@
                                                         Value="Bottle">
                                             <Setter Property="IsVisible" Value="False" />
                                         </DataTrigger>
-                                    </Label.Triggers>-->
+                                    </Label.Triggers>--><!--
                                 </Label>
-                                <!--<Label Grid.Column="1"
+                                --><!--<Label Grid.Column="1"
                                        Text=" "
                                        FontSize="Micro"
                                        TextColor="Orange"
@@ -160,7 +315,7 @@
                                             <Setter Property="Text" Value=" " />
                                         </DataTrigger>
                                     </Label.Triggers>
-                                </Label>-->
+                                </Label>--><!--
                                 <iconize:IconButton Grid.Column ="2"
                                                     BackgroundColor="Black"
                                                     TextColor="White"
@@ -188,7 +343,7 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>
+            </ListView>-->
             <!--<Button Text="Add Drinks to Order"
                     Margin="0,5,0,0"
                     HorizontalOptions="FillAndExpand"
@@ -203,3 +358,42 @@
         </StackLayout>
     </ContentPage.Content>
 </local:BasePage>
+
+
+
+<!-- <Frame Grid.Column="0" Style="{StaticResource DrinkSelectionFrameButton}" BackgroundColor="White" >
+    <Frame.Content>
+                                            <StackLayout BackgroundColor="White" VerticalOptions="FillAndExpand">
+                                            <Button  HorizontalOptions="Center" VerticalOptions="Start"
+                                                     Margin="0"
+                                                     HeightRequest="25"
+                                                        Text="+" 
+                                                        TextColor="Black"
+                                                        BackgroundColor="Transparent" 
+                                                        Command="{Binding PlusButtonCommand}"
+                                                        CommandParameter="0"
+                                                        FontSize="30" />
+                                            <Label 
+                                                Text="{Binding RowDrinks[0].ItemCount, Mode=TwoWay}" 
+                                                WidthRequest="20" 
+                                                HeightRequest="25"
+                                                BackgroundColor="LightGray"
+                                                Style="{StaticResource DrinkSelectionLabels}" 
+                                                TextColor="Blue" >
+                                                </Label>
+                                            <Label  Text="{Binding RowDrinks[0].ShortName, Mode=TwoWay}"
+                                                    Style="{StaticResource DrinkSelectionLabels}" 
+                                                    HeightRequest="30"
+                                                    TextColor="Black" >
+                                                </Label>
+                                                <Button HorizontalOptions="Center"
+                                                        Text="_" 
+                                                        TextColor="Black"
+                                                        HeightRequest="25"
+                                                        BackgroundColor="Transparent"
+                                                         Command="{Binding MinusButtonCommand}"
+                                                        CommandParameter="0"
+                                                        FontSize="35" ></Button>
+                                            </StackLayout>
+                                        </Frame.Content>
+                                    </Frame>-->

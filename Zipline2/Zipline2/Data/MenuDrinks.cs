@@ -11,10 +11,9 @@ namespace Zipline2.Data
         public static List<Drink> SoftDrinks { get; set; }
         public static List<Drink> DraftBeers { get; set; }
         public static List<Drink> BottledBeers { get; set; }
-        public static List<Drink> RedWines { get; set; }
-        public static List<Drink> WhiteWines { get; set; }
-        public static List<Drink> HouseWines { get; set; }
-        public static List<Drink> HotDrinks { get; set; }
+        public static List<Drink> GlassWines { get; set; }
+        public static List<Drink> BottleWines { get; set; }
+       
         private static Dictionary<DrinkType, decimal> drinkTypeDbIdDictionary;
         private static Dictionary<DrinkType, decimal> DrinkTypeDbIdDictionary
         {
@@ -79,7 +78,7 @@ namespace Zipline2.Data
                 { DrinkType.DietCokeCan, 175 },
                 { DrinkType.SodaPitcher, 185 },
                 { DrinkType.Flight, 190 },
-                { DrinkType.CrystalCreme, 214 },
+                { DrinkType.SpecialSoda, 214 },
                 { DrinkType.Hefeweizen, 13 },
                 { DrinkType.FirstMagnitude72,  199 },
                 { DrinkType.EmployeeBeer,  203 },
@@ -92,15 +91,15 @@ namespace Zipline2.Data
                  { DrinkType.BudLight,  23 },
                  { DrinkType.NaGenesee,  211 },
                  { DrinkType.JaiAlaiIpa,  216 },
-                 { DrinkType.AlverdiPinotGrigio,  24 },
-                 { DrinkType.SilverRidgeChardonnay,  25 },
-                 { DrinkType.RaywoodWhiteZin,  30 },
-                 { DrinkType.TheRoseGardenRose,  205 },
+                 { DrinkType.PinotGrigio,  24 },
+                 { DrinkType.Chardonnay,  25 },
+                 { DrinkType.WhiteZin,  30 },
+                 { DrinkType.Rose,  205 },
                  { DrinkType.DouglasGreenSb,  210 },
                  { DrinkType.LeeseFitchCab, 26 },
                  { DrinkType.AlverdiSangiovese,  28 },
-                 { DrinkType.CaposaldoChianti,  37 },
-                 { DrinkType.ClineZinfandel,  188 },
+                 { DrinkType.Chianti,  37 },
+                 { DrinkType.RedZinfandel,  188 },
                  { DrinkType.GreenTruckPetitiSyrah,  195 },
                  { DrinkType.ClayhouseRedBlend,  197 },
                  { DrinkType.YauquenMalbec,  208 },
@@ -136,13 +135,13 @@ namespace Zipline2.Data
                  { 21, DrinkType.OmissionPaleAle },
                  { 22, DrinkType.Bud },
                  { 23, DrinkType.BudLight },
-                  { 24, DrinkType.AlverdiPinotGrigio },
-                 { 25, DrinkType.SilverRidgeChardonnay },
+                  { 24, DrinkType.PinotGrigio },
+                 { 25, DrinkType.Chardonnay },
                   { 26, DrinkType.LeeseFitchCab },
                  { 28, DrinkType.AlverdiSangiovese },
               
-                 { 30, DrinkType.RaywoodWhiteZin },
-                    { 37, DrinkType.CaposaldoChianti },
+                 { 30, DrinkType.WhiteZin },
+                    { 37, DrinkType.Chianti },
                 { 42, DrinkType.SweetArnoldPalmer },
                 { 43, DrinkType.UnsweetArnoldPalmer },
                  { 74, DrinkType.RegularCoffee },
@@ -161,21 +160,21 @@ namespace Zipline2.Data
                  { 174, DrinkType.WineSpecial14 },
                 { 175, DrinkType.DietCokeCan },
                 { 185, DrinkType.SodaPitcher },
-                 { 188, DrinkType.ClineZinfandel },
+                 { 188, DrinkType.RedZinfandel },
                   { 190, DrinkType.Flight },
                  { 195, DrinkType.GreenTruckPetitiSyrah },
                  { 197, DrinkType.ClayhouseRedBlend },
                   { 199, DrinkType.FirstMagnitude72 },
                 { 203, DrinkType.EmployeeBeer },
                 { 204, DrinkType.SwampHeadBigNoseIpa },
-                 { 205, DrinkType.TheRoseGardenRose },
+                 { 205, DrinkType.Rose },
                 { 207, DrinkType.PilsLagerOrBlondeAle },
                  { 208, DrinkType.YauquenMalbec },
                  { 209, DrinkType.BodegasLaya },
                  { 210, DrinkType.DouglasGreenSb },
                  { 211, DrinkType.NaGenesee },
                 { 212,  DrinkType.Beer12Oz },
-                { 214, DrinkType.CrystalCreme },
+                { 214, DrinkType.SpecialSoda },
                  { 216, DrinkType.JaiAlaiIpa }
             };
         }
@@ -201,30 +200,30 @@ namespace Zipline2.Data
                         CreateBottledBeers();
                     }
                     return BottledBeers;
-                case DrinkCategory.RedWine:
-                    if (RedWines == null || RedWines.Count <= 0)
+                case DrinkCategory.GlassWine:
+                    if (GlassWines == null || GlassWines.Count <= 0)
                     {
-                        CreateRedWines();
+                        CreateGlassWines();
                     }
-                    return RedWines;
-                case DrinkCategory.WhiteWine:
-                    if (WhiteWines == null || WhiteWines.Count <= 0)
+                    return GlassWines;
+                case DrinkCategory.BottleWine:
+                    if (BottleWines == null || BottleWines.Count <= 0)
                     {
-                        CreateWhiteWines();
+                        CreateBottleWines();
                     }
-                   return WhiteWines;
-                case DrinkCategory.HouseWine:
-                    if (HouseWines == null || HouseWines.Count <= 0)
-                    {
-                        CreateHouseWines();
-                    }
-                    return HouseWines;
-                case DrinkCategory.HotDrink:
-                    if (HotDrinks == null || HotDrinks.Count <= 0)
-                    {
-                        CreateHotDrinks();
-                    }
-                    return HotDrinks;
+                   return BottleWines;
+                //case DrinkCategory.HouseWine:
+                //    if (HouseWines == null || HouseWines.Count <= 0)
+                //    {
+                //        CreateHouseWines();
+                //    }
+                //    return HouseWines;
+                //case DrinkCategory.HotDrink:
+                //    if (HotDrinks == null || HotDrinks.Count <= 0)
+                //    {
+                //        CreateHotDrinks();
+                //    }
+                //    return HotDrinks;
             }
             return new List<Drink>();
         }
@@ -232,11 +231,12 @@ namespace Zipline2.Data
         private static void CreateSoftDrinks()
         {
             SoftDrinks = new List<Drink>();
-            foreach (KeyValuePair<DrinkType, string> drinks in DisplayNames.DisplaySoftDrinkNameDictionary)
+            foreach (KeyValuePair<DrinkType, string[]> drinks in DisplayNames.DisplaySoftDrinkNameDictionary)
             {
                 Drink thisDrink = new Drink(drinks.Key)
                 {
-                    ItemName = drinks.Value,
+                    ItemName = drinks.Value[0],
+                    ShortName = drinks.Value[1],
                     DrinkCategory = DrinkCategory.SoftDrink,
                     DrinkSize = DrinkSize.JustOneSize,
                     DbItemId = MenuDrinks.GetDbItemId(drinks.Key)
@@ -293,8 +293,9 @@ namespace Zipline2.Data
 
         private static void CreateDraftBeers()
         {
+            var pintBeers = new List<Drink>();
             DraftBeers = new List<Drink>();
-            foreach (KeyValuePair<DrinkType, string> drinks in DisplayNames.DisplayDraftBeerNameDictionary)
+            foreach (KeyValuePair<DrinkType, string[]> drinks in DisplayNames.DisplayDraftBeerNameDictionary)
             {
                 Drink thisDrink = new Drink(drinks.Key)
                 {
@@ -302,40 +303,52 @@ namespace Zipline2.Data
                 };
                 if (drinks.Key == DrinkType.Beer12Oz)
                 {
-                    thisDrink.ItemName = drinks.Value;
+                    thisDrink.ItemName = drinks.Value[0];
+                    thisDrink.ShortName = drinks.Value[1];
                     thisDrink.DrinkSize = DrinkSize.JustOneSize;
                     PopulateDbInfo(ref thisDrink);
+                    pintBeers.Add(thisDrink);
                     DraftBeers.Add(thisDrink);
                 }
                 else
                 {
-                    thisDrink.ItemName = drinks.Value + " - PINT";
+                    thisDrink.ItemName = drinks.Value[0];
+                    thisDrink.ShortName = drinks.Value[1];
                     thisDrink.DrinkSize = DrinkSize.Pint;
                     PopulateDbInfo(ref thisDrink);
+                    pintBeers.Add(thisDrink);
                     DraftBeers.Add(thisDrink);
                     
-                    Drink pitcherDrink = new Drink(drinks.Key)
+                    
+                }
+            }
+            foreach (var beer in pintBeers)
+            {
+                if (beer.DrinkType != DrinkType.Beer12Oz)
+                {
+                    Drink pitcherDrink = new Drink(beer.DrinkType)
                     {
-                        ItemName = drinks.Value + " - PITCHER",
-                        DrinkCategory = DrinkCategory.DraftBeer,
-                        DrinkSize = DrinkSize.Pitcher
+                    ItemName = beer.ItemName,
+                    ShortName = beer.ShortName,
+                    DrinkCategory = DrinkCategory.DraftBeer,
+                    DrinkSize = DrinkSize.Pitcher
                     };
                     pitcherDrink.PricePerItemIncludingToppings *= 3;
                     PopulateDbInfo(ref pitcherDrink);
                     DraftBeers.Add(pitcherDrink);
                 }
-                
             }
         }
 
         private static void CreateBottledBeers()
         {
             BottledBeers = new List<Drink>();
-            foreach (KeyValuePair<DrinkType, string> drinks in DisplayNames.DisplayBottledBeerNameDictionary)
+            foreach (KeyValuePair<DrinkType, string[]> drinks in DisplayNames.DisplayBottledBeerNameDictionary)
             {
                 Drink thisDrink = new Drink(drinks.Key)
                 {
-                    ItemName = drinks.Value,
+                    ItemName = drinks.Value[0],
+                    ShortName = drinks.Value[1],
                     DrinkCategory = DrinkCategory.BottledBeer,
                     DrinkSize = DrinkSize.JustOneSize
                 };
@@ -343,115 +356,151 @@ namespace Zipline2.Data
                 BottledBeers.Add(thisDrink);
             }
         }
-        private static void CreateRedWines()
-        {
-            RedWines = new List<Drink>();
-            foreach (KeyValuePair<DrinkType, string> drinks in DisplayNames.DisplayRedWineNameDictionary)
-            {
-                Drink thisDrink = new Drink(drinks.Key)
-                {  
-                    DrinkCategory = DrinkCategory.RedWine
-                };
-                if (drinks.Key == DrinkType.LeeseFitchCab ||
-                    drinks.Key == DrinkType.AlverdiSangiovese)
-                {
-                    thisDrink.ItemName = drinks.Value +" - GLASS";
-                    thisDrink.DrinkSize = DrinkSize.Glass;
-                    PopulateDbInfo(ref thisDrink);
-                    RedWines.Add(thisDrink);
 
-                    Drink bottleDrink = new Drink(drinks.Key)
-                    {
-                        ItemName = drinks.Value + " - BOTTLE",
-                        DrinkCategory = DrinkCategory.RedWine
-                    };
-                    bottleDrink.DrinkSize = DrinkSize.Bottle;
-                    bottleDrink.PricePerItemIncludingToppings *= 3;
-                    PopulateDbInfo(ref bottleDrink);
-                    RedWines.Add(bottleDrink);
-                }
-                else
-                {
-                    thisDrink.ItemName = drinks.Value + " - BOTTLE";
-                    thisDrink.DrinkSize = DrinkSize.Bottle;
-                    PopulateDbInfo(ref thisDrink);
-                    RedWines.Add(thisDrink);
-                }
-            }
-        }
-        private static void CreateWhiteWines()
+        private static void CreateGlassWines()
         {
-            WhiteWines = new List<Drink>();
-            foreach (KeyValuePair<DrinkType, string> drinks in DisplayNames.DisplayWhiteWineNameDictionary)
+            GlassWines = new List<Drink>();
+            foreach (KeyValuePair<DrinkType, string[]> drinks in DisplayNames.DisplayGlassWineNameDictionary)
             {
                 Drink thisDrink = new Drink(drinks.Key)
                 {
-                    DrinkCategory = DrinkCategory.WhiteWine
+                    DrinkCategory = DrinkCategory.GlassWine,
+                    ItemName = drinks.Value[0],
+                    ShortName = drinks.Value[1],
+                    DrinkSize = DrinkSize.Glass
                 };
-                if (drinks.Key == DrinkType.DouglasGreenSb)
-                {
-                    thisDrink.ItemName = drinks.Value + " - BOTTLE";
-                    thisDrink.DrinkSize = DrinkSize.Bottle;
-                    PopulateDbInfo(ref thisDrink);
-                    WhiteWines.Add(thisDrink);
-                }
-                else
-                {
-                    thisDrink.ItemName = drinks.Value + " - GLASS";
-                    thisDrink.DrinkSize = DrinkSize.Glass;
-                    PopulateDbInfo(ref thisDrink);
-                    WhiteWines.Add(thisDrink);
+               
+                PopulateDbInfo(ref thisDrink);
+                GlassWines.Add(thisDrink);
+            }
+        }
 
-                    Drink bottleDrink = new Drink(drinks.Key)
-                    {
-                        ItemName = drinks.Value + " - BOTTLE",
-                        DrinkCategory = DrinkCategory.WhiteWine,
-                        DrinkSize = DrinkSize.Bottle
-                    };
-                    bottleDrink.PricePerItemIncludingToppings *= 3;
-                    PopulateDbInfo(ref bottleDrink);
-                    WhiteWines.Add(bottleDrink);
-                }
-            }
-        }
-        private static void CreateHouseWines()
+        private static void CreateBottleWines()
         {
-            HouseWines = new List<Drink>();
-            foreach (KeyValuePair<DrinkType, string> drinks in DisplayNames.DisplayHouseWineNameDictionary)
+            BottleWines = new List<Drink>();
+            foreach (KeyValuePair<DrinkType, string[]> drinks in DisplayNames.DisplayBottleWineNameDictionary)
             {
                 Drink thisDrink = new Drink(drinks.Key)
                 {
-                    ItemName = drinks.Value,
-                    DrinkCategory = DrinkCategory.HouseWine,
-                    DrinkSize = DrinkSize.JustOneSize
+                    DrinkCategory = DrinkCategory.BottleWine,
+                    ItemName = drinks.Value[0],
+                    ShortName = drinks.Value[1],
+                    DrinkSize = DrinkSize.Bottle
                 };
+
+                thisDrink.PricePerItemIncludingToppings *= 3;
                 PopulateDbInfo(ref thisDrink);
-                HouseWines.Add(thisDrink);
+                BottleWines.Add(thisDrink);
             }
         }
-        private static void CreateHotDrinks()
-        {
-            HotDrinks = new List<Drink>();
-            foreach (KeyValuePair<DrinkType, string> drinks in DisplayNames.DisplayHotDrinkNameDictionary)
-            {
-                Drink thisDrink = new Drink(drinks.Key)
-                {
-                    ItemName = drinks.Value,
-                    DrinkCategory = DrinkCategory.HotDrink,
-                    DrinkSize = DrinkSize.JustOneSize
-                };
-                PopulateDbInfo(ref thisDrink);
-                HotDrinks.Add(thisDrink);
-            }
-        }
+
+        //private static void CreateRedWines()
+        //{
+        //    RedWines = new List<Drink>();
+        //    foreach (KeyValuePair<DrinkType, string> drinks in DisplayNames.DisplayRedWineNameDictionary)
+        //    {
+        //        Drink thisDrink = new Drink(drinks.Key)
+        //        {  
+        //            DrinkCategory = DrinkCategory.RedWine
+        //        };
+        //        if (drinks.Key == DrinkType.LeeseFitchCab ||
+        //            drinks.Key == DrinkType.AlverdiSangiovese)
+        //        {
+        //            thisDrink.ItemName = drinks.Value +" - GLASS";
+        //            thisDrink.DrinkSize = DrinkSize.Glass;
+        //            PopulateDbInfo(ref thisDrink);
+        //            RedWines.Add(thisDrink);
+
+        //            Drink bottleDrink = new Drink(drinks.Key)
+        //            {
+        //                ItemName = drinks.Value + " - BOTTLE",
+        //                DrinkCategory = DrinkCategory.RedWine
+        //            };
+        //            bottleDrink.DrinkSize = DrinkSize.Bottle;
+        //            bottleDrink.PricePerItemIncludingToppings *= 3;
+        //            PopulateDbInfo(ref bottleDrink);
+        //            RedWines.Add(bottleDrink);
+        //        }
+        //        else
+        //        {
+        //            thisDrink.ItemName = drinks.Value + " - BOTTLE";
+        //            thisDrink.DrinkSize = DrinkSize.Bottle;
+        //            PopulateDbInfo(ref thisDrink);
+        //            RedWines.Add(thisDrink);
+        //        }
+        //    }
+        //}
+        //private static void CreateWhiteWines()
+        //{
+        //    WhiteWines = new List<Drink>();
+        //    foreach (KeyValuePair<DrinkType, string> drinks in DisplayNames.DisplayWhiteWineNameDictionary)
+        //    {
+        //        Drink thisDrink = new Drink(drinks.Key)
+        //        {
+        //            DrinkCategory = DrinkCategory.WhiteWine
+        //        };
+        //        if (drinks.Key == DrinkType.DouglasGreenSb)
+        //        {
+        //            thisDrink.ItemName = drinks.Value + " - BOTTLE";
+        //            thisDrink.DrinkSize = DrinkSize.Bottle;
+        //            PopulateDbInfo(ref thisDrink);
+        //            WhiteWines.Add(thisDrink);
+        //        }
+        //        else
+        //        {
+        //            thisDrink.ItemName = drinks.Value + " - GLASS";
+        //            thisDrink.DrinkSize = DrinkSize.Glass;
+        //            PopulateDbInfo(ref thisDrink);
+        //            WhiteWines.Add(thisDrink);
+
+        //            Drink bottleDrink = new Drink(drinks.Key)
+        //            {
+        //                ItemName = drinks.Value + " - BOTTLE",
+        //                DrinkCategory = DrinkCategory.WhiteWine,
+        //                DrinkSize = DrinkSize.Bottle
+        //            };
+        //            bottleDrink.PricePerItemIncludingToppings *= 3;
+        //            PopulateDbInfo(ref bottleDrink);
+        //            WhiteWines.Add(bottleDrink);
+        //        }
+        //    }
+        //}
+        //private static void CreateHouseWines()
+        //{
+        //    HouseWines = new List<Drink>();
+        //    foreach (KeyValuePair<DrinkType, string> drinks in DisplayNames.DisplayHouseWineNameDictionary)
+        //    {
+        //        Drink thisDrink = new Drink(drinks.Key)
+        //        {
+        //            ItemName = drinks.Value,
+        //            DrinkCategory = DrinkCategory.HouseWine,
+        //            DrinkSize = DrinkSize.JustOneSize
+        //        };
+        //        PopulateDbInfo(ref thisDrink);
+        //        HouseWines.Add(thisDrink);
+        //    }
+        //}
+        //private static void CreateHotDrinks()
+        //{
+        //    HotDrinks = new List<Drink>();
+        //    foreach (KeyValuePair<DrinkType, string> drinks in DisplayNames.DisplayHotDrinkNameDictionary)
+        //    {
+        //        Drink thisDrink = new Drink(drinks.Key)
+        //        {
+        //            ItemName = drinks.Value,
+        //            DrinkCategory = DrinkCategory.HotDrink,
+        //            DrinkSize = DrinkSize.JustOneSize
+        //        };
+        //        PopulateDbInfo(ref thisDrink);
+        //        HotDrinks.Add(thisDrink);
+        //    }
+        //}
 
         public static void CreateAllDrinks()
         {
             CreateSoftDrinks();
-            CreateHotDrinks();
-            CreateRedWines();
-            CreateWhiteWines();
-            CreateHouseWines();
+            CreateGlassWines();
+            CreateBottleWines();
             CreateDraftBeers();
             CreateBottledBeers();
         }

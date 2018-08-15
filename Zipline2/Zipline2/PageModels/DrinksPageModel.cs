@@ -16,112 +16,141 @@ namespace Zipline2.PageModels
     public class DrinksPageModel : BasePageModel
     {
         //******************************NOTE IMBEDDED CLASS************************
-        public class DrinkDisplayItem : BasePageModel
+        public class DrinkDisplayRow : BasePageModel
         {
-            private Drink drink;
-            public Drink Drink
+            private Drink[] rowDrinks;
+            public Drink[] RowDrinks
             {
                 get
                 {
-                    return drink;
+                    return rowDrinks;
                 }
                 set
                 {
-                    SetProperty(ref drink, value);
+                    SetProperty(ref rowDrinks, value);
                 }
             }
-            private bool isPint;
-            public bool IsPint
+
+            private Color[] circleColors;
+            public Color[] CircleColors
             {
                 get
                 {
-                    return isPint;
+                    return circleColors;
                 }
                 set
                 {
-                    SetProperty(ref isPint, value);
+                    SetProperty(ref circleColors, value);
                 }
             }
-            private bool isPitcher;
-            public bool IsPitcher
+
+            private bool[] hideButtons;
+            public bool[] HideButtons
             {
                 get
                 {
-                    return isPitcher;
+                    return hideButtons;
                 }
                 set
                 {
-                    SetProperty(ref isPitcher, value);
+                    SetProperty(ref hideButtons, value);
                 }
             }
-            private bool isGlass;
-            public bool IsGlass
-            {
-                get
-                {
-                    return isGlass;
-                }
-                set
-                {
-                    SetProperty(ref isGlass, value);
-                }
-            }
-            private bool isBottle;
-            public bool IsBottle
-            {
-                get
-                {
-                    return isBottle;
-                }
-                set
-                {
-                    SetProperty(ref isBottle, value);
-                }
-            }
-            public int DrinkDisplayItemIndex { get; set; }
+
+            //private bool isPint;
+            //public bool IsPint
+            //{
+            //    get
+            //    {
+            //        return isPint;
+            //    }
+            //    set
+            //    {
+            //        SetProperty(ref isPint, value);
+            //    }
+            //}
+            //private bool isPitcher;
+            //public bool IsPitcher
+            //{
+            //    get
+            //    {
+            //        return isPitcher;
+            //    }
+            //    set
+            //    {
+            //        SetProperty(ref isPitcher, value);
+            //    }
+            //}
+            //private bool isGlass;
+            //public bool IsGlass
+            //{
+            //    get
+            //    {
+            //        return isGlass;
+            //    }
+            //    set
+            //    {
+            //        SetProperty(ref isGlass, value);
+            //    }
+            //}
+            //private bool isBottle;
+            //public bool IsBottle
+            //{
+            //    get
+            //    {
+            //        return isBottle;
+            //    }
+            //    set
+            //    {
+            //        SetProperty(ref isBottle, value);
+            //    }
+            //}
+            public int DrinkDisplayRowIndex { get; set; }
             public ICommand MinusButtonCommand { get; set; }
             public ICommand PlusButtonCommand { get; set; }
 
-            public DrinkDisplayItem()
+            public DrinkDisplayRow()
             {
-                MinusButtonCommand = new Command(OnMinusButton);
-                PlusButtonCommand = new Command(OnPlusButton);
+                MinusButtonCommand = new Command<string>(OnMinusButton);
+                PlusButtonCommand = new Command<string>(OnPlusButton);
+                RowDrinks = new Drink[3] { new Drink(), new Drink(), new Drink() };
+                Color whiteColor = new Color();
+                whiteColor = Color.White;
+                CircleColors = new Color[3] { whiteColor, whiteColor, whiteColor };
+                HideButtons = new bool[3] { false, false, false };
             }
 
-            public void OnMinusButton()
+            public void OnMinusButton(string columnIndexString)
             {
-                if (Drink.ItemCount > 0)
+                int columnIndex = 0;
+                int.TryParse(columnIndexString, out columnIndex);
+                if (RowDrinks[columnIndex].ItemCount > 0)
                 {
-                    Drink.ItemCount--;
+                    RowDrinks[columnIndex].ItemCount--;
                 }               
             }
 
-            public void OnPlusButton()
+            public void OnPlusButton(string columnIndexString)
             {
-                Drink.ItemCount++;
-              
+                int columnIndex = 0;
+                int.TryParse(columnIndexString, out columnIndex);
+                RowDrinks[columnIndex].ItemCount++;
             }
-
-           
-
-
         }
 
         //******************************NOTE IMBEDDED CLASS ABOVE************************
         private bool softDrinksSelected;
         private bool draftBeerSelected;
         private bool bottledBeerSelected;
-        private bool whiteWineSelected;
-        private bool redWineSelected;
-        private bool hotDrinksSelected;
-        private bool houseWineSelected;
+        private bool bottleWineSelected;
+        private bool glassWineSelected;
         public bool IsDrinkSelectedForEdit { get; set; }
         public int DrinkForEditIndex { get; set; }
-
+        public CircleButtonViewModel CircleButtonViewModelTemp { get; set; }
         private DrinkType drinkSelectedForEditDrinkType { get; set; }
         private DrinkCategory currentDrinkCategorySelected;
-        private ObservableCollection<DrinkDisplayItem> drinkDisplayItems;
-        public ObservableCollection<DrinkDisplayItem> DrinkDisplayItems
+        private ObservableCollection<DrinkDisplayRow> drinkDisplayItems;
+        public ObservableCollection<DrinkDisplayRow> DrinkDisplayItems
         {
             get
             {
@@ -132,6 +161,20 @@ namespace Zipline2.PageModels
                 SetProperty(ref drinkDisplayItems, value);
             }
         }
+
+        private ObservableCollection<CircleButtonViewModel> drinkButtonViewModels;
+        public ObservableCollection<CircleButtonViewModel> DrinkButtonViewModels
+        {
+            get
+            {
+                return drinkButtonViewModels;
+            }
+            set
+            {
+                SetProperty(ref drinkButtonViewModels, value);
+            }
+        }
+
 
         public bool SoftDrinksSelected
         {
@@ -166,58 +209,58 @@ namespace Zipline2.PageModels
                 SetProperty(ref bottledBeerSelected, value);
             }
         }
-        public bool RedWineSelected
+        public bool GlassWineSelected
         {
             get
             {
-                return redWineSelected;
+                return glassWineSelected;
             }
             set
             {
-                SetProperty(ref redWineSelected, value);
+                SetProperty(ref glassWineSelected, value);
             }
         }
-        public bool WhiteWineSelected
+        public bool BottleWineSelected
         {
             get
             {
-                return whiteWineSelected;
+                return bottleWineSelected;
             }
             set
             {
-                SetProperty(ref whiteWineSelected, value);
+                SetProperty(ref bottleWineSelected, value);
             }
         }
-        public bool HotDrinksSelected
-        {
-            get
-            {
-                return hotDrinksSelected;
-            }
-            set
-            {
-                SetProperty(ref hotDrinksSelected, value);
-            }
-        }
-        public bool HouseWineSelected
-        {
-            get
-            {
-                return houseWineSelected;
-            }
-            set
-            {
-                SetProperty(ref houseWineSelected, value);
-            }
-        }
+        //public bool HotDrinksSelected
+        //{
+        //    get
+        //    {
+        //        return hotDrinksSelected;
+        //    }
+        //    set
+        //    {
+        //        SetProperty(ref hotDrinksSelected, value);
+        //    }
+        //}
+        //public bool HouseWineSelected
+        //{
+        //    get
+        //    {
+        //        return houseWineSelected;
+        //    }
+        //    set
+        //    {
+        //        SetProperty(ref houseWineSelected, value);
+        //    }
+        //}
       
         public ICommand DrinksSelectedCommand { get; set; }
         public ICommand AddDrinksCommand { get; set; }
 
         public event EventHandler NavigateToOrderPage;
         public event EventHandler ScrollToTopOfList;
-        private Dictionary<DrinkCategory, List<DrinkDisplayItem>> drinkDisplayDictionary;
-        public Dictionary<DrinkCategory, List<DrinkDisplayItem>> DrinkDisplayDictionary
+        private Dictionary<DrinkCategory, List<DrinkDisplayRow>> drinkDisplayDictionary;
+        public Dictionary<DrinkCategory, List<DrinkDisplayRow>> DrinkDisplayDictionary
         {
             get
             {
@@ -233,10 +276,10 @@ namespace Zipline2.PageModels
         public DrinksPageModel(Drink drinkForEdit = null)
         {
             IsDrinkSelectedForEdit = false;
-            DrinkDisplayItems = new ObservableCollection<DrinkDisplayItem>();
+            DrinkDisplayItems = new ObservableCollection<DrinkDisplayRow>();
             DrinksSelectedCommand = new Command<DrinkCategory>(OnDrinksSelected);
             AddDrinksCommand = new Command(OnAddDrinks);
-            DrinkDisplayDictionary = new Dictionary<DrinkCategory, List<DrinkDisplayItem>>();
+            DrinkDisplayDictionary = new Dictionary<DrinkCategory, List<DrinkDisplayRow>>();
             DrinksOnTempOrderDictionary = new Dictionary<Tuple<DrinkType, DrinkSize>, Drink>();
             if (drinkForEdit == null)
             {
@@ -254,51 +297,178 @@ namespace Zipline2.PageModels
 
         private void LoadDrinkCategoryForDisplay(DrinkCategory drinkCategory)
         {
-            List<Drink> drinksForDisplay = MenuDrinks.GetDrinksList(drinkCategory);
-            var tempDisplayItems = new List<DrinkDisplayItem>();
-            for (int i = 0; i < drinksForDisplay.Count; i++)
-            {  
-                tempDisplayItems.Add(new DrinkDisplayItem()
+            try
+            {
+                List<Drink> drinksForDisplay = MenuDrinks.GetDrinksList(drinkCategory);
+                DrinkButtonViewModels = new ObservableCollection<CircleButtonViewModel>();
+                var tempDisplayItems = new List<DrinkDisplayRow>();
+                DrinkDisplayRow workingRow = new DrinkDisplayRow();
+                int rowCount = 0;
+                int lastItemIndex = drinksForDisplay.Count - 1;
+                
+                for (int i = 0; i < drinksForDisplay.Count; i++)
                 {
-                    Drink = drinksForDisplay[i].GetClone(),
-                    DrinkDisplayItemIndex = i
-                });                
+                    Color circleColor = GetCircleColor(drinksForDisplay[i].DrinkType);
+                    int column = i % 3;
+                    if (column == 0)
+                    {
+                        workingRow = new DrinkDisplayRow();
+                        workingRow.RowDrinks[0] = drinksForDisplay[i].GetClone();
+                        workingRow.CircleColors[0] = circleColor;
+                        if (i == lastItemIndex)
+                        {
+                            workingRow.RowDrinks[1] = new Drink();
+                            workingRow.CircleColors[1] = Color.Black;
+                            workingRow.HideButtons[1] = true;
+                            workingRow.RowDrinks[2] = new Drink();
+                            workingRow.CircleColors[2] = Color.Black;
+                            workingRow.HideButtons[2] = true;
+                            workingRow.DrinkDisplayRowIndex = rowCount;
+                            tempDisplayItems.Add(workingRow);
+                            break;
+                        }
+                    }
+                    else if (column == 1)
+                    {
+                        workingRow.RowDrinks[1] = drinksForDisplay[i].GetClone();
+                        workingRow.CircleColors[1] = circleColor;
+                        if (i == lastItemIndex)
+                        {
+                            workingRow.DrinkDisplayRowIndex = rowCount;
+                            workingRow.RowDrinks[2] = new Drink();
+                            workingRow.CircleColors[2] = Color.Black;
+                            workingRow.HideButtons[2] = true;
+                            tempDisplayItems.Add(workingRow);
+                            break;
+                        }
+                    }
+                    else if (column == 2)
+                    {
+                        workingRow.RowDrinks[2] = drinksForDisplay[i].GetClone();
+                        workingRow.CircleColors[2] = circleColor;
+                        workingRow.DrinkDisplayRowIndex = rowCount;
+                        tempDisplayItems.Add(workingRow);
+                        rowCount++;
+                    }
+
+                }
+                //Display category for this page
+                DrinkDisplayItems = new ObservableCollection<DrinkDisplayRow>(tempDisplayItems);
+                //Save this category so we don't have to recreate if come here again.
+                DrinkDisplayDictionary.Add(drinkCategory, tempDisplayItems);
             }
-            //Display category for this page
-            DrinkDisplayItems = new ObservableCollection<DrinkDisplayItem>(tempDisplayItems);
-          
-            //Save this category so we don't have to recreate if come here again.
-            DrinkDisplayDictionary.Add(drinkCategory, tempDisplayItems);
-            
+            catch (Exception ex)
+            {
+                var error = ex.InnerException;
+                throw;
+            }
+           
         }
 
-       
+        private Color GetCircleColor(DrinkType drinkType)
+        {
+            Color returnColor = Color.White;
+            switch (drinkType)
+            {
+                case DrinkType.AlverdiSangiovese:
+                case DrinkType.BodegasLaya:
+                case DrinkType.Chianti:
+                case DrinkType.ClayhouseRedBlend:
+                case DrinkType.GreenTruckPetitiSyrah:
+                case DrinkType.LeeseFitchCab:
+                case DrinkType.RedZinfandel:
+                case DrinkType.YauquenMalbec:
+                    returnColor = Color.Red;
+                    break;
+                case DrinkType.AppleJuice:
+                case DrinkType.Lemonade:
+                case DrinkType.Milk:
+                    returnColor = Color.Yellow;
+                    break;
+                case DrinkType.Beer12Oz:
+                case DrinkType.BottledCoke:
+                case DrinkType.Bud:
+                case DrinkType.BudLight:
+                case DrinkType.DietCokeCan:
+                case DrinkType.FirstMagnitude72:
+                case DrinkType.Flight:
+                case DrinkType.GinnieGingerAle:
+                case DrinkType.Guinness:
+                case DrinkType.Hefeweizen:
+                case DrinkType.NaGenesee:
+                case DrinkType.OmissionPaleAle:
+                case DrinkType.PilsLagerOrBlondeAle:
+                case DrinkType.LennieLemonLime:
+                case DrinkType.LolaCola:
+                case DrinkType.SwampHeadBigNoseIpa:
+                case DrinkType.SpecialSoda:
+                case DrinkType.StevieZ:
+                case DrinkType.RubyRootBeer:
+                case DrinkType.SodaPitcher:
+                    returnColor = Color.Orange;
+                    break;
+                case DrinkType.Chardonnay:
+                case DrinkType.CorkageFee:
+                case DrinkType.DouglasGreenSb:
+                case DrinkType.PinotGrigio:
+                case DrinkType.Water:
+                case DrinkType.SodaWater:
+                case DrinkType.SauvBlanc:
+                    returnColor = Color.White;
+                    break;
+                case DrinkType.DecafCoffee:
+                case DrinkType.HalfNHalfTea:
+                case DrinkType.HotCocoa:
+                case DrinkType.HotTea:
+                case DrinkType.RegularCoffee:
+                case DrinkType.SweetArnoldPalmer:
+                case DrinkType.SweetTea:
+                case DrinkType.UnsweetArnoldPalmer:
+                case DrinkType.UnsweetTea:
+                    returnColor = Color.Tan;
+                    break;
+                case DrinkType.WhiteZin:
+                case DrinkType.Rose:
+                    returnColor = Color.LightPink;
+                    break;
+            }
+            return returnColor;
+        }
 
         public void OnDrinksSelected(DrinkCategory newDrinkCategory)
         {
-            if (IsDrinkSelectedForEdit)
+            try
             {
-                List<Drink> drinksForDisplay = MenuDrinks.GetDrinksList(newDrinkCategory);
-                for (int i = 0; i < drinksForDisplay.Count; i++)
+                if (IsDrinkSelectedForEdit)
                 {
-                    if (drinksForDisplay[i].DrinkType == drinkSelectedForEditDrinkType)
+                    List<Drink> drinksForDisplay = MenuDrinks.GetDrinksList(newDrinkCategory);
+                    for (int i = 0; i < drinksForDisplay.Count; i++)
                     {
-                        DrinkForEditIndex = i;
-                        break;
+                        if (drinksForDisplay[i].DrinkType == drinkSelectedForEditDrinkType)
+                        {
+                            DrinkForEditIndex = i;
+                            break;
+                        }
                     }
                 }
-            }           
-            else
-            {
-                ScrollToTopOfList?.Invoke(this, EventArgs.Empty);
+                else
+                {
+                    ScrollToTopOfList?.Invoke(this, EventArgs.Empty);
+                }
+                //Load new drinks onto page.
+                if (!DrinkDisplayDictionary.ContainsKey(newDrinkCategory))
+                {
+                    LoadDrinkCategoryForDisplay(newDrinkCategory);
+                }
             }
-            //Load new drinks onto page.
-            if (!DrinkDisplayDictionary.ContainsKey(newDrinkCategory))
+            catch (Exception ex)
             {
-                LoadDrinkCategoryForDisplay(newDrinkCategory);
+                var error = ex.InnerException;
+                throw;
             }
+         
 
-            DrinkDisplayItems = new ObservableCollection<DrinkDisplayItem>(DrinkDisplayDictionary[newDrinkCategory]);
+            DrinkDisplayItems = new ObservableCollection<DrinkDisplayRow>(DrinkDisplayDictionary[newDrinkCategory]);
             //In case we've already added drinks to this order and are returning to that
             //drink category, we want to show what was added previously.
             LoadPreviousDrinkSelections(newDrinkCategory);
@@ -308,99 +478,84 @@ namespace Zipline2.PageModels
                     SoftDrinksSelected = true;
                     BottledBeerSelected = false;
                     DraftBeerSelected = false;
-                    RedWineSelected = false;
-                    WhiteWineSelected = false;
-                    HotDrinksSelected = false;
-                    HouseWineSelected = false;
+                    GlassWineSelected = false;
+                    BottleWineSelected = false;
                     break;
                 case DrinkCategory.DraftBeer:
                     DraftBeerSelected = true;
                     SoftDrinksSelected = false;
                     BottledBeerSelected = false;
-                    RedWineSelected = false;
-                    WhiteWineSelected = false;
-                    HotDrinksSelected = false;
-                    HouseWineSelected = false;
+                    GlassWineSelected = false;
+                    BottleWineSelected = false;
                     break;
                 case DrinkCategory.BottledBeer:
                     BottledBeerSelected = true;
                     SoftDrinksSelected = false;
                     DraftBeerSelected = false;
-                    RedWineSelected = false;
-                    WhiteWineSelected = false;
-                    HotDrinksSelected = false;
-                    HouseWineSelected = false;
+                    GlassWineSelected = false;
+                    BottleWineSelected = false;
                     break;
-                case DrinkCategory.RedWine:
-                    RedWineSelected = true;
+                case DrinkCategory.GlassWine:
+                    GlassWineSelected = true;
                     SoftDrinksSelected = false;
                     BottledBeerSelected = false;
                     DraftBeerSelected = false;
-                    WhiteWineSelected = false;
-                    HotDrinksSelected = false;
-                    HouseWineSelected = false;
+                    BottleWineSelected = false;
                     break;
-                case DrinkCategory.WhiteWine:
-                    WhiteWineSelected = true;
+                case DrinkCategory.BottleWine:
+                    BottleWineSelected = true;
                     SoftDrinksSelected = false;
                     BottledBeerSelected = false;
                     DraftBeerSelected = false;
-                    RedWineSelected = false;
-                    HotDrinksSelected = false;
-                    HouseWineSelected = false;
-                    break;
-                case DrinkCategory.HotDrink:
-                    HotDrinksSelected = true;
-                    RedWineSelected = false;
-                    SoftDrinksSelected = false;
-                    BottledBeerSelected = false;
-                    DraftBeerSelected = false;
-                    WhiteWineSelected = false;
-                    HouseWineSelected = false;
-                    break;
-                case DrinkCategory.HouseWine:
-                    HouseWineSelected = true;
-                    HotDrinksSelected = false;
-                    RedWineSelected = false;
-                    SoftDrinksSelected = false;
-                    BottledBeerSelected = false;
-                    DraftBeerSelected = false;
-                    WhiteWineSelected = false;
-                    break;
+                    GlassWineSelected = false;
+                    break;               
             }
             currentDrinkCategorySelected = newDrinkCategory;
         }
 
         public async void OnAddDrinks()
         {
-            var drinksToAddToOrder = new List<OrderItem>();
-            //Need to check entire Display dictionary (DrinkDisplayDictionary) for
-            //any items added.
-            foreach (var drinkDisplayList in DrinkDisplayDictionary.Values)
+            try
             {
-                foreach (var drinkDisplayItem in drinkDisplayList)
+                var drinksToAddToOrder = new List<OrderItem>();
+                //Need to check entire Display dictionary (DrinkDisplayDictionary) for
+                //any items added.
+                foreach (var drinkDisplayList in DrinkDisplayDictionary.Values)
                 {
-                    if (drinkDisplayItem.Drink.ItemCount > 0)
+                    foreach (var drinkDisplayItem in drinkDisplayList)
                     {
-                        drinkDisplayItem.Drink.UpdateItemTotal();
-                        drinksToAddToOrder.Add(drinkDisplayItem.Drink);
-                    }
-                    else
-                    {
-                        //Need to see if any items with zero count on the page 
-                        //were on the order before and need to be deleted from the order.
-                        var drinkKey = Tuple.Create<DrinkType, DrinkSize>(drinkDisplayItem.Drink.DrinkType, drinkDisplayItem.Drink.DrinkSize);
-                        if (DrinksOnTempOrderDictionary.ContainsKey(drinkKey))
+                        foreach (var drink in drinkDisplayItem.RowDrinks)
                         {
-                            OrderManager.Instance.RemoveOrderItem(DrinksOnTempOrderDictionary[drinkKey]);
+                            if (drink.ItemCount > 0)
+                            {
+                                drink.UpdateItemTotal();
+                                drinksToAddToOrder.Add(drink);
+                            }
+                            else
+                            {
+                                //Need to see if any items with zero count on the page 
+                                //were on the order before and need to be deleted from the order.
+                                var drinkKey = Tuple.Create<DrinkType, DrinkSize>(drink.DrinkType, drink.DrinkSize);
+                                if (DrinksOnTempOrderDictionary.ContainsKey(drinkKey))
+                                {
+                                    OrderManager.Instance.RemoveOrderItem(DrinksOnTempOrderDictionary[drinkKey]);
+                                }
+
+                            }
                         }
-                      
+
                     }
                 }
+
+                await OrderManager.Instance.AddItemsToOrderAsync(drinksToAddToOrder);
+                LoadSummaryPage();
             }
-        
-            await OrderManager.Instance.AddItemsToOrderAsync(drinksToAddToOrder);
-            LoadSummaryPage();
+            catch (Exception ex)
+            {
+                var error = ex.InnerException;
+                throw;
+            }
+           
         }
 
         private void LoadSummaryPage()
@@ -452,10 +607,14 @@ namespace Zipline2.PageModels
                         var drinksDisplayed = DrinkDisplayDictionary[categoryDisplayed];                        
                         foreach (var drinkDisplayItem in drinksDisplayed)
                         {
-                            if (drinkDisplayItem.Drink.DrinkType == drinkAlreadyOnTempOrder.DrinkType &&
-                                drinkDisplayItem.Drink.DrinkSize == drinkAlreadyOnTempOrder.DrinkSize)
+                            foreach (var drink in drinkDisplayItem.RowDrinks)
                             {
-                                drinkDisplayItem.Drink.ItemCount = drinkAlreadyOnTempOrder.ItemCount;
+                                if (drink.DrinkType == drinkAlreadyOnTempOrder.DrinkType &&
+                                drink.DrinkSize == drinkAlreadyOnTempOrder.DrinkSize)
+                                {
+                                    drink.ItemCount = drinkAlreadyOnTempOrder.ItemCount;
+                                }
+
                             }
 
                             //if (saveDrinkTypeToScrollTo == drinkDisplayItem.Drink.DrinkType)

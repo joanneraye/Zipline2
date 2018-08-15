@@ -121,7 +121,16 @@ namespace Zipline2.PageModels
                 }
 
                 Table tableSelected = PageRowTables[columnIndex];
-                await parentTablesPageModel.ProcessSelectedTableAsync(tableSelected);
+                try
+                {
+                    await parentTablesPageModel.ProcessSelectedTableAsync(tableSelected);
+                }
+                catch (Exception ex)
+                {
+                    var error = ex.InnerException;
+                    throw;
+                }
+               
             }
         }
         //******************************NOTE IMBEDDED CLASS above ************************
@@ -444,7 +453,16 @@ namespace Zipline2.PageModels
             //if no open orders out there for this table, start a new order.
             {
                 OrderManager.Instance.InitializeOrderInProgress();
-                DisplayDrinksPage();
+                try
+                {
+                    DisplayDrinksPage();
+                }
+                catch (Exception ex)
+                {
+                    var error = ex.InnerException;
+                    throw;
+                }
+              
             }
             
             //else if (await TableHasOpenChecks(tableSelected.TableId))

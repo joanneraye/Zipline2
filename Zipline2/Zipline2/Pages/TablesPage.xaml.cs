@@ -141,13 +141,22 @@ namespace Zipline2.Pages
 
         void HandleNavigateToDrinksPage(object sender, EventArgs e)
         {
-            if (WcfServicesProxy.Instance.ServiceCallConfig == WcfServicesProxy.ServiceCallConfigType.AllServiceCallsOff)
+            try
             {
-                DisplayAlert("Warning", "All connections to server are off.  You may test creating orders only.", "OK");
+                if (WcfServicesProxy.Instance.ServiceCallConfig == WcfServicesProxy.ServiceCallConfigType.AllServiceCallsOff)
+                {
+                    DisplayAlert("Warning", "All connections to server are off.  You may test creating orders only.", "OK");
+                }
+                var currentMainPage = (Application.Current.MainPage as MasterDetailPage);
+                currentMainPage.Detail = new NavigationPage(new DrinksPage());
+                Application.Current.MainPage = currentMainPage;
             }
-            var currentMainPage = (Application.Current.MainPage as MasterDetailPage);
-            currentMainPage.Detail = new NavigationPage(new DrinksPage());
-            Application.Current.MainPage = currentMainPage;
+            catch (Exception ex)
+            {
+                var error = ex.InnerException;
+                throw;
+            }
+           
         }
 
         void HandleNavigateToOrderPage(object sender, EventArgs e)

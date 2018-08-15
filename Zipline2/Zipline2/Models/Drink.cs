@@ -14,6 +14,9 @@ namespace Zipline2.Models
         public DrinkType DrinkType { get; set; }
         public DrinkSize DrinkSize { get; set; }
 
+        
+        public string ShortName { get; set; }
+
         public Drink GetClone()
         {
             return (Drink)MemberwiseClone();

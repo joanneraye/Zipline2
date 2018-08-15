@@ -60,21 +60,19 @@ namespace Zipline2.Data
             AddDrinks(DisplayNames.DisplaySoftDrinkNameDictionary, ref menuItemNumber);
             AddDrinks(DisplayNames.DisplayDraftBeerNameDictionary, ref menuItemNumber);
             AddDrinks(DisplayNames.DisplayBottledBeerNameDictionary, ref menuItemNumber);
-            AddDrinks(DisplayNames.DisplayHouseWineNameDictionary, ref menuItemNumber);
-            AddDrinks(DisplayNames.DisplayRedWineNameDictionary, ref menuItemNumber);
-            AddDrinks(DisplayNames.DisplayWhiteWineNameDictionary, ref menuItemNumber);
-            AddDrinks(DisplayNames.DisplayHotDrinkNameDictionary, ref menuItemNumber);
+            AddDrinks(DisplayNames.DisplayBottleWineNameDictionary, ref menuItemNumber);
+            AddDrinks(DisplayNames.DisplayGlassWineNameDictionary, ref menuItemNumber);
             AddDrinks(DisplayNames.DisplayDraftBeerNameDictionary, ref menuItemNumber);
         }
 
-        private void AddDrinks(Dictionary<DrinkType, string> drinkDictionary, ref int menuItemNumber)
+        private void AddDrinks(Dictionary<DrinkType, string[]> drinkDictionary, ref int menuItemNumber)
         {
             foreach (var drink in drinkDictionary)
             {
                 Menu.Add(new MenuRecord()
                 {
                     MenuItemNumber = menuItemNumber,
-                    ItemDisplayName = drink.Value,
+                    ItemDisplayName = drink.Value[0],
                     ItemPrice = Prices.GetDrinkPrice(drink.Key)
                 });
                 menuItemNumber++;

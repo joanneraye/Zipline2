@@ -22,47 +22,58 @@ namespace Zipline2.Pages
         private bool isEditingDrink;
         public DrinksPage (Drink drinkForEdit = null)
 		{
-			InitializeComponent ();
-            if (drinkForEdit == null)
+            try
             {
-                thisDrinksPageModel = new DrinksPageModel();
+                if (drinkForEdit == null)
+                {
+                    thisDrinksPageModel = new DrinksPageModel();
+                }
+                else
+                {
+                    isEditingDrink = true;
+                    thisDrinksPageModel = new DrinksPageModel(drinkForEdit);
+                }
+
+                try
+                {
+                    InitializeComponent();
+                }
+                catch (Exception ex)
+                {
+                    var error = ex.InnerException;
+                    throw;
+                }
+              
+
+                BindingContext = thisDrinksPageModel;
+
+                Footer.FooterPageModel.IsDrinkPageDisplayed = true;
+                Footer.FooterPageModel.DisplayAddToOrderButton = true;
+                Footer.FooterPageModel.AddToOrderButtonText = "Add Drinks";
+                Footer.FooterPageModel.ThisDrinksPageModel = thisDrinksPageModel;
+                string drinkTitle = "TBL " + OrderManager.Instance.CurrentTableName + " Drinks";
+                this.ToolbarItems.Add(new ToolbarItem { Text = drinkTitle });
+                thisDrinksPageModel.ScrollToTopOfList += HandleScrollToTopOfList;
+                MenuScrollView.Scrolled += MenuScrollView_Scrolled;
             }
-            else
+            catch (Exception ex)
             {
-                isEditingDrink = true;
-                thisDrinksPageModel = new DrinksPageModel(drinkForEdit);
+                var error = ex.InnerException;
+                throw;
             }
-          
-            BindingContext = thisDrinksPageModel;
-            Footer.FooterPageModel.IsDrinkPageDisplayed = true;
-            Footer.FooterPageModel.DisplayAddToOrderButton = true;
-            Footer.FooterPageModel.AddToOrderButtonText = "Add Drinks";
-            Footer.FooterPageModel.ThisDrinksPageModel = thisDrinksPageModel;
-            string drinkTitle = "TBL " + OrderManager.Instance.CurrentTableName + " Drinks";
-            this.ToolbarItems.Add(new ToolbarItem { Text = drinkTitle });
-            thisDrinksPageModel.ScrollToTopOfList += HandleScrollToTopOfList;
-            MenuScrollView.Scrolled += MenuScrollView_Scrolled;
         }
 
         private void MenuScrollView_Scrolled(object sender, ScrolledEventArgs e)
         {
-            if (e.ScrollX > 500)
+            if (e.ScrollX > 200)
             {
-                thisDrinksPageModel.OnDrinksSelected(BusinessLogic.Enums.DrinkCategory.HouseWine);
-            }
-            else if (e.ScrollX > 425)
-            {
-                thisDrinksPageModel.OnDrinksSelected(BusinessLogic.Enums.DrinkCategory.HotDrink);
-            }
-            else if (e.ScrollX > 350)
-            {
-                thisDrinksPageModel.OnDrinksSelected(BusinessLogic.Enums.DrinkCategory.RedWine);
-            }
-            else if (e.ScrollX > 250)
-            {
-                thisDrinksPageModel.OnDrinksSelected(BusinessLogic.Enums.DrinkCategory.WhiteWine);
+                thisDrinksPageModel.OnDrinksSelected(BusinessLogic.Enums.DrinkCategory.BottleWine);
             }
             else if (e.ScrollX > 150)
+            {
+                thisDrinksPageModel.OnDrinksSelected(BusinessLogic.Enums.DrinkCategory.GlassWine);
+            }
+            else if (e.ScrollX > 100)
             {
                 thisDrinksPageModel.OnDrinksSelected(BusinessLogic.Enums.DrinkCategory.BottledBeer);
             }
@@ -105,8 +116,8 @@ namespace Zipline2.Pages
 
         private void HandleScrollToTopOfList(object sender, EventArgs e)
         {
-            DrinksListView.ScrollTo(thisDrinksPageModel.DrinkDisplayItems[0], ScrollToPosition.MakeVisible, false);
-            DrinksListView.ScrollTo(null, ScrollToPosition.Start, false);
+            //DrinksListView.ScrollTo(thisDrinksPageModel.DrinkDisplayItems[0], ScrollToPosition.MakeVisible, false);
+            //DrinksListView.ScrollTo(null, ScrollToPosition.Start, false);
         }
 
        
@@ -114,8 +125,8 @@ namespace Zipline2.Pages
         {
             //Wait so that list renders.
             await Task.Delay(500);
-            DrinkDisplayItem scrollToThisItem = thisDrinksPageModel.DrinkDisplayItems[thisDrinksPageModel.DrinkForEditIndex];
-            DrinksListView.ScrollTo(scrollToThisItem, ScrollToPosition.MakeVisible, false);
+            DrinkDisplayRow scrollToThisItem = thisDrinksPageModel.DrinkDisplayItems[thisDrinksPageModel.DrinkForEditIndex];
+            //DrinksListView.ScrollTo(scrollToThisItem, ScrollToPosition.MakeVisible, false);
         }
 
         void HandleNavigateToOrderPage(object sender, EventArgs e)

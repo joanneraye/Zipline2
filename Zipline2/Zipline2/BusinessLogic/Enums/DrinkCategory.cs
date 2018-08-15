@@ -10,9 +10,7 @@ namespace Zipline2.BusinessLogic.Enums
         SoftDrink,
         DraftBeer,
         BottledBeer,
-        RedWine,
-        WhiteWine,
-        HotDrink,
-        HouseWine
+        GlassWine,
+        BottleWine
     }
 }

@@ -11,14 +11,13 @@ using Zipline2.PageModels;
 namespace Zipline2.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class MenuScrollFooterView : ContentView
+	public partial class CircleButtonPlusMinus : ContentView
 	{
-        public MenuButtonFooterModel FooterPageModel;
-        public MenuScrollFooterView()
+        public string Name { get; set; }
+		public CircleButtonPlusMinus ()
 		{
 			InitializeComponent ();
-            FooterPageModel = MenuButtonFooterModel.Instance;
-            BindingContext = FooterPageModel;
+            BindingContext = new DrinksPageModel();
 		}
 	}
 }
