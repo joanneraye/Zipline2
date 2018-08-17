@@ -23,6 +23,11 @@ namespace Zipline2.Pages
 
         public SaladToppingsPage (Salad thisSalad)
 		{
+            if (!thisSalad.PartOfCombo)
+            {
+                MenuHeaderModel.Instance.ShowPlusMinus = true;
+            }
+
             ThisSalad = thisSalad;
             string saladSizeDisplayName;
             if (thisSalad.SizeOfSalad == BusinessLogic.Enums.SaladSize.LunchSpecial)
@@ -42,6 +47,26 @@ namespace Zipline2.Pages
            
             string saladToppingsTitle = "TBL " + BusinessLogic.OrderManager.Instance.CurrentTableName + " - Toppings for " + saladSizeDisplayName + " Salad";
             this.ToolbarItems.Add(new ToolbarItem { Text = saladToppingsTitle });
+            MessagingCenter.Subscribe<MenuHeaderModel>(this, "HeaderMinusClicked",
+            (sender) => { OnHeaderMinusClicked(); });
+            MessagingCenter.Subscribe<MenuHeaderModel>(this, "HeaderPlusClicked",
+             (sender) => { OnHeaderPlusClicked(); });
+        }
+
+        private void OnHeaderPlusClicked()
+        {
+            if (ThisSalad != null)
+            {
+                ThisSalad.ItemCount++;
+            }
+        }
+
+        private void OnHeaderMinusClicked()
+        {
+            if (ThisSalad != null)
+            {
+                ThisSalad.ItemCount--;
+            }
         }
 
         private void SaladToppingsListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -74,6 +99,8 @@ namespace Zipline2.Pages
         {
             base.OnDisappearing();
             SaladToppingsPageModel.NavigateToPizzaPage -= HandleNavigateToPizzaPage;
+            MessagingCenter.Unsubscribe<string>(this, "HeaderMinusClicked");
+            MessagingCenter.Unsubscribe<string>(this, "HeaderPlusClicked");
         }
 
     }

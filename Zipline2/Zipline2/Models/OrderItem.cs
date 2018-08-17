@@ -27,6 +27,8 @@ namespace Zipline2.Models
         [MaxLength(100), Column("itemname")]
         public string ItemName { get; set; }
 
+        public string ShortName { get; set; }
+
         public bool PartOfCombo { get; set; }
 
         public Guid ComboId { get; set; }

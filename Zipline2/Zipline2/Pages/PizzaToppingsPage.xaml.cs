@@ -28,7 +28,11 @@ namespace Zipline2.Pages
         #region Constructor
         public PizzaToppingsPage (Pizza currentPizza)
 		{
-           
+            if (!currentPizza.PartOfCombo)
+            {
+                MenuHeaderModel.Instance.ShowPlusMinus = true;
+            }
+            
             ToppingsPageModel = new PizzaToppingsPageModel(currentPizza);
             ThisPizza = currentPizza;
             InitializeComponent();
@@ -38,12 +42,32 @@ namespace Zipline2.Pages
             this.ToolbarItems.Clear();
             string pizzaTitle = currentPizza.ItemName + " Toppings";
             this.ToolbarItems.Add(new ToolbarItem { Text = pizzaTitle, Priority = 0 });
-          
+            
             if (currentPizza.MajorMamaInfo == MajorOrMama.Major)
             {
                 //TODO:  Combine the two following?
                 ToppingsPageModel.SelectMajorToppings();
                 ToppingsPageModel.ThisPizza.Toppings.AddMajorToppings();
+            }
+            MessagingCenter.Subscribe<MenuHeaderModel>(this, "HeaderMinusClicked",
+              (sender) => { OnHeaderMinusClicked(); });
+            MessagingCenter.Subscribe<MenuHeaderModel>(this, "HeaderPlusClicked",
+             (sender) => { OnHeaderPlusClicked(); });
+        }
+
+        private void OnHeaderPlusClicked()
+        {
+            if (ThisPizza != null)
+            {
+                ThisPizza.ItemCount++;
+            }
+        }
+
+        private void OnHeaderMinusClicked()
+        {
+            if (ThisPizza != null)
+            {
+                ThisPizza.ItemCount--;
             }
         }
 
@@ -258,6 +282,8 @@ namespace Zipline2.Pages
             ToppingsListView.ItemSelected -= ToppingsListView_ItemSelected;
             ToppingsPageModel.NavigateToPizzaPage -= HandleNavigateToPizzaPage;
             ToppingsPageModel.ChangeHeadingPizzaName -= ChangePizzaHeading;
+            MessagingCenter.Unsubscribe<string>(this, "HeaderMinusClicked");
+            MessagingCenter.Unsubscribe<string>(this, "HeaderPlusClicked");
         }
         #endregion
     }

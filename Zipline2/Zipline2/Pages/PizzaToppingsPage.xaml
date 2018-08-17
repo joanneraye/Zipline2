@@ -16,7 +16,7 @@
                      Padding="10, 0, 10, 10"
                      VerticalOptions="FillAndExpand">
             <views:MenuHeaderView x:Name="ToppingsHeader" />
-            <Grid>
+            <Grid VerticalOptions="End">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
                 </Grid.RowDefinitions>

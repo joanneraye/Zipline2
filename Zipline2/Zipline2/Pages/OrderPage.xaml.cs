@@ -24,6 +24,7 @@ namespace Zipline2.Pages
 
 		public OrderPage ()
 		{
+            OrderManager.Instance.OrderInProgress.EditingExistingOrder = false;
             orderPageModel = new OrderPageModel();
             InitializeComponent();
             BindingContext = orderPageModel;

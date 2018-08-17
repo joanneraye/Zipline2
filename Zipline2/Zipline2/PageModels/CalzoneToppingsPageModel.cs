@@ -287,7 +287,7 @@ namespace Zipline2.PageModels
             }
             else
             {
-                ThisCalzone.CalzoneType = CalzoneType.RicottaMozarella;
+                ThisCalzone.CalzoneType = CalzoneType.Cheese;
                 ThisCalzone.MajorMamaInfo = MajorOrMama.Neither;
                 ThisCalzone.PopulateDisplayName();  //Updates to remove MAJOR
                 ThisCalzone.Toppings.RemoveToppings(new List<ToppingName>

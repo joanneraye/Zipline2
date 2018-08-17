@@ -43,7 +43,7 @@ namespace Zipline2.Models
         {
             //if the toppings are just major toppings and designated as major, then 
             //don't add toppings. 
-            List<Topping> tempToppings = Toppings.CurrentToppings;
+            List<Topping> tempToppings = new List<Topping>();
 
             bool hasOnion = false;
             bool hasGreenPeppers = false;
@@ -122,7 +122,7 @@ namespace Zipline2.Models
 
         public override Tuple<string, decimal> GetMenuDbItemKeys()
         {
-            if (CalzoneType == CalzoneType.RicottaMozarella)
+            if (CalzoneType == CalzoneType.Cheese)
             {
                 if (MajorMamaInfo == MajorOrMama.Major)
                 {
@@ -166,9 +166,9 @@ namespace Zipline2.Models
 
         public void ChangeCalzoneToSteakAndCheese()
         {
-            if (CalzoneType == CalzoneType.SteakAndCheese)
+            if (CalzoneType == CalzoneType.Cheese)
             {
-                CalzoneType = CalzoneType.RicottaMozarella;
+                CalzoneType = CalzoneType.SteakAndCheese;
             }
             PopulateBasePrice();
             PopulateDisplayName();
@@ -177,9 +177,9 @@ namespace Zipline2.Models
 
         public void ChangeCalzoneFromSteakToRegular()
         {
-            if (CalzoneType == CalzoneType.RicottaMozarella)
+            if (CalzoneType == CalzoneType.SteakAndCheese)
             {
-                CalzoneType = CalzoneType.SteakAndCheese;
+                CalzoneType = CalzoneType.Cheese;
             }
             PopulateBasePrice();
             PopulateDisplayName();
@@ -197,17 +197,19 @@ namespace Zipline2.Models
         {
             var orderDisplayItem = base.PopulateOrderDisplayItem();
             var toppingsString = new StringBuilder();
-           
+            bool toppingNotDisplayed = true;
             for (int i = 0; i < Toppings.CurrentToppings.Count; i++)
             {
                 if (Toppings.CurrentToppings[i].ToppingName == ToppingName.SteakNCheeseCalzone ||
                     Toppings.CurrentToppings[i].ToppingName == ToppingName.Major)
                 {
+                    toppingNotDisplayed = false;
                     continue;
                 }
-                if (i == 0)
+                if (i == 0 || !toppingNotDisplayed)
                 {
                     toppingsString.Append("   ");
+                    toppingNotDisplayed = true;
                 }
                 else
                 {

@@ -8,7 +8,7 @@ namespace Zipline2.Models
     {
         public decimal PricePerPizzaTopping { get; set; }
         public decimal PriceAddToSalad { get; set; }
-        public LunchSpecial(CustomerSelection guiData)
+        public LunchSpecial()
         { 
         }
 

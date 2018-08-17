@@ -91,9 +91,12 @@ namespace Zipline2.Models
             CurrentToppings.Add(toppingToAdd.GetClone());
             if (calculateTotal)
             {
+                CheckForMajor();
                 UpdateToppingsTotal();
             }
         }
+
+        public abstract void CheckForMajor();
 
         public void AddToppings(List<Topping> toppingsToAdd)
         {
@@ -128,6 +131,7 @@ namespace Zipline2.Models
                 CurrentToppings.RemoveAt(indexToRemove);
                 if (calculateTotal)
                 {
+                    CheckForMajor();
                     UpdateToppingsTotal();
                 }
             } 
@@ -167,8 +171,106 @@ namespace Zipline2.Models
             return 0;
         }
 
-        
+        public bool IsMajorToppings()
+        {
+            bool hasOnion = false;
+            bool hasGreenPeppers = false;
+            bool hasPepperoni = false;
+            bool hasSausage = false;
+            bool hasMushrooms = false;
+            bool hasBlackOlives = false;
 
+            foreach (var topping in CurrentToppings)
+            {
+                if (topping.ToppingName == ToppingName.Onion)
+                {
+                    hasOnion = true;
+                }
+                else if (topping.ToppingName == ToppingName.GreenPeppers)
+                {
+                    hasGreenPeppers = true;
+                }
+                else if (topping.ToppingName == ToppingName.Pepperoni)
+                {
+                    hasPepperoni = true;
+                }
+                else if (topping.ToppingName == ToppingName.Sausage)
+                {
+                    hasSausage = true;
+                }
+                else if (topping.ToppingName == ToppingName.Mushrooms)
+                {
+                    hasMushrooms = true;
+                }
+                else if (topping.ToppingName == ToppingName.BlackOlives)
+                {
+                    hasBlackOlives = true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            if (hasBlackOlives &&
+                   hasOnion &&
+                   hasGreenPeppers &&
+                   hasPepperoni &&
+                   hasSausage &&
+                   hasMushrooms)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool AreToppingsTheSame(List<Topping> otherToppingsToCompare)
+        {
+            if (CurrentToppings.Count != otherToppingsToCompare.Count)
+            {
+                return false;
+            }
+            foreach (var topping in CurrentToppings)
+            {
+                var toppingFound = false;
+                foreach (var compareTopping in otherToppingsToCompare)
+                {
+                    if (compareTopping.ToppingName == topping.ToppingName &&
+                        compareTopping.ToppingModifier == topping.ToppingModifier &&
+                        compareTopping.ToppingWholeHalf == topping.ToppingWholeHalf)
+                    {
+                        toppingFound = true;
+                        break;
+                    }
+                }
+                if (!toppingFound)
+                {
+                    return false;
+                }
+            }
+
+            foreach (var compareTopping2 in otherToppingsToCompare)
+            {
+                var toppingFound = false;
+                foreach (var topping2 in CurrentToppings)
+                {
+                    if (compareTopping2.ToppingName == topping2.ToppingName &&
+                       compareTopping2.ToppingModifier == topping2.ToppingModifier &&
+                       compareTopping2.ToppingWholeHalf == topping2.ToppingWholeHalf)
+                    {
+                        toppingFound = true;
+                        break;
+                    }
+                }
+                if (!toppingFound)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         #endregion
     }
 }

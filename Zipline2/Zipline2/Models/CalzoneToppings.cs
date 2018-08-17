@@ -139,6 +139,25 @@ namespace Zipline2.Models
             AddToppings(majorToppings);
         }
 
-
+        public override void CheckForMajor()
+        {
+            var isMajorToppings = IsMajorToppings();
+            if (ThisCalzone.MajorMamaInfo == MajorOrMama.Major)
+            {
+                if (!isMajorToppings)
+                {
+                    ThisCalzone.MajorMamaInfo = MajorOrMama.Neither;
+                    ThisCalzone.PopulateDisplayName();
+                }
+            }
+            else
+            {
+                if (isMajorToppings)
+                {
+                    ThisCalzone.MajorMamaInfo = MajorOrMama.Major;
+                    ThisCalzone.PopulateDisplayName();
+                }
+            }
+        }
     }
 }

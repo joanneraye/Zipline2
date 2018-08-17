@@ -276,6 +276,7 @@ namespace Zipline2.PageModels
                     {
                         foreach (var topping in ThisPizza.Toppings.CurrentToppings)
                         {
+                           
                             if (topping.ToppingName == toppingsList[i].ToppingName)
                             {
                                 toppingisAlreadyOnThisPizza = true;
@@ -293,6 +294,7 @@ namespace Zipline2.PageModels
                                 break;
                             }
                         }
+                       
                     }
                     if (!toppingisAlreadyOnThisPizza)
                     {
@@ -309,19 +311,18 @@ namespace Zipline2.PageModels
                         toppingSelection.SelectionColor = Xamarin.Forms.Color.Black;
                     }
 
-                    toppingSelection.SelectionIndex = toppingSelectionIndex;
-                    toppingSelectionIndex++;  
-                   
-                    toppingSelection.ButtonWVisible = true;
-                    if (toppingsList[i].ToppingName == ToppingName.HalfMajor)
+                    if (toppingsList[i].ToppingName == ToppingName.Major &&
+                              ThisPizza.MajorMamaInfo == MajorOrMama.Major)
                     {
-                        toppingSelection.ButtonWVisible = false;
+                        toppingSelection.ListItemIsSelected = true;
+                        toppingSelection.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
                     }
 
-                    ToppingSelectionsList.Add(toppingSelection);
-
+                    toppingSelection.SelectionIndex = toppingSelectionIndex;
+                    toppingSelectionIndex++;                     
+                    toppingSelection.ButtonWVisible = true;
+                   
                     //If the pizza type is a slice, don't display whole/halfa/halfb options.
-
                     toppingSelection.AreWholeHalfColumnsVisible = true;
 
                     if (ThisPizza.PizzaType == PizzaType.ThinSlice ||
@@ -331,15 +332,17 @@ namespace Zipline2.PageModels
                     {
                         toppingSelection.AreWholeHalfColumnsVisible = false;
                     }
+
+                    ToppingSelectionsList.Add(toppingSelection);
                 }
 
-                if (ThisPizza != null && ThisPizza.Toppings != null)
+                if (ThisPizza != null &&
+                    ThisPizza.Toppings != null && 
+                    ThisPizza.MajorMamaInfo == MajorOrMama.Major && 
+                     ThisPizza.Toppings.CurrentToppings.Count == 0)
                 {
-                    if (ThisPizza.MajorMamaInfo == MajorOrMama.Major && ThisPizza.Toppings.CurrentToppings.Count == 0)
-                    {
-                        SelectMajorToppings();
-                        ThisPizza.Toppings.AddMajorToppings();
-                    }
+                    SelectMajorToppings();
+                    ThisPizza.Toppings.AddMajorToppings();
                 }
             }
             catch (Exception ex)
@@ -427,7 +430,7 @@ namespace Zipline2.PageModels
 
                 if (thisSelection.ListItemIsSelected)
                 {
-                    if (thisSelection.ListTopping.ToppingName == ToppingName.SatchPan)
+                    if (thisSelection.ListTopping.ToppingName == ToppingName.SatchPanSlice)
                     {
                         ThisPizza.ChangePizzaToDeep();
                         OnChangeHeadingPizzaName();
@@ -453,7 +456,7 @@ namespace Zipline2.PageModels
                 }
                 else
                 {
-                    if (thisSelection.ListTopping.ToppingName == ToppingName.SatchPan &&
+                    if (thisSelection.ListTopping.ToppingName == ToppingName.SatchPanSlice &&
                         ThisPizza.PizzaType == PizzaType.PanSlice)
                     {
                         ThisPizza.ChangePizzaSliceFromPanToThin();

@@ -113,8 +113,8 @@ namespace Zipline2.Data
             }
 
             foreach (var dessert in DessertDictionary)
-            {
-                var dbId =DessertTypeDbIdDictionary[dessert.Key];
+            {              
+                var dbId = DessertTypeDbIdDictionary[dessert.Key];
                 if (!DbIdDessertDictionary.ContainsKey(dbId))
                 {
                     DbIdDessertDictionary.Add(dbId, dessert.Value);
@@ -150,7 +150,7 @@ namespace Zipline2.Data
         {
             pizzaToppings = new Dictionary<ToppingName, Topping>();
 
-            pizzaToppings.Add(ToppingName.SatchPan, new Topping(ToppingName.SatchPan) { ForCalzone = false, SpecialPricingType = SpecialPricingType.Free });
+            pizzaToppings.Add(ToppingName.SatchPanSlice, new Topping(ToppingName.SatchPanSlice) { ForCalzone = false, SpecialPricingType = SpecialPricingType.Free, ForSliceOnly = true });
             pizzaToppings.Add(ToppingName.SteakNCheeseCalzone, new Topping(ToppingName.SteakNCheeseCalzone) { ForCalzone = true, ForPizza = false, SpecialPricingType = SpecialPricingType.Free });
             pizzaToppings.Add(ToppingName.Major, new Topping(ToppingName.Major) { SpecialPricingType = SpecialPricingType.Free });
             pizzaToppings.Add(ToppingName.Anchovies, new Topping(ToppingName.Anchovies));
@@ -166,7 +166,7 @@ namespace Zipline2.Data
             pizzaToppings.Add(ToppingName.CrispyCook, new Topping(ToppingName.CrispyCook) { SpecialPricingType = SpecialPricingType.Free, ForCalzone = false, ForPizza = false });
             pizzaToppings.Add(ToppingName.DAIYA, new Topping(ToppingName.DAIYA) { SpecialPricingType = SpecialPricingType.DoubleTopping });
             //pizzaToppings.Add(ToppingName.Deep, new Topping(ToppingName.Deep) { SpecialPricingType = SpecialPricingType.SpecialLogic, ForCalzone = false });
-            pizzaToppings.Add(ToppingName.ExtraCheese, new Topping(ToppingName.ExtraCheese));
+            pizzaToppings.Add(ToppingName.ExtraCheese, new Topping(ToppingName.ExtraCheese) { ForCalzone = false });
             pizzaToppings.Add(ToppingName.ExtraMozarellaCalzone, new Topping(ToppingName.ExtraMozarellaCalzone) { ForCalzone = true, ForPizza = false });
             pizzaToppings.Add(ToppingName.ExtraPSauceOS, new Topping(ToppingName.ExtraPSauceOS));
             pizzaToppings.Add(ToppingName.ExtraPSauceOP, new Topping(ToppingName.ExtraPSauceOP) { ForCalzone = false });
@@ -187,17 +187,16 @@ namespace Zipline2.Data
             pizzaToppings.Add(ToppingName.Meatballs, new Topping(ToppingName.Meatballs));
             pizzaToppings.Add(ToppingName.Mushrooms, new Topping(ToppingName.Mushrooms));
             pizzaToppings.Add(ToppingName.NoButter, new Topping(ToppingName.NoButter) { SpecialPricingType = SpecialPricingType.Free });
-            pizzaToppings.Add(ToppingName.NoCheese, new Topping(ToppingName.NoCheese) { SpecialPricingType = SpecialPricingType.SubtractTopping });
+            pizzaToppings.Add(ToppingName.NoCheese, new Topping(ToppingName.NoCheese) { ForCalzone = false, SpecialPricingType = SpecialPricingType.SubtractTopping });
             pizzaToppings.Add(ToppingName.NoMozarella, new Topping(ToppingName.NoMozarella) { SpecialPricingType = SpecialPricingType.SubtractTopping, ForCalzone = true, ForPizza = false });
             pizzaToppings.Add(ToppingName.NoRicotta, new Topping(ToppingName.NoRicotta) { SpecialPricingType = SpecialPricingType.SubtractTopping, ForCalzone = true, ForPizza = false });
-            pizzaToppings.Add(ToppingName.NoSauce, new Topping(ToppingName.NoSauce) { SpecialPricingType = SpecialPricingType.Free });
+            pizzaToppings.Add(ToppingName.NoSauce, new Topping(ToppingName.NoSauce) { ForCalzone = false, SpecialPricingType = SpecialPricingType.Free });
             pizzaToppings.Add(ToppingName.Onion, new Topping(ToppingName.Onion));
             pizzaToppings.Add(ToppingName.PestoTopping, new Topping(ToppingName.PestoTopping));
             pizzaToppings.Add(ToppingName.Pepperoni, new Topping(ToppingName.Pepperoni));
             pizzaToppings.Add(ToppingName.Pineapple, new Topping(ToppingName.Pineapple));
             pizzaToppings.Add(ToppingName.RedOnions, new Topping(ToppingName.RedOnions));
             pizzaToppings.Add(ToppingName.Ricotta, new Topping(ToppingName.Ricotta) { ForCalzone = true, ForPizza = false });
-            pizzaToppings.Add(ToppingName.RicottaCalzone, new Topping(ToppingName.RicottaCalzone) { ForCalzone = true, ForPizza = false });
             pizzaToppings.Add(ToppingName.RoastedRedPepper, new Topping(ToppingName.RoastedRedPepper));
             pizzaToppings.Add(ToppingName.Sausage, new Topping(ToppingName.Sausage));
             pizzaToppings.Add(ToppingName.Spinach, new Topping(ToppingName.Spinach));
@@ -239,14 +238,22 @@ namespace Zipline2.Data
                 DessertType.ChocolateCake,
                 DessertType.Brownie,
                 DessertType.Bonbon,
+                DessertType.PeanutButterBonbon,
                 DessertType.VanillaCannoli,
                 DessertType.ChocolateCannoli,
                 DessertType.HalfAndHalfCannoli,
                 DessertType.AppleCrumbCheesecake,
-                DessertType.WholeCake,
-                DessertType.AnyCookie,
-                DessertType.VeganDessert,
-                DessertType.ThreeDollarDessert
+                DessertType.SnickerDoodleCookie,
+                DessertType.ChocolateChipCookie,
+                DessertType.PeanutButterCookie,
+                DessertType.OatmealRaisinCookie,
+                DessertType.MexicanWeddingCookie,
+                DessertType.PumpkinSpiceCookie,
+                DessertType.VeganPumpkinSpiceCookie,
+                DessertType.WholeCake
+                //DessertType.AnyCookie,
+                //DessertType.VeganDessert,
+                //DessertType.ThreeDollarDessert
            };
          
             foreach (var dessertType in dessertTypes)
@@ -297,6 +304,7 @@ namespace Zipline2.Data
                  {DessertType.AnyCookie, 191 },
                  {DessertType.AppleCrumbCheesecake, 167 },
                  {DessertType.Bonbon, 70 },
+                  {DessertType.PeanutButterBonbon, 70 },
                  {DessertType.Brownie, 64 },
                  {DessertType.ChocolateCake, 62 },
                  {DessertType.ChocolateCannoli, 72 },

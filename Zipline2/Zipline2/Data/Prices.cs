@@ -189,7 +189,7 @@ namespace Zipline2.Data
 
         private static Dictionary<CalzoneType, decimal> CalzoneBasePriceDictionary = new Dictionary<CalzoneType, decimal>
         {
-            { CalzoneType.RicottaMozarella, 9.00M  },
+            { CalzoneType.Cheese, 9.00M  },
              { CalzoneType.HotRope, 13.50M  },
               { CalzoneType.PBJ, 13.50M  },
             { CalzoneType.SteakAndCheese, 13.00M  }

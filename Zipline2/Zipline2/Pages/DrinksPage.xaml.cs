@@ -22,6 +22,7 @@ namespace Zipline2.Pages
         private bool isEditingDrink;
         public DrinksPage (Drink drinkForEdit = null)
 		{
+            MenuHeaderModel.Instance.ShowPlusMinus = false;
             try
             {
                 if (drinkForEdit == null)
@@ -65,15 +66,15 @@ namespace Zipline2.Pages
 
         private void MenuScrollView_Scrolled(object sender, ScrolledEventArgs e)
         {
-            if (e.ScrollX > 200)
+            if (e.ScrollX > 170)
             {
                 thisDrinksPageModel.OnDrinksSelected(BusinessLogic.Enums.DrinkCategory.BottleWine);
             }
-            else if (e.ScrollX > 150)
+            else if (e.ScrollX > 130)
             {
                 thisDrinksPageModel.OnDrinksSelected(BusinessLogic.Enums.DrinkCategory.GlassWine);
             }
-            else if (e.ScrollX > 100)
+            else if (e.ScrollX > 90)
             {
                 thisDrinksPageModel.OnDrinksSelected(BusinessLogic.Enums.DrinkCategory.BottledBeer);
             }
@@ -125,8 +126,22 @@ namespace Zipline2.Pages
         {
             //Wait so that list renders.
             await Task.Delay(500);
-            DrinkDisplayRow scrollToThisItem = thisDrinksPageModel.DrinkDisplayItems[thisDrinksPageModel.DrinkForEditIndex];
-            //DrinksListView.ScrollTo(scrollToThisItem, ScrollToPosition.MakeVisible, false);
+            if (thisDrinksPageModel.DraftBeerSelected)
+            {
+                List<DrinksGroup> groups = thisDrinksPageModel.DrinksGroups.ToList();
+                List<DrinkDisplayRow> displayItems = new List<DrinkDisplayRow>();
+                foreach (var group in groups)
+                {
+                    displayItems.AddRange(group);
+                }
+                DrinkDisplayRow scrollToThisItem = displayItems[thisDrinksPageModel.DrinkForEditIndex];
+                DrinksDraftsListView.ScrollTo(scrollToThisItem, ScrollToPosition.MakeVisible, false);
+            }
+            else
+            {
+                DrinkDisplayRow scrollToThisItem = thisDrinksPageModel.DrinkDisplayItems[thisDrinksPageModel.DrinkForEditIndex];
+                DrinksListView.ScrollTo(scrollToThisItem, ScrollToPosition.MakeVisible, false);
+            }
         }
 
         void HandleNavigateToOrderPage(object sender, EventArgs e)

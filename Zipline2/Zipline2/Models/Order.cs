@@ -125,6 +125,30 @@ namespace Zipline2.Models
                         addItemToOrder = false;
                     }
                 }
+                else if (newOrderItem is Pizza)
+                {
+                    Pizza pizzaToAdd = (Pizza)newOrderItem;
+                    if (UpdatePizzaIfAlreadyOnOrder(pizzaToAdd))
+                    {
+                        addItemToOrder = false;
+                    }
+                }
+                else if (newOrderItem is Calzone)
+                {
+                    Calzone calzoneToAdd = (Calzone)newOrderItem;
+                    if (UpdateCalzoneIfAlreadyOnOrder(calzoneToAdd))
+                    {
+                        addItemToOrder = false;
+                    }
+                }
+                else if (newOrderItem is Salad)
+                {
+                    Salad saladToAdd = (Salad)newOrderItem;
+                    if (UpdateSaladIfAlreadyOnOrder(saladToAdd))
+                    {
+                        addItemToOrder = false;
+                    }
+                }
 
                 if (addItemToOrder)
                 {
@@ -133,6 +157,7 @@ namespace Zipline2.Models
                 }
                
                 UpdateOrderTotals();
+                MenuHeaderModel.Instance.OrderTotal = Total;
             }
         }
 
@@ -206,6 +231,81 @@ namespace Zipline2.Models
             return false;
         }
 
+        public bool UpdatePizzaIfAlreadyOnOrder(Pizza pizzaToAdd)
+        {
+            foreach (var orderItem in OrderItems)
+            {
+                if (orderItem is Pizza)
+                {
+                    Pizza pizzaAlreadyOnOrder = (Pizza)orderItem;
+                    if (EditingExistingOrder)
+                    {
+                        orderItem.ItemCount = pizzaToAdd.ItemCount;
+                        return true;
+                    }
+                    else if (pizzaToAdd.PizzaType == pizzaAlreadyOnOrder.PizzaType &&
+                            pizzaToAdd.Toppings.AreToppingsTheSame(pizzaAlreadyOnOrder.Toppings.CurrentToppings) &&
+                            pizzaToAdd.ComboId == pizzaAlreadyOnOrder.ComboId)
+                    {
+                            orderItem.ItemCount++;
+                            return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public bool UpdateCalzoneIfAlreadyOnOrder(Calzone calzoneToAdd)
+        {
+            foreach (var orderItem in OrderItems)
+            {
+                if (orderItem is Calzone)
+                {
+                    Calzone calzoneAlreadyOnOrder = (Calzone)orderItem;
+                    if (EditingExistingOrder)
+                    {
+                        orderItem.ItemCount = calzoneToAdd.ItemCount;
+                        return true;
+                    }
+                    else if (calzoneToAdd.CalzoneType == calzoneAlreadyOnOrder.CalzoneType &&
+                            calzoneToAdd.Toppings.AreToppingsTheSame(calzoneAlreadyOnOrder.Toppings.CurrentToppings))
+                    {
+                        orderItem.ItemCount++;
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public bool UpdateSaladIfAlreadyOnOrder(Salad saladToAdd)
+        {
+            foreach (var orderItem in OrderItems)
+            {
+                if (orderItem is Salad)
+                {
+                    Salad saladAlreadyOnOrder = (Salad)orderItem;
+                    if (EditingExistingOrder)
+                    {
+                        orderItem.ItemCount = saladToAdd.ItemCount;
+                        return true;
+                    }
+                    else if (saladToAdd.SizeOfSalad == saladAlreadyOnOrder.SizeOfSalad &&
+                            saladToAdd.Toppings.AreToppingsTheSame(saladAlreadyOnOrder.Toppings.CurrentToppings))
+                    {
+                        orderItem.ItemCount++;
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+
+
         public bool UpdateDessertIfAlreadyOnOrder(Dessert dessertToAdd)
         {
             foreach (var orderItem in OrderItems)
@@ -273,7 +373,23 @@ namespace Zipline2.Models
 
         internal void DeleteOrderItem(int orderItemNumber)
         {
-            var itemToRemove = OrderItems.SingleOrDefault(o => o.OrderItemNumber == orderItemNumber);
+            OrderItem itemToRemove = null;
+            foreach (var item in OrderItems)
+            {
+                if (item.OrderItemNumber == orderItemNumber)
+                {
+                    if (item.ItemCount > 1)
+                    {
+                        item.ItemCount--;
+                    }
+                    else
+                    {
+                        itemToRemove = item;
+                        
+                    }
+                }
+            }
+            
             if (itemToRemove != null)
             {
                 OrderItems.Remove(itemToRemove);

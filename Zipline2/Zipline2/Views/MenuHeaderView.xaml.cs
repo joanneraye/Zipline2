@@ -12,9 +12,9 @@ using Zipline2.BusinessLogic;
 
 namespace Zipline2.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class MenuHeaderView : ContentView
-	{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class MenuHeaderView : ContentView
+    {
         public MenuHeaderView()
 		{
             InitializeComponent();

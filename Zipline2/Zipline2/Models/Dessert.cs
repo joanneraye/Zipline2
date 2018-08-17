@@ -21,7 +21,8 @@ namespace Zipline2.Models
         {
             DessertType = dessertType;
             DbItemId = MenuFood.GetDbItemId(dessertType);
-            ItemName = DisplayNames.GetDessertDisplayName(dessertType);
+            ItemName = DisplayNames.GetDessertDisplayName(dessertType)[0];
+            ShortName = DisplayNames.GetDessertDisplayName(dessertType)[1];
             PopulateBasePrice();
             PopulatePricePerItem();
         }
@@ -50,7 +51,8 @@ namespace Zipline2.Models
       
         public override void PopulateDisplayName()
         {
-            ItemName = DisplayNames.GetDessertDisplayName(DessertType);
+            ItemName = DisplayNames.GetDessertDisplayName(DessertType)[0];
+            ShortName = DisplayNames.GetDessertDisplayName(DessertType)[1];
         }
 
         public override OrderDisplayItem PopulateOrderDisplayItem()

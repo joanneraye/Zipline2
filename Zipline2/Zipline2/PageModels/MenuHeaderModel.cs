@@ -43,6 +43,19 @@ namespace Zipline2.PageModels
             }
         }
 
+        private int itemCount;
+        public int ItemCount
+        {
+            get
+            {
+                return itemCount;
+            }
+            set
+            {
+                SetProperty(ref itemCount, value);
+            }
+        }
+
         public decimal ItemTotal
         {
             get
@@ -88,6 +101,22 @@ namespace Zipline2.PageModels
                 SetProperty(ref pizzaName, value);
             }
         }
+
+        public ICommand MinusCommand { get; set; }
+        public ICommand PlusCommand { get; set; }
+
+        private bool showPlusMinus;
+        public bool ShowPlusMinus
+        {
+            get
+            {
+                return showPlusMinus;
+            }
+            set
+            {
+                SetProperty(ref showPlusMinus, value);
+            }
+        }
         #endregion
         private static MenuHeaderModel instance = null;
         private static readonly object padlock = new object();
@@ -95,6 +124,8 @@ namespace Zipline2.PageModels
         private MenuHeaderModel()
         {
             itemTotal = 0M;
+            MinusCommand = new Command(OnMinusClicked);
+            PlusCommand = new Command(OnPlusClicked);
             OrderTotal = OrderManager.Instance.OrderInProgress.Total;
             if (Users.Instance.LoggedInUser != null)
             {
@@ -119,6 +150,21 @@ namespace Zipline2.PageModels
             }
         }
         #region Methods
+
+        public void OnMinusClicked()
+        {
+            if (ItemCount > 0)
+            {
+                ItemCount--;
+                MessagingCenter.Send(this, "HeaderMinusClicked");
+            }      
+        }
+
+        public void OnPlusClicked()
+        {
+            ItemCount++;
+            MessagingCenter.Send(this, "HeaderPlusClicked");
+        }
         
         public void UpdateItemTotal(decimal newItemTotal)
         {

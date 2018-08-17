@@ -126,6 +126,8 @@ namespace Zipline2.Models
             return toppingCost;
         }
 
+        
+
         private decimal GetPizzaToppingCountForPricing(ref decimal specialExtraCost, PizzaType pizzaType)
         {
             decimal toppingCountForPricing = 0M;
@@ -261,6 +263,27 @@ namespace Zipline2.Models
             {
                 sortedToppingList.AddRange(halfAToppings);
                 sortedToppingList.AddRange(halfBToppings);
+            }
+        }
+
+        public override void CheckForMajor()
+        {
+            var isMajorToppings = IsMajorToppings();
+            if (ThisPizza.MajorMamaInfo == MajorOrMama.Major)
+            {
+                if (!isMajorToppings)
+                {
+                    ThisPizza.MajorMamaInfo = MajorOrMama.Neither;
+                    ThisPizza.PopulateDisplayName();
+                }
+            }
+            else
+            {
+                if (isMajorToppings)
+                {
+                    ThisPizza.MajorMamaInfo = MajorOrMama.Major;
+                    ThisPizza.PopulateDisplayName();
+                }
             }
         }
     }

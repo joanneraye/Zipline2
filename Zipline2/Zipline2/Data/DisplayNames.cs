@@ -8,7 +8,7 @@ namespace Zipline2.Data
     {
         public static Dictionary<CalzoneType, string> DisplayCalzoneNameDictionary = new Dictionary<CalzoneType, string>
         {
-            { CalzoneType.RicottaMozarella, "Calzone Mozzarella Ricotta" },
+            { CalzoneType.Cheese, "Calzone Cheese" },
              { CalzoneType.HotRope, "Calzone Hot Rope" },
               { CalzoneType.PBJ, "Calzone PB&J" },
             { CalzoneType.SteakAndCheese, "Calzone Steak and Cheese" }
@@ -41,14 +41,12 @@ namespace Zipline2.Data
             { DrinkType.LennieLemonLime, new string[2] { "Lennie Lemon Lime", "LemLime" } },
             { DrinkType.GinnieGingerAle, new string[2] { "Ginnie Ginger Ale", "GingAle" } },
             { DrinkType.RubyRootBeer, new string[2] { "Ruby Root Beer", "Rt Beer" } },
-           
-            { DrinkType.SpecialSoda, new string[2] { "Special Soda", "Special" } },
+           { DrinkType.Lemonade, new string[2] { "Lemonade", "Lmonade" } },
             { DrinkType.Flight, new string[2] { "Flight", " Flight" } },
-             { DrinkType.Lemonade, new string[2] { "Lemonade", "Lmonade" } },
+             { DrinkType.SpecialSoda, new string[2] { "Special Soda", "Special" } },
             { DrinkType.SweetTea, new string[2] { "Sweet Tea", "Sweet T" } },
             { DrinkType.UnsweetTea, new string[2] { "Unsweet Tea", " UnSw T" } },
             { DrinkType.HalfNHalfTea, new string[2] { "Half N Half Tea", " Half T" } },
-
             { DrinkType.SweetArnoldPalmer, new string[2] { "Sweet Arnold Palmer", "Sw ArnP" } },
             { DrinkType.UnsweetArnoldPalmer, new string[2] { "Unsweet Arnold Palmer", "UnSw AP" } },
             
@@ -214,7 +212,7 @@ namespace Zipline2.Data
              { ToppingName.RicottaCalzone, "Ricotta" },
             { ToppingName.RoastedRedPepper, "RRP" },
                { ToppingName.SaladWithOrder, "Salad With Order" },
-               { ToppingName.SatchPan, "SATCH PAN" },
+               { ToppingName.SatchPanSlice, "SATCH PAN SLICE" },
             { ToppingName.Sausage, "Sausage" },
             { ToppingName.Seeds, "Seeds" },
              { ToppingName.SliceCutInHalfSamePlate, "Slice cut in half Same Plate" },
@@ -240,26 +238,24 @@ namespace Zipline2.Data
             { SaladSize.Large, "Large Salad" }
         };
 
-        public static Dictionary<DessertType, string> DisplayDessertNameDictionary = new Dictionary<DessertType, string>
+        public static Dictionary<DessertType, string[]> DisplayDessertNameDictionary = new Dictionary<DessertType, string[]>
         {
-            { DessertType.AnyCookie, "Cookie" },
-            { DessertType.AppleCrumbCheesecake, "Apple Crumb Cheesecake" },
-            { DessertType.Bonbon, "Bon-bon" },
-            { DessertType.Brownie, "Brownie" },
-            { DessertType.ChocolateCake, "Chocolate Cake" },
-            { DessertType.ChocolateCannoli, "Chocolate Cannoli" },
-            { DessertType.ChocolateChipCookie, "Chocolate Chip Cookie" },
-            { DessertType.HalfAndHalfCannoli, "Half & Half Cannoli" },
-            { DessertType.MexicanWeddingCookie, "Mexican Wedding Cookie" },
-            { DessertType.OatmealRaisinCookie, "Oatmeal Raisin Cookie" },
-            { DessertType.PeanutButterCookie, "Peanut Butter Cookie" },
-            { DessertType.PumpkinSpiceCookie, "Pumpkin Spice Cookie" },
-              { DessertType.SnickerDoodleCookie, "Snicker Doodle Cookie" },
-               { DessertType.ThreeDollarDessert, "$3 Dollar Dessert" },
-                { DessertType.VanillaCannoli, "Vanilla Cannoli" },
-                 { DessertType.VeganDessert, "Vegan Dessert" },
-                  { DessertType.VeganPumpkinSpiceCookie, "Vegan Pumpkin Spice Cookie" },
-                    { DessertType.WholeCake, "Whole Cake" }
+            { DessertType.AppleCrumbCheesecake, new string[2] { "Apple Crumb Cheesecake", "ChzCake" } },
+            { DessertType.Bonbon,new string[2] { "Vanilla Bonbon", "VBonbon" } },
+            { DessertType.PeanutButterBonbon,new string[2] { "Peanut Butter Bonbon", " PBBnbn" } },
+            { DessertType.ChocolateCake,new string[2] { "Chocolate Cake", " ChCake" } },
+            { DessertType.ChocolateCannoli,new string[2] { "Chocolate Cannoli", " ChCann" } },
+             { DessertType.Brownie,new string[2] { "Brownie", "Brownie" } },
+            { DessertType.VanillaCannoli,new string[2] { "Vanilla Cannoli", " VnCann" } },
+            { DessertType.HalfAndHalfCannoli,new string[2] { "Half & Half Cannoli", "HfHfCan" } },
+             { DessertType.ChocolateChipCookie,new string[2] { "Chocolate Chip Cookie", "ChChCk" } },
+            { DessertType.MexicanWeddingCookie,new string[2] { "Mexican Wedding Cookie", "MexWCk" } },
+            { DessertType.OatmealRaisinCookie,new string[2] { "Oatmeal Raisin Cookie", "OatRCk" } },
+            { DessertType.PeanutButterCookie,new string[2] { "Peanut Butter Cookie", " PBCook" } },
+             { DessertType.SnickerDoodleCookie,new string[2] { "Snicker Doodle Cookie", "SnDCook" } },
+            { DessertType.PumpkinSpiceCookie,new string[2] { "Pumpkin Spice Cookie", "PmpSpCk" } },
+            { DessertType.VeganPumpkinSpiceCookie,new string[2] { "Vegan Pumpkin Spice Cookie", "VPSpCk" } },           
+            { DessertType.WholeCake,new string[2] { "Whole Cake", "WholeCk" } }
         };
 
         public static string GetSaladDisplayName(SaladSize sizeOfSalad)
@@ -360,13 +356,13 @@ namespace Zipline2.Data
             return "Not in Dictionary Yet";
         }
 
-        public static string GetDessertDisplayName(DessertType dessertType)
+        public static string[] GetDessertDisplayName(DessertType dessertType)
         {
             if (DisplayDessertNameDictionary.ContainsKey(dessertType))
             {
                 return DisplayDessertNameDictionary[dessertType];
             }
-            return "Not in Dictionary Yet";
+            return new string[2] { "Not in Dict", "NotFnd" };
         }
     }
 }

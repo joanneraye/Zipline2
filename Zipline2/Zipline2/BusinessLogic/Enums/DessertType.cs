@@ -9,6 +9,7 @@ namespace Zipline2.BusinessLogic.Enums
         ChocolateCake,
         Brownie,
         Bonbon,
+        PeanutButterBonbon,
         VanillaCannoli,
         ChocolateCannoli,
         HalfAndHalfCannoli,

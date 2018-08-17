@@ -25,6 +25,8 @@
     <Compile Remove="Connected Services\CheckHostReference\CheckHostold.cs" />
     <Compile Remove="Connected Services\PosServiceReference\POServiceHostold.cs" />
     <Compile Remove="CustomControls\MyFlexButton.cs" />
+    <Compile Remove="Models\CustomerSelection.cs" />
+    <Compile Remove="Models\DrinkSelection.cs" />
     <Compile Remove="Models\PizzaCalzone.cs" />
     <Compile Remove="Models\PizzaCalzoneSteakAndCheese.cs" />
     <Compile Remove="Models\PizzaIndy.cs" />
@@ -32,6 +34,7 @@
     <Compile Remove="Models\PizzaMfp.cs" />
     <Compile Remove="Models\PIzzaSatchPan.cs" />
     <Compile Remove="Models\PizzaSatchPanSlice.cs" />
+    <Compile Remove="Models\PizzaSelection.cs" />
     <Compile Remove="Models\PizzaThin.cs" />
     <Compile Remove="Models\PizzaThinLarge.cs" />
     <Compile Remove="Models\PizzaThinMedium.cs" />

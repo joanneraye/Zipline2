@@ -32,11 +32,18 @@ namespace Zipline2.PageModels
             PizzaSelectionCommand = new Command<PizzaType>(OnAddCheese);
             AddCalzoneCommand = new Command(OnAddCalzone);
             
-            if (OrderManager.Instance.OrderItemInProgressLoadedForEdit
-                && OrderManager.Instance.OrderItemInProgress is Pizza)
-            {
-                ThisPizza = (Pizza)OrderManager.Instance.OrderItemInProgress;
-                isEditingPizza = true;            
+            if (OrderManager.Instance.OrderItemInProgressLoadedForEdit)
+            { 
+                if (OrderManager.Instance.OrderItemInProgress is Pizza)
+                {
+                        ThisPizza = (Pizza)OrderManager.Instance.OrderItemInProgress;
+                        isEditingPizza = true;
+                }
+                else if (OrderManager.Instance.OrderItemInProgress is Calzone)
+                {
+                    Calzone calzoneToEdit = (Calzone)OrderManager.Instance.OrderItemInProgress;
+                    DisplayCalzoneToppingsPage(calzoneToEdit);
+                }
             }
         }
         
@@ -95,7 +102,7 @@ namespace Zipline2.PageModels
         {
             Calzone calzoneSelected = new Calzone()
             {
-                CalzoneType = CalzoneType.RicottaMozarella,
+                CalzoneType = CalzoneType.Cheese,
                 ItemCount = 1
             };
 

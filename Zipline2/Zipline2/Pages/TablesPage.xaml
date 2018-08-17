@@ -197,7 +197,7 @@
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>
-            <DataTemplate x:Key="tablePageDividerTemplate" x:Name="dividerTemplate">
+            <DataTemplate x:Key="tablePageDividerTemplate">
                 <ViewCell Height="9">
                     <StackLayout Padding="0" Margin="0" HeightRequest="9" BackgroundColor="Black">
                         <BoxView HeightRequest="1" Margin="0,4,0,4"

@@ -7,7 +7,7 @@ namespace Zipline2.BusinessLogic.Enums
     //PizzaType is primarily used to determine pricing of an item.
     public enum CalzoneType
     {
-        RicottaMozarella,
+        Cheese,
         SteakAndCheese,
         HotRope,
         PBJ

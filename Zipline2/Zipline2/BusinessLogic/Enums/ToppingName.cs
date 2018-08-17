@@ -76,7 +76,7 @@ namespace Zipline2.BusinessLogic.Enums
         RicottaCalzone,
         RoastedRedPepper,
         SaladWithOrder,
-        SatchPan,
+        SatchPanSlice,
         Sausage,
         Seeds,
         SliceCutInHalfSamePlate,

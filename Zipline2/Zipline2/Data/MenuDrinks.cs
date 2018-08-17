@@ -299,28 +299,15 @@ namespace Zipline2.Data
             {
                 Drink thisDrink = new Drink(drinks.Key)
                 {
-                   DrinkCategory = DrinkCategory.DraftBeer
+                   DrinkCategory = DrinkCategory.DraftBeer,
+                   ItemName = drinks.Value[0],
+                   ShortName = drinks.Value[1],
+                   DrinkSize = DrinkSize.Pint
                 };
-                if (drinks.Key == DrinkType.Beer12Oz)
-                {
-                    thisDrink.ItemName = drinks.Value[0];
-                    thisDrink.ShortName = drinks.Value[1];
-                    thisDrink.DrinkSize = DrinkSize.JustOneSize;
-                    PopulateDbInfo(ref thisDrink);
-                    pintBeers.Add(thisDrink);
-                    DraftBeers.Add(thisDrink);
-                }
-                else
-                {
-                    thisDrink.ItemName = drinks.Value[0];
-                    thisDrink.ShortName = drinks.Value[1];
-                    thisDrink.DrinkSize = DrinkSize.Pint;
-                    PopulateDbInfo(ref thisDrink);
-                    pintBeers.Add(thisDrink);
-                    DraftBeers.Add(thisDrink);
                     
-                    
-                }
+                PopulateDbInfo(ref thisDrink);
+                pintBeers.Add(thisDrink);
+                DraftBeers.Add(thisDrink);
             }
             foreach (var beer in pintBeers)
             {
@@ -333,6 +320,7 @@ namespace Zipline2.Data
                     DrinkCategory = DrinkCategory.DraftBeer,
                     DrinkSize = DrinkSize.Pitcher
                     };
+
                     pitcherDrink.PricePerItemIncludingToppings *= 3;
                     PopulateDbInfo(ref pitcherDrink);
                     DraftBeers.Add(pitcherDrink);

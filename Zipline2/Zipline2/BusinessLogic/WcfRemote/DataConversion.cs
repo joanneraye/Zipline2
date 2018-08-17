@@ -235,7 +235,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
             switch (dbGuestItem.ID)
             {
                 case 51:
-                    calzone.CalzoneType = CalzoneType.RicottaMozarella;
+                    calzone.CalzoneType = CalzoneType.Cheese;
                     break;
                 case 52:
                     calzone.CalzoneType = CalzoneType.HotRope;
@@ -247,7 +247,7 @@ namespace Zipline2.BusinessLogic.WcfRemote
                     calzone.CalzoneType = CalzoneType.SteakAndCheese;
                     break;
                 case 56:
-                    calzone.CalzoneType = CalzoneType.RicottaMozarella;
+                    calzone.CalzoneType = CalzoneType.Cheese;
                     calzone.MajorMamaInfo = MajorOrMama.Major;
                     calzone.Toppings.AddMajorToppings();
                     break;
@@ -430,8 +430,8 @@ namespace Zipline2.BusinessLogic.WcfRemote
                     pizza.ChangePizzaBase(PizzaBase.White, false);
                     addThisModAsTopping = false;
                 }
-                else if (DataBaseDictionaries.ToppingDbIdDictionary.ContainsKey(ToppingName.SatchPan) && 
-                          mod.ID == DataBaseDictionaries.ToppingDbIdDictionary[ToppingName.SatchPan])
+                else if (DataBaseDictionaries.ToppingDbIdDictionary.ContainsKey(ToppingName.SatchPanSlice) && 
+                          mod.ID == DataBaseDictionaries.ToppingDbIdDictionary[ToppingName.SatchPanSlice])
                 {
                     pizza.ChangePizzaToDeep();
                     addThisModAsTopping = false;

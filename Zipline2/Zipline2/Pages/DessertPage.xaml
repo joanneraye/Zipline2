@@ -15,12 +15,177 @@
                 <Setter Property="VerticalOptions" Value="Start" />
                 <Setter Property="FontSize" Value="Small" />
             </Style>
+            <Style x:Key="DessertSelectionFrameButton" TargetType="Frame">
+                <Setter Property="CornerRadius" Value="63" />
+                <Setter Property="WidthRequest" Value="126" />
+                <Setter Property="HeightRequest" Value="126" />
+                <Setter Property="BackgroundColor" Value="Orange" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="FillAndExpand" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="0" />
+            </Style>
+            <Style x:Key="DessertSelectionLabels" TargetType="Label">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+            </Style>
+            <DataTemplate x:Key="DessertPageRowTemplate">
+                <ViewCell Height="134">
+                    <Grid HorizontalOptions="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="126"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="126"/>
+                            <ColumnDefinition Width="126"/>
+                            <ColumnDefinition Width="126"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Frame Grid.Column="0" Style="{StaticResource DessertSelectionFrameButton}" BackgroundColor="{Binding CircleColors[0], Mode=TwoWay}" >
+                            <Frame.Content>
+                                <AbsoluteLayout>
+                                    <Button AbsoluteLayout.LayoutBounds="18,-15,AutoSize,AutoSize" 
+                                                    Text="+"
+                                                    TextColor="Black" 
+                                                    BackgroundColor="Transparent" 
+                                                     Command="{Binding PlusButtonCommand}"
+                                                        CommandParameter="0"
+                                                    FontSize="30" ></Button>
+                                    <Label  AbsoluteLayout.LayoutBounds="8,45,AutoSize,AutoSize" 
+                                                    Text="{Binding RowDesserts[0].ItemCount, Mode=TwoWay}" 
+                                                    Style="{StaticResource DessertSelectionLabels}" 
+                                                    TextColor="Blue" >
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label"
+                                                     Binding="{Binding HideButtons[0], Mode=TwoWay}"
+                                                             Value="True">
+                                                <Setter Property="TextColor" Value="Black" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                    <Label  AbsoluteLayout.LayoutBounds="25,45,AutoSize,AutoSize"  
+                                                    Text="{Binding RowDesserts[0].ShortName, Mode=TwoWay}"
+                                                Style="{StaticResource DessertSelectionLabels}" TextColor="Black" >
+                                    </Label>
+                                    <Button AbsoluteLayout.LayoutBounds="18,36,AutoSize,AutoSize" 
+                                                    Text="_"
+                                                    TextColor="Black" 
+                                                    BackgroundColor="Transparent"
+                                                          Command="{Binding MinusButtonCommand}"
+                                                        CommandParameter="0"
+                                                    FontSize="35" ></Button>
+                                </AbsoluteLayout>
+                            </Frame.Content>
+                            <Frame.Triggers>
+                                <DataTrigger TargetType="Frame"
+                                                      Binding="{Binding BackgroundColor, Mode=TwoWay}"
+                                                             Value="Black">
+                                    <Setter Property="IsVisible" Value="False" />
+                                </DataTrigger>
+                            </Frame.Triggers>
+                        </Frame>
+                        <Frame Grid.Column="1" Style="{StaticResource DessertSelectionFrameButton}" BackgroundColor="{Binding CircleColors[1], Mode=TwoWay}" >
+                            <Frame.Content>
+                                <AbsoluteLayout>
+                                    <Button AbsoluteLayout.LayoutBounds="18,-15,AutoSize,AutoSize" 
+                                                    Text="+"
+                                                    TextColor="Black" 
+                                                    BackgroundColor="Transparent" 
+                                                     Command="{Binding PlusButtonCommand}"
+                                                        CommandParameter="1"
+                                                    FontSize="30" ></Button>
+                                    <Label  AbsoluteLayout.LayoutBounds="8,45,AutoSize,AutoSize" 
+                                                    Text="{Binding RowDesserts[1].ItemCount, Mode=TwoWay}" 
+                                                Style="{StaticResource DessertSelectionLabels}" TextColor="Blue" >
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label"
+                                                     Binding="{Binding HideButtons[1], Mode=TwoWay}"
+                                                             Value="True">
+                                                <Setter Property="TextColor" Value="Black" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                    <Label  AbsoluteLayout.LayoutBounds="25,45,AutoSize,AutoSize"  Text="{Binding RowDesserts[1].ShortName, Mode=TwoWay}"
+                                                Style="{StaticResource DessertSelectionLabels}" TextColor="Black" >
+                                    </Label>
+                                    <Button AbsoluteLayout.LayoutBounds="18,36,AutoSize,AutoSize" 
+                                                    Text="_"
+                                                    TextColor="Black" 
+                                                    BackgroundColor="Transparent"
+                                                          Command="{Binding MinusButtonCommand}"
+                                                        CommandParameter="1"
+                                                    FontSize="35" ></Button>
+                                </AbsoluteLayout>
+                            </Frame.Content>
+                        </Frame>
+                        <Frame Grid.Column="2" Style="{StaticResource DessertSelectionFrameButton}" BackgroundColor="{Binding CircleColors[2], Mode=TwoWay}" >
+                            <Frame.Content>
+                                <AbsoluteLayout>
+                                    <Button AbsoluteLayout.LayoutBounds="18,-15,AutoSize,AutoSize"
+                                                    Text="+" 
+                                                    TextColor="Black" 
+                                                    BackgroundColor="Transparent" 
+                                                     Command="{Binding PlusButtonCommand}"
+                                                        CommandParameter="2"
+                                                    FontSize="30" ></Button>
+                                    <Label  AbsoluteLayout.LayoutBounds="8,45,AutoSize,AutoSize"  
+                                                    Text="{Binding RowDesserts[2].ItemCount, Mode=TwoWay}"  
+                                                Style="{StaticResource DessertSelectionLabels}" TextColor="Blue" >
+                                        <Label.Triggers>
+                                            <DataTrigger TargetType="Label"
+                                                     Binding="{Binding HideButtons[2], Mode=TwoWay}"
+                                                             Value="True">
+                                                <Setter Property="TextColor" Value="Black" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                    <Label  AbsoluteLayout.LayoutBounds="25,45,AutoSize,AutoSize"  Text="{Binding RowDesserts[2].ShortName, Mode=TwoWay}"
+                                                Style="{StaticResource DessertSelectionLabels}" TextColor="Black" >
+                                    </Label>
+                                    <Button AbsoluteLayout.LayoutBounds="18,36,AutoSize,AutoSize" 
+                                                    Text="_"
+                                                    TextColor="Black"
+                                                    BackgroundColor="Transparent" 
+                                                          Command="{Binding MinusButtonCommand}"
+                                                        CommandParameter="2"
+                                                    FontSize="35" ></Button>
+                                </AbsoluteLayout>
+                            </Frame.Content>
+                        </Frame>
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout Spacing="0"
                      Padding="10,0,10,5">
-            <ScrollView Orientation="Horizontal" x:Name="MenuScrollView">
+            <views:MenuHeaderView x:Name="ToppingsHeader" />
+            <ListView ItemsSource="{Binding DessertDisplayItems, Mode=TwoWay}"
+                      CachingStrategy="RecycleElement"
+                      ItemSelected="OnDessertRowSelected"
+                      ItemTemplate="{StaticResource DessertPageRowTemplate}"
+                      RowHeight="131"
+                      Margin="0"
+                      IsVisible="True"
+                      HasUnevenRows="True"
+                      BackgroundColor="Black"
+                      SeparatorVisibility="None">
+            </ListView>
+            <views:MenuScrollFooterView VerticalOptions="EndAndExpand" HorizontalOptions="FillAndExpand" x:Name="Footer"/>
+        </StackLayout>
+    </ContentPage.Content>
+</local:BasePage>
+
+
+
+<!--<ScrollView Orientation="Horizontal" x:Name="MenuScrollView">
                 <StackLayout Orientation="Horizontal"
                              BackgroundColor="Black"
                              Margin="0">
@@ -107,8 +272,4 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>
-            <views:MenuScrollFooterView VerticalOptions="EndAndExpand" HorizontalOptions="FillAndExpand" x:Name="Footer"/>
-        </StackLayout>
-    </ContentPage.Content>
-</local:BasePage>
+            </ListView>-->

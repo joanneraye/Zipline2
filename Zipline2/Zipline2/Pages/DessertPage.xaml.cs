@@ -16,17 +16,16 @@ namespace Zipline2.Pages
 	public partial class DessertPage : BasePage
 	{
         private DessertPageModel ThisDessertPageModel;
-        private bool isEditingDrink;
 
         public DessertPage(Dessert dessertForEdit = null)
 		{
+            MenuHeaderModel.Instance.ShowPlusMinus = false;
             if (dessertForEdit == null)
             {
                 ThisDessertPageModel = new DessertPageModel();
             }
             else
             {
-                isEditingDrink = true;
                 ThisDessertPageModel = new DessertPageModel(dessertForEdit);
             }
             InitializeComponent();

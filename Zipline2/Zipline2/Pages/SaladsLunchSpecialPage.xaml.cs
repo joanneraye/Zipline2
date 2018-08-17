@@ -19,6 +19,7 @@ namespace Zipline2.Pages
         SaladsLunchSpecialPageModel thisPageModel;
 		public SaladsLunchSpecialPage()
 		{
+            MenuHeaderModel.Instance.ShowPlusMinus = false;
             InitializeComponent();
             thisPageModel = new SaladsLunchSpecialPageModel();
             BindingContext = thisPageModel;

@@ -329,7 +329,7 @@ namespace Zipline2.Models
             foreach (var topping in Toppings.CurrentToppings)
             {
                 if (topping.ToppingName == ToppingName.Major ||
-                    topping.ToppingName == ToppingName.SatchPan)
+                    topping.ToppingName == ToppingName.SatchPanSlice)
                 {
                     continue;
                 }

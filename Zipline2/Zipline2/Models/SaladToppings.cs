@@ -45,6 +45,11 @@ namespace Zipline2.Models
             ThisSalad.PopulatePricePerItem();
             //MessagingCenter.Send<SaladToppings>(this, "SaladToppingsTotalUpdated");
         }
+
+        public override void CheckForMajor()
+        {
+            return;
+        }
     }
       
 }

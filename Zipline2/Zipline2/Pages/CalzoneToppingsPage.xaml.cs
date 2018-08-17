@@ -26,6 +26,7 @@ namespace Zipline2.Pages
         public CalzoneToppingsPage(Calzone thisCalzone)
         {
             ToppingsPageModel = new CalzoneToppingsPageModel(thisCalzone);
+            MenuHeaderModel.Instance.ShowPlusMinus = true;
             ThisCalzone = thisCalzone;
             InitializeComponent();
             BindingContext = ToppingsPageModel;
@@ -40,6 +41,26 @@ namespace Zipline2.Pages
             {
                 ToppingsPageModel.SelectMajorToppings();
                 ToppingsPageModel.ThisCalzone.Toppings.AddMajorToppings();
+            }
+            MessagingCenter.Subscribe<MenuHeaderModel>(this, "HeaderMinusClicked",
+            (sender) => { OnHeaderMinusClicked(); });
+            MessagingCenter.Subscribe<MenuHeaderModel>(this, "HeaderPlusClicked",
+             (sender) => { OnHeaderPlusClicked(); });
+        }
+
+        private void OnHeaderPlusClicked()
+        {
+            if ( ThisCalzone != null)
+            {
+            ThisCalzone.ItemCount++;
+            }
+        }
+
+        private void OnHeaderMinusClicked()
+        {
+            if (ThisCalzone != null)
+            {
+            ThisCalzone.ItemCount--;
             }
         }
 
@@ -141,6 +162,8 @@ namespace Zipline2.Pages
                 base.OnDisappearing();
                 ToppingsPageModel.NavigateToPizzaPage -= HandleNavigateToPizzaPage;
                 ToppingsPageModel.ChangeHeadingCalzoneName -= ChangeCalzoneHeading;
+                MessagingCenter.Unsubscribe<string>(this, "HeaderMinusClicked");
+                MessagingCenter.Unsubscribe<string>(this, "HeaderPlusClicked");
             }
             catch (Exception ex)
             {

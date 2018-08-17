@@ -25,6 +25,7 @@ namespace Zipline2.Pages
             pizzaPageModel = new PizzaPageModel();
       
             InitializeComponent();
+            MenuHeaderModel.Instance.ShowPlusMinus = false;
             string pizzaTitle = "TBL " + OrderManager.Instance.CurrentTableName + " Pizza";
             this.ToolbarItems.Clear();
             this.ToolbarItems.Add(new ToolbarItem { Text = pizzaTitle, Priority = 0 });
