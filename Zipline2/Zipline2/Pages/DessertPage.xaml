@@ -50,14 +50,17 @@
                         <Frame Grid.Column="0" Style="{StaticResource DessertSelectionFrameButton}" BackgroundColor="{Binding CircleColors[0], Mode=TwoWay}" >
                             <Frame.Content>
                                 <AbsoluteLayout>
-                                    <Button AbsoluteLayout.LayoutBounds="18,-15,AutoSize,AutoSize" 
-                                                    Text="+"
-                                                    TextColor="Black" 
-                                                    BackgroundColor="Transparent" 
-                                                     Command="{Binding PlusButtonCommand}"
-                                                        CommandParameter="0"
-                                                    FontSize="30" ></Button>
-                                    <Label  AbsoluteLayout.LayoutBounds="8,45,AutoSize,AutoSize" 
+                                    <Label  AbsoluteLayout.LayoutBounds="50,0,100,40" 
+                                                    Text="+" 
+                                                    TextColor="Black"
+                                                    BackgroundColor="Transparent"
+                                                    FontSize="30">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding PlusButtonCommand}"
+                                                                  CommandParameter="0"/>
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                    <Label  AbsoluteLayout.LayoutBounds="8,50,AutoSize,AutoSize" 
                                                     Text="{Binding RowDesserts[0].ItemCount, Mode=TwoWay}" 
                                                     Style="{StaticResource DessertSelectionLabels}" 
                                                     TextColor="Blue" >
@@ -69,17 +72,21 @@
                                             </DataTrigger>
                                         </Label.Triggers>
                                     </Label>
-                                    <Label  AbsoluteLayout.LayoutBounds="25,45,AutoSize,AutoSize"  
+                                    <Label  AbsoluteLayout.LayoutBounds="35,50,AutoSize,AutoSize"  
                                                     Text="{Binding RowDesserts[0].ShortName, Mode=TwoWay}"
                                                 Style="{StaticResource DessertSelectionLabels}" TextColor="Black" >
                                     </Label>
-                                    <Button AbsoluteLayout.LayoutBounds="18,36,AutoSize,AutoSize" 
-                                                    Text="_"
-                                                    TextColor="Black" 
+                                    <Label  AbsoluteLayout.LayoutBounds="52,60,100,100"
+                                            FontAttributes="Bold"
+                                                    Text="_" 
+                                                    TextColor="Black"
                                                     BackgroundColor="Transparent"
-                                                          Command="{Binding MinusButtonCommand}"
-                                                        CommandParameter="0"
-                                                    FontSize="35" ></Button>
+                                                    FontSize="35">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding MinusButtonCommand}"
+                                                                  CommandParameter="0"/>
+                                        </Label.GestureRecognizers>
+                                    </Label>
                                 </AbsoluteLayout>
                             </Frame.Content>
                             <Frame.Triggers>
@@ -93,14 +100,17 @@
                         <Frame Grid.Column="1" Style="{StaticResource DessertSelectionFrameButton}" BackgroundColor="{Binding CircleColors[1], Mode=TwoWay}" >
                             <Frame.Content>
                                 <AbsoluteLayout>
-                                    <Button AbsoluteLayout.LayoutBounds="18,-15,AutoSize,AutoSize" 
-                                                    Text="+"
-                                                    TextColor="Black" 
-                                                    BackgroundColor="Transparent" 
-                                                     Command="{Binding PlusButtonCommand}"
-                                                        CommandParameter="1"
-                                                    FontSize="30" ></Button>
-                                    <Label  AbsoluteLayout.LayoutBounds="8,45,AutoSize,AutoSize" 
+                                    <Label  AbsoluteLayout.LayoutBounds="50,0,100,40" 
+                                                    Text="+" 
+                                                    TextColor="Black"
+                                                    BackgroundColor="Transparent"
+                                                    FontSize="30">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding PlusButtonCommand}"
+                                                                  CommandParameter="1"/>
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                    <Label  AbsoluteLayout.LayoutBounds="8,50,AutoSize,AutoSize" 
                                                     Text="{Binding RowDesserts[1].ItemCount, Mode=TwoWay}" 
                                                 Style="{StaticResource DessertSelectionLabels}" TextColor="Blue" >
                                         <Label.Triggers>
@@ -111,30 +121,37 @@
                                             </DataTrigger>
                                         </Label.Triggers>
                                     </Label>
-                                    <Label  AbsoluteLayout.LayoutBounds="25,45,AutoSize,AutoSize"  Text="{Binding RowDesserts[1].ShortName, Mode=TwoWay}"
+                                    <Label  AbsoluteLayout.LayoutBounds="35,50,AutoSize,AutoSize"  Text="{Binding RowDesserts[1].ShortName, Mode=TwoWay}"
                                                 Style="{StaticResource DessertSelectionLabels}" TextColor="Black" >
                                     </Label>
-                                    <Button AbsoluteLayout.LayoutBounds="18,36,AutoSize,AutoSize" 
-                                                    Text="_"
-                                                    TextColor="Black" 
+                                    <Label  AbsoluteLayout.LayoutBounds="52,60,100,100"
+                                            FontAttributes="Bold"
+                                                    Text="_" 
+                                                    TextColor="Black"
                                                     BackgroundColor="Transparent"
-                                                          Command="{Binding MinusButtonCommand}"
-                                                        CommandParameter="1"
-                                                    FontSize="35" ></Button>
+                                                    FontSize="35">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding MinusButtonCommand}"
+                                                                  CommandParameter="1"/>
+                                        </Label.GestureRecognizers>
+                                    </Label>
                                 </AbsoluteLayout>
                             </Frame.Content>
                         </Frame>
                         <Frame Grid.Column="2" Style="{StaticResource DessertSelectionFrameButton}" BackgroundColor="{Binding CircleColors[2], Mode=TwoWay}" >
                             <Frame.Content>
                                 <AbsoluteLayout>
-                                    <Button AbsoluteLayout.LayoutBounds="18,-15,AutoSize,AutoSize"
+                                    <Label  AbsoluteLayout.LayoutBounds="50,0,100,40" 
                                                     Text="+" 
-                                                    TextColor="Black" 
-                                                    BackgroundColor="Transparent" 
-                                                     Command="{Binding PlusButtonCommand}"
-                                                        CommandParameter="2"
-                                                    FontSize="30" ></Button>
-                                    <Label  AbsoluteLayout.LayoutBounds="8,45,AutoSize,AutoSize"  
+                                                    TextColor="Black"
+                                                    BackgroundColor="Transparent"
+                                                    FontSize="30">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding PlusButtonCommand}"
+                                                                  CommandParameter="0"/>
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                    <Label  AbsoluteLayout.LayoutBounds="8,50,AutoSize,AutoSize"  
                                                     Text="{Binding RowDesserts[2].ItemCount, Mode=TwoWay}"  
                                                 Style="{StaticResource DessertSelectionLabels}" TextColor="Blue" >
                                         <Label.Triggers>
@@ -145,16 +162,20 @@
                                             </DataTrigger>
                                         </Label.Triggers>
                                     </Label>
-                                    <Label  AbsoluteLayout.LayoutBounds="25,45,AutoSize,AutoSize"  Text="{Binding RowDesserts[2].ShortName, Mode=TwoWay}"
+                                    <Label  AbsoluteLayout.LayoutBounds="35,50,AutoSize,AutoSize"  Text="{Binding RowDesserts[2].ShortName, Mode=TwoWay}"
                                                 Style="{StaticResource DessertSelectionLabels}" TextColor="Black" >
                                     </Label>
-                                    <Button AbsoluteLayout.LayoutBounds="18,36,AutoSize,AutoSize" 
-                                                    Text="_"
+                                    <Label  AbsoluteLayout.LayoutBounds="52,60,100,100"
+                                            FontAttributes="Bold"
+                                                    Text="_" 
                                                     TextColor="Black"
-                                                    BackgroundColor="Transparent" 
-                                                          Command="{Binding MinusButtonCommand}"
-                                                        CommandParameter="2"
-                                                    FontSize="35" ></Button>
+                                                    BackgroundColor="Transparent"
+                                                    FontSize="35">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding MinusButtonCommand}"
+                                                                  CommandParameter="1"/>
+                                        </Label.GestureRecognizers>
+                                    </Label>
                                 </AbsoluteLayout>
                             </Frame.Content>
                         </Frame>

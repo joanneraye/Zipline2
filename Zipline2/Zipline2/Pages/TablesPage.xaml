@@ -206,10 +206,14 @@
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>
-            <DataTemplate x:Key="tablePageBlankTemplate" x:Name="blankTemplate" >
-                <ViewCell Height="0">
-                    <StackLayout Padding="0" Margin="0" HeightRequest="0" BackgroundColor="Black">
-
+            <DataTemplate x:Key="tablePageBlankTemplate" x:Name="blankTemplate">
+                <ViewCell Height="1">
+                    <StackLayout Padding="0" 
+                                 Margin="0" 
+                                 WidthRequest="0"
+                                 HeightRequest="0" 
+                                 BackgroundColor="Black">
+                        <Label HeightRequest="1" Margin="0,0,0,0" BackgroundColor="Black" />
                     </StackLayout>
                     <!--<StackLayout Padding="0" Margin="0" HeightRequest="0" BackgroundColor="Black">
                         <Label Text="TOP HEADER" />
@@ -225,7 +229,8 @@
     <ContentPage.Content>
         
         <StackLayout BackgroundColor="Black" 
-                     Padding="20,0,20,0"
+                     Padding="0,0,0,0"
+                     Spacing="0"
                      Margin="0"
                      Orientation="Vertical"
                      VerticalOptions="FillAndExpand">
