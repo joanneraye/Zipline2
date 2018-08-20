@@ -1,10 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Zipline2;assembly=Zipline2"
              x:Class="Zipline2.App">
 	<Application.Resources>
-
-		<!-- Application resource dictionary -->
-
-	</Application.Resources>
+        <ResourceDictionary>
+            <Style x:Key="PlusButton" TargetType="Button">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="BorderColor" Value="White" />
+                <Setter Property="BorderRadius" Value="25" />
+                <Setter Property="BorderWidth" Value="2" />
+                <Setter Property="WidthRequest" Value="50" />
+                <Setter Property="HeightRequest" Value="50" />
+                <Setter Property="BackgroundColor" Value="Black" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="End" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="Text" Value="+" />
+            </Style>
+        </ResourceDictionary >
+    </Application.Resources>
 </Application>
+
+<!--WidthRequest="50"
+                        HeightRequest="50"
+                        BorderRadius="25"
+                        BorderWidth="2"
+                        Text="+"
+                        FontSize="18"
+                        TextColor="White"
+                        BorderColor="White"
+                        HorizontalOptions="Center"
+                        VerticalOptions="End"
+                        BackgroundColor="Black"-->
+        

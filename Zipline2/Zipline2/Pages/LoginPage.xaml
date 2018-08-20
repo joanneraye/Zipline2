@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Zipline2.Pages;assembly=Zipline2.Pages"
+             x:Class="Zipline2.Pages.LoginPage">
+    <ContentPage.Resources>
+
+    </ContentPage.Resources>
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <On Platform="iOS" Value="0, 20, 0, 0" />
+        </OnPlatform>
+    </ContentPage.Padding>
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="Black" Padding="10, 10">            
+            <Image Source="zipline_logo.jpg" 
+                   Aspect="AspectFill"  />
+            <Label Text="Enter PIN:"
+                   HorizontalOptions="Center"
+                   FontSize="Small"
+                   TextColor="White" />
+            <Entry TextColor="Black"
+                   x:Name="PinEnteredByUser"
+                   Placeholder="0000"
+                   PlaceholderColor="White"
+                   BackgroundColor="White"
+                   HorizontalOptions="Center"
+                   FontSize="Small"
+                   Keyboard="Numeric" />
+            <Button Text="Log In"
+                    x:Name="LoginButton"
+                    Clicked="OnLoginButtonClicked"
+                    FontSize="Medium"
+                    VerticalOptions="Center"
+                    HeightRequest="55"
+                    FontAttributes="Bold" />
+            <Button Text="Change My PIN"
+                    FontSize="Small"
+                    Clicked="OnChangePinButtonClicked" />
+            <Button Text="Add User (Manager Only)"
+                    Clicked="OnAddNewUserButtonClicked" 
+                    FontSize="Small" />
+        </StackLayout>
+    </ContentPage.Content>
+
+</local:BasePage>

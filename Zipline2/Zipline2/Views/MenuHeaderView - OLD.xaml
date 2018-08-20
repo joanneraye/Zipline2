@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Zipline2.Views.MenuHeaderViewOLD">
+  <ContentView.Content>
+        <!--<StackLayout Orientation="Vertical"
+                     Padding="0"
+                     Spacing="0">
+          <StackLayout Orientation="Horizontal"
+                       Padding="10, 0, 10, 0"
+                       HorizontalOptions="CenterAndExpand"
+                       Spacing="5">
+                <Button x:Name="TButton"
+                      Text="TABLES"
+                      HorizontalOptions="Start"
+                      Clicked="TButtonClicked" />
+                <Label TextColor="LightBlue"
+                       FontSize="Micro"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       HorizontalTextAlignment="Center"
+                       Text="{Binding UserName, StringFormat='{0} / '}"/>
+                <Label TextColor="LightBlue"
+                       FontSize="Micro"
+                       HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                       HorizontalTextAlignment="Center"
+                    Text="{Binding TableName, StringFormat='{0}'}"/>
+
+                --><!--<Label Text="LOGGED IN AS: "
+                       TextColor="White"
+                       HorizontalOptions="Start"
+                       VerticalOptions="Center"
+                       FontSize="Micro" />
+                <Label Text="{Binding UserName}"
+                       x:Name="UserNameLabel"
+                       VerticalOptions="Center"
+                       TextColor="LightBlue" 
+                       FontSize="Small"/>
+                <Label Text="Table "
+                       FontAttributes="Bold"
+                        FontSize="Micro"
+                       TextColor="White"/>
+                <Label Text="{Binding TableName}"
+                       FontAttributes="Bold"
+                       FontSize="Micro"
+                       x:Name="TableNameLabel"
+                       TextColor="White" />--><!--
+                <Button Text="Next" HorizontalOptions="EndAndExpand" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="CenterAndExpand"
+                         Padding="10, 0, 10, 0">
+                <Label TextColor="White" 
+                       FontSize="Micro"
+                       Text="Item Total:" 
+                       Margin="0"/>
+                <Label TextColor="LightBlue"
+                       Margin="0, 0, 10, 0"
+                       x:Name="ItemTotalLabel"
+                       FontSize="Micro"
+                       Text="{Binding ItemTotal, StringFormat='{0:C}'}" />
+                <Label TextColor="White" 
+                       FontSize="Micro"
+                       Margin="0"
+                       Text="Order Total:" />
+                <Label Text="{Binding OrderTotal, StringFormat='{0:C}'}"
+                       FontSize="Micro"
+                       x:Name="OrderTotalLabel"
+                       TextColor="LightBlue" />
+            </StackLayout>
+            <BoxView HeightRequest="1" 
+                         WidthRequest="50"
+                        Color="White"/>
+        </StackLayout>-->
+    </ContentView.Content>
+</ContentView>

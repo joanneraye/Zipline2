@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Zipline2.Pages.AddUserPage"
+             xmlns:local="clr-namespace:Zipline2.Pages;assembly=Zipline2.Pages">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Padding="15">
+                <Label Text="Enter New User's Name:"
+                       FontSize="Medium"
+                       FontAttributes="Bold" />
+                <Entry BackgroundColor="LightSeaGreen" 
+                       Text="{Binding NewUserName}"
+                       x:Name="NewUserName"
+                       Keyboard="Text"/>
+                <Label Text="Enter New User's PIN:"
+                       FontSize="Medium"
+                       FontAttributes="Bold" />
+                <Entry BackgroundColor="LightSeaGreen"
+                       Text="{Binding NewUserPin}"
+                       Keyboard="Numeric"/>
+                <StackLayout Padding="20">                   
+                    <Button Text="Add User"
+                            FontSize="Medium"
+                            Margin="0, 0, 0, 10"
+                            Clicked="OnAddUserButtonClicked"/>
+                    <Label Text="PIN RULES:" 
+                           HorizontalOptions="Center"/>
+                    <Label Text="1)  All numbers cannot be the same (such as 1111)." />
+                    <Label Text="2)  Cannot use numbers in consecutive ascending order (such as 1234)." />
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</local:BasePage>

@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Zipline2.Views.MenuHeaderView">
+  <ContentView.Content>
+        <StackLayout Orientation="Vertical"
+                     Padding="0"
+                     Spacing="0">
+          <StackLayout Orientation="Horizontal"
+                       Padding="10, 0, 10, 0"
+                       HorizontalOptions="FillAndExpand">
+                <Button x:Name="TButton"
+                      Text="TABLES"
+                      HorizontalOptions="Start"
+                      VerticalOptions="End"
+                      Clicked="TablesButtonClicked" />
+                <Label TextColor="LightBlue"
+                       FontSize="Small"
+                       HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="Center"
+                       HorizontalTextAlignment="Center"
+                       Text="{Binding UserName, StringFormat='{0}  '}"/>
+                <Label TextColor="LightBlue"
+                       FontSize="Small"
+                       HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="Center"
+                       HorizontalTextAlignment="Center"
+                       Text="{Binding TableName, StringFormat='{0}'}"/>
+                <Button Text="Next" 
+                        HorizontalOptions="End"
+                        Clicked="NextButtonClicked"
+                        VerticalOptions="End"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         Padding="10, 0, 10, 0"
+                       HorizontalOptions="CenterAndExpand">
+                <Label TextColor="White" 
+                       Text="{Binding PizzaName}"
+                       HorizontalOptions="Start" />
+                <Label TextColor="LightBlue"
+                       x:Name="ItemTotalLabel"
+                       FontSize="Small"
+                       VerticalOptions="Start"
+                       Text="{Binding ItemTotal, StringFormat='{0:C} / ', Mode=TwoWay}" />
+                <Label Text="{Binding OrderTotal, StringFormat='{0:C}', Mode=TwoWay}"
+                       FontSize="Small"
+                       VerticalOptions="Start"
+                       x:Name="OrderTotalLabel"
+                       TextColor="LightBlue" />
+            </StackLayout>
+            <BoxView HeightRequest="1" 
+                     WidthRequest="50"
+                     Color="White"/>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>
