@@ -29,9 +29,9 @@ namespace Zipline2.Pages
         {
             //TODO:  Determine if selected or de-selected....
             var selectedItem = e.Item;
-            if (selectedItem is ToppingsOtherPageModel.OtherToppingSelection)
+            if (selectedItem is ToppingsOtherPageModel.OtherToppingDisplayItem)
             {
-                ToppingsOtherPageModel.OtherToppingSelection thisSelection = selectedItem as ToppingsOtherPageModel.OtherToppingSelection;
+                ToppingsOtherPageModel.OtherToppingDisplayItem thisSelection = selectedItem as ToppingsOtherPageModel.OtherToppingDisplayItem;
                 thisSelection.IsOtherToppingItemSelected = !thisSelection.IsOtherToppingItemSelected;
                 SelectedOtherToppings.Add(thisSelection.OtherToppingsListTopping);
             }

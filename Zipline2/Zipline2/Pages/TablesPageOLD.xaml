@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Zipline2.Pages;assembly=Zipline2.Pages"
+             x:Class="Zipline2.Pages.TablesPageOld">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            
+        </ResourceDictionary>
+    </ContentPage.Resources>   
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="Black" 
+                     Padding="10,0,10,0"
+                     Orientation="Vertical"
+                     VerticalOptions="FillAndExpand">
+            <ActivityIndicator Color="White"
+                           IsRunning="{Binding IsBusy}"
+                           IsVisible="{Binding IsBusy}" />
+            <!--<Button Text="Takeout" 
+                        x:Name="TakeoutButton"
+                        TextColor="Black"
+                        BackgroundColor="Pink"
+                        FontSize="10"
+                        BorderColor="White"
+                    HeightRequest="40"
+                    WidthRequest="200"
+                        BorderRadius="1"
+                        BorderWidth="1"
+                    Margin="10,0,10,10"
+                        HorizontalOptions="Center"
+                        Clicked="TakeoutButtonClicked"/>-->
+            <ListView ItemsSource="{Binding DisplayTables}"
+                      ItemSelected="OnItemSelected"
+                      x:Name="TableList"
+                      BackgroundColor="Black"
+                      RowHeight="45"
+                      IsPullToRefreshEnabled="True"
+                      Refreshing="OnRefreshing"
+                      SeparatorVisibility="Default">
+                <!--In order to make space between ListView rows,
+                     should take whatever the Grid's RowDefinition Height ends up
+                     being and add 5 and then set ListView RowHeight to it.  I
+                     have not yet figured out how to do that since I cannot
+                     get at the Grid (doesn't recognize TablesGrid, I assume
+                     because it is in the DataTemplate).  -->
+                <ListView.Header>
+                    <StackLayout>
+                        <Button Text="Takeout"
+                            HorizontalOptions="Center"
+                                WidthRequest="150"
+                                HeightRequest="40"
+                                Margin="5,0,5,5"
+                                BackgroundColor="PaleGreen"
+                                TextColor ="Black"/>
+                    </StackLayout>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell x:Name="ListViewCellTables">
+                            <Grid x:Name="TablesGrid"
+                                  Padding="0,0,10,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="4*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="4*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" 
+                                       BackgroundColor="Blue" 
+                                       Text=" "
+                                       Margin="5, 10, 0, 10">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                  Binding="{Binding InsideTable.IsOccupied, Mode=TwoWay}"
+                                                            Value="True">
+                                            <Setter Property="BackgroundColor" Value="Orange" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+
+                                <Button Grid.Column="1"
+                                        Text="{Binding InsideTableName}" 
+                                        TextColor="White" 
+                                        BackgroundColor="Black"
+                                        BorderColor="White"
+                                        FontSize="12" 
+                                        FontAttributes="Bold"
+                                        BorderRadius="1"
+                                        BorderWidth="1"
+                                        Command="{Binding InsideTableCommand}">
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button"
+                                                        Binding="{Binding InsideTable.HasUnsentOrder, Mode=TwoWay}"
+                                                            Value="True">
+                                            <Setter Property="TextColor" Value="Red" />                                         
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Button"
+                                                        Binding="{Binding InsideTable.InsideTableClicked, Mode=TwoWay}"
+                                                            Value="True">
+                                            <Setter Property="IsEnabled" Value="False" />
+                                        </DataTrigger>                                      
+                                    </Button.Triggers>
+                                </Button>
+                                <Label Grid.Column="2" 
+                                       BackgroundColor="Blue"
+                                       Text=" "
+                                       Margin="5, 10, 0, 10">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                  Binding="{Binding OutsideTable.IsOccupied, Mode=TwoWay}"
+                                                            Value="True">
+                                            <Setter Property="BackgroundColor" Value="Orange" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <Button Grid.Column="3" Text="{Binding OutsideTableName}" 
+                                        TextColor="White"
+                                        FontSize="12"
+                                        BackgroundColor="Black" 
+                                         FontAttributes="Bold"
+                                        BorderColor="White"
+                                        BorderRadius="1"
+                                        BorderWidth="1"
+                                        Command="{Binding OutsideTableCommand}">
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button"
+                                                        Binding="{Binding OutsideTable.HasUnsentOrder, Mode=TwoWay}"
+                                                            Value="True">
+                                            <Setter Property="TextColor" Value="Red" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Button"
+                                                        Binding="{Binding InsideTable.OutsideTableClicked, Mode=TwoWay}"
+                                                            Value="True">
+                                            <Setter Property="IsEnabled" Value="False" />
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView> 
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
+
+<!--<ImageCell ImageSource="{Binding ImageName}"
+                                   Text="{Binding TableName}"
+                                   TextColor="Azure"
+                                   DetailColor="Azure"
+                                   Height="30">
+                                </ImageCell>-->
+
+
+<!--<ViewCell>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55" />
+            <RowDefinition Height="55" />
+            <RowDefinition Height="55" />
+            <RowDefinition Height="55" />
+            <RowDefinition Height="55" />
+            <RowDefinition Height="55" />
+            <RowDefinition Height="55" />
+            <RowDefinition Height="55" />
+            <RowDefinition Height="55" />
+            <RowDefinition Height="55" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Label Grid.Column="1" Text="{Binding ToppingName}"
+
+                            </Grid>
+</ViewCell>-->
+
+<!--<Grid>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="55" />
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="100" />
+        <ColumnDefinition Width="100" />
+    </Grid.ColumnDefinitions>
+    <Label Grid.Column="0" 
+                                       Text="{Binding TableName}"
+                                       TextColor="BlanchedAlmond"
+                                       HorizontalTextAlignment="Start"/>
+    <Label Grid.Column="1" 
+                                       TextColor="BlanchedAlmond"
+                                       Text="{Binding TableName}" 
+                                       HorizontalTextAlignment="Start" />
+</Grid>-->
+<!--<StackLayout Orientation="Horizontal">
+                                <Image Source="orange_square.png" 
+                                        HorizontalOptions="Start"
+                                        Margin="10, 5, 5, 5"
+                                        HeightRequest="30" />
+                                <Label Text="{Binding TableName}" />-->
+
+
+<!--<Button Text="Column1" 
+                                        TextColor="White"
+                                        BorderRadius="3"
+                                        BackgroundColor="Black"
+                                        HorizontalOptions="Start"
+                                        BorderColor="White"
+                                        Margin="5,5,5,5"
+                                        BorderWidth="2" 
+                                        HeightRequest="50"
+                                        Clicked="OnTableSelected"/>-->
+<!--</StackLayout>-->

@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Zipline2.Pages"
+             xmlns:views="clr-namespace:Zipline2.Views"
+             x:Class="Zipline2.Pages.SaladToppingsPage">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="Black"
+                     Padding="10, 0, 10, 10"
+                     Orientation="Vertical">
+            <views:MenuHeaderView x:Name="ToppingsHeader" />
+            <ListView CachingStrategy="RecycleElementAndDataTemplate"
+                      ItemsSource="{Binding SaladToppingSelectionsList, Mode=TwoWay}"
+                      HorizontalOptions="Start"
+                      SeparatorVisibility="None"
+                      x:Name="SaladToppingsListView"
+                      Margin="0"
+                      HasUnevenRows="True"
+                      BackgroundColor="Black">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Label BackgroundColor="Black"
+                                    Text="{Binding SaladTopping.ToppingDisplayName}"
+                                    FontSize="Small"
+                                    VerticalOptions="Center"
+                                    Margin="0"
+                                    HorizontalOptions="Start"
+                                    TextColor="White">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SaladToppingSelectedCommand}"/>
+                                </Label.GestureRecognizers>
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label" 
+                                                        Binding="{Binding SaladToppingIsSelected, Mode=TwoWay}"
+                                                        Value="True">
+                                        <Setter Property="BackgroundColor" Value="Orange" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                            <!--<StackLayout>
+                                <Button BackgroundColor="Black"
+                                        Command="{Binding SaladToppingSelectedCommand}">
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button" 
+                                                        Binding="{Binding SaladToppingIsSelected, Mode=TwoWay}"
+                                                        Value="True">
+                                            <Setter Property="BackgroundColor" Value="Orange" />
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
+                                <Label Text="{Binding SaladTopping.ToppingDisplayName}"
+                                           BackgroundColor="Transparent"
+                                           HorizontalOptions="StartAndExpand"
+                                           VerticalOptions="CenterAndExpand"
+                                           TextColor="White"
+                                           FontSize="Small">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding SaladToppingSelectedCommand}"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </StackLayout>-->
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <views:ToppingFooterView VerticalOptions="EndAndExpand" x:Name="ToppingFooter"/>
+            <StackLayout Orientation="Horizontal">
+                <Button Text="{Binding AddButtonText}"
+                    Command="{Binding AddToOrderCommand}"
+                    HorizontalOptions="FillAndExpand"
+                    HeightRequest="40"
+                    FontSize="Micro"
+                    BorderColor="White"
+                    BorderRadius="2"
+                    BorderWidth="2"
+                    BackgroundColor="LightBlue"
+                    TextColor="Black">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" 
+                               Binding="{Binding CurrentSalad.PartOfCombo}"
+                               Value="True">
+                            <Setter Property="IsVisible" Value="False" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+                <Button Text="Continue to Pizza Toppings"
+                    Command="{Binding NextPageCommand}"
+                    HorizontalOptions="FillAndExpand"
+                    HeightRequest="40"
+                    FontSize="Micro"
+                    IsVisible="False"
+                    BorderColor="White"
+                    BorderRadius="2"
+                    BorderWidth="2"
+                    BackgroundColor="LightBlue"
+                    TextColor="Black">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button" 
+                               Binding="{Binding CurrentSalad.PartOfCombo}"
+                               Value="True">
+                            <Setter Property="IsVisible" Value="True" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+            </StackLayout>
+           
+        </StackLayout>
+    </ContentPage.Content>
+</local:BasePage>

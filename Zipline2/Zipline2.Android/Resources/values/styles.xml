@@ -11,9 +11,11 @@
     <item name="windowActionBar">false</item>
     <!-- Set theme colors from http://www.google.com/design/spec/style/color.html#color-color-palette -->
     <!-- colorPrimary is used for the default action bar background -->
-    <item name="colorPrimary">#2196F3</item>             <!--vivid blue-->
+    <!--<item name="colorPrimary">#2196F3</item>             --><!--vivid blue-->
+    <item name="colorPrimary">#000000</item>
     <!-- colorPrimaryDark is used for the status bar -->
-    <item name="colorPrimaryDark">#1976D2</item>         <!--strong blue-->
+    <!--<item name="colorPrimaryDark">#1976D2</item>         --><!--strong blue-->
+    <item name="colorPrimaryDark">#000000</item>
     <!-- colorAccent is used as the default value for colorControlActivated
          which is used to tint widgets -->
     <item name="colorAccent">#800000</item>                          <!-- #800000 is Dark Red-->
@@ -23,10 +25,23 @@
 
     <item name="android:datePickerDialogTheme">@style/AppCompatDialogStyle</item>
     <item name="android:colorFocusedHighlight">@color/ListViewSelected</item>
+    <item name="android:windowBackground">@drawable/black_square</item>
   </style>
+  <!--<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="colorPrimary">LightOrange</item>
+    <item name="colorPrimaryDark">@color</item>
+  </style>-->
   <color name="ListViewSelected">#000000</color>  <!--black-->
   <style name="AppCompatDialogStyle" parent="Theme.AppCompat.Light.Dialog">
     <item name="colorAccent">#FF4081</item>    <!-- Light pink-->
+  </style>
+
+  <style name="MyMaterial" parent="android:Theme.Material.Light.DarkActionBar">
+    <item name="android:buttonStyle">@style/MyButton</item>
+  </style>
+  <style name="MyButton" parent="android:style/Widget.Material.Light.Button">
+    <item name="android:minWidth">0dp</item>
+    <item name="android:minHeight">0dp</item>
   </style>
   
 </resources>

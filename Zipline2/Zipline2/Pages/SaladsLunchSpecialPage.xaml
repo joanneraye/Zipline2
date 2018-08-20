@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:Zipline2.Converters"
+             xmlns:views="clr-namespace:Zipline2.Views"
+             xmlns:local="clr-namespace:Zipline2.Pages"
+             xmlns:iconize="clr-namespace:FormsPlugin.Iconize;assembly=FormsPlugin.Iconize"
+             x:Class="Zipline2.Pages.SaladsLunchSpecialPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="SaladSelectionButtons" TargetType="Frame">
+                <Setter Property="CornerRadius" Value="80" />
+                <Setter Property="WidthRequest" Value="160" />
+                <Setter Property="HeightRequest" Value="160" />
+                <Setter Property="BackgroundColor" Value="LightGreen" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="0" />
+            </Style>
+
+            <Style x:Key="SaladSelectionLabels" TargetType="Label">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="FontSize" Value="36" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="Black"
+                     VerticalOptions="FillAndExpand"
+                     Padding="10,10">
+            <views:MenuHeaderView x:Name="ToppingsHeader" />
+            <Grid x:Name="PizzaGrid"
+                      ColumnSpacing="10"
+                  RowSpacing="8"
+                      HorizontalOptions="CenterAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="160"/>
+                    <RowDefinition Height="160"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="160" />
+                    <ColumnDefinition Width="160" />
+                </Grid.ColumnDefinitions>
+                <Frame Grid.Column="0" Grid.Row="0" Padding="0"
+                                       Style="{StaticResource SaladSelectionButtons}" >
+                    <Frame.Content>
+                        <Label Text="Small Salad"
+                                        Style="{StaticResource SaladSelectionLabels}">
+                        </Label>
+                    </Frame.Content>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer  Command="{Binding AddSmallSaladCommand}"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+
+                <Frame Grid.Column="1" Grid.Row="0" Padding="0"
+                                       Style="{StaticResource SaladSelectionButtons}" >
+                    <Frame.Content>
+                        <Label Text="Large Salad"
+                                        Style="{StaticResource SaladSelectionLabels}">
+                        </Label>
+                    </Frame.Content>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer  Command="{Binding AddLargeSaladCommand}"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+                <Frame Grid.Column="0" Grid.Row="1" Padding="0"
+                                       Style="{StaticResource SaladSelectionButtons}" BackgroundColor="Orange" >
+                    <Frame.Content>
+                        <Label Text="Lunch Spec"
+                                        Style="{StaticResource SaladSelectionLabels}"
+                                WidthRequest="130">
+                        </Label>
+                    </Frame.Content>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer  Command="{Binding AddLunchSpecialCommand}"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+
+                <Frame Grid.Column="1" Grid.Row="1" Padding="0" BackgroundColor="White" 
+                                       Style="{StaticResource SaladSelectionButtons}" >
+                    <Frame.Content>
+                        <Label Text="Spec Salad (No Slice)"
+                                        Style="{StaticResource SaladSelectionLabels}" FontSize="24">
+                        </Label>
+                    </Frame.Content>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer  Command="{Binding AddLunchSpecialSaladCommand}"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+            </Grid>
+
+            <!--<StackLayout Padding="10,10" Orientation="Vertical" HorizontalOptions="Center" Spacing="10">               
+                <Button Text="Small Salad"
+                        Command="{Binding AddSmallSaladCommand}"
+                        Style="{StaticResource SaladSelectionButtons}"
+                       />
+                <Button Text="Large Salad"
+                        Command="{Binding AddLargeSaladCommand}"
+                        Style="{StaticResource SaladSelectionButtons}"
+                         />
+                <Button Text="Lunch Special"
+                        Command="{Binding AddLunchSpecialSaladCommand}"
+                        Style="{StaticResource SaladSelectionButtons}" />-->
+
+            <!--<iconize:IconImage Grid.Row ="0"
+                           Grid.Column="1"
+                           Style="{StaticResource PlusIcon}">
+                    <iconize:IconImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding AddLunchSpecialSaladCommand}" />
+                    </iconize:IconImage.GestureRecognizers>
+                </iconize:IconImage>
+                <iconize:IconImage Grid.Row ="1"
+                           Grid.Column="1"
+                           Style="{StaticResource PlusIcon}">
+                    <iconize:IconImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding AddSmallSaladCommand}" />
+                    </iconize:IconImage.GestureRecognizers>
+                </iconize:IconImage>
+                <iconize:IconImage Grid.Row ="2"
+                           Grid.Column="1"
+                           Style="{StaticResource PlusIcon}">
+                    <iconize:IconImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding AddLargeSaladCommand}" />
+                    </iconize:IconImage.GestureRecognizers>
+                </iconize:IconImage>-->
+            <views:MenuScrollFooterView VerticalOptions="EndAndExpand"  HorizontalOptions="FillAndExpand" x:Name="Footer"/>
+        </StackLayout>
+    </ContentPage.Content>
+</local:BasePage>

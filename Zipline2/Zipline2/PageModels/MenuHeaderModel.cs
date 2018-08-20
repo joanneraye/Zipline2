@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Input;
 using Xamarin.Forms;
 using Zipline2.BusinessLogic;
 using Zipline2.BusinessLogic.Enums;
@@ -39,6 +40,19 @@ namespace Zipline2.PageModels
             set
             {
                 SetProperty(ref tableName, value);
+            }
+        }
+
+        private int itemCount;
+        public int ItemCount
+        {
+            get
+            {
+                return itemCount;
+            }
+            set
+            {
+                SetProperty(ref itemCount, value);
             }
         }
 
@@ -87,14 +101,36 @@ namespace Zipline2.PageModels
                 SetProperty(ref pizzaName, value);
             }
         }
+
+        public ICommand MinusCommand { get; set; }
+        public ICommand PlusCommand { get; set; }
+
+        private bool showPlusMinus;
+        public bool ShowPlusMinus
+        {
+            get
+            {
+                return showPlusMinus;
+            }
+            set
+            {
+                SetProperty(ref showPlusMinus, value);
+            }
+        }
         #endregion
         private static MenuHeaderModel instance = null;
         private static readonly object padlock = new object();
+        
         private MenuHeaderModel()
         {
             itemTotal = 0M;
+            MinusCommand = new Command(OnMinusClicked);
+            PlusCommand = new Command(OnPlusClicked);
             OrderTotal = OrderManager.Instance.OrderInProgress.Total;
-            UserName = Users.Instance.LoggedInUser.UserName;
+            if (Users.Instance.LoggedInUser != null)
+            {
+                UserName = Users.Instance.LoggedInUser.UserName;
+            }            
             TableName = OrderManager.Instance.GetCurrentTable().TableName;
             MessagingCenter.Subscribe<OrderItem, decimal>(this, "ItemPriceUpdated",
                 (sender, arg) => { UpdateItemTotal(arg); });
@@ -115,6 +151,21 @@ namespace Zipline2.PageModels
         }
         #region Methods
 
+        public void OnMinusClicked()
+        {
+            if (ItemCount > 0)
+            {
+                ItemCount--;
+                MessagingCenter.Send(this, "HeaderMinusClicked");
+            }      
+        }
+
+        public void OnPlusClicked()
+        {
+            ItemCount++;
+            MessagingCenter.Send(this, "HeaderPlusClicked");
+        }
+        
         public void UpdateItemTotal(decimal newItemTotal)
         {
             ItemTotal = newItemTotal;
@@ -123,6 +174,7 @@ namespace Zipline2.PageModels
         {
             ItemTotal = basePrice + toppingsTotal;
         }
+        
         #endregion
     }
 }

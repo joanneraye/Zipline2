@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms;
 
 namespace Zipline2.Models
 {
@@ -33,7 +34,19 @@ namespace Zipline2.Models
         #region Properties
         private List<User> AllUsers { get; set; }
         public bool IsUserLoggedIn { get; set; }
-        public User LoggedInUser { get; set; }
+        private User loggedInUser;
+        public User LoggedInUser
+        {
+            get
+            {
+                return loggedInUser;
+            }
+            set
+            {
+                loggedInUser = value;
+                MessagingCenter.Send(this, "UserLoggedIn", loggedInUser.UserName);
+            }
+        }
         #endregion
 
         #region Methods

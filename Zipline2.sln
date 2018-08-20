@@ -11,9 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zipline2.UWP", "Zipline2\Zi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zipline2", "Zipline2\Zipline2\Zipline2.csproj", "{05272F1D-6B26-4599-A391-584ECCA03290}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1) Shared Library", "1) Shared Library", "{40283DBF-17CB-4839-BABD-4817BB660432}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared Code", "Shared Code", "{40283DBF-17CB-4839-BABD-4817BB660432}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2) Platforms", "2) Platforms", "{FA756E24-9DC9-43D2-8433-C391756897CA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mobile Platforms", "Mobile Platforms", "{FA756E24-9DC9-43D2-8433-C391756897CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

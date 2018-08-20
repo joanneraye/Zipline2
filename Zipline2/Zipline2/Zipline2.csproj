@@ -10,6 +10,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="BusinessLogic\WcfRemote\DataClasses\**" />
+    <Compile Remove="BusinessLogic\WcfRemote\WcfClasses\**" />
+    <EmbeddedResource Remove="BusinessLogic\WcfRemote\DataClasses\**" />
+    <EmbeddedResource Remove="BusinessLogic\WcfRemote\WcfClasses\**" />
+    <None Remove="BusinessLogic\WcfRemote\DataClasses\**" />
+    <None Remove="BusinessLogic\WcfRemote\WcfClasses\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="BusinessLogic\Enums\PizzaCrust.cs" />
+    <Compile Remove="BusinessLogic\Enums\PizzaSize.cs" />
+    <Compile Remove="BusinessLogic\WcfRemote\WcfServicesGetData.cs" />
+    <Compile Remove="Connected Services\CheckHostReference\CheckHostold.cs" />
+    <Compile Remove="Connected Services\PosServiceReference\POServiceHostold.cs" />
+    <Compile Remove="CustomControls\MyFlexButton.cs" />
+    <Compile Remove="Models\CustomerSelection.cs" />
+    <Compile Remove="Models\DrinkSelection.cs" />
     <Compile Remove="Models\PizzaCalzone.cs" />
     <Compile Remove="Models\PizzaCalzoneSteakAndCheese.cs" />
     <Compile Remove="Models\PizzaIndy.cs" />
@@ -17,47 +34,75 @@
     <Compile Remove="Models\PizzaMfp.cs" />
     <Compile Remove="Models\PIzzaSatchPan.cs" />
     <Compile Remove="Models\PizzaSatchPanSlice.cs" />
+    <Compile Remove="Models\PizzaSelection.cs" />
     <Compile Remove="Models\PizzaThin.cs" />
     <Compile Remove="Models\PizzaThinLarge.cs" />
     <Compile Remove="Models\PizzaThinMedium.cs" />
     <Compile Remove="Models\PizzaThinSlice.cs" />
+    <Compile Remove="PageModels\CalzonePageModel.cs" />
     <Compile Remove="PageModels\CarouselViewModel.cs" />
     <Compile Remove="PageModels\MainPageModel.cs" />
+    <Compile Remove="PageModels\MasterMainPageModel.cs" />
+    <Compile Remove="PageModels\MenuButtonsModel.cs" />
     <Compile Remove="PageModels\PizzaBasePageModel.cs" />
     <Compile Remove="PageModels\ToppingSelection.cs" />
+    <Compile Remove="Pages\CalzonePage.xaml.cs" />
     <Compile Remove="Pages\MainPage.xaml.cs" />
     <Compile Remove="Pages\MasterDetailPage1.xaml.cs" />
     <Compile Remove="Pages\MasterDetailPage1Detail.xaml.cs" />
     <Compile Remove="Pages\MasterDetailPage1Master.xaml.cs" />
     <Compile Remove="Pages\MasterDetailPage1MenuItem.cs" />
+    <Compile Remove="Pages\MasterPageItem.cs" />
     <Compile Remove="Pages\OldTablesPage.xaml.cs" />
     <Compile Remove="Pages\PizzaBasePage.xaml.cs" />
+    <Compile Remove="Pages\TablesPageOLD.xaml.cs" />
+    <Compile Remove="Views\MenuButtonFooterViewOLD.xaml.cs" />
     <Compile Remove="Views\MenuHeaderView - OLD.xaml.cs" />
     <Compile Remove="Views\MyCarouselViewControl.xaml.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="Pages\CalzonePage.xaml" />
     <EmbeddedResource Remove="Pages\MainPage.xaml" />
     <EmbeddedResource Remove="Pages\MasterDetailPage1.xaml" />
     <EmbeddedResource Remove="Pages\MasterDetailPage1Detail.xaml" />
     <EmbeddedResource Remove="Pages\MasterDetailPage1Master.xaml" />
     <EmbeddedResource Remove="Pages\OldTablesPage.xaml" />
     <EmbeddedResource Remove="Pages\PizzaBasePage.xaml" />
+    <EmbeddedResource Remove="Pages\TablesPageOLD.xaml" />
+    <EmbeddedResource Remove="Views\MenuButtonFooterViewOLD.xaml" />
     <EmbeddedResource Remove="Views\MenuHeaderView - OLD.xaml" />
     <EmbeddedResource Remove="Views\MyCarouselViewControl.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Images\zipline_logo.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Images\zipline_logo.jpg" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="sqlite-net-pcl" Version="1.4.118" />
     <PackageReference Include="System.Runtime" Version="4.3.0" />
-    <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
-    <PackageReference Include="Xamarin.Forms" Version="2.5.0.280555" />
+    <PackageReference Include="System.ServiceModel.Duplex" Version="4.5.1" />
+    <PackageReference Include="System.ServiceModel.Http" Version="4.5.1" />
+    <PackageReference Include="System.ServiceModel.NetTcp" Version="4.5.1" />
+    <PackageReference Include="System.ServiceModel.Security" Version="4.5.1" />
+    <PackageReference Include="Xam.FormsPlugin.Iconize" Version="1.0.10" />
+    <PackageReference Include="Xam.Plugin.Iconize" Version="1.0.10" />
+    <PackageReference Include="Xam.Plugins.Settings" Version="4.0.0.7" />
+    <PackageReference Include="Xamarin.Forms" Version="3.1.0.583944" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="App.xaml.cs">
       <DependentUpon>*.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\NavigationItem.xaml.cs">
+      <DependentUpon>NavigationItem.xaml</DependentUpon>
     </Compile>
     <Compile Update="Pages\AddUserPage.xaml.cs">
       <DependentUpon>AddUserPage.xaml</DependentUpon>
@@ -65,14 +110,34 @@
     <Compile Update="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Pages\MasterPage.xaml.cs">
+      <DependentUpon>MasterPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Pages\PizzaPage.xaml.cs">
       <DependentUpon>PizzaPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\SaladsLunchSpecialPage.xaml.cs">
+      <DependentUpon>SaladsLunchSpecialPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Pages\TablesPage.xaml.cs">
       <DependentUpon>TablesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\MenuButtonFooterView.xaml.cs">
-      <DependentUpon>MenuButtonFooterView.xaml</DependentUpon>
+    <Compile Update="Pages\CalzoneToppingsPage.xaml.cs">
+      <DependentUpon>CalzoneToppingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\PizzaToppingsPage.xaml.cs">
+      <DependentUpon>PizzaToppingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ToppingFooterView.xaml.cs">
+      <DependentUpon>ToppingFooterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\MenuScrollFooterView.xaml.cs">
+      <DependentUpon>MenuScrollFooterView.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\MenuHeaderView.xaml.cs">
       <DependentUpon>MenuHeaderView.xaml</DependentUpon>
@@ -80,23 +145,61 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Pages\DessertPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\DrinksPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\NavigationItem.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Pages\AddUserPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\MasterPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\OrderPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\PizzaPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Pages\SaladsLunchSpecialPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\SaladToppingsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\SpecialsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Pages\ToppingsOtherPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\ToppingsPage.xaml">
+    <EmbeddedResource Update="Pages\PizzaToppingsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\MenuButtonFooterView.xaml">
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\CircleButtonPlusMinus.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\MenuHeaderView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Portable-POS Classes">
+      <HintPath>..\..\..\..\LIBRARIES\DLLS NO SOURCE CODE\Portable-POS Classes.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

@@ -9,12 +9,21 @@ namespace Zipline2.BusinessLogic.Enums
         ChocolateCake,
         Brownie,
         Bonbon,
+        PeanutButterBonbon,
         VanillaCannoli,
         ChocolateCannoli,
         HalfAndHalfCannoli,
         AppleCrumbCheesecake,
         WholeCake,
-        Cookie,
-        VeganDessert
+        AnyCookie,
+        VeganDessert,
+        ThreeDollarDessert,
+        SnickerDoodleCookie,
+        ChocolateChipCookie,
+        PeanutButterCookie,
+        OatmealRaisinCookie,
+        MexicanWeddingCookie,
+        PumpkinSpiceCookie,
+        VeganPumpkinSpiceCookie
     }
 }

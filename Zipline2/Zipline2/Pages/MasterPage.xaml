@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Zipline2.Pages"
+             x:Class="Zipline2.Pages.MasterPage">
+     <ContentPage.Content>
+        <Grid BackgroundColor="Black">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60" />
+            </Grid.RowDefinitions>
+            <Grid>
+                <Image Source="hamburger.png" Aspect="AspectFill" Margin="0" />
+                <StackLayout Padding="0,0,0,0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                    <Image Source="icon.png" Aspect="AspectFit" WidthRequest="50" HeightRequest="50" />
+                    <!--<Label Text="Satchel''s Pizza" TextColor="White" FontSize="Medium"
+                           Margin="0,0,0,20"/>-->
+                </StackLayout>
+            </Grid>
+            <StackLayout Margin="10,10,10,0" Grid.Row="1" Spacing="10">
+                <local:NavigationItem Text="{Binding MenuLoggedOnText}" Icon="{Binding MenuLoggedOnIconName}" />
+                <local:NavigationItem Text="{Binding ServerInfo}" Icon="fa-desktop" />
+                <ContentView HeightRequest="1" BackgroundColor="Gray" />
+                <local:NavigationItem Text="Tables" Icon="fa-table" Command="{Binding NavigationCommand}" CommandParameter="1" />
+                <local:NavigationItem Text="Menu/Pizza" Icon="fa-pie-chart" Command="{Binding NavigationCommand}" CommandParameter="5" />
+                <local:NavigationItem Text="Merchandise" Icon="fa-shopping-basket" Command="{Binding NavigationCommand}" CommandParameter="3" />
+                <local:NavigationItem Text="Log Out" Icon="fa-sign-out" Command="{Binding NavigationCommand}" CommandParameter="4" />
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

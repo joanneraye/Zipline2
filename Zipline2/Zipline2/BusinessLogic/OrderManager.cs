@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Zipline2.BusinessLogic.Enums;
+using Zipline2.BusinessLogic.WcfRemote;
+using Zipline2.Data;
 using Zipline2.Models;
 using Zipline2.PageModels;
 using Zipline2.Pages;
@@ -17,7 +20,7 @@ namespace Zipline2.BusinessLogic
         private static readonly object padlock = new object();
         private OrderManager()
         {
-            OrderInProgress = new Order();
+            InitializeOrderInProgress();
         }
         public static OrderManager Instance
         {
@@ -34,16 +37,26 @@ namespace Zipline2.BusinessLogic
             }
         }
         #endregion
-        
+
 
         #region Public Properties
+
+       
         public OrderItem OrderItemInProgress { get; set; }
+
+        public bool OrderItemInProgressLoadedForEdit { get; set; }
         public Order OrderInProgress { get; set; }
+
+        public OrderItem[] SpecialOrderItemsInProgress { get; set; }
+
         /// <summary>
         /// Stores the index of the Table in the list of all tables
         /// for this order.
         /// </summary>
         public int CurrentTableIndex { get; set; }
+        public string CurrentTableName { get; set; }
+
+        public decimal CurrentTableId { get; set; }
         #endregion
         #region Methods
         /// <summary>
@@ -52,6 +65,10 @@ namespace Zipline2.BusinessLogic
         /// <returns></returns>
         public Table GetCurrentTable()
         {
+            if (CurrentTableIndex < 0)
+            {
+                return new Table();
+            }
             return Tables.AllTables[CurrentTableIndex];
         }
 
@@ -61,14 +78,32 @@ namespace Zipline2.BusinessLogic
         /// <param name="updatedTable"></param>
         public void UpdateCurrentTable(Table updatedTable)
         {
-
+            CurrentTableIndex = updatedTable.IndexInAllTables;
             Tables.AllTables[CurrentTableIndex] = updatedTable;
-
+            CurrentTableName = updatedTable.TableName;
+            CurrentTableId = updatedTable.TableId;
         }
+
 
         public void MarkCurrentTableOccupied(bool isTableOccupied)
         {
             Tables.AllTables[CurrentTableIndex].IsOccupied = isTableOccupied;
+        }
+
+        public void MarkCurrentTableUnsentOrder(bool hasUnsentOrder)
+        {
+            Tables.AllTables[CurrentTableIndex].HasUnsentOrder = hasUnsentOrder;
+        }
+
+        public void RemoveOrderItem(OrderItem itemToRemove)
+        {
+            //TODO:  Need to ensure deleting the correct item.  Best
+            //way is through ID but not sure how to do that yet (SQL Lite DB?)
+
+            //foreach (var item in OrderInProgress.OrderItems)
+            //{
+            //    if (item.GetType() == itemToRemove.GetType())
+            //}
         }
 
         /// <summary>
@@ -78,24 +113,79 @@ namespace Zipline2.BusinessLogic
         /// OrderInProgress.
         /// </summary>
         /// <param name="guiData"></param>
-        public void AddItemInProgress(CustomerSelections guiData)
+        public void AddNewItemInProgress(OrderItem partialItemNoToppingMods)
         {
-            OrderItemInProgress = OrderItemFactory.GetOrderItem(guiData);
-            if (OrderItemInProgress == null)
-            {
-                throw new Exception("OrderManager null order item in progress");
-            }
-
-            //Derrived classed are responsible for populating the
-            //name of the item and handle pricing for the item,
-            //after which the order item total should be updated.
-            OrderItemInProgress.PopulateDisplayName();
-            OrderItemInProgress.PopulatePricePerItem();
-            OrderItemInProgress.UpdateItemTotal();
+            partialItemNoToppingMods.PopulateDisplayName();
+            partialItemNoToppingMods.PopulateBasePrice();
+            partialItemNoToppingMods.PopulatePricePerItem();
+            OrderItemInProgress = partialItemNoToppingMods;
+            SpecialOrderItemsInProgress = null;
         }
 
-        public void SendOrder()
+        public void AddNewSpecialItemsInProgress(OrderItem[] specialItems)
         {
+            foreach (var item in specialItems)
+            {
+                item.PopulateDisplayName();
+                item.PopulateBasePrice();
+                item.PopulatePricePerItem();
+            }
+            SpecialOrderItemsInProgress = specialItems;
+            OrderItemInProgress = null;
+        }
+
+        public void UpdateSpecialItemInProgress(OrderItem specialItem)
+        {
+            if (specialItem is Pizza)
+            {
+                SpecialOrderItemsInProgress[1] = specialItem;
+            }
+            else if (specialItem is Salad)
+            {
+                SpecialOrderItemsInProgress[0] = specialItem;
+            }
+        }
+
+        public void UpdateItemInProgress(OrderItem itemWithToppings)
+        {
+            if (itemWithToppings.PartOfCombo)
+            {
+                UpdateSpecialItemInProgress(itemWithToppings);
+            }
+            else
+            {
+                OrderItemInProgress = itemWithToppings;
+            }
+            
+        }
+
+
+
+        public async Task AddItemsToOrderAsync(List<OrderItem> itemsToAdd)
+        { 
+             foreach (var item in itemsToAdd)
+             {
+                OrderInProgress.AddItemToOrder(item);
+             }
+            await OrderInProgress.UpdateOrderOnServerAsync();
+        }
+
+        public void InitializeOrderInProgress()
+        {
+            OrderInProgress = new Order(CurrentTableId, CurrentTableIndex);
+        }
+
+        public async Task SendOrderAsync()
+        {
+            //WcfServicesProxy.Instance.SendOrderSync(OrderInProgress);
+            await WcfServicesProxy.Instance.PrepareAndSendOrderAsync(OrderInProgress);
+            MarkCurrentTableUnsentOrder(false);
+            foreach (var item in OrderInProgress.OrderItems)
+            {
+                item.WasSentToKitchen = true;
+            }
+
+            //Send message that table 
             //1)  Create kitchen printout from the order.
             //2)  Send to kitchen printer.
             //3)  Send order to online service for storage and retrieval by all phones.
@@ -116,11 +206,58 @@ namespace Zipline2.BusinessLogic
         /// <summary>
         /// The OrderItem has been completed and is added to the order.
         /// </summary>
-        public void AddItemInProgressToOrder()
+        public async void AddItemInProgressToOrder()
         {
-            OrderInProgress.AddItemToOrder(OrderItemInProgress);
-            OrderItemInProgress = null;
+            MarkCurrentTableUnsentOrder(true);
+            //Go ahead and add item to order so we can see the price change....
+            if (OrderItemInProgress != null)
+            {
+                OrderInProgress.AddItemToOrder(OrderItemInProgress);
+                await OrderInProgress.UpdateOrderOnServerAsync();
+                OrderItemInProgress = null;
+            }
         }
+
+        public async void AddSpeciaItemsToOrder()
+        {
+            MarkCurrentTableUnsentOrder(true);
+            if (SpecialOrderItemsInProgress != null)
+            {
+                OrderInProgress.AddItemToOrder(SpecialOrderItemsInProgress[0]);
+                OrderInProgress.AddItemToOrder(SpecialOrderItemsInProgress[1]);
+                await OrderInProgress.UpdateOrderOnServerAsync();
+                SpecialOrderItemsInProgress = null;
+            }
+        }
+
+        public Pizza GetSpecialSliceWithSalad(Guid saladComboId)
+        {
+            Pizza thisPizza = new Pizza();
+            if (SpecialOrderItemsInProgress[1] is Pizza)
+            {
+                 thisPizza = SpecialOrderItemsInProgress[1] as Pizza;
+                 return thisPizza;
+            }
+                   
+            thisPizza.PartOfCombo = false;
+            return thisPizza;
+        }
+
+        public void DeleteItemFromOrderInProgress(int orderItemNumber)
+        {
+            OrderInProgress.DeleteOrderItem(orderItemNumber);
+        }
+
+        public void DeleteSpecialItemsFromOrderInProgress(int[] itemNumbers)
+        {
+            if (itemNumbers.Length > 1)
+            {
+                OrderInProgress.DeleteOrderItem(itemNumbers[0]);
+                OrderInProgress.DeleteOrderItem(itemNumbers[1]);
+            }
+            
+        }
+
         #endregion
     }
 }

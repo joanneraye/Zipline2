@@ -1,35 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Xamarin.Forms;
 using Zipline2.BusinessLogic;
 using Zipline2.BusinessLogic.Enums;
+using Zipline2.BusinessLogic.WcfRemote;
 
 namespace Zipline2.Models
 {
     /// <summary>
-    /// A Toppings class object should always be contained in a Pizza
-    /// class because it is always associated with a particular pizza.
-    /// </summary>
-    public class Toppings
+    /// A Toppings class object should always be contained in a Salad
+    /// or Pizza class.
+    public abstract class Toppings
     {
         #region Properties
-        
-        public List<Topping> CurrentToppings { get; private set; }
-
-        private static List<Topping> allToppings;
-        public static List<Topping> AllToppings
-        {
-            get
-            {
-                if (allToppings == null || allToppings.Count == 0)
-                {
-                    LoadInitialToppings();
-                }
-                return allToppings;
-            }
-        }
-        public PizzaType PizzaTypeForPricing { get; set; }
+                
+        public List<Topping> CurrentToppings { get; set; }
+      
         private decimal toppingsTotal;
         public decimal ToppingsTotal
         {
@@ -37,82 +23,31 @@ namespace Zipline2.Models
             {
                 return toppingsTotal;
             }
-            private set
+            set
             {
-                toppingsTotal = value;
-                MessagingCenter.Send<Toppings>(this, "ToppingsTotalUpdated");
+                toppingsTotal = value;                
             }
         }
+        
+
         #endregion
 
         #region constructor
-      
+
         /// <summary>
         /// Toppings should always be associated with a particular pizza already chosen.
         /// </summary>
         /// <param name="pizzaWithTheseToppings"></param>
-        public Toppings(PizzaType pizzaTypeForPricing)
+        public Toppings()
         {
             CurrentToppings = new List<Topping>();
-            PizzaTypeForPricing = pizzaTypeForPricing;
         }
+
+       
         #endregion
 
         #region Methods
-        public static void LoadInitialToppings()
-        {
-            allToppings = new List<Topping>()
-            {
-                new Topping(ToppingName.Anchovies),
-                new Topping(ToppingName.Artichokes),
-                new Topping(ToppingName.Bacon),
-                new Topping(ToppingName.BananaPeppers),
-                new Topping(ToppingName.Basil),
-                new Topping(ToppingName.Beef),
-                new Topping(ToppingName.BlackOlives),
-                new Topping(ToppingName.Broccoli),
-                new Topping(ToppingName.Carrots),
-                new Topping(ToppingName.Cheese),
-                new Topping(ToppingName.DAIYA),
-                new Topping(ToppingName.Deep) {SpecialPricingType = SpecialPricingType.Unknown},
-                new Topping(ToppingName.ExtraCheese),
-                new Topping(ToppingName.ExtraMozarellaCalzone),
-                new Topping(ToppingName.ExtraPSauceOS),
-                new Topping(ToppingName.ExtraPSauceOP),
-                new Topping(ToppingName.ExtraRicottaCalzone),
-                new Topping(ToppingName.Feta),
-                new Topping(ToppingName.Garlic) ,
-                new Topping(ToppingName.GreenOlives),
-                new Topping(ToppingName.GreenPeppers),
-                new Topping(ToppingName.HalfMajor)
-                            { ToppingWholeHalf = ToppingWholeHalf.HalfA},
-                new Topping(ToppingName.Jalapenos),
-                new Topping(ToppingName.Meatballs),
-                new Topping(ToppingName.Mushrooms),
-                new Topping(ToppingName.NoCheese) {SpecialPricingType = SpecialPricingType.GetExtraTopping},
-                new Topping(ToppingName.Onion),
-                new Topping(ToppingName.PestoTopping) ,
-                new Topping(ToppingName.Pepperoni),
-                new Topping(ToppingName.Pineapple),
-                new Topping(ToppingName.RedOnions),
-                new Topping(ToppingName.Ricotta),
-                new Topping(ToppingName.RoastedRedPepper),
-                new Topping(ToppingName.Sausage),
-                new Topping(ToppingName.Spinach),
-                new Topping(ToppingName.Steak),
-                new Topping(ToppingName.SundriedTomatoes),
-                new Topping(ToppingName.Teese) {SpecialPricingType = SpecialPricingType.AddorSubtractAmount},
-                new Topping(ToppingName.TempehBBQ),
-                new Topping(ToppingName.TempehOriginal),
-                new Topping(ToppingName.Tomatoes),
-                new Topping(ToppingName.Zucchini),
-                new Topping(ToppingName.LightSauce) {SpecialPricingType = SpecialPricingType.Free},
-                new Topping(ToppingName.LightMozarella) {SpecialPricingType = SpecialPricingType.Free},
-                new Topping(ToppingName.LightRicotta) {SpecialPricingType = SpecialPricingType.Free},
-                new Topping(ToppingName.NoButter) {SpecialPricingType = SpecialPricingType.Free},
-                new Topping(ToppingName.NoSauce) {SpecialPricingType = SpecialPricingType.Free}
-            };
-        }
+
         /// <summary>
         /// Method should be called when the topping prices need to be updated
         /// but a topping has not been added.  (When a topping is added or removed, this will
@@ -120,10 +55,24 @@ namespace Zipline2.Models
         /// topping prices can be different.  Or when the topping has been added
         /// but is changed to half of the pizza.
         /// </summary>
-        public void UpdateToppingsTotal()
+        public virtual void UpdateToppingsTotal()
         {
-            ToppingsTotal = GetCurrentToppingsCost();
+            try
+            {
+                ToppingsTotal = GetCurrentToppingsCost();
+                if (ToppingsTotal < 0)
+                {
+                    ToppingsTotal = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                var whatsthis = ex.InnerException;
+                throw;
+            }
+           
         }
+        
             
         public bool CurrentToppingsHas(ToppingName toppingName)
         {
@@ -139,12 +88,15 @@ namespace Zipline2.Models
 
         public void AddTopping(Topping toppingToAdd, bool calculateTotal = true)
         {
-            CurrentToppings.Add(toppingToAdd);
+            CurrentToppings.Add(toppingToAdd.GetClone());
             if (calculateTotal)
             {
+                CheckForMajor();
                 UpdateToppingsTotal();
             }
         }
+
+        public abstract void CheckForMajor();
 
         public void AddToppings(List<Topping> toppingsToAdd)
         {
@@ -161,18 +113,7 @@ namespace Zipline2.Models
         }
 
 
-        public void ChangeToppingToHalf(ToppingName toppingName, ToppingWholeHalf toppingHalf)
-        {
-            foreach (var topping in CurrentToppings)
-            {
-                if (topping.ToppingName == toppingName)
-                {
-                    topping.ToppingWholeHalf = toppingHalf;
-                    break;
-                }
-            }
-            UpdateToppingsTotal();
-        }
+        
         public void RemoveTopping(ToppingName toppingName, bool calculateTotal = true)
         {
             int indexToRemove = 99;
@@ -188,12 +129,26 @@ namespace Zipline2.Models
             if (indexToRemove != 99)
             {
                 CurrentToppings.RemoveAt(indexToRemove);
+                if (calculateTotal)
+                {
+                    CheckForMajor();
+                    UpdateToppingsTotal();
+                }
             } 
-            if (calculateTotal)
-            {
-                ToppingsTotal = GetCurrentToppingsCost();
-            }
         }
+
+        public bool IsToppingAlreadyAdded(ToppingName toppingName)
+        {
+            foreach (var topping in CurrentToppings)
+            {
+                if (topping.ToppingName == toppingName)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
 
         public void RemoveToppings(List<ToppingName> toppingNames)
         {
@@ -204,150 +159,117 @@ namespace Zipline2.Models
             UpdateToppingsTotal();
         }
 
-        private decimal GetCurrentToppingsCost()
+        protected abstract decimal GetCurrentToppingsCost();
+
+        public static decimal GetDbItemId(ToppingName toppingName)
         {
-            var regularToppings = new List<Topping>();
-            decimal toppingCost = 0M;
-            int theyGetAnExtraToppingCount = 0;
-            var specialToppings = new List<Topping>();
+            if (DataBaseDictionaries.ToppingDbIdDictionary.ContainsKey(toppingName))
+            {
+                return DataBaseDictionaries.ToppingDbIdDictionary[toppingName];
+            }
+            Console.WriteLine("***Debug JOANNE***TOPPINGS DICTIONARY ITEM NOT FOUND: " + toppingName);
+            return 0;
+        }
+
+        public bool IsMajorToppings()
+        {
+            bool hasOnion = false;
+            bool hasGreenPeppers = false;
+            bool hasPepperoni = false;
+            bool hasSausage = false;
+            bool hasMushrooms = false;
+            bool hasBlackOlives = false;
+
             foreach (var topping in CurrentToppings)
             {
-                if (topping.SpecialPricingType == SpecialPricingType.None)
+                if (topping.ToppingName == ToppingName.Onion)
                 {
-                    regularToppings.Add(topping);
+                    hasOnion = true;
                 }
-                else if (topping.SpecialPricingType == SpecialPricingType.GetExtraTopping)
+                else if (topping.ToppingName == ToppingName.GreenPeppers)
                 {
-                    theyGetAnExtraToppingCount++;
+                    hasGreenPeppers = true;
+                }
+                else if (topping.ToppingName == ToppingName.Pepperoni)
+                {
+                    hasPepperoni = true;
+                }
+                else if (topping.ToppingName == ToppingName.Sausage)
+                {
+                    hasSausage = true;
+                }
+                else if (topping.ToppingName == ToppingName.Mushrooms)
+                {
+                    hasMushrooms = true;
+                }
+                else if (topping.ToppingName == ToppingName.BlackOlives)
+                {
+                    hasBlackOlives = true;
                 }
                 else
                 {
-                    specialToppings.Add(topping);
+                    return false;
                 }
             }
-
-            decimal toppingCountForPrice = GetToppingCountForPricing(regularToppings);
-
-            if (theyGetAnExtraToppingCount > 0 && toppingCountForPrice > 0)
+            if (hasBlackOlives &&
+                   hasOnion &&
+                   hasGreenPeppers &&
+                   hasPepperoni &&
+                   hasSausage &&
+                   hasMushrooms)
             {
-                toppingCountForPrice -= theyGetAnExtraToppingCount;
-            }
-           
-            if (toppingCountForPrice <= 0)
-            {
-                return toppingCost;
-            }
-
-            int wholeToppingCount = Convert.ToInt32(Math.Floor(toppingCountForPrice));
-            int toppingIndex = (wholeToppingCount - 1);
-            var thisPizzaToppingPrices = Prices.ToppingsPriceDictionary[PizzaTypeForPricing];
-            var lastToppingPriceIndex = thisPizzaToppingPrices.Length - 2;
-            var additionalToppingCostIndex = thisPizzaToppingPrices.Length - 1;
-            var numberOfExtraToppings = toppingIndex - lastToppingPriceIndex;
-            var pricePerAdditionalTopping = thisPizzaToppingPrices[additionalToppingCostIndex];
-            if (numberOfExtraToppings > 0)
-            { 
-                var additionalToppingCost = numberOfExtraToppings * pricePerAdditionalTopping;
-                toppingCost = thisPizzaToppingPrices[lastToppingPriceIndex] + additionalToppingCost;
+                return true;
             }
             else
             {
-                if (toppingIndex >= 0)
-                {
-                    toppingCost = thisPizzaToppingPrices[toppingIndex];
-                }
+                return false;
             }
+        }
 
-            if ((toppingCountForPrice % 1) > 0)      //Includes 1/2 a topping
+        public bool AreToppingsTheSame(List<Topping> otherToppingsToCompare)
+        {
+            if (CurrentToppings.Count != otherToppingsToCompare.Count)
             {
-                int roundUpToppingCount = Convert.ToInt32(Math.Ceiling(toppingCountForPrice));
-                int nextHigherToppingIndex = roundUpToppingCount - 1;
-                var toppingCostWithHalfTopping = toppingCost + (pricePerAdditionalTopping / 2);
-                if (nextHigherToppingIndex <= lastToppingPriceIndex &&
-                    toppingCostWithHalfTopping > thisPizzaToppingPrices[nextHigherToppingIndex])
-                {
-                    toppingCost = thisPizzaToppingPrices[nextHigherToppingIndex];
-                }
-                else
-                {
-                    toppingCost = toppingCostWithHalfTopping;
-                }
+                return false;
             }
-
-            if (specialToppings.Count > 0)
-            {
-                foreach (var topping in specialToppings)
-                {
-                    //This is just for a topping that says "half" like "Half Major"
-                    if (topping.SpecialPricingType == SpecialPricingType.Half)
-                    {
-                        toppingCost = toppingCost / 2;
-                    }
-                    else if (topping.SpecialPricingType == SpecialPricingType.AddorSubtractAmount)
-                    {
-                        toppingCost = toppingCost + topping.SpecialPriceChange;
-                    }
-                }
-            }
-            return toppingCost;
-        }
-
-        private decimal GetToppingCountForPricing(List<Topping> toppings)
-        {
-            decimal toppingCount = 0M;
-            foreach (var topping in toppings)
-            {
-                if (topping.ToppingWholeHalf == ToppingWholeHalf.Whole)
-                {
-                    toppingCount += 1M;
-                }
-                else
-                {
-                    toppingCount += .5M;
-                }
-            }
-            return toppingCount;
-        }
-      
-        public void AddMajorToppings()
-        {
-            var majorToppings = new List<Topping>();
-            majorToppings.Add(new Topping(ToppingName.Pepperoni));
-            majorToppings.Add(new Topping(ToppingName.Mushrooms));
-            majorToppings.Add(new Topping(ToppingName.Sausage));
-            majorToppings.Add(new Topping(ToppingName.GreenPeppers));
-            majorToppings.Add(new Topping(ToppingName.Onion)); ;
-            majorToppings.Add(new Topping(ToppingName.BlackOlives));
-            AddToppings(majorToppings);
-        }
-
-        public void AddMajorToppingsToHalf(ToppingWholeHalf whichHalf)
-        {
-            var majorToppings = new List<Topping>();
-            majorToppings.Add(new Topping(ToppingName.Pepperoni, whichHalf));
-            majorToppings.Add(new Topping(ToppingName.Mushrooms, whichHalf));
-            majorToppings.Add(new Topping(ToppingName.Sausage, whichHalf));
-            majorToppings.Add(new Topping(ToppingName.GreenPeppers, whichHalf));
-            majorToppings.Add(new Topping(ToppingName.Onion, whichHalf)); ;
-            majorToppings.Add(new Topping(ToppingName.BlackOlives, whichHalf));
-            AddToppings(majorToppings);
-        }
-
-        public void ChangeMajorToppingsHalf(ToppingWholeHalf whichHalf)
-        {
             foreach (var topping in CurrentToppings)
             {
-                if (topping.ToppingName == ToppingName.Pepperoni ||
-                    topping.ToppingName == ToppingName.Mushrooms ||
-                    topping.ToppingName == ToppingName.Sausage ||
-                    topping.ToppingName == ToppingName.GreenPeppers ||
-                    topping.ToppingName == ToppingName.Onion ||
-                    topping.ToppingName == ToppingName.BlackOlives)
+                var toppingFound = false;
+                foreach (var compareTopping in otherToppingsToCompare)
                 {
-                    topping.ToppingWholeHalf = whichHalf;
+                    if (compareTopping.ToppingName == topping.ToppingName &&
+                        compareTopping.ToppingModifier == topping.ToppingModifier &&
+                        compareTopping.ToppingWholeHalf == topping.ToppingWholeHalf)
+                    {
+                        toppingFound = true;
+                        break;
+                    }
+                }
+                if (!toppingFound)
+                {
+                    return false;
                 }
             }
-            ToppingsTotal = GetCurrentToppingsCost();
+
+            foreach (var compareTopping2 in otherToppingsToCompare)
+            {
+                var toppingFound = false;
+                foreach (var topping2 in CurrentToppings)
+                {
+                    if (compareTopping2.ToppingName == topping2.ToppingName &&
+                       compareTopping2.ToppingModifier == topping2.ToppingModifier &&
+                       compareTopping2.ToppingWholeHalf == topping2.ToppingWholeHalf)
+                    {
+                        toppingFound = true;
+                        break;
+                    }
+                }
+                if (!toppingFound)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
         #endregion
     }

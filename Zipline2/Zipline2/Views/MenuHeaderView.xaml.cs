@@ -12,24 +12,18 @@ using Zipline2.BusinessLogic;
 
 namespace Zipline2.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class MenuHeaderView : ContentView
-	{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class MenuHeaderView : ContentView
+    {
         public MenuHeaderView()
 		{
             InitializeComponent();
             BindingContext = MenuHeaderModel.Instance;
         }
-
+        
         async public void TablesButtonClicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new TablesPage());
-        }
-
-        async public void NextButtonClicked(object sender, EventArgs e)
-        {
-            OrderManager.Instance.AddItemInProgressToOrder();
-            await Navigation.PushAsync(new PizzaPage());
-        }
+        }        
     }
 }
