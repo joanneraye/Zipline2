@@ -540,7 +540,11 @@ namespace Zipline2.BusinessLogic.WcfRemote
             foreach (var guestItem in guestItems)
             {
                 var openOrderItem = GetOrderItem(guestItem);
-                if (!openOrderItem.WasSentToKitchen)
+                if (openOrderItem.WasSentToKitchen)
+                {
+                    openOrder.AllItemsSent = true;
+                }
+                else
                 {
                     openOrder.AllItemsSent = false;
                 }
@@ -554,7 +558,11 @@ namespace Zipline2.BusinessLogic.WcfRemote
                 {
                     foreach (var lunchSpecialItem in lunchSpecialItems)
                     {
-                        if (!lunchSpecialItem.WasSentToKitchen)
+                        if (lunchSpecialItem.WasSentToKitchen)
+                        {
+                            openOrder.AllItemsSent = true;
+                        }
+                        else
                         {
                             openOrder.AllItemsSent = false;
                         }

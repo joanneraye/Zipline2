@@ -148,7 +148,7 @@
                                                     FontSize="30">
                                         <Label.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding PlusButtonCommand}"
-                                                                  CommandParameter="0"/>
+                                                                  CommandParameter="2"/>
                                         </Label.GestureRecognizers>
                                     </Label>
                                     <Label  AbsoluteLayout.LayoutBounds="8,50,AutoSize,AutoSize"  
@@ -173,7 +173,7 @@
                                                     FontSize="35">
                                         <Label.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding MinusButtonCommand}"
-                                                                  CommandParameter="1"/>
+                                                                  CommandParameter="2"/>
                                         </Label.GestureRecognizers>
                                     </Label>
                                 </AbsoluteLayout>

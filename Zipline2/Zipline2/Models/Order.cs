@@ -108,7 +108,6 @@ namespace Zipline2.Models
             bool addItemToOrder = true;
             if (newOrderItem != null)
             {
-                AllItemsSent = false;
                 if (newOrderItem is Drink)
                 {
                     Drink drinkToAdd = (Drink)newOrderItem;
