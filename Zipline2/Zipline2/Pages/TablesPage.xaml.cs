@@ -15,9 +15,9 @@ using Zipline2.PageModels;
 
 namespace Zipline2.Pages
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class TablesPage : ContentPage
-	{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class TablesPage : ContentPage
+    {
         #region Private Variables
         private int NumTablesSeated { get; set; }
         private TablesPageModel TablesPageModel;
@@ -32,39 +32,35 @@ namespace Zipline2.Pages
             //InitializeComponent();
             //TablesPageModel = new TablesPageModel(new DataTemplate[] { takeoutRowTemplate, dividerTemplate, blankTemplate });
 
-            TablesPageModel = new TablesPageModel();              
+            TablesPageModel = new TablesPageModel();
+            //CreateTableButtonStyle();
             InitializeComponent();
-            //TablesPageModel.HeaderTemplateSelector.TablePageTakeoutRowTemplate = takeoutRowTemplate;
-            //TablesPageModel.HeaderTemplateSelector.TablePageDividerTemplate = dividerTemplate;
-            //TablesPageModel.HeaderTemplateSelector.TablePageBlankTemplate = blankTemplate;
             BindingContext = TablesPageModel;
             this.ToolbarItems.Clear();
-            this.ToolbarItems.Add(new ToolbarItem { Text = "Tables     ", Priority = 2 });
-
-            //var itemTemplate = TableList.ItemTemplate;
-            //var tablesGrid = itemTemplate???;
-            //var tablesGrid = TableList.ItemTemplate..FindByName<Grid>("TablesGrid");
-            //var rowdefs = tablesGrid.RowDefinitions;
-
-            //double heightOfRows = 0.0;
-            //foreach (var row in rowdefs)
-            //{
-            //    var gridLengthStruct = row.Height;
-            //    heightOfRows = gridLengthStruct.Value;
-            //    break;
-            //}
-            //TableList.HeightRequest = heightOfRows + 5.0;
+            this.ToolbarItems.Add(new ToolbarItem { Text = "Tables     ", Priority = 2 });          
         }
         #endregion
 
         #region Methods
 
-        //async public Task<List<DBTable>> GetTablesAsync()
-        //{
+        private void CreateTableButtonStyle()
+        {
+            int buttonWidthHeight = (App.ScreenWidth - 20) / 4;
+           
+            var buttonStyle = new Style(typeof(Frame))
+            {
+                BaseResourceKey = "TableButtons",
+                Setters = { new Setter { Property = WidthRequestProperty, Value = buttonWidthHeight },
+                new Setter { Property = HeightRequestProperty, Value = buttonWidthHeight },
+                new Setter { Property = Frame.CornerRadiusProperty, Value = buttonWidthHeight / 2 },
+                 new Setter { Property = Frame.BackgroundColorProperty, Value = Color.Blue },
+                  new Setter { Property = Frame.HorizontalOptionsProperty, Value = LayoutOptions.Center}
+                }
+            };
 
-        //    return await WcfServicesProxy.Instance.GetTableInfoFromServerAsync();
-        //}
+        }
 
+      
         public void OnPrintCheckButtonClicked(object sender, EventArgs e)
         {
         }

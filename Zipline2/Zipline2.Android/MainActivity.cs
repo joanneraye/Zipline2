@@ -36,6 +36,7 @@ namespace Zipline2.Android
             //Insights.Initialize("Your API Key");
 
             base.OnCreate(bundle);
+            App.ScreenWidth = (int)(Resources.DisplayMetrics.WidthPixels / Resources.DisplayMetrics.Density);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
             Plugin.Iconize.Iconize.With(new Plugin.Iconize.Fonts.FontAwesomeModule());

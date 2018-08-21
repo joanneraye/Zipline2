@@ -12,8 +12,17 @@ namespace Zipline2.Pages
         public DataTemplate TablePageDividerTemplate { get; set; }
         public DataTemplate TablePageBlankTemplate { get; set; }
 
+        public string TakeoutRowHeightWidth { get; set; }
+        public string TakeoutRowHeight { get; set; }
+        public string TakeoutRowCornerRadius { get; set; }
+        public string FrameHeightWidth { get; set; }
+
+
+
         public TablesPageHeaderTemplateSelector()
         {
+         
+           
 
         }
         //public TablesPageHeaderTemplateSelector(DataTemplate[] templates)

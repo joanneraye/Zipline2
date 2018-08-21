@@ -163,7 +163,6 @@ namespace Zipline2.PageModels
         private bool glassWineSelected;
         public bool IsDrinkSelectedForEdit { get; set; }
         public int DrinkForEditIndex { get; set; }
-        public CircleButtonViewModel CircleButtonViewModelTemp { get; set; }
         private DrinkType drinkSelectedForEditDrinkType { get; set; }
         private DrinkSize drinkSelectedForEditDrinkSize { get; set; }
         private DrinkCategory currentDrinkCategorySelected;

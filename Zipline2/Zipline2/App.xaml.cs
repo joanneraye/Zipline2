@@ -10,7 +10,6 @@ using Zipline2.Data;
 using Zipline2.ConnectedServices;
 using System.Threading.Tasks;
 using Zipline2.BusinessLogic.WcfRemote;
-using Staunch.POS.Classes;
 using Zipline2.BusinessLogic.Enums;
 
 namespace Zipline2
@@ -18,6 +17,9 @@ namespace Zipline2
     
     public partial class App : Application
     {
+
+        public static int ScreenHeight { get; set; }
+        public static int ScreenWidth { get; set; }
        
         public App()
         {
@@ -39,8 +41,6 @@ namespace Zipline2
 
             DataLoader.LoadMenuFromFileOrServer();
             DataLoader.LoadToppingsFromFileOrServer();
-            
-            
             //Task.Run(() => WcfServicesProxy.Instance.GetMenu());
             //watch.Stop();
             //Console.WriteLine("Time to load data from memory is " + watch.ElapsedMilliseconds.ToString());
@@ -57,6 +57,7 @@ namespace Zipline2
             //}
 
             MainPage = new MainMasterDetailPage();
+            
         }
 
         //private void LoadMenuFromServer()

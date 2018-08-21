@@ -35,57 +35,10 @@ namespace Zipline2.PageModels
                     SetProperty(ref pageTableRow, value);
                 }
             }
-                       
-            //private bool col1TableClicked;
-            //public bool Col1TableClicked
-            //{
-            //    get
-            //    {
-            //        return col1TableClicked;
-            //    }
-            //    set
-            //    {
-            //        SetProperty(ref col1TableClicked, value);
-            //    }
-            //}
-            //private bool col2TableClicked;
-            //public bool Col2TableClicked
-            //{
-            //    get
-            //    {
-            //        return col2TableClicked;
-            //    }
-            //    set
-            //    {
-            //        SetProperty(ref col2TableClicked, value);
-            //    }
-            //}
-            //private bool col3TableClicked;
-            //public bool Col3TableClicked
-            //{
-            //    get
-            //    {
-            //        return col3TableClicked;
-            //    }
-            //    set
-            //    {
-            //        SetProperty(ref col3TableClicked, value);
-            //    }
-            //}
-            //private bool col4TableClicked;
-            //public bool Col4TableClicked
-            //{
-            //    get
-            //    {
-            //        return col4TableClicked;
-            //    }
-            //    set
-            //    {
-            //        SetProperty(ref col4TableClicked, value);
-            //    }
-            //}
 
-
+            public string FrameHeightWidth { get; set; }
+            public string FrameCornerRadius { get; set; }
+            public string FrameRowHeight { get; set; }
             public int GroupNumber { get; set; }
             public int RowIndex { get; set; }
 
@@ -100,6 +53,10 @@ namespace Zipline2.PageModels
                 parentTablesPageModel = referenceToParentClass;
                 PageRowTables = new Table[4];
                 TableCommand = new Command<string>(OnTableClicked);
+                int buttonWidthHeight = (App.ScreenWidth - 20) / 4;
+                FrameRowHeight = (buttonWidthHeight + 5).ToString();
+                FrameHeightWidth = buttonWidthHeight.ToString();
+                FrameCornerRadius = (buttonWidthHeight / 2).ToString();
             }
 
           
@@ -153,11 +110,20 @@ namespace Zipline2.PageModels
             public ICommand MoveTableCommand { get; set; }
             public ICommand PrintTicketCommand { get; set; }
 
+            public string TakeoutHeaderHeightWidth { get; set; }
+            public string TakeoutHeaderCornerRadius { get; set; }
+
+            public int TakeoutRowHeight { get; set; }
+
+
             public TableGroup(TablesPageModel tablesPageModel)
             {
                 TakeoutCommand = new Command(OnTakeoutClicked);
                 MoveTableCommand = new Command(OnMoveTableClicked);
                 PrintTicketCommand = new Command(OnPrintTicketClicked);
+                int buttonWidthHeight = (App.ScreenWidth - 20) / 4;
+                TakeoutHeaderHeightWidth = buttonWidthHeight.ToString();
+                TakeoutHeaderCornerRadius = (buttonWidthHeight / 2).ToString();
                 parentClass = tablesPageModel;
             }
 
@@ -190,7 +156,7 @@ namespace Zipline2.PageModels
         public event EventHandler NavigateToDrinksPage;
         public event EventHandler NavigateToOrderPage;
         public event EventHandler DisplayMoveTableDialog;
-        
+       
         public string UserName
         {
             get

@@ -41,6 +41,7 @@
     <Compile Remove="Models\PizzaThinSlice.cs" />
     <Compile Remove="PageModels\CalzonePageModel.cs" />
     <Compile Remove="PageModels\CarouselViewModel.cs" />
+    <Compile Remove="PageModels\CircleButtonViewModel.cs" />
     <Compile Remove="PageModels\MainPageModel.cs" />
     <Compile Remove="PageModels\MasterMainPageModel.cs" />
     <Compile Remove="PageModels\MenuButtonsModel.cs" />

@@ -50,19 +50,6 @@
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>
-            <!--<DataTemplate x:Key="drinksPageBlankHeaderTemplate" >
-                <ViewCell Height="0">
-                    <StackLayout Padding="0" Margin="0" HeightRequest="0" BackgroundColor="Black">
-
-                    </StackLayout>
-                    --><!--<StackLayout Padding="0" Margin="0" HeightRequest="0" BackgroundColor="Black">
-                        <Label Text="TOP HEADER" />
-                    </StackLayout>--><!--
-                </ViewCell>
-            </DataTemplate>-->
-            <!--<local:DrinksPageHeaderTemplateSelector x:Key="drinksPageHeaderTemplateSelector"
-                DrinksPageDraftsHeaderTemplate="{StaticResource drinksPageDraftsHeaderTemplate}"
-                DrinksPageBlankHeaderTemplate="{StaticResource drinksPageBlankHeaderTemplate}"/>-->
             <DataTemplate x:Key="DrinksPageRowTemplate">
                 <ViewCell Height="134">
                     <Grid HorizontalOptions="Center">
@@ -74,7 +61,6 @@
                             <ColumnDefinition Width="126"/>
                             <ColumnDefinition Width="126"/>
                         </Grid.ColumnDefinitions>
-
                         <Frame Grid.Column="0" Style="{StaticResource DrinkSelectionFrameButton}" BackgroundColor="{Binding CircleColors[0], Mode=TwoWay}" >
                             <Frame.Content>
                                 <AbsoluteLayout>
