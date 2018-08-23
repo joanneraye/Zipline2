@@ -151,18 +151,7 @@
                             </DataTrigger>
                         </Button.Triggers>
                     </Button>
-                    <!--<Button Text="Specials"
-                             Command="{Binding SpecialsCommand}"
-                        Style="{StaticResource footerScrollMenu}"
-                            WidthRequest="85">
-                        <Button.Triggers>
-                        <DataTrigger TargetType="Button" 
-                                         Binding="{Binding IsSpecialsPageDisplayed}"
-                                         Value="True">
-                            <Setter Property="IsVisible" Value="False" />
-                        </DataTrigger>
-                        </Button.Triggers>
-                    </Button>-->
+                 
                     <Button Text="Desserts"
                             Style="{StaticResource footerScrollMenu}"
                              Command="{Binding DessertCommand}"/>

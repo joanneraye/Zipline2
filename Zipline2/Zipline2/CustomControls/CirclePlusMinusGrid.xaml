@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:customcontrols="clr-namespace:Zipline2.CustomControls"
+             x:Class="Zipline2.CustomControls.CirclePlusMinusGrid">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Style x:Key="CirclePlusMinusFrameStyle" TargetType="Frame">
+                <Setter Property="CornerRadius" Value="{Binding SpecialCirclePageModel.CirclePlusMinusCornerRadius}" />
+                <Setter Property="WidthRequest" Value="{Binding SpecialCirclePageModel.CirclePlusMinusHeightWidth}" />
+                <Setter Property="HeightRequest" Value="{Binding SpecialCirclePageModel.CirclePlusMinusHeightWidth}" />
+                <Setter Property="BackgroundColor" Value="Orange" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="FillAndExpand" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="Padding" Value="0" />
+            </Style>
+
+            <Style x:Key="CirclePlusMinusTextStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="Margin" Value="0" />
+                <Setter Property="LineBreakMode" Value="NoWrap" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="VerticalOptions" Value="Start" />
+                <Setter Property="VerticalTextAlignment" Value="Start" />
+                <Setter Property="HorizontalOptions" Value="Start" />
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
+                <Setter Property="MinimumWidthRequest" Value="45" />
+            </Style>
+
+            <Style x:Key="CirclePlusMinusPlusLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="Text" Value="+" />
+                <Setter Property="FontSize" Value="Large" />
+                <Setter Property="WidthRequest" Value="{Binding SpecialCirclePageModel.CirclePlusMinusCornerRadius}" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+            </Style>
+            <Style x:Key="CirclePlusMinusMinusLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="Text" Value="_" />
+                <Setter Property="FontSize" Value="Large" />
+                <Setter Property="WidthRequest" Value="{Binding SpecialCirclePageModel.CirclePlusMinusCornerRadius}" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+        <ContentView.Content>
+        <Grid HorizontalOptions="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="{Binding SpecialCirclePageModel.CirclePlusMinusHeightWidth}"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{Binding  SpecialCirclePageModel.CirclePlusMinusHeightWidth}"/>
+                <ColumnDefinition Width="{Binding  SpecialCirclePageModel.CirclePlusMinusHeightWidth}"/>
+                <ColumnDefinition Width="{Binding  SpecialCirclePageModel.CirclePlusMinusHeightWidth}"/>
+            </Grid.ColumnDefinitions>
+            <Frame Grid.Column="0" Style="{StaticResource CirclePlusMinusFrameStyle}" BackgroundColor="{Binding SpecialCirclePageModel.CircleColors[0], Mode=TwoWay}" >
+                <Frame.Content>
+                    <Grid HorizontalOptions="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="3.5*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0"
+                         Style="{StaticResource CirclePlusMinusPlusLabelStyle}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SpecialCirclePageModel.PlusButtonCommand}"
+                                                                  CommandParameter="0"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <StackLayout Orientation="Horizontal" Grid.Row="1" HorizontalOptions="CenterAndExpand"
+                         VerticalOptions="Start" Padding="0" Margin="0" Spacing="3">
+                            <Label 
+                     Text="{Binding SpecialCirclePageModel.MenuItemCounts[0], Mode=TwoWay}" 
+                            Style="{StaticResource CirclePlusMinusTextStyle}" TextColor="Blue" >
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label"
+                                                     Binding="{Binding SpecialCirclePageModel.HideButtons[0], Mode=TwoWay}"
+                                                             Value="True">
+                                        <Setter Property="TextColor" Value="Black" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                            <Label Text="{Binding SpecialCirclePageModel.MenuItemNames[0], Mode=TwoWay}"
+                                                Style="{StaticResource CirclePlusMinusTextStyle}" >
+                            </Label>
+                        </StackLayout>
+                        <Label  Grid.Row="1" Style="{StaticResource CirclePlusMinusMinusLabelStyle}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SpecialCirclePageModel.MinusButtonCommand}"
+                                                                  CommandParameter="0"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+                </Frame.Content>
+            </Frame>
+            <Frame Grid.Column="1" Style="{StaticResource CirclePlusMinusFrameStyle}" BackgroundColor="{Binding SpecialCirclePageModel.CircleColors[1], Mode=TwoWay}" >
+                <Frame.Content>
+                    <Grid HorizontalOptions="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="3.5*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0"
+                         Style="{StaticResource CirclePlusMinusPlusLabelStyle}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SpecialCirclePageModel.PlusButtonCommand}"
+                                                                  CommandParameter="1"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <StackLayout Orientation="Horizontal" Grid.Row="1" HorizontalOptions="CenterAndExpand"
+                         VerticalOptions="Start" Padding="0" Margin="0" Spacing="3">
+                            <Label 
+                     Text="{Binding SpecialCirclePageModel.MenuItemCounts[1], Mode=TwoWay}" 
+                            Style="{StaticResource CirclePlusMinusTextStyle}" TextColor="Blue" >
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label"
+                                                     Binding="{Binding SpecialCirclePageModel.HideButtons[1], Mode=TwoWay}"
+                                                             Value="True">
+                                        <Setter Property="TextColor" Value="Black" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                            <Label Text="{Binding SpecialCirclePageModel.MenuItemNames[1], Mode=TwoWay}"
+                                                Style="{StaticResource CirclePlusMinusTextStyle}" >
+                            </Label>
+                        </StackLayout>
+                        <Label  Grid.Row="1" Style="{StaticResource CirclePlusMinusMinusLabelStyle}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SpecialCirclePageModel.MinusButtonCommand}"
+                                                                  CommandParameter="1"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+                </Frame.Content>
+            </Frame>
+            <Frame Grid.Column="2" Style="{StaticResource CirclePlusMinusFrameStyle}" BackgroundColor="{Binding SpecialCirclePageModel.CircleColors[2], Mode=TwoWay}" >
+                <Frame.Content>
+                    <Grid HorizontalOptions="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="3.5*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0"
+                         Style="{StaticResource CirclePlusMinusPlusLabelStyle}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SpecialCirclePageModel.PlusButtonCommand}"
+                                                                  CommandParameter="2"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <StackLayout Orientation="Horizontal" Grid.Row="1" HorizontalOptions="CenterAndExpand" Spacing="3"
+                         VerticalOptions="Start" Padding="0" Margin="0">
+                            <Label 
+                     Text="{Binding SpecialCirclePageModel.MenuItemCounts[2], Mode=TwoWay}" 
+                            Style="{StaticResource CirclePlusMinusTextStyle}" TextColor="Blue" >
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label"
+                                                     Binding="{Binding SpecialCirclePageModel.HideButtons[2], Mode=TwoWay}"
+                                                             Value="True">
+                                        <Setter Property="TextColor" Value="Black" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                            <Label Text="{Binding SpecialCirclePageModel.MenuItemNames[2], Mode=TwoWay}"
+                                                Style="{StaticResource CirclePlusMinusTextStyle}" >
+                            </Label>
+                        </StackLayout>
+                        <Label  Grid.Row="1" Style="{StaticResource CirclePlusMinusMinusLabelStyle}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SpecialCirclePageModel.MinusButtonCommand}"
+                                                                  CommandParameter="2"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+                </Frame.Content>
+            </Frame>
+           
+        </Grid>
+    </ContentView.Content>
+</ContentView>

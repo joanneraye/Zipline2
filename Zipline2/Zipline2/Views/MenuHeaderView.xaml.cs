@@ -18,7 +18,16 @@ namespace Zipline2.Views
         public MenuHeaderView()
 		{
             InitializeComponent();
-            BindingContext = MenuHeaderModel.Instance;
+            try
+            {
+                BindingContext = MenuHeaderModel.Instance;
+            }
+            catch (Exception ex)
+            {
+                var thiserror = ex.InnerException;
+                throw;
+            }
+          
         }
         
         async public void TablesButtonClicked(object sender, EventArgs e)

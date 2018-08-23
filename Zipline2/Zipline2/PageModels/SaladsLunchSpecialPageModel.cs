@@ -18,6 +18,9 @@ namespace Zipline2.PageModels
         public ICommand AddLargeSaladCommand { get; set; }
         public ICommand AddLunchSpecialCommand { get; set; }
 
+        public double FrameHeightWidth { get; set; }
+        public double FrameCornerRadius { get; set; }
+
         public event EventHandler<SaladToppingsPageEventArgs> NavigateToSaladToppingsPage;
 
         public SaladsLunchSpecialPageModel()
@@ -26,6 +29,9 @@ namespace Zipline2.PageModels
             AddSmallSaladCommand = new Command(OnAddSmallSalad);
             AddLargeSaladCommand = new Command(OnAddLargeSalad);
             AddLunchSpecialCommand = new Command(OnAddLunchSpecial);
+            int buttonWidthHeight = (App.ScreenWidth - 30) / 2;
+            FrameHeightWidth = buttonWidthHeight;
+            FrameCornerRadius = (buttonWidthHeight / 2);
         }
       
         public void OnAddLunchSpecialSalad()

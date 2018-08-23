@@ -12,10 +12,13 @@
   <ItemGroup>
     <Compile Remove="BusinessLogic\WcfRemote\DataClasses\**" />
     <Compile Remove="BusinessLogic\WcfRemote\WcfClasses\**" />
+    <Compile Remove="Effects\**" />
     <EmbeddedResource Remove="BusinessLogic\WcfRemote\DataClasses\**" />
     <EmbeddedResource Remove="BusinessLogic\WcfRemote\WcfClasses\**" />
+    <EmbeddedResource Remove="Effects\**" />
     <None Remove="BusinessLogic\WcfRemote\DataClasses\**" />
     <None Remove="BusinessLogic\WcfRemote\WcfClasses\**" />
+    <None Remove="Effects\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,6 +27,7 @@
     <Compile Remove="BusinessLogic\WcfRemote\WcfServicesGetData.cs" />
     <Compile Remove="Connected Services\CheckHostReference\CheckHostold.cs" />
     <Compile Remove="Connected Services\PosServiceReference\POServiceHostold.cs" />
+    <Compile Remove="CustomControls\CirclePlusMinusGrid.xaml.cs" />
     <Compile Remove="CustomControls\MyFlexButton.cs" />
     <Compile Remove="Models\CustomerSelection.cs" />
     <Compile Remove="Models\DrinkSelection.cs" />
@@ -63,6 +67,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="CustomControls\CirclePlusMinusGrid.xaml" />
     <EmbeddedResource Remove="Pages\CalzonePage.xaml" />
     <EmbeddedResource Remove="Pages\MainPage.xaml" />
     <EmbeddedResource Remove="Pages\MasterDetailPage1.xaml" />
@@ -88,14 +93,14 @@
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="sqlite-net-pcl" Version="1.4.118" />
     <PackageReference Include="System.Runtime" Version="4.3.0" />
-    <PackageReference Include="System.ServiceModel.Duplex" Version="4.5.1" />
-    <PackageReference Include="System.ServiceModel.Http" Version="4.5.1" />
-    <PackageReference Include="System.ServiceModel.NetTcp" Version="4.5.1" />
-    <PackageReference Include="System.ServiceModel.Security" Version="4.5.1" />
+    <PackageReference Include="System.ServiceModel.Duplex" Version="4.5.3" />
+    <PackageReference Include="System.ServiceModel.Http" Version="4.5.3" />
+    <PackageReference Include="System.ServiceModel.NetTcp" Version="4.5.3" />
+    <PackageReference Include="System.ServiceModel.Security" Version="4.5.3" />
     <PackageReference Include="Xam.FormsPlugin.Iconize" Version="1.0.10" />
     <PackageReference Include="Xam.Plugin.Iconize" Version="1.0.10" />
     <PackageReference Include="Xam.Plugins.Settings" Version="4.0.0.7" />
-    <PackageReference Include="Xamarin.Forms" Version="3.1.0.583944" />
+    <PackageReference Include="Xamarin.Forms" Version="3.1.0.697729" />
   </ItemGroup>
 
   <ItemGroup>
@@ -147,9 +152,6 @@
 
   <ItemGroup>
     <EmbeddedResource Update="Pages\DessertPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Pages\DrinksPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\NavigationItem.xaml">

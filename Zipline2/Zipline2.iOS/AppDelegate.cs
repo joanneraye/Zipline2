@@ -34,6 +34,9 @@ namespace Zipline2.iOS
             Plugin.Iconize.Iconize.With(new Plugin.Iconize.Fonts.FontAwesomeModule());
             FormsPlugin.Iconize.iOS.IconControls.Init();
 
+            App.ScreenHeight = (int)UIScreen.MainScreen.Bounds.Height;
+            App.ScreenWidth = (int)UIScreen.MainScreen.Bounds.Width;
+
             UINavigationBar.Appearance.BarTintColor = UIColor.Black;
 
             LoadApplication(new App());

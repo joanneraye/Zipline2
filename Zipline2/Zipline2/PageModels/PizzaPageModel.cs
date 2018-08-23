@@ -20,6 +20,8 @@ namespace Zipline2.PageModels
         public ICommand AddMfpCommand { get; set; }
         public ICommand AddSatchPanCommand { get; set; }
         public ICommand AddCalzoneCommand { get; set; }
+        public double FrameHeightWidth { get; set; }
+        public double FrameCornerRadius { get; set; }
 
         public event EventHandler<ToppingsPageEventArgs> NavigateToToppingsPage;
         public event EventHandler<CalzoneToppingsPageEventArgs> NavigateToCalzoneToppingsPage;
@@ -31,7 +33,10 @@ namespace Zipline2.PageModels
             AddSatchPanCommand = new Command(OnAddSatchPan);
             PizzaSelectionCommand = new Command<PizzaType>(OnAddCheese);
             AddCalzoneCommand = new Command(OnAddCalzone);
-            
+            int buttonWidthHeight = (App.ScreenWidth - 40) / 3;
+            FrameHeightWidth = buttonWidthHeight;
+            FrameCornerRadius = (buttonWidthHeight / 2);
+
             if (OrderManager.Instance.OrderItemInProgressLoadedForEdit)
             { 
                 if (OrderManager.Instance.OrderItemInProgress is Pizza)

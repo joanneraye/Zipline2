@@ -53,12 +53,12 @@
                                            VerticalOptions="End"
                                            BackgroundColor="Black"
                                                FontSize="Micro"
-                                               TextColor="Green">
+                                               TextColor="LimeGreen">
                                         <Label.Triggers>
                                             <DataTrigger TargetType="Label"
                                                  Binding="{Binding OrderItem.WasSentToKitchen}"
                                                          Value="false">
-                                                <Setter Property="TextColor" Value="Red" />
+                                                <Setter Property="TextColor" Value="OrangeRed" />
                                             </DataTrigger>
                                             <DataTrigger TargetType="Label"
                                                  Binding="{Binding ItemIsSelected}"

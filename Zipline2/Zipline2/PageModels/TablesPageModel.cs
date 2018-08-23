@@ -36,9 +36,9 @@ namespace Zipline2.PageModels
                 }
             }
 
-            public string FrameHeightWidth { get; set; }
-            public string FrameCornerRadius { get; set; }
-            public string FrameRowHeight { get; set; }
+            public double FrameHeightWidth { get; set; }
+            public double FrameCornerRadius { get; set; }
+            public double FrameRowHeight { get; set; }
             public int GroupNumber { get; set; }
             public int RowIndex { get; set; }
 
@@ -53,10 +53,10 @@ namespace Zipline2.PageModels
                 parentTablesPageModel = referenceToParentClass;
                 PageRowTables = new Table[4];
                 TableCommand = new Command<string>(OnTableClicked);
-                int buttonWidthHeight = (App.ScreenWidth - 20) / 4;
-                FrameRowHeight = (buttonWidthHeight + 5).ToString();
-                FrameHeightWidth = buttonWidthHeight.ToString();
-                FrameCornerRadius = (buttonWidthHeight / 2).ToString();
+                int buttonWidthHeight = (App.ScreenWidth - 35) / 4;
+                FrameRowHeight = (buttonWidthHeight + 5);
+                FrameHeightWidth = buttonWidthHeight;
+                FrameCornerRadius = (buttonWidthHeight / 2);
             }
 
           
@@ -110,10 +110,10 @@ namespace Zipline2.PageModels
             public ICommand MoveTableCommand { get; set; }
             public ICommand PrintTicketCommand { get; set; }
 
-            public string TakeoutHeaderHeightWidth { get; set; }
-            public string TakeoutHeaderCornerRadius { get; set; }
+            public double TakeoutHeaderHeightWidth { get; set; }
+            public double TakeoutHeaderCornerRadius { get; set; }
 
-            public int TakeoutRowHeight { get; set; }
+            public double TakeoutRowHeight { get; set; }
 
 
             public TableGroup(TablesPageModel tablesPageModel)
@@ -122,8 +122,9 @@ namespace Zipline2.PageModels
                 MoveTableCommand = new Command(OnMoveTableClicked);
                 PrintTicketCommand = new Command(OnPrintTicketClicked);
                 int buttonWidthHeight = (App.ScreenWidth - 20) / 4;
-                TakeoutHeaderHeightWidth = buttonWidthHeight.ToString();
-                TakeoutHeaderCornerRadius = (buttonWidthHeight / 2).ToString();
+                TakeoutHeaderHeightWidth = buttonWidthHeight;
+                TakeoutHeaderCornerRadius = (buttonWidthHeight / 2);
+                TakeoutRowHeight = (buttonWidthHeight + 20);
                 parentClass = tablesPageModel;
             }
 

@@ -43,24 +43,7 @@ namespace Zipline2.Pages
 
         #region Methods
 
-        private void CreateTableButtonStyle()
-        {
-            int buttonWidthHeight = (App.ScreenWidth - 20) / 4;
-           
-            var buttonStyle = new Style(typeof(Frame))
-            {
-                BaseResourceKey = "TableButtons",
-                Setters = { new Setter { Property = WidthRequestProperty, Value = buttonWidthHeight },
-                new Setter { Property = HeightRequestProperty, Value = buttonWidthHeight },
-                new Setter { Property = Frame.CornerRadiusProperty, Value = buttonWidthHeight / 2 },
-                 new Setter { Property = Frame.BackgroundColorProperty, Value = Color.Blue },
-                  new Setter { Property = Frame.HorizontalOptionsProperty, Value = LayoutOptions.Center}
-                }
-            };
-
-        }
-
-      
+       
         public void OnPrintCheckButtonClicked(object sender, EventArgs e)
         {
         }

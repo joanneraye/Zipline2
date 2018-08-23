@@ -9,9 +9,9 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="SaladSelectionButtons" TargetType="Frame">
-                <Setter Property="CornerRadius" Value="80" />
-                <Setter Property="WidthRequest" Value="160" />
-                <Setter Property="HeightRequest" Value="160" />
+                <Setter Property="CornerRadius" Value="{Binding FrameCornerRadius}" />
+                <Setter Property="WidthRequest" Value="{Binding FrameHeightWidth}" />
+                <Setter Property="HeightRequest" Value="{Binding FrameHeightWidth}" />
                 <Setter Property="BackgroundColor" Value="LightGreen" />
                 <Setter Property="HorizontalOptions" Value="Center" />
                 <Setter Property="Margin" Value="0" />
@@ -22,7 +22,7 @@
                 <Setter Property="TextColor" Value="Black" />
                 <Setter Property="BackgroundColor" Value="Transparent" />
                 <Setter Property="Margin" Value="0" />
-                <Setter Property="FontSize" Value="36" />
+                <Setter Property="FontSize" Value="30" />
                 <Setter Property="FontAttributes" Value="Bold" />
                 <Setter Property="VerticalOptions" Value="Center" />
                 <Setter Property="HorizontalOptions" Value="Center" />
@@ -41,12 +41,12 @@
                   RowSpacing="8"
                       HorizontalOptions="CenterAndExpand">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="160"/>
-                    <RowDefinition Height="160"/>
+                    <RowDefinition Height="{Binding FrameHeightWidth}"/>
+                    <RowDefinition Height="{Binding FrameHeightWidth}"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="160" />
-                    <ColumnDefinition Width="160" />
+                    <ColumnDefinition Width="{Binding FrameHeightWidth}" />
+                    <ColumnDefinition Width="{Binding FrameHeightWidth}" />
                 </Grid.ColumnDefinitions>
                 <Frame Grid.Column="0" Grid.Row="0" Padding="0"
                                        Style="{StaticResource SaladSelectionButtons}" >
@@ -75,8 +75,7 @@
                                        Style="{StaticResource SaladSelectionButtons}" BackgroundColor="Orange" >
                     <Frame.Content>
                         <Label Text="Lunch Spec"
-                                        Style="{StaticResource SaladSelectionLabels}"
-                                WidthRequest="130">
+                                        Style="{StaticResource SaladSelectionLabels}">
                         </Label>
                     </Frame.Content>
                     <Frame.GestureRecognizers>
@@ -88,7 +87,7 @@
                                        Style="{StaticResource SaladSelectionButtons}" >
                     <Frame.Content>
                         <Label Text="Spec Salad (No Slice)"
-                                        Style="{StaticResource SaladSelectionLabels}" FontSize="24">
+                                        Style="{StaticResource SaladSelectionLabels}" FontSize="18">
                         </Label>
                     </Frame.Content>
                     <Frame.GestureRecognizers>

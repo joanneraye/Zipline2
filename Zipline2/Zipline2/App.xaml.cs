@@ -11,7 +11,9 @@ using Zipline2.ConnectedServices;
 using System.Threading.Tasks;
 using Zipline2.BusinessLogic.WcfRemote;
 using Zipline2.BusinessLogic.Enums;
+using Xamarin.Forms.Xaml;
 
+//[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Zipline2
 {
     
@@ -20,7 +22,21 @@ namespace Zipline2
 
         public static int ScreenHeight { get; set; }
         public static int ScreenWidth { get; set; }
-       
+        public static double PlusMinusButtonHeightWidth;
+
+
+        public static double PlusMinusButtonCornerRadius;
+
+        public static double PlusMinusButtonRowHeight;
+
+        public static Rectangle PlusBounds;
+        public static Rectangle MinusBounds;
+
+        public static Rectangle ItemCountBounds;
+
+        public static Rectangle TextBounds;
+
+
         public App()
         {
             InitializeComponent();
@@ -37,6 +53,7 @@ namespace Zipline2
             Zipline2.Data.MenuFood.LoadInitialPizzaToppings();
             Zipline2.Data.MenuFood.LoadInitialSaladToppings();
             Zipline2.Data.MenuDrinks.CreateAllDrinks();
+            CalculatePlusMinusButtonInfo();
             MenuFood.CreateDesserts();
 
             DataLoader.LoadMenuFromFileOrServer();
@@ -58,6 +75,26 @@ namespace Zipline2
 
             MainPage = new MainMasterDetailPage();
             
+        }
+
+        private void CalculatePlusMinusButtonInfo()
+        {
+            int buttonWidthHeight = (ScreenWidth - 20) / 3;
+            PlusMinusButtonHeightWidth = buttonWidthHeight;
+            PlusMinusButtonCornerRadius = (buttonWidthHeight / 2);
+            PlusMinusButtonRowHeight = (buttonWidthHeight + 5);
+            var plusminusXValue = buttonWidthHeight * .40;
+            var plusYValue = buttonWidthHeight * -.05;
+            var minusYValue = buttonWidthHeight * .40;
+            var plusMinusWidth = buttonWidthHeight * .80;
+            var plusMinusHeight = buttonWidthHeight * .50;
+            var textXValue = buttonWidthHeight * .22;
+            var textItemCountYValue = buttonWidthHeight * .37;
+            var itemCountXValue = buttonWidthHeight * .05;
+            PlusBounds = new Rectangle(plusminusXValue, plusYValue, plusMinusWidth, plusMinusHeight);
+            MinusBounds = new Rectangle(plusminusXValue, minusYValue, plusMinusWidth, plusMinusHeight);
+            ItemCountBounds = new Rectangle(itemCountXValue, textItemCountYValue, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize);
+            TextBounds = new Rectangle(textXValue, textItemCountYValue, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize);
         }
 
         //private void LoadMenuFromServer()

@@ -57,6 +57,22 @@ namespace Zipline2.PageModels
                 }
             }
 
+            public double DrinkCircleHeightWidth
+            {
+                get
+                {
+                    return App.PlusMinusButtonHeightWidth;
+                }
+            }
+
+            public double DrinkCircleCornerRadius
+            {
+                get
+                {
+                    return App.PlusMinusButtonCornerRadius;
+                }
+            }
+
             //private bool isPint;
             //public bool IsPint
             //{
@@ -179,7 +195,7 @@ namespace Zipline2.PageModels
             }
         }
 
-       
+
 
         public bool SoftDrinksSelected
         {
@@ -189,7 +205,7 @@ namespace Zipline2.PageModels
             }
             set
             {
-                SetProperty(ref softDrinksSelected, value);               
+                SetProperty(ref softDrinksSelected, value);
             }
         }
         public bool DraftBeerSelected
@@ -200,7 +216,7 @@ namespace Zipline2.PageModels
             }
             set
             {
-                SetProperty(ref draftBeerSelected, value);  
+                SetProperty(ref draftBeerSelected, value);
             }
         }
         public bool BottledBeerSelected
@@ -258,7 +274,7 @@ namespace Zipline2.PageModels
         //        SetProperty(ref houseWineSelected, value);
         //    }
         //}
-      
+
         public ICommand DrinksSelectedCommand { get; set; }
         public ICommand AddDrinksCommand { get; set; }
 
@@ -330,7 +346,15 @@ namespace Zipline2.PageModels
         //    }
         //}
 
-        public Dictionary<Tuple<DrinkType, DrinkSize>, Drink> DrinksOnTempOrderDictionary { get; set; } 
+        public double DrinkCircleHeightWidth
+        {
+            get
+            {
+                return App.PlusMinusButtonHeightWidth;
+            }
+        }
+
+        public Dictionary<Tuple<DrinkType, DrinkSize>, Drink> DrinksOnTempOrderDictionary { get; set; }
         public DrinksPageModel(Drink drinkForEdit = null)
         {
             IsDrinkSelectedForEdit = false;
@@ -388,7 +412,7 @@ namespace Zipline2.PageModels
                     {
                         rows = GetDrinkDisplayRows(drinksForDisplay);
                     }
-                        
+
                     DrinkDisplayDictionary.Add(newDrinkCategory, rows);
                 }
 
@@ -406,7 +430,7 @@ namespace Zipline2.PageModels
                 var error = ex.InnerException;
                 throw;
             }
-           
+
         }
 
         private List<DrinksGroup> ConvertBeerRowsToGroups(List<DrinkDisplayRow> beerRows)
@@ -416,7 +440,7 @@ namespace Zipline2.PageModels
             groups.Add(displayDraftsPints);
             DrinksGroup displayDraftsPitchers = new DrinksGroup("Pitchers");
             groups.Add(displayDraftsPitchers);
-           
+
             foreach (var row in beerRows)
             {
                 if (row.RowDrinks[0].DrinkSize == DrinkSize.Pint)
@@ -428,7 +452,7 @@ namespace Zipline2.PageModels
                     displayDraftsPitchers.Add(row);
                 }
             }
-           
+
             return groups;
 
         }
@@ -502,7 +526,7 @@ namespace Zipline2.PageModels
                 case DrinkType.YauquenMalbec:
                     returnColor = Color.Red;
                     break;
-                case DrinkType.AppleJuice:  
+                case DrinkType.AppleJuice:
                     returnColor = Color.Yellow;
                     break;
                 case DrinkType.Beer12Oz:
@@ -559,7 +583,7 @@ namespace Zipline2.PageModels
 
         public void OnDrinksSelected(DrinkCategory newDrinkCategory)
         {
-           
+
             try
             {
                 if (IsDrinkSelectedForEdit)
@@ -572,13 +596,13 @@ namespace Zipline2.PageModels
                         {
                             if (newDrinkCategory == DrinkCategory.DraftBeer)
                             {
-                               if (i < 5)
+                                if (i < 5)
                                 {
                                     DrinkForEditIndex = (int)Math.Floor(i / 3M);
                                 }
-                               else
+                                else
                                 {
-                                   switch (i)
+                                    switch (i)
                                     {
                                         case 5:
                                         case 6:
@@ -587,7 +611,7 @@ namespace Zipline2.PageModels
                                             break;
                                         case 8:
                                             DrinkForEditIndex = 3;
-                                             break;
+                                            break;
                                     }
                                 }
                             }
@@ -604,7 +628,7 @@ namespace Zipline2.PageModels
                     ScrollToTopOfList?.Invoke(this, EventArgs.Empty);
                 }
                 //Load new drinks onto page.
-                LoadDrinkCategoryForDisplay(newDrinkCategory);                
+                LoadDrinkCategoryForDisplay(newDrinkCategory);
             }
             catch (Exception ex)
             {
@@ -651,7 +675,7 @@ namespace Zipline2.PageModels
                     BottledBeerSelected = false;
                     DraftBeerSelected = false;
                     GlassWineSelected = false;
-                    break;               
+                    break;
             }
             currentDrinkCategorySelected = newDrinkCategory;
         }
@@ -698,7 +722,7 @@ namespace Zipline2.PageModels
                 var error = ex.InnerException;
                 throw;
             }
-           
+
         }
 
         private void LoadSummaryPage()
@@ -718,7 +742,7 @@ namespace Zipline2.PageModels
             //Get drink Order items and load to current screen category.
             //Will load to DrinkDisplayDictionary with key of categoryDisplayed.
             var currentOrder = OrderManager.Instance.OrderInProgress;
-          
+
             foreach (var orderItem in currentOrder.OrderItems)
             {
                 if (orderItem is Drink)
@@ -747,7 +771,7 @@ namespace Zipline2.PageModels
 
                         //Populate current drink items displayed with item count of 
                         //drinks already on the order.  
-                        var drinksDisplayed = DrinkDisplayDictionary[categoryDisplayed];                        
+                        var drinksDisplayed = DrinkDisplayDictionary[categoryDisplayed];
                         foreach (var drinkDisplayItem in drinksDisplayed)
                         {
                             foreach (var drink in drinkDisplayItem.RowDrinks)
@@ -764,10 +788,11 @@ namespace Zipline2.PageModels
                             //{
                             //    drinkDisplayIndexToScrollTo = drinkDisplayItem.DrinkDisplayItemIndex;
                             //}
-                        } 
+                        }
                     }
                 }
             }
         }
     }
 }
+

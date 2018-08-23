@@ -4,7 +4,7 @@
              x:Class="Zipline2.Views.CircleButtonPlusMinus">
     <ContentView.Resources>
         <ResourceDictionary>
-            <Style x:Key="DrinkSelectionFrameButton" TargetType="Frame">
+            <Style x:Key="CirclePlusMinusFrameStyle" TargetType="Frame">
                 <Setter Property="CornerRadius" Value="63" />
                 <Setter Property="WidthRequest" Value="126" />
                 <Setter Property="HeightRequest" Value="126" />
@@ -14,7 +14,7 @@
                 <Setter Property="Padding" Value="0" />
             </Style>
 
-            <Style x:Key="DrinkSelectionLabels" TargetType="Label">
+            <Style x:Key="CirclePlusMinusTextStyle" TargetType="Label">
                 <Setter Property="TextColor" Value="Black" />
                 <Setter Property="BackgroundColor" Value="Transparent" />
                 <Setter Property="Margin" Value="0" />
@@ -28,15 +28,15 @@
     </ContentView.Resources>
   <ContentView.Content>
       <StackLayout>
-            <Frame Style="{StaticResource DrinkSelectionFrameButton}" BackgroundColor="White" >
+            <Frame Style="{StaticResource CirclePlusMinusFrameStyle}" BackgroundColor="White" >
                 <Frame.Content>
                     <AbsoluteLayout BackgroundColor="White">
                         <Button AbsoluteLayout.LayoutBounds="18,-15,AutoSize,AutoSize" BorderColor="Red" Text="+" TextColor="Black" BackgroundColor="Transparent" FontSize="30" ></Button>
                         <Label  AbsoluteLayout.LayoutBounds="50,43,AutoSize,AutoSize"  Text="{Binding Drink.ItemCount, Mode=TwoWay}" 
-                                                Style="{StaticResource DrinkSelectionLabels}" TextColor="Green" >
+                                                Style="{StaticResource CirclePlusMinusTextStyle}" TextColor="Green" >
                         </Label>
                         <Label  AbsoluteLayout.LayoutBounds="11,43,AutoSize,AutoSize"  Text="{Binding Drink.ItemName}" 
-                                                Style="{StaticResource DrinkSelectionLabels}" TextColor="Green" >
+                                                Style="{StaticResource CirclePlusMinusTextStyle}" TextColor="Green" >
                         </Label>
                         <Button AbsoluteLayout.LayoutBounds="18,36,AutoSize,AutoSize" Text="_" TextColor="Black" BorderColor="Red"  BackgroundColor="Transparent" FontSize="35" ></Button>
                     </AbsoluteLayout>

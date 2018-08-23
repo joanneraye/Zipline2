@@ -11,9 +11,9 @@
         <ResourceDictionary>
             <converters:SelectedItemColorConverter x:Key="selectBackgroundConverter"/>
             <Style x:Key="PizzaSelectionButtons" TargetType="Frame">
-                <Setter Property="CornerRadius" Value="55" />
-                <Setter Property="WidthRequest" Value="110" />
-                <Setter Property="HeightRequest" Value="110" />
+                <Setter Property="CornerRadius" Value="{Binding FrameCornerRadius}" />
+                <Setter Property="WidthRequest" Value="{Binding FrameHeightWidth}" />
+                <Setter Property="HeightRequest" Value="{Binding FrameHeightWidth}" />
                 <Setter Property="BackgroundColor" Value="Orange" />
                 <Setter Property="HorizontalOptions" Value="Center" />
                 <Setter Property="Margin" Value="0" />
@@ -24,7 +24,7 @@
                 <Setter Property="TextColor" Value="Black" />
                 <Setter Property="BackgroundColor" Value="Transparent" />
                 <Setter Property="Margin" Value="0" />
-                <Setter Property="FontSize" Value="30" />
+                <Setter Property="FontSize" Value="24" />
                 <Setter Property="FontAttributes" Value="Bold" />
                 <Setter Property="VerticalOptions" Value="Center" />
                 <Setter Property="HorizontalOptions" Value="Center" />
@@ -39,17 +39,17 @@
             <views:MenuHeaderView x:Name="ToppingsHeader" />
             <Grid x:Name="PizzaGrid"
                       ColumnSpacing="10"
-                  RowSpacing="8"
+                  RowSpacing="5"
                       HorizontalOptions="CenterAndExpand">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="110"/>
-                    <RowDefinition Height="110"/>
-                    <RowDefinition Height="110"/>
+                    <RowDefinition Height="{Binding FrameHeightWidth}"/>
+                    <RowDefinition Height="{Binding FrameHeightWidth}"/>
+                    <RowDefinition Height="{Binding FrameHeightWidth}"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="110" />
-                    <ColumnDefinition Width="110" />
-                    <ColumnDefinition Width="110" />
+                    <ColumnDefinition Width="{Binding FrameHeightWidth}" />
+                    <ColumnDefinition Width="{Binding FrameHeightWidth}" />
+                    <ColumnDefinition Width="{Binding FrameHeightWidth}" />
                 </Grid.ColumnDefinitions>
                 <Frame Grid.Column="0" Grid.Row="0" Padding="0"
                                        Style="{StaticResource PizzaSelectionButtons}" >
@@ -115,7 +115,7 @@
                     <Frame.Content>
                         <Label Text="SATCH PAN"
                                         Style="{StaticResource PizzaSelectionLabels}"
-                               FontSize="24">
+                               FontSize="18">
                         </Label>
                     </Frame.Content>
                     <Frame.GestureRecognizers>
