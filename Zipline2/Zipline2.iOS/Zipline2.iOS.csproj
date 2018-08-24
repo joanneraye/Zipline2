@@ -84,7 +84,7 @@
     <BuildIpa>True</BuildIpa>
     <CodesignProvision>
     </CodesignProvision>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Distribution: Joanne Raye (PQQ9M442P6)</CodesignKey>
     <CodesignEntitlements>
     </CodesignEntitlements>
     <CodesignExtraArgs />
