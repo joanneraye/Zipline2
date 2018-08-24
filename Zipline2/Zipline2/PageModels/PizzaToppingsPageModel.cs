@@ -440,7 +440,7 @@ namespace Zipline2.PageModels
                         ThisPizza.Toppings.IsToppingAlreadyAdded(thisSelection.ListTopping.ToppingName))
                     {
                         ThisPizza.Toppings.UpdateToppingsTotal();
-                        //ThisPizza.UpdateItemTotal();
+                        ThisPizza.UpdateItemTotal();
                         thisSelection.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
                         thisSelection.ButtonWSelected = true;
                     }
@@ -448,7 +448,7 @@ namespace Zipline2.PageModels
                     {
                         thisSelection.ListTopping.SequenceSelected = ThisPizza.Toppings.CurrentToppings.Count + 1;
                         ThisPizza.Toppings.AddTopping(thisSelection.ListTopping);
-                        //ThisPizza.UpdateItemTotal();
+                        ThisPizza.UpdateItemTotal();
                         thisSelection.SelectionColor = Xamarin.Forms.Color.CornflowerBlue;
                         thisSelection.ButtonWSelected = true;
                     }

@@ -10,17 +10,20 @@
             <BoxView HeightRequest="1" 
                      WidthRequest="50"
                      Color="White"/>
-            <Grid HorizontalOptions="FillAndExpand">
+            <Grid HorizontalOptions="FillAndExpand" MinimumHeightRequest="38">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="38"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="5"/>
                  
                 </Grid.ColumnDefinitions>
-                <StackLayout Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
-                <iconize:IconButton HorizontalOptions="Center"
+               
+                <iconize:IconButton Grid.Row="0" Grid.Column="0" HorizontalOptions="End"
                                     VerticalOptions="End"
                                     Command="{Binding MinusCommand}"
                                     IsVisible="{Binding ShowPlusMinus}"
@@ -28,13 +31,13 @@
                                             TextColor="White"
                                             Text="fa-minus-circle"
                                             Margin="0"/>
-                <Label Text="{Binding ItemCount}" HorizontalOptions="Center"
+                <Label Grid.Row="0" Grid.Column="1" Text="{Binding ItemCount}" HorizontalOptions="Center"
                        VerticalOptions="Center"
                        IsVisible="{Binding ShowPlusMinus}"
                                        BackgroundColor="Black"
                                        Margin="0"
                                        TextColor="White"/>
-                <iconize:IconButton Grid.Row="0" Grid.Column="2" HorizontalOptions="Center"
+                <iconize:IconButton Grid.Row="0" Grid.Column="2" HorizontalOptions="Start"
                                     VerticalOptions="Start"
                                      Command="{Binding PlusCommand}"
                                     IsVisible="{Binding ShowPlusMinus}"
@@ -42,21 +45,22 @@
                                                     TextColor="White"
                                                     Text="fa-plus-circle"
                                                     Margin="0"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal" Grid.Row="0" Grid.Column="1" >
+                <StackLayout Orientation="Horizontal" Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" HorizontalOptions="EndAndExpand" Padding="0,0,3,0">
                 <Label 
                     TextColor="LightBlue"
                        x:Name="ItemTotalLabel"
                        FontSize="Small"
                        VerticalOptions="Center"
                        HorizontalOptions="End"
-                       Text="{Binding ItemTotal, StringFormat='{0:C} / ', Mode=TwoWay}" />
+                       Text="{Binding ItemTotalDisplay, Mode=OneWay}" />
                 <Label 
-                    Text="{Binding OrderTotal, StringFormat='{0:C}', Mode=TwoWay}"
+                    Text="{Binding OrderTotalDisplay, Mode=OneWay}"
+                       LineBreakMode="NoWrap"
                        FontSize="Small"
                        HorizontalOptions="Start"
                        VerticalOptions="Center"
                        x:Name="OrderTotalLabel"
+                       MinimumWidthRequest="38"
                        TextColor="LightBlue" />
                 </StackLayout>
             </Grid>

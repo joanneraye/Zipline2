@@ -18,7 +18,7 @@
             <views:MenuHeaderView x:Name="ToppingsHeader" />
             <Grid VerticalOptions="End">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="25"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -62,6 +62,7 @@
                         HorizontalOptions="Center"
                         SelectedIndexChanged="OnBasePickerSelectionChanged"
                         SelectedIndex="0"
+                        HeightRequest="0"
                         IsVisible="False"
                         TextColor="White"
                         ItemsSource="{Binding BaseSelections}"/>
@@ -69,6 +70,7 @@
                         Grid.Row="0"
                         x:Name="CookPicker"
                         Title="COOK"
+                        HeightRequest="0"
                         HorizontalOptions="Center"
                         SelectedIndexChanged="OnCookPickerSelectionChanged"
                         BackgroundColor="Black"

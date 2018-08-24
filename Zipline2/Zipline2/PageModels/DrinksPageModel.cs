@@ -354,6 +354,22 @@ namespace Zipline2.PageModels
             }
         }
 
+        public double DrinkCircleCornerRadius
+        {
+            get
+            {
+                return App.PlusMinusButtonCornerRadius;
+            }
+        }
+
+        public double DrinkRowHeight
+        {
+            get
+            {
+                return (App.PlusMinusButtonRowHeight + 5);
+            }
+        }
+     
         public Dictionary<Tuple<DrinkType, DrinkSize>, Drink> DrinksOnTempOrderDictionary { get; set; }
         public DrinksPageModel(Drink drinkForEdit = null)
         {

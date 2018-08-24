@@ -15,79 +15,106 @@
                 <Setter Property="VerticalOptions" Value="Start" />
                 <Setter Property="FontSize" Value="Small" />
             </Style>
-            <Style x:Key="DessertSelectionFrameButton" TargetType="Frame">
-                <Setter Property="CornerRadius" Value="63" />
-                <Setter Property="WidthRequest" Value="126" />
-                <Setter Property="HeightRequest" Value="126" />
+            <Style x:Key="DessertSelectionFrameStyle" TargetType="Frame">
+                <Setter Property="CornerRadius" Value="{Binding DessertCircleCornerRadius}" />
+                <Setter Property="WidthRequest" Value="{Binding DessertCircleHeightWidth}" />
+                <Setter Property="HeightRequest" Value="{Binding DessertCircleHeightWidth}"/>
                 <Setter Property="BackgroundColor" Value="Orange" />
                 <Setter Property="HorizontalOptions" Value="Center" />
                 <Setter Property="VerticalOptions" Value="FillAndExpand" />
                 <Setter Property="Margin" Value="0" />
                 <Setter Property="Padding" Value="0" />
             </Style>
-            <Style x:Key="DessertSelectionLabels" TargetType="Label">
+            <Style x:Key="CirclePlusMinusTextStyle" TargetType="Label">
                 <Setter Property="TextColor" Value="Black" />
                 <Setter Property="BackgroundColor" Value="Transparent" />
                 <Setter Property="Margin" Value="0" />
-                <Setter Property="FontSize" Value="18" />
+                <Setter Property="LineBreakMode" Value="NoWrap" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="VerticalOptions" Value="Start" />
+                <Setter Property="VerticalTextAlignment" Value="Start" />
+                <Setter Property="HorizontalOptions" Value="Start" />
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
+                <Setter Property="MinimumWidthRequest" Value="45" />
+            </Style>
+
+            <Style x:Key="CirclePlusMinusPlusLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="Text" Value="+" />
+                <Setter Property="FontSize" Value="Large" />
+                <Setter Property="WidthRequest" Value="{Binding DrinkCircleCornerRadius}" />
                 <Setter Property="FontAttributes" Value="Bold" />
                 <Setter Property="VerticalOptions" Value="Center" />
                 <Setter Property="HorizontalOptions" Value="Center" />
                 <Setter Property="HorizontalTextAlignment" Value="Center" />
             </Style>
+            <Style x:Key="CirclePlusMinusMinusLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="Text" Value="_" />
+                <Setter Property="FontSize" Value="Large" />
+                <Setter Property="WidthRequest" Value="{Binding DrinkCircleCornerRadius}" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+            </Style>
+           
             <DataTemplate x:Key="DessertPageRowTemplate">
-                <ViewCell Height="134">
-                    <Grid HorizontalOptions="Center">
+                <ViewCell>
+                    <StackLayout>
+                        <Grid HorizontalOptions="Center">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="126"/>
+                            <RowDefinition Height="{Binding DessertCircleHeightWidth}"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="126"/>
-                            <ColumnDefinition Width="126"/>
-                            <ColumnDefinition Width="126"/>
+                            <ColumnDefinition Width="{Binding DessertCircleHeightWidth}"/>
+                            <ColumnDefinition Width="{Binding DessertCircleHeightWidth}"/>
+                            <ColumnDefinition Width="{Binding DessertCircleHeightWidth}"/>
                         </Grid.ColumnDefinitions>
 
-                        <Frame Grid.Column="0" Style="{StaticResource DessertSelectionFrameButton}" BackgroundColor="{Binding CircleColors[0], Mode=TwoWay}" >
+                        <Frame Grid.Column="0" Style="{StaticResource DessertSelectionFrameStyle}" BackgroundColor="{Binding CircleColors[0], Mode=TwoWay}" >
                             <Frame.Content>
-                                <AbsoluteLayout>
-                                    <Label  AbsoluteLayout.LayoutBounds="50,0,100,40" 
-                                                    Text="+" 
-                                                    TextColor="Black"
-                                                    BackgroundColor="Transparent"
-                                                    FontSize="30">
+                                <Grid HorizontalOptions="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="2*"/>
+                                        <RowDefinition Height="3.5*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Row="0" Style="{StaticResource CirclePlusMinusPlusLabelStyle}" >
                                         <Label.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding PlusButtonCommand}"
                                                                   CommandParameter="0"/>
                                         </Label.GestureRecognizers>
                                     </Label>
-                                    <Label  AbsoluteLayout.LayoutBounds="8,50,AutoSize,AutoSize" 
-                                                    Text="{Binding RowDesserts[0].ItemCount, Mode=TwoWay}" 
-                                                    Style="{StaticResource DessertSelectionLabels}" 
+
+                                    <StackLayout Grid.Row ="1" Orientation="Horizontal" HorizontalOptions="CenterAndExpand"
+                                             VerticalOptions="Start" Padding="0" Margin="0" Spacing="3">
+                                        <Label  Text="{Binding RowDesserts[0].ItemCount, Mode=TwoWay}" 
+                                                    Style="{StaticResource CirclePlusMinusTextStyle}" 
                                                     TextColor="Blue" >
-                                        <Label.Triggers>
-                                            <DataTrigger TargetType="Label"
+                                            <Label.Triggers>
+                                                <DataTrigger TargetType="Label"
                                                      Binding="{Binding HideButtons[0], Mode=TwoWay}"
                                                              Value="True">
-                                                <Setter Property="TextColor" Value="Black" />
-                                            </DataTrigger>
-                                        </Label.Triggers>
-                                    </Label>
-                                    <Label  AbsoluteLayout.LayoutBounds="35,50,AutoSize,AutoSize"  
-                                                    Text="{Binding RowDesserts[0].ShortName, Mode=TwoWay}"
-                                                Style="{StaticResource DessertSelectionLabels}" TextColor="Black" >
-                                    </Label>
-                                    <Label  AbsoluteLayout.LayoutBounds="52,60,100,100"
-                                            FontAttributes="Bold"
-                                                    Text="_" 
-                                                    TextColor="Black"
-                                                    BackgroundColor="Transparent"
-                                                    FontSize="35">
+                                                    <Setter Property="TextColor" Value="Black" />
+                                                </DataTrigger>
+                                            </Label.Triggers>
+                                        </Label>
+                                        <Label Text="{Binding RowDesserts[0].ShortName, Mode=TwoWay}"
+                                                Style="{StaticResource CirclePlusMinusTextStyle}" TextColor="Black" >
+                                        </Label>
+                                    </StackLayout>
+                                    <Label Grid.Row="1" Style="{StaticResource CirclePlusMinusMinusLabelStyle}">
                                         <Label.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding MinusButtonCommand}"
                                                                   CommandParameter="0"/>
                                         </Label.GestureRecognizers>
                                     </Label>
-                                </AbsoluteLayout>
+                                </Grid>
                             </Frame.Content>
                             <Frame.Triggers>
                                 <DataTrigger TargetType="Frame"
@@ -97,102 +124,104 @@
                                 </DataTrigger>
                             </Frame.Triggers>
                         </Frame>
-                        <Frame Grid.Column="1" Style="{StaticResource DessertSelectionFrameButton}" BackgroundColor="{Binding CircleColors[1], Mode=TwoWay}" >
+                        <Frame Grid.Column="1" Style="{StaticResource DessertSelectionFrameStyle}" BackgroundColor="{Binding CircleColors[1], Mode=TwoWay}" >
                             <Frame.Content>
-                                <AbsoluteLayout>
-                                    <Label  AbsoluteLayout.LayoutBounds="50,0,100,40" 
-                                                    Text="+" 
-                                                    TextColor="Black"
-                                                    BackgroundColor="Transparent"
-                                                    FontSize="30">
+                                <Grid HorizontalOptions="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="2*"/>
+                                        <RowDefinition Height="3.5*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Row="0" Style="{StaticResource CirclePlusMinusPlusLabelStyle}" >
                                         <Label.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding PlusButtonCommand}"
                                                                   CommandParameter="1"/>
                                         </Label.GestureRecognizers>
                                     </Label>
-                                    <Label  AbsoluteLayout.LayoutBounds="8,50,AutoSize,AutoSize" 
+                                    <StackLayout Grid.Row ="1" Orientation="Horizontal" HorizontalOptions="CenterAndExpand"
+                                             VerticalOptions="Start" Padding="0" Margin="0" Spacing="3">
+                                        <Label  AbsoluteLayout.LayoutBounds="8,50,AutoSize,AutoSize" 
                                                     Text="{Binding RowDesserts[1].ItemCount, Mode=TwoWay}" 
-                                                Style="{StaticResource DessertSelectionLabels}" TextColor="Blue" >
-                                        <Label.Triggers>
-                                            <DataTrigger TargetType="Label"
+                                                Style="{StaticResource CirclePlusMinusTextStyle}" TextColor="Blue" >
+                                            <Label.Triggers>
+                                                <DataTrigger TargetType="Label"
                                                      Binding="{Binding HideButtons[1], Mode=TwoWay}"
                                                              Value="True">
-                                                <Setter Property="TextColor" Value="Black" />
-                                            </DataTrigger>
-                                        </Label.Triggers>
-                                    </Label>
-                                    <Label  AbsoluteLayout.LayoutBounds="35,50,AutoSize,AutoSize"  Text="{Binding RowDesserts[1].ShortName, Mode=TwoWay}"
-                                                Style="{StaticResource DessertSelectionLabels}" TextColor="Black" >
-                                    </Label>
-                                    <Label  AbsoluteLayout.LayoutBounds="52,60,100,100"
-                                            FontAttributes="Bold"
-                                                    Text="_" 
-                                                    TextColor="Black"
-                                                    BackgroundColor="Transparent"
-                                                    FontSize="35">
+                                                    <Setter Property="TextColor" Value="Black" />
+                                                </DataTrigger>
+                                            </Label.Triggers>
+                                        </Label>
+                                        <Label  Text="{Binding RowDesserts[1].ShortName, Mode=TwoWay}"
+                                                Style="{StaticResource CirclePlusMinusTextStyle}" TextColor="Black" >
+                                        </Label>
+                                    </StackLayout>
+                                    <Label Grid.Row="1" Style="{StaticResource CirclePlusMinusMinusLabelStyle}">
                                         <Label.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding MinusButtonCommand}"
                                                                   CommandParameter="1"/>
                                         </Label.GestureRecognizers>
                                     </Label>
-                                </AbsoluteLayout>
+                                </Grid>
                             </Frame.Content>
                         </Frame>
-                        <Frame Grid.Column="2" Style="{StaticResource DessertSelectionFrameButton}" BackgroundColor="{Binding CircleColors[2], Mode=TwoWay}" >
+                        <Frame Grid.Column="2" Style="{StaticResource DessertSelectionFrameStyle}" BackgroundColor="{Binding CircleColors[2], Mode=TwoWay}" >
                             <Frame.Content>
-                                <AbsoluteLayout>
-                                    <Label  AbsoluteLayout.LayoutBounds="50,0,100,40" 
-                                                    Text="+" 
-                                                    TextColor="Black"
-                                                    BackgroundColor="Transparent"
-                                                    FontSize="30">
+                                <Grid HorizontalOptions="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="2*"/>
+                                        <RowDefinition Height="3.5*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Row="0" Style="{StaticResource CirclePlusMinusPlusLabelStyle}" >
                                         <Label.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding PlusButtonCommand}"
                                                                   CommandParameter="2"/>
                                         </Label.GestureRecognizers>
                                     </Label>
-                                    <Label  AbsoluteLayout.LayoutBounds="8,50,AutoSize,AutoSize"  
-                                                    Text="{Binding RowDesserts[2].ItemCount, Mode=TwoWay}"  
-                                                Style="{StaticResource DessertSelectionLabels}" TextColor="Blue" >
-                                        <Label.Triggers>
-                                            <DataTrigger TargetType="Label"
+                                    <StackLayout Grid.Row ="1" Orientation="Horizontal" HorizontalOptions="CenterAndExpand"
+                                             VerticalOptions="Start" Padding="0" Margin="0" Spacing="3">
+                                        <Label Text="{Binding RowDesserts[2].ItemCount, Mode=TwoWay}"  
+                                                Style="{StaticResource CirclePlusMinusTextStyle}" TextColor="Blue" >
+                                            <Label.Triggers>
+                                                <DataTrigger TargetType="Label"
                                                      Binding="{Binding HideButtons[2], Mode=TwoWay}"
                                                              Value="True">
-                                                <Setter Property="TextColor" Value="Black" />
-                                            </DataTrigger>
-                                        </Label.Triggers>
-                                    </Label>
-                                    <Label  AbsoluteLayout.LayoutBounds="35,50,AutoSize,AutoSize"  Text="{Binding RowDesserts[2].ShortName, Mode=TwoWay}"
-                                                Style="{StaticResource DessertSelectionLabels}" TextColor="Black" >
-                                    </Label>
-                                    <Label  AbsoluteLayout.LayoutBounds="52,60,100,100"
-                                            FontAttributes="Bold"
-                                                    Text="_" 
-                                                    TextColor="Black"
-                                                    BackgroundColor="Transparent"
-                                                    FontSize="35">
+                                                    <Setter Property="TextColor" Value="Black" />
+                                                </DataTrigger>
+                                            </Label.Triggers>
+                                        </Label>
+                                        <Label Text="{Binding RowDesserts[2].ShortName, Mode=TwoWay}"
+                                                Style="{StaticResource CirclePlusMinusTextStyle}" TextColor="Black" >
+                                        </Label>
+                                    </StackLayout>
+                                    <Label  Grid.Row="1" Style="{StaticResource CirclePlusMinusMinusLabelStyle}">
                                         <Label.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding MinusButtonCommand}"
                                                                   CommandParameter="2"/>
                                         </Label.GestureRecognizers>
                                     </Label>
-                                </AbsoluteLayout>
+                                </Grid>
                             </Frame.Content>
                         </Frame>
                     </Grid>
+                    <Label HeightRequest="2" TextColor="Black" Text=""/>
+                    </StackLayout>
                 </ViewCell>
             </DataTemplate>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout Spacing="0"
+        <StackLayout Spacing="5"
                      Padding="10,0,10,5">
             <views:MenuHeaderView x:Name="ToppingsHeader" />
             <ListView ItemsSource="{Binding DessertDisplayItems, Mode=TwoWay}"
                       CachingStrategy="RecycleElement"
                       ItemSelected="OnDessertRowSelected"
                       ItemTemplate="{StaticResource DessertPageRowTemplate}"
-                      RowHeight="131"
                       Margin="0"
                       IsVisible="True"
                       HasUnevenRows="True"

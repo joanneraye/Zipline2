@@ -37,6 +37,7 @@
                      VerticalOptions="FillAndExpand"
                      Padding="10,10">
             <views:MenuHeaderView x:Name="ToppingsHeader" />
+            <ScrollView>
             <Grid x:Name="PizzaGrid"
                       ColumnSpacing="10"
                   RowSpacing="5"
@@ -135,6 +136,7 @@
                     </Frame.GestureRecognizers>
                 </Frame>
             </Grid>
+            </ScrollView>
             <views:MenuScrollFooterView VerticalOptions="EndAndExpand"  HorizontalOptions="FillAndExpand" x:Name="Footer"/>
         </StackLayout>
     </ContentPage.Content>

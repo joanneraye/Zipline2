@@ -4,6 +4,7 @@ using System.Text;
 using Zipline2.Data;
 using Zipline2.BusinessLogic.Enums;
 using Xamarin.Forms;
+using Zipline2.PageModels;
 
 namespace Zipline2.Models
 {
@@ -64,7 +65,7 @@ namespace Zipline2.Models
                 ToppingsTotal = 0;
             }
             ThisPizza.PopulatePricePerItem();
-            //MessagingCenter.Send<PizzaToppings>(this, "PizzaToppingsTotalUpdated");
+            MenuHeaderModel.Instance.UpdateItemTotal(ThisPizza.PricePerItemIncludingToppings);
         }
 
         protected override decimal GetCurrentToppingsCost()

@@ -11,7 +11,7 @@
         <ResourceDictionary>
             <converters:SelectedDrinkColorConverter x:Key="drinksTextColorConverter"/>
             <Style x:Key="DrinkSelectionButtons" TargetType="Button">
-                <Setter Property="Margin" Value="20, 20" />
+                <!--<Setter Property="Margin" Value="20, 20" />-->
                 <Setter Property="BackgroundColor" Value="Black" />
                 <Setter Property="HorizontalOptions" Value="Center" />
                 <!--<Setter Property="HeightRequest" Value="60" />-->
@@ -65,17 +65,6 @@
                 <Setter Property="VerticalOptions" Value="Center" />
                 <Setter Property="HorizontalTextAlignment" Value="Center" />
             </Style>
-
-            <Style x:Key="DrinkSelectionLabels" TargetType="Label">
-                <Setter Property="TextColor" Value="Black" />
-                <Setter Property="BackgroundColor" Value="Transparent" />
-                <Setter Property="Margin" Value="0" />
-                <Setter Property="FontSize" Value="18" />
-                <Setter Property="FontAttributes" Value="Bold" />
-                <Setter Property="VerticalOptions" Value="Center" />
-                <Setter Property="HorizontalOptions" Value="Center" />
-                <Setter Property="HorizontalTextAlignment" Value="Center" />
-            </Style>
             <DataTemplate x:Key="drinksPageDraftsHeaderTemplate" >
                 <ViewCell Height="65">
                     <StackLayout Padding="0" Margin="0" BackgroundColor="Black">
@@ -88,7 +77,8 @@
                 </ViewCell>
             </DataTemplate>
             <DataTemplate x:Key="DrinksPageRowTemplate">
-                <ViewCell Height="134">
+                <ViewCell>
+                    <StackLayout>
                     <Grid HorizontalOptions="Center">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="{Binding DrinkCircleHeightWidth}"/>
@@ -232,6 +222,9 @@
                             </Frame.Content>
                         </Frame>
                     </Grid>
+                        <Label HeightRequest="2" TextColor="Black" Text=""/>
+                    </StackLayout>
+                    
                 </ViewCell>
             </DataTemplate>
         </ResourceDictionary>
@@ -239,13 +232,16 @@
     <ContentPage.Content>
         <StackLayout Spacing="0"
                      Padding="0,0,0,0"
+                     Orientation="Vertical"
                      Margin="0">
             <views:MenuHeaderView x:Name="ToppingsHeader" />
-            <ScrollView Orientation="Horizontal" x:Name="MenuScrollView">
+            <ScrollView Orientation="Horizontal" x:Name="MenuScrollView" Margin="0" Padding="0">
                 <StackLayout Orientation="Horizontal"
                              BackgroundColor="Black"
+                             MinimumHeightRequest="60"
                              Margin="0"
-                             HeightRequest="80">
+                             Padding="0"
+                             Spacing="20">
                     <Button Text="Soda"
                             TextColor="{Binding SoftDrinksSelected,
                                 Mode=TwoWay, 
@@ -281,21 +277,6 @@
                             Command="{Binding DrinksSelectedCommand}"
                             CommandParameter="{x:Static enums:DrinkCategory.BottleWine}"
                             Style="{StaticResource DrinkSelectionButtons}"/>
-                    <!--<Button Text="Hot Drinks"
-                            TextColor="{Binding HotDrinksSelected,
-                                Mode=TwoWay, 
-                                Converter={StaticResource drinksTextColorConverter}}"
-                            Command="{Binding DrinksSelectedCommand}"
-                            CommandParameter="{x:Static enums:DrinkCategory.HotDrink}"
-                            Style="{StaticResource DrinkSelectionButtons}"/>
-                    <Button Text="House Wine"
-                            TextColor="{Binding HouseWineSelected,
-                                Mode=TwoWay, 
-                                Converter={StaticResource drinksTextColorConverter}}"
-                            Command="{Binding DrinksSelectedCommand}"
-                            CommandParameter="{x:Static enums:DrinkCategory.HouseWine}"
-                            Style="{StaticResource DrinkSelectionButtons}"/>-->
-
                 </StackLayout>
             </ScrollView>
             <ListView ItemsSource="{Binding DrinksGroups, Mode=TwoWay}"
@@ -303,8 +284,7 @@
                       ItemSelected="OnDrinkRowSelected"
                       ItemTemplate="{StaticResource DrinksPageRowTemplate}"
                       GroupHeaderTemplate="{StaticResource drinksPageDraftsHeaderTemplate}" 
-                      RowHeight="135"
-                       IsVisible="False"
+                      IsVisible="False"
                       Margin="0"
                       IsGroupingEnabled="True"
                       HasUnevenRows="True"
@@ -324,7 +304,6 @@
                       CachingStrategy="RecycleElement"
                       ItemSelected="OnDrinkRowSelected"
                       ItemTemplate="{StaticResource DrinksPageRowTemplate}"
-                      RowHeight="{Binding DrinkCircleHeightWidth}"
                       Margin="0"
                       IsVisible="True"
                       HasUnevenRows="True"

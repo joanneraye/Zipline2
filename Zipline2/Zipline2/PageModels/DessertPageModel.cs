@@ -54,6 +54,23 @@ namespace Zipline2.PageModels
                     SetProperty(ref hideButtons, value);
                 }
             }
+
+            public double DessertCircleHeightWidth
+            {
+                get
+                {
+                    return App.PlusMinusButtonHeightWidth;
+                }
+            }
+
+            public double DessertCircleCornerRadius
+            {
+                get
+                {
+                    return App.PlusMinusButtonCornerRadius;
+                }
+            }
+
             //private Dessert dessert;
             //public Dessert Dessert
             //{

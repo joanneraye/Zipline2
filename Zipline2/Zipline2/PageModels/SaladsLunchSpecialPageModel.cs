@@ -32,6 +32,7 @@ namespace Zipline2.PageModels
             int buttonWidthHeight = (App.ScreenWidth - 30) / 2;
             FrameHeightWidth = buttonWidthHeight;
             FrameCornerRadius = (buttonWidthHeight / 2);
+            int frameheight = (App.ScreenHeight - 135) / 2;
         }
       
         public void OnAddLunchSpecialSalad()

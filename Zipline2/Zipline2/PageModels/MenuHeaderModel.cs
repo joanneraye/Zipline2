@@ -56,6 +56,33 @@ namespace Zipline2.PageModels
             }
         }
 
+        private string itemTotalDisplay;
+
+        public string ItemTotalDisplay
+        {
+            get
+            {
+                return itemTotalDisplay;
+            }
+            set
+            {
+                SetProperty(ref itemTotalDisplay, value);
+            }
+        }
+
+        private string orderTotalDisplay;
+        public string OrderTotalDisplay
+        {
+            get
+            {
+                return orderTotalDisplay;
+            }
+            set
+            {
+                SetProperty(ref orderTotalDisplay, value);
+            }
+        }
+
         public decimal ItemTotal
         {
             get
@@ -63,9 +90,9 @@ namespace Zipline2.PageModels
                 return itemTotal;
             }
             set
-            {
+            { 
                 SetProperty(ref itemTotal, value);
-
+                ItemTotalDisplay = string.Format("{0:C}", itemTotal);
                 //The order item has not been added to the order yet.  We will 
                 //add whatever this item total is to the current order total
                 //for our current order total.
@@ -85,7 +112,9 @@ namespace Zipline2.PageModels
             }
             set
             {
+              
                 SetProperty(ref orderTotal, value);
+                OrderTotalDisplay = string.Format("{0:C}", orderTotal);
             }
         }
 
@@ -123,7 +152,7 @@ namespace Zipline2.PageModels
         
         private MenuHeaderModel()
         {
-            itemTotal = 0M;
+            ItemTotal = 0M;
             MinusCommand = new Command(OnMinusClicked);
             PlusCommand = new Command(OnPlusClicked);
             OrderTotal = OrderManager.Instance.OrderInProgress.Total;
@@ -172,7 +201,7 @@ namespace Zipline2.PageModels
         }
         public void UpdateItemTotal(decimal basePrice, decimal toppingsTotal)
         {
-            ItemTotal = basePrice + toppingsTotal;
+            ItemTotal = (basePrice + toppingsTotal);
         }
         
         #endregion

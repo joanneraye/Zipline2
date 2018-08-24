@@ -12,25 +12,13 @@ namespace Zipline2.Pages
         public DataTemplate TablePageDividerTemplate { get; set; }
         public DataTemplate TablePageBlankTemplate { get; set; }
 
-        public string TakeoutRowHeightWidth { get; set; }
-        public string TakeoutRowHeight { get; set; }
-        public string TakeoutRowCornerRadius { get; set; }
-        public string FrameHeightWidth { get; set; }
-
-
-
         public TablesPageHeaderTemplateSelector()
         {
          
            
 
         }
-        //public TablesPageHeaderTemplateSelector(DataTemplate[] templates)
-        //{
-        //    TablePageTakeoutRowTemplate = templates[0];
-        //    TablePageDividerTemplate = templates[1];
-        //    TablePageTakeoutRowTemplate = templates[2];
-        //}
+      
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
             if (item is TableGroup)

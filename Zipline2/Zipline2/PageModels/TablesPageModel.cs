@@ -36,9 +36,27 @@ namespace Zipline2.PageModels
                 }
             }
 
-            public double FrameHeightWidth { get; set; }
-            public double FrameCornerRadius { get; set; }
-            public double FrameRowHeight { get; set; }
+            public double FrameHeightWidth
+            {
+                get
+                {
+                    return parentTablesPageModel.FrameHeightWidth;
+                }
+            }
+            public double FrameCornerRadius
+            {
+                get
+                {
+                    return parentTablesPageModel.FrameCornerRadius;
+                }
+            }
+            public double FrameRowHeight         
+            {
+                get
+                {
+                    return parentTablesPageModel.FrameRowHeight;
+                }
+            }
             public int GroupNumber { get; set; }
             public int RowIndex { get; set; }
 
@@ -52,11 +70,7 @@ namespace Zipline2.PageModels
             {
                 parentTablesPageModel = referenceToParentClass;
                 PageRowTables = new Table[4];
-                TableCommand = new Command<string>(OnTableClicked);
-                int buttonWidthHeight = (App.ScreenWidth - 35) / 4;
-                FrameRowHeight = (buttonWidthHeight + 5);
-                FrameHeightWidth = buttonWidthHeight;
-                FrameCornerRadius = (buttonWidthHeight / 2);
+                TableCommand = new Command<string>(OnTableClicked);               
             }
 
           
@@ -121,10 +135,9 @@ namespace Zipline2.PageModels
                 TakeoutCommand = new Command(OnTakeoutClicked);
                 MoveTableCommand = new Command(OnMoveTableClicked);
                 PrintTicketCommand = new Command(OnPrintTicketClicked);
-                int buttonWidthHeight = (App.ScreenWidth - 20) / 4;
-                TakeoutHeaderHeightWidth = buttonWidthHeight;
-                TakeoutHeaderCornerRadius = (buttonWidthHeight / 2);
-                TakeoutRowHeight = (buttonWidthHeight + 20);
+                TakeoutHeaderHeightWidth = tablesPageModel.FrameHeightWidth;
+                TakeoutHeaderCornerRadius = tablesPageModel.FrameCornerRadius;
+                TakeoutRowHeight = (TakeoutHeaderHeightWidth + 25);
                 parentClass = tablesPageModel;
             }
 
@@ -251,13 +264,33 @@ namespace Zipline2.PageModels
             }
         }
 
+        private double frameRowHeight;
+        public double FrameRowHeight
+        {
+            get
+            {
+                return frameRowHeight;
+            }
+            set
+            {
+                SetProperty(ref frameRowHeight, value);
+            }
+        }
+
+        public double FrameHeightWidth { get; set; }
+        public double FrameCornerRadius { get; set; }
+       
         #endregion
 
 
         #region Constructor
-       
+
         public TablesPageModel()
         {
+            int buttonWidthHeight = (App.ScreenWidth - 40) / 4;
+            FrameRowHeight = (buttonWidthHeight + 10);
+            FrameHeightWidth = buttonWidthHeight;
+            FrameCornerRadius = (buttonWidthHeight / 2);
             LoadTablesForDisplay();
         }
 

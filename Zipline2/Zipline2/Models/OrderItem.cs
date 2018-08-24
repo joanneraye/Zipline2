@@ -129,6 +129,7 @@ namespace Zipline2.Models
         public void UpdateItemTotal()
         {
             TotalPricePerItemTimesCount = PricePerItemIncludingToppings * ItemCount;
+            MenuHeaderModel.Instance.UpdateItemTotal(TotalPricePerItemTimesCount);
         }
 
         /// <summary>

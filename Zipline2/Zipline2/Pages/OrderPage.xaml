@@ -52,7 +52,7 @@
                                            VerticalTextAlignment="End"
                                            VerticalOptions="End"
                                            BackgroundColor="Black"
-                                               FontSize="Micro"
+                                               FontSize="Small"
                                                TextColor="LimeGreen">
                                         <Label.Triggers>
                                             <DataTrigger TargetType="Label"
